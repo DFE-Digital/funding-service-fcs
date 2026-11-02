@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{6f4078b5-3870-4518-9bc5-98219623bc8e}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>0</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab name="general" verticallayout="true" id="{d0089e92-fae0-4ab3-827c-1ad923af0f19}" IsUserDefined="0">
+        <labels>
+          <label description="" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section name="account information" showlabel="false" showbar="false" id="{4cf6a300-9bbd-45bb-a02f-2007ea99c053}" IsUserDefined="0">
+                <labels>
+                  <label description="" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{aeb996a8-892d-4975-8721-0df7cd99c182}">
+                      <labels>
+                        <label description="Funding Stream Code" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingstreamcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_fundingstreamcode" disabled="false" />
+                    </cell>
+                    <cell id="{1f4b8c75-f8cf-4a3c-a99a-2024c6a8d295}">
+                      <labels>
+                        <label description="Status" languagecode="1033" />
+                      </labels>
+                      <control id="statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="This is the form that is displayed for the CRM Mobile application." languagecode="1033" />
+  </Descriptions>
+</systemform>

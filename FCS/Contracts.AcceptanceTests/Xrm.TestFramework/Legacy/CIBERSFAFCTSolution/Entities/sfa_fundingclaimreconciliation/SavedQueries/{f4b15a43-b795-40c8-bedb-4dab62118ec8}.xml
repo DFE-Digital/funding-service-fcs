@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10049</returnedtypecode>
+  <savedqueryid>{f4b15a43-b795-40c8-bedb-4dab62118ec8}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10049" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_fundingclaimreconciliationid">
+        <cell name="sfa_name" width="300" />
+        <cell name="createdon" width="125" />
+        <cell name="sfa_providerid" width="300" />
+        <cell name="sfa_allocationgroupid" width="150" />
+        <cell name="sfa_claimtypeid" width="100" />
+        <cell name="sfa_claimversionnumber" width="150" />
+        <cell name="sfa_fundingperiodid" width="150" />
+        <cell name="sfa_plannedvalue" width="100" />
+        <cell name="sfa_claimedvalue" width="100" />
+        <cell name="sfa_proposedreconciliationvalue" width="200" />
+        <cell name="sfa_cappedclaimedvalue" width="150" />
+        <cell name="sfa_claimadjustmentvalue" width="150" />
+        <cell name="sfa_adjustedcappedclaimedvalue" width="200" />
+        <cell name="sfa_reconciliationvalue" width="200" />
+        <cell name="sfa_statuslastupdateddate" width="200" />
+        <cell name="sfa_statuscode" width="100" />
+        <cell name="sfa_substatus" width="100" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>1</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_fundingclaimreconciliation">
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <order attribute="sfa_name" descending="false" />
+        <attribute name="sfa_statuscode" />
+        <attribute name="sfa_statuslastupdateddate" />
+        <attribute name="sfa_reconciliationvalue" />
+        <attribute name="sfa_providerid" />
+        <attribute name="sfa_proposedreconciliationvalue" />
+        <attribute name="sfa_plannedvalue" />
+        <attribute name="sfa_fundingperiodid" />
+        <attribute name="sfa_claimedvalue" />
+        <attribute name="sfa_claimversionnumber" />
+        <attribute name="sfa_claimtypeid" />
+        <attribute name="sfa_cappedclaimedvalue" />
+        <attribute name="sfa_allocationgroupid" />
+        <attribute name="sfa_substatus" />
+        <attribute name="sfa_claimadjustmentvalue" />
+        <attribute name="sfa_adjustedcappedclaimedvalue" />
+        <attribute name="sfa_fundingclaimreconciliationid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Funding Claim Reconciliation Advanced Find View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{ac121203-ce33-48b6-a363-db36f6e1fd64}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{2a7fd99e-b511-47aa-8804-b73b040cd589}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{3721b096-9d70-497a-ae94-3d1897e8afcb}" name="{3721b096-9d70-497a-ae94-3d1897e8afcb}" columns="1" locklevel="0" labelwidth="200" celllabelalignment="Left" celllabelposition="Left">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{fae1acf1-6a5a-4a07-b9fb-8a73539b26f1}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Stream Period Code" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingstreamperiodcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_fundingstreamperiodcode" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{836ae8c4-4cbb-dcd2-42cd-9b11133b9cb6}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Stream Code" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingstreamcodeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fundingstreamcodeid" disabled="false">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{474DC893-B5A4-4892-A7E7-1C0871F939D0}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{29e4216e-6434-7249-06b4-a42b8c886973}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_periodid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_periodid" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{22313e37-2e9c-1c93-0a55-68caea3a8a0e}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Allocation Reference Prefix" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_allocationreferenceprefix" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_allocationreferenceprefix" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{234e3993-c216-c4c1-a218-ad3c98e4586d}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Payment Capping Level" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_paymentcappinglevel" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_paymentcappinglevel" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{3e516530-d790-d8ee-b6a1-b9b216c87b6c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Payment Capping Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_paymentcappingperiod" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_paymentcappingperiod" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{a3c96c73-9513-9389-e692-25e2bb9737a3}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Payment Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_paymenttype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_paymenttype" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="secDeliverables" showlabel="true" showbar="false" locklevel="0" id="{7309c38b-07a6-17a2-936e-09e79ad3ea4c}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="150" celllabelalignment="Left" celllabelposition="Left" height="auto">
+                <labels>
+                  <label description="Deliverables" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{c6654a63-a410-88d5-0240-a48e9cab6a77}" showlabel="false" colspan="1" auto="true" rowspan="4">
+                      <labels>
+                        <label description="Funding Stream Period Deliverables (Funding Stream Period)" languagecode="1033" />
+                      </labels>
+                      <control id="Deliverables" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                        <parameters>
+                          <ViewId>{3C3F9A5D-BBB2-E411-93FD-000D3AB03A58}</ViewId>
+                          <IsUserView>false</IsUserView>
+                          <RelationshipName>sfa_fsperiod_sfa_fsperioddeliverable</RelationshipName>
+                          <TargetEntityType>sfa_fundingstreamperioddeliverable</TargetEntityType>
+                          <AutoExpand>Auto</AutoExpand>
+                          <EnableQuickFind>false</EnableQuickFind>
+                          <EnableViewPicker>false</EnableViewPicker>
+                          <ViewIds>{EF72493E-49CD-462D-82AC-EC0085752999},{3C3F9A5D-BBB2-E411-93FD-000D3AB03A58}</ViewIds>
+                          <EnableJumpBar>false</EnableJumpBar>
+                          <ChartGridMode>Grid</ChartGridMode>
+                          <VisualizationId />
+                          <IsUserChart>false</IsUserChart>
+                          <EnableChartPicker>false</EnableChartPicker>
+                          <RecordsPerPage>10</RecordsPerPage>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row />
+                  <row />
+                  <row height="auto" />
+                  <row>
+                    <cell id="{3d3d9234-7377-4863-8c8a-460492dff165}" showlabel="false">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

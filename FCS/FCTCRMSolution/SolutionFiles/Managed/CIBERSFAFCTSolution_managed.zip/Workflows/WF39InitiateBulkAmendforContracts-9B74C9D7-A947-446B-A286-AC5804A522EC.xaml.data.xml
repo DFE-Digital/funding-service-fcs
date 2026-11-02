@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{9b74c9d7-a947-446b-a286-ac5804a522ec}" Name="WF39: Initiate Bulk Amend for Contracts">
+  <XamlFileName>/Workflows/WF39InitiateBulkAmendforContracts-9B74C9D7-A947-446B-A286-AC5804A522EC.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>0</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>1</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>1</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>1</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <CreateStage>40</CreateStage>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>2.65.5.2</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <PrimaryEntity>sfa_contract</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="WF39: Initiate Bulk Amend for Contracts" />
+  </LocalizedNames>
+</Workflow>

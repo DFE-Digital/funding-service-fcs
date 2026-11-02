@@ -1,0 +1,1 @@
+This folder contains a copy of the CRM solution prior to upgrading to Dynamics 365, which is required for the legacy Xrm.TestFramework project. The folder was originally named 'CIBERSFAFCTSolution.zip' (although it was not compressed) and was located at '$BRANCH\FCTCRMSolution\SolutionFiles\Unmanaged\CIBERSFAFCTSolution.zip'.

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>1</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{f3e00d51-1198-400e-bfa9-8ce4ce1e4ef6}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_agencycode" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_agencyid">
+        <cell name="sfa_agencycode" width="300" />
+        <cell name="sfa_description" width="200" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>4</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_agency">
+        <attribute name="sfa_agencycode" />
+        <order attribute="sfa_agencycode" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <filter type="or" isquickfindfields="1">
+          <condition attribute="sfa_agencycode" operator="like" value="{0}" />
+        </filter>
+        <attribute name="sfa_description" />
+        <attribute name="sfa_agencyid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.1.3.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Quick Find Active Agencies" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

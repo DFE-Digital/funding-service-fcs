@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>1</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10054</returnedtypecode>
+  <savedqueryid>{9fbc86b3-c475-49b7-b9e7-9b5837e70f25}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10054" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_taskactionid">
+        <cell name="sfa_taskname" width="300" />
+        <cell name="sfa_actionroleid" width="150" />
+        <cell name="sfa_actionteamid" width="200" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>4</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_taskaction">
+        <attribute name="createdon" />
+        <order attribute="sfa_taskname" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <filter type="or" isquickfindfields="1">
+          <condition attribute="sfa_name" operator="like" value="{0}" />
+        </filter>
+        <attribute name="sfa_taskname" />
+        <attribute name="sfa_actionteamid" />
+        <attribute name="sfa_actionroleid" />
+        <attribute name="sfa_taskactionid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.10.3.4</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Quick Find Active Task Action" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

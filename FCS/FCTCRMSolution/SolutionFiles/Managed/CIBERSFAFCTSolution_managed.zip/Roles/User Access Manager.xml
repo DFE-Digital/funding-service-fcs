@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{ae9bc656-884e-e611-9415-000d3ab03a58}" name="User Access Manager" isinherited="0">
+  <IsCustomizable>1</IsCustomizable>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendRole" level="Global" />
+    <RolePrivilege name="prvAppendTeam" level="Global" />
+    <RolePrivilege name="prvAppendToRole" level="Global" />
+    <RolePrivilege name="prvAppendToTeam" level="Global" />
+    <RolePrivilege name="prvAppendToUser" level="Global" />
+    <RolePrivilege name="prvAppendToUserSettings" level="Global" />
+    <RolePrivilege name="prvAppendUser" level="Global" />
+    <RolePrivilege name="prvAssignRole" level="Global" />
+    <RolePrivilege name="prvAssignSharePointDocumentLocation" level="Basic" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvCreateUser" level="Global" />
+    <RolePrivilege name="prvCreateUserSettings" level="Global" />
+    <RolePrivilege name="prvDeleteUserSettings" level="Global" />
+    <RolePrivilege name="prvDisableUser" level="Global" />
+    <RolePrivilege name="prvReadBusinessUnit" level="Global" />
+    <RolePrivilege name="prvReadRole" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvReadTeam" level="Global" />
+    <RolePrivilege name="prvReadUser" level="Global" />
+    <RolePrivilege name="prvReadUserSettings" level="Global" />
+    <RolePrivilege name="prvShareSharePointDocumentLocation" level="Basic" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+    <RolePrivilege name="prvWriteTeam" level="Global" />
+    <RolePrivilege name="prvWriteUser" level="Global" />
+    <RolePrivilege name="prvWriteUserSettings" level="Global" />
+  </RolePrivileges>
+</Role>

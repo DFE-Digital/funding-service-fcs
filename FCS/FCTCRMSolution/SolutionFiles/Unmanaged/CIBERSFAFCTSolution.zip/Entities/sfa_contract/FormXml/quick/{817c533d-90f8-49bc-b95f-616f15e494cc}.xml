@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{817c533d-90f8-49bc-b95f-616f15e494cc}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form maxWidth="400">
+    <tabs>
+      <tab id="{8331957d-b0b0-44f0-bcca-b9892699de5d}" name="tab_1" showlabel="false" locklevel="0" expanded="true">
+        <labels>
+          <label description="Quick View Contract" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section id="{6130c895-a84f-40d9-ba27-888b057821a6}" name="sectionMasterContract" columns="1" showlabel="true" showbar="false" IsUserDefined="0" locklevel="0" labelwidth="100" celllabelalignment="Left" celllabelposition="Left">
+                <labels>
+                  <label description="Master Contract" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{63b0e05a-1009-9349-2d29-3e14956d7844}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Contract No" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_number" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{cbc230a0-160a-64a9-62a0-20b88889e71e}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingtype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fundingtype" disabled="true">
+                        <parameters>
+                          <AutoResolve>false</AutoResolve>
+                          <DisableMru>true</DisableMru>
+                          <DisableQuickFind>true</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{BD0364A7-D435-42C1-8CAD-4122595A4F28}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{1465b47a-0ad2-7713-7763-a8a015d74209}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="UKPRN" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_ukprn" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_ukprn" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{99aabddb-a07e-091d-4b0b-45213da74e24}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Provider" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_providername" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_providername" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{ec4aebca-81a4-c20c-745b-3d0ab0674e96}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Contract Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_contracttype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_contracttype" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{db4521bd-7e76-04e0-a953-be092972045a}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Created On" languagecode="1033" />
+                      </labels>
+                      <control id="createdon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <DisplayConditions Order="3">
+      <Role Id="{627090ff-40a3-4053-8790-584edc5be201}" />
+      <Role Id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+    </DisplayConditions>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Master Contract Quick Form" languagecode="1033" />
+  </LocalizedNames>
+</systemform>

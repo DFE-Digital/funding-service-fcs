@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard>
+  <LocalizedNames>
+    <LocalizedName description="Contract Adviser Dashboard" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="shows the day to day work related data for contract adviser" languagecode="1033" />
+  </Descriptions>
+  <FormId>{e3f25b25-2260-e411-93f7-000d3ab03a58}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>1</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab showlabel="false" verticallayout="true" id="{552afc68-72b5-4d34-97e1-99c5f32e0b15}">
+            <labels>
+              <label description="Tab" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section showlabel="false" showbar="false" columns="1111" id="{af5dcdb5-3621-46b4-9d72-a4e4b50472e5}" name="{af5dcdb5-3621-46b4-9d72-a4e4b50472e5}" locklevel="0" labelwidth="115">
+                    <labels>
+                      <label description="My Tasks" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{ebad96eb-97d0-a554-2b46-044ea7331bec}" showlabel="false" colspan="4" auto="false" rowspan="15">
+                          <labels>
+                            <label description="Contract Adviser Tasks" languagecode="1033" />
+                          </labels>
+                          <control id="Tasks" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{e9812c17-1e70-0284-9b93-4040a0aa3907}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{128884FC-4674-E611-9417-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>task</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{128884FC-4674-E611-9417-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId>{9E6A8B06-6D14-46E6-BBF5-95C388C6EB7A}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>11</RecordsPerPage>
+                              <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{4ad4d057-dc8b-c927-9052-70b69c4578c9}" showlabel="false" colspan="4" auto="false" rowspan="15">
+                          <labels>
+                            <label description="Contracts" languagecode="1033" />
+                          </labels>
+                          <control id="Contracts" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{cd9ab2b4-9a45-d391-0ad6-60ed96cba0dd}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>sfa_contract</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId>{CDAFCDE6-22D9-E411-9400-000D3AB03A58}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>11</RecordsPerPage>
+                              <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{81bc77a1-c842-47cd-c24b-5ab207b925aa}" showlabel="false" colspan="4" auto="false" rowspan="12">
+                          <labels>
+                            <label description="Notifications" languagecode="1033" />
+                          </labels>
+                          <control id="Notifications" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{579e49d4-64e6-9152-962b-75de14c4e529}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>sfa_notification</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId>{3AF73677-C596-E411-93FB-000D3AB03A58}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>8</RecordsPerPage>
+                              <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+        <DisplayConditions>
+          <Role Id="{812F2E14-DA5A-E411-93F7-000D3AB03A58}" />
+        </DisplayConditions>
+        <controlDescriptions>
+          <controlDescription forControl="{e9812c17-1e70-0284-9b93-4040a0aa3907}">
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" formFactor="0">
+              <parameters>
+                <ViewId>{128884FC-4674-E611-9417-000D3AB03A58}</ViewId>
+                <IsUserView>false</IsUserView>
+                <RelationshipName />
+                <TargetEntityType>task</TargetEntityType>
+                <AutoExpand>Fixed</AutoExpand>
+                <EnableQuickFind>true</EnableQuickFind>
+                <EnableViewPicker>true</EnableViewPicker>
+                <ViewIds>{128884FC-4674-E611-9417-000D3AB03A58}</ViewIds>
+                <EnableJumpBar>false</EnableJumpBar>
+                <ChartGridMode>Grid</ChartGridMode>
+                <VisualizationId>{9E6A8B06-6D14-46E6-BBF5-95C388C6EB7A}</VisualizationId>
+                <IsUserChart>false</IsUserChart>
+                <EnableChartPicker>false</EnableChartPicker>
+                <RecordsPerPage>11</RecordsPerPage>
+                <HeaderColorCode>#F3F3F3</HeaderColorCode>
+              </parameters>
+            </customControl>
+            <customControl formFactor="1" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{128884FC-4674-E611-9417-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>task</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{128884FC-4674-E611-9417-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+            <customControl formFactor="2" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{128884FC-4674-E611-9417-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>task</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{128884FC-4674-E611-9417-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+          </controlDescription>
+          <controlDescription forControl="{cd9ab2b4-9a45-d391-0ad6-60ed96cba0dd}">
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" formFactor="0">
+              <parameters>
+                <ViewId>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</ViewId>
+                <IsUserView>false</IsUserView>
+                <RelationshipName />
+                <TargetEntityType>sfa_contract</TargetEntityType>
+                <AutoExpand>Fixed</AutoExpand>
+                <EnableQuickFind>true</EnableQuickFind>
+                <EnableViewPicker>true</EnableViewPicker>
+                <ViewIds>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</ViewIds>
+                <EnableJumpBar>true</EnableJumpBar>
+                <ChartGridMode>Grid</ChartGridMode>
+                <VisualizationId>{CDAFCDE6-22D9-E411-9400-000D3AB03A58}</VisualizationId>
+                <IsUserChart>false</IsUserChart>
+                <EnableChartPicker>false</EnableChartPicker>
+                <RecordsPerPage>11</RecordsPerPage>
+                <HeaderColorCode>#F3F3F3</HeaderColorCode>
+              </parameters>
+            </customControl>
+            <customControl formFactor="1" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_contract</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+            <customControl formFactor="2" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_contract</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+          </controlDescription>
+          <controlDescription forControl="{579e49d4-64e6-9152-962b-75de14c4e529}">
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" formFactor="0">
+              <parameters>
+                <ViewId>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</ViewId>
+                <IsUserView>false</IsUserView>
+                <RelationshipName />
+                <TargetEntityType>sfa_notification</TargetEntityType>
+                <AutoExpand>Fixed</AutoExpand>
+                <EnableQuickFind>false</EnableQuickFind>
+                <EnableViewPicker>true</EnableViewPicker>
+                <ViewIds>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</ViewIds>
+                <EnableJumpBar>true</EnableJumpBar>
+                <ChartGridMode>Grid</ChartGridMode>
+                <VisualizationId>{3AF73677-C596-E411-93FB-000D3AB03A58}</VisualizationId>
+                <IsUserChart>false</IsUserChart>
+                <EnableChartPicker>false</EnableChartPicker>
+                <RecordsPerPage>8</RecordsPerPage>
+                <HeaderColorCode>#F3F3F3</HeaderColorCode>
+              </parameters>
+            </customControl>
+            <customControl formFactor="1" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_notification</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+            <customControl formFactor="2" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_notification</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+          </controlDescription>
+        </controlDescriptions>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

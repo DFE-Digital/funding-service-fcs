@@ -1,0 +1,632 @@
+{
+  "CorrelationId": "e8fee47e-c988-4e7e-9788-def3b63219cc",
+  "CorporateContract": {
+    "schemaVersion": 8.04,
+    "ContractApprovalDate": null,
+    "StatusLastUpdatedDate": null,
+    "LastModifiedDate": null,
+    "DocumentationRequired": null,
+    "SkipCaseloadAssignment": null,
+    "SkipReviewAndInternalApproval": null,
+    "SkipDocumentMerge": false,
+    "IsNonFinancialAmendment": null,
+    "TerminationDate": null,
+    "InflightTerminationDate": null,
+    "TerminationReason": null,
+    "InflightTerminationReason": null,
+    "IsNewRevisedNewOrUpdateDraft": true,
+    "IsAmendment": false,
+    "IsNewAmendment": false,
+    "SharedMasterApprovedContracts": [],
+    "LatestCreatedDateForNonNotificationApprovedContract": null,
+    "IsVariation": false,
+    "ShouldMergeAmendmentTemplate": false,
+    "OverrideAmendmentTemplate": null,
+    "OverrideTemplateName": null,
+    "IsNotification": true,
+    "StopNewStartsDate": null,
+    "InflightStopNewStartsDate": null,
+    "NewStartsSuspendedReason": null,
+    "InflightNewStartsSuspendedReason": null,
+    "Owner": null,
+    "PreviousVersionId": null,
+    "ContractAdvisorId": null,
+    "ParentContractId": null,
+    "CrmContractId": null,
+    "IsLastApprovedUnderTermination": false,
+    "LastApprovedTerminationDate": null,
+    "IsModified": false,
+    "contracts": [],
+    "fundingType": {
+      "fundingTypeCode": "HTE-SIF",
+      "fundingTypeName": null
+    },
+    "period": {
+      "periodType": {
+        "periodTypeCode": 12,
+        "periodTypeName": 0
+      },
+      "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "" } ],
+      "period1": "2223",
+      "startDate": "0001-01-01T00:00:00",
+      "endDate": "0001-01-01T00:00:00"
+    },
+    "fundingStream": {
+      "fundingStreamCode": "HTE-SIF",
+      "fundingStreamName": null,
+      "fundingTypeCode": null,
+      "fundingStreamShortCode": null
+    },
+    "contractAllocations": [
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "DeliveryOrganisation": null,
+        "DeliveryOrganisationDetail": {
+          "organisationIdentifier": null,
+          "ukprn": 0,
+          "legalName": null,
+          "registeredCompanyNumber": null,
+          "organisationAddressIdentifier": 0,
+          "addressLine1": null,
+          "addressLine2": null,
+          "addressLine3": null,
+          "addressLine4": null,
+          "county": null,
+          "town": null,
+          "postcode": null,
+          "Upin": null,
+          "CharityNumber": null,
+          "Status": null
+        },
+        "FundingCessationDate": null,
+        "StopNewStartsDate": null,
+        "NewStartsSuspendedReason": null,
+        "HasBeenAddedOrUpdated": true,
+        "HasBeenAdded": true,
+        "OriginalAllocationNumber": null,
+        "InflightStopNewStartsDate": null,
+        "InflightNewStartsSuspendedReason": null,
+        "InflightTerminationDate": null,
+        "IsModified": false,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 12,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "HTE-SIF2223" } ],
+          "period1": "2223",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "HTE-SIF",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 96534.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "HTE-SIF",
+              "deliverableCode": 1,
+              "businessCode": null,
+              "deliverableName": "HTE Skills Injection Fund - Capital"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2023,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3120.0,
+                "aggregate": false,
+                "periodName": "Jan-23",
+                "displayOrder": 202301
+              },
+              {
+                "year": 2023,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1961.0,
+                "aggregate": false,
+                "periodName": "Feb-23",
+                "displayOrder": 202302
+              },
+              {
+                "year": 2023,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1389.0,
+                "aggregate": false,
+                "periodName": "Mar-23",
+                "displayOrder": 202303
+              },
+              {
+                "year": 2023,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1474.0,
+                "aggregate": false,
+                "periodName": "Apr-23",
+                "displayOrder": 202304
+              },
+              {
+                "year": 2023,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1220.0,
+                "aggregate": false,
+                "periodName": "May-23",
+                "displayOrder": 202305
+              },
+              {
+                "year": 2023,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1984.0,
+                "aggregate": false,
+                "periodName": "Jun-23",
+                "displayOrder": 202306
+              },
+              {
+                "year": 2023,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1642.0,
+                "aggregate": false,
+                "periodName": "Jul-23",
+                "displayOrder": 202307
+              },
+              {
+                "year": 2023,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1570.0,
+                "aggregate": false,
+                "periodName": "Aug-23",
+                "displayOrder": 202308
+              },
+              {
+                "year": 2023,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1174.0,
+                "aggregate": false,
+                "periodName": "Sep-23",
+                "displayOrder": 202309
+              },
+              {
+                "year": 2023,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 9000.0,
+                "aggregate": false,
+                "periodName": "Oct-23",
+                "displayOrder": 202310
+              },
+              {
+                "year": 2023,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 9000.0,
+                "aggregate": false,
+                "periodName": "Nov-23",
+                "displayOrder": 202311
+              },
+              {
+                "year": 2023,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 9000.0,
+                "aggregate": false,
+                "periodName": "Dec-23",
+                "displayOrder": 202312
+              },
+              {
+                "year": 2024,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 29000.0,
+                "aggregate": false,
+                "periodName": "Jan-24",
+                "displayOrder": 202401
+              },
+              {
+                "year": 2024,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 15000.0,
+                "aggregate": false,
+                "periodName": "Feb-24",
+                "displayOrder": 202402
+              },
+              {
+                "year": 2024,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 10000.0,
+                "aggregate": false,
+                "periodName": "Mar-24",
+                "displayOrder": 202403
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 96534.0
+          },
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 120000.0,
+            "DisplayOrder": 2,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "HTE-SIF",
+              "deliverableCode": 2,
+              "businessCode": null,
+              "deliverableName": "HTE Skills Injection Fund - Programme"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2023,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1000.0,
+                "aggregate": false,
+                "periodName": "Jan-23",
+                "displayOrder": 202301
+              },
+              {
+                "year": 2023,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2000.0,
+                "aggregate": false,
+                "periodName": "Feb-23",
+                "displayOrder": 202302
+              },
+              {
+                "year": 2023,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3000.0,
+                "aggregate": false,
+                "periodName": "Mar-23",
+                "displayOrder": 202303
+              },
+              {
+                "year": 2023,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4000.0,
+                "aggregate": false,
+                "periodName": "Apr-23",
+                "displayOrder": 202304
+              },
+              {
+                "year": 2023,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5000.0,
+                "aggregate": false,
+                "periodName": "May-23",
+                "displayOrder": 202305
+              },
+              {
+                "year": 2023,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6000.0,
+                "aggregate": false,
+                "periodName": "Jun-23",
+                "displayOrder": 202306
+              },
+              {
+                "year": 2023,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7000.0,
+                "aggregate": false,
+                "periodName": "Jul-23",
+                "displayOrder": 202307
+              },
+              {
+                "year": 2023,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 8000.0,
+                "aggregate": false,
+                "periodName": "Aug-23",
+                "displayOrder": 202308
+              },
+              {
+                "year": 2023,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 9000.0,
+                "aggregate": false,
+                "periodName": "Sep-23",
+                "displayOrder": 202309
+              },
+              {
+                "year": 2023,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 10000.0,
+                "aggregate": false,
+                "periodName": "Oct-23",
+                "displayOrder": 202310
+              },
+              {
+                "year": 2023,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 11000.0,
+                "aggregate": false,
+                "periodName": "Nov-23",
+                "displayOrder": 202311
+              },
+              {
+                "year": 2023,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 12000.0,
+                "aggregate": false,
+                "periodName": "Dec-23",
+                "displayOrder": 202312
+              },
+              {
+                "year": 2024,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 13000.0,
+                "aggregate": false,
+                "periodName": "Jan-24",
+                "displayOrder": 202401
+              },
+              {
+                "year": 2024,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 14000.0,
+                "aggregate": false,
+                "periodName": "Feb-24",
+                "displayOrder": 202402
+              },
+              {
+                "year": 2024,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 15000.0,
+                "aggregate": false,
+                "periodName": "Mar-24",
+                "displayOrder": 202403
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 120000.0
+          }
+        ],
+        "contractAllocationNumber": "HTSIF-1001",
+        "description": null,
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "HTE-SIF2223",
+        "startDate": "2023-01-01T00:00:00Z",
+        "endDate": "2024-03-31T00:00:00Z",
+        "maximumContractValue": 216534.0,
+        "reasonForAmendment": null,
+        "uopCode": null,
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      }
+    ],
+    "contractDimensionRelationships": [],
+    "contractOrganisationRelationships": [],
+    "contractNumber": "HTESIF-1001",
+    "contractVersionNumber": 1,
+    "contractSubVersionNumber": 0,
+    "description": null,
+    "contractor": {
+      "organisationIdentifier": "ORG0018006",
+      "ukprn": 10018006,
+      "legalName": "10018006 Co Ltd",
+      "registeredCompanyNumber": "AA018006",
+      "organisationAddressIdentifier": 0,
+      "addressLine1": "41 Send Barns Lane",
+      "addressLine2": "Send",
+      "addressLine3": "Woking",
+      "addressLine4": null,
+      "county": "Surrey",
+      "town": null,
+      "postcode": "GU23 7BS",
+      "Upin": "118006",
+      "CharityNumber": null,
+      "Status": "Active"
+    },
+    "hierarchyType": 1,
+    "contractType1": "Conditions of Funding (Grant) (College)",
+    "startDate": "2023-01-01T00:00:00Z",
+    "endDate": "2024-03-31T00:00:00Z",
+    "contractStatus": {
+      "status": null,
+      "parentStatus": null
+    },
+    "contractValue": 216534.0,
+    "parentContractNumber": null,
+    "parentContractVersionNumber": null,
+    "amendmentType": "None"
+  },
+  "MasterContractNumber": "ESFA-27582"
+}

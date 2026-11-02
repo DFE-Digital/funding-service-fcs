@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <savedqueryid>{80dfd312-0ebe-41dc-b2c0-fdf4221373e1}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_contracttransitionhistoryid">
+        <cell name="sfa_actionon" width="100" />
+        <cell name="sfa_action" width="300" />
+        <cell name="sfa_actionby" width="100" />
+        <cell name="sfa_previousowner" width="150" />
+        <cell name="sfa_newowner" width="150" />
+        <cell name="sfa_previousstatus" width="125" />
+        <cell name="sfa_newstatus" width="125" />
+        <cell name="sfa_previoussubstatus" width="150" />
+        <cell name="sfa_newsubstatus" width="150" />
+        <cell name="sfa_contract" width="100" />
+        <cell name="sfa_previouscontractowner" width="150" />
+        <cell name="sfa_newcontractowner" width="150" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_contracttransitionhistory">
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="1" />
+        </filter>
+        <order attribute="sfa_actionon" descending="true" />
+        <attribute name="sfa_previoussubstatus" />
+        <attribute name="sfa_previousstatus" />
+        <attribute name="sfa_newsubstatus" />
+        <attribute name="sfa_newstatus" />
+        <attribute name="sfa_contract" />
+        <attribute name="sfa_actionon" />
+        <attribute name="sfa_actionby" />
+        <attribute name="sfa_action" />
+        <attribute name="sfa_previousowner" />
+        <attribute name="sfa_newowner" />
+        <attribute name="sfa_previouscontractowner" />
+        <attribute name="sfa_newcontractowner" />
+        <attribute name="sfa_contracttransitionhistoryid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Inactive Contract Transition History" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

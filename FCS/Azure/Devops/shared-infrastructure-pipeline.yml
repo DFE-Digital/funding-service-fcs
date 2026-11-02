@@ -1,0 +1,70 @@
+# Shared Infrastructure Pipeline
+
+trigger: none
+#- ms/features/31323
+
+pool: $(BuildAgentPool)
+  
+variables:
+  releaseTemplate: 'shared-infrastructure-pipeline.release.yml'
+  ArtifactName: drop
+
+stages:
+- stage: 'Build'
+  jobs:
+  - job: Build
+    displayName: Build
+    steps:
+     - task: CopyFiles@2
+       displayName: 'Copy ARM Template to $(build.artifactstagingdirectory)'
+       inputs:
+         SourceFolder: '$(System.DefaultWorkingDirectory)'
+         Contents: 'Azure\Templates\fcs-SUB-shared-rg\*.json'
+         TargetFolder: '$(build.artifactstagingdirectory)'
+     - task: CopyFiles@2
+       displayName: 'Copy PowerShell Scripts to $(build.artifactstagingdirectory)'
+       inputs:
+         SourceFolder: '$(System.DefaultWorkingDirectory)'
+         Contents: 'Azure\Scripts\*.ps1'
+         TargetFolder: '$(build.artifactstagingdirectory)'
+     - task: PublishPipelineArtifact@1
+       inputs:
+         targetPath: '$(Build.ArtifactStagingDirectory)'
+         artifact: '$(ArtifactName)'
+         publishLocation: 'pipeline'
+
+- stage: 'Dev'
+  displayName: 'Release to Dev'
+  variables:
+  - group: 'Shared Dev'
+  - group: 'Resource Tags - DevTest'
+  jobs:
+  - template: ${{ variables.releaseTemplate }}
+    parameters:
+      environment: 'dev'
+      myServiceConnection: 'SFA-FCS-Dev (ARM)'
+      artifact: ${{ variables.ArtifactName }}
+
+- stage: 'PP'
+  displayName: 'Release to PP'
+  variables:
+  - group: 'Shared PP'
+  - group: 'Resource Tags - Preprod'
+  jobs:
+  - template: ${{ variables.releaseTemplate }}
+    parameters:
+      environment: 'pp'
+      myServiceConnection: 'SFA-FCS-PreProd (ARM)'
+      artifact: ${{ variables.ArtifactName }}
+
+- stage: 'PRD'
+  displayName: 'Release to PRD'
+  variables:
+  - group: 'Shared PRD'
+  - group: 'Resource Tags - Prod'
+  jobs:
+  - template: ${{ variables.releaseTemplate }}
+    parameters:
+      environment: 'prd'
+      myServiceConnection: 'SFA-FCS-Prod (ARM)'
+      artifact: ${{ variables.ArtifactName }}

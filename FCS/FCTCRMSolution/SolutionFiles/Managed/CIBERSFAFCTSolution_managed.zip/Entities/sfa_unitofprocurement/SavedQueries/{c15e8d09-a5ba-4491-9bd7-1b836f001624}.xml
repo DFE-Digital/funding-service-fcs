@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>1</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{c15e8d09-a5ba-4491-9bd7-1b836f001624}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_unitofprocurementid">
+        <cell name="sfa_name" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>4</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_unitofprocurement">
+        <attribute name="sfa_unitofprocurementid" />
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <order attribute="sfa_name" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <filter type="or" isquickfindfields="1">
+          <condition attribute="sfa_name" operator="like" value="{0}" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.1.6.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Quick Find Active Units of Procurement" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

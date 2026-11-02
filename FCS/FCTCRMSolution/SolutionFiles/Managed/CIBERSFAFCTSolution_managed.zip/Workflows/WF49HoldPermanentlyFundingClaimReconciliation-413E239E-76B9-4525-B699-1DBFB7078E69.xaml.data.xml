@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{413e239e-76b9-4525-b699-1dbfb7078e69}" Name="WF49: Hold Permanently Funding Claim Reconciliation">
+  <XamlFileName>/Workflows/WF49HoldPermanentlyFundingClaimReconciliation-413E239E-76B9-4525-B699-1DBFB7078E69.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>0</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>1</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>1</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>2.142.2.4</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <PrimaryEntity>sfa_fundingclaimreconciliation</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="WF49: Hold Permanently Funding Claim Reconciliation" />
+  </LocalizedNames>
+</Workflow>

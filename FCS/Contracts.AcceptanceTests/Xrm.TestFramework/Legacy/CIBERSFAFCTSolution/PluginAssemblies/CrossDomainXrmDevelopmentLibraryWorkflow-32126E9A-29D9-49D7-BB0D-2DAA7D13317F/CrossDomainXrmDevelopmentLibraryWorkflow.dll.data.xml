@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PluginAssembly FullName="CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" CustomizationLevel="1">
+  <IsolationMode>2</IsolationMode>
+  <SourceType>0</SourceType>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <FileName>/PluginAssemblies/CrossDomainXrmDevelopmentLibraryWorkflow-32126E9A-29D9-49D7-BB0D-2DAA7D13317F/CrossDomainXrmDevelopmentLibraryWorkflow.dll</FileName>
+  <PluginTypes>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Allocations.GetAllocationDetailsForRelease, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Get Allocation Details For Release">
+      <FriendlyName>87807b4b-b817-484b-8786-6a3c001ebd16</FriendlyName>
+      <WorkflowActivityGroupName>Allocation Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Allocations.ReleaseConditionBasedAllocations, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Release Condition Based Allocations">
+      <FriendlyName>Release Condition Based Allocations</FriendlyName>
+      <WorkflowActivityGroupName>Allocation Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.CallContractManagementService, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Call Contract Management Service">
+      <FriendlyName>Call Contract Management Service</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.CallSBAllocationManagementService, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Call Allocation Management Service(SB)">
+      <FriendlyName>Call Allocation Management Service(SB)</FriendlyName>
+      <WorkflowActivityGroupName>Allocation Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.CallSBContractManagementService, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Call Contract Management Service(SB)">
+      <FriendlyName>Call Contract Management Service(SB)</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.ContractAllocation.GetContractAllocationFromReference, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Contract Allocation - Get Contract Allocation By Reference">
+      <FriendlyName>Contract Allocation - Get Contract Allocation By Reference</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.AmendmentCheckForFundingTypePeriod, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Amendment Check For FundingTypePeriod">
+      <FriendlyName>Amendment Check For FundingTypePeriod</FriendlyName>
+      <WorkflowActivityGroupName>Termination Related Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.CascadeTerminationDetailsToAllocations, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Cascade Termination Details To Allocations">
+      <FriendlyName>Cascade Termination Details To Allocations</FriendlyName>
+      <WorkflowActivityGroupName>Termination Related Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.EchoContractTaskOwner, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Echo Contract Task Owner">
+      <FriendlyName>Echo Contract Task Owner</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.GetCaseloadOwnerFromProvider, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Get Caseload Owner From Provider">
+      <FriendlyName>4bdede8c-d00a-4783-a4e8-bbaefb78a028</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.GetLastApprovedVersionContract, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Get Last Approved Contract By Name">
+      <FriendlyName>Get Last Approved Contract By Name</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.GetTerminationDetailforAllocations, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Get Termination Detail for Allocations">
+      <FriendlyName>Get Termination Detail for Allocations</FriendlyName>
+      <WorkflowActivityGroupName>Termination Related Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.InitiateNonFinancialAmendment, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Initiate Non Financial Amendment">
+      <FriendlyName>Initiate Non Financial Amendment</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.SetupTerminationDialogData, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Setup Termination Dialog Data">
+      <FriendlyName>Setup Termination Dialog Data</FriendlyName>
+      <WorkflowActivityGroupName>Termination Related Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Contracts.ValidateTerminationDialogData, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Validate Termination Dialog Data">
+      <FriendlyName>Validate Termination Dialog Data</FriendlyName>
+      <WorkflowActivityGroupName>Termination Related Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.FCR.CallSBPerformanceManagementService, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Call Performance Management Service(SB)">
+      <FriendlyName>Call Performance Management Service(SB)</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Organisations.ReassignChildContracts, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Organisation - Re-assign Child Contracts">
+      <FriendlyName>3af11bb5-5d8e-43e3-8b60-d92d7d1cbc1e</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Organisations.ReassignChildTasksForContract, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Reassign Child Tasks For Contract">
+      <FriendlyName>cdeb04b3-a4b3-4b99-a401-f56ce1ff4bb2</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Organisations.ReassignChildTasksForOrganisation, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Reassign Child Tasks For Organisation">
+      <Description>43a76263-3403-4e25-b8c2-e5af2f292ac5</Description>
+      <FriendlyName>43a76263-3403-4e25-b8c2-e5af2f292ac5</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Status.GetStatusFromName, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Status - Get Status By Name">
+      <FriendlyName>e2faa31e-02be-418a-bb03-37e9d1dd262c</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Status.SetStatusFCR, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="FCR - Set Status">
+      <FriendlyName>FCR - Set Status</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Team.GetTeamByName, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Get Team By Name">
+      <FriendlyName>Get Team By Name</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Transition.GetTransitionFromName, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Transition - Get Transition By Name">
+      <FriendlyName>00019c5b-2447-4eb1-af31-7c388e1aea33</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.Users.GetUserDetails, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Get Current User Details">
+      <FriendlyName>Get Current User Details</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.WebResource.GetWebResourceByName, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Get Web Resource By Name">
+      <FriendlyName>f65f5881-8a5e-4ade-882d-8aa1af512a4e</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="SFA.FCT.CrossDomain.XrmDevelopmentLibrary.Workflow.WorkflowHistory.GetWorkflowHistoryFromName, CrossDomain.XrmDevelopmentLibrary.Workflow, Version=1.0.1.0, Culture=neutral, PublicKeyToken=78de55eb735d54c7" Name="Get Workflow History From Name">
+      <FriendlyName>53c36192-ffc9-4470-80e0-51fbe32aa124</FriendlyName>
+      <WorkflowActivityGroupName>Xrm Workflow Utilities</WorkflowActivityGroupName>
+    </PluginType>
+  </PluginTypes>
+</PluginAssembly>

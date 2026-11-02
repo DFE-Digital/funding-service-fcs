@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="FCTServices.Azure.Deploy" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="6" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="ContractManagementService">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=fcsopsupappstorage;AccountKey=" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SSLCertificate" thumbprint="8047332DC53D09B055421615F6781454EB8616EF" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="OpSup-VNet" />
+    <AddressAssignments>
+      <InstanceAddress roleName="ContractManagementService">
+        <Subnets>
+          <Subnet name="Contract" />
+        </Subnets>
+      </InstanceAddress>
+      <ReservedIPs>
+        <!--23.97.133.57-->
+        <ReservedIP name="fct-services-ps-rip" />
+      </ReservedIPs>
+    </AddressAssignments>
+    <AccessControls>
+      <AccessControl name="fctrules">
+        <Rule action="permit" description="fctservices" order="50" remoteSubnet="23.97.133.57/32" />
+        <Rule action="permit" description="orgservice" order="51" remoteSubnet="23.97.172.27/32" />
+        <Rule action="permit" description="servicebus" order="52" remoteSubnet="23.97.173.11/32" />
+        <Rule action="permit" description="mysubnet" order="100" remoteSubnet="10.78.113.64/28" />
+        <Rule action="deny" description="world" order="200" remoteSubnet="0.0.0.0/0" />
+      </AccessControl>
+    </AccessControls>
+    <EndpointAcls>
+      <EndpointAcl role="ContractManagementService" endPoint="ContractHttpEndpoint" accessControl="fctrules" />
+      <EndpointAcl role="FundingStreamConfigDomain.Web" endPoint="FscHttpEndpoint" accessControl="fctrules" />
+    </EndpointAcls>
+  </NetworkConfiguration>
+</ServiceConfiguration>

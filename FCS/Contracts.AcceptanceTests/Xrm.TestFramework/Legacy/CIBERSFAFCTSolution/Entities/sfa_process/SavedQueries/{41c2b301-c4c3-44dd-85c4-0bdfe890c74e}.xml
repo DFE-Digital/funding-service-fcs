@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <returnedtypecode>10023</returnedtypecode>
+  <savedqueryid>{41c2b301-c4c3-44dd-85c4-0bdfe890c74e}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10023" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_processid">
+        <cell name="sfa_name" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_process">
+        <attribute name="sfa_processid" />
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <order attribute="sfa_name" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="1" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Inactive Processes" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

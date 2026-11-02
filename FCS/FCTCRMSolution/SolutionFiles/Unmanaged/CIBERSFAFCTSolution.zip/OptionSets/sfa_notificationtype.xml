@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="sfa_notificationtype" localizedName="Notification Type">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <ExternalTypeName></ExternalTypeName>
+  <displaynames>
+    <displayname description="Notification Type" languagecode="1033" />
+  </displaynames>
+  <Descriptions>
+    <Description description="" languagecode="1033" />
+  </Descriptions>
+  <options>
+    <option value="229660006" ExternalValue="" Color="">
+      <labels>
+        <label description="Contract Withdrawn" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660005" ExternalValue="" Color="">
+      <labels>
+        <label description="Approval Received" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660004" ExternalValue="" Color="">
+      <labels>
+        <label description="Publish To Provider Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660008" ExternalValue="" Color="">
+      <labels>
+        <label description="Manual Approval Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660003" ExternalValue="" Color="">
+      <labels>
+        <label description="Document Merge Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660001" ExternalValue="" Color="">
+      <labels>
+        <label description="Caseload re-assigned" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660000" ExternalValue="" Color="">
+      <labels>
+        <label description="Task Re-assigned" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660002" ExternalValue="" Color="">
+      <labels>
+        <label description="Draft Contract Updated" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660010" ExternalValue="" Color="">
+      <labels>
+        <label description="Provider Details Updated" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660011" ExternalValue="" Color="">
+      <labels>
+        <label description="Contract Deletion Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660013" ExternalValue="" Color="">
+      <labels>
+        <label description="Contract Closure Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660012" ExternalValue="" Color="">
+      <labels>
+        <label description="Contract Closure Initiation Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660014" ExternalValue="" Color="">
+      <labels>
+        <label description="Contract Closure Rejected" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660015" ExternalValue="" Color="">
+      <labels>
+        <label description="Contract Amendment Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660017" ExternalValue="" Color="">
+      <labels>
+        <label description="Contract Termination Initiation Rejected" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660018" ExternalValue="" Color="">
+      <labels>
+        <label description="Contract Termination Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660023" ExternalValue="" Color="#0000ff">
+      <labels>
+        <label description="Contract Modification Rejected" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660016" ExternalValue="" Color="">
+      <labels>
+        <label description="Non-Financial Contract Amendment Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660009" ExternalValue="" Color="">
+      <labels>
+        <label description="Reconciliation Publish To Provider Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660019" ExternalValue="" Color="">
+      <labels>
+        <label description="FCR Hold Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660020" ExternalValue="" Color="">
+      <labels>
+        <label description="Held FCR Release Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660022" ExternalValue="" Color="">
+      <labels>
+        <label description="FCR Allocation Update Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660021" ExternalValue="" Color="">
+      <labels>
+        <label description="Reconciliation Publication Failed" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660007" ExternalValue="" Color="">
+      <labels>
+        <label description="Amendment Approval" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+    <option value="229660024" ExternalValue="" Color="#0000ff">
+      <labels>
+        <label description="Release Rejected" languagecode="1033" />
+      </labels>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </option>
+  </options>
+</optionset>

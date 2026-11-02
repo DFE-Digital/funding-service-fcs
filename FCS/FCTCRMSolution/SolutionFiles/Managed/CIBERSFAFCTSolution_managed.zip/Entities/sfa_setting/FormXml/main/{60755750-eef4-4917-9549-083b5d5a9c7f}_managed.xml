@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{60755750-eef4-4917-9549-083b5d5a9c7f}</formid>
+  <IntroducedVersion>1.1.5.2</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{91a82737-8b3e-4482-b37d-c234fc8ae78d}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{cdebc882-b1fd-498e-93de-2bd7971b70ba}" name="{cdebc882-b1fd-498e-93de-2bd7971b70ba}" columns="1" locklevel="0" labelwidth="150" celllabelalignment="Left" celllabelposition="Left">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{258c14db-e115-4e34-ba18-a2174b020351}">
+                      <labels>
+                        <label description="Setting Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_settingname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_settingname" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{e91820cd-e2b6-143e-ebb7-4eb83ba0e198}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Setting Code" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_settingcode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_settingcode" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{5b04aa3a-e423-b900-362a-e58e2caeb6c6}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Setting Description" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_settingdescription" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_settingdescription" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{b30b4974-3806-19de-b690-41193223a518}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Data Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_settingdatatype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_settingdatatype" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{95c905c4-0146-7926-d830-66a494b29bd9}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Maximum Length" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_maximumlength" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="sfa_maximumlength" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="secValues" showlabel="true" showbar="true" locklevel="0" id="{16013c6e-5316-c2ed-8ce1-7cb1c5353862}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Left">
+                <labels>
+                  <label description="Values" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{e9c1ad92-38b6-10de-babe-dbd77ea43b44}" showlabel="false" colspan="1" auto="false" rowspan="6">
+                      <labels>
+                        <label description="Setting Value Lists (Setting)" languagecode="1033" />
+                      </labels>
+                      <control id="Values" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                        <parameters>
+                          <ViewId>{43A8C7A6-09C4-E411-93FE-000D3AB03A58}</ViewId>
+                          <IsUserView>false</IsUserView>
+                          <RelationshipName>sfa_setting_settingvaluelist</RelationshipName>
+                          <TargetEntityType>sfa_settingvaluelist</TargetEntityType>
+                          <AutoExpand>Fixed</AutoExpand>
+                          <EnableQuickFind>false</EnableQuickFind>
+                          <EnableViewPicker>false</EnableViewPicker>
+                          <ViewIds>{680D3440-E5E1-4F26-B677-09263C0CE02D},{43A8C7A6-09C4-E411-93FE-000D3AB03A58}</ViewIds>
+                          <EnableJumpBar>false</EnableJumpBar>
+                          <ChartGridMode>Grid</ChartGridMode>
+                          <VisualizationId></VisualizationId>
+                          <IsUserChart>false</IsUserChart>
+                          <EnableChartPicker>false</EnableChartPicker>
+                          <RecordsPerPage>4</RecordsPerPage>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row></row>
+                  <row></row>
+                  <row></row>
+                  <row></row>
+                  <row></row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

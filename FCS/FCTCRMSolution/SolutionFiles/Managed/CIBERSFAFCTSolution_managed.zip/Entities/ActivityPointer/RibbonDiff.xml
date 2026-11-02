@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml>
+  <CustomActions>
+    <CustomAction Id="sfa.activitypointer.Button1.Button.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.New.Controls._children" Sequence="22">
+      <CommandUIDefinition>
+        <Button Alt="$Resources:Ribbon.HomepageGrid.MainTab.Actions.Assign" Command="Mscrm.AssignSelectedRecord" Id="sfa.activitypointer.Button1.Button" Image32by32="/_imgs/ribbon/Assign_32.png" Image16by16="/_imgs/ribbon/Assign_16.png" LabelText="$Resources:Ribbon.HomepageGrid.MainTab.Actions.Assign" Sequence="22" TemplateAlias="c3" ToolTipTitle="$Resources:Ribbon.HomepageGrid.MainTab.Actions.Assign" ToolTipDescription="$Resources(EntityPluralDisplayName):Ribbon.Tooltip.Assign" ModernImage="Assign" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.activitypointer.Button2.Button.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.New.Controls._children" Sequence="45">
+      <CommandUIDefinition>
+        <Button Alt="{!EntityDisplayName:email}" Command="Mscrm.CreateEmail" Id="sfa.activitypointer.Button2.Button" Image32by32="/_imgs/ribbon/Email_32.png" Image16by16="/_imgs/ribbon/entity16_4202.png" LabelText="{!EntityDisplayName:email}" Sequence="45" TemplateAlias="c3" ToolTipTitle="{!EntityDisplayName:email}" ModernImage="NewEmail" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.activitypointer.Button3.Button.CustomAction" Location="Mscrm.Form.activitypointer.MainTab.Save.Controls._children" Sequence="41">
+      <CommandUIDefinition>
+        <Button Alt="$Resources:Ribbon.HomepageGrid.MainTab.Actions.Assign" Command="Mscrm.AssignPrimaryRecord" Id="sfa.activitypointer.Button3.Button" Image32by32="/_imgs/ribbon/Assign_32.png" Image16by16="/_imgs/ribbon/Assign_16.png" LabelText="$Resources:Ribbon.HomepageGrid.MainTab.Actions.Assign" Sequence="41" TemplateAlias="o1" ToolTipTitle="$Resources:Ribbon.HomepageGrid.MainTab.Actions.Assign" ToolTipDescription="$Resources(EntityPluralDisplayName):Ribbon.Tooltip.Assign" ModernImage="Assign" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.activitypointer.Button4.Button.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.Actions.Controls._children" Sequence="70">
+      <CommandUIDefinition>
+        <Button Alt="$Resources:Ribbon.HomepageGrid.MainTab.Find.AdvancedFind" Command="Mscrm.OpenGridAdvancedFind" Id="sfa.activitypointer.Button4.Button" Image32by32="/_imgs/ribbon/advancedfind32.png" Image16by16="/_imgs/ribbon/AdvancedFind_16.png" LabelText="$Resources:Ribbon.HomepageGrid.MainTab.Find.AdvancedFind" Sequence="70" TemplateAlias="o3" ToolTipTitle="$Resources:Ribbon.HomepageGrid.MainTab.Find.AdvancedFind" ToolTipDescription="$Resources:Ribbon.HomepageGrid.AdvancedFind.TooltipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.activitypointer.Button5.Button.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.Actions.Controls._children" Sequence="80">
+      <CommandUIDefinition>
+        <Button Command="Mscrm.VisualizationTab.AssignVisualization" Id="sfa.activitypointer.Button5.Button" Image32by32="/_imgs/ribbon/Assign_32.png" Image16by16="/_imgs/ribbon/Assign_16.png" LabelText="$Resources:Ribbon.VisualizationTab.Actions.Assign" Sequence="80" TemplateAlias="o3" ToolTipTitle="$Resources:Ribbon.VisualizationTab.Actions.Assign" ToolTipDescription="$Resources:Ribbon.VisualizationTab.Actions.Assign.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.Mscrm.Form.activitypointer.AddOtherActivities.CustomAction" Location="Mscrm.Form.activitypointer.Related.Activities.Controls._children" Sequence="90">
+      <CommandUIDefinition>
+        <FlyoutAnchor Alt="$Resources:Ribbon.HomepageGrid.Add.Related.OtherActivities" Command="Mscrm.Form.AddCustomActivity" Id="Mscrm.Form.activitypointer.AddOtherActivities" Image16by16="/_imgs/ribbon/AddActivity_16.png" Image32by32="/_imgs/ribbon/AddActivity_32.png" LabelText="$Resources:Ribbon.HomepageGrid.Add.Related.OtherActivities" PopulateDynamically="true" PopulateQueryCommand="Mscrm.DynamicMenu.Form.AddActivity" Sequence="90" TemplateAlias="c9" ToolTipTitle="$Resources:Ribbon.HomepageGrid.Add.Related.OtherActivities" ToolTipDescription="$Resources(EntityDisplayName):Ribbon.Tooltip.AddOtherActivities" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.activitypointer.AddOtherActivities.Hide" Location="Mscrm.Form.activitypointer.AddOtherActivities" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.activitypointer.Assign.Hide" Location="Mscrm.Form.activitypointer.Assign" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.activitypointer.Convert.Case.Hide" Location="Mscrm.Form.activitypointer.Convert.Case" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.activitypointer.Convert.Opportunity.Hide" Location="Mscrm.Form.activitypointer.Convert.Opportunity" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.activitypointer.RunScript.Hide" Location="Mscrm.Form.activitypointer.RunScript" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.activitypointer.RunWorkflow.Hide" Location="Mscrm.Form.activitypointer.RunWorkflow" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.AddConnection.Hide" Location="Mscrm.HomepageGrid.activitypointer.AddConnection" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.AddToQueue.Hide" Location="Mscrm.HomepageGrid.activitypointer.AddToQueue" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.AdvancedFind.Hide" Location="Mscrm.HomepageGrid.activitypointer.AdvancedFind" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.Assign.Hide" Location="Mscrm.HomepageGrid.activitypointer.Assign" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.Chart.Assign.Hide" Location="Mscrm.HomepageGrid.activitypointer.Chart.Assign" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.FollowButton.Hide" Location="Mscrm.HomepageGrid.activitypointer.FollowButton" />
+    <CustomAction Id="sfa.Mscrm.HomepageGrid.activitypointer.MainTab.Actions.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.Groups._children" Sequence="40">
+      <CommandUIDefinition>
+        <Group Command="Mscrm.Enabled" Description="$Resources:Ribbon.HomepageGrid.MainTab.Actions" Id="Mscrm.HomepageGrid.activitypointer.MainTab.Actions" Image32by32Popup="/_imgs/ribbon/Actions_32.png" Sequence="40" Template="Mscrm.Templates.Flexible4" Title="$Resources:Ribbon.HomepageGrid.MainTab.Actions">
+          <Controls Id="Mscrm.HomepageGrid.activitypointer.MainTab.Actions.Controls">
+            <Button Alt="$Resources:Ribbon.HomepageGrid.MainTab.Actions.SaveAsComplete" Command="Mscrm.SaveAsCompleted" Id="Mscrm.HomepageGrid.activitypointer.SaveAsCompleted" Image32by32="/_imgs/ribbon/SaveAsCompleted_32.png" Image16by16="/_imgs/ribbon/SaveAsCompleted_16.png" LabelText="$Resources:Ribbon.HomepageGrid.MainTab.Actions.SaveAsComplete" Sequence="30" TemplateAlias="o3" ToolTipTitle="$Resources:Mscrm_HomepageGrid_activitypointer_MainTab_Actions_SaveAsCompleted_ToolTipTitle" ToolTipDescription="$Resources:Mscrm_HomepageGrid_activitypointer_MainTab_Actions_SaveAsCompleted_ToolTipDescription" ModernImage="CheckMark" />
+            <Button Alt="$Resources:Ribbon.HomepageGrid.MainTab.Actions.SaveAsCancelled" Command="Mscrm.SaveAsCancelled" Id="Mscrm.HomepageGrid.activitypointer.SaveAsCancelled" Image32by32="/_imgs/ribbon/activitysaveascancelled_32.png" Image16by16="/_imgs/ribbon/activitysaveascancelled_16.png" LabelText="$Resources:Ribbon.HomepageGrid.MainTab.Actions.SaveAsCancelled" Sequence="60" TemplateAlias="o3" ToolTipTitle="$Resources:Mscrm_HomepageGrid_activitypointer_MainTab_Actions_SaveAsCancelled_ToolTipTitle" ToolTipDescription="$Resources:Mscrm_HomepageGrid_activitypointer_MainTab_Actions_SaveAsCancelled_ToolTipDescription" ModernImage="Cancel" />
+            <Button Alt="$Resources:Ribbon.HomepageGrid.MainTab.Find.AdvancedFind" Command="Mscrm.OpenGridAdvancedFind" Id="sfa.activitypointer.Button4.Button" Image32by32="/_imgs/ribbon/advancedfind32.png" Image16by16="/_imgs/ribbon/AdvancedFind_16.png" LabelText="$Resources:Ribbon.HomepageGrid.MainTab.Find.AdvancedFind" Sequence="70" TemplateAlias="o3" ToolTipTitle="$Resources:Ribbon.HomepageGrid.MainTab.Find.AdvancedFind" ToolTipDescription="$Resources:Ribbon.HomepageGrid.AdvancedFind.TooltipDescription" />
+            <Button Command="Mscrm.VisualizationTab.AssignVisualization" Id="sfa.activitypointer.Button5.Button" Image32by32="/_imgs/ribbon/Assign_32.png" Image16by16="/_imgs/ribbon/Assign_16.png" LabelText="$Resources:Ribbon.VisualizationTab.Actions.Assign" Sequence="80" TemplateAlias="o3" ToolTipTitle="$Resources:Ribbon.VisualizationTab.Actions.Assign" ToolTipDescription="$Resources:Ribbon.VisualizationTab.Actions.Assign.ToolTipDescription" />
+          </Controls>
+        </Group>
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.Mscrm.HomepageGrid.activitypointer.MainTab.Actions.MaxSize.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.Scaling._children" Sequence="30">
+      <CommandUIDefinition>
+        <MaxSize GroupId="Mscrm.HomepageGrid.activitypointer.MainTab.Actions" Id="Mscrm.HomepageGrid.activitypointer.MainTab.Actions.MaxSize" Sequence="30" Size="LargeLargeMediumLarge" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.Mscrm.HomepageGrid.activitypointer.MainTab.Actions.Scale.1.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.Scaling._children" Sequence="110">
+      <CommandUIDefinition>
+        <Scale GroupId="Mscrm.HomepageGrid.activitypointer.MainTab.Actions" Id="Mscrm.HomepageGrid.activitypointer.MainTab.Actions.Scale.1" Sequence="110" Size="LargeMediumMediumLarge" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.Mscrm.HomepageGrid.activitypointer.MainTab.Actions.Scale.2.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.Scaling._children" Sequence="160">
+      <CommandUIDefinition>
+        <Scale GroupId="Mscrm.HomepageGrid.activitypointer.MainTab.Actions" Id="Mscrm.HomepageGrid.activitypointer.MainTab.Actions.Scale.2" Sequence="160" Size="Popup" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewAppointment.Appointment.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewAppointment.Appointment" />
+    <CustomAction Id="sfa.Mscrm.HomepageGrid.activitypointer.NewAppointment.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.New.Controls._children" Sequence="90">
+      <CommandUIDefinition>
+        <SplitButton Alt="{!EntityDisplayName:appointment}" Command="Mscrm.CreateAppointment" Id="Mscrm.HomepageGrid.activitypointer.NewAppointment" Image32by32="/_imgs/ribbon/entity32_4201.png" Image16by16="/_imgs/ribbon/entity16_4201.png" LabelText="{!EntityDisplayName:appointment}" Sequence="90" TemplateAlias="c3" ToolTipTitle="{!EntityDisplayName:appointment}" ModernImage="NewAppointment">
+          <Menu Id="Mscrm.HomepageGrid.activitypointer.NewAppointment.Menu">
+            <MenuSection Id="Mscrm.HomepageGrid.activitypointer.NewAppointment.MenuSection" Sequence="10" DisplayMode="Menu16">
+              <Controls Id="Mscrm.HomepageGrid.activitypointer.NewAppointment.Controls">
+                <Button Alt="{!EntityDisplayName:appointment}" Command="Mscrm.CreateAppointment" Id="Mscrm.HomepageGrid.activitypointer.NewAppointment.Appointment" Image32by32="/_imgs/ribbon/entity32_4201.png" Image16by16="/_imgs/ribbon/entity16_4201.png" LabelText="{!EntityDisplayName:appointment}" Sequence="10" ToolTipTitle="{!EntityDisplayName:appointment}" ModernImage="NewAppointment" />
+                <Button Alt="{!EntityDisplayName:recurringappointmentmaster}" Command="Mscrm.CreateRecurringAppointment" Id="Mscrm.HomepageGrid.activitypointer.NewAppointment.RecurringAppointment" Image32by32="/_imgs/ribbon/RecurringAppointmentInstance_32.png" Image16by16="/_imgs/ribbon/Entity16_4251.png" LabelText="{!EntityDisplayName:recurringappointmentmaster}" Sequence="20" ToolTipTitle="{!EntityDisplayName:recurringappointmentmaster}" ModernImage="NewRecurringAppointment" />
+              </Controls>
+            </MenuSection>
+          </Menu>
+        </SplitButton>
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewAppointment.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewAppointment" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewAppointment.MenuSection.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewAppointment.MenuSection" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewAppointment.RecurringAppointment.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewAppointment.RecurringAppointment" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewCampaignResponse.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewCampaignResponse" />
+    <CustomAction Id="sfa.Mscrm.HomepageGrid.activitypointer.NewCustomActivities.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.New.Controls._children" Sequence="80">
+      <CommandUIDefinition>
+        <FlyoutAnchor Alt="$Resources:Ribbon.HomepageGrid.Add.Related.OtherActivities" Command="Mscrm.Grid.NewCustomActivityFromGrid" Id="Mscrm.HomepageGrid.activitypointer.NewCustomActivities" Image16by16="/_imgs/ribbon/customactivity_16.png" Image32by32="/_imgs/ribbon/customactivity_32.png" LabelText="$Resources:Ribbon.HomepageGrid.Add.Related.OtherActivities" PopulateDynamically="true" PopulateQueryCommand="Mscrm.DynamicMenu.Grid.NewCustomActivity" Sequence="80" TemplateAlias="c10" ToolTipTitle="$Resources:Ribbon.HomepageGrid.Add.Related.OtherActivities" ModernImage="CustomActivity" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewCustomActivities.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewCustomActivities" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewEmail.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewEmail" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewFax.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewFax" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewLetter.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewLetter" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewPhone.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewPhone" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.NewServiceActivity.Hide" Location="Mscrm.HomepageGrid.activitypointer.NewServiceActivity" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.RunScript.Hide" Location="Mscrm.HomepageGrid.activitypointer.RunScript" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.RunWorkflow.Hide" Location="Mscrm.HomepageGrid.activitypointer.RunWorkflow" />
+    <CustomAction Id="sfa.Mscrm.HomepageGrid.activitypointer.SendDirectEmail.CustomAction" Location="Mscrm.HomepageGrid.activitypointer.MainTab.Collaborate.Controls._children" Sequence="10">
+      <CommandUIDefinition>
+        <Button Alt="$Resources:Ribbon.HomepageGrid.SendDirectEmail" Command="Mscrm.AddEmailToSelectedRecord" Id="Mscrm.HomepageGrid.activitypointer.SendDirectEmail" Image32by32="/_imgs/ribbon/Email_32.png" Image16by16="/_imgs/ribbon/AddEmail_16.png" LabelText="$Resources:Ribbon.HomepageGrid.SendDirectEmail" Sequence="10" TemplateAlias="o1" ToolTipTitle="$Resources:Ribbon.HomepageGrid.SendDirectEmail.ToolTip" ToolTipDescription="$Resources(EntityDisplayName):Ribbon.Tooltip.DirectEmail" ModernImage="EmailLink" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.SendDirectEmail.Hide" Location="Mscrm.HomepageGrid.activitypointer.SendDirectEmail" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.SetRegarding.Hide" Location="Mscrm.HomepageGrid.activitypointer.SetRegarding" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.activitypointer.UnfollowButton.Hide" Location="Mscrm.HomepageGrid.activitypointer.UnfollowButton" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.activitypointer.FollowButton.Hide" Location="Mscrm.SubGrid.activitypointer.FollowButton" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.activitypointer.MainTab.Actions.SetRegarding.Hide" Location="Mscrm.SubGrid.activitypointer.MainTab.Actions.SetRegarding" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.activitypointer.RunScript.Hide" Location="Mscrm.SubGrid.activitypointer.RunScript" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.activitypointer.RunWorkflow.Hide" Location="Mscrm.SubGrid.activitypointer.RunWorkflow" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.activitypointer.UnfollowButton.Hide" Location="Mscrm.SubGrid.activitypointer.UnfollowButton" />
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="Mscrm.AssignPrimaryRecord">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="Mscrm.AssignPrimaryPermission" />
+        <EnableRule Id="Mscrm.NotOffline" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.AssignPrimaryPermission" />
+        <DisplayRule Id="Mscrm.NotClosedActivity" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="XrmCore.Commands.Assign.assignObjectLegacy" Library="$webresource:Main_system_library.js">
+          <CrmParameter Value="PrimaryEntityTypeCode" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.CreatePhoneCall">
+      <EnableRules />
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.PrimaryIsActivity" />
+        <DisplayRule Id="Mscrm.CreateAndReadPrimaryEntityPermission" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="XrmCore.Commands.Open.openNewRecord" Library="$webresource:Main_system_library.js">
+          <StringParameter Value="phonecall" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.OpenGridAdvancedFind">
+      <EnableRules />
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.RibbonActions.openAdvancedFind" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.VisualizationTab.AssignVisualization">
+      <EnableRules>
+        <EnableRule Id="Mscrm.EnableAssignShareChartButton" />
+        <EnableRule Id="Mscrm.IsParentChartLoaded" />
+        <EnableRule Id="Mscrm.VisualizationPaneRuntimeMode" />
+        <EnableRule Id="Mscrm.NotOffline" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.userqueryvisualization.Assign" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.RibbonActions.assignVisualization" Library="/_static/_common/scripts/RibbonActions.js" />
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="Mscrm.AssignPrimaryPermission">
+        <EntityPrivilegeRule PrivilegeType="Assign" PrivilegeDepth="Basic" AppliesTo="PrimaryEntity" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.CreateAndReadPrimaryEntityPermission">
+        <EntityPrivilegeRule PrivilegeType="Create" PrivilegeDepth="Basic" EntityName="activitypointer" />
+        <EntityPrivilegeRule PrivilegeType="Read" PrivilegeDepth="Basic" EntityName="activitypointer" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideForTabletExperience">
+        <HideForTabletExperienceRule />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideOnModern">
+        <CommandClientTypeRule Type="Modern" InvertResult="true" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.NotClosedActivity">
+        <OrRule>
+          <Or>
+            <EntityPropertyRule AppliesTo="PrimaryEntity" PropertyName="IsActivity" PropertyValue="false" />
+          </Or>
+          <Or>
+            <EntityPropertyRule AppliesTo="PrimaryEntity" PropertyName="IsActivity" PropertyValue="true" />
+            <ValueRule Field="statecode" Value="Open" />
+          </Or>
+          <Or>
+            <EntityPropertyRule AppliesTo="PrimaryEntity" PropertyName="IsActivity" PropertyValue="true" />
+            <ValueRule Field="statecode" Value="Scheduled" />
+          </Or>
+        </OrRule>
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.PrimaryIsActivity">
+        <EntityPropertyRule AppliesTo="PrimaryEntity" PropertyName="IsActivity" PropertyValue="true" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.userqueryvisualization.Assign">
+        <EntityPrivilegeRule PrivilegeType="Assign" PrivilegeDepth="Basic" EntityName="userqueryvisualization" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="Mscrm.AssignPrimaryPermission">
+        <RecordPrivilegeRule PrivilegeType="Assign" AppliesTo="PrimaryEntity" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.EnableAssignShareChartButton">
+        <CustomRule FunctionName="Mscrm.RibbonActions.enableAssignShareChartButton" Library="/_static/_common/scripts/RibbonActions.js" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.FormStateNotNew">
+        <FormStateRule State="Create" InvertResult="true" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.IsParentChartLoaded">
+        <CustomRule FunctionName="Mscrm.RibbonActions.isDrilldownMode" Library="/_static/_common/scripts/RibbonActions.js" InvertResult="true" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.NotOffline">
+        <CrmOfflineAccessStateRule State="Offline" InvertResult="true" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.VisualizationPaneRuntimeMode">
+        <CustomRule FunctionName="Mscrm.RibbonActions.isVisualizationPaneInRuntimeMode" Library="/_static/_common/scripts/RibbonActions.js" />
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels />
+</RibbonDiffXml>

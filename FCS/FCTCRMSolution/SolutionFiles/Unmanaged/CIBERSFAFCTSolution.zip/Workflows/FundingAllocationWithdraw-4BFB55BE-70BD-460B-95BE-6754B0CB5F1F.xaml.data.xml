@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{4bfb55be-70bd-460b-95be-6754b0cb5f1f}" Name="Funding Allocation : Withdraw">
+  <XamlFileName>/Workflows/FundingAllocationWithdraw-4BFB55BE-70BD-460B-95BE-6754B0CB5F1F.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>3</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>1</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <CreateStage>40</CreateStage>
+  <RunAs>1</RunAs>
+  <SdkMessageId>{3d2e4d90-0193-eb11-b1ac-000d3aa818ac}</SdkMessageId>
+  <UniqueName>FundingAllocationWithdraw</UniqueName>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>2.101.1.4</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <FormId>{00000000-0000-0000-0000-000000000000}</FormId>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <PrimaryEntity>none</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Funding Allocation : Withdraw" />
+  </LocalizedNames>
+</Workflow>

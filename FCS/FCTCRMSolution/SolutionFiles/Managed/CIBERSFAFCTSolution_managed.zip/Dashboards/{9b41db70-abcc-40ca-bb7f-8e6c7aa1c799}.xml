@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard>
+  <LocalizedNames>
+    <LocalizedName description="Claim Publisher Dashboard" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Shows  the day-to-day work related data for Claim Publisher" languagecode="1033" />
+  </Descriptions>
+  <FormId>{9b41db70-abcc-40ca-bb7f-8e6c7aa1c799}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab showlabel="false" verticallayout="true" id="{32a1054f-0f4e-4972-b320-29173e194296}" labelid="{9739cb46-5f57-4ab6-8b25-68b8c530642d}">
+            <labels>
+              <label description="Tab" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section showlabel="false" showbar="false" columns="1111" id="{e080f070-6ddc-4c4e-b4de-5c52d07463e6}" labelid="{2622b97f-c0fb-45cd-a4fb-e9bf2abd24ee}">
+                    <labels>
+                      <label description="Section" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{95ac49ca-2d46-4664-1ec4-c529a2633131}" showlabel="false" colspan="4" auto="false" rowspan="6">
+                          <labels>
+                            <label description="Notifications" languagecode="1033" />
+                          </labels>
+                          <control id="FCR_Publish_Notifications" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{b528aa91-81d3-4632-0d17-82c6297441ad}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{997F6567-9A60-E711-9420-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>sfa_notification</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{997F6567-9A60-E711-9420-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId>{3AF73677-C596-E411-93FB-000D3AB03A58}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>2</RecordsPerPage>
+                              <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell colspan="4" rowspan="12" showlabel="false" id="{f7a7b03b-9a20-488b-9630-cbfc5d1ab779}" labelid="{f0b79ac9-59e6-4101-82b9-9acdb6f329b2}" auto="false">
+                          <labels>
+                            <label description="Funding Claim Reconciliation" languagecode="1033" />
+                          </labels>
+                          <control id="FCR" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{81719c12-6b96-3251-09ea-094ab6e4b5ab}" indicationOfSubgrid="true">
+                            <parameters>
+                              <TargetEntityType>sfa_fundingclaimreconciliation</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>8</RecordsPerPage>
+                              <ViewId>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <VisualizationId>{90E2D3BB-E653-E611-9415-000D3AB03A58}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                              <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{93d56c0b-a4e6-32e5-dc7a-b522ae08a054}" showlabel="false" colspan="4" auto="false" rowspan="12">
+                          <labels>
+                            <label description="Claim Reconciliation Publication Exceptions" languagecode="1033" />
+                          </labels>
+                          <control id="Publication_Exceptions" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{75811aca-60b3-b1e5-2e72-702bcdc9ab6a}" indicationOfSubgrid="true">
+                            <parameters>
+                              <ViewId>{186C0AB3-12B0-E711-9423-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>sfa_claimreconciliationpublicationexception</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{186C0AB3-12B0-E711-9423-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>8</RecordsPerPage>
+                              <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+        <DisplayConditions>
+          <Role Id="{CFBAC054-674A-E611-9415-000D3AB03A58}" />
+        </DisplayConditions>
+        <controlDescriptions>
+          <controlDescription forControl="{b528aa91-81d3-4632-0d17-82c6297441ad}">
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" formFactor="0">
+              <parameters>
+                <ViewId>{997F6567-9A60-E711-9420-000D3AB03A58}</ViewId>
+                <IsUserView>false</IsUserView>
+                <RelationshipName />
+                <TargetEntityType>sfa_notification</TargetEntityType>
+                <AutoExpand>Fixed</AutoExpand>
+                <EnableQuickFind>false</EnableQuickFind>
+                <EnableViewPicker>true</EnableViewPicker>
+                <ViewIds>{997F6567-9A60-E711-9420-000D3AB03A58}</ViewIds>
+                <EnableJumpBar>true</EnableJumpBar>
+                <ChartGridMode>Grid</ChartGridMode>
+                <VisualizationId>{3AF73677-C596-E411-93FB-000D3AB03A58}</VisualizationId>
+                <IsUserChart>false</IsUserChart>
+                <EnableChartPicker>false</EnableChartPicker>
+                <RecordsPerPage>2</RecordsPerPage>
+                <HeaderColorCode>#F3F3F3</HeaderColorCode>
+              </parameters>
+            </customControl>
+            <customControl formFactor="1" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{997F6567-9A60-E711-9420-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_notification</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{997F6567-9A60-E711-9420-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+            <customControl formFactor="2" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{997F6567-9A60-E711-9420-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_notification</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{997F6567-9A60-E711-9420-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+          </controlDescription>
+          <controlDescription forControl="{81719c12-6b96-3251-09ea-094ab6e4b5ab}">
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" formFactor="0">
+              <parameters>
+                <TargetEntityType>sfa_fundingclaimreconciliation</TargetEntityType>
+                <ChartGridMode>Grid</ChartGridMode>
+                <EnableQuickFind>false</EnableQuickFind>
+                <EnableViewPicker>true</EnableViewPicker>
+                <EnableJumpBar>true</EnableJumpBar>
+                <RecordsPerPage>8</RecordsPerPage>
+                <ViewId>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</ViewId>
+                <IsUserView>false</IsUserView>
+                <ViewIds>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</ViewIds>
+                <AutoExpand>Fixed</AutoExpand>
+                <VisualizationId>{90E2D3BB-E653-E611-9415-000D3AB03A58}</VisualizationId>
+                <IsUserChart>false</IsUserChart>
+                <EnableChartPicker>false</EnableChartPicker>
+                <RelationshipName />
+                <HeaderColorCode>#F3F3F3</HeaderColorCode>
+              </parameters>
+            </customControl>
+            <customControl formFactor="1" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_fundingclaimreconciliation</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+            <customControl formFactor="2" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_fundingclaimreconciliation</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+          </controlDescription>
+          <controlDescription forControl="{75811aca-60b3-b1e5-2e72-702bcdc9ab6a}">
+            <customControl id="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" formFactor="0">
+              <parameters>
+                <ViewId>{186C0AB3-12B0-E711-9423-000D3AB03A58}</ViewId>
+                <IsUserView>false</IsUserView>
+                <RelationshipName />
+                <TargetEntityType>sfa_claimreconciliationpublicationexception</TargetEntityType>
+                <AutoExpand>Fixed</AutoExpand>
+                <EnableQuickFind>false</EnableQuickFind>
+                <EnableViewPicker>true</EnableViewPicker>
+                <ViewIds>{186C0AB3-12B0-E711-9423-000D3AB03A58}</ViewIds>
+                <EnableJumpBar>true</EnableJumpBar>
+                <ChartGridMode>Grid</ChartGridMode>
+                <VisualizationId />
+                <IsUserChart>false</IsUserChart>
+                <EnableChartPicker>false</EnableChartPicker>
+                <RecordsPerPage>8</RecordsPerPage>
+                <HeaderColorCode>#F3F3F3</HeaderColorCode>
+              </parameters>
+            </customControl>
+            <customControl formFactor="1" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{186C0AB3-12B0-E711-9423-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_claimreconciliationpublicationexception</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{186C0AB3-12B0-E711-9423-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+            <customControl formFactor="2" name="MscrmControls.Grid.GridControl">
+              <parameters>
+                <data-set name="Grid">
+                  <ViewId>{186C0AB3-12B0-E711-9423-000D3AB03A58}</ViewId>
+                  <columnsDefaultView />
+                  <IsUserView>false</IsUserView>
+                  <TargetEntityType>sfa_claimreconciliationpublicationexception</TargetEntityType>
+                  <EnableViewPicker>true</EnableViewPicker>
+                  <FilteredViewIds>{186C0AB3-12B0-E711-9423-000D3AB03A58}</FilteredViewIds>
+                </data-set>
+                <EnableGroupBy static="true" type="Enum">yes</EnableGroupBy>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
+                <ReflowBehavior static="true" type="Enum">GridOnly</ReflowBehavior>
+                <ListLayoutDirection static="true" type="Enum">Vertical</ListLayoutDirection>
+                <EnableSubGridAutoCollapse static="true" type="Enum">false</EnableSubGridAutoCollapse>
+                <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+                <HideNestedGridColumnHeader static="true" type="Enum">no</HideNestedGridColumnHeader>
+                <EnableJumpBar static="true" type="Enum">yes</EnableJumpBar>
+              </parameters>
+            </customControl>
+          </controlDescription>
+        </controlDescriptions>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>2.10.1.0</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

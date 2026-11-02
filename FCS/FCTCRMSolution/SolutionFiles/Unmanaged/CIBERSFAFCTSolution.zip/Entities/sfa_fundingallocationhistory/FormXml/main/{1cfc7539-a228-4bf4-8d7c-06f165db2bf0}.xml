@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{1cfc7539-a228-4bf4-8d7c-06f165db2bf0}</formid>
+  <IntroducedVersion>2.99.1.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{e2b71740-92ac-48b9-acfd-45cca59890bc}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{433af178-c5f6-40c4-85e5-70777618d6d4}" name="{433af178-c5f6-40c4-85e5-70777618d6d4}" columns="11" locklevel="0" labelwidth="130" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{69b73b3d-90b9-49b0-88ea-7fd5aee129df}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Action" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" uniqueid="{ec904242-08b3-751e-25c5-9b6bc2230dce}" disabled="true" />
+                    </cell>
+                    <cell id="{10c95b05-609b-db7d-75d4-dc944d728486}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Completed By" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_completedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_completedby" disabled="true" uniqueid="{dc286296-9168-e77e-416d-b97edb0ac0c2}">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{E88CA999-0B16-4AE9-B6A9-9EDC840D42D8}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{cec91736-9b6e-0b22-9481-e949c2046735}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Previous Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_previousstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_previousstatus" disabled="true" uniqueid="{8917c692-3876-5388-9162-114be2a775aa}" />
+                    </cell>
+                    <cell id="{85dcc4ab-6077-74a3-8de8-a5b56271aa23}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Previous Substatus" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_previoussubstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_previoussubstatus" disabled="true" uniqueid="{c5b96890-4754-d034-3ca5-7c0ad1a39015}" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{e8d57385-d8a5-a6a3-1987-ce6831c57439}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="New Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_newstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_newstatus" disabled="true" uniqueid="{bdec1eee-4806-b6b9-95be-8aaa23214476}" />
+                    </cell>
+                    <cell id="{dce551c8-639a-eee3-ae47-9ae25b10a2a8}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="New Substatus" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_newsubstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_newsubstatus" disabled="true" uniqueid="{8a413e34-0cdd-7850-5cb3-015404766d99}" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{50dc3d6d-053d-8357-c186-27285b0b8994}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Completed On" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_completedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_completedon" disabled="true" uniqueid="{5c676311-bdd6-5c7b-b895-07d07dd75554}" />
+                    </cell>
+                    <cell id="{30e78710-aab4-be22-31ac-89cd4e9cabe1}" showlabel="true" locklevel="0" rowspan="2">
+                      <labels>
+                        <label description="Comments" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_comments" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="sfa_comments" disabled="true" uniqueid="{cb607eb3-3abd-97ba-4d4d-04bdad443728}" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{70362985-74d8-a758-c2c1-2b37b84044d3}" showlabel="false">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+    <controlDescriptions />
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

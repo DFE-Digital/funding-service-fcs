@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{baf352cf-05e3-4b45-a858-38870abd46cd}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{66253d16-0d42-49dc-ab62-ffdbb1966621}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{185503b3-cdc6-44ab-ae67-ad30422dbe0d}" name="{185503b3-cdc6-44ab-ae67-ad30422dbe0d}" columns="1" locklevel="0" labelwidth="150" celllabelalignment="Left" celllabelposition="Left" height="auto">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{d5b0ef0f-6d71-47f6-97f6-75b3e8a72c43}">
+                      <labels>
+                        <label description="Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{6e1b5352-e060-345c-0480-dcc68e350033}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Type Code" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingtypecode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_fundingtypecode" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{52452701-6243-a14d-b136-5853177acca0}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Contract Reference Prefix" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_contractreferenceprefix" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_contractreferenceprefix" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{ed187ea2-ebcb-042b-c88a-110c5a327249}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Agency" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_agencyid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_agencyid" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{592905ae-ea2c-bced-27a8-31b39729626e}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Documentation Not Required" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_documentationnotrequired" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_documentationnotrequired" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{083cadc9-3da9-681d-3344-b6224a89adb0}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Allow Multiple Contracts" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_allowmultiplecontracts" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_allowmultiplecontracts" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{90a98c33-1c9c-a60b-80e2-65a37cb2116e}" showlabel="false" colspan="1" auto="true" rowspan="4">
+                      <labels>
+                        <label description="Funding Streams" languagecode="1033" />
+                      </labels>
+                      <control id="FundingStreams" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                        <parameters>
+                          <ViewId>{63258AE3-3B14-467E-BA11-B4A4551E0F6D}</ViewId>
+                          <IsUserView>false</IsUserView>
+                          <RelationshipName>sfa_fundingtype_fundingstream</RelationshipName>
+                          <TargetEntityType>sfa_fundingstream</TargetEntityType>
+                          <AutoExpand>Auto</AutoExpand>
+                          <EnableQuickFind>false</EnableQuickFind>
+                          <EnableViewPicker>false</EnableViewPicker>
+                          <ViewIds>{63258AE3-3B14-467E-BA11-B4A4551E0F6D}</ViewIds>
+                          <EnableJumpBar>false</EnableJumpBar>
+                          <ChartGridMode>All</ChartGridMode>
+                          <VisualizationId></VisualizationId>
+                          <IsUserChart>false</IsUserChart>
+                          <EnableChartPicker>true</EnableChartPicker>
+                          <RecordsPerPage>10</RecordsPerPage>
+                          <RelationshipRoleOrdinal>1</RelationshipRoleOrdinal>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row></row>
+                  <row></row>
+                  <row height="auto" />
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+    <DisplayConditions FallbackForm="true">
+      <Everyone />
+    </DisplayConditions>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{99ce622a-970f-451b-94e7-7e8a2c2a3ffb}</savedqueryid>
+  <layoutxml>
+    <grid name="" jump="sfa_number" select="1" icon="1" preview="1">
+      <row name="sfa_contract" id="sfa_contractid">
+        <cell name="sfa_number" width="100" />
+        <cell name="sfa_version" width="100" />
+        <cell name="sfa_ukprn" width="100" />
+        <cell name="a_fdf88978f459e41193f7000d3ab03a58.name" width="200" disableSorting="1" />
+        <cell name="sfa_contractstatus" width="100" />
+        <cell name="a_c2857d13e961e41193f8000d3ab03a58.sfa_name" width="150" disableSorting="1" />
+        <cell name="a_a04791708c5be41193f7000d3ab03a58.sfa_name" width="150" disableSorting="1" />
+        <cell name="sfa_contractvalue" width="100" />
+        <cell name="sfa_startdate" width="100" />
+        <cell name="sfa_enddate" width="100" />
+        <cell name="a_4a54f525dc59e41193f7000d3ab03a58.fullname" width="150" disableSorting="1" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>2</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_contract">
+        <attribute name="sfa_number" />
+        <order attribute="sfa_number" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_contractvalue" />
+        <attribute name="sfa_contractstatus" />
+        <attribute name="sfa_startdate" />
+        <attribute name="sfa_enddate" />
+        <attribute name="sfa_version" />
+        <attribute name="sfa_ukprn" />
+        <link-entity alias="a_fdf88978f459e41193f7000d3ab03a58" name="account" from="accountid" to="sfa_providername" link-type="outer" visible="false">
+          <attribute name="name" />
+        </link-entity>
+        <link-entity alias="a_c2857d13e961e41193f8000d3ab03a58" name="sfa_status" from="sfa_statusid" to="sfa_substatus" link-type="outer" visible="false">
+          <attribute name="sfa_name" />
+        </link-entity>
+        <link-entity alias="a_a04791708c5be41193f7000d3ab03a58" name="sfa_fundingtype" from="sfa_fundingtypeid" to="sfa_fundingtype" link-type="outer" visible="false">
+          <attribute name="sfa_name" />
+        </link-entity>
+        <link-entity alias="a_4a54f525dc59e41193f7000d3ab03a58" name="systemuser" from="systemuserid" to="owninguser" link-type="outer" visible="false">
+          <attribute name="fullname" />
+        </link-entity>
+        <attribute name="sfa_contractid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Contract Associated View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

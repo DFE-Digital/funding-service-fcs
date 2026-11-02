@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2015 rel. 4 (http://www.altova.com) by Nigel Hamer (Capgemini) -->
+<xs:schema xmlns:actuals="urn:sfa:schemas:allocationactuals" xmlns="urn:sfa:schemas:allocationactuals" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sfa:schemas:allocationactuals" elementFormDefault="qualified" version="1.01">
+	<xs:element name="AllocationActuals" type="actuals:ContractAllocationActualsType"/>
+	<xs:complexType name="ContractAllocationActualsType">
+		<xs:sequence>
+			<xs:element name="ContractAllocationNumber">
+				<xs:annotation>
+					<xs:documentation>The unique identifier of a Contract Allocation 
+                </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ContractReference" type="actuals:ContractReferenceType"/>
+			<xs:element name="ContractorReference" type="actuals:OrganisationReferenceType">
+				<xs:annotation>
+
+					<xs:documentation>A reference organisation. {Rolled up from the Summarised Actuals}</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CollectionType">
+				<xs:annotation>
+					<xs:documentation>The type of collection this Summarsied Actual is based on
+
+{Rolled up from the Summarised Actuals}</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CollectionReturnCode">
+				<xs:annotation>
+					<xs:documentation>An identifier of the Collection to which this Summarised Actual belongs (R01, R02, R03,….. R13, R14)
+
+{Rolled up from the Summarised Actuals}</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FundingStreamPeriodCode">
+				<xs:annotation>
+					<xs:documentation>"The code used to identify a Funding Stream Period. This is not uniformally constructed from other fields. For example, 16-18APPS1415 uses neither the Funding Stream Code (‘16-18 Apps’) or the Funding Stream Short Code (‘16AP’) as its prefix to the Period (‘1415'). For example, OLASS1415 uses the Funding Stream Code (‘OLASS’) rather than the Funding Stream Short Code (‘OLAS’) as its prefix to the Period (‘1415'). For example, CL1415 doesn’t use the Funding Stream Code (‘ASL’) rather it used the Funding Stream Short Code (‘CL’) as its prefix to the Period (‘1415')."
+
+Assumption: This will be used to match up with ContractAllocation within the Contract structure
+
+{Rolled up from the Summarised Actuals}</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UoPCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This is an identifier of the OLASS unit of procurement to which has summarised actual belongs. In practice this is an attribute of the Procurement (which in turn should be identifible by a combination of Period (of the Funding Stream) and the OLASS unit of procurement plus any versioning that may be required).</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ActualsSummary" type="actuals:ActualsSummaryType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="schemaVersion" type="xs:decimal" use="required" fixed="1.0"/>
+	</xs:complexType>
+	<xs:complexType name="ActualsSummaryType">
+		<xs:sequence>
+			<xs:element name="PeriodType" type="actuals:PeriodTypeType">
+				<xs:annotation>
+					<xs:documentation>Defines and provides context for the value of the Period field</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Period">
+				<xs:annotation>
+					<xs:documentation>A code used to describe the period of time</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DeliverableCode" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>A sequence number within a Funding Stream used to identify a (Contract) Deliverable
+
+Assumption: Will be used to find the deliverable in the contract structure
+
+/contractDeliverable/Deliverable/DeliverableCode</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActualVolume" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The calculated value of the deivery undertaken by the provider</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActualValue" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The calculated volume of the deivery undertaken by the provider</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="13"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AlternativeOrganisationIdentifierType">
+		<xs:sequence>
+			<xs:element name="OrganisationIdentifier">
+				<xs:annotation>
+					<xs:documentation>An alternative identifier used to uniquely identify this Organisation</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OrganisationIdentifierName">
+				<xs:annotation>
+					<xs:documentation>The commonly used name used to describe what the Organisation Identifier is</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+						<xs:enumeration value="UK PROVIDER REFERENCE NUMBER"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContractReferenceType">
+		<xs:annotation>
+			<xs:documentation>Models a reference to a contract</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ContractNumber">
+				<xs:annotation>
+					<xs:documentation>
+              The unique identifier of a Contract (along with Contract Version Number)
+            </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ContractVersionNumber" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>
+              An identifier used to differentiate the different versions of a Contract.
+            </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContractSubVersionNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>An identifier used to allow a Contract Version to be amended without incrementing the Contract Version Number, for example, when updates are made to draft contracts.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganisationReferenceType">
+		<xs:sequence>
+			<xs:element name="OrganisationIdentifier" type="actuals:organisationId">
+				<xs:annotation>
+					<xs:documentation>The identifier of the Organisation </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AlternativeOrganisationIdentifiers" type="actuals:organisationIdentifiers" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="organisationIdentifiers">	
+		<xs:annotation>
+			<xs:documentation>List of identifiers used by bodies to identify this Organisation.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="organisationIdentifier" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>An alternative identifier used by a body to identify this Organisation. The purpose of the identifier is given by the identifier name.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="organisationIdentifier" type="actuals:alternativeOrganisationId">
+							<xs:annotation>
+								<xs:documentation>The alternative identifier used to identify this Organisation.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="organisationIdentifierType" type="actuals:organisationIdentifierType">
+							<xs:annotation>
+								<xs:documentation>The name of the identifier, identifies the purpose of the identifier.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="effectiveDateRange" type="actuals:effectiveDateRange"/>
+						<xs:element name="timeStamps" type="actuals:timeStamps" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="effectiveDateRange">
+		<xs:annotation>
+			<xs:documentation>Attribute group to hold effectiveTo and effectiveFrom attributes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="effectiveFrom" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date and time the data in this element is effective from.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="effectiveTo" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+            The date and time the data in this element is effective to. Open ended if not specified.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PeriodTypeType">
+		<xs:annotation>
+			<xs:documentation>A classification of Period used to reflect the different types of Periods that can apply to funding. For example a Calendar Year period type, Academic Year period type, Financial Year period type although a type could be specific to a particular funding stream.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PeriodTypeCode">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PeriodTypeName">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="timeStamps">
+		<xs:annotation>
+			<xs:documentation>Attribute group to hold dateTimeCreated and dateTimeUpdated attributes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dateTimeCreated" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date and time the data in this element was created.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateTimeUpdated" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date and time the data in this element was most recently updated.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="periodTypeCodeType">
+		<xs:annotation>
+			<xs:documentation>
+        A code used to describe a type of period of time
+      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AY"/>
+			<xs:enumeration value="FY"/>
+			<xs:enumeration value="CY"/>
+			<xs:enumeration value="CM"/>
+			<xs:enumeration value="CQ"/>
+		</xs:restriction>
+	</xs:simpleType>
+		<xs:simpleType name="alternativeOrganisationId">
+		<xs:annotation>
+			<xs:documentation>An alternative identifier used to uniquely identify this Organisation</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="organisationIdentifierType">
+		<xs:annotation>
+			<xs:documentation>The commonly used name used to describe what the Organisation Identifier is</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UK PROVIDER REFERENCE NUMBER"/>
+			<xs:enumeration value="OFSTED NON EDUBASE PROVIDER URN"/>
+			<xs:enumeration value="DENI NUMBER"/>
+			<xs:enumeration value="SECTOR LEAD BODY"/>
+			<xs:enumeration value="LARA AWARDING ORGANISATION IDENTIFIER"/>
+			<xs:enumeration value="LOCAL AUTHORITY CODE"/>
+			<xs:enumeration value="LA AND SCHOOL ESTABLISHMENT CODE"/>
+			<xs:enumeration value="ISSUING AUTHORITY"/>
+			<xs:enumeration value="PIMS ORG CODE"/>
+			<xs:enumeration value="REGISTERED CHARITY NUMBER ENGLAND AND WALES"/>
+			<xs:enumeration value="REGISTERED CHARITY NUMBER SCOTLAND"/>
+			<xs:enumeration value="EDRS EMPLOYER NUMBER"/>
+			<xs:enumeration value="HMRC EMPLOYER NUMBER"/>
+			<xs:enumeration value="ORGANISATIONS FORMER FEFC CODE (FE ORGS ONLY)"/>
+			<xs:enumeration value="LEA CODE"/>
+			<xs:enumeration value="DFE ESTABLISHMENT NUMBER"/>
+			<xs:enumeration value="DFE UNIQUE REFERENCE NUMBER"/>
+			<xs:enumeration value="LINKED URNS"/>
+			<xs:enumeration value="DCFT ORGANISATION IDENTIFIER"/>
+			<xs:enumeration value="REGISTERED COMPANY NUMBER"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="organisationId">
+		<xs:annotation>
+			<xs:documentation>The Identifier used to identify the Organisation as used in the Organisation entity
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

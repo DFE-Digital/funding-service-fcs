@@ -1,0 +1,90 @@
+<Map Name="ContractDeliverable" Source="Import">
+  <Description>Data map created automatically using the map settings specified during an import.</Description>
+  <EntitiesPerFile>Single</EntitiesPerFile>
+  <EntityMaps>
+    <EntityMap TargetEntityName="sfa_contractdeliverable" SourceEntityName="ContractDeliverables" Dedupe="Ignore" ProcessCode="Process">
+      <AttributeMaps>
+        <AttributeMap>
+          <SourceAttributeName>D</SourceAttributeName>
+          <TargetAttributeName>sfa_displayorder</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Deliverable Code</SourceAttributeName>
+          <TargetAttributeName>sfa_deliverablename</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Planned Volume</SourceAttributeName>
+          <TargetAttributeName>sfa_plannedvolume</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Contract</SourceAttributeName>
+          <TargetAttributeName>sfa_contractid</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_contract</LookupEntityName>
+              <LookupAttributeName>sfa_number</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_contract</LookupEntityName>
+              <LookupAttributeName>sfa_contractid</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Allocation</SourceAttributeName>
+          <TargetAttributeName>sfa_contractallocationid</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_contractallocation</LookupEntityName>
+              <LookupAttributeName>sfa_contractallocationnumber</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>FSP Deliverable</SourceAttributeName>
+          <TargetAttributeName>sfa_fundingstreamperioddeliverableid</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_fundingstreamperioddeliverable</LookupEntityName>
+              <LookupAttributeName>sfa_name</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Planned Value (£)</SourceAttributeName>
+          <TargetAttributeName>sfa_plannedvalue</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Unit Cost</SourceAttributeName>
+          <TargetAttributeName>sfa_unitcost</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Import Sequence Number</SourceAttributeName>
+          <TargetAttributeName>sfa_ssacode</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Deliverable Description</SourceAttributeName>
+          <TargetAttributeName>sfa_deliverabledescription</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+  </EntityMaps>
+</Map>

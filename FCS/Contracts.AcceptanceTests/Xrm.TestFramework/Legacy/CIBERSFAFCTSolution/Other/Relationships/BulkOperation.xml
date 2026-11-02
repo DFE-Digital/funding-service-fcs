@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EntityRelationships>
+  <EntityRelationship Name="BulkOperation_ActivityPointers">
+    <EntityRelationshipType>OneToMany</EntityRelationshipType>
+    <IntroducedVersion>5.0.0.0</IntroducedVersion>
+    <ReferencingEntityName>ActivityPointer</ReferencingEntityName>
+    <ReferencedEntityName>BulkOperation</ReferencedEntityName>
+    <CascadeAssign>NoCascade</CascadeAssign>
+    <CascadeDelete>RemoveLink</CascadeDelete>
+    <CascadeReparent>NoCascade</CascadeReparent>
+    <CascadeShare>NoCascade</CascadeShare>
+    <CascadeUnshare>NoCascade</CascadeUnshare>
+    <ReferencingAttributeName>RegardingObjectId</ReferencingAttributeName>
+    <RelationshipDescription>
+      <Descriptions>
+        <Description description="Unique identifier of the object with which the activity is associated." languagecode="1033" />
+      </Descriptions>
+    </RelationshipDescription>
+    <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="regarding">
+      <IsSecured>0</IsSecured>
+      <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+      <IsAuditEnabled>0</IsAuditEnabled>
+      <displaynames>
+        <displayname description="Regarding" languagecode="1033" />
+      </displaynames>
+    </field>
+  </EntityRelationship>
+</EntityRelationships>

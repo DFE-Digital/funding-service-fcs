@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{7dc59a9c-6615-4436-9b95-b84986799295}</savedqueryid>
+  <layoutxml>
+    <grid name="" jump="sfa_name" select="1" icon="1" preview="0">
+      <row name="sfa_claimreconallocgroup" id="sfa_claimreconallocgroupid">
+        <cell name="sfa_name" width="300" />
+        <cell name="sfa_allocationgroupcode" width="150" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>64</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_claimreconallocgroup">
+        <attribute name="sfa_claimreconallocgroupid" />
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <order attribute="sfa_name" descending="false" />
+        <attribute name="sfa_allocationgroupcode" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.10.1.0</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Claim Recon Alloc Group Lookup View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

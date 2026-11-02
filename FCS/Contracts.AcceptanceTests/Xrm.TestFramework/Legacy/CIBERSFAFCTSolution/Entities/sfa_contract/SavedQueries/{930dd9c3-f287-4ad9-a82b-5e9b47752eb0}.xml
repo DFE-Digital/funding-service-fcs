@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <returnedtypecode>10007</returnedtypecode>
+  <savedqueryid>{930dd9c3-f287-4ad9-a82b-5e9b47752eb0}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10007" jump="sfa_number" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_contractid">
+        <cell name="sfa_number" width="300" />
+        <cell name="sfa_version" width="100" />
+        <cell name="sfa_providername" width="100" />
+        <cell name="sfa_ukprn" width="100" />
+        <cell name="sfa_contractstatus" width="100" />
+        <cell name="sfa_substatus" width="100" />
+        <cell name="sfa_contracttype" width="100" />
+        <cell name="sfa_fundingtype" width="100" />
+        <cell name="sfa_startdate" width="100" />
+        <cell name="sfa_enddate" width="100" />
+        <cell name="ownerid" width="100" />
+        <cell name="createdon" width="125" />
+        <cell name="modifiedon" width="100" />
+        <cell name="modifiedby" width="100" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_contract">
+        <attribute name="sfa_number" />
+        <attribute name="createdon" />
+        <order attribute="sfa_number" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="1" />
+        </filter>
+        <attribute name="sfa_version" />
+        <attribute name="sfa_ukprn" />
+        <attribute name="sfa_substatus" />
+        <attribute name="sfa_startdate" />
+        <attribute name="sfa_providername" />
+        <attribute name="ownerid" />
+        <attribute name="modifiedon" />
+        <attribute name="modifiedby" />
+        <attribute name="sfa_fundingtype" />
+        <attribute name="sfa_enddate" />
+        <attribute name="sfa_contracttype" />
+        <attribute name="sfa_contractstatus" />
+        <attribute name="sfa_contractid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Inactive Contracts" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

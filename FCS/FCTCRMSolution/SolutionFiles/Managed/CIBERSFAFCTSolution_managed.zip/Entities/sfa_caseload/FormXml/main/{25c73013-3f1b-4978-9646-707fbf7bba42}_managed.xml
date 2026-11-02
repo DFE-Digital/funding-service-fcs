@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{25c73013-3f1b-4978-9646-707fbf7bba42}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{99ebb372-c8ad-446f-94a7-c4d118cc29de}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{fe9fa1bf-de15-466d-9b8b-2f88d885d5d8}">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{1d6ac505-3aed-1a7c-09a4-1456a48e6632}" showlabel="false" colspan="1" auto="false">
+                      <labels>
+                        <label description="Organisation Info" languagecode="1033" />
+                      </labels>
+                      <control id="quickview_Organisation" classid="{5C5600E0-1D6E-4205-A272-BE80DA87FD42}" datafieldname="sfa_organisationid" disabled="false">
+                        <parameters>
+                          <QuickForms>&lt;QuickFormIds&gt;&lt;QuickFormId entityname="account"&gt;b028db32-3619-48a5-ac51-cf3f947b0ef3&lt;/QuickFormId&gt;&lt;/QuickFormIds&gt;</QuickForms>
+                          <ControlMode>Edit</ControlMode>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{b371fe9a-1492-44f7-897e-3b3a67d18264}">
+                      <labels>
+                        <label description="Contract Adviser" languagecode="1033" />
+                      </labels>
+                      <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{764c8dff-838f-478c-a54f-ff4812f068e4}" showlabel="true" locklevel="0" visible="false">
+                      <labels>
+                        <label description="Provider Legal Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_organisationname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_organisationname" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{540416e8-cbd2-311d-9829-da0039ca628b}" showlabel="true" locklevel="0" visible="false">
+                      <labels>
+                        <label description="Organisation" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_organisationid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_organisationid" disabled="true">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{A9AF0AB8-861D-4CFA-92A5-C6281FED7FAB}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

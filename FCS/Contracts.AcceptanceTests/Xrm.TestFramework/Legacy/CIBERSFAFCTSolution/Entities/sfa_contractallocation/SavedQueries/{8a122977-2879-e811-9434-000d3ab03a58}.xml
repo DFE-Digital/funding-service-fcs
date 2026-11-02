@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <returnedtypecode>10008</returnedtypecode>
+  <savedqueryid>{8a122977-2879-e811-9434-000d3ab03a58}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10008" jump="sfa_contractallocationnumber" select="1" preview="1" icon="1">
+      <row name="result" id="sfa_contractallocationid">
+        <cell name="sfa_contractallocationnumber" width="150" />
+        <cell name="sfa_fundingstreamid" width="125" />
+        <cell name="sfa_maximumcontractvalue" width="150" />
+        <cell name="sfa_description" width="200" />
+        <cell name="sfa_startdate" width="100" />
+        <cell name="sfa_enddate" width="100" />
+        <cell name="sfa_stopnewstartsdate" width="125" />
+        <cell name="sfa_terminationdate" width="100" />
+        <cell name="sfa_lepname" width="150" />
+        <cell name="sfa_agreementnumber" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+      <entity name="sfa_contractallocation">
+        <attribute name="sfa_contractallocationnumber" />
+        <attribute name="sfa_terminationdate" />
+        <attribute name="sfa_stopnewstartsdate" />
+        <attribute name="sfa_startdate" />
+        <attribute name="sfa_lepname" />
+        <attribute name="sfa_fundingstreamid" />
+        <attribute name="sfa_enddate" />
+        <attribute name="sfa_maximumcontractvalue" />
+        <attribute name="sfa_description" />
+        <attribute name="sfa_agreementnumber" />
+        <order attribute="sfa_contractallocationnumber" descending="false" />
+        <order attribute="sfa_startdate" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_contractallocationid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.48.3.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Contract Allocations with Termination Details" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

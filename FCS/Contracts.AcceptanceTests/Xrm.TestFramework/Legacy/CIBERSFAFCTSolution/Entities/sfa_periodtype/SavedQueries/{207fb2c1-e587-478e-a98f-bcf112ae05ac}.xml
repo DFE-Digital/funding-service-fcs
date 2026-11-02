@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <returnedtypecode>10022</returnedtypecode>
+  <savedqueryid>{207fb2c1-e587-478e-a98f-bcf112ae05ac}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10022" jump="sfa_periodtypecode" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_periodtypeid">
+        <cell name="sfa_periodtypecode" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_periodtype">
+        <attribute name="sfa_periodtypeid" />
+        <attribute name="sfa_periodtypecode" />
+        <attribute name="createdon" />
+        <order attribute="sfa_periodtypecode" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="1" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Inactive Period Types" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

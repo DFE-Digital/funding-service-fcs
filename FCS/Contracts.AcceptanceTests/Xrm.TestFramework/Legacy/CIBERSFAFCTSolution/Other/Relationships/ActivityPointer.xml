@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EntityRelationships>
+  <EntityRelationship Name="ActivityPointer_AsyncOperations">
+    <EntityRelationshipType>OneToMany</EntityRelationshipType>
+    <IntroducedVersion>5.0.0.0</IntroducedVersion>
+    <ReferencingEntityName>AsyncOperation</ReferencingEntityName>
+    <ReferencedEntityName>ActivityPointer</ReferencedEntityName>
+    <CascadeAssign>NoCascade</CascadeAssign>
+    <CascadeDelete>NoCascade</CascadeDelete>
+    <CascadeReparent>NoCascade</CascadeReparent>
+    <CascadeShare>NoCascade</CascadeShare>
+    <CascadeUnshare>NoCascade</CascadeUnshare>
+    <ReferencingAttributeName>RegardingObjectId</ReferencingAttributeName>
+    <RelationshipDescription>
+      <Descriptions>
+        <Description description="Unique identifier of the object with which the system job is associated." languagecode="1033" />
+      </Descriptions>
+    </RelationshipDescription>
+    <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="regarding">
+      <IsSecured>0</IsSecured>
+      <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+      <IsAuditEnabled>0</IsAuditEnabled>
+      <displaynames>
+        <displayname description="Regarding" languagecode="1033" />
+      </displaynames>
+    </field>
+  </EntityRelationship>
+  <EntityRelationship Name="ActivityPointer_BulkDeleteFailures">
+    <EntityRelationshipType>OneToMany</EntityRelationshipType>
+    <IntroducedVersion>5.0.0.0</IntroducedVersion>
+    <ReferencingEntityName>BulkDeleteFailure</ReferencingEntityName>
+    <ReferencedEntityName>ActivityPointer</ReferencedEntityName>
+    <CascadeAssign>NoCascade</CascadeAssign>
+    <CascadeDelete>Cascade</CascadeDelete>
+    <CascadeReparent>NoCascade</CascadeReparent>
+    <CascadeShare>NoCascade</CascadeShare>
+    <CascadeUnshare>NoCascade</CascadeUnshare>
+    <ReferencingAttributeName>RegardingObjectId</ReferencingAttributeName>
+    <RelationshipDescription>
+      <Descriptions>
+        <Description description="Unique identifier of the record that can not be deleted." languagecode="1033" />
+      </Descriptions>
+    </RelationshipDescription>
+    <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="regarding">
+      <IsSecured>0</IsSecured>
+      <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+      <IsAuditEnabled>0</IsAuditEnabled>
+      <displaynames>
+        <displayname description="Name" languagecode="1033" />
+      </displaynames>
+    </field>
+  </EntityRelationship>
+  <EntityRelationship Name="activitypointer_connections1">
+    <EntityRelationshipType>OneToMany</EntityRelationshipType>
+    <IntroducedVersion>5.0.0.0</IntroducedVersion>
+    <ReferencingEntityName>Connection</ReferencingEntityName>
+    <ReferencedEntityName>ActivityPointer</ReferencedEntityName>
+    <CascadeAssign>NoCascade</CascadeAssign>
+    <CascadeDelete>Cascade</CascadeDelete>
+    <CascadeReparent>NoCascade</CascadeReparent>
+    <CascadeShare>NoCascade</CascadeShare>
+    <CascadeUnshare>NoCascade</CascadeUnshare>
+    <ReferencingAttributeName>Record1Id</ReferencingAttributeName>
+    <RelationshipDescription>
+      <Descriptions>
+        <Description description="Unique identifier of the source record." languagecode="1033" />
+      </Descriptions>
+    </RelationshipDescription>
+    <field name="record1id" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="connection">
+      <IsSecured>0</IsSecured>
+      <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+      <IsAuditEnabled>1</IsAuditEnabled>
+      <displaynames>
+        <displayname description="Connected From" languagecode="1033" />
+      </displaynames>
+    </field>
+  </EntityRelationship>
+  <EntityRelationship Name="activitypointer_connections2">
+    <EntityRelationshipType>OneToMany</EntityRelationshipType>
+    <IntroducedVersion>5.0.0.0</IntroducedVersion>
+    <ReferencingEntityName>Connection</ReferencingEntityName>
+    <ReferencedEntityName>ActivityPointer</ReferencedEntityName>
+    <CascadeAssign>NoCascade</CascadeAssign>
+    <CascadeDelete>Cascade</CascadeDelete>
+    <CascadeReparent>NoCascade</CascadeReparent>
+    <CascadeShare>NoCascade</CascadeShare>
+    <CascadeUnshare>NoCascade</CascadeUnshare>
+    <ReferencingAttributeName>Record2Id</ReferencingAttributeName>
+    <RelationshipDescription>
+      <Descriptions>
+        <Description description="Unique identifier of the target record." languagecode="1033" />
+      </Descriptions>
+    </RelationshipDescription>
+    <field name="record2id" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="connection">
+      <IsSecured>0</IsSecured>
+      <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+      <IsAuditEnabled>1</IsAuditEnabled>
+      <displaynames>
+        <displayname description="Connected To" languagecode="1033" />
+      </displaynames>
+    </field>
+  </EntityRelationship>
+</EntityRelationships>

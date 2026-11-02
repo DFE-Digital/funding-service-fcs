@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml>
+  <CustomActions>
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_fundingclaimreconciliation.Activate.Hide" Location="Mscrm.Form.sfa_fundingclaimreconciliation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_fundingclaimreconciliation.Deactivate.Hide" Location="Mscrm.Form.sfa_fundingclaimreconciliation.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_fundingclaimreconciliation.RunScript.Hide" Location="Mscrm.Form.sfa_fundingclaimreconciliation.RunScript" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.Activate.Hide" Location="Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.Deactivate.Hide" Location="Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.Import.Hide" Location="Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.Import" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.RunScript.Hide" Location="Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.RunScript" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_fundingclaimreconciliation.Activate.Hide" Location="Mscrm.SubGrid.sfa_fundingclaimreconciliation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_fundingclaimreconciliation.Deactivate.Hide" Location="Mscrm.SubGrid.sfa_fundingclaimreconciliation.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_fundingclaimreconciliation.RunScript.Hide" Location="Mscrm.SubGrid.sfa_fundingclaimreconciliation.RunScript" />
+    <CustomAction Id="sfa.sfa_fundingclaimreconciliation.Button1.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.MainTab.Management.Controls._children" Sequence="55">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button1.Button.Alt" Command="sfa.sfa_fundingclaimreconciliation.RunPublishWorkflow.Command" Id="sfa.sfa_fundingclaimreconciliation.Button1.Button" Image16by16="$webresource:sfa_PublishFCR16x16" LabelText="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button1.Button.LabelText" Sequence="55" TemplateAlias="o3" ToolTipTitle="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button1.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button1.Button.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_fundingclaimreconciliation.Button2.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.MainTab.Management.Controls._children" Sequence="57">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button2.Button.Alt" Command="sfa.sfa_fundingclaimreconciliation.RunHoldWorkflow.Command" Id="sfa.sfa_fundingclaimreconciliation.Button2.Button" Image16by16="$webresource:sfa_HoldFCR16x16" LabelText="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button2.Button.LabelText" Sequence="57" TemplateAlias="o3" ToolTipTitle="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button2.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button2.Button.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_fundingclaimreconciliation.Button3.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_fundingclaimreconciliation.MainTab.Management.Controls._children" Sequence="58">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button3.Button.Alt" Command="sfa.sfa_fundingclaimreconciliation.RunReleaseWorkflow.Command" Id="sfa.sfa_fundingclaimreconciliation.Button3.Button" Image16by16="$webresource:sfa_ReleaseFCR16x16" LabelText="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button3.Button.LabelText" Sequence="58" TemplateAlias="o3" ToolTipTitle="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button3.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_fundingclaimreconciliation.Button3.Button.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="Mscrm.ExportToExcel">
+      <EnableRules>
+        <EnableRule Id="Mscrm.ExportToExcel" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+        <EnableRule Id="Mscrm.IsNotIos" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="Mscrm.ExportToExcelPrivilege" />
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.AdminDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.exportToExcel" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.RunWorkflowPrimary">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="Mscrm.RunWorkflowPrimary" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.AdminDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.FormAction.launchOnDemandWorkflowForm" Library="/_static/_forms/form.js">
+          <CrmParameter Value="PrimaryEntityTypeCode" />
+          <StringParameter Value="" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.RunWorkflowSelected">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.AdminDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.launchOnDemandWorkflow" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+          <StringParameter Value="" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_fundingclaimreconciliation.RunHoldWorkflow.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.FCRHold.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.launchOnDemandWorkflow" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+          <StringParameter Value="8FBB964F-5CC0-4760-AC01-4FAB52A42787" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_fundingclaimreconciliation.RunPublishWorkflow.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.PublisherDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.launchOnDemandWorkflow" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+          <StringParameter Value="649C9B76-F848-4E04-B9B8-2271AFB25070" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_fundingclaimreconciliation.RunReleaseWorkflow.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.FCRHold.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.launchOnDemandWorkflow" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+          <StringParameter Value="0461C313-1510-4A0B-9927-AD1FA7060C6D" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="Mscrm.ExportToExcelPrivilege">
+        <MiscellaneousPrivilegeRule PrivilegeName="ExportToExcel" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideForTabletExperience">
+        <HideForTabletExperienceRule />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideOnModern">
+        <CommandClientTypeRule Type="Modern" InvertResult="true" />
+      </DisplayRule>
+      <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.AdminDisplayRule.DisplayRule">
+        <EntityPrivilegeRule PrivilegeType="Create" PrivilegeDepth="Global" EntityName="sfa_fundingclaimreconciliation" />
+      </DisplayRule>
+      <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.FCRHold.DisplayRule">
+        <EntityPrivilegeRule PrivilegeType="Write" PrivilegeDepth="Global" EntityName="sfa_fundingclaimreconciliation" />
+      </DisplayRule>
+      <DisplayRule Id="sfa.sfa_fundingclaimreconciliation.PublisherDisplayRule.DisplayRule">
+        <EntityPrivilegeRule PrivilegeType="Assign" PrivilegeDepth="Global" EntityName="sfa_fundingclaimreconciliation" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="Mscrm.ExportToExcel">
+        <CustomRule FunctionName="Mscrm.RibbonActions.enableExportToExcel" Library="/_static/_common/scripts/RibbonActions.js" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.FormStateNotNew">
+        <FormStateRule State="Create" InvertResult="true" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.IsNotIos">
+        <CustomRule FunctionName="Mscrm.IsIos_0" Library="$Webresource:Ribbon_main_system_library.js" InvertResult="true" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.RunWorkflowPrimary">
+        <CustomRule FunctionName="Mscrm.RibbonActions.enableWorkflowOnForm" Library="/_static/_common/scripts/RibbonActions.js" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.VisualizationPaneNotMaximized">
+        <OrRule>
+          <Or>
+            <CommandClientTypeRule Type="Modern" />
+          </Or>
+          <Or>
+            <CustomRule FunctionName="Mscrm.RibbonActions.disableButtonsWhenChartMaximized" Library="/_static/_common/scripts/RibbonActions.js">
+              <CrmParameter Value="SelectedControl" />
+            </CustomRule>
+          </Or>
+        </OrRule>
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button1.Button.Alt">
+      <Titles>
+        <Title description="Publish" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button1.Button.LabelText">
+      <Titles>
+        <Title description="Publish" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button1.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Use to Publish the selected FCR records" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button1.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Publish" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button2.Button.Alt">
+      <Titles>
+        <Title description="Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button2.Button.LabelText">
+      <Titles>
+        <Title description="HOLD" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button2.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Hold publication of selected FCR records" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button2.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button3.Button.Alt">
+      <Titles>
+        <Title description="Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button3.Button.LabelText">
+      <Titles>
+        <Title description="RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button3.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Release selected FCR records from hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingclaimreconciliation.Button3.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

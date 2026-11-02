@@ -1,0 +1,386 @@
+﻿{
+  "CorporateContract": {
+    "schemaVersion": 8.04,
+    "ContractApprovalDate": null,
+    "StatusLastUpdatedDate": null,
+    "LastModifiedDate": null,
+    "DocumentationRequired": null,
+    "SkipCaseloadAssignment": null,
+    "SkipReviewAndInternalApproval": null,
+    "SkipDocumentMerge": false,
+    "IsNonFinancialAmendment": null,
+    "TerminationDate": null,
+    "TerminationReason": null,
+    "IsNewRevisedNewOrUpdateDraft": false,
+    "IsAmendment": false,
+    "SharedMasterApprovedContracts": [],
+    "LatestCreatedDateForNonNotificationApprovedContract": null,
+    "IsVariation": false,
+    "ShouldMergeAmendmentTemplate": false,
+    "IsNotification": true,
+    "contracts": [
+      {
+        "ContractApprovalDate": null,
+        "StatusLastUpdatedDate": "2020-10-26T15:33:46.633151Z",
+        "LastModifiedDate": "2020-10-26T15:33:31Z",
+        "DocumentationRequired": true,
+        "SkipCaseloadAssignment": null,
+        "SkipReviewAndInternalApproval": null,
+        "SkipDocumentMerge": true,
+        "IsNonFinancialAmendment": null,
+        "TerminationDate": null,
+        "TerminationReason": "",
+        "IsNewRevisedNewOrUpdateDraft": false,
+        "IsAmendment": false,
+        "SharedMasterApprovedContracts": [],
+        "LatestCreatedDateForNonNotificationApprovedContract": null,
+        "IsVariation": false,
+        "ShouldMergeAmendmentTemplate": false,
+        "IsNotification": true,
+        "contracts": [],
+        "fundingType": {
+          "fundingTypeCode": "LEVY",
+          "fundingTypeName": "Apprenticeship Levy"
+        },
+        "period": {
+          "periodType": {
+            "periodTypeCode": 8,
+            "periodTypeName": 8
+          },
+          "fundingStreamPeriods": [],
+          "period1": "1799",
+          "startDate": "2017-05-01T01:00:00Z",
+          "endDate": "2099-12-31T01:00:00Z"
+        },
+        "fundingStream": {
+          "fundingStreamCode": null,
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "contractAllocations": [
+          {
+            "ActivityDescription": null,
+            "AgreementNumber": null,
+            "SpecificationTitle": null,
+            "RegionType": null,
+            "LearningRatePremium": null,
+            "InvestmentPriority": null,
+            "LEPCode": null,
+            "LEPName": null,
+            "DeliveryOrganisation": null,
+            "DeliveryOrganisationDetail": null,
+            "FundingCessationDate": null,
+            "StopNewStartsDate": null,
+            "HasBeenAddedOrUpdated": false,
+            "HasBeenAdded": false,
+            "OriginalAllocationNumber": null,
+            "contractAllocations": [],
+            "period": {
+              "periodType": {
+                "periodTypeCode": 8,
+                "periodTypeName": 8
+              },
+              "fundingStreamPeriods": [],
+              "period1": "1799",
+              "startDate": "2017-05-01T01:00:00Z",
+              "endDate": "2099-12-31T01:00:00Z"
+            },
+            "fundingStream": {
+              "fundingStreamCode": "LEVY",
+              "fundingStreamName": "Apprenticeship Levy",
+              "fundingTypeCode": "LEVY",
+              "fundingStreamShortCode": null
+            },
+            "allocationDimensionRelationships": [],
+            "allocationOrganisationRelationships": null,
+            "contractDeliverables": [
+              {
+                "ParentDeliverableCode": null,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 0.0,
+                "DisplayOrder": 0,
+                "contractDeliverables": [],
+                "deliverable": {
+                  "fundingStreamCode": null,
+                  "deliverableCode": 7,
+                  "businessCode": null,
+                  "deliverableName": "Total Adult Levy Apprenticeships"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2017,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 0.0,
+                    "aggregate": false,
+                    "periodName": null,
+                    "displayOrder": 0
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": "Total Adult Levy Apprenticeships",
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 0.0
+              },
+              {
+                "ParentDeliverableCode": null,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 0.0,
+                "DisplayOrder": 0,
+                "contractDeliverables": [],
+                "deliverable": {
+                  "fundingStreamCode": null,
+                  "deliverableCode": 1,
+                  "businessCode": null,
+                  "deliverableName": "Total 16-18 Levy Apprenticeships"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2017,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 0.0,
+                    "aggregate": false,
+                    "periodName": null,
+                    "displayOrder": 0
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": "Total 16-18 Levy Apprenticeships",
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 0.0
+              }
+            ],
+            "contractAllocationNumber": "LEVY-21197",
+            "description": null,
+            "hierarchyType": 0,
+            "fundingStreamPeriodCode": "LEVY1799",
+            "startDate": "2017-05-01T01:00:00Z",
+            "endDate": null,
+            "maximumContractValue": 0.0,
+            "reasonForAmendment": null,
+            "uopCode": null,
+            "tenderSpecificationReference": null,
+            "lotReference": null,
+            "tenderAwardReference": null
+          },
+          {
+            "ActivityDescription": null,
+            "AgreementNumber": null,
+            "SpecificationTitle": null,
+            "RegionType": null,
+            "LearningRatePremium": null,
+            "InvestmentPriority": null,
+            "LEPCode": null,
+            "LEPName": null,
+            "DeliveryOrganisation": null,
+            "DeliveryOrganisationDetail": null,
+            "FundingCessationDate": null,
+            "StopNewStartsDate": null,
+            "HasBeenAddedOrUpdated": false,
+            "HasBeenAdded": false,
+            "OriginalAllocationNumber": null,
+            "contractAllocations": [],
+            "period": {
+              "periodType": {
+                "periodTypeCode": 8,
+                "periodTypeName": 8
+              },
+              "fundingStreamPeriods": [],
+              "period1": "1799",
+              "startDate": "2017-05-01T01:00:00Z",
+              "endDate": "2099-12-31T01:00:00Z"
+            },
+            "fundingStream": {
+              "fundingStreamCode": "NONLEVY",
+              "fundingStreamName": "Non-Levy Apprenticeships",
+              "fundingTypeCode": "LEVY",
+              "fundingStreamShortCode": null
+            },
+            "allocationDimensionRelationships": [],
+            "allocationOrganisationRelationships": null,
+            "contractDeliverables": [
+              {
+                "ParentDeliverableCode": null,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 0.0,
+                "DisplayOrder": 0,
+                "contractDeliverables": [],
+                "deliverable": {
+                  "fundingStreamCode": null,
+                  "deliverableCode": 8,
+                  "businessCode": null,
+                  "deliverableName": "Total Adult Non-Levy Apprenticeships"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2017,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 0.0,
+                    "aggregate": false,
+                    "periodName": null,
+                    "displayOrder": 0
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": "Total Adult Non-Levy Apprenticeships",
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 0.0
+              },
+              {
+                "ParentDeliverableCode": null,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 0.0,
+                "DisplayOrder": 0,
+                "contractDeliverables": [],
+                "deliverable": {
+                  "fundingStreamCode": null,
+                  "deliverableCode": 1,
+                  "businessCode": null,
+                  "deliverableName": "Total 16-18 Non-Levy Apprenticeships"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2017,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 0.0,
+                    "aggregate": false,
+                    "periodName": null,
+                    "displayOrder": 0
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": "Total 16-18 Non-Levy Apprenticeships",
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 0.0
+              }
+            ],
+            "contractAllocationNumber": "NLA-21354",
+            "description": null,
+            "hierarchyType": 0,
+            "fundingStreamPeriodCode": "NONLEVY2019",
+            "startDate": "2017-05-01T01:00:00Z",
+            "endDate": null,
+            "maximumContractValue": 0.0,
+            "reasonForAmendment": null,
+            "uopCode": null,
+            "tenderSpecificationReference": null,
+            "lotReference": null,
+            "tenderAwardReference": null
+          }
+        ],
+        "contractDimensionRelationships": [],
+        "contractOrganisationRelationships": [],
+        "contractNumber": "APPLEVY-21198",
+        "contractVersionNumber": 1,
+        "contractSubVersionNumber": 0,
+        "description": null,
+        "contractor": {
+          "organisationIdentifier": null,
+          "ukprn": 10009987,
+          "legalName": "Learn Direct LTD",
+          "registeredCompanyNumber": null,
+          "organisationAddressIdentifier": 0,
+          "addressLine1": null,
+          "addressLine2": null,
+          "addressLine3": null,
+          "addressLine4": null,
+          "county": null,
+          "town": null,
+          "postcode": null,
+          "Upin": null,
+          "CharityNumber": null,
+          "Status": null
+        },
+        "hierarchyType": 1,
+        "contractType1": "Provider Agreement",
+        "startDate": "2017-05-01T01:00:00Z",
+        "endDate": null,
+        "contractStatus": {
+          "status": "PublishedToProvider",
+          "parentStatus": "Draft"
+        },
+        "contractValue": 0.0,
+        "parentContractNumber": "ESFA-61919",
+        "parentContractVersionNumber": 1,
+        "amendmentType": null
+      }
+    ],
+    "fundingType": {
+      "fundingTypeCode": "LEVY",
+      "fundingTypeName": "Apprenticeship Levy"
+    },
+    "period": null,
+    "fundingStream": {
+      "fundingStreamCode": null,
+      "fundingStreamName": null,
+      "fundingTypeCode": null,
+      "fundingStreamShortCode": null
+    },
+    "contractAllocations": [],
+    "contractDimensionRelationships": [],
+    "contractOrganisationRelationships": [],
+    "contractNumber": "ESFA-61919",
+    "contractVersionNumber": 1,
+    "contractSubVersionNumber": 0,
+    "description": null,
+    "contractor": {
+      "organisationIdentifier": null,
+      "ukprn": 10009987,
+      "legalName": "Learn Direct LTD",
+      "registeredCompanyNumber": null,
+      "organisationAddressIdentifier": 0,
+      "addressLine1": null,
+      "addressLine2": null,
+      "addressLine3": null,
+      "addressLine4": null,
+      "county": null,
+      "town": null,
+      "postcode": null,
+      "Upin": null,
+      "CharityNumber": null,
+      "Status": null
+    },
+    "hierarchyType": 0,
+    "contractType1": "Provider Agreement",
+    "startDate": "2017-05-01T01:00:00Z",
+    "endDate": null,
+    "contractStatus": null,
+    "contractValue": null,
+    "parentContractNumber": null,
+    "parentContractVersionNumber": null,
+    "amendmentType": null
+  },
+  "ContractApprovalType": 1
+}

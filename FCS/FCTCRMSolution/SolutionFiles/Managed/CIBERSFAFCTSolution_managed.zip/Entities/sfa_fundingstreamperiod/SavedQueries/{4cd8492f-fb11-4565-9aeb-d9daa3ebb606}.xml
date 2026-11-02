@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <savedqueryid>{4cd8492f-fb11-4565-9aeb-d9daa3ebb606}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_fundingstreamperiodcode" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_fundingstreamperiodid">
+        <cell name="sfa_fundingstreamperiodcode" width="300" />
+        <cell name="sfa_procurement" width="125" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_fundingstreamperiod">
+        <attribute name="sfa_fundingstreamperiodcode" />
+        <attribute name="createdon" />
+        <order attribute="sfa_fundingstreamperiodcode" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="1" />
+        </filter>
+        <attribute name="sfa_procurement" />
+        <attribute name="sfa_fundingstreamperiodid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Inactive Funding Stream Periods" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

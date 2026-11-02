@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{da441707-1a81-48f2-81db-a5e2556d5e3d}</formid>
+  <IntroducedVersion>1.1.5.2</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form shownavigationbar="true" showImage="false" maxWidth="1900">
+    <tabs>
+      <tab verticallayout="true" id="{dbaa52c8-85be-47a7-bd8f-3e586a0a5465}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{f9077043-8128-4637-bc7d-96310a202767}">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{4a1b1579-52bc-cea2-1136-3a4deb09466e}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Setting" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_settingid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_settingid" disabled="false">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{F236F09B-6959-4846-BEFA-DD538F331F4D}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{d1d8745d-6157-6a41-2ece-ed923c432496}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Setting Value" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_settingvaluelistid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_settingvaluelistid" disabled="false">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{3382FC9A-7D9B-4AD7-9754-0C9C3F38D152}</DefaultViewId>
+                          <FilterRelationshipName>sfa_setting_settingvaluelist</FilterRelationshipName>
+                          <DependentAttributeName>sfa_fspdeliverablesetting.sfa_settingid</DependentAttributeName>
+                          <DependentAttributeType>sfa_setting</DependentAttributeType>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{c493ebba-4b3e-404b-8b63-8bee0ffbe46f}" showlabel="false" locklevel="0" visible="false">
+                      <labels>
+                        <label description="Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+    <formLibraries>
+      <Library name="sfa_js/fspdeliverable.forms.main.js" libraryUniqueId="{4892317b-7406-917a-158a-0aea18e2c56c}" />
+    </formLibraries>
+    <events>
+      <event name="onload" application="false" active="false">
+        <Handlers>
+          <Handler functionName="formLoad" libraryName="sfa_js/fspdeliverable.forms.main.js" handlerUniqueId="{5ccc0376-0718-730b-805d-db77e932c16e}" enabled="true" parameters="" passExecutionContext="true" />
+        </Handlers>
+      </event>
+      <event name="onchange" application="false" active="false" attribute="sfa_settingid">
+        <Handlers>
+          <Handler functionName="SettingOnChange" libraryName="sfa_js/fspdeliverable.forms.main.js" handlerUniqueId="{944c81c5-ea17-5489-1227-49088b628835}" enabled="true" parameters="" passExecutionContext="true" />
+        </Handlers>
+      </event>
+    </events>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

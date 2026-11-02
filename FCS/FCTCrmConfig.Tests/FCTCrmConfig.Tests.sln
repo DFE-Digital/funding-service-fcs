@@ -1,0 +1,102 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionPackager", "..\..\tools\Ciber.Xrm.Ci\SolutionPackager\SolutionPackager.csproj", "{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{03484FE8-2177-4993-97C4-B05A69E7B197}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.TestFramework", "Xrm.TestFramework\Xrm.TestFramework.csproj", "{D5E17955-B6B4-4F37-9C81-8B236B3A6778}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Configuration.Tests", "Xrm.Configuration.Tests\Xrm.Configuration.Tests.csproj", "{4B0CB521-F2EA-402A-929A-082D874C75A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Acceptance.Tests", "Xrm.Acceptance.Tests\Xrm.Acceptance.Tests.csproj", "{DA880D6D-E582-414F-BABA-A064D0D223FD}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://cis-tfs.cloudapp.net/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\tools\\Ciber.Xrm.Ci\\SolutionPackager\\SolutionPackager.csproj
+		SccProjectName1 = ../../tools/Ciber.Xrm.Ci/SolutionPackager
+		SccLocalPath1 = ..\\..\\tools\\Ciber.Xrm.Ci\\SolutionPackager
+		SccProjectUniqueName2 = Xrm.Acceptance.Tests\\Xrm.Acceptance.Tests.csproj
+		SccProjectName2 = Xrm.Acceptance.Tests
+		SccLocalPath2 = Xrm.Acceptance.Tests
+		SccProjectUniqueName3 = Xrm.Configuration.Tests\\Xrm.Configuration.Tests.csproj
+		SccProjectName3 = Xrm.Configuration.Tests
+		SccLocalPath3 = Xrm.Configuration.Tests
+		SccProjectUniqueName4 = Xrm.TestFramework\\Xrm.TestFramework.csproj
+		SccProjectName4 = Xrm.TestFramework
+		SccLocalPath4 = Xrm.TestFramework
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AT|Any CPU = AT|Any CPU
+		CI|Any CPU = CI|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		MO|Any CPU = MO|Any CPU
+		Public|Any CPU = Public|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.AT|Any CPU.ActiveCfg = AT|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.AT|Any CPU.Build.0 = AT|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.CI|Any CPU.ActiveCfg = CI|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.CI|Any CPU.Build.0 = CI|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.MO|Any CPU.ActiveCfg = MO|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.MO|Any CPU.Build.0 = MO|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.Public|Any CPU.Build.0 = Public|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BD72D8D-01D6-4D42-9992-EBB2EEC8E148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.AT|Any CPU.ActiveCfg = AT|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.AT|Any CPU.Build.0 = AT|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.CI|Any CPU.ActiveCfg = CI|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.CI|Any CPU.Build.0 = CI|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.MO|Any CPU.ActiveCfg = ModelOffice|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.MO|Any CPU.Build.0 = ModelOffice|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.Public|Any CPU.Build.0 = Public|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E17955-B6B4-4F37-9C81-8B236B3A6778}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.AT|Any CPU.ActiveCfg = AT|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.AT|Any CPU.Build.0 = AT|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.CI|Any CPU.ActiveCfg = CI|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.CI|Any CPU.Build.0 = CI|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.MO|Any CPU.ActiveCfg = ModelOffice|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.MO|Any CPU.Build.0 = ModelOffice|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.Public|Any CPU.Build.0 = Public|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0CB521-F2EA-402A-929A-082D874C75A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.AT|Any CPU.ActiveCfg = AT|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.AT|Any CPU.Build.0 = AT|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.CI|Any CPU.ActiveCfg = CI|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.CI|Any CPU.Build.0 = CI|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.MO|Any CPU.ActiveCfg = MO|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.MO|Any CPU.Build.0 = MO|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.Public|Any CPU.Build.0 = Public|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA880D6D-E582-414F-BABA-A064D0D223FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

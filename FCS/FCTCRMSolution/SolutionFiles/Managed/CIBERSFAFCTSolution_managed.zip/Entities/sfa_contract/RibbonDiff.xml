@@ -1,0 +1,845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml>
+  <CustomActions>
+    <HideCustomAction HideActionId="sfa.MailApp.Form.SetRegarding.sfa_contract.Button.Hide" Location="MailApp.Form.SetRegarding.sfa_contract.Button" />
+    <HideCustomAction HideActionId="sfa.MailApp.SubGrid.SetRegarding.sfa_contract.Button.Hide" Location="MailApp.SubGrid.SetRegarding.sfa_contract.Button" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_contract.Activate.Hide" Location="Mscrm.Form.sfa_contract.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_contract.Deactivate.Hide" Location="Mscrm.Form.sfa_contract.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_contract.Delete.Hide" Location="Mscrm.Form.sfa_contract.Delete" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_contract.RunScript.Hide" Location="Mscrm.Form.sfa_contract.RunScript" />
+    <CustomAction Id="sfa.Mscrm.Form.sfa_contract.RunWorkflow.CustomAction" Location="Mscrm.Form.sfa_contract.MainTab.Workflow.Controls._children" Sequence="20">
+      <CommandUIDefinition>
+        <Button Alt="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" Command="Mscrm.RunWorkflowPrimary" Id="Mscrm.Form.sfa_contract.RunWorkflow" Image32by32="/_imgs/ribbon/runworkflow32.png" Image16by16="/_imgs/ribbon/StartWorkflow_16.png" LabelText="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" Sequence="20" TemplateAlias="o1" ToolTipTitle="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" ToolTipDescription="$Resources(EntityDisplayName):Ribbon.Tooltip.RunWorkflow" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_contract.Activate.Hide" Location="Mscrm.HomepageGrid.sfa_contract.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_contract.Deactivate.Hide" Location="Mscrm.HomepageGrid.sfa_contract.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_contract.DeleteMenu.Hide" Location="Mscrm.HomepageGrid.sfa_contract.DeleteMenu" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_contract.RunScript.Hide" Location="Mscrm.HomepageGrid.sfa_contract.RunScript" />
+    <CustomAction Id="sfa.Mscrm.HomepageGrid.sfa_contract.RunWorkflow.CustomAction" Location="Mscrm.HomepageGrid.sfa_contract.MainTab.Workflow.Controls._children" Sequence="40">
+      <CommandUIDefinition>
+        <Button Alt="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" Command="Mscrm.RunWorkflowSelected" Id="Mscrm.HomepageGrid.sfa_contract.RunWorkflow" Image32by32="/_imgs/ribbon/runworkflow32.png" Image16by16="/_imgs/ribbon/StartWorkflow_16.png" LabelText="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" Sequence="40" TemplateAlias="o1" ToolTipTitle="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" ToolTipDescription="$Resources(EntityDisplayName):Ribbon.Tooltip.RunWorkflow" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_contract.Activate.Hide" Location="Mscrm.SubGrid.sfa_contract.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_contract.ChangeDataSetControlButton.Hide" Location="Mscrm.SubGrid.sfa_contract.ChangeDataSetControlButton" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_contract.Deactivate.Hide" Location="Mscrm.SubGrid.sfa_contract.Deactivate" />
+    <CustomAction Id="sfa.Mscrm.SubGrid.sfa_contract.Delete.CustomAction" Location="Mscrm.SubGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="80">
+      <CommandUIDefinition>
+        <Button Alt="$Resources:Ribbon.HomepageGrid.MainTab.Management.Delete" Command="Mscrm.DeleteSelectedRecord" Id="Mscrm.SubGrid.sfa_contract.Delete" Image32by32="/_imgs/Workplace/remove_32.png" Image16by16="/_imgs/ribbon/Delete_16.png" LabelText="$LocLabels:Mscrm.SubGrid.sfa_contract.Delete.LabelText" Sequence="80" TemplateAlias="o2" ToolTipTitle="$Resources(EntityDisplayName):Mscrm_SubGrid_EntityLogicalName_MainTab_Management_Delete_ToolTipTitle" ToolTipDescription="$Resources(EntityPluralDisplayName):Ribbon.HomepageGrid.Tooltip.Delete" ModernImage="Remove" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_contract.RunScript.Hide" Location="Mscrm.SubGrid.sfa_contract.RunScript" />
+    <CustomAction Id="sfa.sfa_contract.Button1.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="25">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button1.Button.Alt" Command="sfa.sfa_contract.ListRunCommand.Command" Description="Delete Version" Id="sfa.sfa_contract.Button1.Button" Image32by32="/_imgs/Workplace/remove_32.png" Image16by16="/_imgs/ribbon/Delete_16.png" LabelText="$LocLabels:sfa.sfa_contract.Button1.Button.LabelText" Sequence="25" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button1.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button1.Button.ToolTipDescription" ModernImage="Remove" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button10.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="23">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button10.Button.Alt" Command="sfa.sfa_contract.ListInitiateAmendNotifyCommand.Command" Description="Amend (Notify) Contract" Id="sfa.sfa_contract.Button10.Button" Image16by16="$webresource:sfa_AmendNotify16x16" LabelText="$LocLabels:sfa.sfa_contract.Button10.Button.LabelText" Sequence="23" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button10.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button10.Button.ToolTipDescription" ModernImage="$webresource:sfa_AmendNotify" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button11.Button.CustomAction" Location="Mscrm.SubGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="37">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button11.Button.Alt" Command="sfa.sfa_contract.ListInitiateAmendVaryCommand.Command" Description="Amend (Vary) Contract" Id="sfa.sfa_contract.Button11.Button" Image16by16="$webresource:sfa_AmendVary16x16" LabelText="$LocLabels:sfa.sfa_contract.Button11.Button.LabelText" Sequence="37" TemplateAlias="o2" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button11.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button11.Button.ToolTipDescription" ModernImage="$webresource:sfa_AmendVary" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button12.Button.CustomAction" Location="Mscrm.SubGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="56">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button12.Button.Alt" Command="sfa.sfa_contract.ListInitiateAmendNotifyCommand.Command" Description="Amend (Notify) Contract" Id="sfa.sfa_contract.Button12.Button" Image16by16="$webresource:sfa_AmendNotify16x16" LabelText="$LocLabels:sfa.sfa_contract.Button12.Button.LabelText" Sequence="56" TemplateAlias="o2" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button12.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button12.Button.ToolTipDescription" ModernImage="$webresource:sfa_AmendNotify" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button17.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="21">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button17.Button.Alt" Command="sfa.sfa_contract.ListRunBulkAmendCommand.Command" Id="sfa.sfa_contract.Button17.Button" Image16by16="$webresource:sfa_BulkRevert16x16" LabelText="$LocLabels:sfa.sfa_contract.Button17.Button.LabelText" Sequence="21" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button17.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button17.Button.ToolTipDescription" ModernImage="$webresource:sfa_BulkRevert" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button19.Button.CustomAction" Location="Mscrm.SubGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="35">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button19.Button.Alt" Command="sfa.sfa_contract.ListRunBulkAmendCommand.Command" Id="sfa.sfa_contract.Button19.Button" Image16by16="$webresource:sfa_BulkRevert16x16" LabelText="$LocLabels:sfa.sfa_contract.Button19.Button.LabelText" Sequence="35" TemplateAlias="o2" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button19.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button19.Button.ToolTipDescription" ModernImage="$webresource:sfa_BulkRevert" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button2.Button.CustomAction" Location="Mscrm.Form.sfa_contract.MainTab.Save.Controls._children" Sequence="38">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button2.Button.Alt" Command="sfa.sfa_contract.FormRunWorkflowCommand.Command" Description="Delete Version" Id="sfa.sfa_contract.Button2.Button" Image32by32="/_imgs/Workplace/remove_32.png" Image16by16="/_imgs/ribbon/Delete_16.png" LabelText="$LocLabels:sfa.sfa_contract.Button2.Button.LabelText" Sequence="38" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button2.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button2.Button.ToolTipDescription" ModernImage="Remove" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button21.Button.CustomAction" Location="Mscrm.Form.sfa_contract.MainTab.Save.Controls._children" Sequence="35">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button21.Button.Alt" Command="sfa.sfa_contract.FormInitiateTermination.Command" Id="sfa.sfa_contract.Button21.Button" Image16by16="$webresource:sfa_ContractTermination16x16" LabelText="$LocLabels:sfa.sfa_contract.Button21.Button.LabelText" Sequence="35" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button21.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button21.Button.ToolTipDescription" ModernImage="$webresource:sfa_ContractTermination" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button23.Button.CustomAction" Location="Mscrm.Form.sfa_contract.MainTab.Save.Controls._children" Sequence="36">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button23.Button.Alt" Command="sfa.sfa_contract.FormInitiateModify.Command" Id="sfa.sfa_contract.Button23.Button" Image16by16="$webresource:sfa_ContractTermination16x16" LabelText="$LocLabels:sfa.sfa_contract.Button23.Button.LabelText" Sequence="36" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button23.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button23.Button.ToolTipDescription" ModernImage="$webresource:sfa_ContractTermination" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button25.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_contract.MainTab.ExportData.Controls._children" Sequence="33">
+      <CommandUIDefinition>
+        <FlyoutAnchor Alt="$LocLabels:sfa.sfa_contract.Button25.Button.Alt" Command="sfa.sfa_contract.TriggerCustomReportCommand.Command" Id="sfa.sfa_contract.Button25.Button" Image16by16="/_imgs/ribbon/RunReport_16.png" LabelText="$LocLabels:sfa.sfa_contract.Button25.Button.LabelText" Sequence="33" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button25.Button.ToolTipTitle" ModernImage="Report">
+          <Menu Id="sfa.sfa_contract.Button25.Button.Menu">
+            <MenuSection Id="sfa.sfa_contract.Section26.Section" Title="$LocLabels:sfa.sfa_contract.Section26.Section.Title" Sequence="5" DisplayMode="Menu16">
+              <Controls Id="sfa.sfa_contract.Section26.Section.Controls">
+                <Button Alt="$LocLabels:sfa.sfa_contract.Button27.Button.Alt" Command="sfa.sfa_contract.TriggerCustomReportCommand.Command" Id="sfa.sfa_contract.Button27.Button" Image16by16="/_imgs/ribbon/RunReport_16.png" LabelText="$LocLabels:sfa.sfa_contract.Button27.Button.LabelText" Sequence="10" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button27.Button.ToolTipTitle" ModernImage="Report" />
+                <Button Alt="$LocLabels:sfa.sfa_contract.Button29.Button.Alt" Command="sfa.sfa_contract.TriggerCustomLAReportCommand.Command" Id="sfa.sfa_contract.Button29.Button" Image16by16="/_imgs/ribbon/RunReport_16.png" LabelText="$LocLabels:sfa.sfa_contract.Button29.Button.LabelText" Sequence="15" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button29.Button.ToolTipTitle" ModernImage="Report" />
+              </Controls>
+            </MenuSection>
+          </Menu>
+        </FlyoutAnchor>
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button3.Button.CustomAction" Location="Mscrm.SubGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="85">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button3.Button.Alt" Command="sfa.sfa_contract.ListRunCommand.Command" Description="Delete Version" Id="sfa.sfa_contract.Button3.Button" Image32by32="/_imgs/Workplace/remove_32.png" Image16by16="/_imgs/ribbon/Delete_16.png" LabelText="$LocLabels:sfa.sfa_contract.Button3.Button.LabelText" Sequence="85" TemplateAlias="o2" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button3.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button3.Button.ToolTipDescription" ModernImage="Remove" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button4.Button.CustomAction" Location="Mscrm.Form.sfa_contract.MainTab.Save.Controls._children" Sequence="37">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button4.Button.Alt" Command="sfa.sfa_contract.FormInitiateClosureWorkflow.Command" Description="Initiate Contract Closure" Id="sfa.sfa_contract.Button4.Button" Image16by16="$webresource:sfa_ContractClosure16x16" LabelText="$LocLabels:sfa.sfa_contract.Button4.Button.LabelText" Sequence="37" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button4.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button4.Button.ToolTipDescription" ModernImage="$webresource:sfa_ContractClosure" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button5.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="24">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button5.Button.Alt" Command="sfa.sfa_contract.ListInitiateClosureCommand.Command" Description="Initiate Contract Closure" Id="sfa.sfa_contract.Button5.Button" Image16by16="$webresource:sfa_ContractClosure16x16" LabelText="$LocLabels:sfa.sfa_contract.Button5.Button.LabelText" Sequence="24" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button5.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button5.Button.ToolTipDescription" ModernImage="$webresource:sfa_ContractClosure" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button6.Button.CustomAction" Location="Mscrm.SubGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="75">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button6.Button.Alt" Command="sfa.sfa_contract.ListInitiateClosureCommand.Command" Description="Initiate Contract Closure" Id="sfa.sfa_contract.Button6.Button" Image16by16="$webresource:sfa_ContractClosure16x16" LabelText="$LocLabels:sfa.sfa_contract.Button6.Button.LabelText" Sequence="75" TemplateAlias="o2" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button6.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button6.Button.ToolTipDescription" ModernImage="$webresource:sfa_ContractClosure" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button7.Button.CustomAction" Location="Mscrm.Form.sfa_contract.MainTab.Save.Controls._children" Sequence="31">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button7.Button.Alt" Command="sfa.sfa_contract.FormInitiateAmendVaryWorkflow.Command" Description="Amend(Vary) Contract" Id="sfa.sfa_contract.Button7.Button" Image16by16="$webresource:sfa_AmendVary16x16" LabelText="$LocLabels:sfa.sfa_contract.Button7.Button.LabelText" Sequence="31" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button7.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button7.Button.ToolTipDescription" ModernImage="$webresource:sfa_AmendVary" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button8.Button.CustomAction" Location="Mscrm.Form.sfa_contract.MainTab.Save.Controls._children" Sequence="32">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button8.Button.Alt" Command="sfa.sfa_contract.FormInitiateAmendNotifyWorkflow.Command" Description="Amend (Notify) Contract" Id="sfa.sfa_contract.Button8.Button" Image16by16="$webresource:sfa_AmendNotify16x16" LabelText="$LocLabels:sfa.sfa_contract.Button8.Button.LabelText" Sequence="32" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button8.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button8.Button.ToolTipDescription" ModernImage="$webresource:sfa_AmendNotify" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_contract.Button9.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_contract.MainTab.Management.Controls._children" Sequence="22">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_contract.Button9.Button.Alt" Command="sfa.sfa_contract.ListInitiateAmendVaryCommand.Command" Description="Amend (Vary) Contract" Id="sfa.sfa_contract.Button9.Button" Image16by16="$webresource:sfa_AmendVary16x16" LabelText="$LocLabels:sfa.sfa_contract.Button9.Button.LabelText" Sequence="22" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_contract.Button9.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_contract.Button9.Button.ToolTipDescription" ModernImage="$webresource:sfa_AmendVary" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="Mscrm.AssignPrimaryRecord">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="Mscrm.AssignPrimaryPermission" />
+        <EnableRule Id="Mscrm.NotOffline" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.AssignPrimaryPermission" />
+        <DisplayRule Id="Mscrm.NotClosedActivity" />
+        <DisplayRule Id="sfa.sfa_contract.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="XrmCore.Commands.Assign.assignObjectLegacy" Library="$webresource:Main_system_library.js">
+          <CrmParameter Value="PrimaryEntityTypeCode" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.AssignSelectedRecord">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+        <EnableRule Id="Mscrm.NotOffline" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.AssignSelectedEntityPermission" />
+        <DisplayRule Id="sfa.sfa_contract.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="XrmCore.Commands.Assign.assignSelectedRecordsLegacy" Library="$webresource:Main_system_library.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.RunWorkflowPrimary">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="Mscrm.RunWorkflowPrimary" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="sfa.sfa_contract.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.CommandBarActions.launchOnDemandWorkflowForm" Library="/_static/_common/scripts/CommandBarActions.js">
+          <CrmParameter Value="PrimaryEntityTypeCode" />
+          <StringParameter Value="" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.RunWorkflowSelected">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="sfa.sfa_contract.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.launchOnDemandWorkflow" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+          <StringParameter Value="" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.FormInitiateAmendNotifyWorkflow.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="sfa.sfa_contract.InitiateAmendmentEnableRule.EnableRule" />
+        <EnableRule Id="sfa.sfa_contract.InitiateAmendTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunNotifyAmendmentWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.FormInitiateAmendVaryWorkflow.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="sfa.sfa_contract.InitiateAmendmentEnableRule.EnableRule" />
+        <EnableRule Id="sfa.sfa_contract.InitiateAmendTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunInitiateVaryAmendmentWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.FormInitiateClosureWorkflow.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="sfa.sfa_contract.InitiateClosureEnableRule.EnableRule" />
+        <EnableRule Id="sfa.sfa_contract.InitiateClosureTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunInitiateClosureWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.FormInitiateModify.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="sfa.sfa_contract.InitiateModifyEnableRule.EnableRule" />
+        <EnableRule Id="sfa.sfa_contract.InitiateTerminationTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="runModifyInitialise" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.FormInitiateTermination.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="sfa.sfa_contract.InitiateTerminateEnableRule.EnableRule" />
+        <EnableRule Id="sfa.sfa_contract.InitiateTerminationTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="runTerminationInitialise" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.FormRunWorkflowCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="sfa.sfa_contract.StatusCheckEnableRule.EnableRule" />
+        <EnableRule Id="sfa.sfa_contract.InitiateDeleteTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunDeleteWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="PrimaryControl" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.ListInitiateAmendNotifyCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_contract.InitiateAmendTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListNotifyAmendmentWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.ListInitiateAmendVaryCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_contract.InitiateAmendTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListInitiateVaryAmendmentWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.ListInitiateClosureCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_contract.InitiateClosureTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListInitiateClosureWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.ListRunBulkAmendCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_contract.RunBulkAmendVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListBulkAmendWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.ListRunCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_contract.InitiateDeleteTeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListDeleteWorkflow" Library="$webresource:sfa_/js/runDeleteWorkflow.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.TriggerCustomLAReportCommand.Command">
+      <EnableRules />
+      <DisplayRules>
+        <DisplayRule Id="sfa.sfa_contract.CustomReportDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="TriggerLAFundingConfirmationReport" Library="$webresource:sfa_/js/runDeleteWorkflow.js" />
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_contract.TriggerCustomReportCommand.Command">
+      <EnableRules />
+      <DisplayRules>
+        <DisplayRule Id="sfa.sfa_contract.CustomReportDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="TriggerCollegeFundingConfirmationReport" Library="$webresource:sfa_/js/runDeleteWorkflow.js" />
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="Mscrm.AssignPrimaryPermission">
+        <EntityPrivilegeRule PrivilegeType="Assign" PrivilegeDepth="Basic" AppliesTo="PrimaryEntity" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.AssignSelectedEntityPermission">
+        <EntityPrivilegeRule PrivilegeType="Assign" PrivilegeDepth="Basic" AppliesTo="SelectedEntity" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideForTabletExperience">
+        <HideForTabletExperienceRule />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideOnModern">
+        <CommandClientTypeRule Type="Modern" InvertResult="true" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.NotClosedActivity">
+        <OrRule>
+          <Or>
+            <EntityPropertyRule AppliesTo="PrimaryEntity" PropertyName="IsActivity" PropertyValue="false" />
+          </Or>
+          <Or>
+            <EntityPropertyRule AppliesTo="PrimaryEntity" PropertyName="IsActivity" PropertyValue="true" />
+            <ValueRule Field="statecode" Value="Open" />
+          </Or>
+          <Or>
+            <EntityPropertyRule AppliesTo="PrimaryEntity" PropertyName="IsActivity" PropertyValue="true" />
+            <ValueRule Field="statecode" Value="Scheduled" />
+          </Or>
+        </OrRule>
+      </DisplayRule>
+      <DisplayRule Id="sfa.sfa_contract.AdminUserDisplayRule.DisplayRule">
+        <EntityPrivilegeRule PrivilegeType="Create" PrivilegeDepth="Global" EntityName="sfa_contract" />
+      </DisplayRule>
+      <DisplayRule Id="sfa.sfa_contract.CustomReportDisplayRule.DisplayRule">
+        <EntityPrivilegeRule PrivilegeType="Read" PrivilegeDepth="Global" EntityName="report" />
+      </DisplayRule>
+      <DisplayRule Id="sfa.sfa_contract.InitiateClosurePrivilegeRule.DisplayRule">
+        <EntityPrivilegeRule PrivilegeType="Assign" PrivilegeDepth="Local" EntityName="sfa_contract" />
+      </DisplayRule>
+      <DisplayRule Id="sfa.sfa_contract.PrivilegeButtonDisplayRule.DisplayRule">
+        <EntityPrivilegeRule PrivilegeType="Write" PrivilegeDepth="Deep" EntityName="sfa_contract" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="Mscrm.AssignPrimaryPermission">
+        <RecordPrivilegeRule PrivilegeType="Assign" AppliesTo="PrimaryEntity" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.NotOffline">
+        <CrmOfflineAccessStateRule State="Offline" InvertResult="true" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.VisualizationPaneNotMaximized">
+        <OrRule>
+          <Or>
+            <CommandClientTypeRule Type="Modern" />
+          </Or>
+          <Or>
+            <CustomRule FunctionName="XrmCore.Rules.Charts.disableButtonsWhenChartMaximized" Library="$webresource:Main_system_library.js">
+              <CrmParameter Value="SelectedControl" />
+            </CustomRule>
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.InitiateAmendmentEnableRule.EnableRule">
+        <CustomRule FunctionName="EnableInitiateAmendmentButton" Library="$webresource:sfa_/js/enableDeleteButton.js">
+          <CrmParameter Value="PrimaryControl" />
+        </CustomRule>
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.InitiateAmendTeamVisibilityRule.EnableRule">
+        <CustomRule FunctionName="checkAmendTeamVisibility" Library="$webresource:sfa_/js/enableDeleteButton.js" />
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.InitiateClosureEnableRule.EnableRule">
+        <CustomRule FunctionName="EnableInitiateClosureButton" Library="$webresource:sfa_/js/enableDeleteButton.js">
+          <CrmParameter Value="PrimaryControl" />
+        </CustomRule>
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.InitiateClosureTeamVisibilityRule.EnableRule">
+        <CustomRule FunctionName="checkClosureTeamVisibility" Library="$webresource:sfa_/js/enableDeleteButton.js" />
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.InitiateDeleteTeamVisibilityRule.EnableRule">
+        <CustomRule FunctionName="checkDeleteTeamVisibility" Library="$webresource:sfa_/js/enableDeleteButton.js" />
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.InitiateModifyEnableRule.EnableRule">
+        <CustomRule FunctionName="EnableInitiateModifyButton" Library="$webresource:sfa_/js/enableDeleteButton.js">
+          <CrmParameter Value="PrimaryControl" />
+        </CustomRule>
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.InitiateTerminateEnableRule.EnableRule">
+        <CustomRule FunctionName="EnableInitiateTerminateButton" Library="$webresource:sfa_/js/enableDeleteButton.js">
+          <CrmParameter Value="PrimaryControl" />
+        </CustomRule>
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.InitiateTerminationTeamVisibilityRule.EnableRule">
+        <CustomRule FunctionName="checkTerminationAdviserTeamVisibility" Library="$webresource:sfa_/js/enableDeleteButton.js" />
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.RunBulkAmendVisibilityRule.EnableRule">
+        <CustomRule FunctionName="checkBulkReviseTeamVisibility" Library="$webresource:sfa_/js/enableDeleteButton.js" />
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.StatusCheckEnableRule.EnableRule">
+        <CustomRule FunctionName="EnableDeleteButton" Library="$webresource:sfa_/js/enableDeleteButton.js">
+          <CrmParameter Value="PrimaryControl" />
+        </CustomRule>
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_contract.UpdateTerminationTeamVisibilityRule.EnableRule">
+        <CustomRule FunctionName="checkTerminationUpdateTeamVisibility" Library="$webresource:sfa_/js/enableDeleteButton.js" />
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="Mscrm.SubGrid.sfa_contract.Delete.LabelText">
+      <Titles>
+        <Title description="Admin Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button1.Button.Alt">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button1.Button.LabelText">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button1.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Delete selected draft contracts" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button1.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button10.Button.Alt">
+      <Titles>
+        <Title description="Amend (Notify)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button10.Button.LabelText">
+      <Titles>
+        <Title description="Amend (Notify)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button10.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Initiate amendment (notification) of selected contracts" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button10.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Amend Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button11.Button.Alt">
+      <Titles>
+        <Title description="Amend (Vary)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button11.Button.LabelText">
+      <Titles>
+        <Title description="Amend (Vary)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button11.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Initiate amendment (variation) of selected contracts" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button11.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Amend Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button12.Button.Alt">
+      <Titles>
+        <Title description="Amend (Notify)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button12.Button.LabelText">
+      <Titles>
+        <Title description="Amend (Notify)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button12.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Initiate amendment (notification) of selected contracts" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button12.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Amend Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button17.Button.Alt">
+      <Titles>
+        <Title description="Revise" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button17.Button.LabelText">
+      <Titles>
+        <Title description="Revise" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button17.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Revert selected draft contracts back to Awaiting Documentation" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button17.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Revise Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button19.Button.Alt">
+      <Titles>
+        <Title description="Revise" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button19.Button.LabelText">
+      <Titles>
+        <Title description="Revise" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button19.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Revert selected draft contracts back to Awaiting Documentation" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button19.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Revise Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button2.Button.Alt">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button2.Button.LabelText">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button2.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Delete draft contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button2.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button21.Button.Alt">
+      <Titles>
+        <Title description="Terminate" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button21.Button.LabelText">
+      <Titles>
+        <Title description="Terminate" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button21.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Initiate contract termination" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button21.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Terminate" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button23.Button.Alt">
+      <Titles>
+        <Title description="Modify" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button23.Button.LabelText">
+      <Titles>
+        <Title description="Modify" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button23.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Initiate contract modification" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button23.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Modify" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button25.Button.Alt">
+      <Titles>
+        <Title description="Request Report" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button25.Button.LabelText">
+      <Titles>
+        <Title description="Request Report" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button25.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Select a report to trigger.  &lt;br&gt;&lt;br&gt;" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button27.Button.Alt">
+      <Titles>
+        <Title description="College Funding Confirmation Report" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button27.Button.LabelText">
+      <Titles>
+        <Title description="College Funding Confirmation Report" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button27.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Trigger Report generation to Sharepoint" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button29.Button.Alt">
+      <Titles>
+        <Title description="LA Funding Confirmation Report" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button29.Button.LabelText">
+      <Titles>
+        <Title description="LA Funding Confirmation Report" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button29.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Trigger Report generation to Sharepoint" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button3.Button.Alt">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button3.Button.LabelText">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button3.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Delete selected draft contracts" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button3.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Delete" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button4.Button.Alt">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button4.Button.LabelText">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button4.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Set contract to 'Closed'" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button4.Button.ToolTipTitle">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button5.Button.Alt">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button5.Button.LabelText">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button5.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Set selected contracts to 'Closed'" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button5.Button.ToolTipTitle">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button6.Button.Alt">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button6.Button.LabelText">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button6.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Set selected contracts to 'Closed'" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button6.Button.ToolTipTitle">
+      <Titles>
+        <Title description="End Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button7.Button.Alt">
+      <Titles>
+        <Title description="Amend (Vary)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button7.Button.LabelText">
+      <Titles>
+        <Title description="Amend (Vary)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button7.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Initiate a contract amendment (variation)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button7.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Amend Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button8.Button.Alt">
+      <Titles>
+        <Title description="Amend (Notify)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button8.Button.LabelText">
+      <Titles>
+        <Title description="Amend (Notify)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button8.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Initiate a contract amendment (notification)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button8.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Amend Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button9.Button.Alt">
+      <Titles>
+        <Title description="Amend (Vary)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button9.Button.LabelText">
+      <Titles>
+        <Title description="Amend (Vary)" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button9.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Initiate amendment (variation) of selected contracts" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Button9.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Amend Contract" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_contract.Section26.Section.Title">
+      <Titles>
+        <Title description="Reports" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

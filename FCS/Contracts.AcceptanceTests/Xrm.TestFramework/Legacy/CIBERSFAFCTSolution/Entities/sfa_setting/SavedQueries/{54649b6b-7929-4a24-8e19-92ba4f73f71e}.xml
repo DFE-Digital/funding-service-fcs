@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10024</returnedtypecode>
+  <savedqueryid>{54649b6b-7929-4a24-8e19-92ba4f73f71e}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10024" jump="sfa_settingname" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_settingid">
+        <cell name="sfa_settingname" width="200" />
+        <cell name="sfa_settingcode" width="100" />
+        <cell name="sfa_settingdescription" width="300" />
+        <cell name="sfa_settingdatatype" width="100" />
+        <cell name="sfa_maximumlength" width="125" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_setting">
+        <attribute name="sfa_settingname" />
+        <attribute name="createdon" />
+        <order attribute="sfa_settingname" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_settingdescription" />
+        <attribute name="sfa_settingcode" />
+        <attribute name="sfa_maximumlength" />
+        <attribute name="sfa_settingdatatype" />
+        <attribute name="sfa_settingid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.1.5.2</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Active Settings" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

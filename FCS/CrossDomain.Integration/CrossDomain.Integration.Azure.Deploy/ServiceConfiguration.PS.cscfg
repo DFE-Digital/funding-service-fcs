@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="NSBMultipleHosts.Azure.Deploy" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="6" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="XDomain.Worker">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="false" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=fcsopsupappstorage;AccountKey=" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="CPDSAuth" thumbprint="1D41AE063B34F3D53762C7E55B4B01823ABF1D04" thumbprintAlgorithm="sha1" />
+      <Certificate name="DedsAuth" thumbprint="26B8F09E3535FF89826F2AFA0BB0CEB7EC183FDC" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="OpSup-VNet" />
+    <AddressAssignments>
+      <InstanceAddress roleName="XDomain.Worker">
+        <Subnets>
+          <Subnet name="Contract" />
+        </Subnets>
+      </InstanceAddress>
+      <ReservedIPs>
+        <ReservedIP name="fct-servicebus-ps-rip" />
+      </ReservedIPs>
+    </AddressAssignments>
+  </NetworkConfiguration>
+</ServiceConfiguration>

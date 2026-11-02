@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SdkMessageProcessingStep Name="CrossDomain.XrmDevelopmentLibrary.Plugins.FundingAllocationRollupUpdate: Create of sfa_fundingallocation" SdkMessageProcessingStepId="{c01cc646-7d77-eb11-a812-0022488064d8}">
+  <SdkMessageId>9ebdbb1b-ea3e-db11-86a7-000a3a5473e8</SdkMessageId>
+  <PluginTypeName>CrossDomain.XrmDevelopmentLibrary.Plugins.FundingAllocationRollupUpdate, CrossDomain.XrmDevelopmentLibrary.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=11d7500eed820787</PluginTypeName>
+  <PluginTypeId>9f460e3a-f278-4bb0-86da-244840ed6a4f</PluginTypeId>
+  <PrimaryEntity>sfa_fundingallocation</PrimaryEntity>
+  <AsyncAutoDelete>1</AsyncAutoDelete>
+  <Description>CrossDomain.XrmDevelopmentLibrary.Plugins.FundingAllocationRollupUpdate: Create of sfa_fundingallocation</Description>
+  <FilteringAttributes></FilteringAttributes>
+  <InvocationSource>1</InvocationSource>
+  <Mode>1</Mode>
+  <Rank>1</Rank>
+  <EventHandlerTypeCode>4602</EventHandlerTypeCode>
+  <Stage>40</Stage>
+  <IsCustomizable>1</IsCustomizable>
+  <IsHidden>0</IsHidden>
+  <SupportedDeployment>0</SupportedDeployment>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <SdkMessageProcessingStepImages>
+    <SdkMessageProcessingStepImage Name="PostUpdateImage">
+      <SdkMessageProcessingStepImageId>{4a638f72-7d77-eb11-a812-0022488064d8}</SdkMessageProcessingStepImageId>
+      <Attributes>sfa_releasegroup,sfa_value,sfa_value_base</Attributes>
+      <EntityAlias>PostUpdateImage</EntityAlias>
+      <ImageType>1</ImageType>
+      <MessagePropertyName>id</MessagePropertyName>
+      <IsCustomizable>1</IsCustomizable>
+    </SdkMessageProcessingStepImage>
+  </SdkMessageProcessingStepImages>
+</SdkMessageProcessingStep>

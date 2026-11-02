@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossDomain.XrmDevelopmentLibrary.Plugins", "CrossDomain.XrmDevelopmentLibrary\Plugins\CrossDomain.XrmDevelopmentLibrary.Plugins.csproj", "{63CB0F43-1CB1-46F0-B1DC-74D3FAADE69B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossDomain.XrmDevelopmentLibrary.Workflow", "CrossDomain.XrmDevelopmentLibrary\Workflow\CrossDomain.XrmDevelopmentLibrary.Workflow.csproj", "{3A825DBA-3FCA-47ED-B293-4501C00E2F20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Framework.Test", "Xrm.Framework\Xrm.Framework.Test\Xrm.Framework.Test.csproj", "{609DB1D2-DEED-4DDB-9C85-75E493739969}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossDomain.XrmDevelopmentLibrary.Tests", "CrossDomain.XrmDevelopmentLibrary.Tests\CrossDomain.XrmDevelopmentLibrary.Tests.csproj", "{A51E4EEA-3A7A-4764-BCC5-4908467C06C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8432DC56-91F5-43C7-8C0E-89C71E3D5CA4}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossDomain.XrmDevelopmentLibrary.WorkflowsNS", "CrossDomain.XrmDevelopmentLibrary.WorkflowsNS\CrossDomain.XrmDevelopmentLibrary.WorkflowsNS.csproj", "{48511480-8B8D-431C-8A4A-5C2F15AFD38E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossDomain.XrmDevelopmentLibrary.WebResource", "WebResource\CrossDomain.XrmDevelopmentLibrary.WebResource.csproj", "{25D5566C-5433-4728-BD86-BA19A3EA7EE9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63CB0F43-1CB1-46F0-B1DC-74D3FAADE69B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63CB0F43-1CB1-46F0-B1DC-74D3FAADE69B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63CB0F43-1CB1-46F0-B1DC-74D3FAADE69B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63CB0F43-1CB1-46F0-B1DC-74D3FAADE69B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A825DBA-3FCA-47ED-B293-4501C00E2F20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A825DBA-3FCA-47ED-B293-4501C00E2F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A825DBA-3FCA-47ED-B293-4501C00E2F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A825DBA-3FCA-47ED-B293-4501C00E2F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{609DB1D2-DEED-4DDB-9C85-75E493739969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{609DB1D2-DEED-4DDB-9C85-75E493739969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{609DB1D2-DEED-4DDB-9C85-75E493739969}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A51E4EEA-3A7A-4764-BCC5-4908467C06C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A51E4EEA-3A7A-4764-BCC5-4908467C06C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A51E4EEA-3A7A-4764-BCC5-4908467C06C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48511480-8B8D-431C-8A4A-5C2F15AFD38E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48511480-8B8D-431C-8A4A-5C2F15AFD38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48511480-8B8D-431C-8A4A-5C2F15AFD38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48511480-8B8D-431C-8A4A-5C2F15AFD38E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25D5566C-5433-4728-BD86-BA19A3EA7EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25D5566C-5433-4728-BD86-BA19A3EA7EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25D5566C-5433-4728-BD86-BA19A3EA7EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25D5566C-5433-4728-BD86-BA19A3EA7EE9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA2C1D87-4A72-424B-9652-BB1B78B7F8A4}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://sfa-fcs.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CrossDomain.XrmDevelopmentLibrary.Tests\\CrossDomain.XrmDevelopmentLibrary.Tests.csproj
+		SccProjectName1 = CrossDomain.XrmDevelopmentLibrary.Tests
+		SccLocalPath1 = CrossDomain.XrmDevelopmentLibrary.Tests
+		SccProjectUniqueName2 = CrossDomain.XrmDevelopmentLibrary\\Plugins\\CrossDomain.XrmDevelopmentLibrary.Plugins.csproj
+		SccProjectName2 = CrossDomain.XrmDevelopmentLibrary/Plugins
+		SccLocalPath2 = CrossDomain.XrmDevelopmentLibrary\\Plugins
+		SccProjectUniqueName3 = CrossDomain.XrmDevelopmentLibrary\\Workflow\\CrossDomain.XrmDevelopmentLibrary.Workflow.csproj
+		SccProjectName3 = CrossDomain.XrmDevelopmentLibrary/Workflow
+		SccLocalPath3 = CrossDomain.XrmDevelopmentLibrary\\Workflow
+		SccProjectUniqueName4 = Xrm.Framework\\Xrm.Framework.Test\\Xrm.Framework.Test.csproj
+		SccProjectName4 = Xrm.Framework/Xrm.Framework.Test
+		SccLocalPath4 = Xrm.Framework\\Xrm.Framework.Test
+		SccProjectUniqueName5 = CrossDomain.XrmDevelopmentLibrary.WorkflowsNS\\CrossDomain.XrmDevelopmentLibrary.WorkflowsNS.csproj
+		SccProjectName5 = CrossDomain.XrmDevelopmentLibrary.WorkflowsNS
+		SccLocalPath5 = CrossDomain.XrmDevelopmentLibrary.WorkflowsNS
+		SccProjectUniqueName6 = WebResource\\CrossDomain.XrmDevelopmentLibrary.WebResource.csproj
+		SccProjectName6 = WebResource
+		SccLocalPath6 = WebResource
+	EndGlobalSection
+EndGlobal

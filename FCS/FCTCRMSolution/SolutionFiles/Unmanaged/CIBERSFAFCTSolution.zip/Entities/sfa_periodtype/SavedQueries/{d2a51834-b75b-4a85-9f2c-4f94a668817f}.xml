@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{d2a51834-b75b-4a85-9f2c-4f94a668817f}</savedqueryid>
+  <layoutxml>
+    <grid name="" jump="sfa_periodtypecode" select="1" icon="1" preview="1">
+      <row name="sfa_periodtype" id="sfa_periodtypeid">
+        <cell name="sfa_periodtypecode" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>2</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_periodtype">
+        <attribute name="sfa_periodtypeid" />
+        <attribute name="sfa_periodtypecode" />
+        <attribute name="createdon" />
+        <order attribute="sfa_periodtypecode" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Period Type Associated View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

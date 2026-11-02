@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>1</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10012</returnedtypecode>
+  <savedqueryid>{ccb8c2fc-8987-4692-864f-07aec9b94f0d}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10012" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_contracttransitionhistoryid">
+        <cell name="sfa_name" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>4</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_contracttransitionhistory">
+        <attribute name="sfa_contracttransitionhistoryid" />
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <order attribute="sfa_name" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <filter type="or" isquickfindfields="1">
+          <condition attribute="sfa_name" operator="like" value="{0}" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Quick Find Active Contract Transition History" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

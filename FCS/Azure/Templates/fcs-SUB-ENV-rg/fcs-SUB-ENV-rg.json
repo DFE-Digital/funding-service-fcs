@@ -1,0 +1,956 @@
+/*
+  AIM: to create an environment for FCS
+
+  An individual environment (such as CI or AT) uses infrastructure that is shared by all environments within the subscription.  These
+  shared resources are within the fcs-SUB-shared-rg resource group and built by the appropriate template.
+
+  To reduce the knowledge built into this template it is driven by a couple of complex parameters which are described below, and the
+  defaults for each subscription are within the colocated parameter files.  This allows quick modifications to the resources provisioned
+  with minimal understanding of templates.
+
+*/
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "fct-proxy": {
+      "type": "array",
+      "defaultValue": [],
+      "metadata": {
+        "description": "an object with (string) custom host name and (string) certificateName properties used to identify the function app used as the proxy"
+      }
+      /*
+        {
+          "name": (string) 
+            name of the function app  which will be prefixed by the application, subscription, environment, and app type codes
+            a replace is run on this string replacing ${ENV} with the environment short code
+          "customName": (string) 
+            name of the function app which will be prefixed by the application, subscription, environment, and app type codes
+            a replace is run on this string replacing ${ENV} with the environment short code
+          "certificateName": (string)
+            The certificate used to support the customName which must already be on the app service plan
+          "backendHostName" : (string)
+        }
+      */
+    },
+    "appServices": {
+      "type": "array",
+      "defaultValue": [],
+      "metadata": {
+        "description": "an array of appServiceDefinition objects defined in comments"
+      }
+      /* 
+        appServiceDefinition object definition:
+
+        {
+          "name": (string) 
+            name of the app service which will be prefixed by the application, subscription, environment, and app type codes
+            a replace is run on this string replacing ${ENV} with the environment short code
+          "authEnabled": (boolean) is the AuthN (aka EasyAuth) enabled,
+          "issuer": (string) the issuer of the clientId 
+          "clientId": (string) the clientId of the app registration in AAD
+          "allowedAudiences": (array of string) the allowed audiences 
+          "ipSecurityRestrictions": (string) 
+            one of the properties of the ipSecurityRestrictions variable below (eg denyAllInbound)
+          "customName": (string) the custom hostname or blank if one is not used
+          "certificateName": (string) the name of the certificate supporting the customName
+        }
+
+      */
+    },
+    "deploymentUrlBase": {
+      "type": "string",
+      "metadata": {
+        "description": "The root url which holds all of the linked templates used by this template, a parameter to ease testing."
+      }
+    },
+    "enableSoftDelete": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "keyVaultAuditEventSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Audit Event diagnostic setting"
+      }
+    },
+    "keyVaultallMetricsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "All Metrics diagnostic setting"
+      }
+    },
+    "keyVaultRetentionPolicyEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "keyVaultRetentionPolicyDays": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "appServiceConsoleLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service console logs diagnostic setting"
+      }
+    },
+    "appServiceAppLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service app logs diagnostic setting"
+      }
+    },
+    "appServiceFileAuditLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service file audit logs diagnostic setting"
+      }
+    },
+    "appServiceAuditLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service audit logs diagnostic setting"
+      }
+    },
+    "appServiceAllMetricsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "All Metrics diagnostic setting"
+      }
+    },
+    "appServiceRetentionPolicyEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "appServiceRetentionPolicyDays": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "appServiceLogRetentionDays": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "appServiceLogRetentionMb": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "applogToBlob": {
+      "type": "string",
+      "defaultValue": "Warning",
+      "metadata": {
+        "description": "Log Application logs to Blob, default is off"
+      }
+    },
+    "weblogToBlob": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Log HTTP logs to Blob, default is off"
+      }
+    },
+    "ServiceBusRetentionPolicyEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "http20Enabled": {
+      "type": "bool",
+      "defaultValue": false
+    }
+  },
+  "variables": {
+    "subscriptionShortCode": "[split(resourceGroup().name, '-')[1]]",
+    "environmentShortCode": "[split(resourceGroup().name, '-')[2]]",
+    "sharedRG": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-rg')]",
+    "appServicePlanName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-plan-win-01')]",
+    "keyVaultName": "[concat('fcs-', variables('subscriptionShortCode'), '-', variables('environmentShortCode'),'-kv')]",
+    "ipSecurityRestrictions": {
+      /* 
+        These properties are referenced in the appServiceDefinition objects as defined above
+      */
+      "denyAllInbound": [
+        {
+          "ipAddress": "0.0.0.0/0",
+          "action": "Deny",
+          "priority": 100,
+          "name": "Deny All Inbound"
+        }
+      ],
+      "allowAll": [],
+      "allowSNetOnly": [
+        {
+          "vnetSubnetResourceId": "[variables('appServicesVNetIntegrationSubnetId')]",
+          "action": "Allow",
+          "priority": 100,
+          "name": "allow known subnet only"
+        }
+      ]
+    },
+    "fctServicesProxyFuncAppName": "[concat('fcs-', variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-func-x-fctservices-proxy')]",
+    "sharedVNetName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-vnet-01')]",
+    "appServicesVNetIntegrationSubnetId": "[resourceId(variables('sharedRG'), 'Microsoft.Network/virtualNetworks/subnets', variables('sharedVNetName'), 'appServiceVNetIntegration' )]",
+    "sharedKeyVaultName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-kv')]",
+    "logAnalyticsWorkspaceName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-la')]",
+    "sharedWorkspaceID": "[resourceId(variables('sharedRG'),'Microsoft.OperationalInsights/workspaces', variables('logAnalyticsWorkspaceName'))]",
+    "actionGroupName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-ag')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_ApplicationInsights",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'application-insights.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appInsightsName": {
+            "value": "[concat('fcs-', variables('subscriptionShortCode'), '-',variables('environmentShortCode'),'-ai')]"
+          }
+        }
+      }
+    },
+    {
+      /* 
+        this key vault holds the secrets for this environment, certificates are held in fcs-SUB-shared-kv as they are common to the PLAN
+      */
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_Environment_KeyVault",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'keyvault.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          },
+          "enableSoftDelete": {
+            "value": "[parameters('enableSoftDelete')]"
+          },
+          "workspaceId": {
+            "value": "[variables('sharedWorkspaceID')]"
+          },
+          "auditEventSetting": {
+            "value": "[parameters('keyVaultAuditEventSetting')]"
+          },
+          "allMetricsSetting": {
+            "value": "[parameters('keyVaultallMetricsSetting')]"
+          },
+          "retentionPolicyEnabled": {
+            "value": "[parameters('keyVaultRetentionPolicyEnabled')]"
+          },
+          "retentionPolicyDays": {
+            "value": "[parameters('keyVaultRetentionPolicyDays')]"
+          }
+        }
+      }
+    },
+    {
+      /* 
+        This policy only adds the administration group, individual APP are added by another resource section
+      */
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_Environment_KeyVault_Identity_Policy",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'Deploy_Environment_KeyVault')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'keyvault-accesspolicies.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          },
+          "accessPolicies": {
+            "value": [
+              {
+                /* This is the BAE ALL ADM group */
+                "tenantId": "3aacc835-4b83-483d-841d-cd787f6f1486",
+                "objectId": "ad03fcc2-7c5d-49be-a1d0-515cf05fe4f2",
+                "permissions": {
+                  "keys": ["Get", "List"],
+                  "secrets": ["Get", "List"],
+                  "certificates": ["Get", "List"]
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      /* 
+        this function app is used as the reverse proxy for the services that (at the time of writing) are exposed by the app-x-fctservices and app-orgwebapi
+        the reason for this proxy is so the services can be split out into multiple apps to better fit DDD without affecting client services
+
+        this FUNC is joined to the appServiceIntegration subnet so that we can restrict access to the services it calls through that
+      */
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('Deploy_func_', replace(parameters('fct-proxy')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/Deploy_ApplicationInsights",
+        "Microsoft.Resources/deployments/Deploy_Application_StorageAccount"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'function-app.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "functionAppName": {
+            "value": "[concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-func-', parameters('fct-proxy')[copyIndex()].name)]"
+          },
+          "appServicePlanName": {
+            "value": "[variables('appServicePlanName')]"
+          },
+          "appServicePlanResourceGroup": {
+            "value": "[variables('sharedRG')]"
+          },
+          "customHostName": {
+            "value": "[replace(parameters('fct-proxy')[copyIndex()].customName, '{ENV}', variables('environmentShortCode'))]"
+          },
+          "certificateThumbprint": {
+            "value": "[if(greater(length(parameters('fct-proxy')[copyIndex()].certificateName),0), reference(resourceId(variables('sharedRG'), 'Microsoft.Web/certificates', replace(parameters('fct-proxy')[copyIndex()].certificateName, '{ENV}', variables('environmentShortCode'))), '2016-03-01').Thumbprint, 'placeholder')]"
+          },
+          "subnetResourceId": {
+            "value": "[variables('appServicesVNetIntegrationSubnetId')]"
+          },
+          "ftpsState": {
+            "value": "FtpsOnly"
+          },
+          "functionAppAppSettings": {
+            "value": [
+              {
+                /* used by app-x-fctservices to set the hostname in the links it produces */
+                "name": "RequestHost",
+                "value": "[replace(parameters('fct-proxy')[copyindex()].customName, '{ENV}', variables('environmentShortCode') )]"
+              },
+              {
+                /* used in the proxies.json file to call app-x-fctservices or app-org-webapi for this environment */
+                "name": "DefaultBackendHost",
+                "value": "[concat(replace(parameters('fct-proxy')[copyindex()].backendHost, '{ENV}', variables('environmentShortCode')), '.azurewebsites.net')]"
+              },
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference('Deploy_ApplicationInsights').outputs.InstrumentationKey.value]"
+              },
+              {
+                "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                "value": "[concat('InstrumentationKey=', reference('Deploy_ApplicationInsights').outputs.InstrumentationKey.value)]"
+              },
+              {
+                "name": "FUNCTIONS_EXTENSION_VERSION",
+                "value": "~3"
+              },
+              {
+                "name": "AzureWebJobsStorage",
+                "value": "[reference('Deploy_Application_StorageAccount').outputs.storageConnectionString.value]"
+              },
+              {
+                "name": "FUNCTIONS_WORKER_RUNTIME",
+                "value": "dotnet"
+              }
+            ]
+          },
+          "http20Enabled": {
+            "value": "[parameters('http20Enabled')]"
+          }
+        }
+      },
+      "copy": {
+        "name": "functionAppProxyCopy",
+        "count": "[length(parameters('fct-proxy'))]"
+      }
+    },
+    {
+      /* 
+        iterate around the appServiceDefinition array and produce the APPs
+        they are all joined to the appsVNetIntegration SNET so we can restrict access to storage and SQL DB via the SNET
+        system managed identities are enabled by default in the linked template
+      */
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('Deploy_APP_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/Deploy_ApplicationInsights"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'app-service.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appServiceName": {
+            "value": "[concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name)]"
+          },
+          "appServicePlanName": {
+            "value": "[variables('appServicePlanName')]"
+          },
+          "appServicePlanResourceGroup": {
+            "value": "[variables('sharedRG')]"
+          },
+          "deployStagingSlot": {
+            "value": false
+          },
+          "ipSecurityRestrictions": {
+            "value": "[variables('ipSecurityRestrictions')[parameters('appServices')[copyIndex()].ipSecurityRestrictions]]"
+          },
+          "subnetResourceId": {
+            "value": "[variables('appServicesVNetIntegrationSubnetId')]"
+          },
+          "customHostName": {
+            "value": "[replace(parameters('appServices')[copyIndex()].customName, '{ENV}', variables('environmentShortCode'))]"
+          },
+          "certificateThumbprint": {
+            "value": "[if(greater(length(parameters('appServices')[copyIndex()].certificateName),0), reference(resourceId(variables('sharedRG'), 'Microsoft.Web/certificates', replace(parameters('appServices')[copyIndex()].certificateName, '{ENV}', variables('environmentShortCode'))), '2016-03-01').Thumbprint, 'placeholder')]"
+          },
+          "appServiceAppSettings": {
+            "value": [
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference('Deploy_ApplicationInsights').outputs.InstrumentationKey.value]"
+              },
+              {
+                "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                "value": "[concat('InstrumentationKey=', reference('Deploy_ApplicationInsights').outputs.InstrumentationKey.value)]"
+              },
+              {
+                "name": "WEBSITE_LOAD_CERTIFICATES",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcscpdscertthumbprint)')]"
+              }
+            ]
+          },
+          "workspaceId": {
+            "value": "[variables('sharedWorkspaceID')]"
+          },
+          "appServiceConsoleLogsSetting": {
+            "value": "[parameters('appServiceConsoleLogsSetting')]"
+          },
+          "appServiceAppLogsSetting": {
+            "value": "[parameters('appServiceAppLogsSetting')]"
+          },
+          "appServiceFileAuditLogsSetting": {
+            "value": "[parameters('appServiceFileAuditLogsSetting')]"
+          },
+          "appServiceAuditLogsSetting": {
+            "value": "[parameters('appServiceAuditLogsSetting')]"
+          },
+          "allMetricsSetting": {
+            "value": "[parameters('appServiceAllMetricsSetting')]"
+          },
+          "retentionPolicyEnabled": {
+            "value": "[parameters('appServiceRetentionPolicyEnabled')]"
+          },
+          "retentionPolicyDays": {
+            "value": "[parameters('appServiceRetentionPolicyDays')]"
+          },
+          "http20Enabled": {
+            "value": "[parameters('http20Enabled')]"
+          }
+        }
+      },
+      "copy": {
+        "name": "webSiteCopy",
+        "count": "[length(parameters('appServices'))]"
+      }
+    },
+    {
+      /*
+        web applications within FCS are all secured using AAD authentication, there are multiple app registrations used 
+        and so these are identified within the parameter that is iterated through
+      */
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('Deploy_APP_', replace(parameters('appServices')[copyIndex()].name, '-', '_'),'_auth_settings')]",
+      "dependsOn": [
+        "[concat('Deploy_APP_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]"
+      ],
+      "condition": "[parameters('appServices')[copyIndex()].authEnabled]",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'app-service-auth-settings.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appServiceName": {
+            "value": "[concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name)]"
+          },
+          "authSettings": {
+            "value": {
+              "enabled": "[parameters('appServices')[copyIndex()].authEnabled]",
+              "unauthenticatedClientAction": "RedirectToLoginPage",
+              "tokenStoreEnabled": false,
+              "defaultProvider": "AzureActiveDirectory",
+              "clientId": "[parameters('appServices')[copyIndex()].clientId]",
+              "issuer": "[parameters('appServices')[copyIndex()].issuer]",
+              "allowedAudiences": "[parameters('appServices')[copyIndex()].allowedAudiences]"
+            }
+          }
+        }
+      },
+      "copy": {
+        "name": "webSiteAuthSettingsCopy",
+        "count": "[length(parameters('appServices'))]"
+      }
+    },
+    {
+      /*
+        add the system managed identities for all apps to the application key vault
+      */
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('Add_APP_', replace(parameters('appServices')[copyIndex()].name, '-', '_'),'_Identity_To_EnvKeyVault')]",
+      "dependsOn": [
+        "[concat('Deploy_APP_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'keyvault-accesspolicies.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          },
+          "accessPolicies": {
+            "value": [
+              {
+                "tenantId": "[reference(concat('Deploy_APP_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))).outputs.managedServiceIdentity.value.tenantId]",
+                "objectId": "[reference(concat('Deploy_APP_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))).outputs.managedServiceIdentity.value.principalId]",
+                "permissions": {
+                  "secrets": ["get"]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "copy": {
+        "name": "allSitesIdentityCopy",
+        "count": "[length(parameters('appServices'))]",
+        "mode": "Serial"
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_Application_StorageAccount",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'storage-account-arm.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[concat('fcs', variables('subscriptionShortCode'), variables('environmentShortCode'),'store')]"
+          },
+          "subnetResourceIdList": {
+            "value": "[array(variables('appServicesVNetIntegrationSubnetId'))]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_ApplicationLog_StorageAccount",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'storage-account-arm.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[concat('fcs', variables('subscriptionShortCode'), variables('environmentShortCode'),'logstore')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('deploy_applicationlog_blob_container_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": ["Deploy_ApplicationLog_StorageAccount"],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'storage-container.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[concat('fcs', variables('subscriptionShortCode'), variables('environmentShortCode'),'logstore')]"
+          },
+          "containerName": {
+            "value": "[concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name,'-application-logs')]"
+          }
+        }
+      },
+      "copy": {
+        "name": "Create_Applicationlog_blob_Container",
+        "count": "[length(parameters('appServices'))]"
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('deploy_weblog_blob_container_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": ["Deploy_ApplicationLog_StorageAccount"],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'storage-container.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[concat('fcs', variables('subscriptionShortCode'), variables('environmentShortCode'),'logstore')]"
+          },
+          "containerName": {
+            "value": "[concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name,'-webserver-logs')]"
+          }
+        }
+      },
+      "copy": {
+        "name": "Create_weblog_blob_Container",
+        "count": "[length(parameters('appServices'))]"
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('Deploy_App_Service_classic_logging_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": [
+        "[concat('Deploy_APP_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]",
+        "[concat('deploy_applicationlog_blob_container_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]",
+        "[concat('deploy_weblog_blob_container_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'app-service-logging.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appServiceResourceName": {
+            "value": "[concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name)]"
+          },
+          "appServiceLogRetentionDays": {
+            "value": "[parameters('appServiceLogRetentionDays')]"
+          },
+          "appServiceLogRetentionMb": {
+            "value": "[parameters('appServiceLogRetentionMb')]"
+          },
+          "applogToBlob": {
+            "value": "[parameters('applogToBlob')]"
+          },
+          "weblogToBlob": {
+            "value": "[parameters('weblogToBlob')]"
+          },
+          "sharedLogStorageAccount": {
+            "value": "[concat('fcs', variables('subscriptionShortCode'), variables('environmentShortCode'),'logstore')]"
+          }
+        }
+      },
+      "copy": {
+        "name": "Create_Classic_Logging",
+        "count": "[length(parameters('appServices'))]"
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('Deploy_FunctionApp_Diagnostics_', replace(parameters('fct-proxy')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": ["functionAppProxyCopy"],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'function-app-diagnostics.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "functionAppName": {
+            "value": "[concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-func-', parameters('fct-proxy')[copyIndex()].name)]"
+          },
+          "sharedWorkspaceID": {
+            "value": "[variables('sharedWorkspaceID')]"
+          },
+          "enableRetentionPolicy": {
+            "value": "[parameters('ServiceBusRetentionPolicyEnabled')]"
+          }
+        }
+      },
+      "copy": {
+        "name": "Create_FunctionApp_Diagnostics",
+        "count": "[length(parameters('fct-proxy'))]"
+      }
+    },
+    {
+      "type": "microsoft.insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[concat('KeyVault_Availability_',variables('keyVaultName'))]",
+      "dependsOn": ["Deploy_Environment_KeyVault"],
+      "location": "global",
+      "properties": {
+        "description": "[concat('KeyVault Availability is less than expected on ',variables('keyVaultName'))]",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId(resourceGroup().name, 'Microsoft.KeyVault/vaults', variables('keyVaultName'))]"
+        ],
+        "evaluationFrequency": "PT5M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "allOf": [
+            {
+              "alertSensitivity": "Medium",
+              "failingPeriods": {
+                "numberOfEvaluationPeriods": 4,
+                "minFailingPeriodsToAlert": 4
+              },
+              "name": "Metric1",
+              "metricNamespace": "Microsoft.KeyVault/vaults",
+              "metricName": "Availability",
+              "dimensions": [],
+              "operator": "LessThan",
+              "timeAggregation": "Average",
+              "criterionType": "DynamicThresholdCriterion"
+            }
+          ],
+          "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+        },
+        "autoMitigate": true,
+        "targetResourceType": "Microsoft.KeyVault/vaults",
+        "targetResourceRegion": "westeurope",
+        "actions": [
+          {
+            "actionGroupId": "[resourceId(variables('sharedRG'), 'Microsoft.Insights/actiongroups', variables('actionGroupName')) ]",
+            "webHookProperties": {}
+          }
+        ]
+      }
+    },
+    {
+      "type": "microsoft.insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[concat('Average_Response_Time_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": ["webSiteCopy"],
+      "location": "global",
+      "properties": {
+        "description": "[concat('Average Response Time gt dynamic threshold on ', concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name))]",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId(resourceGroup().name, 'Microsoft.Web/sites', concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name))]"
+        ],
+        "evaluationFrequency": "PT5M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "allOf": [
+            {
+              "alertSensitivity": "Medium",
+              "failingPeriods": {
+                "numberOfEvaluationPeriods": 4,
+                "minFailingPeriodsToAlert": 4
+              },
+              "name": "Metric1",
+              "metricNamespace": "Microsoft.Web/sites",
+              "metricName": "HttpResponseTime",
+              "dimensions": [],
+              "operator": "GreaterThan",
+              "timeAggregation": "Average",
+              "criterionType": "DynamicThresholdCriterion"
+            }
+          ],
+          "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+        },
+        "autoMitigate": true,
+        "targetResourceType": "Microsoft.Web/sites",
+        "targetResourceRegion": "westeurope",
+        "actions": [
+          {
+            "actionGroupId": "[resourceId(variables('sharedRG'), 'Microsoft.Insights/actiongroups', variables('actionGroupName')) ]",
+            "webHookProperties": {}
+          }
+        ]
+      },
+      "copy": {
+        "name": "Create_ResponseTime_metricAlert",
+        "count": "[length(parameters('appServices'))]"
+      }
+    },
+    {
+      "type": "microsoft.insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[concat('Alerts_http_server_errors_', replace(parameters('appServices')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": ["webSiteCopy"],
+      "location": "global",
+      "properties": {
+        "description": "[concat('Average https server errors gt dynamic threshold on ', concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name))]",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId(resourceGroup().name, 'Microsoft.Web/sites', concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-', parameters('appServices')[copyIndex()].name))]"
+        ],
+        "evaluationFrequency": "PT5M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "allOf": [
+            {
+              "alertSensitivity": "Medium",
+              "failingPeriods": {
+                "numberOfEvaluationPeriods": 4,
+                "minFailingPeriodsToAlert": 4
+              },
+              "name": "Metric1",
+              "metricNamespace": "Microsoft.Web/sites",
+              "metricName": "Http5xx",
+              "dimensions": [],
+              "operator": "GreaterThan",
+              "timeAggregation": "Average",
+              "criterionType": "DynamicThresholdCriterion"
+            }
+          ],
+          "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+        },
+        "autoMitigate": true,
+        "targetResourceType": "Microsoft.Web/sites",
+        "targetResourceRegion": "westeurope",
+        "actions": [
+          {
+            "actionGroupId": "[resourceId(variables('sharedRG'), 'Microsoft.Insights/actiongroups', variables('actionGroupName')) ]",
+            "webHookProperties": {}
+          }
+        ]
+      },
+      "copy": {
+        "name": "Create_httpServerError_metricAlert",
+        "count": "[length(parameters('appServices'))]"
+      }
+    },
+    {
+      "type": "microsoft.insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[concat('http_server_errors_', replace(parameters('fct-proxy')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": ["functionAppProxyCopy"],
+      "location": "global",
+      "properties": {
+        "description": "[concat('http_server_errors gt dynamic threshold on ', concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-func-', parameters('fct-proxy')[copyIndex()].name))]",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId(resourceGroup().name, 'Microsoft.Web/sites', concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-func-', parameters('fct-proxy')[copyIndex()].name))]"
+        ],
+        "evaluationFrequency": "PT5M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "allOf": [
+            {
+              "alertSensitivity": "Medium",
+              "failingPeriods": {
+                "numberOfEvaluationPeriods": 4,
+                "minFailingPeriodsToAlert": 4
+              },
+              "name": "Metric1",
+              "metricNamespace": "Microsoft.Web/sites",
+              "metricName": "Http5xx",
+              "dimensions": [],
+              "operator": "GreaterThan",
+              "timeAggregation": "Total",
+              "criterionType": "DynamicThresholdCriterion"
+            }
+          ],
+          "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+        },
+        "autoMitigate": true,
+        "targetResourceType": "Microsoft.Web/sites",
+        "targetResourceRegion": "westeurope",
+        "actions": [
+          {
+            "actionGroupId": "[resourceId(variables('sharedRG'), 'Microsoft.Insights/actiongroups', variables('actionGroupName')) ]",
+            "webHookProperties": {}
+          }
+        ]
+      },
+      "copy": {
+        "name": "Create_httpServerError_FunctionApp_metricAlert",
+        "count": "[length(parameters('fct-proxy'))]"
+      }
+    },
+    {
+      "type": "microsoft.insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[concat('Average_Response_Time_', replace(parameters('fct-proxy')[copyIndex()].name, '-', '_'))]",
+      "dependsOn": ["functionAppProxyCopy"],
+      "location": "global",
+      "properties": {
+        "description": "[concat('The Average Response Time gt dynamic threshold on ', concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-func-', parameters('fct-proxy')[copyIndex()].name))]",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId(resourceGroup().name, 'Microsoft.Web/sites', concat('fcs-',variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-func-', parameters('fct-proxy')[copyIndex()].name))]"
+        ],
+        "evaluationFrequency": "PT5M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "allOf": [
+            {
+              "alertSensitivity": "Medium",
+              "failingPeriods": {
+                "numberOfEvaluationPeriods": 4,
+                "minFailingPeriodsToAlert": 4
+              },
+              "name": "Metric1",
+              "metricNamespace": "Microsoft.Web/sites",
+              "metricName": "HttpResponseTime",
+              "dimensions": [],
+              "operator": "GreaterThan",
+              "timeAggregation": "Average",
+              "criterionType": "DynamicThresholdCriterion"
+            }
+          ],
+          "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+        },
+        "autoMitigate": true,
+        "targetResourceType": "Microsoft.Web/sites",
+        "targetResourceRegion": "westeurope",
+        "actions": [
+          {
+            "actionGroupId": "[resourceId(variables('sharedRG'), 'Microsoft.Insights/actiongroups', variables('actionGroupName')) ]",
+            "webHookProperties": {}
+          }
+        ]
+      },
+      "copy": {
+        "name": "Create_Average_Response_Time_FunctionApp_metricAlert",
+        "count": "[length(parameters('fct-proxy'))]"
+      }
+    }
+  ]
+}

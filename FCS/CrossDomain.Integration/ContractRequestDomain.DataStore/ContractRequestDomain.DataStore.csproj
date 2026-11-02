@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DA99E1D0-BF88-4941-96C9-93B64E17E185}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SFA.FCT.ContractRequestDomain.DataStore</RootNamespace>
+    <AssemblyName>ContractRequestDomain.DataStore</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\CI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
+    <OutputPath>bin\AT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
+    <OutputPath>bin\MO\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
+    <OutputPath>bin\OAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DEV\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
+    <OutputPath>bin\DAT\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
+    <OutputPath>bin\DMO\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
+    <OutputPath>bin\DOAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContractRequestDbContext.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="IContractRequestDbContext.cs" />
+    <Compile Include="Migrations\201703281428264_InitialCreate.cs" />
+    <Compile Include="Migrations\201703281428264_InitialCreate.Designer.cs">
+      <DependentUpon>201703281428264_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804301242588_FundingTypeFundingPeriod_AllowUseOfDeliveryOrgsColumnAdded.cs" />
+    <Compile Include="Migrations\201804301242588_FundingTypeFundingPeriod_AllowUseOfDeliveryOrgsColumnAdded.Designer.cs">
+      <DependentUpon>201804301242588_FundingTypeFundingPeriod_AllowUseOfDeliveryOrgsColumnAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120814370_CreateTableFileWatcherLockResource.cs" />
+    <Compile Include="Migrations\201811120814370_CreateTableFileWatcherLockResource.Designer.cs">
+      <DependentUpon>201811120814370_CreateTableFileWatcherLockResource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120944073_FileWatcherLockResource_ColRename.cs" />
+    <Compile Include="Migrations\201811120944073_FileWatcherLockResource_ColRename.Designer.cs">
+      <DependentUpon>201811120944073_FileWatcherLockResource_ColRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812101151106_CreateTableAllocationNotification.cs" />
+    <Compile Include="Migrations\201812101151106_CreateTableAllocationNotification.Designer.cs">
+      <DependentUpon>201812101151106_CreateTableAllocationNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812200930283_AddFeedPageNumberToAllocationNotification.cs" />
+    <Compile Include="Migrations\201812200930283_AddFeedPageNumberToAllocationNotification.Designer.cs">
+      <DependentUpon>201812200930283_AddFeedPageNumberToAllocationNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109010824049_CreateFundingAllocationReleaseTable.cs" />
+    <Compile Include="Migrations\202109010824049_CreateFundingAllocationReleaseTable.Designer.cs">
+      <DependentUpon>202109010824049_CreateFundingAllocationReleaseTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109061208300_ChangeFundingAllocationReleaseTable.cs" />
+    <Compile Include="Migrations\202109061208300_ChangeFundingAllocationReleaseTable.Designer.cs">
+      <DependentUpon>202109061208300_ChangeFundingAllocationReleaseTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402161713147_createstoreproceduretoSetToReleaseInProgress.cs" />
+    <Compile Include="Migrations\202402161713147_createstoreproceduretoSetToReleaseInProgress.designer.cs">
+      <DependentUpon>202402161713147_createstoreproceduretoSetToReleaseInProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409271008380_WebjobStatus.cs" />
+    <Compile Include="Migrations\202409271008380_WebjobStatus.Designer.cs">
+      <DependentUpon>202409271008380_WebjobStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410221537224_AddModifiedColumnsToContractReqWebJobStatusTable.cs" />
+    <Compile Include="Migrations\202410221537224_AddModifiedColumnsToContractReqWebJobStatusTable.Designer.cs">
+      <DependentUpon>202410221537224_AddModifiedColumnsToContractReqWebJobStatusTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\AllocationNotification.cs" />
+    <Compile Include="Model\FileWatcherLockResource.cs" />
+    <Compile Include="Model\FundingAllocationRelease.cs" />
+    <Compile Include="Model\FundingTypeFundingPeriod.cs" />
+    <Compile Include="Model\WebjobStatus.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\FileWatcherLockResourceRepository.cs" />
+    <Compile Include="Repositories\FundingAllocationReleaseRepository.cs" />
+    <Compile Include="Repositories\FundingTypeFundingPeriodRepository.cs" />
+    <Compile Include="Repositories\IFileWatcherLockResourceRepository.cs" />
+    <Compile Include="Repositories\IFundingAllocationReleaseRepository.cs" />
+    <Compile Include="Repositories\IFundingTypeFundingPeriodRepository.cs" />
+    <Compile Include="Repositories\IWebjobStatusRepository.cs" />
+    <Compile Include="Repositories\WebjobStatusRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703281428264_InitialCreate.resx">
+      <DependentUpon>201703281428264_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301242588_FundingTypeFundingPeriod_AllowUseOfDeliveryOrgsColumnAdded.resx">
+      <DependentUpon>201804301242588_FundingTypeFundingPeriod_AllowUseOfDeliveryOrgsColumnAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120814370_CreateTableFileWatcherLockResource.resx">
+      <DependentUpon>201811120814370_CreateTableFileWatcherLockResource.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120944073_FileWatcherLockResource_ColRename.resx">
+      <DependentUpon>201811120944073_FileWatcherLockResource_ColRename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812101151106_CreateTableAllocationNotification.resx">
+      <DependentUpon>201812101151106_CreateTableAllocationNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812200930283_AddFeedPageNumberToAllocationNotification.resx">
+      <DependentUpon>201812200930283_AddFeedPageNumberToAllocationNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109010824049_CreateFundingAllocationReleaseTable.resx">
+      <DependentUpon>202109010824049_CreateFundingAllocationReleaseTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109061208300_ChangeFundingAllocationReleaseTable.resx">
+      <DependentUpon>202109061208300_ChangeFundingAllocationReleaseTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402161713147_createstoreproceduretoSetToReleaseInProgress.resx">
+      <DependentUpon>202402161713147_createstoreproceduretoSetToReleaseInProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409271008380_WebjobStatus.resx">
+      <DependentUpon>202409271008380_WebjobStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410221537224_AddModifiedColumnsToContractReqWebJobStatusTable.resx">
+      <DependentUpon>202410221537224_AddModifiedColumnsToContractReqWebJobStatusTable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
+      <Project>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</Project>
+      <Name>CrossDomain.Integration.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

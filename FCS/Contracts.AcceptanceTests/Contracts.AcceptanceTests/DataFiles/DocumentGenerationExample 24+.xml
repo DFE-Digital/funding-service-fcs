@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<fct:DocumentGenerationRequest xmlns:fct="http://sfa.bis.gov.uk/fct" xmlns:ctr="contract">
+  <fct:TemplateContainer>document-template-ci</fct:TemplateContainer>
+  <fct:TemplateFilename>SummaryOfFunding_24+.docx</fct:TemplateFilename>
+  <fct:TargetContainer>document-io-ci</fct:TargetContainer>
+  <fct:TargetFilename>10019980_24+-109_v1.docx</fct:TargetFilename>
+  <fct:MergeData>
+    <fct:MergeFields>
+      <fct:MergeField>
+        <fct:Name>MasterContractRef</fct:Name>
+        <fct:Value>SFA-911</fct:Value>
+      </fct:MergeField>
+      <fct:MergeField>
+        <fct:Name>ContractTotal</fct:Name>
+        <fct:Value>28535</fct:Value>
+      </fct:MergeField>
+      <fct:MergeField>
+        <fct:Name>UKPRN</fct:Name>
+        <fct:Value>10019980</fct:Value>
+      </fct:MergeField>
+      <fct:MergeField>
+        <fct:Name>OrgName</fct:Name>
+        <fct:Value>BHS LIMITED</fct:Value>
+      </fct:MergeField>
+    </fct:MergeFields>
+    <fct:RepeatingSections>
+      <fct:RepeatingSection>
+        <fct:Name>Allocation</fct:Name>
+        <fct:Rows>
+          <fct:Row>
+            <fct:MergeFields>
+              <fct:MergeField>
+                <fct:Name>AllocationName</fct:Name>
+                <fct:Value>24+ Advanced Learning Loans Facility</fct:Value>
+              </fct:MergeField>
+              <fct:MergeField>
+                <fct:Name>AllocationContractRef</fct:Name>
+                <fct:Value>ALLF-819</fct:Value>
+              </fct:MergeField>
+              <fct:MergeField>
+                <fct:Name>AllocationPeriodOneTotal</fct:Name>
+                <fct:Value>12854</fct:Value>
+              </fct:MergeField>
+              <fct:MergeField>
+                <fct:Name>AllocationPeriodTwoTotal</fct:Name>
+                <fct:Value>15681</fct:Value>
+              </fct:MergeField>
+              <fct:MergeField>
+                <fct:Name>AllocationTotal</fct:Name>
+                <fct:Value>28535</fct:Value>
+              </fct:MergeField>
+            </fct:MergeFields>
+          </fct:Row>
+        </fct:Rows>
+      </fct:RepeatingSection>
+    </fct:RepeatingSections>
+  </fct:MergeData>
+</fct:DocumentGenerationRequest>

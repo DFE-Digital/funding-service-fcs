@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="OrganisationDomain.Azure.Deploy" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="6" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="OrganisationDomain.Web">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=fctappstorageoat;AccountKey=" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SSLCertificate" thumbprint="6f49692fa1515c03e2d5e9ea4e4da3a1a19e8c58" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="FCSPreProd-VNet" />
+    <AddressAssignments>
+      <InstanceAddress roleName="OrganisationDomain.Web">
+        <Subnets>
+          <Subnet name="OrgService" />
+        </Subnets>
+      </InstanceAddress>
+      <ReservedIPs>
+        <ReservedIP name="fct-orgservice-doat-rip" />
+      </ReservedIPs>
+    </AddressAssignments>
+  </NetworkConfiguration>
+</ServiceConfiguration>

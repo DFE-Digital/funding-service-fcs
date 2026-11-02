@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10061</returnedtypecode>
+  <savedqueryid>{29162698-2bd0-4d8d-ae14-655a818a4481}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10061" jump="sfa_action" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_allocationhistoryid">
+        <cell name="sfa_action" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_allocationhistory">
+        <attribute name="sfa_allocationhistoryid" />
+        <attribute name="sfa_action" />
+        <attribute name="createdon" />
+        <order attribute="sfa_action" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.59.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Active Allocation History" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

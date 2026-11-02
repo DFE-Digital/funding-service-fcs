@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 3 (http://www.altova.com) by Chris Langman (Skills Funding Agency) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:FP="urn:sfa:schemas:fundingpolicy" xmlns:ORG="urn:sfa:schemas:organisation" xmlns:ACC="urn:sfa:schemas:accounting" targetNamespace="urn:sfa:schemas:fundingpolicy" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.00">
+	<xs:import namespace="urn:sfa:schemas:organisation" schemaLocation="Organisation.xsd"/>
+	<xs:import namespace="urn:sfa:schemas:accounting" schemaLocation="Accounting.xsd"/>
+	<!-- definition of simple elements -->
+	<xs:element name="ContractReferencePrefix" type="xs:string"/>
+	<xs:simpleType name="DeliverableRelationshipTypeTYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="50"/>
+			<xs:pattern value="AGGREGATE"/>
+			<xs:pattern value="OF WHICH"/>
+			<xs:pattern value="LINKED"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DeliverableNamePurposeTYPE">
+<xs:restriction base="xs:string">
+<xs:length value="100"/>
+<xs:enumeration value="TO BE DECIDED"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="PaymentTypeTYPE">
+<xs:restriction base="xs:string">
+<xs:length value="50"/>
+<xs:enumeration value="BUDGETING"/>
+<xs:enumeration value="PAYMENT"/>
+<xs:enumeration value="PROFILE"/>
+<xs:enumeration value="CAPPING"/>
+<xs:enumeration value="RECONCILIATION"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- definition of complex types (mainly CVLs - data that is unlikely to be surfaced on its own)  -->
+	<xs:complexType name="DelivOrgRelationshipTypeTYPE">
+		<xs:sequence>
+			<xs:element name="DeliverableOrganisationRelationshipType">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+						<xs:enumeration value="DELIVERY LOCATION"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Description">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SettingDataTypeTYPE">
+		<xs:sequence>
+			<xs:element name="SettingDataType">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+						<xs:enumeration value="VARCHAR"/>
+						<xs:enumeration value="INT"/>
+						<xs:enumeration value="MONEY"/>
+						<xs:enumeration value="BIT"/>
+						<xs:enumeration value="NUMERIC"/>
+						<xs:enumeration value="COMPLEXTYPE"/>
+						<xs:enumeration value="FLAG"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- definition of complex elements without any references to anything -->
+	<xs:simpleType name="DeliverableStatusTYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+			<xs:enumeration value="ACTIVE"/>
+			<xs:enumeration value="CLOSED"/>
+			<xs:enumeration value="DRAFT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="PeriodType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PeriodTypeCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="10"/>
+							<xs:enumeration value="AY"/>
+							<xs:enumeration value="AP"/>
+							<xs:enumeration value="AQ"/>
+							<xs:enumeration value="FY"/>
+							<xs:enumeration value="FP"/>
+							<xs:enumeration value="FQ"/>
+							<xs:enumeration value="CY"/>
+							<xs:enumeration value="CM"/>
+							<xs:enumeration value="CQ"/>
+							<xs:enumeration value="ESF"/>
+							<xs:enumeration value="EOF"/>
+							<xs:enumeration value="EOP"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="PeriodTypeName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Setting">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SettingCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SettingName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="50"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SettingDescription">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SettingDataType" type="FP:SettingDataTypeTYPE"/>
+				<xs:element name="MaximumLength" type="xs:integer" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- definition of complex elements with references only to Simple Elements -->
+	<xs:element name="Agency">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AgencyCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Description">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="FP:ContractReferencePrefix"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- definition of complex elements with references only to Complex Elements -->
+	<xs:element name="FundingStream">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FundingStreamCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="10"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FundingStreamName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="50"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FundingStreamShortCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="6"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="StartDate" type="xs:date"/>
+				<xs:element name="EndDate" type="xs:date" minOccurs="0"/>
+				<xs:element ref="FP:Agency"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Period">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FP:PeriodType"/>
+				<xs:element name="Period">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="6"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="StartDate" type="xs:date"/>
+				<xs:element name="EndDate" type="xs:date" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FundingStreamPeriod">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FundingStreamPeriodCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="FP:FundingStream"/>
+				<xs:element ref="FP:Period"/>
+				<xs:element name="AllocationReferencePrefix" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FundingType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FundingTypeCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="10"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FundingTypeName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="FP:Agency"/>
+				<xs:element ref="FP:ContractReferencePrefix"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FundingTypeStreamRelationship">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FP:FundingType"/>
+				<xs:element ref="FP:FundingStream"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Deliverable">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FP:FundingStream"/>
+				<xs:element name="DeliverableCode" type="xs:integer"/>
+				<xs:element name="BusinessCode" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="10"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DeliverableName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="120"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Status" type="FP:DeliverableStatusTYPE" minOccurs="0"/>
+				<xs:element name="EffectiveDate" type="xs:date"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DeliverableOrganisationRelationship">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FP:Deliverable"/>
+				<xs:element ref="ORG:Organisation"/>
+				<xs:element name="DeliverableOrganisationRelationshipType" type="FP:DelivOrgRelationshipTypeTYPE"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SettingValueList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FP:Setting"/>
+				<xs:element name="SettingValueSequencer" type="xs:integer"/>
+				<xs:element name="SettingValue">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FundingStreamPeriodSettingRelationship">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FP:FundingStreamPeriod"/>
+				<xs:element ref="FP:SettingValueList"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FundingStreamPeriodDeliverableRelationship">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FP:FundingStreamPeriod"/>
+				<xs:element ref="FP:Deliverable"/>
+				<xs:element name="ParentDeliverableCode" type="xs:integer" minOccurs="0"/>
+				<xs:element name="DeliverableRelationshipType" type="FP:DeliverableRelationshipTypeTYPE" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DeliverableName">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="FP:FundingStreamPeriod"/>
+      <xs:element ref="FP:Deliverable"/>
+      <xs:element name="DeliverableName">
+      <xs:simpleType>
+       <xs:restriction base="xs:string">
+       <xs:maxLength value="120"/>
+      </xs:restriction>
+      </xs:simpleType>
+      </xs:element>
+      <xs:element name="DeliverableNamePurpose" type="FP:DeliverableNamePurposeTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="DeliverableSubnominalRelationship">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="FP:FundingStreamPeriod"/>
+      <xs:element ref="FP:Deliverable"/>
+      <xs:element ref="ACC:Subnominal"/>
+      <xs:element name="PaymentType" type="FP:PaymentTypeTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

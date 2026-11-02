@@ -1,0 +1,38 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017979</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017979</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>16FU-979</AllocationNumber>
+        <VersionNumber>2</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2430670</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>Forensic Unit</SubnominalDescription>
+      <AggregatedValue>5979.00</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>16FU</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2022-04-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2023-03-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2023-01-04</CensusEndDate>
+  <DueDate>2023-01-18</DueDate>
+  <FinancialPaymentFinancialYear>2022</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>10</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

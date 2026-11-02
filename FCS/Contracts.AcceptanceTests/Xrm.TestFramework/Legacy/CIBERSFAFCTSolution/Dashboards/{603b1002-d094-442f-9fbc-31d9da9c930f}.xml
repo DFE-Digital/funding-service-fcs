@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard>
+  <LocalizedNames>
+    <LocalizedName description="Claim Editor Dashboard" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Shows the day-to-day work related data for Claim Editor" languagecode="1033" />
+  </Descriptions>
+  <FormId>{603b1002-d094-442f-9fbc-31d9da9c930f}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab showlabel="false" verticallayout="true" id="{32a1054f-0f4e-4972-b320-29173e194296}" labelid="{4be784a3-bc3b-42c8-83ca-5f6eaab7c54b}">
+            <labels>
+              <label description="Tab" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section showlabel="false" showbar="false" columns="1111" id="{e080f070-6ddc-4c4e-b4de-5c52d07463e6}" labelid="{a1055b34-0e59-4046-bf67-436d202d14be}">
+                    <labels>
+                      <label description="Section" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{82437b06-e362-316d-8062-4169b22571a0}" showlabel="false" colspan="4" auto="false" rowspan="6">
+                          <labels>
+                            <label description="Notifications" languagecode="1033" />
+                          </labels>
+                          <control id="Component7139627" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{C7B88372-F853-E611-9415-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>sfa_notification</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{C7B88372-F853-E611-9415-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId>{3AF73677-C596-E411-93FB-000D3AB03A58}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>2</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{5b6d6c60-7502-de29-5c92-29a018bbdc63}" showlabel="false" colspan="4" auto="false" rowspan="12" labelid="{39cd1ee7-50f1-4962-b772-1319193a3231}">
+                          <labels>
+                            <label description="FCR Allocation" languagecode="1033" />
+                          </labels>
+                          <control id="FCR_Allocation" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{0ED8D494-B8D7-43F2-93FA-72BD5A839133}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>sfa_fcrallocation</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{0ED8D494-B8D7-43F2-93FA-72BD5A839133}</ViewIds>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>9</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell colspan="4" rowspan="12" showlabel="false" id="{85b5bc5e-4987-4d94-8b31-ea9bac9db74d}" auto="false" labelid="{ec0332ef-fa71-4672-80ab-79affb844371}">
+                          <labels>
+                            <label description="Funding Claim Reconciliation" languagecode="1033" />
+                          </labels>
+                          <control id="FCR" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>sfa_fundingclaimreconciliation</TargetEntityType>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <RecordsPerPage>8</RecordsPerPage>
+                              <ViewId>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <ViewIds>{373F0E83-4C2D-4987-A5F5-342916EF3B7E}</ViewIds>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <VisualizationId>{90E2D3BB-E653-E611-9415-000D3AB03A58}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RelationshipName />
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row>
+                        <cell id="{09a31046-c643-5448-0388-d6938969ed96}" showlabel="false" colspan="4" auto="false" rowspan="12">
+                          <labels>
+                            <label description="Claim Reconciliation Publication Exceptions" languagecode="1033" />
+                          </labels>
+                          <control id="Publication_Exceptions" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{186C0AB3-12B0-E711-9423-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <TargetEntityType>sfa_claimreconciliationpublicationexception</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{186C0AB3-12B0-E711-9423-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId />
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>8</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                      <row />
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+        <DisplayConditions FallbackForm="true">
+          <Role Id="{B5169844-674A-E611-9415-000D3AB03A58}" />
+        </DisplayConditions>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>2.10.1.0</IntroducedVersion>
+</Dashboard>

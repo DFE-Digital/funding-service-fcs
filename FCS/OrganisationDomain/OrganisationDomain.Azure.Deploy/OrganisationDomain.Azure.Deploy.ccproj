@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>2.9</ProductVersion>
+    <ProjectGuid>e33c0258-33a3-4b38-a189-a17e19a3ef54</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OrganisationDomain.Azure.Deploy</RootNamespace>
+    <AssemblyName>OrganisationDomain.Azure.Deploy</AssemblyName>
+    <StartDevelopmentStorage>True</StartDevelopmentStorage>
+    <Name>OrganisationDomain.Azure.Deploy</Name>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <PackageEnableRemoteDebugger>False</PackageEnableRemoteDebugger>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetProfile>Debug</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetProfile>Release</TargetProfile>
+  </PropertyGroup>
+  <!-- Items for the project -->
+  <ItemGroup>
+    <ServiceConfiguration Include="ServiceConfiguration.AT.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.DCI.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.DAT.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.Local.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.DMO.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.DOAT.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.Release.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.MO.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.OAT.cscfg" />
+    <ServiceDefinition Include="ServiceDefinition.csdef" />
+    <ServiceConfiguration Include="ServiceConfiguration.Debug.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.CI.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.PS.cscfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OrganisationDomain.Web\OrganisationDomain.Web.csproj">
+      <Name>OrganisationDomain.Web</Name>
+      <Project>{8af89be2-0bec-4478-816b-487838cc7010}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>OrganisationDomain.Web</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OrganisationDomain.WebContent\" />
+    <Folder Include="Profiles" />
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="OrganisationDomain.WebContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishProfile Include="Profiles\fct-orgservice-dci.azurePubxml" />
+    <PublishProfile Include="Profiles\fct-orgservice-dat.azurePubxml" />
+    <PublishProfile Include="Profiles\fct-orgservice-ci.azurePubxml" />
+    <PublishProfile Include="Profiles\fct-orgservice-at.azurePubxml" />
+    <PublishProfile Include="Profiles\fct-orgservice-mo.azurePubxml" />
+    <PublishProfile Include="Profiles\fct-orgservice-dmo.azurePubxml" />
+  </ItemGroup>
+  <!-- Import the target files for this project template -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <CloudExtensionsDir Condition=" '$(CloudExtensionsDir)' == '' ">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Windows Azure Tools\2.9\</CloudExtensionsDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DebugCI' ">
+    <OutputPath>bin\DebugCI\</OutputPath>
+    <TargetProfile>Debug</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'CI' ">
+    <OutputPath>bin\CI\</OutputPath>
+    <TargetProfile>CI</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'AT' ">
+    <OutputPath>bin\AT\</OutputPath>
+    <TargetProfile>AT</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'MO' ">
+    <OutputPath>bin\MO\</OutputPath>
+    <TargetProfile>MO</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'OAT' ">
+    <OutputPath>bin\OAT\</OutputPath>
+    <TargetProfile>OAT</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DEV' ">
+    <OutputPath>bin\DEV\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'PS' ">
+    <OutputPath>bin\PS\</OutputPath>
+    <TargetProfile>PS</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DAT' ">
+    <TargetProfile>DAT</TargetProfile>
+    <OutputPath>bin\DAT\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DCI' ">
+    <TargetProfile>DCI</TargetProfile>
+    <OutputPath>bin\DCI\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DMO' ">
+    <TargetProfile>DMO</TargetProfile>
+    <OutputPath>bin\DMO\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DOAT' ">
+    <TargetProfile>DOAT</TargetProfile>
+    <OutputPath>bin\DOAT\</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(CloudExtensionsDir)Microsoft.WindowsAzure.targets" />
+</Project>

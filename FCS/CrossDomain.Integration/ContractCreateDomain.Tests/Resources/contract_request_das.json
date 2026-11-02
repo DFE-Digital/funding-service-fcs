@@ -1,0 +1,2129 @@
+{
+    "correlationInfo": {
+      "batchId": "c0549788-c0ce-4335-9ad6-139cef517d06",
+      "correlationId": "41cb835b-90f8-4f34-bd2b-aa4de5952690"
+    },
+    "contract": {
+      "IsPresentInCrm": false,
+      "IsContractWithMatchingUKPRNPeriodAndFundingTypePresentInCrm": false,
+      "IsContractNumberWithMatchingUKPRNPeriodAndFundingTypePresentInCrm": false,
+      "IsDraftContractWithContractNumberPresentInCrm": false,
+      "IsLEVYrovedContractWithContractNumberPresentInCrm": false,
+      "IsWithdrawnContractWithContractNumberPresentInCrm": false,
+      "IsNonWithdrawnContractWithContractNumberPresentInCrm": false,
+      "IsMasterContractWithMatchingMasterContractNumberPresentInCrm": false,
+      "ValueVariation": null,
+      "PreviousVersionId": null,
+      "Id": null,
+      "Owner": null,
+      "ContractAdvisorId": null,
+      "ParentContractId": null,
+      "LEVYrovedAllocationValues": [ ],
+      "correlationId": "bd43a7f5-6276-40f9-b799-15ee1cfbab64",
+      "contracts": [
+        {
+          "IsPresentInCrm": false,
+          "IsContractWithMatchingUKPRNPeriodAndFundingTypePresentInCrm": false,
+          "IsContractNumberWithMatchingUKPRNPeriodAndFundingTypePresentInCrm": false,
+          "IsDraftContractWithContractNumberPresentInCrm": false,
+          "IsLEVYrovedContractWithContractNumberPresentInCrm": false,
+          "IsWithdrawnContractWithContractNumberPresentInCrm": false,
+          "IsNonWithdrawnContractWithContractNumberPresentInCrm": false,
+          "IsMasterContractWithMatchingMasterContractNumberPresentInCrm": false,
+          "ValueVariation": null,
+          "PreviousVersionId": null,
+          "Id": null,
+          "Owner": null,
+          "ContractAdvisorId": null,
+          "ParentContractId": null,
+          "LEVYrovedAllocationValues": [ ],
+          "correlationId": "bd43a7f5-6276-40f9-b799-15ee1cfbab64",
+          "contracts": [ ],
+          "fundingTypeCode": "LEVY",
+          "period": {
+            "periodType1": {
+              "periodTypeCode": "LEVY",
+              "periodTypeName": ""
+            },
+            "period": "1799",
+            "startDate": "0001-01-01T00:00:00",
+            "endDate": "0001-01-01T00:00:00"
+          },
+          "contractAllocations": [
+            {
+              "ValueVariation": null,
+              "correlationId": "6c0862d7-d105-4ec9-8725-466a25a4a005",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "LEVY",
+                  "periodTypeName": ""
+                },
+                "period": "1799",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10033670,
+              "fundingStreamCode": "LEVY",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-04-06T00:00:00Z",
+              "endDate": "2020-12-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "LEVY1799",
+              "contractDeliverables": [
+                {
+                  "correlationId": "b19ed4e7-c00f-48e0-a28a-0b9264f46863",
+                  "deliverable": {
+                    "fundingStreamCode": "LEVY",
+                    "deliverableCode": 1,
+                    "businessCode": null,
+                    "deliverableName": "Levy Deliverable 1"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "b19ed4e7-c00f-48e0-a28a-0b9264f46863",
+                      "year": 2017,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ab12b47a-e0c5-449a-8a34-661c0fa05474",
+                      "year": 2017,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ea41026c-5484-478f-a18c-f757e1a91e88",
+                      "year": 2017,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c80a46e0-1e97-4b4e-95eb-fa78919ae8a1",
+                      "year": 2017,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a3d1393a-3103-4b12-b2f0-38d1e2da91c7",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "09fa3b9c-1a46-44f3-a90a-0540f065609b",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f668c571-15e3-408b-b9af-abffa6180e65",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "2b84ae35-44d5-4690-b673-a05ed129949d",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "5fbd0c18-f16f-4723-9b81-51fda63ac8d9",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c4f4dfff-38e6-4278-b870-7bea6355bd24",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "081e411a-5de1-491b-9d27-ee8092d1934c",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "5dcd61e8-27a2-4213-aecc-f5d8a74d7c66",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cb9d700e-778a-4438-9e49-4b5c17342645",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cea8b555-feb8-4267-8920-7e818f6040f5",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3ea10ecd-1dcb-4c6a-b5e8-a085baa5f085",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e069c103-78f3-4c80-8381-d926b99d353a",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d3016c7b-3606-4553-9661-268200003259",
+                      "year": 2018,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "034f5dd4-16d4-4b5a-88b3-b3e3cf9e76ec",
+                      "year": 2018,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "442a8607-509a-45f3-84be-705b93bfb287",
+                      "year": 2018,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a3bd888a-80f7-4312-a9ac-8e29b8c4f805",
+                      "year": 2018,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ae87af29-9735-4dc4-a19f-cd506c8c69a7",
+                      "year": 2018,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d252362b-1578-4434-87ef-92aeedadb526",
+                      "year": 2019,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "99eda374-a25c-42cc-81db-5b3949ea22fc",
+                      "year": 2019,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "2b40bd51-892c-419f-8b9a-3cdf59d1a154",
+                      "year": 2019,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "35c16503-8ccc-4073-9183-041abe60cd14",
+                      "year": 2019,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "fbf9c99f-7b6f-4de7-87db-d0b5be215a66",
+                      "year": 2019,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "fbe6239e-f1df-4b7d-b319-7d41f44eee7e",
+                      "year": 2019,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "46c81d0a-c0c2-4e5b-ba75-8bdcc33d04bb",
+                      "year": 2019,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "fa761c65-e30b-4e8f-8257-a2a9cff84343",
+                      "year": 2019,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c255dfe4-9042-45e8-813e-40ab62cb6fa9",
+                      "year": 2019,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "9206baec-5b42-4080-a1f5-e577bc2d4ef3",
+                      "year": 2019,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d46a3b72-e585-4a3d-8d7a-c35d42352202",
+                      "year": 2019,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f47992df-8493-4833-ab0f-0bd53ec9b6b5",
+                      "year": 2019,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1e3359a1-8751-4097-8dcb-f926612f7366",
+                      "year": 2020,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8bbc228e-1270-4b48-bd5c-0a513c8932ce",
+                      "year": 2020,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "32901f7e-678a-4d30-86da-5fdc9e4bcf08",
+                      "year": 2020,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "08cb5fe5-753c-45e6-9e81-6cea74e6a358",
+                      "year": 2020,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e2177808-1efc-4656-976e-402e04b11101",
+                      "year": 2020,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "95071495-2307-4f31-80bb-2bba8497f06b",
+                      "year": 2020,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d899e0bc-ff94-4ef5-b2fd-42e6ed7ba2ef",
+                      "year": 2020,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6690aea2-fbc6-4873-be01-394a3f7eae98",
+                      "year": 2020,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "136dcd55-a97d-45bb-8ac2-9ab9921f9217",
+                      "year": 2020,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "54ba6d70-dd82-4bd2-9b98-f25fd336a52c",
+                      "year": 2020,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "9da39c2b-5164-4e40-8060-a406f1781e08",
+                      "year": 2020,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8b98a083-8a03-4978-a54c-84b08b094d17",
+                      "year": 2020,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [ ],
+                  "deliverableDimensionRelationships": [ ],
+                  "deliverableDescription": null,
+                  "unitCost": 0.0,
+                  "plannedVolume": 0,
+                  "plannedValue": 0.0,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                },
+                {
+                  "correlationId": "431b6f63-aa03-4cbb-acf6-2140075e9f11",
+                  "deliverable": {
+                    "fundingStreamCode": "LEVY",
+                    "deliverableCode": 2,
+                    "businessCode": null,
+                    "deliverableName": "Levy Deliverable 2"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "431b6f63-aa03-4cbb-acf6-2140075e9f11",
+                      "year": 2017,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "024195d2-3b37-45c4-adb6-8215252d2023",
+                      "year": 2017,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f890b7d0-28e4-4ed2-a942-39c6b5383fe1",
+                      "year": 2017,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "09cb40fe-153c-4525-a75f-c4e9b369a28a",
+                      "year": 2017,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "b652e932-552c-4beb-9867-2953d1e2f1ca",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f878f630-f7a0-4429-a2ed-0659986d9fd9",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "02c2c80b-65d5-43f9-9c05-b4d478beae8f",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8278b46b-0ba5-4857-bfd2-d025310254bd",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f964fc7c-2feb-4089-b419-c08611b086f7",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "805a4842-5ca9-40b4-9014-cc89893c7e73",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "27abc24d-6f0d-49ca-a300-490983c362a8",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d658a7e8-6fea-49b2-9984-9c1e0cc2ae2d",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3961711d-bf58-4a99-8e09-64c6bb8b7e81",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "abb01e40-9d2c-46ac-8e96-feece2d9b544",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cd1c895b-1745-4bba-bcd4-9f890f823b38",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cc647903-46f8-426d-86ea-641ee2fd1d33",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "65e21035-f92d-4198-9d08-1380d585d6bd",
+                      "year": 2018,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a5aa1e45-b555-4677-a804-d954434ec833",
+                      "year": 2018,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "18b053e9-d2aa-4459-915d-e8e20cca232a",
+                      "year": 2018,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "7e01f63e-7409-4984-bd96-8c9342f58ae4",
+                      "year": 2018,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c80a395c-08d4-4081-8603-fc8340cc47c2",
+                      "year": 2018,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1d4b2ff3-7a2e-4f1c-8075-146ed53961ba",
+                      "year": 2019,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "418711ee-9af9-4927-9d0e-cc89c47de1c5",
+                      "year": 2019,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "03a7942f-0dd0-423d-8233-b53b0ce4dc49",
+                      "year": 2019,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a85617a4-b4c8-4cd1-9681-623a0443cbf8",
+                      "year": 2019,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "62cbfe8d-1a9d-40ea-9ee2-07b44aeeca32",
+                      "year": 2019,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "fdd9b4eb-51d1-459f-bb06-df4f5748e56f",
+                      "year": 2019,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "b3b232d5-67a6-4e2d-82f3-3efc297eb988",
+                      "year": 2019,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "81c7312f-d606-4558-9545-c9890f00c302",
+                      "year": 2019,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "44acad7d-7139-4b9b-9638-a7a80eb87e43",
+                      "year": 2019,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f18980c4-d3db-44ce-809d-ed281ae865c9",
+                      "year": 2019,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "9b90e0bd-73f2-4a9f-8e23-e0d53697752b",
+                      "year": 2019,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a90c8052-6139-4399-8735-d2c474f3cccc",
+                      "year": 2019,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e79de864-9d1b-413b-b8cd-96890139f8d6",
+                      "year": 2020,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "641c2e63-888a-48c5-a1f6-08c05624b975",
+                      "year": 2020,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "fcbeb373-9318-4ebd-bd6e-057533a8d7a7",
+                      "year": 2020,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "5e896aa3-fb5b-49ff-be1d-243c7b137b6c",
+                      "year": 2020,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a4c35951-1ec1-45a7-955c-20ea7368dfe2",
+                      "year": 2020,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "76f476d9-7d02-4bc8-aa40-4271c717a4d3",
+                      "year": 2020,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "377718e6-0043-4d04-a702-9661b54cf187",
+                      "year": 2020,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "612d94fa-cf77-4973-8c49-234e7387e0b2",
+                      "year": 2020,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8866ba32-eea2-433f-bde1-1a86dcf460bc",
+                      "year": 2020,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cdc91d9e-efc9-4e9f-ba6d-f9c887ec4467",
+                      "year": 2020,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "30a695a2-4b65-47c8-851a-ad437045771d",
+                      "year": 2020,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "86d55007-a693-4d22-993a-5f784581cfcd",
+                      "year": 2020,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [ ],
+                  "deliverableDimensionRelationships": [ ],
+                  "deliverableDescription": null,
+                  "unitCost": 0.0,
+                  "plannedVolume": 0,
+                  "plannedValue": 0.0,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                },
+                {
+                  "correlationId": "7fa27681-1350-46ca-8473-23b70f9daf9d",
+                  "deliverable": {
+                    "fundingStreamCode": "LEVY",
+                    "deliverableCode": 3,
+                    "businessCode": null,
+                    "deliverableName": "Levy Deliverable 3"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "7fa27681-1350-46ca-8473-23b70f9daf9d",
+                      "year": 2017,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "be502d52-2493-4a87-a951-285d0cae582d",
+                      "year": 2017,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "92b05c55-2da0-47a2-8b9b-9647402202dd",
+                      "year": 2017,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "4f3d46c2-f925-4efd-9132-31f99c9e49d1",
+                      "year": 2017,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e0c02aa5-806f-4794-8a16-15ce9357c5d4",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "fd77bd25-7053-4b40-9921-51bd83452823",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "10d137c9-471c-4a2d-a089-e62ea129a3f5",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "daae3b6e-37d5-47aa-bd04-c4030a7c0fdb",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3e18fd25-679d-41df-9e84-96c8a3102b1b",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ba22d460-e53b-48a9-900e-7afe0a0f3326",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "7de2d796-7275-41fb-900e-6162d3d0471c",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d482431f-9524-4b7f-9206-ef4601215293",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ec8338ac-19ab-4967-acc9-61663deba4ae",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "b49da9f0-70ff-4dfb-9975-a462103249c8",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6b92c0ab-e4da-45ec-a2bf-60a0488b7959",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1e7d5f7a-e9a7-403c-833e-238f1335b5d9",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "bc058565-c63c-4d82-8e9f-f8b2999a0edb",
+                      "year": 2018,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "46e80d4b-9f4d-4d54-82d2-86e659090f45",
+                      "year": 2018,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cadf9e9c-33b6-42d8-990f-2ea7c5a9a4fd",
+                      "year": 2018,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "9156f271-d97a-42e0-9413-d950e6117f5d",
+                      "year": 2018,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6f57db5a-555d-457f-9bc9-c10d4c303e1b",
+                      "year": 2018,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a2cfc0cc-bf8f-4056-815c-7fa0675c54b8",
+                      "year": 2019,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "64ad45c0-4fae-4318-9c38-1cf796dcc57c",
+                      "year": 2019,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cec068d0-8491-468f-84b3-4677d2b576ee",
+                      "year": 2019,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "921026cb-8492-4464-b4d8-0d0c8d42f7e6",
+                      "year": 2019,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3b3053fc-9b6e-467d-82e7-f5a48c40a72d",
+                      "year": 2019,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c16ca7ad-1073-4a93-9992-a0dc62eddd96",
+                      "year": 2019,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "4baa745e-7d34-43c0-a894-17454ab2dfe7",
+                      "year": 2019,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "bb919ba2-0171-4070-8a92-9f29c9b39c43",
+                      "year": 2019,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a9292c84-901a-439b-8164-e07875d0d30b",
+                      "year": 2019,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e977e584-56f1-4fa0-a137-f0b9537aa4e2",
+                      "year": 2019,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e122bfbf-6c8b-4f78-be89-6e790093701f",
+                      "year": 2019,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "b3a4637a-7788-4f51-b3b7-7360d86e1f89",
+                      "year": 2019,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "0ed65e6d-4fc9-4e8a-9be1-e564c5d4b868",
+                      "year": 2020,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "0ad6254c-174b-4b7e-afb3-a125d4820cf6",
+                      "year": 2020,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8aa6d16e-7c91-455d-bb62-40b312bebd5b",
+                      "year": 2020,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "11710349-dd11-4b30-8ade-857f05e8bf61",
+                      "year": 2020,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6f3f69b6-5ebd-4435-a19e-2a53dcdf31e0",
+                      "year": 2020,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "bab883e1-61e5-4516-a90c-3f3f9e260c31",
+                      "year": 2020,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3d123d7a-402a-4f67-bf62-403c5ca4565e",
+                      "year": 2020,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "aabe835b-3843-448a-8a66-b84b11bcda33",
+                      "year": 2020,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "dc45047b-608d-467a-9022-7b7fec4c80a2",
+                      "year": 2020,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "716e5cf8-dcab-43ab-bfe4-e64189468396",
+                      "year": 2020,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6f257173-3480-4b6d-88f2-f951b6416438",
+                      "year": 2020,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3d3e5475-5449-43da-b40a-44ba367b492d",
+                      "year": 2020,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": 0.0,
+                      "plannedVolume": 0,
+                      "plannedValue": 0.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [ ],
+                  "deliverableDimensionRelationships": [ ],
+                  "deliverableDescription": null,
+                  "unitCost": 0.0,
+                  "plannedVolume": 0,
+                  "plannedValue": 0.0,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null
+            }
+          ],
+          "contractNumber": null,
+          "contractVersionNumber": 1,
+          "contractSubVersionNumber": null,
+          "description": null,
+          "contractor": {
+            "organisationIdentifier": "ORG0006910",
+            "ukprn": 10033670,
+            "legalName": "NACRO",
+            "registeredCompanyNumber": null,
+            "organisationAddressIdentifier": 0,
+            "addressLine1": null,
+            "addressLine2": null,
+            "addressLine3": null,
+            "addressLine4": null,
+            "addressLine5": null,
+            "town": null,
+            "postcode": null,
+            "organisationStatus": "Active"
+          },
+          "hierarchyType": 1,
+          "contractType1": "Contract for Services",
+          "startDate": "2017-04-06T00:00:00Z",
+          "endDate": "2020-12-31T00:00:00Z",
+          "status": null,
+          "subStatus": null,
+          "crmNotPresent": false,
+          "CRMIntent": 0,
+          "amendmentType": 0
+        }
+      ],
+      "fundingTypeCode": "LEVY",
+      "period": null,
+      "contractAllocations": [ ],
+      "contractNumber": null,
+      "contractVersionNumber": 1,
+      "contractSubVersionNumber": null,
+      "description": null,
+      "contractor": {
+        "organisationIdentifier": "ORG0006910",
+        "ukprn": 10033670,
+        "legalName": "NACRO",
+        "registeredCompanyNumber": null,
+        "organisationAddressIdentifier": 0,
+        "addressLine1": null,
+        "addressLine2": null,
+        "addressLine3": null,
+        "addressLine4": null,
+        "addressLine5": null,
+        "town": null,
+        "postcode": null,
+        "organisationStatus": "Active"
+      },
+      "hierarchyType": 0,
+      "contractType1": null,
+      "startDate": "2017-04-06T00:00:00Z",
+      "endDate": "2020-12-31T00:00:00Z",
+      "status": null,
+      "subStatus": null,
+      "crmNotPresent": false,
+      "CRMIntent": 0,
+      "amendmentType": 0
+    },
+    "errorInfo": [
+      {
+        "correlationId": "bd43a7f5-6276-40f9-b799-15ee1cfbab64",
+        "level": 0,
+        "Value": "A Master Contract already exists for the given UKPRN and Period"
+      },
+      {
+        "correlationId": "bd43a7f5-6276-40f9-b799-15ee1cfbab64",
+        "level": 1,
+        "Value": "A Contract already exists for the given UKPRN, Period and dates specified"
+      }
+    ],
+    "FundingConfiguration": [
+      {
+        "FundingTypeCode": "LEVY",
+        "FundingStreamCode": "LEVY",
+        "FundingStreamId": "1d3f2c6a-ab6e-e611-80ed-000d3ab031fe",
+        "FundingStreamName": "LEVYrenticeship Levy",
+        "FundingStreamCodeId": "1d3f2c6a-ab6e-e611-80ed-000d3ab031fe",
+        "FundingStreamPeriodCode": "LEVY1799",
+        "Period": "1799",
+        "FundingPeriodStartDate": "2017-04-06T00:00:00Z",
+        "FundingPeriodEndDate": "2020-12-31T00:00:00Z",
+        "PeriodTypeName": "Contract Duration",
+        "PeriodTypeCode": "LEVY"
+      }
+    ]
+}

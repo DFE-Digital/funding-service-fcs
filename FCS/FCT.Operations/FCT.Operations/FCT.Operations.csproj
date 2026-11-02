@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>	
+  <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Compile Remove="PaymentSummary\Sql\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="PaymentSummary\Sql\**" />
+    <None Remove="Migrations\**" />
+    <None Remove="PaymentSummary\Sql\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="DataStore\Resources\CrmReplicaScripts.sql" />
+    <None Remove="DataStore\Resources\OperationsMigrationScript.sql" />
+    <None Remove="Resources\PaidCensusDatesPassedForCensusPeriod.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj" />
+
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.OverrideDate.DataStore\CrossDomain.Integration.OverrideDate.DataStore.csproj" />
+
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.DataStore\PMD.PolicyCache.DataStore.csproj" />
+    <ProjectReference Include="..\..\FCS.Worker\FCS.Worker.Entities\FCS.Worker.Common.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
+    <ProjectReference Include="..\FCT.Operations.Common\FCT.Operations.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataStore\Resources\CrmReplicaScripts.sql" />
+    <EmbeddedResource Include="DataStore\Resources\OperationsMigrationScript.sql" />
+    <EmbeddedResource Include="Resources\PaidCensusDatesPassedForCensusPeriod.sql" />
+    <EmbeddedResource Include="Resources\PaymentSummaryTemplate.xlsx" />
+    <EmbeddedResource Include="Resources\Aspose.Total.lic" />
+    <EmbeddedResource Include="Resources\ParkingAndDiscardedExtract.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.8.1" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.8.1" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.246501">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Aspose.Cells" Version="18.12.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="NServiceBus" Version="7.4.4" />
+    <PackageReference Include="NServiceBus.CastleWindsor" Version="7.2.0" />
+    <PackageReference Include="NServiceBus.Persistence.Sql" Version="6.0.4" />
+    <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="1.7.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.7.0" />
+    <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.21812.12000" />
+    <PackageReference Include="Polly-Signed" Version="5.9.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

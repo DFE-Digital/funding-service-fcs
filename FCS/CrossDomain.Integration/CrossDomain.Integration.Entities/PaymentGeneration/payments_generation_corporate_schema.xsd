@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Rahul Mehta (Capgemini) -->
+<xs:schema xmlns:pg="urn:sfa:schemas:paymentsaggregation" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sfa:schemas:paymentsaggregation" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.02">
+	<xs:element name="PaymentPeriod">
+		<xs:annotation>
+			<xs:documentation>Associated with each Funding Stream Period, is a range of Calendar and Financial Periods (usually months) across which payments may be made. Each such period/month has a Census Date and a Due Date
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PaymentDetails" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>This entity is essentially a breakdown of proposed payments (for each period within Payment Period) by Provider, Coda Code, and Subnominal.
+</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="pg:PaymentDetail" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>This entity is a  proposed payment</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Agency">
+					<xs:annotation>
+						<xs:documentation>Each Funding Stream belongs to either the SFA or the EFA (as of 2015). This attribute uses the Description attribute of Funding Stream (with the Funding Policy Configuration Service) to identify to which Agency the data belongs.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FundingStreamShortCode">
+					<xs:annotation>
+						<xs:documentation>A code used to identify the Funding Stream Period to which this Payment Period applies.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FundingStreamPeriodStartDate" type="xs:date">
+					<xs:annotation>
+						<xs:documentation>The start date of the related Funding Stream Period. The combination of the Funding Stream and this date should uniquely relate to a Funding Stream Period.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="FundingStreamPeriodEndDate" type="xs:date">
+					<xs:annotation>
+						<xs:documentation>The end date of the related Funding Stream Period.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CensusEndDate" type="xs:date">
+					<xs:annotation>
+						<xs:documentation>The Census Date is the point of the month where a sweep of the payment tables is made to find any payments or recoveries due to be processed since the previous sweep.  It would exclude any future payments/recoveries not due in the period that the sweep occurs.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="DueDate" type="xs:date">
+					<xs:annotation>
+						<xs:documentation>The Due Date is the approximate date when the payment/recovery instructions will be picked up in a BACS run</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="FinancialPaymentFinancialYear">
+					<xs:annotation>
+						<xs:documentation>The financial year in which this Payment falls</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FinancialPaymentFinancialMonth">
+					<xs:annotation>
+						<xs:documentation>The financial period (within the financial year) in which this Payment falls</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="schemaVersion" use="required" fixed="3.02">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="3"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PaymentDetail">
+		<xs:annotation>
+			<xs:documentation>This entity is essentially a breakdown of proposed payments (for each period within Payment Period) by Provider, Coda Code, and Subnominal.
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pg:Organisation"/>
+				<xs:element name="Allocation" type="pg:AllocationAttrsCT"/>
+				<xs:element name="SubnominalCode">
+					<xs:annotation>
+						<xs:documentation>A code used to identify a budgetry instrument used to classify expenditure</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="12"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="PaymentType">
+					<xs:annotation>
+						<xs:documentation>A classification of Subnominal (for example, budgeting, capping, reconciliation, profiles)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="20"/>
+							<xs:enumeration value="PROFILE"/>
+							<xs:enumeration value="CAPPING"/>
+							<xs:enumeration value="RECONCILIATION"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SubnominalDescription">
+					<xs:annotation>
+						<xs:documentation>The business description of the purpose of the Subnominal</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AggregatedValue">
+					<xs:annotation>
+						<xs:documentation>The value of delivery achieved by providers. This does not necessarily reflect what the provider will be paid (due to other considerations in later processing).</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="13"/>
+							<xs:fractionDigits value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Organisation">
+		<xs:annotation>
+			<xs:documentation>An Organisation that is of interest to the Skills Funding Agency. This might be a stand alone organisation, a conglomerate or a department or subset of an organisation. In the context of Payment Generation, it is a provider (aka  a supplier of learning provision to the Agency for which a payment is proposed)
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OrganisationId">
+					<xs:annotation>
+						<xs:documentation>The main identifier of an organisation as used by the Agency. In this case it identifies the provider.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="10"/>
+							<xs:pattern value="ORG[0-9]{7}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AlternateOrganisationIdentifiers" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>An entity that is essentially a list of identifiers by which the Organisation can be identified (as created by an application or service outside of the Organisation Service). This has a loose association with the concept of a Role in that it is often the case that a Role is underpinned by an identifier and the presence of such an identifier suggests the Organisation has that Role.
+In the context of Payment Generation it allows the UKPRN to be surfaced via this schema.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="pg:OrganisationIdentifier" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>An entity that is essentially a single identifier by which the Organisation can be identified (as created by an application or service outside of the Organisation Service). This has a loose association with the concept of a Role in that it is often the case that a Role is underpinned by an identifier and the presence of such an identifier suggests the Organisation has that Role.
+In the context of Payment Generation it allows the UKPRN to be surfaced via this schema.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="OrganisationStatusRelationships" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>This entity allows for the legal status of the provider to be surfaced.
+</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="pg:OrganisationStatusRelationship" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrganisationStatusRelationship">
+		<xs:annotation>
+			<xs:documentation>This entity allows for the legal status of the provider to be surfaced.
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OrganisationStatusScheme">
+					<xs:annotation>
+						<xs:documentation>The particular status scheme being used to classify the status of the organisation. In respect of this schema the value will always be 'LEGAL'</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+							<xs:enumeration value="LEGAL"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="OrganisationStatus">
+					<xs:annotation>
+						<xs:documentation>The legal status of the organisation (such as Active, Inactive, Dissolved etc)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+							<xs:enumeration value="ACTIVE"/>
+							<xs:enumeration value="INACTIVE"/>
+							<xs:enumeration value="IN ADMINISTRATION"/>
+							<xs:enumeration value="IN LIQUIDATION"/>
+							<xs:enumeration value="DISSOLVED"/>
+							<xs:enumeration value="LOCKED RESTRUCTURE"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrganisationIdentifier">
+		<xs:annotation>
+			<xs:documentation>An entity that is essentially a list of identifiers by which the Organisation can be identified (as created by an application or service outside of the Organisation Service). This has a loose association with the concept of a Role in that it is often the case that a Role is underpinned by an identifier and the presence of such an identifier suggests the Organisation has that Role.
+In the context of Payment Generation it allows the UKPRN to be surfaced via this schema."</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AlternateOrganisationIdentifier">
+					<xs:annotation>
+						<xs:documentation>An alternative identifier used to uniquely identify this Organisation</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="50"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AlternateOrganisationIdentifierName">
+					<xs:annotation>
+						<xs:documentation>The commonly used name used to describe what the Organisation Identifier is</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="50"/>
+							<xs:enumeration value="UK PROVIDER REFERENCE NUMBER"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ProcurementAttrsCT">
+		<xs:sequence>
+			<xs:element name="TenderSpecReference" type="pg:String0100ST" nillable="false" minOccurs="1"/>
+			<xs:element name="TenderSpecTitle" type="pg:String0255ST" nillable="false"  minOccurs="1"/>
+			<xs:element name="LotReference" type="pg:String0100ST" nillable="true" minOccurs="0"/>
+			<xs:element name="LotSpecificationTitle" type="pg:String0255ST" nillable="true" minOccurs="0"/>
+			<xs:element name="AwardReference" type="pg:String0100ST" nillable="false"  minOccurs="1"/>
+			<xs:element name="ActivityDescription" type="pg:String1024ST" nillable="false"  minOccurs="1"/>
+			<xs:element name="InvestmentPriority" type="pg:String0255ST" nillable="false"  minOccurs="1"/>
+			<xs:element name="LEPCode" type="pg:String0006ST" nillable="false"  minOccurs="1"/>
+			<xs:element name="LEPName" type="pg:String0255ST" nillable="false"  minOccurs="1"/>
+			<xs:element name="RegionType" type="pg:String0020ST" nillable="false"  minOccurs="1"/>
+			<xs:element name="AgreementNumber" nillable="false"  minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="11"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LearningRatePremium" nillable="false"  minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="13"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="String0100ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String0020ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String0255ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String1024ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1024"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String0006ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AllocationAttrsCT">
+		<xs:sequence>
+			<xs:element name="AllocationNumber">
+				<xs:annotation>
+					<xs:documentation>An (surrogate) identifier of an  Allocation (to which this Payment applies). Allocation are naturally identified by a provider identifier, a Funding Stream Period Code (for mainstream, non-OLASS) and futher attributes such as unit of procurement (OLASS) or Lots, Awards etc for ESF.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="VersionNumber" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>An identifier (default value of 1) of the version of the Allocation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProcurementAttrs" type="pg:ProcurementAttrsCT" nillable="true" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

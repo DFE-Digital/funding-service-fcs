@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{6eb4b635-9cb3-44bf-a396-314f078573f8}</formid>
+  <IntroducedVersion>1.1.6.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form maxWidth="400">
+    <tabs>
+      <tab id="{996d45d5-d09c-4bd4-88b1-9155ba33e91b}" name="tabGeneral" showlabel="false" locklevel="0" expanded="true">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section id="{a551071e-a5d4-4a6d-8f3e-ebfe0c152c3a}" name="tabGeneral_sectionSettings" columns="1" showlabel="false" showbar="false" IsUserDefined="0" celllabelposition="Top" locklevel="0" labelwidth="115" celllabelalignment="Left">
+                <labels>
+                  <label description="Settings" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{4c8cb20e-c14b-9b20-d276-73b530c94163}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Planning Unit" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_setting_planningunit" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_setting_planningunit" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <DisplayConditions Order="1">
+      <Role Id="{627090ff-40a3-4053-8790-584edc5be201}" />
+      <Role Id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+    </DisplayConditions>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Funding Stream Period Deliverable Settings" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form to display the FSC Deliverable Settings on related forms" languagecode="1033" />
+  </Descriptions>
+</systemform>

@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCTCrmConfig.ConfigPackage", "FCTCrmConfig.ConfigPackage\FCTCrmConfig.ConfigPackage.csproj", "{170C0103-3F94-4896-9062-6314167F596A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCTCrmConfig.ConfigPackage.Tests", "FCTCrmConfig.ConfigPackage.Tests\FCTCrmConfig.ConfigPackage.Tests.csproj", "{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D87C971-28BA-4FAB-811E-468C3051416A}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AT|Any CPU = AT|Any CPU
+		CI|Any CPU = CI|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		ModelOffice|Any CPU = ModelOffice|Any CPU
+		PS|Any CPU = PS|Any CPU
+		Public|Any CPU = Public|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{170C0103-3F94-4896-9062-6314167F596A}.AT|Any CPU.ActiveCfg = AT|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.AT|Any CPU.Build.0 = AT|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.CI|Any CPU.ActiveCfg = CI|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.CI|Any CPU.Build.0 = CI|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.ModelOffice|Any CPU.ActiveCfg = MO|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.ModelOffice|Any CPU.Build.0 = MO|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.PS|Any CPU.ActiveCfg = PS|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.PS|Any CPU.Build.0 = PS|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.Public|Any CPU.ActiveCfg = PS|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.Public|Any CPU.Build.0 = PS|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{170C0103-3F94-4896-9062-6314167F596A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.AT|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.AT|Any CPU.Build.0 = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.CI|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.CI|Any CPU.Build.0 = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.ModelOffice|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.ModelOffice|Any CPU.Build.0 = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.PS|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.PS|Any CPU.Build.0 = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.Public|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.Public|Any CPU.Build.0 = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DF950B-DCB0-4E9B-8D3F-DFF891B368BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.sfa.bis.gov.uk/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = FCTCrmConfig.ConfigPackage\\FCTCrmConfig.ConfigPackage.csproj
+		SccProjectName1 = FCTCrmConfig.ConfigPackage
+		SccLocalPath1 = FCTCrmConfig.ConfigPackage
+		SccProjectUniqueName2 = FCTCrmConfig.ConfigPackage.Tests\\FCTCrmConfig.ConfigPackage.Tests.csproj
+		SccProjectName2 = FCTCrmConfig.ConfigPackage.Tests
+		SccLocalPath2 = FCTCrmConfig.ConfigPackage.Tests
+	EndGlobalSection
+EndGlobal

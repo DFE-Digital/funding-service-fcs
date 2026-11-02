@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{cb6c553e-085f-42ae-8050-b600cc66eab2}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_paymenttimetableid">
+        <cell name="sfa_name" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>1</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_paymenttimetable">
+        <attribute name="sfa_paymenttimetableid" />
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <order attribute="sfa_name" descending="false" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.21.0.2</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Payment Timetable Advanced Find View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

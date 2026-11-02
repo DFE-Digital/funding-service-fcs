@@ -1,0 +1,63 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017888</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017888</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>LEVY-888</AllocationNumber>
+        <VersionNumber>2</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2240142</SubnominalCode>
+      <PaymentType>RECONCILIATION</PaymentType>
+      <SubnominalDescription>16-18Levy Individual</SubnominalDescription>
+      <AggregatedValue>313.20</AggregatedValue>
+    </PaymentDetail>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017888</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017888</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>LEVY-888</AllocationNumber>
+        <VersionNumber>2</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2340142</SubnominalCode>
+      <PaymentType>RECONCILIATION</PaymentType>
+      <SubnominalDescription>19+Levy Individual</SubnominalDescription>
+      <AggregatedValue>6.25</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>LEVY</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2017-05-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2099-12-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2018-11-07</CensusEndDate>
+  <DueDate>2018-11-15</DueDate>
+  <FinancialPaymentFinancialYear>2018</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>07</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

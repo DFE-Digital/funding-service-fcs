@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{4a0b5313-c40d-46f4-8478-cfd1f3f0aa3c}</formid>
+  <IntroducedVersion>2.21.0.2</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{b9fc5f55-9944-4ce4-8cce-1e0f0f3cd3f3}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{3bbcb7c3-9126-4420-9245-fe411ee34525}">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{7d99f316-bfe8-4ffb-b279-450842a22431}">
+                      <labels>
+                        <label description="Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{37cbde26-e594-59ec-7805-8cc2b4d75b77}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Stream Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingstreamperiod" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fundingstreamperiod" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{0d653908-8d46-ebae-d029-827b0ba6b241}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Calendar Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_calendarperiod" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="sfa_calendarperiod" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{489322bd-872e-295d-4ea0-1d1770c77d30}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_period" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_period" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{5d370702-246b-8447-2e1c-b5115bcd7356}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Calendar Period Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_calendarperiodtype" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_calendarperiodtype" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{5e3b56be-1abe-8c49-69e0-0a45223d8e14}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Census End Date" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_censusenddate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_censusenddate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{5260b994-3e1a-77d5-c2d2-45e761b7a7aa}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Financial Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_financialperiod" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="sfa_financialperiod" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{5935c885-8ce7-358c-3865-372dda9ab918}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Financial Period Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_financialperiodtype" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_financialperiodtype" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{453a40bc-b006-b354-dbbe-cc267e018b84}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Period Start Date" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_periodstartdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_periodstartdate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{0c5988b4-e842-99b3-8ac2-a77d6e16cc92}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Period End Date" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_periodenddate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_periodenddate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{a2177b16-09c9-346e-0657-9c0656c56796}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Payment Due Date" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_paymentduedate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_paymentduedate" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

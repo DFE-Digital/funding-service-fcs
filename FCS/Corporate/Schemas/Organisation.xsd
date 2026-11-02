@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:ORG="urn:sfa:schemas:organisation" 
+targetNamespace="urn:sfa:schemas:organisation"
+elementFormDefault="qualified"
+ attributeFormDefault="unqualified"
+version="2.00">
+<!-- definition of simple elements -->
+<xs:simpleType name="OrganisationIdentifierTYPE">
+<xs:restriction base="xs:string">
+<xs:length value="10"/>
+<xs:pattern value="ORG*"/>
+</xs:restriction>
+</xs:simpleType>
+<!-- definition of complex types (mainly CVLs - data that is unlikely to be surfaced on its own)  -->
+  <xs:complexType name="OrganisationIdentifierNameTYPE">
+    <xs:sequence>
+      <xs:element name="OrganisationIdentifierName">
+      <xs:simpleType>
+       <xs:restriction base="xs:string">
+       <xs:maxLength value="7"/>
+       <xs:enumeration value="UK PROVIDER REFERENCE NUMBER"/>
+       <xs:enumeration value="PIMS ORG CODE"/>
+       <xs:enumeration value="REGISTERED CHARITY NUMBER ENGLAND AND WALES"/>
+       <xs:enumeration value="REGISTERED CHARITY NUMBER SCOTLAND"/>
+       <xs:enumeration value="EDRS EMPLOYER NUMBER"/>
+       <xs:enumeration value="HMRC EMPLOYER NUMBER"/>
+       <xs:enumeration value="ORGANISATIONS FORMER FEFC CODE (FE ORGS ONLY)"/>
+       <xs:enumeration value="LEA CODE"/>
+       <xs:enumeration value="DFE ESTABLISHMENT NUMBER"/>
+       <xs:enumeration value="DFE UNIQUE REFERENCE NUMBER"/>
+       <xs:enumeration value="LINKED URNS"/>
+       <xs:enumeration value="OFSTED NON EDUBASE PROVIDER URN"/>
+       <xs:enumeration value="LOCAL AUTHORITY CODE"/>
+       <xs:enumeration value="LA AND SCHOOL ESTABLISHMENT CODE"/>
+       <xs:enumeration value="DCFT ORGANISATION IDENTIFIER"/>
+       <xs:enumeration value="LARA AWARDING ORGANISATION IDENTIFIER"/>
+       <xs:enumeration value="ISSUING AUTHORITY"/>
+       <xs:enumeration value="SECTOR LEAD BODY"/>
+       <xs:enumeration value="OFQUAL RECOGNITION NUMBER"/>
+       <xs:enumeration value="DENI NUMBER"/>
+       <xs:enumeration value="REGISTERED COMPANY NUMBER"/>
+       </xs:restriction>
+      </xs:simpleType>
+      </xs:element>
+      </xs:sequence>
+  </xs:complexType>
+<!-- definition of complex elements without any references to anything -->
+<xs:element name="Organisation">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="OrganisationIdentifier" type="ORG:OrganisationIdentifierTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="OrganisationIdentifier">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="MainOrganisationIdentifier" type="ORG:OrganisationIdentifierTYPE"/>
+      <xs:element name="OrganisationIdentifier" type="ORG:OrganisationIdentifierTYPE"/>
+      <xs:element name="OrganisationIdentifierName" type="ORG:OrganisationIdentifierNameTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

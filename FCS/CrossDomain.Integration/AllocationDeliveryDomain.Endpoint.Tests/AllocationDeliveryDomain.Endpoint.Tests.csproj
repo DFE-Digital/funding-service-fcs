@@ -1,0 +1,2419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B288493A-6BA1-4C16-BCC8-33B96E5C8506}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AllocationDeliveryDomain.Endpoint.Tests</RootNamespace>
+    <AssemblyName>AllocationDeliveryDomain.Endpoint.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
+    <OutputPath>bin\AT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\CI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DEV\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
+    <OutputPath>bin\MO\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
+    <OutputPath>bin\OAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PS|AnyCPU'">
+    <OutputPath>bin\PS\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
+    <OutputPath>bin\DAT\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DMO\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
+    <OutputPath>bin\DOAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Label="SlowCheetah">
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Windsor.4.1.1\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.6.0.0.0.Fakes">
+      <HintPath>FakesAssemblies\EntityFramework.6.0.0.0.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Iesi.Collections.4.0.2\lib\net461\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Services.AppAuthentication, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\lib\net452\Microsoft.Azure.Services.AppAuthentication.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.6.1.1\lib\net45\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WindowsAzure.ServiceBus.5.0.0\lib\net46\Microsoft.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.6.1.1\lib\net45\Microsoft.Xrm.Sdk.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MoreLinq, Version=1.1.18418.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\morelinq.1.1.1\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib.4.0.0.0.Fakes">
+      <HintPath>FakesAssemblies\mscorlib.4.0.0.0.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NServiceBus.Azure.Transports.WindowsAzureServiceBus, Version=9.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NServiceBus.Azure.Transports.WindowsAzureServiceBus.9.0.0\lib\net46\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NServiceBus.7.1.4\lib\net452\NServiceBus.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NServiceBus.Newtonsoft.Json, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NServiceBus.Newtonsoft.Json.2.1.0\lib\net452\NServiceBus.Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NServiceBus.Persistence.Sql, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NServiceBus.Persistence.Sql.4.3.0\lib\net452\NServiceBus.Persistence.Sql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NServiceBus.Testing, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NServiceBus.Testing.7.0.0\lib\net452\NServiceBus.Testing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Optional, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Optional.4.0.0\lib\net45\Optional.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Data.SqlClient, Version=4.2.0.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SqlClient.4.4.3\lib\net461\System.Data.SqlClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.4.403061554\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TestApiCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.TestApi.0.6.0.0\lib\net40\TestApiCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TestApiWpf, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.TestApi.0.6.0.0\lib\net40\TestApiWpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Common\AzureRepositoryTests.cs" />
+    <Compile Include="Common\IntegrationTestBase.cs" />
+    <Compile Include="DataStore\Repositories\ProcessedMessagesRepositoryTests.cs" />
+    <Compile Include="EfHelper.cs" />
+    <Compile Include="Integration\HeldFspCollectionConfigRepositoryTechnicalExplorationTests.cs" />
+    <Compile Include="Integration\SummarisedActualRepositoryTests.cs" />
+    <Compile Include="MonitoringDeliverablesEnrichment\ContractApprovedEventValidatorTests.cs" />
+    <Compile Include="Repository\FundingStreamPeriodRepositoryTechnicalExplorationTests.cs" />
+    <Compile Include="Repository\FundingStreamPeriodRepositoryTests.cs" />
+    <Compile Include="Unit\ReportedActualsLoadedCommandTests.cs" />
+    <Compile Include="Unit\ReportedActualsRoutingCommandTests.cs" />
+    <Compile Include="Unit\SummarisedActualTransformerTests.cs" />
+    <Compile Include="Infrastructure\ConfigurationRetrieverTests.cs" />
+    <Compile Include="Integration\AllocationUnderTerminationRepositoryTests.cs" />
+    <Compile Include="Integration\AzureServiceBusQueryServiceIntegrationTest.cs" />
+    <Compile Include="Integration\ClosedCollectionRepositoryTests.cs" />
+    <Compile Include="Integration\CurrentViewActualsComponentTests.cs" />
+    <Compile Include="Integration\HeldFspCollectionConfigRepositoryTests.cs" />
+    <Compile Include="Integration\HeldReportedActualGroupRepositoryTests.cs" />
+    <Compile Include="Integration\MonitoringDeliverableStoreTests.cs" />
+    <Compile Include="Integration\Plus24ActualVerificationTest.cs" />
+    <Compile Include="Integration\ProcessCurrentViewActualsTests.cs" />
+    <Compile Include="Integration\ActualsVerificationInvalidPeriod.cs" />
+    <Compile Include="Integration\ActualsVerificationInvalidDeliverableCode.cs" />
+    <Compile Include="Integration\ActualsVerificationInvalidAllocationTest.cs" />
+    <Compile Include="Helpers\AssertExtensions.cs" />
+    <Compile Include="Integration\ActualsVerificationTestBase.cs" />
+    <Compile Include="Integration\IReportedActualStubRepository.cs" />
+    <Compile Include="Integration\MDEnrichEndpointIntegrationTestBase.cs" />
+    <Compile Include="Integration\EndpointIntegrationTestBase.cs" />
+    <Compile Include="Integration\MDEnrichEndpointContractApprovedHandlerTests.cs" />
+    <Compile Include="Integration\ReportedActualGroup.cs" />
+    <Compile Include="Integration\CreateDatabusMessageTests.cs" />
+    <Compile Include="Integration\ReportedActualsLoadedHandlerTests.cs" />
+    <Compile Include="Integration\ReportedActualStubRepository.cs" />
+    <Compile Include="Integration\InactiveAllocationRepositoryTests.cs" />
+    <Compile Include="Integration\AllocationsUnderTerminationQueryRepositoryTests.cs" />
+    <Compile Include="MonitoringDeliverablesEnrichment\ContractTransformerTests.cs" />
+    <Compile Include="MonitoringDeliverablesEnrichment\Handlers\ContractApprovedHandlerTests.cs" />
+    <Compile Include="MonitoringDeliverablesEnrichment\MonitoringDeliverableEnrichmentTests.cs" />
+    <Compile Include="MonitoringDeliverablesEnrichment\FundingStreamPeriodDeliverableTransformerTests.cs" />
+    <Compile Include="Unit\MultiSourceActualRepositoryTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceTests\HeldReportedActualGroupServiceTests.cs" />
+    <Compile Include="Unit\ContractClosedHandlerTests.cs" />
+    <Compile Include="Unit\CurrentViewActualsComponentTests.cs" />
+    <Compile Include="Unit\MonthEndServiceTests.cs" />
+    <Compile Include="Unit\ActualAllocationGroupKeyEntityTests.cs" />
+    <Compile Include="Unit\ActualsAuditMapperTests.cs" />
+    <Compile Include="Unit\DateProviderExtensionsTests.cs" />
+    <Compile Include="Unit\EnrichedActualMapperTests.cs" />
+    <Compile Include="Unit\EntityMergerTests.cs" />
+    <Compile Include="Unit\EsfAllocationDataTests.cs" />
+    <Compile Include="Unit\FundingStreamPeriodTests.cs" />
+    <Compile Include="Unit\ReportedActualsLoadedHandlerTests.cs" />
+    <Compile Include="Unit\AllocationEnricherTests.cs" />
+    <Compile Include="Unit\ActualValidatorTests.cs" />
+    <Compile Include="Unit\EnrichedReportedActualEquatableTests.cs" />
+    <Compile Include="Unit\GenericSubmissionEnricherTests.cs" />
+    <Compile Include="Unit\AllocationDeliverablePeriodTransformerTests.cs" />
+    <Compile Include="Unit\CheckForMonthEndCompletionCommandHandlerTests.cs" />
+    <Compile Include="Unit\ReportedActualsRoutingCommandHandlerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AllocationDeliveryDomain\AllocationDelivery.DataStore\AllocationDelivery.DataStore.csproj">
+      <Project>{8a292823-6450-4e0a-a897-c13665dea59c}</Project>
+      <Name>AllocationDelivery.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AllocationDeliveryDomain\AllocationDelivery.Messages\AllocationDelivery.Messages.csproj">
+      <Project>{b82d5630-01be-4e06-8b72-7cbe77453e06}</Project>
+      <Name>AllocationDelivery.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Tests\Tests.Common\UnitTests.Common.csproj">
+      <Project>{6EDBFBFC-A0A0-4650-A92E-B9A686C967FE}</Project>
+      <Name>UnitTests.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj">
+      <Project>{67193b3f-0405-4dbf-a77c-c1d9c9fa11ba}</Project>
+      <Name>ContractManagement.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
+      <Project>{B93F0ED2-8AF4-46C4-AE47-DAA3483FD8F3}</Project>
+      <Name>Framework.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ADMonitoringDomain.Endpoint\ADMonitoringDomain.Endpoint.csproj">
+      <Project>{d289ca08-4062-4e02-bc18-582bba3a2709}</Project>
+      <Name>ADMonitoringDomain.Endpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AllocationDeliveryDomain.Common\AllocationDeliveryDomain.Common.csproj">
+      <Project>{9B837A72-D62B-46E1-B2C6-6224879B2A30}</Project>
+      <Name>AllocationDeliveryDomain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AllocationDeliveryDomain.Endpoint\AllocationDeliveryDomain.Endpoint.csproj">
+      <Project>{B9114CCD-DB84-4EC1-B668-51DE8C14EE76}</Project>
+      <Name>AllocationDeliveryDomain.Endpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AllocationDeliveryDomain.MDEnrich\AllocationDeliveryDomain.MDEnrich.csproj">
+      <Project>{48d8ddfb-d3db-4f9d-aeea-5a3b92dc1fea}</Project>
+      <Name>AllocationDeliveryDomain.MDEnrich</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContractCreateDomain.Integration.ContractRequest\ContractCreateDomain.Integration.ContractRequest.csproj">
+      <Project>{664098E0-1D7C-4764-9002-B013E76C6EAB}</Project>
+      <Name>ContractCreateDomain.Integration.ContractRequest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj">
+      <Project>{E766A4B6-88B4-4E18-A68B-761B65C7E015}</Project>
+      <Name>CrossDomain.Integration.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
+      <Project>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</Project>
+      <Name>CrossDomain.Integration.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj">
+      <Project>{D68560C9-7FCC-41E6-B48D-3CD237D97926}</Project>
+      <Name>CrossDomain.Integration.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj">
+      <Project>{9d36a2be-95d8-49b7-be54-9f063738cb5b}</Project>
+      <Name>CrossDomain.Integration.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossDomain.Integration.OverrideDate.DataStore\CrossDomain.Integration.OverrideDate.DataStore.csproj">
+      <Project>{87892186-a593-46da-900f-6cef458efe20}</Project>
+      <Name>CrossDomain.Integration.OverrideDate.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentsDomain\DocumentsDomain.DocumentGenerationTest\DocumentsDomain.DocumentGeneration.Tests.csproj">
+      <Project>{37C721A4-7418-41DC-AE02-253E6FD6FB99}</Project>
+      <Name>DocumentsDomain.DocumentGeneration.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.csproj">
+      <Project>{B1D01540-69B7-4CCE-82CA-C6E9402BF420}</Project>
+      <Name>PaymentGenerationDomain.Integration.PaymentGenerationEndpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PaymentManagement.Calculation\PaymentManagement.Calculation.csproj">
+      <Project>{16681EE9-1FEB-4E24-B93A-9AC69A3DEAF4}</Project>
+      <Name>PaymentManagement.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PaymentManagementDomain.BusinessLogic\PMD.BusinessLogic.csproj">
+      <Project>{61187615-6341-43B6-9385-C44897C3B17C}</Project>
+      <Name>PMD.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PaymentManagementDomain.Integration.DataStore\PMD.PolicyCache.DataStore.csproj">
+      <Project>{d3db2af2-6ab8-4257-8678-c171b8c06e6a}</Project>
+      <Name>PMD.PolicyCache.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PaymentManagementDomain.Integration.PaymentSchedule\PMD.Integration.PaymentSchedule.csproj">
+      <Project>{F6153562-D00D-4F7C-9A8B-804443F5BD4F}</Project>
+      <Name>PMD.Integration.PaymentSchedule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PaymentManagementDomain.PaymentSchedule.DataStore\PMD.PaymentSchedule.DataStore.csproj">
+      <Project>{00AD2BF4-7448-4C7C-9CB1-6A7C39F64083}</Project>
+      <Name>PMD.PaymentSchedule.DataStore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Fakes Include="..\..\Fakes\EntityFramework.fakes">
+      <Link>Fakes\EntityFramework.fakes</Link>
+    </Fakes>
+    <Fakes Include="..\..\Fakes\mscorlib.fakes">
+      <Link>Fakes\mscorlib.fakes</Link>
+    </Fakes>
+    <None Include="App.DAT.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="App.DCI.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="App.DMO.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+      <TransformOnBuild>true</TransformOnBuild>
+    </None>
+    <None Include="app.AT.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.CI.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.DebugCI.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.DEV.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.MO.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <EmbeddedResource Include="Resources\ORG0001053-EOP1-E21-ValidActuals.json" />
+    <None Include="bin\AT\ADMonitoringDomain.Endpoint.dll.config" />
+    <None Include="bin\AT\AllocationDelivery.DataStore.dll.config" />
+    <None Include="bin\AT\AllocationDeliveryDomain.Common.dll.config" />
+    <None Include="bin\AT\AllocationDeliveryDomain.Endpoint.dll.config" />
+    <None Include="bin\AT\AllocationDeliveryDomain.Endpoint.Tests.dll.config" />
+    <None Include="bin\AT\AllocationDeliveryDomain.MDEnrich.dll.config" />
+    <None Include="bin\AT\ContractCreateDomain.BusinessLogic.dll.config" />
+    <None Include="bin\AT\ContractCreateDomain.Implementation.dll.config" />
+    <None Include="bin\AT\ContractCreateDomain.Integration.ContractRequest.dll.config" />
+    <None Include="bin\AT\ContractManagement.DataStore.dll.config" />
+    <None Include="bin\AT\CorporateSchema\contract_corporate_schema_v11.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\AT\CrossDomain.Integration.Common.dll.config" />
+    <None Include="bin\AT\CrossDomain.Integration.Messages.dll.config" />
+    <None Include="bin\AT\EntityFramework.6.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\AT\Framework.Logging.dll.config" />
+    <None Include="bin\AT\mscorlib.4.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\AT\PaymentGenerationDomain.BusinessLogic.dll.config" />
+    <None Include="bin\AT\PaymentGenerationDomain.Common.dll.config" />
+    <None Include="bin\AT\PaymentGenerationDomain.Integration.DataStore.dll.config" />
+    <None Include="bin\AT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll.config" />
+    <None Include="bin\AT\PaymentManagement.Calculation.dll.config" />
+    <None Include="bin\AT\PaymentManagementDomain.BusinessLogic.dll.config" />
+    <None Include="bin\AT\PaymentManagementDomain.Common.dll.config" />
+    <None Include="bin\AT\PaymentManagementDomain.Integration.PaymentSchedule.dll.config" />
+    <None Include="bin\AT\PaymentManagementDomain.PaymentSchedule.DataStore.dll.config" />
+    <None Include="bin\AT\PaymentManagementDomain.PolicyCache.DataStore.dll.config" />
+    <None Include="bin\AT\UnitTests.Common.dll.config" />
+    <None Include="bin\CI\ADMonitoringDomain.Endpoint.dll.config" />
+    <None Include="bin\CI\AllocationDelivery.DataStore.dll.config" />
+    <None Include="bin\CI\AllocationDeliveryDomain.Common.dll.config" />
+    <None Include="bin\CI\AllocationDeliveryDomain.Endpoint.dll.config" />
+    <None Include="bin\CI\AllocationDeliveryDomain.Endpoint.Tests.dll.config" />
+    <None Include="bin\CI\AllocationDeliveryDomain.MDEnrich.dll.config" />
+    <None Include="bin\CI\ContractCreateDomain.BusinessLogic.dll.config" />
+    <None Include="bin\CI\ContractCreateDomain.Implementation.dll.config" />
+    <None Include="bin\CI\ContractCreateDomain.Integration.ContractRequest.dll.config" />
+    <None Include="bin\CI\ContractManagement.DataStore.dll.config" />
+    <None Include="bin\CI\CorporateSchema\contract_corporate_schema_v11.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\CI\CrossDomain.Integration.Common.dll.config" />
+    <None Include="bin\CI\CrossDomain.Integration.Messages.dll.config" />
+    <None Include="bin\CI\EntityFramework.6.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\CI\Framework.Logging.dll.config" />
+    <None Include="bin\CI\mscorlib.4.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\CI\PaymentGenerationDomain.BusinessLogic.dll.config" />
+    <None Include="bin\CI\PaymentGenerationDomain.Common.dll.config" />
+    <None Include="bin\CI\PaymentGenerationDomain.Integration.DataStore.dll.config" />
+    <None Include="bin\CI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll.config" />
+    <None Include="bin\CI\PaymentManagement.Calculation.dll.config" />
+    <None Include="bin\CI\PaymentManagementDomain.BusinessLogic.dll.config" />
+    <None Include="bin\CI\PaymentManagementDomain.Common.dll.config" />
+    <None Include="bin\CI\PaymentManagementDomain.Integration.PaymentSchedule.dll.config" />
+    <None Include="bin\CI\PaymentManagementDomain.PaymentSchedule.DataStore.dll.config" />
+    <None Include="bin\CI\PaymentManagementDomain.PolicyCache.DataStore.dll.config" />
+    <None Include="bin\CI\UnitTests.Common.dll.config" />
+    <None Include="bin\DAT\AllocationDelivery.DataStore.dll.config" />
+    <None Include="bin\DAT\AllocationDeliveryDomain.Common.dll.config" />
+    <None Include="bin\DAT\AllocationDeliveryDomain.Endpoint.dll.config" />
+    <None Include="bin\DAT\AllocationDeliveryDomain.Endpoint.Tests.dll.config" />
+    <None Include="bin\DAT\AllocationDeliveryDomain.MDEnrich.dll.config" />
+    <None Include="bin\DAT\ContractCreateDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DAT\ContractCreateDomain.Implementation.dll.config" />
+    <None Include="bin\DAT\ContractCreateDomain.Integration.ContractRequest.dll.config" />
+    <None Include="bin\DAT\ContractManagement.DataStore.dll.config" />
+    <None Include="bin\DAT\CorporateSchema\contract_corporate_schema_v11.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\DAT\CrossDomain.Integration.Common.dll.config" />
+    <None Include="bin\DAT\CrossDomain.Integration.Messages.dll.config" />
+    <None Include="bin\DAT\EntityFramework.6.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\DAT\Framework.Logging.dll.config" />
+    <None Include="bin\DAT\mscorlib.4.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\DAT\PaymentGenerationDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DAT\PaymentGenerationDomain.Common.dll.config" />
+    <None Include="bin\DAT\PaymentGenerationDomain.Integration.DataStore.dll.config" />
+    <None Include="bin\DAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll.config" />
+    <None Include="bin\DAT\PaymentManagement.Calculation.dll.config" />
+    <None Include="bin\DAT\PaymentManagementDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DAT\PaymentManagementDomain.Common.dll.config" />
+    <None Include="bin\DAT\PaymentManagementDomain.Integration.PaymentSchedule.dll.config" />
+    <None Include="bin\DAT\PaymentManagementDomain.PaymentSchedule.DataStore.dll.config" />
+    <None Include="bin\DAT\PaymentManagementDomain.PolicyCache.DataStore.dll.config" />
+    <None Include="bin\DAT\UnitTests.Common.dll.config" />
+    <None Include="bin\DCI\ADMonitoringDomain.Endpoint.dll.config" />
+    <None Include="bin\DCI\AllocationDelivery.DataStore.dll.config" />
+    <None Include="bin\DCI\AllocationDeliveryDomain.Common.dll.config" />
+    <None Include="bin\DCI\AllocationDeliveryDomain.Endpoint.dll.config" />
+    <None Include="bin\DCI\AllocationDeliveryDomain.Endpoint.Tests.dll.config" />
+    <None Include="bin\DCI\AllocationDeliveryDomain.MDEnrich.dll.config" />
+    <None Include="bin\DCI\ContractCreateDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DCI\ContractCreateDomain.Implementation.dll.config" />
+    <None Include="bin\DCI\ContractCreateDomain.Integration.ContractRequest.dll.config" />
+    <None Include="bin\DCI\ContractManagement.DataStore.dll.config" />
+    <None Include="bin\DCI\CorporateSchema\contract_corporate_schema_v11.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\DCI\CrossDomain.Integration.Common.dll.config" />
+    <None Include="bin\DCI\CrossDomain.Integration.Messages.dll.config" />
+    <None Include="bin\DCI\EntityFramework.6.0.0.0.Fakes.FakedTypesCache" />
+    <None Include="bin\DCI\EntityFramework.6.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\DCI\FCS.Worker.Common.dll.config" />
+    <None Include="bin\DCI\Framework.Logging.dll.config" />
+    <None Include="bin\DCI\mscorlib.4.0.0.0.Fakes.FakedTypesCache" />
+    <None Include="bin\DCI\mscorlib.4.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\DCI\PaymentGenerationDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DCI\PaymentGenerationDomain.Common.dll.config" />
+    <None Include="bin\DCI\PaymentGenerationDomain.Integration.DataStore.dll.config" />
+    <None Include="bin\DCI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll.config" />
+    <None Include="bin\DCI\PaymentManagement.Calculation.dll.config" />
+    <None Include="bin\DCI\PaymentManagementDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DCI\PaymentManagementDomain.Integration.PaymentSchedule.dll.config" />
+    <None Include="bin\DCI\PaymentManagementDomain.PaymentSchedule.DataStore.dll.config" />
+    <None Include="bin\DCI\PaymentManagementDomain.PolicyCache.DataStore.dll.config" />
+    <None Include="bin\DCI\UnitTests.Common.dll.config" />
+    <None Include="bin\DebugCI\ADMonitoringDomain.Endpoint.dll.config" />
+    <None Include="bin\DebugCI\AllocationDelivery.DataStore.dll.config" />
+    <None Include="bin\DebugCI\AllocationDeliveryDomain.Common.dll.config" />
+    <None Include="bin\DebugCI\AllocationDeliveryDomain.Endpoint.dll.config" />
+    <None Include="bin\DebugCI\AllocationDeliveryDomain.Endpoint.Tests.dll.config" />
+    <None Include="bin\DebugCI\AllocationDeliveryDomain.MDEnrich.dll.config" />
+    <None Include="bin\DebugCI\ContractCreateDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DebugCI\ContractCreateDomain.Implementation.dll.config" />
+    <None Include="bin\DebugCI\ContractCreateDomain.Integration.ContractRequest.dll.config" />
+    <None Include="bin\DebugCI\ContractManagement.DataStore.dll.config" />
+    <None Include="bin\DebugCI\CorporateSchema\contract_corporate_schema_v11.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\DebugCI\CrossDomain.Integration.Common.dll.config" />
+    <None Include="bin\DebugCI\CrossDomain.Integration.Messages.dll.config" />
+    <None Include="bin\DebugCI\EntityFramework.6.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\DebugCI\Framework.Logging.dll.config" />
+    <None Include="bin\DebugCI\mscorlib.4.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\DebugCI\PaymentGenerationDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DebugCI\PaymentGenerationDomain.Common.dll.config" />
+    <None Include="bin\DebugCI\PaymentGenerationDomain.Integration.DataStore.dll.config" />
+    <None Include="bin\DebugCI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll.config" />
+    <None Include="bin\DebugCI\PaymentManagement.Calculation.dll.config" />
+    <None Include="bin\DebugCI\PaymentManagementDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DebugCI\PaymentManagementDomain.Common.dll.config" />
+    <None Include="bin\DebugCI\PaymentManagementDomain.Integration.PaymentSchedule.dll.config" />
+    <None Include="bin\DebugCI\PaymentManagementDomain.PaymentSchedule.DataStore.dll.config" />
+    <None Include="bin\DebugCI\PaymentManagementDomain.PolicyCache.DataStore.dll.config" />
+    <None Include="bin\DebugCI\UnitTests.Common.dll.config" />
+    <None Include="bin\Debug\ADMonitoringDomain.Endpoint.dll.config" />
+    <None Include="bin\Debug\AllocationDelivery.DataStore.dll.config" />
+    <None Include="bin\Debug\AllocationDeliveryDomain.Common.dll.config" />
+    <None Include="bin\Debug\AllocationDeliveryDomain.Endpoint.dll.config" />
+    <None Include="bin\Debug\AllocationDeliveryDomain.Endpoint.Tests.dll.config" />
+    <None Include="bin\Debug\AllocationDeliveryDomain.MDEnrich.dll.config" />
+    <None Include="bin\Debug\ContractCreateDomain.BusinessLogic.dll.config" />
+    <None Include="bin\Debug\ContractCreateDomain.Implementation.dll.config" />
+    <None Include="bin\Debug\ContractCreateDomain.Integration.ContractRequest.dll.config" />
+    <None Include="bin\Debug\ContractManagement.DataStore.dll.config" />
+    <None Include="bin\Debug\CorporateSchema\contract_corporate_schema_v11.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\Debug\CrossDomain.Integration.Common.dll.config" />
+    <None Include="bin\Debug\CrossDomain.Integration.Messages.dll.config" />
+    <None Include="bin\Debug\EntityFramework.6.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\Debug\Framework.Logging.dll.config" />
+    <None Include="bin\Debug\mscorlib.4.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\Debug\PaymentGenerationDomain.BusinessLogic.dll.config" />
+    <None Include="bin\Debug\PaymentGenerationDomain.Common.dll.config" />
+    <None Include="bin\Debug\PaymentGenerationDomain.Integration.DataStore.dll.config" />
+    <None Include="bin\Debug\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll.config" />
+    <None Include="bin\Debug\PaymentManagement.Calculation.dll.config" />
+    <None Include="bin\Debug\PaymentManagementDomain.BusinessLogic.dll.config" />
+    <None Include="bin\Debug\PaymentManagementDomain.Common.dll.config" />
+    <None Include="bin\Debug\PaymentManagementDomain.Integration.PaymentSchedule.dll.config" />
+    <None Include="bin\Debug\PaymentManagementDomain.PaymentSchedule.DataStore.dll.config" />
+    <None Include="bin\Debug\PaymentManagementDomain.PolicyCache.DataStore.dll.config" />
+    <None Include="bin\Debug\UnitTests.Common.dll.config" />
+    <None Include="bin\DOAT\ADMonitoringDomain.Endpoint.dll.config" />
+    <None Include="bin\DOAT\AllocationDelivery.DataStore.dll.config" />
+    <None Include="bin\DOAT\AllocationDeliveryDomain.Common.dll.config" />
+    <None Include="bin\DOAT\AllocationDeliveryDomain.Endpoint.dll.config" />
+    <None Include="bin\DOAT\AllocationDeliveryDomain.Endpoint.Tests.dll.config" />
+    <None Include="bin\DOAT\AllocationDeliveryDomain.MDEnrich.dll.config" />
+    <None Include="bin\DOAT\ContractCreateDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DOAT\ContractCreateDomain.Implementation.dll.config" />
+    <None Include="bin\DOAT\ContractCreateDomain.Integration.ContractRequest.dll.config" />
+    <None Include="bin\DOAT\ContractManagement.DataStore.dll.config" />
+    <None Include="bin\DOAT\CorporateSchema\contract_corporate_schema_v11.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\DOAT\CrossDomain.Integration.Common.dll.config" />
+    <None Include="bin\DOAT\CrossDomain.Integration.Messages.dll.config" />
+    <None Include="bin\DOAT\EntityFramework.6.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\DOAT\FCS.Worker.Common.dll.config" />
+    <None Include="bin\DOAT\Framework.Logging.dll.config" />
+    <None Include="bin\DOAT\mscorlib.4.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\DOAT\PaymentGenerationDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DOAT\PaymentGenerationDomain.Common.dll.config" />
+    <None Include="bin\DOAT\PaymentGenerationDomain.Integration.DataStore.dll.config" />
+    <None Include="bin\DOAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll.config" />
+    <None Include="bin\DOAT\PaymentManagement.Calculation.dll.config" />
+    <None Include="bin\DOAT\PaymentManagementDomain.BusinessLogic.dll.config" />
+    <None Include="bin\DOAT\PaymentManagementDomain.Common.dll.config" />
+    <None Include="bin\DOAT\PaymentManagementDomain.Integration.PaymentSchedule.dll.config" />
+    <None Include="bin\DOAT\PaymentManagementDomain.PaymentSchedule.DataStore.dll.config" />
+    <None Include="bin\DOAT\PaymentManagementDomain.PolicyCache.DataStore.dll.config" />
+    <None Include="bin\DOAT\UnitTests.Common.dll.config" />
+    <None Include="bin\OAT\ADMonitoringDomain.Endpoint.dll.config" />
+    <None Include="bin\OAT\AllocationDelivery.DataStore.dll.config" />
+    <None Include="bin\OAT\AllocationDeliveryDomain.Common.dll.config" />
+    <None Include="bin\OAT\AllocationDeliveryDomain.Endpoint.dll.config" />
+    <None Include="bin\OAT\AllocationDeliveryDomain.Endpoint.Tests.dll.config" />
+    <None Include="bin\OAT\AllocationDeliveryDomain.MDEnrich.dll.config" />
+    <None Include="bin\OAT\ContractCreateDomain.BusinessLogic.dll.config" />
+    <None Include="bin\OAT\ContractCreateDomain.Implementation.dll.config" />
+    <None Include="bin\OAT\ContractCreateDomain.Integration.ContractRequest.dll.config" />
+    <None Include="bin\OAT\ContractManagement.DataStore.dll.config" />
+    <None Include="bin\OAT\CorporateSchema\contract_corporate_schema_v11.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\OAT\CrossDomain.Integration.Common.dll.config" />
+    <None Include="bin\OAT\CrossDomain.Integration.Messages.dll.config" />
+    <None Include="bin\OAT\EntityFramework.6.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\OAT\Framework.Logging.dll.config" />
+    <None Include="bin\OAT\mscorlib.4.0.0.0.Fakes.fakesconfig" />
+    <None Include="bin\OAT\PaymentGenerationDomain.BusinessLogic.dll.config" />
+    <None Include="bin\OAT\PaymentGenerationDomain.Common.dll.config" />
+    <None Include="bin\OAT\PaymentGenerationDomain.Integration.DataStore.dll.config" />
+    <None Include="bin\OAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll.config" />
+    <None Include="bin\OAT\PaymentManagement.Calculation.dll.config" />
+    <None Include="bin\OAT\PaymentManagementDomain.BusinessLogic.dll.config" />
+    <None Include="bin\OAT\PaymentManagementDomain.Common.dll.config" />
+    <None Include="bin\OAT\PaymentManagementDomain.Integration.PaymentSchedule.dll.config" />
+    <None Include="bin\OAT\PaymentManagementDomain.PaymentSchedule.DataStore.dll.config" />
+    <None Include="bin\OAT\PaymentManagementDomain.PolicyCache.DataStore.dll.config" />
+    <None Include="bin\OAT\UnitTests.Common.dll.config" />
+    <EmbeddedResource Include="Resources\ContractApprovedEvent.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\exportedCorpContract.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\AT\ADMonitoringDomain.DataStore.dll" />
+    <Content Include="bin\AT\ADMonitoringDomain.DataStore.pdb" />
+    <Content Include="bin\AT\ADMonitoringDomain.Endpoint.dll" />
+    <Content Include="bin\AT\ADMonitoringDomain.Endpoint.pdb" />
+    <Content Include="bin\AT\AllocationDelivery.DataStore.dll" />
+    <Content Include="bin\AT\AllocationDelivery.DataStore.pdb" />
+    <Content Include="bin\AT\AllocationDelivery.Messages.dll" />
+    <Content Include="bin\AT\AllocationDeliveryDomain.Common.dll" />
+    <Content Include="bin\AT\AllocationDeliveryDomain.Common.pdb" />
+    <Content Include="bin\AT\AllocationDeliveryDomain.Endpoint.dll" />
+    <Content Include="bin\AT\AllocationDeliveryDomain.Endpoint.pdb" />
+    <Content Include="bin\AT\AllocationDeliveryDomain.Endpoint.Tests.dll" />
+    <Content Include="bin\AT\AllocationDeliveryDomain.Endpoint.Tests.pdb" />
+    <Content Include="bin\AT\AllocationDeliveryDomain.MDEnrich.dll" />
+    <Content Include="bin\AT\AllocationDeliveryDomain.MDEnrich.pdb" />
+    <Content Include="bin\AT\AutoMapper.dll" />
+    <Content Include="bin\AT\AutoMapper.Net4.dll" />
+    <Content Include="bin\AT\AutoMapper.Net4.pdb" />
+    <Content Include="bin\AT\AutoMapper.pdb" />
+    <Content Include="bin\AT\AutoMapper.xml" />
+    <Content Include="bin\AT\Castle.Core.dll" />
+    <Content Include="bin\AT\Castle.Core.xml" />
+    <Content Include="bin\AT\Castle.Windsor.dll" />
+    <Content Include="bin\AT\Castle.Windsor.xml" />
+    <Content Include="bin\AT\ContractCreateDomain.BusinessLogic.dll" />
+    <Content Include="bin\AT\ContractCreateDomain.BusinessLogic.pdb" />
+    <Content Include="bin\AT\ContractCreateDomain.Implementation.dll" />
+    <Content Include="bin\AT\ContractCreateDomain.Implementation.pdb" />
+    <Content Include="bin\AT\ContractCreateDomain.Integration.ContractRequest.dll" />
+    <Content Include="bin\AT\ContractCreateDomain.Integration.ContractRequest.pdb" />
+    <Content Include="bin\AT\ContractManagement.DataStore.dll" />
+    <Content Include="bin\AT\ContractManagement.DataStore.pdb" />
+    <Content Include="bin\AT\CrossDomain.Integration.Common.dll" />
+    <Content Include="bin\AT\CrossDomain.Integration.Common.pdb" />
+    <Content Include="bin\AT\CrossDomain.Integration.Common.XmlSerializers.dll" />
+    <Content Include="bin\AT\CrossDomain.Integration.Entities.dll" />
+    <Content Include="bin\AT\CrossDomain.Integration.Entities.pdb" />
+    <Content Include="bin\AT\CrossDomain.Integration.Events.dll" />
+    <Content Include="bin\AT\CrossDomain.Integration.Events.pdb" />
+    <Content Include="bin\AT\CrossDomain.Integration.Messages.dll" />
+    <Content Include="bin\AT\CrossDomain.Integration.Messages.pdb" />
+    <Content Include="bin\AT\CrossDomain.Integration.OverrideDate.DataStore.dll" />
+    <Content Include="bin\AT\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
+    <Content Include="bin\AT\Dapper.dll" />
+    <Content Include="bin\AT\Dapper.xml" />
+    <Content Include="bin\AT\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\de\System.Spatial.resources.dll" />
+    <Content Include="bin\AT\EntityFramework.6.0.0.0.Fakes.dll" />
+    <Content Include="bin\AT\EntityFramework.6.0.0.0.Fakes.xml" />
+    <Content Include="bin\AT\EntityFramework.dll" />
+    <Content Include="bin\AT\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\AT\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\AT\EntityFramework.xml" />
+    <Content Include="bin\AT\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\es\System.Spatial.resources.dll" />
+    <Content Include="bin\AT\Framework.Logging.dll" />
+    <Content Include="bin\AT\Framework.Logging.pdb" />
+    <Content Include="bin\AT\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\AT\Iesi.Collections.dll" />
+    <Content Include="bin\AT\Iesi.Collections.xml" />
+    <Content Include="bin\AT\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\it\System.Spatial.resources.dll" />
+    <Content Include="bin\AT\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\AT\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\AT\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\AT\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\AT\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\AT\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\AT\Microsoft.Data.OData.dll" />
+    <Content Include="bin\AT\Microsoft.Data.OData.xml" />
+    <Content Include="bin\AT\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\AT\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\AT\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\AT\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <Content Include="bin\AT\Microsoft.IdentityModel.dll" />
+    <Content Include="bin\AT\Microsoft.ServiceBus.dll" />
+    <Content Include="bin\AT\Microsoft.ServiceBus.xml" />
+    <Content Include="bin\AT\Microsoft.SharePoint.Client.dll" />
+    <Content Include="bin\AT\Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="bin\AT\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\AT\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\AT\Microsoft.WindowsAzure.ServiceRuntime.dll" />
+    <Content Include="bin\AT\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\AT\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\AT\Microsoft.Xrm.Client.dll" />
+    <Content Include="bin\AT\Microsoft.Xrm.Client.xml" />
+    <Content Include="bin\AT\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\AT\Microsoft.Xrm.Sdk.Deployment.xml" />
+    <Content Include="bin\AT\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\AT\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="bin\AT\Moq.dll" />
+    <Content Include="bin\AT\Moq.xml" />
+    <Content Include="bin\AT\MoreLinq.dll" />
+    <Content Include="bin\AT\MoreLinq.xml" />
+    <Content Include="bin\AT\mscorlib.4.0.0.0.Fakes.dll" />
+    <Content Include="bin\AT\mscorlib.4.0.0.0.Fakes.xml" />
+    <Content Include="bin\AT\Newtonsoft.Json.dll" />
+    <Content Include="bin\AT\Newtonsoft.Json.xml" />
+    <Content Include="bin\AT\NHibernate.dll" />
+    <Content Include="bin\AT\NHibernate.xml" />
+    <Content Include="bin\AT\NServiceBus.Azure.dll" />
+    <Content Include="bin\AT\NServiceBus.Azure.pdb" />
+    <Content Include="bin\AT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
+    <Content Include="bin\AT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
+    <Content Include="bin\AT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
+    <Content Include="bin\AT\NServiceBus.Azure.xml" />
+    <Content Include="bin\AT\NServiceBus.Core.dll" />
+    <Content Include="bin\AT\NServiceBus.Core.pdb" />
+    <Content Include="bin\AT\NServiceBus.Core.xml" />
+    <Content Include="bin\AT\NServiceBus.NHibernate.dll" />
+    <Content Include="bin\AT\NServiceBus.NHibernate.pdb" />
+    <Content Include="bin\AT\NServiceBus.NHibernate.xml" />
+    <Content Include="bin\AT\NServiceBus.ObjectBuilder.CastleWindsor.dll" />
+    <Content Include="bin\AT\NServiceBus.ObjectBuilder.CastleWindsor.pdb" />
+    <Content Include="bin\AT\NServiceBus.ObjectBuilder.CastleWindsor.xml" />
+    <Content Include="bin\AT\Optional.dll" />
+    <Content Include="bin\AT\Optional.xml" />
+    <Content Include="bin\AT\PaymentGenerationDomain.BusinessLogic.dll" />
+    <Content Include="bin\AT\PaymentGenerationDomain.BusinessLogic.pdb" />
+    <Content Include="bin\AT\PaymentGenerationDomain.Common.dll" />
+    <Content Include="bin\AT\PaymentGenerationDomain.Common.pdb" />
+    <Content Include="bin\AT\PaymentGenerationDomain.Integration.DataStore.dll" />
+    <Content Include="bin\AT\PaymentGenerationDomain.Integration.DataStore.pdb" />
+    <Content Include="bin\AT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll" />
+    <Content Include="bin\AT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.pdb" />
+    <Content Include="bin\AT\PaymentManagement.Calculation.dll" />
+    <Content Include="bin\AT\PaymentManagement.Calculation.pdb" />
+    <Content Include="bin\AT\PaymentManagementDomain.BusinessLogic.dll" />
+    <Content Include="bin\AT\PaymentManagementDomain.BusinessLogic.pdb" />
+    <Content Include="bin\AT\PaymentManagementDomain.Common.dll" />
+    <Content Include="bin\AT\PaymentManagementDomain.Common.pdb" />
+    <Content Include="bin\AT\PaymentManagementDomain.Integration.PaymentSchedule.dll" />
+    <Content Include="bin\AT\PaymentManagementDomain.Integration.PaymentSchedule.pdb" />
+    <Content Include="bin\AT\PaymentManagementDomain.PaymentSchedule.DataStore.dll" />
+    <Content Include="bin\AT\PaymentManagementDomain.PaymentSchedule.DataStore.pdb" />
+    <Content Include="bin\AT\PaymentManagementDomain.PolicyCache.DataStore.dll" />
+    <Content Include="bin\AT\PaymentManagementDomain.PolicyCache.DataStore.pdb" />
+    <Content Include="bin\AT\Polly.dll" />
+    <Content Include="bin\AT\Polly.pdb" />
+    <Content Include="bin\AT\Polly.xml" />
+    <Content Include="bin\AT\Resources\exportedCorpContract.xml" />
+    <Content Include="bin\AT\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\AT\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\AT\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\AT\System.Reactive.Core.dll" />
+    <Content Include="bin\AT\System.Reactive.Core.xml" />
+    <Content Include="bin\AT\System.Reactive.Interfaces.dll" />
+    <Content Include="bin\AT\System.Reactive.Interfaces.xml" />
+    <Content Include="bin\AT\System.Spatial.dll" />
+    <Content Include="bin\AT\System.Spatial.xml" />
+    <Content Include="bin\AT\System.ValueTuple.dll" />
+    <Content Include="bin\AT\System.ValueTuple.xml" />
+    <Content Include="bin\AT\System.Web.Http.dll" />
+    <Content Include="bin\AT\System.Web.Http.xml" />
+    <Content Include="bin\AT\TestApiCore.dll" />
+    <Content Include="bin\AT\TestApiCore.pdb" />
+    <Content Include="bin\AT\TestApiCore.xml" />
+    <Content Include="bin\AT\TestApiWpf.dll" />
+    <Content Include="bin\AT\TestApiWpf.pdb" />
+    <Content Include="bin\AT\TestApiWpf.xml" />
+    <Content Include="bin\AT\UnitTests.Common.dll" />
+    <Content Include="bin\AT\UnitTests.Common.pdb" />
+    <Content Include="bin\AT\WindowsAzureEventSource.dll" />
+    <Content Include="bin\AT\WindowsAzureTelemetryEvents.dll" />
+    <Content Include="bin\AT\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\AT\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\AT\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\AT\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\AT\zh-Hant\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\ADMonitoringDomain.DataStore.dll" />
+    <Content Include="bin\CI\ADMonitoringDomain.DataStore.pdb" />
+    <Content Include="bin\CI\ADMonitoringDomain.Endpoint.dll" />
+    <Content Include="bin\CI\ADMonitoringDomain.Endpoint.pdb" />
+    <Content Include="bin\CI\AllocationDelivery.DataStore.dll" />
+    <Content Include="bin\CI\AllocationDelivery.DataStore.pdb" />
+    <Content Include="bin\CI\AllocationDelivery.Messages.dll" />
+    <Content Include="bin\CI\AllocationDeliveryDomain.Common.dll" />
+    <Content Include="bin\CI\AllocationDeliveryDomain.Common.pdb" />
+    <Content Include="bin\CI\AllocationDeliveryDomain.Endpoint.dll" />
+    <Content Include="bin\CI\AllocationDeliveryDomain.Endpoint.pdb" />
+    <Content Include="bin\CI\AllocationDeliveryDomain.Endpoint.Tests.dll" />
+    <Content Include="bin\CI\AllocationDeliveryDomain.Endpoint.Tests.pdb" />
+    <Content Include="bin\CI\AllocationDeliveryDomain.MDEnrich.dll" />
+    <Content Include="bin\CI\AllocationDeliveryDomain.MDEnrich.pdb" />
+    <Content Include="bin\CI\AutoMapper.dll" />
+    <Content Include="bin\CI\AutoMapper.Net4.dll" />
+    <Content Include="bin\CI\AutoMapper.Net4.pdb" />
+    <Content Include="bin\CI\AutoMapper.pdb" />
+    <Content Include="bin\CI\AutoMapper.xml" />
+    <Content Include="bin\CI\Castle.Core.dll" />
+    <Content Include="bin\CI\Castle.Core.xml" />
+    <Content Include="bin\CI\Castle.Windsor.dll" />
+    <Content Include="bin\CI\Castle.Windsor.xml" />
+    <Content Include="bin\CI\ContractCreateDomain.BusinessLogic.dll" />
+    <Content Include="bin\CI\ContractCreateDomain.BusinessLogic.pdb" />
+    <Content Include="bin\CI\ContractCreateDomain.Implementation.dll" />
+    <Content Include="bin\CI\ContractCreateDomain.Implementation.pdb" />
+    <Content Include="bin\CI\ContractCreateDomain.Integration.ContractRequest.dll" />
+    <Content Include="bin\CI\ContractCreateDomain.Integration.ContractRequest.pdb" />
+    <Content Include="bin\CI\ContractManagement.DataStore.dll" />
+    <Content Include="bin\CI\ContractManagement.DataStore.pdb" />
+    <Content Include="bin\CI\CrossDomain.Integration.Common.dll" />
+    <Content Include="bin\CI\CrossDomain.Integration.Common.pdb" />
+    <Content Include="bin\CI\CrossDomain.Integration.Common.XmlSerializers.dll" />
+    <Content Include="bin\CI\CrossDomain.Integration.Entities.dll" />
+    <Content Include="bin\CI\CrossDomain.Integration.Entities.pdb" />
+    <Content Include="bin\CI\CrossDomain.Integration.Events.dll" />
+    <Content Include="bin\CI\CrossDomain.Integration.Events.pdb" />
+    <Content Include="bin\CI\CrossDomain.Integration.Messages.dll" />
+    <Content Include="bin\CI\CrossDomain.Integration.Messages.pdb" />
+    <Content Include="bin\CI\CrossDomain.Integration.OverrideDate.DataStore.dll" />
+    <Content Include="bin\CI\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
+    <Content Include="bin\CI\Dapper.dll" />
+    <Content Include="bin\CI\Dapper.xml" />
+    <Content Include="bin\CI\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\de\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\EntityFramework.6.0.0.0.Fakes.dll" />
+    <Content Include="bin\CI\EntityFramework.6.0.0.0.Fakes.xml" />
+    <Content Include="bin\CI\EntityFramework.dll" />
+    <Content Include="bin\CI\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\CI\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\CI\EntityFramework.xml" />
+    <Content Include="bin\CI\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\es\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\Framework.Logging.dll" />
+    <Content Include="bin\CI\Framework.Logging.pdb" />
+    <Content Include="bin\CI\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\Iesi.Collections.dll" />
+    <Content Include="bin\CI\Iesi.Collections.xml" />
+    <Content Include="bin\CI\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\it\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\CI\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\CI\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\CI\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\CI\Microsoft.Data.OData.dll" />
+    <Content Include="bin\CI\Microsoft.Data.OData.xml" />
+    <Content Include="bin\CI\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\CI\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\CI\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\CI\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <Content Include="bin\CI\Microsoft.IdentityModel.dll" />
+    <Content Include="bin\CI\Microsoft.ServiceBus.dll" />
+    <Content Include="bin\CI\Microsoft.ServiceBus.xml" />
+    <Content Include="bin\CI\Microsoft.SharePoint.Client.dll" />
+    <Content Include="bin\CI\Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="bin\CI\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\CI\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\CI\Microsoft.WindowsAzure.ServiceRuntime.dll" />
+    <Content Include="bin\CI\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\CI\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\CI\Microsoft.Xrm.Client.dll" />
+    <Content Include="bin\CI\Microsoft.Xrm.Client.xml" />
+    <Content Include="bin\CI\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\CI\Microsoft.Xrm.Sdk.Deployment.xml" />
+    <Content Include="bin\CI\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\CI\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="bin\CI\Moq.dll" />
+    <Content Include="bin\CI\Moq.xml" />
+    <Content Include="bin\CI\MoreLinq.dll" />
+    <Content Include="bin\CI\MoreLinq.xml" />
+    <Content Include="bin\CI\mscorlib.4.0.0.0.Fakes.dll" />
+    <Content Include="bin\CI\mscorlib.4.0.0.0.Fakes.xml" />
+    <Content Include="bin\CI\Newtonsoft.Json.dll" />
+    <Content Include="bin\CI\Newtonsoft.Json.xml" />
+    <Content Include="bin\CI\NHibernate.dll" />
+    <Content Include="bin\CI\NHibernate.xml" />
+    <Content Include="bin\CI\NServiceBus.Azure.dll" />
+    <Content Include="bin\CI\NServiceBus.Azure.pdb" />
+    <Content Include="bin\CI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
+    <Content Include="bin\CI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
+    <Content Include="bin\CI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
+    <Content Include="bin\CI\NServiceBus.Azure.xml" />
+    <Content Include="bin\CI\NServiceBus.Core.dll" />
+    <Content Include="bin\CI\NServiceBus.Core.pdb" />
+    <Content Include="bin\CI\NServiceBus.Core.xml" />
+    <Content Include="bin\CI\NServiceBus.NHibernate.dll" />
+    <Content Include="bin\CI\NServiceBus.NHibernate.pdb" />
+    <Content Include="bin\CI\NServiceBus.NHibernate.xml" />
+    <Content Include="bin\CI\NServiceBus.ObjectBuilder.CastleWindsor.dll" />
+    <Content Include="bin\CI\NServiceBus.ObjectBuilder.CastleWindsor.pdb" />
+    <Content Include="bin\CI\NServiceBus.ObjectBuilder.CastleWindsor.xml" />
+    <Content Include="bin\CI\Optional.dll" />
+    <Content Include="bin\CI\Optional.xml" />
+    <Content Include="bin\CI\PaymentGenerationDomain.BusinessLogic.dll" />
+    <Content Include="bin\CI\PaymentGenerationDomain.BusinessLogic.pdb" />
+    <Content Include="bin\CI\PaymentGenerationDomain.Common.dll" />
+    <Content Include="bin\CI\PaymentGenerationDomain.Common.pdb" />
+    <Content Include="bin\CI\PaymentGenerationDomain.Integration.DataStore.dll" />
+    <Content Include="bin\CI\PaymentGenerationDomain.Integration.DataStore.pdb" />
+    <Content Include="bin\CI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll" />
+    <Content Include="bin\CI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.pdb" />
+    <Content Include="bin\CI\PaymentManagement.Calculation.dll" />
+    <Content Include="bin\CI\PaymentManagementDomain.BusinessLogic.dll" />
+    <Content Include="bin\CI\PaymentManagementDomain.BusinessLogic.pdb" />
+    <Content Include="bin\CI\PaymentManagementDomain.Common.dll" />
+    <Content Include="bin\CI\PaymentManagementDomain.Common.pdb" />
+    <Content Include="bin\CI\PaymentManagementDomain.Integration.PaymentSchedule.dll" />
+    <Content Include="bin\CI\PaymentManagementDomain.Integration.PaymentSchedule.pdb" />
+    <Content Include="bin\CI\PaymentManagementDomain.PaymentSchedule.DataStore.dll" />
+    <Content Include="bin\CI\PaymentManagementDomain.PaymentSchedule.DataStore.pdb" />
+    <Content Include="bin\CI\PaymentManagementDomain.PolicyCache.DataStore.dll" />
+    <Content Include="bin\CI\PaymentManagementDomain.PolicyCache.DataStore.pdb" />
+    <Content Include="bin\CI\Polly.dll" />
+    <Content Include="bin\CI\Polly.pdb" />
+    <Content Include="bin\CI\Polly.xml" />
+    <Content Include="bin\CI\Resources\exportedCorpContract.xml" />
+    <Content Include="bin\CI\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\CI\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\CI\System.Reactive.Core.dll" />
+    <Content Include="bin\CI\System.Reactive.Core.xml" />
+    <Content Include="bin\CI\System.Reactive.Interfaces.dll" />
+    <Content Include="bin\CI\System.Reactive.Interfaces.xml" />
+    <Content Include="bin\CI\System.Spatial.dll" />
+    <Content Include="bin\CI\System.Spatial.xml" />
+    <Content Include="bin\CI\System.ValueTuple.dll" />
+    <Content Include="bin\CI\System.ValueTuple.xml" />
+    <Content Include="bin\CI\System.Web.Http.dll" />
+    <Content Include="bin\CI\System.Web.Http.xml" />
+    <Content Include="bin\CI\TestApiCore.dll" />
+    <Content Include="bin\CI\TestApiCore.pdb" />
+    <Content Include="bin\CI\TestApiCore.xml" />
+    <Content Include="bin\CI\TestApiWpf.dll" />
+    <Content Include="bin\CI\TestApiWpf.pdb" />
+    <Content Include="bin\CI\TestApiWpf.xml" />
+    <Content Include="bin\CI\UnitTests.Common.dll" />
+    <Content Include="bin\CI\UnitTests.Common.pdb" />
+    <Content Include="bin\CI\WindowsAzureEventSource.dll" />
+    <Content Include="bin\CI\WindowsAzureTelemetryEvents.dll" />
+    <Content Include="bin\CI\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\CI\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\CI\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\CI\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\CI\zh-Hant\System.Spatial.resources.dll" />
+    <Content Include="bin\coretools\CrmSvcUtil.exe" />
+    <Content Include="bin\coretools\CrmSvcUtil.xml" />
+    <Content Include="bin\coretools\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\coretools\SolutionPackager.exe" />
+    <Content Include="bin\DAT\AllocationDelivery.DataStore.dll" />
+    <Content Include="bin\DAT\AllocationDelivery.DataStore.pdb" />
+    <Content Include="bin\DAT\AllocationDelivery.Messages.dll" />
+    <Content Include="bin\DAT\AllocationDeliveryDomain.Common.dll" />
+    <Content Include="bin\DAT\AllocationDeliveryDomain.Common.pdb" />
+    <Content Include="bin\DAT\AllocationDeliveryDomain.Endpoint.dll" />
+    <Content Include="bin\DAT\AllocationDeliveryDomain.Endpoint.pdb" />
+    <Content Include="bin\DAT\AllocationDeliveryDomain.Endpoint.Tests.dll" />
+    <Content Include="bin\DAT\AllocationDeliveryDomain.Endpoint.Tests.pdb" />
+    <Content Include="bin\DAT\AllocationDeliveryDomain.MDEnrich.dll" />
+    <Content Include="bin\DAT\AllocationDeliveryDomain.MDEnrich.pdb" />
+    <Content Include="bin\DAT\AutoMapper.dll" />
+    <Content Include="bin\DAT\AutoMapper.Net4.dll" />
+    <Content Include="bin\DAT\AutoMapper.Net4.pdb" />
+    <Content Include="bin\DAT\AutoMapper.pdb" />
+    <Content Include="bin\DAT\AutoMapper.xml" />
+    <Content Include="bin\DAT\Castle.Core.dll" />
+    <Content Include="bin\DAT\Castle.Core.xml" />
+    <Content Include="bin\DAT\Castle.Windsor.dll" />
+    <Content Include="bin\DAT\Castle.Windsor.xml" />
+    <Content Include="bin\DAT\ContractCreateDomain.BusinessLogic.dll" />
+    <Content Include="bin\DAT\ContractCreateDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DAT\ContractCreateDomain.Implementation.dll" />
+    <Content Include="bin\DAT\ContractCreateDomain.Implementation.pdb" />
+    <Content Include="bin\DAT\ContractCreateDomain.Integration.ContractRequest.dll" />
+    <Content Include="bin\DAT\ContractCreateDomain.Integration.ContractRequest.pdb" />
+    <Content Include="bin\DAT\ContractManagement.DataStore.dll" />
+    <Content Include="bin\DAT\ContractManagement.DataStore.pdb" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Common.dll" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Common.pdb" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Common.XmlSerializers.dll" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Entities.dll" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Entities.pdb" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Events.dll" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Events.pdb" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Messages.dll" />
+    <Content Include="bin\DAT\CrossDomain.Integration.Messages.pdb" />
+    <Content Include="bin\DAT\CrossDomain.Integration.OverrideDate.DataStore.dll" />
+    <Content Include="bin\DAT\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
+    <Content Include="bin\DAT\Dapper.dll" />
+    <Content Include="bin\DAT\Dapper.xml" />
+    <Content Include="bin\DAT\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\de\System.Spatial.resources.dll" />
+    <Content Include="bin\DAT\EntityFramework.6.0.0.0.Fakes.dll" />
+    <Content Include="bin\DAT\EntityFramework.6.0.0.0.Fakes.xml" />
+    <Content Include="bin\DAT\EntityFramework.dll" />
+    <Content Include="bin\DAT\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\DAT\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\DAT\EntityFramework.xml" />
+    <Content Include="bin\DAT\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\es\System.Spatial.resources.dll" />
+    <Content Include="bin\DAT\Framework.Logging.dll" />
+    <Content Include="bin\DAT\Framework.Logging.pdb" />
+    <Content Include="bin\DAT\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\DAT\Iesi.Collections.dll" />
+    <Content Include="bin\DAT\Iesi.Collections.xml" />
+    <Content Include="bin\DAT\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\it\System.Spatial.resources.dll" />
+    <Content Include="bin\DAT\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\DAT\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\DAT\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\DAT\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\DAT\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\DAT\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\DAT\Microsoft.Data.OData.dll" />
+    <Content Include="bin\DAT\Microsoft.Data.OData.xml" />
+    <Content Include="bin\DAT\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\DAT\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\DAT\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\DAT\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <Content Include="bin\DAT\Microsoft.IdentityModel.dll" />
+    <Content Include="bin\DAT\Microsoft.ServiceBus.dll" />
+    <Content Include="bin\DAT\Microsoft.ServiceBus.xml" />
+    <Content Include="bin\DAT\Microsoft.SharePoint.Client.dll" />
+    <Content Include="bin\DAT\Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="bin\DAT\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\DAT\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\DAT\Microsoft.WindowsAzure.ServiceRuntime.dll" />
+    <Content Include="bin\DAT\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\DAT\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\DAT\Microsoft.Xrm.Client.dll" />
+    <Content Include="bin\DAT\Microsoft.Xrm.Client.xml" />
+    <Content Include="bin\DAT\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\DAT\Microsoft.Xrm.Sdk.Deployment.xml" />
+    <Content Include="bin\DAT\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\DAT\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="bin\DAT\Moq.dll" />
+    <Content Include="bin\DAT\Moq.xml" />
+    <Content Include="bin\DAT\MoreLinq.dll" />
+    <Content Include="bin\DAT\MoreLinq.xml" />
+    <Content Include="bin\DAT\mscorlib.4.0.0.0.Fakes.dll" />
+    <Content Include="bin\DAT\mscorlib.4.0.0.0.Fakes.xml" />
+    <Content Include="bin\DAT\Newtonsoft.Json.dll" />
+    <Content Include="bin\DAT\Newtonsoft.Json.xml" />
+    <Content Include="bin\DAT\NHibernate.dll" />
+    <Content Include="bin\DAT\NHibernate.xml" />
+    <Content Include="bin\DAT\NServiceBus.Azure.dll" />
+    <Content Include="bin\DAT\NServiceBus.Azure.pdb" />
+    <Content Include="bin\DAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
+    <Content Include="bin\DAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
+    <Content Include="bin\DAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
+    <Content Include="bin\DAT\NServiceBus.Azure.xml" />
+    <Content Include="bin\DAT\NServiceBus.Core.dll" />
+    <Content Include="bin\DAT\NServiceBus.Core.pdb" />
+    <Content Include="bin\DAT\NServiceBus.Core.xml" />
+    <Content Include="bin\DAT\NServiceBus.NHibernate.dll" />
+    <Content Include="bin\DAT\NServiceBus.NHibernate.pdb" />
+    <Content Include="bin\DAT\NServiceBus.NHibernate.xml" />
+    <Content Include="bin\DAT\NServiceBus.ObjectBuilder.CastleWindsor.dll" />
+    <Content Include="bin\DAT\NServiceBus.ObjectBuilder.CastleWindsor.pdb" />
+    <Content Include="bin\DAT\NServiceBus.ObjectBuilder.CastleWindsor.xml" />
+    <Content Include="bin\DAT\Optional.dll" />
+    <Content Include="bin\DAT\Optional.xml" />
+    <Content Include="bin\DAT\PaymentGenerationDomain.BusinessLogic.dll" />
+    <Content Include="bin\DAT\PaymentGenerationDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DAT\PaymentGenerationDomain.Common.dll" />
+    <Content Include="bin\DAT\PaymentGenerationDomain.Common.pdb" />
+    <Content Include="bin\DAT\PaymentGenerationDomain.Integration.DataStore.dll" />
+    <Content Include="bin\DAT\PaymentGenerationDomain.Integration.DataStore.pdb" />
+    <Content Include="bin\DAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll" />
+    <Content Include="bin\DAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.pdb" />
+    <Content Include="bin\DAT\PaymentManagement.Calculation.dll" />
+    <Content Include="bin\DAT\PaymentManagement.Calculation.pdb" />
+    <Content Include="bin\DAT\PaymentManagementDomain.BusinessLogic.dll" />
+    <Content Include="bin\DAT\PaymentManagementDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DAT\PaymentManagementDomain.Common.dll" />
+    <Content Include="bin\DAT\PaymentManagementDomain.Common.pdb" />
+    <Content Include="bin\DAT\PaymentManagementDomain.Integration.PaymentSchedule.dll" />
+    <Content Include="bin\DAT\PaymentManagementDomain.Integration.PaymentSchedule.pdb" />
+    <Content Include="bin\DAT\PaymentManagementDomain.PaymentSchedule.DataStore.dll" />
+    <Content Include="bin\DAT\PaymentManagementDomain.PaymentSchedule.DataStore.pdb" />
+    <Content Include="bin\DAT\PaymentManagementDomain.PolicyCache.DataStore.dll" />
+    <Content Include="bin\DAT\PaymentManagementDomain.PolicyCache.DataStore.pdb" />
+    <Content Include="bin\DAT\Polly.dll" />
+    <Content Include="bin\DAT\Polly.pdb" />
+    <Content Include="bin\DAT\Polly.xml" />
+    <Content Include="bin\DAT\Resources\exportedCorpContract.xml" />
+    <Content Include="bin\DAT\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\DAT\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\DAT\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\DAT\System.Reactive.Core.dll" />
+    <Content Include="bin\DAT\System.Reactive.Core.xml" />
+    <Content Include="bin\DAT\System.Reactive.Interfaces.dll" />
+    <Content Include="bin\DAT\System.Reactive.Interfaces.xml" />
+    <Content Include="bin\DAT\System.Spatial.dll" />
+    <Content Include="bin\DAT\System.Spatial.xml" />
+    <Content Include="bin\DAT\System.ValueTuple.dll" />
+    <Content Include="bin\DAT\System.ValueTuple.xml" />
+    <Content Include="bin\DAT\System.Web.Http.dll" />
+    <Content Include="bin\DAT\System.Web.Http.xml" />
+    <Content Include="bin\DAT\TestApiCore.dll" />
+    <Content Include="bin\DAT\TestApiCore.pdb" />
+    <Content Include="bin\DAT\TestApiCore.xml" />
+    <Content Include="bin\DAT\TestApiWpf.dll" />
+    <Content Include="bin\DAT\TestApiWpf.pdb" />
+    <Content Include="bin\DAT\TestApiWpf.xml" />
+    <Content Include="bin\DAT\UnitTests.Common.dll" />
+    <Content Include="bin\DAT\UnitTests.Common.pdb" />
+    <Content Include="bin\DAT\WindowsAzureEventSource.dll" />
+    <Content Include="bin\DAT\WindowsAzureTelemetryEvents.dll" />
+    <Content Include="bin\DAT\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\DAT\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DAT\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DAT\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DAT\zh-Hant\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\ADMonitoringDomain.DataStore.dll" />
+    <Content Include="bin\DCI\ADMonitoringDomain.DataStore.pdb" />
+    <Content Include="bin\DCI\ADMonitoringDomain.Endpoint.dll" />
+    <Content Include="bin\DCI\ADMonitoringDomain.Endpoint.pdb" />
+    <Content Include="bin\DCI\AllocationDelivery.DataStore.dll" />
+    <Content Include="bin\DCI\AllocationDelivery.DataStore.pdb" />
+    <Content Include="bin\DCI\AllocationDelivery.Messages.dll" />
+    <Content Include="bin\DCI\AllocationDeliveryDomain.Common.dll" />
+    <Content Include="bin\DCI\AllocationDeliveryDomain.Common.pdb" />
+    <Content Include="bin\DCI\AllocationDeliveryDomain.Endpoint.dll" />
+    <Content Include="bin\DCI\AllocationDeliveryDomain.Endpoint.pdb" />
+    <Content Include="bin\DCI\AllocationDeliveryDomain.Endpoint.Tests.dll" />
+    <Content Include="bin\DCI\AllocationDeliveryDomain.Endpoint.Tests.pdb" />
+    <Content Include="bin\DCI\AllocationDeliveryDomain.MDEnrich.dll" />
+    <Content Include="bin\DCI\AllocationDeliveryDomain.MDEnrich.pdb" />
+    <Content Include="bin\DCI\AutoMapper.dll" />
+    <Content Include="bin\DCI\AutoMapper.Net4.dll" />
+    <Content Include="bin\DCI\AutoMapper.Net4.pdb" />
+    <Content Include="bin\DCI\AutoMapper.pdb" />
+    <Content Include="bin\DCI\AutoMapper.xml" />
+    <Content Include="bin\DCI\Castle.Core.dll" />
+    <Content Include="bin\DCI\Castle.Windsor.dll" />
+    <Content Include="bin\DCI\Castle.Windsor.xml" />
+    <Content Include="bin\DCI\ContractCreateDomain.BusinessLogic.dll" />
+    <Content Include="bin\DCI\ContractCreateDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DCI\ContractCreateDomain.Implementation.dll" />
+    <Content Include="bin\DCI\ContractCreateDomain.Implementation.pdb" />
+    <Content Include="bin\DCI\ContractCreateDomain.Integration.ContractRequest.dll" />
+    <Content Include="bin\DCI\ContractCreateDomain.Integration.ContractRequest.pdb" />
+    <Content Include="bin\DCI\ContractManagement.DataStore.dll" />
+    <Content Include="bin\DCI\ContractManagement.DataStore.pdb" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Common.dll" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Common.pdb" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Common.XmlSerializers.dll" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Entities.dll" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Entities.pdb" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Events.dll" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Events.pdb" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Messages.dll" />
+    <Content Include="bin\DCI\CrossDomain.Integration.Messages.pdb" />
+    <Content Include="bin\DCI\CrossDomain.Integration.OverrideDate.DataStore.dll" />
+    <Content Include="bin\DCI\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
+    <Content Include="bin\DCI\Dapper.dll" />
+    <Content Include="bin\DCI\Dapper.xml" />
+    <Content Include="bin\DCI\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\de\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\EntityFramework.6.0.0.0.Fakes.dll" />
+    <Content Include="bin\DCI\EntityFramework.6.0.0.0.Fakes.xml" />
+    <Content Include="bin\DCI\EntityFramework.dll" />
+    <Content Include="bin\DCI\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\DCI\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\DCI\EntityFramework.xml" />
+    <Content Include="bin\DCI\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\es\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\FCS.Worker.Common.dll" />
+    <Content Include="bin\DCI\Framework.Logging.dll" />
+    <Content Include="bin\DCI\Framework.Logging.pdb" />
+    <Content Include="bin\DCI\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\Iesi.Collections.dll" />
+    <Content Include="bin\DCI\Iesi.Collections.xml" />
+    <Content Include="bin\DCI\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\it\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\Microsoft.Azure.Services.AppAuthentication.dll" />
+    <Content Include="bin\DCI\Microsoft.Azure.Services.AppAuthentication.xml" />
+    <Content Include="bin\DCI\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\DCI\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\DCI\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\DCI\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\DCI\Microsoft.Data.OData.dll" />
+    <Content Include="bin\DCI\Microsoft.Data.OData.xml" />
+    <Content Include="bin\DCI\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\DCI\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\DCI\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\DCI\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll" />
+    <Content Include="bin\DCI\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml" />
+    <Content Include="bin\DCI\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <Content Include="bin\DCI\Microsoft.IdentityModel.dll" />
+    <Content Include="bin\DCI\Microsoft.ServiceBus.dll" />
+    <Content Include="bin\DCI\Microsoft.ServiceBus.xml" />
+    <Content Include="bin\DCI\Microsoft.SharePoint.Client.dll" />
+    <Content Include="bin\DCI\Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="bin\DCI\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\DCI\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\DCI\Microsoft.WindowsAzure.ServiceRuntime.dll" />
+    <Content Include="bin\DCI\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\DCI\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\DCI\Microsoft.Xrm.Client.dll" />
+    <Content Include="bin\DCI\Microsoft.Xrm.Client.xml" />
+    <Content Include="bin\DCI\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\DCI\Microsoft.Xrm.Sdk.Deployment.xml" />
+    <Content Include="bin\DCI\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\DCI\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="bin\DCI\Moq.dll" />
+    <Content Include="bin\DCI\Moq.xml" />
+    <Content Include="bin\DCI\MoreLinq.dll" />
+    <Content Include="bin\DCI\MoreLinq.xml" />
+    <Content Include="bin\DCI\mscorlib.4.0.0.0.Fakes.dll" />
+    <Content Include="bin\DCI\mscorlib.4.0.0.0.Fakes.xml" />
+    <Content Include="bin\DCI\Newtonsoft.Json.dll" />
+    <Content Include="bin\DCI\Newtonsoft.Json.xml" />
+    <Content Include="bin\DCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
+    <Content Include="bin\DCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
+    <Content Include="bin\DCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
+    <Content Include="bin\DCI\NServiceBus.Core.dll" />
+    <Content Include="bin\DCI\NServiceBus.Core.pdb" />
+    <Content Include="bin\DCI\NServiceBus.Core.xml" />
+    <Content Include="bin\DCI\NServiceBus.Newtonsoft.Json.dll" />
+    <Content Include="bin\DCI\NServiceBus.Newtonsoft.Json.pdb" />
+    <Content Include="bin\DCI\NServiceBus.Newtonsoft.Json.xml" />
+    <Content Include="bin\DCI\NServiceBus.ObjectBuilder.CastleWindsor.dll" />
+    <Content Include="bin\DCI\NServiceBus.ObjectBuilder.CastleWindsor.pdb" />
+    <Content Include="bin\DCI\NServiceBus.ObjectBuilder.CastleWindsor.xml" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql.dll" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql.pdb" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql.xml" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MsSqlServer\Outbox_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MsSqlServer\Outbox_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MsSqlServer\Subscription_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MsSqlServer\Subscription_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MsSqlServer\Timeout_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MsSqlServer\Timeout_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MySql\Outbox_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MySql\Outbox_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MySql\Subscription_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MySql\Subscription_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MySql\Timeout_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\MySql\Timeout_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\Oracle\Outbox_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\Oracle\Outbox_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\Oracle\Subscription_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\Oracle\Subscription_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\Oracle\Timeout_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\Oracle\Timeout_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\PostgreSql\Outbox_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\PostgreSql\Outbox_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\PostgreSql\Subscription_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\PostgreSql\Subscription_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\PostgreSql\Timeout_Create.sql" />
+    <Content Include="bin\DCI\NServiceBus.Persistence.Sql\PostgreSql\Timeout_Drop.sql" />
+    <Content Include="bin\DCI\NServiceBus.Testing.dll" />
+    <Content Include="bin\DCI\NServiceBus.Testing.pdb" />
+    <Content Include="bin\DCI\NServiceBus.Testing.xml" />
+    <Content Include="bin\DCI\Optional.dll" />
+    <Content Include="bin\DCI\Optional.xml" />
+    <Content Include="bin\DCI\PaymentGenerationDomain.BusinessLogic.dll" />
+    <Content Include="bin\DCI\PaymentGenerationDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DCI\PaymentGenerationDomain.Common.dll" />
+    <Content Include="bin\DCI\PaymentGenerationDomain.Common.pdb" />
+    <Content Include="bin\DCI\PaymentGenerationDomain.Integration.DataStore.dll" />
+    <Content Include="bin\DCI\PaymentGenerationDomain.Integration.DataStore.pdb" />
+    <Content Include="bin\DCI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll" />
+    <Content Include="bin\DCI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.pdb" />
+    <Content Include="bin\DCI\PaymentManagement.Calculation.dll" />
+    <Content Include="bin\DCI\PaymentManagement.Calculation.pdb" />
+    <Content Include="bin\DCI\PaymentManagementDomain.BusinessLogic.dll" />
+    <Content Include="bin\DCI\PaymentManagementDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DCI\PaymentManagementDomain.Integration.PaymentSchedule.dll" />
+    <Content Include="bin\DCI\PaymentManagementDomain.Integration.PaymentSchedule.pdb" />
+    <Content Include="bin\DCI\PaymentManagementDomain.PaymentSchedule.DataStore.dll" />
+    <Content Include="bin\DCI\PaymentManagementDomain.PaymentSchedule.DataStore.pdb" />
+    <Content Include="bin\DCI\PaymentManagementDomain.PolicyCache.DataStore.dll" />
+    <Content Include="bin\DCI\PaymentManagementDomain.PolicyCache.DataStore.pdb" />
+    <Content Include="bin\DCI\Polly.dll" />
+    <Content Include="bin\DCI\Polly.pdb" />
+    <Content Include="bin\DCI\Polly.xml" />
+    <Content Include="bin\DCI\Resources\exportedCorpContract.xml" />
+    <Content Include="bin\DCI\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\System.Data.SqlClient.dll" />
+    <Content Include="bin\DCI\System.IdentityModel.Tokens.Jwt.dll" />
+    <Content Include="bin\DCI\System.IdentityModel.Tokens.Jwt.xml" />
+    <Content Include="bin\DCI\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\DCI\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\DCI\System.Reactive.Core.dll" />
+    <Content Include="bin\DCI\System.Reactive.Core.xml" />
+    <Content Include="bin\DCI\System.Reactive.Interfaces.dll" />
+    <Content Include="bin\DCI\System.Reactive.Interfaces.xml" />
+    <Content Include="bin\DCI\System.Spatial.dll" />
+    <Content Include="bin\DCI\System.Spatial.xml" />
+    <Content Include="bin\DCI\System.Web.Http.dll" />
+    <Content Include="bin\DCI\System.Web.Http.xml" />
+    <Content Include="bin\DCI\TestApiCore.dll" />
+    <Content Include="bin\DCI\TestApiCore.pdb" />
+    <Content Include="bin\DCI\TestApiCore.xml" />
+    <Content Include="bin\DCI\TestApiWpf.dll" />
+    <Content Include="bin\DCI\TestApiWpf.pdb" />
+    <Content Include="bin\DCI\TestApiWpf.xml" />
+    <Content Include="bin\DCI\UnitTests.Common.dll" />
+    <Content Include="bin\DCI\UnitTests.Common.pdb" />
+    <Content Include="bin\DCI\WindowsAzureEventSource.dll" />
+    <Content Include="bin\DCI\WindowsAzureTelemetryEvents.dll" />
+    <Content Include="bin\DCI\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\DCI\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DCI\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DCI\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DCI\zh-Hant\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\ADMonitoringDomain.DataStore.dll" />
+    <Content Include="bin\DebugCI\ADMonitoringDomain.DataStore.pdb" />
+    <Content Include="bin\DebugCI\ADMonitoringDomain.Endpoint.dll" />
+    <Content Include="bin\DebugCI\ADMonitoringDomain.Endpoint.pdb" />
+    <Content Include="bin\DebugCI\AllocationDelivery.DataStore.dll" />
+    <Content Include="bin\DebugCI\AllocationDelivery.DataStore.pdb" />
+    <Content Include="bin\DebugCI\AllocationDelivery.Messages.dll" />
+    <Content Include="bin\DebugCI\AllocationDeliveryDomain.Common.dll" />
+    <Content Include="bin\DebugCI\AllocationDeliveryDomain.Common.pdb" />
+    <Content Include="bin\DebugCI\AllocationDeliveryDomain.Endpoint.dll" />
+    <Content Include="bin\DebugCI\AllocationDeliveryDomain.Endpoint.pdb" />
+    <Content Include="bin\DebugCI\AllocationDeliveryDomain.Endpoint.Tests.dll" />
+    <Content Include="bin\DebugCI\AllocationDeliveryDomain.Endpoint.Tests.pdb" />
+    <Content Include="bin\DebugCI\AllocationDeliveryDomain.MDEnrich.dll" />
+    <Content Include="bin\DebugCI\AllocationDeliveryDomain.MDEnrich.pdb" />
+    <Content Include="bin\DebugCI\AutoMapper.dll" />
+    <Content Include="bin\DebugCI\AutoMapper.Net4.dll" />
+    <Content Include="bin\DebugCI\AutoMapper.Net4.pdb" />
+    <Content Include="bin\DebugCI\AutoMapper.pdb" />
+    <Content Include="bin\DebugCI\AutoMapper.xml" />
+    <Content Include="bin\DebugCI\Castle.Core.dll" />
+    <Content Include="bin\DebugCI\Castle.Core.xml" />
+    <Content Include="bin\DebugCI\Castle.Windsor.dll" />
+    <Content Include="bin\DebugCI\Castle.Windsor.xml" />
+    <Content Include="bin\DebugCI\ContractCreateDomain.BusinessLogic.dll" />
+    <Content Include="bin\DebugCI\ContractCreateDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DebugCI\ContractCreateDomain.Implementation.dll" />
+    <Content Include="bin\DebugCI\ContractCreateDomain.Implementation.pdb" />
+    <Content Include="bin\DebugCI\ContractCreateDomain.Integration.ContractRequest.dll" />
+    <Content Include="bin\DebugCI\ContractCreateDomain.Integration.ContractRequest.pdb" />
+    <Content Include="bin\DebugCI\ContractManagement.DataStore.dll" />
+    <Content Include="bin\DebugCI\ContractManagement.DataStore.pdb" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Common.dll" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Common.pdb" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Common.XmlSerializers.dll" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Entities.dll" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Entities.pdb" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Events.dll" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Events.pdb" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Messages.dll" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.Messages.pdb" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.OverrideDate.DataStore.dll" />
+    <Content Include="bin\DebugCI\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
+    <Content Include="bin\DebugCI\Dapper.dll" />
+    <Content Include="bin\DebugCI\Dapper.xml" />
+    <Content Include="bin\DebugCI\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\de\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\EntityFramework.6.0.0.0.Fakes.dll" />
+    <Content Include="bin\DebugCI\EntityFramework.6.0.0.0.Fakes.xml" />
+    <Content Include="bin\DebugCI\EntityFramework.dll" />
+    <Content Include="bin\DebugCI\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\DebugCI\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\DebugCI\EntityFramework.xml" />
+    <Content Include="bin\DebugCI\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\es\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\Framework.Logging.dll" />
+    <Content Include="bin\DebugCI\Framework.Logging.pdb" />
+    <Content Include="bin\DebugCI\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\Iesi.Collections.dll" />
+    <Content Include="bin\DebugCI\Iesi.Collections.xml" />
+    <Content Include="bin\DebugCI\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\it\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\DebugCI\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\DebugCI\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\DebugCI\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\DebugCI\Microsoft.Data.OData.dll" />
+    <Content Include="bin\DebugCI\Microsoft.Data.OData.xml" />
+    <Content Include="bin\DebugCI\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\DebugCI\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\DebugCI\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\DebugCI\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <Content Include="bin\DebugCI\Microsoft.IdentityModel.dll" />
+    <Content Include="bin\DebugCI\Microsoft.ServiceBus.dll" />
+    <Content Include="bin\DebugCI\Microsoft.ServiceBus.xml" />
+    <Content Include="bin\DebugCI\Microsoft.SharePoint.Client.dll" />
+    <Content Include="bin\DebugCI\Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="bin\DebugCI\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\DebugCI\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\DebugCI\Microsoft.WindowsAzure.ServiceRuntime.dll" />
+    <Content Include="bin\DebugCI\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\DebugCI\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\DebugCI\Microsoft.Xrm.Client.dll" />
+    <Content Include="bin\DebugCI\Microsoft.Xrm.Client.xml" />
+    <Content Include="bin\DebugCI\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\DebugCI\Microsoft.Xrm.Sdk.Deployment.xml" />
+    <Content Include="bin\DebugCI\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\DebugCI\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="bin\DebugCI\Moq.dll" />
+    <Content Include="bin\DebugCI\Moq.xml" />
+    <Content Include="bin\DebugCI\MoreLinq.dll" />
+    <Content Include="bin\DebugCI\MoreLinq.xml" />
+    <Content Include="bin\DebugCI\mscorlib.4.0.0.0.Fakes.dll" />
+    <Content Include="bin\DebugCI\mscorlib.4.0.0.0.Fakes.xml" />
+    <Content Include="bin\DebugCI\Newtonsoft.Json.dll" />
+    <Content Include="bin\DebugCI\Newtonsoft.Json.xml" />
+    <Content Include="bin\DebugCI\NHibernate.dll" />
+    <Content Include="bin\DebugCI\NHibernate.xml" />
+    <Content Include="bin\DebugCI\NServiceBus.Azure.dll" />
+    <Content Include="bin\DebugCI\NServiceBus.Azure.pdb" />
+    <Content Include="bin\DebugCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
+    <Content Include="bin\DebugCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
+    <Content Include="bin\DebugCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
+    <Content Include="bin\DebugCI\NServiceBus.Azure.xml" />
+    <Content Include="bin\DebugCI\NServiceBus.Core.dll" />
+    <Content Include="bin\DebugCI\NServiceBus.Core.pdb" />
+    <Content Include="bin\DebugCI\NServiceBus.Core.xml" />
+    <Content Include="bin\DebugCI\NServiceBus.NHibernate.dll" />
+    <Content Include="bin\DebugCI\NServiceBus.NHibernate.pdb" />
+    <Content Include="bin\DebugCI\NServiceBus.NHibernate.xml" />
+    <Content Include="bin\DebugCI\NServiceBus.ObjectBuilder.CastleWindsor.dll" />
+    <Content Include="bin\DebugCI\NServiceBus.ObjectBuilder.CastleWindsor.pdb" />
+    <Content Include="bin\DebugCI\NServiceBus.ObjectBuilder.CastleWindsor.xml" />
+    <Content Include="bin\DebugCI\Optional.dll" />
+    <Content Include="bin\DebugCI\Optional.xml" />
+    <Content Include="bin\DebugCI\PaymentGenerationDomain.BusinessLogic.dll" />
+    <Content Include="bin\DebugCI\PaymentGenerationDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DebugCI\PaymentGenerationDomain.Common.dll" />
+    <Content Include="bin\DebugCI\PaymentGenerationDomain.Common.pdb" />
+    <Content Include="bin\DebugCI\PaymentGenerationDomain.Integration.DataStore.dll" />
+    <Content Include="bin\DebugCI\PaymentGenerationDomain.Integration.DataStore.pdb" />
+    <Content Include="bin\DebugCI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll" />
+    <Content Include="bin\DebugCI\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.pdb" />
+    <Content Include="bin\DebugCI\PaymentManagement.Calculation.dll" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.BusinessLogic.dll" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.Common.dll" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.Common.pdb" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.Integration.PaymentSchedule.dll" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.Integration.PaymentSchedule.pdb" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.PaymentSchedule.DataStore.dll" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.PaymentSchedule.DataStore.pdb" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.PolicyCache.DataStore.dll" />
+    <Content Include="bin\DebugCI\PaymentManagementDomain.PolicyCache.DataStore.pdb" />
+    <Content Include="bin\DebugCI\Polly.dll" />
+    <Content Include="bin\DebugCI\Polly.pdb" />
+    <Content Include="bin\DebugCI\Polly.xml" />
+    <Content Include="bin\DebugCI\Resources\exportedCorpContract.xml" />
+    <Content Include="bin\DebugCI\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\DebugCI\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\DebugCI\System.Reactive.Core.dll" />
+    <Content Include="bin\DebugCI\System.Reactive.Core.xml" />
+    <Content Include="bin\DebugCI\System.Reactive.Interfaces.dll" />
+    <Content Include="bin\DebugCI\System.Reactive.Interfaces.xml" />
+    <Content Include="bin\DebugCI\System.Spatial.dll" />
+    <Content Include="bin\DebugCI\System.Spatial.xml" />
+    <Content Include="bin\DebugCI\System.ValueTuple.dll" />
+    <Content Include="bin\DebugCI\System.ValueTuple.xml" />
+    <Content Include="bin\DebugCI\System.Web.Http.dll" />
+    <Content Include="bin\DebugCI\System.Web.Http.xml" />
+    <Content Include="bin\DebugCI\TestApiCore.dll" />
+    <Content Include="bin\DebugCI\TestApiCore.pdb" />
+    <Content Include="bin\DebugCI\TestApiCore.xml" />
+    <Content Include="bin\DebugCI\TestApiWpf.dll" />
+    <Content Include="bin\DebugCI\TestApiWpf.pdb" />
+    <Content Include="bin\DebugCI\TestApiWpf.xml" />
+    <Content Include="bin\DebugCI\UnitTests.Common.dll" />
+    <Content Include="bin\DebugCI\UnitTests.Common.pdb" />
+    <Content Include="bin\DebugCI\WindowsAzureEventSource.dll" />
+    <Content Include="bin\DebugCI\WindowsAzureTelemetryEvents.dll" />
+    <Content Include="bin\DebugCI\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\DebugCI\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DebugCI\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DebugCI\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DebugCI\zh-Hant\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\ADMonitoringDomain.DataStore.dll" />
+    <Content Include="bin\Debug\ADMonitoringDomain.DataStore.pdb" />
+    <Content Include="bin\Debug\ADMonitoringDomain.Endpoint.dll" />
+    <Content Include="bin\Debug\ADMonitoringDomain.Endpoint.pdb" />
+    <Content Include="bin\Debug\AllocationDelivery.DataStore.dll" />
+    <Content Include="bin\Debug\AllocationDelivery.DataStore.pdb" />
+    <Content Include="bin\Debug\AllocationDelivery.Messages.dll" />
+    <Content Include="bin\Debug\AllocationDelivery.Messages.pdb" />
+    <Content Include="bin\Debug\AllocationDeliveryDomain.Common.dll" />
+    <Content Include="bin\Debug\AllocationDeliveryDomain.Common.pdb" />
+    <Content Include="bin\Debug\AllocationDeliveryDomain.Endpoint.dll" />
+    <Content Include="bin\Debug\AllocationDeliveryDomain.Endpoint.pdb" />
+    <Content Include="bin\Debug\AllocationDeliveryDomain.Endpoint.Tests.dll" />
+    <Content Include="bin\Debug\AllocationDeliveryDomain.Endpoint.Tests.pdb" />
+    <Content Include="bin\Debug\AllocationDeliveryDomain.MDEnrich.dll" />
+    <Content Include="bin\Debug\AllocationDeliveryDomain.MDEnrich.pdb" />
+    <Content Include="bin\Debug\AutoMapper.dll" />
+    <Content Include="bin\Debug\AutoMapper.Net4.dll" />
+    <Content Include="bin\Debug\AutoMapper.Net4.pdb" />
+    <Content Include="bin\Debug\AutoMapper.pdb" />
+    <Content Include="bin\Debug\AutoMapper.xml" />
+    <Content Include="bin\Debug\Castle.Core.dll" />
+    <Content Include="bin\Debug\Castle.Core.xml" />
+    <Content Include="bin\Debug\Castle.Windsor.dll" />
+    <Content Include="bin\Debug\Castle.Windsor.xml" />
+    <Content Include="bin\Debug\ContractCreateDomain.BusinessLogic.dll" />
+    <Content Include="bin\Debug\ContractCreateDomain.BusinessLogic.pdb" />
+    <Content Include="bin\Debug\ContractCreateDomain.Implementation.dll" />
+    <Content Include="bin\Debug\ContractCreateDomain.Implementation.pdb" />
+    <Content Include="bin\Debug\ContractCreateDomain.Integration.ContractRequest.dll" />
+    <Content Include="bin\Debug\ContractCreateDomain.Integration.ContractRequest.pdb" />
+    <Content Include="bin\Debug\ContractManagement.DataStore.dll" />
+    <Content Include="bin\Debug\ContractManagement.DataStore.pdb" />
+    <Content Include="bin\Debug\CrossDomain.Integration.Common.dll" />
+    <Content Include="bin\Debug\CrossDomain.Integration.Common.pdb" />
+    <Content Include="bin\Debug\CrossDomain.Integration.Entities.dll" />
+    <Content Include="bin\Debug\CrossDomain.Integration.Entities.pdb" />
+    <Content Include="bin\Debug\CrossDomain.Integration.Events.dll" />
+    <Content Include="bin\Debug\CrossDomain.Integration.Events.pdb" />
+    <Content Include="bin\Debug\CrossDomain.Integration.Messages.dll" />
+    <Content Include="bin\Debug\CrossDomain.Integration.Messages.pdb" />
+    <Content Include="bin\Debug\CrossDomain.Integration.OverrideDate.DataStore.dll" />
+    <Content Include="bin\Debug\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
+    <Content Include="bin\Debug\Dapper.dll" />
+    <Content Include="bin\Debug\Dapper.xml" />
+    <Content Include="bin\Debug\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\de\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\EntityFramework.6.0.0.0.Fakes.dll" />
+    <Content Include="bin\Debug\EntityFramework.6.0.0.0.Fakes.xml" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\es\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\Framework.Logging.dll" />
+    <Content Include="bin\Debug\Framework.Logging.pdb" />
+    <Content Include="bin\Debug\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\Iesi.Collections.dll" />
+    <Content Include="bin\Debug\Iesi.Collections.xml" />
+    <Content Include="bin\Debug\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\it\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\Debug\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.OData.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.OData.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.dll" />
+    <Content Include="bin\Debug\Microsoft.ServiceBus.dll" />
+    <Content Include="bin\Debug\Microsoft.ServiceBus.xml" />
+    <Content Include="bin\Debug\Microsoft.SharePoint.Client.dll" />
+    <Content Include="bin\Debug\Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.ServiceRuntime.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\Debug\Microsoft.Xrm.Client.dll" />
+    <Content Include="bin\Debug\Microsoft.Xrm.Client.xml" />
+    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.Deployment.xml" />
+    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="bin\Debug\Moq.dll" />
+    <Content Include="bin\Debug\Moq.xml" />
+    <Content Include="bin\Debug\MoreLinq.dll" />
+    <Content Include="bin\Debug\MoreLinq.xml" />
+    <Content Include="bin\Debug\mscorlib.4.0.0.0.Fakes.dll" />
+    <Content Include="bin\Debug\mscorlib.4.0.0.0.Fakes.xml" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\NHibernate.dll" />
+    <Content Include="bin\Debug\NHibernate.xml" />
+    <Content Include="bin\Debug\NServiceBus.Azure.dll" />
+    <Content Include="bin\Debug\NServiceBus.Azure.pdb" />
+    <Content Include="bin\Debug\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
+    <Content Include="bin\Debug\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
+    <Content Include="bin\Debug\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
+    <Content Include="bin\Debug\NServiceBus.Azure.xml" />
+    <Content Include="bin\Debug\NServiceBus.Core.dll" />
+    <Content Include="bin\Debug\NServiceBus.Core.pdb" />
+    <Content Include="bin\Debug\NServiceBus.Core.xml" />
+    <Content Include="bin\Debug\NServiceBus.NHibernate.dll" />
+    <Content Include="bin\Debug\NServiceBus.NHibernate.pdb" />
+    <Content Include="bin\Debug\NServiceBus.NHibernate.xml" />
+    <Content Include="bin\Debug\NServiceBus.ObjectBuilder.CastleWindsor.dll" />
+    <Content Include="bin\Debug\NServiceBus.ObjectBuilder.CastleWindsor.pdb" />
+    <Content Include="bin\Debug\NServiceBus.ObjectBuilder.CastleWindsor.xml" />
+    <Content Include="bin\Debug\Optional.dll" />
+    <Content Include="bin\Debug\Optional.xml" />
+    <Content Include="bin\Debug\PaymentGenerationDomain.BusinessLogic.dll" />
+    <Content Include="bin\Debug\PaymentGenerationDomain.BusinessLogic.pdb" />
+    <Content Include="bin\Debug\PaymentGenerationDomain.Common.dll" />
+    <Content Include="bin\Debug\PaymentGenerationDomain.Common.pdb" />
+    <Content Include="bin\Debug\PaymentGenerationDomain.Integration.DataStore.dll" />
+    <Content Include="bin\Debug\PaymentGenerationDomain.Integration.DataStore.pdb" />
+    <Content Include="bin\Debug\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll" />
+    <Content Include="bin\Debug\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.pdb" />
+    <Content Include="bin\Debug\PaymentManagement.Calculation.dll" />
+    <Content Include="bin\Debug\PaymentManagement.Calculation.pdb" />
+    <Content Include="bin\Debug\PaymentManagementDomain.BusinessLogic.dll" />
+    <Content Include="bin\Debug\PaymentManagementDomain.BusinessLogic.pdb" />
+    <Content Include="bin\Debug\PaymentManagementDomain.Common.dll" />
+    <Content Include="bin\Debug\PaymentManagementDomain.Common.pdb" />
+    <Content Include="bin\Debug\PaymentManagementDomain.Integration.PaymentSchedule.dll" />
+    <Content Include="bin\Debug\PaymentManagementDomain.Integration.PaymentSchedule.pdb" />
+    <Content Include="bin\Debug\PaymentManagementDomain.PaymentSchedule.DataStore.dll" />
+    <Content Include="bin\Debug\PaymentManagementDomain.PaymentSchedule.DataStore.pdb" />
+    <Content Include="bin\Debug\PaymentManagementDomain.PolicyCache.DataStore.dll" />
+    <Content Include="bin\Debug\PaymentManagementDomain.PolicyCache.DataStore.pdb" />
+    <Content Include="bin\Debug\Polly.dll" />
+    <Content Include="bin\Debug\Polly.pdb" />
+    <Content Include="bin\Debug\Polly.xml" />
+    <Content Include="bin\Debug\Resources\exportedCorpContract.xml" />
+    <Content Include="bin\Debug\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\Debug\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\Debug\System.Reactive.Core.dll" />
+    <Content Include="bin\Debug\System.Reactive.Core.xml" />
+    <Content Include="bin\Debug\System.Reactive.Interfaces.dll" />
+    <Content Include="bin\Debug\System.Reactive.Interfaces.xml" />
+    <Content Include="bin\Debug\System.Spatial.dll" />
+    <Content Include="bin\Debug\System.Spatial.xml" />
+    <Content Include="bin\Debug\System.ValueTuple.dll" />
+    <Content Include="bin\Debug\System.ValueTuple.xml" />
+    <Content Include="bin\Debug\System.Web.Http.dll" />
+    <Content Include="bin\Debug\System.Web.Http.xml" />
+    <Content Include="bin\Debug\TestApiCore.dll" />
+    <Content Include="bin\Debug\TestApiCore.pdb" />
+    <Content Include="bin\Debug\TestApiCore.xml" />
+    <Content Include="bin\Debug\TestApiWpf.dll" />
+    <Content Include="bin\Debug\TestApiWpf.pdb" />
+    <Content Include="bin\Debug\TestApiWpf.xml" />
+    <Content Include="bin\Debug\UnitTests.Common.dll" />
+    <Content Include="bin\Debug\UnitTests.Common.pdb" />
+    <Content Include="bin\Debug\WindowsAzureEventSource.dll" />
+    <Content Include="bin\Debug\WindowsAzureTelemetryEvents.dll" />
+    <Content Include="bin\Debug\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\Debug\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Debug\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Debug\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Debug\zh-Hant\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\ADMonitoringDomain.DataStore.dll" />
+    <Content Include="bin\DOAT\ADMonitoringDomain.DataStore.pdb" />
+    <Content Include="bin\DOAT\ADMonitoringDomain.Endpoint.dll" />
+    <Content Include="bin\DOAT\ADMonitoringDomain.Endpoint.pdb" />
+    <Content Include="bin\DOAT\AllocationDelivery.DataStore.dll" />
+    <Content Include="bin\DOAT\AllocationDelivery.DataStore.pdb" />
+    <Content Include="bin\DOAT\AllocationDelivery.Messages.dll" />
+    <Content Include="bin\DOAT\AllocationDeliveryDomain.Common.dll" />
+    <Content Include="bin\DOAT\AllocationDeliveryDomain.Common.pdb" />
+    <Content Include="bin\DOAT\AllocationDeliveryDomain.Endpoint.dll" />
+    <Content Include="bin\DOAT\AllocationDeliveryDomain.Endpoint.pdb" />
+    <Content Include="bin\DOAT\AllocationDeliveryDomain.Endpoint.Tests.dll" />
+    <Content Include="bin\DOAT\AllocationDeliveryDomain.Endpoint.Tests.pdb" />
+    <Content Include="bin\DOAT\AllocationDeliveryDomain.MDEnrich.dll" />
+    <Content Include="bin\DOAT\AllocationDeliveryDomain.MDEnrich.pdb" />
+    <Content Include="bin\DOAT\AutoMapper.dll" />
+    <Content Include="bin\DOAT\AutoMapper.Net4.dll" />
+    <Content Include="bin\DOAT\AutoMapper.Net4.pdb" />
+    <Content Include="bin\DOAT\AutoMapper.pdb" />
+    <Content Include="bin\DOAT\AutoMapper.xml" />
+    <Content Include="bin\DOAT\Castle.Core.dll" />
+    <Content Include="bin\DOAT\Castle.Windsor.dll" />
+    <Content Include="bin\DOAT\Castle.Windsor.xml" />
+    <Content Include="bin\DOAT\ContractCreateDomain.BusinessLogic.dll" />
+    <Content Include="bin\DOAT\ContractCreateDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DOAT\ContractCreateDomain.Implementation.dll" />
+    <Content Include="bin\DOAT\ContractCreateDomain.Implementation.pdb" />
+    <Content Include="bin\DOAT\ContractCreateDomain.Integration.ContractRequest.dll" />
+    <Content Include="bin\DOAT\ContractCreateDomain.Integration.ContractRequest.pdb" />
+    <Content Include="bin\DOAT\ContractManagement.DataStore.dll" />
+    <Content Include="bin\DOAT\ContractManagement.DataStore.pdb" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Common.dll" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Common.pdb" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Common.XmlSerializers.dll" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Entities.dll" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Entities.pdb" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Events.dll" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Events.pdb" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Messages.dll" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.Messages.pdb" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.OverrideDate.DataStore.dll" />
+    <Content Include="bin\DOAT\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
+    <Content Include="bin\DOAT\Dapper.dll" />
+    <Content Include="bin\DOAT\Dapper.xml" />
+    <Content Include="bin\DOAT\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\de\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\EntityFramework.6.0.0.0.Fakes.dll" />
+    <Content Include="bin\DOAT\EntityFramework.6.0.0.0.Fakes.xml" />
+    <Content Include="bin\DOAT\EntityFramework.dll" />
+    <Content Include="bin\DOAT\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\DOAT\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\DOAT\EntityFramework.xml" />
+    <Content Include="bin\DOAT\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\es\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\FCS.Worker.Common.dll" />
+    <Content Include="bin\DOAT\Framework.Logging.dll" />
+    <Content Include="bin\DOAT\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\Iesi.Collections.dll" />
+    <Content Include="bin\DOAT\Iesi.Collections.xml" />
+    <Content Include="bin\DOAT\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\it\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\Microsoft.Azure.Services.AppAuthentication.dll" />
+    <Content Include="bin\DOAT\Microsoft.Azure.Services.AppAuthentication.xml" />
+    <Content Include="bin\DOAT\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\DOAT\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\DOAT\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\DOAT\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\DOAT\Microsoft.Data.OData.dll" />
+    <Content Include="bin\DOAT\Microsoft.Data.OData.xml" />
+    <Content Include="bin\DOAT\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\DOAT\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\DOAT\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\DOAT\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll" />
+    <Content Include="bin\DOAT\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml" />
+    <Content Include="bin\DOAT\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <Content Include="bin\DOAT\Microsoft.IdentityModel.dll" />
+    <Content Include="bin\DOAT\Microsoft.ServiceBus.dll" />
+    <Content Include="bin\DOAT\Microsoft.ServiceBus.xml" />
+    <Content Include="bin\DOAT\Microsoft.SharePoint.Client.dll" />
+    <Content Include="bin\DOAT\Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="bin\DOAT\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\DOAT\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\DOAT\Microsoft.WindowsAzure.ServiceRuntime.dll" />
+    <Content Include="bin\DOAT\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\DOAT\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\DOAT\Microsoft.Xrm.Client.dll" />
+    <Content Include="bin\DOAT\Microsoft.Xrm.Client.xml" />
+    <Content Include="bin\DOAT\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\DOAT\Microsoft.Xrm.Sdk.Deployment.xml" />
+    <Content Include="bin\DOAT\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\DOAT\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="bin\DOAT\Moq.dll" />
+    <Content Include="bin\DOAT\Moq.xml" />
+    <Content Include="bin\DOAT\MoreLinq.dll" />
+    <Content Include="bin\DOAT\MoreLinq.xml" />
+    <Content Include="bin\DOAT\mscorlib.4.0.0.0.Fakes.dll" />
+    <Content Include="bin\DOAT\mscorlib.4.0.0.0.Fakes.xml" />
+    <Content Include="bin\DOAT\Newtonsoft.Json.dll" />
+    <Content Include="bin\DOAT\Newtonsoft.Json.xml" />
+    <Content Include="bin\DOAT\NHibernate.dll" />
+    <Content Include="bin\DOAT\NHibernate.xml" />
+    <Content Include="bin\DOAT\NServiceBus.Azure.dll" />
+    <Content Include="bin\DOAT\NServiceBus.Azure.pdb" />
+    <Content Include="bin\DOAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
+    <Content Include="bin\DOAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
+    <Content Include="bin\DOAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
+    <Content Include="bin\DOAT\NServiceBus.Azure.xml" />
+    <Content Include="bin\DOAT\NServiceBus.Core.dll" />
+    <Content Include="bin\DOAT\NServiceBus.Core.pdb" />
+    <Content Include="bin\DOAT\NServiceBus.Core.xml" />
+    <Content Include="bin\DOAT\NServiceBus.Newtonsoft.Json.dll" />
+    <Content Include="bin\DOAT\NServiceBus.Newtonsoft.Json.pdb" />
+    <Content Include="bin\DOAT\NServiceBus.Newtonsoft.Json.xml" />
+    <Content Include="bin\DOAT\NServiceBus.NHibernate.dll" />
+    <Content Include="bin\DOAT\NServiceBus.NHibernate.pdb" />
+    <Content Include="bin\DOAT\NServiceBus.NHibernate.xml" />
+    <Content Include="bin\DOAT\NServiceBus.ObjectBuilder.CastleWindsor.dll" />
+    <Content Include="bin\DOAT\NServiceBus.ObjectBuilder.CastleWindsor.pdb" />
+    <Content Include="bin\DOAT\NServiceBus.ObjectBuilder.CastleWindsor.xml" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql.dll" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql.pdb" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql.xml" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MsSqlServer\Outbox_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MsSqlServer\Outbox_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MsSqlServer\Subscription_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MsSqlServer\Subscription_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MsSqlServer\Timeout_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MsSqlServer\Timeout_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MySql\Outbox_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MySql\Outbox_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MySql\Subscription_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MySql\Subscription_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MySql\Timeout_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\MySql\Timeout_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\Oracle\Outbox_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\Oracle\Outbox_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\Oracle\Subscription_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\Oracle\Subscription_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\Oracle\Timeout_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\Oracle\Timeout_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\PostgreSql\Outbox_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\PostgreSql\Outbox_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\PostgreSql\Subscription_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\PostgreSql\Subscription_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\PostgreSql\Timeout_Create.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Persistence.Sql\PostgreSql\Timeout_Drop.sql" />
+    <Content Include="bin\DOAT\NServiceBus.Testing.dll" />
+    <Content Include="bin\DOAT\NServiceBus.Testing.pdb" />
+    <Content Include="bin\DOAT\NServiceBus.Testing.xml" />
+    <Content Include="bin\DOAT\Optional.dll" />
+    <Content Include="bin\DOAT\Optional.xml" />
+    <Content Include="bin\DOAT\PaymentGenerationDomain.BusinessLogic.dll" />
+    <Content Include="bin\DOAT\PaymentGenerationDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DOAT\PaymentGenerationDomain.Common.dll" />
+    <Content Include="bin\DOAT\PaymentGenerationDomain.Common.pdb" />
+    <Content Include="bin\DOAT\PaymentGenerationDomain.Integration.DataStore.dll" />
+    <Content Include="bin\DOAT\PaymentGenerationDomain.Integration.DataStore.pdb" />
+    <Content Include="bin\DOAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll" />
+    <Content Include="bin\DOAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.pdb" />
+    <Content Include="bin\DOAT\PaymentManagement.Calculation.dll" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.BusinessLogic.dll" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.BusinessLogic.pdb" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.Common.dll" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.Common.pdb" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.Integration.PaymentSchedule.dll" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.Integration.PaymentSchedule.pdb" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.PaymentSchedule.DataStore.dll" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.PaymentSchedule.DataStore.pdb" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.PolicyCache.DataStore.dll" />
+    <Content Include="bin\DOAT\PaymentManagementDomain.PolicyCache.DataStore.pdb" />
+    <Content Include="bin\DOAT\Polly.dll" />
+    <Content Include="bin\DOAT\Polly.pdb" />
+    <Content Include="bin\DOAT\Polly.xml" />
+    <Content Include="bin\DOAT\Resources\exportedCorpContract.xml" />
+    <Content Include="bin\DOAT\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\System.Data.SqlClient.dll" />
+    <Content Include="bin\DOAT\System.IdentityModel.Tokens.Jwt.dll" />
+    <Content Include="bin\DOAT\System.IdentityModel.Tokens.Jwt.xml" />
+    <Content Include="bin\DOAT\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\DOAT\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\DOAT\System.Reactive.Core.dll" />
+    <Content Include="bin\DOAT\System.Reactive.Core.xml" />
+    <Content Include="bin\DOAT\System.Reactive.Interfaces.dll" />
+    <Content Include="bin\DOAT\System.Reactive.Interfaces.xml" />
+    <Content Include="bin\DOAT\System.Spatial.dll" />
+    <Content Include="bin\DOAT\System.Spatial.xml" />
+    <Content Include="bin\DOAT\System.Web.Http.dll" />
+    <Content Include="bin\DOAT\System.Web.Http.xml" />
+    <Content Include="bin\DOAT\TestApiCore.dll" />
+    <Content Include="bin\DOAT\TestApiCore.pdb" />
+    <Content Include="bin\DOAT\TestApiCore.xml" />
+    <Content Include="bin\DOAT\TestApiWpf.dll" />
+    <Content Include="bin\DOAT\TestApiWpf.pdb" />
+    <Content Include="bin\DOAT\TestApiWpf.xml" />
+    <Content Include="bin\DOAT\UnitTests.Common.dll" />
+    <Content Include="bin\DOAT\UnitTests.Common.pdb" />
+    <Content Include="bin\DOAT\WindowsAzureEventSource.dll" />
+    <Content Include="bin\DOAT\WindowsAzureTelemetryEvents.dll" />
+    <Content Include="bin\DOAT\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\DOAT\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\DOAT\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\DOAT\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\DOAT\zh-Hant\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\ADMonitoringDomain.DataStore.dll" />
+    <Content Include="bin\OAT\ADMonitoringDomain.DataStore.pdb" />
+    <Content Include="bin\OAT\ADMonitoringDomain.Endpoint.dll" />
+    <Content Include="bin\OAT\ADMonitoringDomain.Endpoint.pdb" />
+    <Content Include="bin\OAT\AllocationDelivery.DataStore.dll" />
+    <Content Include="bin\OAT\AllocationDelivery.DataStore.pdb" />
+    <Content Include="bin\OAT\AllocationDelivery.Messages.dll" />
+    <Content Include="bin\OAT\AllocationDeliveryDomain.Common.dll" />
+    <Content Include="bin\OAT\AllocationDeliveryDomain.Common.pdb" />
+    <Content Include="bin\OAT\AllocationDeliveryDomain.Endpoint.dll" />
+    <Content Include="bin\OAT\AllocationDeliveryDomain.Endpoint.pdb" />
+    <Content Include="bin\OAT\AllocationDeliveryDomain.Endpoint.Tests.dll" />
+    <Content Include="bin\OAT\AllocationDeliveryDomain.Endpoint.Tests.pdb" />
+    <Content Include="bin\OAT\AllocationDeliveryDomain.MDEnrich.dll" />
+    <Content Include="bin\OAT\AllocationDeliveryDomain.MDEnrich.pdb" />
+    <Content Include="bin\OAT\AutoMapper.dll" />
+    <Content Include="bin\OAT\AutoMapper.Net4.dll" />
+    <Content Include="bin\OAT\AutoMapper.Net4.pdb" />
+    <Content Include="bin\OAT\AutoMapper.pdb" />
+    <Content Include="bin\OAT\AutoMapper.xml" />
+    <Content Include="bin\OAT\Castle.Core.dll" />
+    <Content Include="bin\OAT\Castle.Core.xml" />
+    <Content Include="bin\OAT\Castle.Windsor.dll" />
+    <Content Include="bin\OAT\Castle.Windsor.xml" />
+    <Content Include="bin\OAT\ContractCreateDomain.BusinessLogic.dll" />
+    <Content Include="bin\OAT\ContractCreateDomain.BusinessLogic.pdb" />
+    <Content Include="bin\OAT\ContractCreateDomain.Implementation.dll" />
+    <Content Include="bin\OAT\ContractCreateDomain.Implementation.pdb" />
+    <Content Include="bin\OAT\ContractCreateDomain.Integration.ContractRequest.dll" />
+    <Content Include="bin\OAT\ContractCreateDomain.Integration.ContractRequest.pdb" />
+    <Content Include="bin\OAT\ContractManagement.DataStore.dll" />
+    <Content Include="bin\OAT\ContractManagement.DataStore.pdb" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Common.dll" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Common.pdb" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Common.XmlSerializers.dll" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Entities.dll" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Entities.pdb" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Events.dll" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Events.pdb" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Messages.dll" />
+    <Content Include="bin\OAT\CrossDomain.Integration.Messages.pdb" />
+    <Content Include="bin\OAT\CrossDomain.Integration.OverrideDate.DataStore.dll" />
+    <Content Include="bin\OAT\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
+    <Content Include="bin\OAT\Dapper.dll" />
+    <Content Include="bin\OAT\Dapper.xml" />
+    <Content Include="bin\OAT\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\de\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\EntityFramework.6.0.0.0.Fakes.dll" />
+    <Content Include="bin\OAT\EntityFramework.6.0.0.0.Fakes.xml" />
+    <Content Include="bin\OAT\EntityFramework.dll" />
+    <Content Include="bin\OAT\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\OAT\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\OAT\EntityFramework.xml" />
+    <Content Include="bin\OAT\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\es\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\Framework.Logging.dll" />
+    <Content Include="bin\OAT\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\Iesi.Collections.dll" />
+    <Content Include="bin\OAT\Iesi.Collections.xml" />
+    <Content Include="bin\OAT\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\it\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\Microsoft.Crm.Sdk.Proxy.dll" />
+    <Content Include="bin\OAT\Microsoft.Crm.Sdk.Proxy.xml" />
+    <Content Include="bin\OAT\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\OAT\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\OAT\Microsoft.Data.OData.dll" />
+    <Content Include="bin\OAT\Microsoft.Data.OData.xml" />
+    <Content Include="bin\OAT\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\OAT\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\OAT\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <Content Include="bin\OAT\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <Content Include="bin\OAT\Microsoft.IdentityModel.dll" />
+    <Content Include="bin\OAT\Microsoft.ServiceBus.dll" />
+    <Content Include="bin\OAT\Microsoft.ServiceBus.xml" />
+    <Content Include="bin\OAT\Microsoft.SharePoint.Client.dll" />
+    <Content Include="bin\OAT\Microsoft.SharePoint.Client.Runtime.dll" />
+    <Content Include="bin\OAT\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\OAT\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\OAT\Microsoft.WindowsAzure.ServiceRuntime.dll" />
+    <Content Include="bin\OAT\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\OAT\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\OAT\Microsoft.Xrm.Client.dll" />
+    <Content Include="bin\OAT\Microsoft.Xrm.Client.xml" />
+    <Content Include="bin\OAT\Microsoft.Xrm.Sdk.Deployment.dll" />
+    <Content Include="bin\OAT\Microsoft.Xrm.Sdk.Deployment.xml" />
+    <Content Include="bin\OAT\Microsoft.Xrm.Sdk.dll" />
+    <Content Include="bin\OAT\Microsoft.Xrm.Sdk.xml" />
+    <Content Include="bin\OAT\Moq.dll" />
+    <Content Include="bin\OAT\Moq.xml" />
+    <Content Include="bin\OAT\MoreLinq.dll" />
+    <Content Include="bin\OAT\MoreLinq.xml" />
+    <Content Include="bin\OAT\mscorlib.4.0.0.0.Fakes.dll" />
+    <Content Include="bin\OAT\mscorlib.4.0.0.0.Fakes.xml" />
+    <Content Include="bin\OAT\Newtonsoft.Json.dll" />
+    <Content Include="bin\OAT\Newtonsoft.Json.xml" />
+    <Content Include="bin\OAT\NHibernate.dll" />
+    <Content Include="bin\OAT\NHibernate.xml" />
+    <Content Include="bin\OAT\NServiceBus.Azure.dll" />
+    <Content Include="bin\OAT\NServiceBus.Azure.pdb" />
+    <Content Include="bin\OAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
+    <Content Include="bin\OAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
+    <Content Include="bin\OAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
+    <Content Include="bin\OAT\NServiceBus.Azure.xml" />
+    <Content Include="bin\OAT\NServiceBus.Core.dll" />
+    <Content Include="bin\OAT\NServiceBus.Core.pdb" />
+    <Content Include="bin\OAT\NServiceBus.Core.xml" />
+    <Content Include="bin\OAT\NServiceBus.NHibernate.dll" />
+    <Content Include="bin\OAT\NServiceBus.NHibernate.pdb" />
+    <Content Include="bin\OAT\NServiceBus.NHibernate.xml" />
+    <Content Include="bin\OAT\NServiceBus.ObjectBuilder.CastleWindsor.dll" />
+    <Content Include="bin\OAT\NServiceBus.ObjectBuilder.CastleWindsor.pdb" />
+    <Content Include="bin\OAT\NServiceBus.ObjectBuilder.CastleWindsor.xml" />
+    <Content Include="bin\OAT\Optional.dll" />
+    <Content Include="bin\OAT\Optional.xml" />
+    <Content Include="bin\OAT\PaymentGenerationDomain.BusinessLogic.dll" />
+    <Content Include="bin\OAT\PaymentGenerationDomain.BusinessLogic.pdb" />
+    <Content Include="bin\OAT\PaymentGenerationDomain.Common.dll" />
+    <Content Include="bin\OAT\PaymentGenerationDomain.Common.pdb" />
+    <Content Include="bin\OAT\PaymentGenerationDomain.Integration.DataStore.dll" />
+    <Content Include="bin\OAT\PaymentGenerationDomain.Integration.DataStore.pdb" />
+    <Content Include="bin\OAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.dll" />
+    <Content Include="bin\OAT\PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.pdb" />
+    <Content Include="bin\OAT\PaymentManagement.Calculation.dll" />
+    <Content Include="bin\OAT\PaymentManagementDomain.BusinessLogic.dll" />
+    <Content Include="bin\OAT\PaymentManagementDomain.BusinessLogic.pdb" />
+    <Content Include="bin\OAT\PaymentManagementDomain.Common.dll" />
+    <Content Include="bin\OAT\PaymentManagementDomain.Common.pdb" />
+    <Content Include="bin\OAT\PaymentManagementDomain.Integration.PaymentSchedule.dll" />
+    <Content Include="bin\OAT\PaymentManagementDomain.Integration.PaymentSchedule.pdb" />
+    <Content Include="bin\OAT\PaymentManagementDomain.PaymentSchedule.DataStore.dll" />
+    <Content Include="bin\OAT\PaymentManagementDomain.PaymentSchedule.DataStore.pdb" />
+    <Content Include="bin\OAT\PaymentManagementDomain.PolicyCache.DataStore.dll" />
+    <Content Include="bin\OAT\PaymentManagementDomain.PolicyCache.DataStore.pdb" />
+    <Content Include="bin\OAT\Polly.dll" />
+    <Content Include="bin\OAT\Polly.pdb" />
+    <Content Include="bin\OAT\Polly.xml" />
+    <Content Include="bin\OAT\Resources\exportedCorpContract.xml" />
+    <Content Include="bin\OAT\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\OAT\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\OAT\System.Reactive.Core.dll" />
+    <Content Include="bin\OAT\System.Reactive.Core.xml" />
+    <Content Include="bin\OAT\System.Reactive.Interfaces.dll" />
+    <Content Include="bin\OAT\System.Reactive.Interfaces.xml" />
+    <Content Include="bin\OAT\System.Spatial.dll" />
+    <Content Include="bin\OAT\System.Spatial.xml" />
+    <Content Include="bin\OAT\System.ValueTuple.dll" />
+    <Content Include="bin\OAT\System.ValueTuple.xml" />
+    <Content Include="bin\OAT\System.Web.Http.dll" />
+    <Content Include="bin\OAT\System.Web.Http.xml" />
+    <Content Include="bin\OAT\TestApiCore.dll" />
+    <Content Include="bin\OAT\TestApiCore.pdb" />
+    <Content Include="bin\OAT\TestApiCore.xml" />
+    <Content Include="bin\OAT\TestApiWpf.dll" />
+    <Content Include="bin\OAT\TestApiWpf.pdb" />
+    <Content Include="bin\OAT\TestApiWpf.xml" />
+    <Content Include="bin\OAT\UnitTests.Common.dll" />
+    <Content Include="bin\OAT\UnitTests.Common.pdb" />
+    <Content Include="bin\OAT\WindowsAzureEventSource.dll" />
+    <Content Include="bin\OAT\WindowsAzureTelemetryEvents.dll" />
+    <Content Include="bin\OAT\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\OAT\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\OAT\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\OAT\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\OAT\zh-Hant\System.Spatial.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\DAT\NServiceBus.Persistence.Sql\MsSqlServer\" />
+    <Folder Include="bin\DAT\NServiceBus.Persistence.Sql\MySql\" />
+    <Folder Include="bin\DAT\NServiceBus.Persistence.Sql\Oracle\" />
+    <Folder Include="bin\DAT\NServiceBus.Persistence.Sql\PostgreSql\" />
+    <Folder Include="bin\DEV\" />
+    <Folder Include="bin\DMO\" />
+    <Folder Include="bin\MO\" />
+    <Folder Include="bin\OAT\NServiceBus.Persistence.Sql\MsSqlServer\" />
+    <Folder Include="bin\OAT\NServiceBus.Persistence.Sql\MySql\" />
+    <Folder Include="bin\OAT\NServiceBus.Persistence.Sql\Oracle\" />
+    <Folder Include="bin\OAT\NServiceBus.Persistence.Sql\PostgreSql\" />
+    <Folder Include="bin\PS\" />
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
+  <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <Import Project="..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets" Condition="Exists('..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets'))" />
+    <Error Condition="!Exists('..\..\packages\NServiceBus.Persistence.Sql.4.3.0\build\NServiceBus.Persistence.Sql.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NServiceBus.Persistence.Sql.4.3.0\build\NServiceBus.Persistence.Sql.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\NServiceBus.Persistence.Sql.4.3.0\build\NServiceBus.Persistence.Sql.targets" Condition="Exists('..\..\packages\NServiceBus.Persistence.Sql.4.3.0\build\NServiceBus.Persistence.Sql.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 3 (http://www.altova.com) by Joe Ingledew (Skills Funding Agency) -->
+<xs:schema xmlns:fcfg="urn:sfa:schemas:funding-stream-configuration" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sfa:schemas:funding-stream-configuration" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.01">
+	<xs:element name="FundingConfiguration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FundingStream" type="fcfg:FundingStreamType">
+					<xs:annotation>
+						<xs:documentation>A label used within funding to channel government money in support of particular policy or policies.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="schemaVersion" use="required" fixed="1.01">
+				<xs:annotation>
+					<xs:documentation>Version of the schema in use</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="3"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FundingStreamType">
+		<xs:annotation>
+			<xs:documentation>A label used within funding to channel government money in support of particular policy or policies.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FundingStreamCode">
+				<xs:annotation>
+					<xs:documentation>The code used to identify a Funding Stream</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="16-18 Apps"/>
+						<xs:enumeration value="24+ ALLBC"/>
+						<xs:enumeration value="24+ ALLB"/>
+						<xs:enumeration value="24+ ALLF"/>
+						<xs:enumeration value="OLASS"/>
+						<xs:enumeration value="ASC"/>
+						<xs:enumeration value="ASTO"/>
+						<xs:enumeration value="AGE"/>
+						<xs:enumeration value="CL"/>
+						<xs:enumeration value="DLS"/>
+						<xs:enumeration value="EOF"/>
+						<xs:enumeration value="EOP2"/>
+						<xs:enumeration value="EOP2P2"/>
+						<xs:enumeration value="EOP"/>
+						<xs:enumeration value="ESF 200713"/>
+						<xs:enumeration value="ESP"/>
+						<xs:enumeration value="1619"/>
+						<xs:enumeration value="1619LR"/>
+						<xs:enumeration value="19+ Apps"/>
+						<xs:enumeration value="AYF"/>
+						<xs:enumeration value="ALS"/>
+						<xs:enumeration value="ALR"/>
+						<xs:enumeration value="JIP"/>
+						<xs:enumeration value="NMF"/>
+						<xs:enumeration value="SSF"/>
+						<xs:enumeration value="TTG"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FundingStreamName">
+				<xs:annotation>
+					<xs:documentation>The name usually applied to this Funding Stream</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="16-18 Apprenticeships"/>
+						<xs:enumeration value="24+ Advanced Learning Loans Bursary (College)"/>
+						<xs:enumeration value="24+ Advanced Learning Loans Bursary"/>
+						<xs:enumeration value="24+ Advanced Learning Loans Facility"/>
+						<xs:enumeration value="Adult OLASS"/>
+						<xs:enumeration value="Adult Skills (College)"/>
+						<xs:enumeration value="Adult Skills (Training Organisations)"/>
+						<xs:enumeration value="Apprenticeship Grant for Employers"/>
+						<xs:enumeration value="Community Learning"/>
+						<xs:enumeration value="Discretionary Learning Support"/>
+						<xs:enumeration value="Employer Ownership Fund"/>
+						<xs:enumeration value="Employer Ownership Pilot Round 2"/>
+						<xs:enumeration value="Employer Ownership Pilot Round 2 Phase 2"/>
+						<xs:enumeration value="Employer Ownership Programme"/>
+						<xs:enumeration value="European Social Fund 2007-13"/>
+						<xs:enumeration value="Employability Skills Programme"/>
+						<xs:enumeration value="16-19 Funding"/>
+						<xs:enumeration value="16-19 Learner Responsive Funding"/>
+						<xs:enumeration value="19+ Apprenticeships"/>
+						<xs:enumeration value="Academies"/>
+						<xs:enumeration value="Additional Learner Support"/>
+						<xs:enumeration value="Adult Learner Responsive"/>
+						<xs:enumeration value="Joint Investment Programme"/>
+						<xs:enumeration value="Non Mainstream Funding"/>
+						<xs:enumeration value="School Sixth Form"/>
+						<xs:enumeration value="Train To Gain"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FundingStreamShortCode">
+				<xs:annotation>
+					<xs:documentation>The code used to identify a Funding Stream (the same or shorter in length than the Funding Stream Code). Exists to support the key used to identifer a Contract Allocation</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="16AP"/>
+						<xs:enumeration value="ALLC"/>
+						<xs:enumeration value="ALLB"/>
+						<xs:enumeration value="ALLF"/>
+						<xs:enumeration value="OLAS"/>
+						<xs:enumeration value="ASC"/>
+						<xs:enumeration value="ASTO"/>
+						<xs:enumeration value="AGE"/>
+						<xs:enumeration value="CL"/>
+						<xs:enumeration value="DLS"/>
+						<xs:enumeration value="EOF"/>
+						<xs:enumeration value="EOP2"/>
+						<xs:enumeration value="2EOP"/>
+						<xs:enumeration value="EOP"/>
+						<xs:enumeration value="ESFB"/>
+						<xs:enumeration value="ESP"/>
+						<xs:enumeration value="1619"/>
+						<xs:enumeration value="LRF"/>
+						<xs:enumeration value="19AP"/>
+						<xs:enumeration value="AYF"/>
+						<xs:enumeration value="ALS"/>
+						<xs:enumeration value="ALR"/>
+						<xs:enumeration value="JIP"/>
+						<xs:enumeration value="NMF"/>
+						<xs:enumeration value="SSF"/>
+						<xs:enumeration value="TTG"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="StartDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>The date from which a Funding Stream is deemed to be a valid Funding Stream for use in funding.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EndDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date after which a Funding Stream is deemed to no longer be a valid Funding Stream for use in funding.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FundingTypes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A list of funding types related to this funding stream</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FundingType" type="fcfg:FundingTypeType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Deliverables" type="fcfg:DeliverablesType" minOccurs="0"/>
+			<xs:element name="FundingStreamPeriods" type="fcfg:FundingStreamPeriodsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DeliverablesType">
+		<xs:annotation>
+			<xs:documentation>A list of Deliverables associated with this Funding Stream</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Deliverable" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A Deliverable is an object used to identify what the business intends to fund or monitor. More generally it is a component within a Contract detailing what the Contractor is required to deliver.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DeliverableCode" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>A code that identifies the Funding Stream to which this Deliverable belongs</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="BusinessCode" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>A code used by the business to give more meaning to the Deliverable. For example, 'A3' might be used to denote the 3rd deliverable related to achivements.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DeliverableName">
+							<xs:annotation>
+								<xs:documentation>A description or name of the Deliverable</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="120"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="AlternateDeliverableNames" type="fcfg:DeliverableNamesType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>List of alternate deliverable Names</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Status" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>A indication of whether the state of the Deliverable is in Draft, is Active or has been Closed</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="ACTIVE"/>
+									<xs:enumeration value="CLOSED"/>
+									<xs:enumeration value="DRAFT"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="EffectiveDate" type="xs:date">
+							<xs:annotation>
+								<xs:documentation>The date from which a Deliverable is deemed to be a valid Deliverable for use in funding.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FundingStreamPeriodType">
+		<xs:annotation>
+			<xs:documentation>A defined and widely used period of time within a Funding Stream. Such Funding Stream Periods are non-overlapping within a Funding Stream and the collection of all such Funding Stream Periods should cover the complete period of time that the Funding Stream is valid.
+</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="FundingPeriodType">
+		<xs:annotation>
+			<xs:documentation>A defined (and usually well re-used) period of time which has significance within the funding business.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PeriodType" type="fcfg:PeriodTypeType"/>
+			<xs:element name="Period">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="StartDate" type="xs:date"/>
+			<xs:element name="EndDate" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PeriodTypeType">
+		<xs:annotation>
+			<xs:documentation>A classification of Period used to reflect the different types of Periods that can apply to funding. For example a Calendar Year period type, Academic Year period type, Financial Year period type although a type could be specific to a particular funding stream.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PeriodTypeCode">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="AY"/>
+						<xs:enumeration value="FY"/>
+						<xs:enumeration value="CY"/>
+						<xs:enumeration value="CM"/>
+						<xs:enumeration value="CQ"/>
+						<xs:enumeration value="ESF201420"/>
+						<xs:enumeration value="EOF"/>
+						<xs:enumeration value="EOP"/>
+						<xs:enumeration value="EOP2"/>
+						<xs:enumeration value="EOP2P2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PeriodTypeName">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="ACADEMIC YEAR"/>
+						<xs:enumeration value="FINANCIAL YEAR"/>
+						<xs:enumeration value="CALENDAR YEAR"/>
+						<xs:enumeration value="CALENDAR MONTH"/>
+						<xs:enumeration value="CALENDAR QUARTER"/>
+						<xs:enumeration value="EUROPEAN SOCIAL FUND"/>
+						<xs:enumeration value="EMPLOYER OWNERSHIP FUND"/>
+						<xs:enumeration value="EMPLOYER OWNERSHIP PILOT"/>
+						<xs:enumeration value="EMPLOYER OWNERSHIP PILOT ROUND 2"/>
+						<xs:enumeration value="EMPLOYER OWNERSHIP PILOT ROUND 2 PHASE 2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FundingStreamPeriodSettingRelationshipsType"/>
+	<xs:complexType name="FundingStreamPeriodDeliverableRelationshipsType">
+		<xs:annotation>
+			<xs:documentation>A list of funding stream deliverable relationships related to the funding stream period</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FundingStreamPeriodDeliverableRelationship" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This entity relates all or some of the Deliverables (within a Funding Stream) to a particular Period.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FundingStreamPeriodDeliverableRelationships" type="fcfg:FundingStreamPeriodDeliverableRelationshipsType" minOccurs="0"/>
+						<xs:element name="DeliverableCode">
+							<xs:annotation>
+								<xs:documentation>The code that identifies the Deliverable in this Funding Stream Period Deliverable Relationship</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ParentDeliverableCode" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Where a Deliverable is within a hierarchy, this code identifies the parent Deliverable</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DeliverableRelationshipType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Parent Child relationships can be of more than one type and this identifies the type of relationship.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="AGGREGATE"/>
+									<xs:enumeration value="OF WHICH"/>
+									<xs:enumeration value="LINKED"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="SettingValueLists" type="fcfg:SettingValueListsType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DeliverableSettingRelationshipsType"/>
+	<xs:complexType name="SettingValueListsType">
+		<xs:annotation>
+			<xs:documentation>The reference list of possible values for each Setting.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SettingsValueList" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Setting" type="fcfg:SettingType"/>
+						<xs:element name="SettingValueSequencer" type="xs:int"/>
+						<xs:element name="SettingValue">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="255"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SettingType">
+		<xs:annotation>
+			<xs:documentation>A Setting is an attribute that can be applied to a Deliverable.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SettingCode">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="ActualMeth"/>
+						<xs:enumeration value="ACPUF"/>
+						<xs:enumeration value="AlPa"/>
+						<xs:enumeration value="ASEPU"/>
+						<xs:enumeration value="BrPlUn"/>
+						<xs:enumeration value="BrTy"/>
+						<xs:enumeration value="CaAc"/>
+						<xs:enumeration value="CostForm"/>
+						<xs:enumeration value="DSP"/>
+						<xs:enumeration value="DAC"/>
+						<xs:enumeration value="DCG"/>
+						<xs:enumeration value="DelCat"/>
+						<xs:enumeration value="DeliverableGroup"/>
+						<xs:enumeration value="DelSource"/>
+						<xs:enumeration value="DisplayName"/>
+						<xs:enumeration value="FiTy"/>
+						<xs:enumeration value="INCINAPP"/>
+						<xs:enumeration value="INCPMAPP"/>
+						<xs:enumeration value="MCD"/>
+						<xs:enumeration value="PRD"/>
+						<xs:enumeration value="PlanUnit"/>
+						<xs:enumeration value="PlanUnitFreq"/>
+						<xs:enumeration value="SSASelInd"/>
+						<xs:enumeration value="SUPPDISP"/>
+						<xs:enumeration value="TaxType"/>
+						<xs:enumeration value="UcPm"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SettingName">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+						<xs:enumeration value="ACTUALS METHOD"/>
+						<xs:enumeration value="ADOPT CHILD PLANNING UNIT FREQUENCY"/>
+						<xs:enumeration value="ALLOW PAYMENT"/>
+						<xs:enumeration value="ALLOW START/END PERIOD UPDATE"/>
+						<xs:enumeration value="BREAKDOWN PLANNING UPIT"/>
+						<xs:enumeration value="BREAKDOWN TYPE"/>
+						<xs:enumeration value="CAPTURE ACTUALS"/>
+						<xs:enumeration value="COST FORMULA"/>
+						<xs:enumeration value="DEFAULT START PERIOD"/>
+						<xs:enumeration value="DELIVERABLE AMOUNT CONSTRAINT"/>
+						<xs:enumeration value="DELIVERABLE CAPPING GROUP"/>
+						<xs:enumeration value="DELIVERABLE CATEGORY"/>
+						<xs:enumeration value="DELIVERABLE GROUP"/>
+						<xs:enumeration value="DELIVERABLE SOURCE"/>
+						<xs:enumeration value="DISPLAY NAME"/>
+						<xs:enumeration value="FINANCIAL TYPE"/>
+						<xs:enumeration value="INCLUDE IN APPENDIX 1"/>
+						<xs:enumeration value="INCLUDE IN PM APPORTIONMENT"/>
+						<xs:enumeration value="MANDATORY CONTRACT DELIVERABLE"/>
+						<xs:enumeration value="PAYMENT METHOD"/>
+						<xs:enumeration value="PAYMENT RECONCILIATION DEFAULT"/>
+						<xs:enumeration value="PLANNING UNIT"/>
+						<xs:enumeration value="PLANNING UNIT FREQUENCY"/>
+						<xs:enumeration value="SSA SELECTION INDICATOR"/>
+						<xs:enumeration value="SUPPRESS DISPLAY"/>
+						<xs:enumeration value="TAX TYPE"/>
+						<xs:enumeration value="USE CONTRACT PAYMENT METHOD"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SettingDescription">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SettingDataType">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MaximumLength" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DeliverableNamesType">
+		<xs:annotation>
+			<xs:documentation>Whilst a Deliverable has a Name set against it absolutely there is the need to record alternative names for different purposes. This entity enables multiple names to be recorded for different purposes for a given Deliverable.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DeliverableName" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Whilst a Deliverable has a Name set against it absolutely there is the need to record alternative names for different purposes. This entity enables multiple names to be recorded for different purposes for a given Deliverable.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Purpose">
+							<xs:annotation>
+								<xs:documentation>Describes the purpose the Deliverable Name will be put to, for example Appendix 1, Funding Agreement</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="100"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="Name">
+							<xs:annotation>
+								<xs:documentation>Alternate name for the deliverable</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="120"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FundingTypeStreamRelationshipsType">
+		<xs:sequence>
+			<xs:element name="FundingTypeStreamRelationship">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FundingType" type="fcfg:FundingTypeType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FundingTypeType">
+		<xs:annotation>
+			<xs:documentation>Funding Type is a collector of Funding Streams (used to control Contract behaviour).
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FundingTypeCode">
+				<xs:annotation>
+					<xs:documentation>This is the abbreviation of the Funding Type Name</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="MAIN"/>
+						<xs:enumeration value="24+"/>
+						<xs:enumeration value="AGE"/>
+						<xs:enumeration value="ESF"/>
+						<xs:enumeration value="EOP"/>
+						<xs:enumeration value="EOF"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FundingTypeName">
+				<xs:annotation>
+					<xs:documentation>The name of the Funding Type. Funding Type is a collector of Funding Streams (used to control Contract behaviour)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+						<xs:enumeration value="Mainstream"/>
+						<xs:enumeration value="24+ Loans"/>
+						<xs:enumeration value="Apprenticeship Grant for Employers"/>
+						<xs:enumeration value="European Social Fund 2014-20"/>
+						<xs:enumeration value="Employer Ownership Pilot"/>
+						<xs:enumeration value="Employer Ownership Fund"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Agency" type="fcfg:AgencyType"/>
+			<xs:element name="ContractReferencePrefix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The code used within the prefix of the Contract Reference Number in the case of contracts one level lower than Master Terms and Conditions contracts</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="MAIN"/>
+						<xs:enumeration value="24LOANS"/>
+						<xs:enumeration value="EMPAGE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AgencyType">
+		<xs:annotation>
+			<xs:documentation>A reference entities of Agencies
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AgencyCode">
+				<xs:annotation>
+					<xs:documentation>A code to identify the applicability of the Funding Type to the SFA or EFA, or in theory both (if such a code existed)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Description">
+				<xs:annotation>
+					<xs:documentation>The name or description of the Agency</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="SFA"/>
+						<xs:enumeration value="EFA"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MasterContractReferencePrefix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The code used within the prefix of the Contract Reference Number in the case of Master Terms and Conditions contracts</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="SFA"/>
+						<xs:enumeration value="EFA"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FundingStreamPeriodsType">
+		<xs:annotation>
+			<xs:documentation>A list of funding stream periods related to this funding stream</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FundingStreamPeriod" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A defined and widely used period of time within a Funding Stream. Such Funding Stream Periods are non-overlapping within a Funding Stream and the collection of all such Funding Stream Periods should cover the complete period of time that the Funding Stream is valid.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="fcfg:FundingStreamPeriodType">
+							<xs:sequence>
+								<xs:element name="FundingPeriod" type="fcfg:FundingPeriodType">
+									<xs:annotation>
+										<xs:documentation>A defined (and usually well re-used) period of time which has significance within the funding business.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="SettingValueLists" type="fcfg:SettingValueListsType" minOccurs="0"/>
+								<xs:element name="AllocationReferencePrefix" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>The code used within the prefix of the Contract Allocation Number for a Contract Allocation</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:enumeration value="16AP"/>
+											<xs:enumeration value="ALLC"/>
+											<xs:enumeration value="ALLB"/>
+											<xs:enumeration value="ASC"/>
+											<xs:enumeration value="ASTO"/>
+											<xs:enumeration value="CL"/>
+											<xs:enumeration value="DLS"/>
+											<xs:enumeration value="OLAS"/>
+											<xs:enumeration value="AGE"/>
+											<xs:enumeration value="ESIF"/>
+											<xs:enumeration value="ALLF"/>
+											<xs:enumeration value="EOP"/>
+											<xs:enumeration value="EOP2"/>
+											<xs:enumeration value="2EOP"/>
+											<xs:enumeration value="EOF"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="FundingStreamPeriodDeliverableRelationships" type="fcfg:FundingStreamPeriodDeliverableRelationshipsType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

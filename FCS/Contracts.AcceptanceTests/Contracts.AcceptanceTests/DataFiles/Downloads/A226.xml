@@ -1,0 +1,38 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017226</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017226</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>CCF-226</AllocationNumber>
+        <VersionNumber>1</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2208300</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>CollegeCollabFund</SubnominalDescription>
+      <AggregatedValue>9441.00</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>CCF</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2020-04-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2021-03-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2020-09-04</CensusEndDate>
+  <DueDate>2020-09-18</DueDate>
+  <FinancialPaymentFinancialYear>2020</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>06</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

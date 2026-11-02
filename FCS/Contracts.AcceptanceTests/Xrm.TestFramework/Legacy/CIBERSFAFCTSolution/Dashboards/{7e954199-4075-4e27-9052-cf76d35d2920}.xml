@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard>
+  <LocalizedNames>
+    <LocalizedName description="Payments Dashboard" languagecode="1033" />
+  </LocalizedNames>
+  <FormId>{7e954199-4075-4e27-9052-cf76d35d2920}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab showlabel="false" verticallayout="true" id="{552afc68-72b5-4d34-97e1-99c5f32e0b15}" labelid="{9d0fa82f-36b8-4d2b-ac7d-bc11c724bfae}">
+            <labels>
+              <label description="Tab" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section showlabel="false" showbar="false" columns="1111" id="{af5dcdb5-3621-46b4-9d72-a4e4b50472e5}" name="{af5dcdb5-3621-46b4-9d72-a4e4b50472e5}" locklevel="0" labelwidth="115" labelid="{e448cd2f-98a0-4fbf-9677-43bfc334e986}">
+                    <labels>
+                      <label description="My Tasks" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{ebad96eb-97d0-a554-2b46-044ea7331bec}" showlabel="false" colspan="4" auto="false" rowspan="15" labelid="{bb1e2803-943d-4e3e-93bd-0aa2cb840114}">
+                          <labels>
+                            <label description="My Tasks" languagecode="1033" />
+                          </labels>
+                          <control id="Tasks" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{6CF285AA-EB20-4277-925A-3E9735411FF0}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName></RelationshipName>
+                              <TargetEntityType>task</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{6CF285AA-EB20-4277-925A-3E9735411FF0}</ViewIds>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId></VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>11</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row>
+                        <cell id="{4ad4d057-dc8b-c927-9052-70b69c4578c9}" showlabel="false" colspan="4" auto="false" rowspan="15" labelid="{c1ffe560-c228-4193-8b17-5768be99a583}">
+                          <labels>
+                            <label description="Contracts" languagecode="1033" />
+                          </labels>
+                          <control id="Contracts" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName></RelationshipName>
+                              <TargetEntityType>sfa_contract</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{C16BC7CB-F5DD-E411-9400-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId>{CDAFCDE6-22D9-E411-9400-000D3AB03A58}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>11</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row>
+                        <cell id="{81bc77a1-c842-47cd-c24b-5ab207b925aa}" showlabel="false" colspan="4" auto="false" rowspan="12" labelid="{ef357b48-8d1c-4460-86d5-ee9a75ec05a8}">
+                          <labels>
+                            <label description="Notifications" languagecode="1033" />
+                          </labels>
+                          <control id="Notifications" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <ViewId>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName></RelationshipName>
+                              <TargetEntityType>sfa_notification</TargetEntityType>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <ViewIds>{3122AC5D-3DE4-E411-9400-000D3AB03A58}</ViewIds>
+                              <EnableJumpBar>true</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <VisualizationId>{3AF73677-C596-E411-93FB-000D3AB03A58}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>8</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                      <row></row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+        <DisplayConditions FallbackForm="true">
+          <Role Id="{812F2E14-DA5A-E411-93F7-000D3AB03A58}" />
+        </DisplayConditions>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>1.2.0.0</IntroducedVersion>
+</Dashboard>

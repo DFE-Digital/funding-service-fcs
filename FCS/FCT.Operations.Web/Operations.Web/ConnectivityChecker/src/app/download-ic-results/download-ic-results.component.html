@@ -1,0 +1,44 @@
+<div>
+    <div class=”row”>
+          <h6 class="pull-left" >There are a total of {{downloadIntegrityCheckerCollectionResult?.TotalRowsInTable}} rows in table showing page {{pageNumber}}</h6>
+          <div class="pull-right">
+                <a class="btn" href="#" style="font-size: 3em; color:rgb(89, 71, 255);" title="First Page" (click)="firstPage($event)" [class.disabled]="showFirstPage === false">
+                      <i class="fa fa-angle-double-left"></i>
+                </a>
+                <a class="btn" href="#" style="font-size: 3em; color: rgb(89, 71, 255);" title="Previous Page" (click)="previousPage($event)" [class.disabled]="showFirstPage === false">
+                      <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="btn" href="#" style="font-size: 3em; color: rgb(89, 71, 255);" title="Next Page" (click)="nextPage($event)" [class.disabled]="showNextPage === false">
+                      <i class="fa fa-angle-right"></i>
+                </a>
+          </div>
+    </div>
+    <div *ngIf="!loading; else showRefreshing">
+          <table class="table table-striped table-bordered">
+                <thead>
+                      <tr>
+                            <th class="service-min-width">Checker Type</th>
+                            <th class="service-min-width">Start Date</th>
+                            <th class="service-min-width">End Date</th>
+                            <th class="service-min-width">Status</th>                           
+                            <th class="service-min-width">Outcome</th>
+                            <th class="service-min-width"></th>
+                            
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor="let DownloadIntegrityResultCollection of downloadIntegrityCheckerCollectionResult.DownloadIntegrityResultCollection">
+                            <td> {{DownloadIntegrityResultCollection.CheckerType}} </td>
+                            <td class="text-nowrap"> {{DownloadIntegrityResultCollection.StartDate | date:"dd-MMM-yyyy HH:mm" }} </td>
+                            <td class="text-nowrap"> {{DownloadIntegrityResultCollection.FinishDate | date:"dd-MMM-yyyy HH:mm" }} </td>
+                            <td> {{DownloadIntegrityResultCollection.Status}} </td>
+                            <td> {{DownloadIntegrityResultCollection.Outcome}} </td>
+                            <td> <a href='#' (click)="downloadCSV($event, DownloadIntegrityResultCollection)">Download</a> </td>
+                      </tr>
+                </tbody>
+          </table>
+    </div>
+    <ng-template #showRefreshing>
+          <i class="fa fa-refresh fa-spin"></i>
+    </ng-template>
+</div>

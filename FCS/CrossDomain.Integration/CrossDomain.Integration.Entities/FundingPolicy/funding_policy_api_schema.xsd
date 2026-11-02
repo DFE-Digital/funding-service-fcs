@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2011 rel. 3 (http://www.altova.com) by Joe Ingledew (Skills Funding Agency) -->
+<xs:schema xmlns:api="urn:sfa:apis:funding-policy" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sfa:apis:funding-policy" xmlns:fcfg="urn:sfa:schemas:funding-policy" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00">
+
+  <xs:import namespace="urn:sfa:schemas:funding-policy" schemaLocation="funding_policy_corporate_schema.xsd"/>
+
+  <!--<xs:element name="FundingPolicySettingConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FundingStreamPeriodCode" type="fcfg:FundingStreamPeriodCodeType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="FundingPeriod" type="fcfg:FundingPeriodType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="DeliverableCode" type="fcfg:DeliverableCodeType" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="SettingValue" type="fcfg:SettingValueType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="api:SchemaVersionAttribute"/>
+    </xs:complexType>
+  </xs:element>-->
+
+  <xs:element name="FundingStreamPeriodSettingConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fcfg:FundingStreamPeriodCode" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="fcfg:FundingPeriod" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="fcfg:SettingValue"  minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="api:SchemaVersionAttribute"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FundingStreamPeriodConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fcfg:FundingStreamPeriodCode" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="fcfg:FundingPeriod" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="api:SchemaVersionAttribute"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="DeliverableSettingConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fcfg:FundingStreamPeriodCode" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="fcfg:DeliverableCode" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="fcfg:SettingValue"  minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="api:SchemaVersionAttribute"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!--<xs:element name="FundingStreamPeriodConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name ="FundingStreamPeriod" type="fcfg:FundingStreamPeriodType"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="fcfg:SchemaVersionAttribute"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FundingStreamPeriodSettingConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name ="FundingStreamPeriodSetting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FundingStreamPeriod" type="xs:anyURI"/>
+              <xs:element name="SettingValue" type="fcfg:SettingValueType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="fcfg:SchemaVersionAttribute"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="DeliverableSettingConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name ="DeliverableSetting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FundingStreamPeriod" type="xs:anyURI"/>
+              <xs:element name="DeliverableCode" type="fcfg:DeliverableCodeType"/>
+              <xs:element name="SettingValue" type="fcfg:SettingValueType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="fcfg:SchemaVersionAttribute"/>
+    </xs:complexType>
+  </xs:element>-->
+  
+  <xs:attributeGroup name="SchemaVersionAttribute">
+    <xs:attribute name="schemaVersion" use="required" fixed="1.00">
+      <xs:annotation>
+        <xs:documentation>Version of the schema in use</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:decimal">
+          <xs:totalDigits value="3"/>
+          <xs:fractionDigits value="2"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+</xs:schema>

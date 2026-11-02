@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{545b6cd8-908a-426d-b9cc-f86f360c7ef3}" Name="WF40: Validate Task Creation">
+  <XamlFileName>/Workflows/WF40ValidateTaskCreation-545B6CD8-908A-426D-B9CC-F86F360C7EF3.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>0</Category>
+  <Mode>1</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>1</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>1</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <CreateStage>40</CreateStage>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>2.98.2.3</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <PrimaryEntity>Task</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="WF40: Validate Task Creation" />
+  </LocalizedNames>
+  <labels>
+    <steplabels id="{ec417bcd-9f76-41dc-9ec1-ec8b37f81602}">
+      <label languagecode="1033" description="All Required fields need to be completed to create a Task" />
+    </steplabels>
+  </labels>
+</Workflow>

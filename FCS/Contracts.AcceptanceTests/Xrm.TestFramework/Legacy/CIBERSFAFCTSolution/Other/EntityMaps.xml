@@ -1,0 +1,495 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EntityMaps>
+  <EntityMap>
+    <EntitySource>account</EntitySource>
+    <EntityTarget>sfa_allocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>account</EntitySource>
+    <EntityTarget>sfa_caseload</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>account</EntitySource>
+    <EntityTarget>sfa_claimreconciliationpublicationexception</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>account</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>account</EntitySource>
+    <EntityTarget>sfa_contractallocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>account</EntitySource>
+    <EntityTarget>sfa_fundingclaimreconciliation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>account</EntitySource>
+    <EntityTarget>sfa_notification</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>account</EntitySource>
+    <EntityTarget>sfa_subnominalaggregation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>msdyn_postconfig</EntitySource>
+    <EntityTarget>msdyn_postruleconfig</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>role</EntitySource>
+    <EntityTarget>sfa_taskaction</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_agency</EntitySource>
+    <EntityTarget>sfa_contractnumber</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_agency</EntitySource>
+    <EntityTarget>sfa_fundingtype</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_allocationhistory</EntitySource>
+    <EntityTarget>sfa_allocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_allocation</EntitySource>
+    <EntityTarget>sfa_allocationhistory</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_allocation</EntitySource>
+    <EntityTarget>sfa_allocationperiod</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_cappinggroups</EntitySource>
+    <EntityTarget>sfa_fundingstreamperioddeliverable</EntityTarget>
+    <AttributeMaps>
+      <AttributeMap>
+        <AttributeSource>sfa_fundingstreamperiod</AttributeSource>
+        <AttributeTarget>sfa_fundingstreamperiodid</AttributeTarget>
+      </AttributeMap>
+    </AttributeMaps>
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_claimreconallocgroup</EntitySource>
+    <EntityTarget>sfa_claimreconciliationbehaviour</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_claimreconallocgroup</EntitySource>
+    <EntityTarget>sfa_claimreconciliationpublicationexception</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_claimreconallocgroup</EntitySource>
+    <EntityTarget>sfa_fundingclaimreconciliation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_claimtype</EntitySource>
+    <EntityTarget>sfa_claimreconciliationbehaviour</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_claimtype</EntitySource>
+    <EntityTarget>sfa_fundingclaimreconciliation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contractallocation</EntitySource>
+    <EntityTarget>sfa_contractdeliverable</EntityTarget>
+    <AttributeMaps>
+      <AttributeMap>
+        <AttributeSource>sfa_contractallocationnumber</AttributeSource>
+        <AttributeTarget>sfa_allocationref</AttributeTarget>
+      </AttributeMap>
+      <AttributeMap>
+        <AttributeSource>sfa_contractid</AttributeSource>
+        <AttributeTarget>sfa_contractid</AttributeTarget>
+      </AttributeMap>
+    </AttributeMaps>
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contractallocation</EntitySource>
+    <EntityTarget>sfa_fcrallocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contractdeliverable</EntitySource>
+    <EntityTarget>sfa_contractdeliverable</EntityTarget>
+    <AttributeMaps>
+      <AttributeMap>
+        <AttributeSource>sfa_allocationref</AttributeSource>
+        <AttributeTarget>sfa_allocationref</AttributeTarget>
+      </AttributeMap>
+      <AttributeMap>
+        <AttributeSource>sfa_contractallocationid</AttributeSource>
+        <AttributeTarget>sfa_contractallocationid</AttributeTarget>
+      </AttributeMap>
+      <AttributeMap>
+        <AttributeSource>sfa_contractid</AttributeSource>
+        <AttributeTarget>sfa_contractid</AttributeTarget>
+      </AttributeMap>
+    </AttributeMaps>
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contractdeliverable</EntitySource>
+    <EntityTarget>sfa_contractdeliverableperiod</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contract</EntitySource>
+    <EntityTarget>sfa_allocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contract</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contract</EntitySource>
+    <EntityTarget>sfa_contractallocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contract</EntitySource>
+    <EntityTarget>sfa_contractdeliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contract</EntitySource>
+    <EntityTarget>sfa_contracttransitionhistory</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contracttransitionhistory</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_contracttype</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_deliverable</EntitySource>
+    <EntityTarget>sfa_allocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_deliverable</EntitySource>
+    <EntityTarget>sfa_fcrallocationdeliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_deliverable</EntitySource>
+    <EntityTarget>sfa_fundingstreamperioddeliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fcrallocation</EntitySource>
+    <EntityTarget>sfa_fcrallocationdeliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingclaimreconciliation</EntitySource>
+    <EntityTarget>sfa_fcrallocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstreamperioddeliverable</EntitySource>
+    <EntityTarget>sfa_contractdeliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstreamperioddeliverable</EntitySource>
+    <EntityTarget>sfa_fundingstreamperioddeliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstreamperiod</EntitySource>
+    <EntityTarget>sfa_allocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstreamperiod</EntitySource>
+    <EntityTarget>sfa_cappinggroups</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstreamperiod</EntitySource>
+    <EntityTarget>sfa_contractallocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstreamperiod</EntitySource>
+    <EntityTarget>sfa_fundingstreamperioddeliverable</EntityTarget>
+    <AttributeMaps>
+      <AttributeMap>
+        <AttributeSource>sfa_fundingstreamcodeid</AttributeSource>
+        <AttributeTarget>sfa_fundingstreamid</AttributeTarget>
+      </AttributeMap>
+    </AttributeMaps>
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstreamperiod</EntitySource>
+    <EntityTarget>sfa_paymenttimetable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstreamperiod</EntitySource>
+    <EntityTarget>sfa_subnominalaggregation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstream</EntitySource>
+    <EntityTarget>sfa_contractallocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstream</EntitySource>
+    <EntityTarget>sfa_contractnumber</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstream</EntitySource>
+    <EntityTarget>sfa_deliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstream</EntitySource>
+    <EntityTarget>sfa_fundingstreamperiod</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingstream</EntitySource>
+    <EntityTarget>sfa_fundingstreamperioddeliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingtype</EntitySource>
+    <EntityTarget>sfa_allocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingtype</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingtype</EntitySource>
+    <EntityTarget>sfa_contractnumber</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_fundingtype</EntitySource>
+    <EntityTarget>sfa_fundingtypefundingperiod</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_period</EntitySource>
+    <EntityTarget>sfa_allocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_period</EntitySource>
+    <EntityTarget>sfa_claimreconciliationbehaviour</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_period</EntitySource>
+    <EntityTarget>sfa_claimreconciliationpublicationexception</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_period</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_period</EntitySource>
+    <EntityTarget>sfa_contractallocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_period</EntitySource>
+    <EntityTarget>sfa_fundingclaimreconciliation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_period</EntitySource>
+    <EntityTarget>sfa_fundingstreamperiod</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_period</EntitySource>
+    <EntityTarget>sfa_fundingtypefundingperiod</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_periodtype</EntitySource>
+    <EntityTarget>sfa_contractdeliverableperiod</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_periodtype</EntitySource>
+    <EntityTarget>sfa_period</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_process</EntitySource>
+    <EntityTarget>sfa_status</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_process</EntitySource>
+    <EntityTarget>sfa_transition</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_setting</EntitySource>
+    <EntityTarget>sfa_fspdeliverablesetting</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_setting</EntitySource>
+    <EntityTarget>sfa_settingvaluelist</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_settingvaluelist</EntitySource>
+    <EntityTarget>sfa_fspdeliverablesetting</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_stagingentity</EntitySource>
+    <EntityTarget>sfa_contractdeliverable</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_stagingentity</EntitySource>
+    <EntityTarget>sfa_subnominalaggregation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_status</EntitySource>
+    <EntityTarget>account</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_status</EntitySource>
+    <EntityTarget>sfa_caseload</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_status</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_status</EntitySource>
+    <EntityTarget>sfa_contracttransitionhistory</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_status</EntitySource>
+    <EntityTarget>sfa_process</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_status</EntitySource>
+    <EntityTarget>sfa_transition</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_subnominalaggregation</EntitySource>
+    <EntityTarget>sfa_contractdeliverableperiod</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_transition</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_transition</EntitySource>
+    <EntityTarget>sfa_contracttransitionhistory</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_transition</EntitySource>
+    <EntityTarget>sfa_status</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>sfa_unitofprocurement</EntitySource>
+    <EntityTarget>sfa_contractallocation</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>systemuser</EntitySource>
+    <EntityTarget>sfa_allocationhistory</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>systemuser</EntitySource>
+    <EntityTarget>sfa_caseload</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>systemuser</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>systemuser</EntitySource>
+    <EntityTarget>sfa_contracttransitionhistory</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>systemuser</EntitySource>
+    <EntityTarget>systemuser</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>task</EntitySource>
+    <EntityTarget>sfa_contract</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>team</EntitySource>
+    <EntityTarget>sfa_taskaction</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>team</EntitySource>
+    <EntityTarget>sfa_transition</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>team</EntitySource>
+    <EntityTarget>systemuser</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+  <EntityMap>
+    <EntitySource>team</EntitySource>
+    <EntityTarget>task</EntityTarget>
+    <AttributeMaps />
+  </EntityMap>
+</EntityMaps>

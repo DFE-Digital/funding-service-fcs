@@ -1,0 +1,261 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentTag": {
+      "type": "string"
+    },
+    "parentBusinessTag": {
+      "type": "string"
+    },
+    "portfolioTag": {
+      "type": "string"
+    },
+    "productTag": {
+      "type": "string"
+    },
+    "serviceLineTag": {
+      "type": "string"
+    },
+    "deploymentUrlBase": {
+      "type": "string",
+      "metadata": {
+        "description": "The root url which holds all of the linked templates used by this template, a parameter to ease testing."
+      }
+    },
+    "enableSoftDelete": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "keyVaultAuditEventSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Audit Event diagnostic setting"
+      }
+    },
+    "keyVaultallMetricsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "All Metrics diagnostic setting"
+      }
+    },
+    "keyVaultRetentionPolicyEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "keyVaultRetentionPolicyDays": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "accessPolicies": {
+      "type": "array",
+      "metadata": {
+        "description": "KeyVault Access Policies"
+      }
+    },
+    "existingAccessPolicies": {
+      "type": "object",
+      "metadata": {
+        "description": "Existing Access Policies"
+      }
+    },
+    "workspaceResourceId": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "subscriptionShortCode": "[split(resourceGroup().name, '-')[1]]",
+    "environmentShortCode": "[split(resourceGroup().name, '-')[2]]",
+    "sharedRG": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-rg')]",
+    "keyVaultName": "[concat('fcs-', variables('subscriptionShortCode'), '-', variables('environmentShortCode'),'-kv')]",
+    "logAnalyticsWorkspaceName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-la')]",
+    "sharedWorkspaceID": "[resourceId(variables('sharedRG'),'Microsoft.OperationalInsights/workspaces', variables('logAnalyticsWorkspaceName'))]",
+    "actionGroupName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-ag')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_ApplicationInsights",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'application-insights.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "environmentTag": {
+            "value": "[parameters('environmentTag')]"
+          },
+          "parentBusinessTag": {
+            "value": "[parameters('parentBusinessTag')]"
+          },
+          "portfolioTag": {
+            "value": "[parameters('portfolioTag')]"
+          },
+          "productTag": {
+            "value": "[parameters('productTag')]"
+          },
+          "serviceLineTag": {
+            "value": "[parameters('serviceLineTag')]"
+          },
+          "appInsightsName": {
+            "value": "[concat('fcs-', variables('subscriptionShortCode'), '-',variables('environmentShortCode'),'-ai')]"
+          }
+        }
+      }
+    },
+    {
+      /* 
+          this key vault holds the secrets for this environment, certificates are held in fcs-SUB-shared-kv as they are common to the PLAN
+        */
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_Environment_KeyVault",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'keyvault.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "environmentTag": {
+            "value": "[parameters('environmentTag')]"
+          },
+          "parentBusinessTag": {
+            "value": "[parameters('parentBusinessTag')]"
+          },
+          "portfolioTag": {
+            "value": "[parameters('portfolioTag')]"
+          },
+          "productTag": {
+            "value": "[parameters('productTag')]"
+          },
+          "serviceLineTag": {
+            "value": "[parameters('serviceLineTag')]"
+          },
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          },
+          "enableSoftDelete": {
+            "value": "[parameters('enableSoftDelete')]"
+          },
+          "enablePurgeProtection": {
+            "value": true
+          },
+          "workspaceId": {
+            "value": "[variables('sharedWorkspaceID')]"
+          },
+          "auditEventSetting": {
+            "value": "[parameters('keyVaultAuditEventSetting')]"
+          },
+          "allMetricsSetting": {
+            "value": "[parameters('keyVaultallMetricsSetting')]"
+          },
+          "retentionPolicyEnabled": {
+            "value": "[parameters('keyVaultRetentionPolicyEnabled')]"
+          },
+          "retentionPolicyDays": {
+            "value": "[parameters('keyVaultRetentionPolicyDays')]"
+          },
+          "keyVaultAccessPolicies": {
+            "value": "[parameters('existingAccessPolicies').list]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_Environment_KeyVault_Identity_Policy",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'Deploy_Environment_KeyVault')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'keyvault-accesspolicies.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          },
+          "accessPolicies": {
+            "value": "[parameters('accessPolicies')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "microsoft.insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[concat('KeyVault_Availability_',variables('keyVaultName'))]",
+      "dependsOn": ["Deploy_Environment_KeyVault"],
+      "location": "global",
+      "tags": {
+        "Environment": "[parameters('environmentTag')]",
+        "Parent Business": "[parameters('parentBusinessTag')]",
+        "Portfolio": "[parameters('portfolioTag')]",
+        "Product": "[parameters('productTag')]",
+        "Service": "[parameters('productTag')]",
+        "Service Line": "[parameters('serviceLineTag')]",
+        "Service Offering": "[parameters('productTag')]"
+      },
+      "properties": {
+        "description": "[concat('KeyVault Availability is less than expected on ',variables('keyVaultName'))]",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId(resourceGroup().name, 'Microsoft.KeyVault/vaults', variables('keyVaultName'))]"
+        ],
+        "evaluationFrequency": "PT5M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "allOf": [
+            {
+              "alertSensitivity": "Medium",
+              "failingPeriods": {
+                "numberOfEvaluationPeriods": 4,
+                "minFailingPeriodsToAlert": 4
+              },
+              "name": "Metric1",
+              "metricNamespace": "Microsoft.KeyVault/vaults",
+              "metricName": "Availability",
+              "dimensions": [],
+              "operator": "LessThan",
+              "timeAggregation": "Average",
+              "criterionType": "DynamicThresholdCriterion"
+            }
+          ],
+          "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+        },
+        "autoMitigate": true,
+        "targetResourceType": "Microsoft.KeyVault/vaults",
+        "targetResourceRegion": "[resourceGroup().location]",
+        "actions": [
+          {
+            "actionGroupId": "[resourceId(variables('sharedRG'), 'Microsoft.Insights/actiongroups', variables('actionGroupName')) ]",
+            "webHookProperties": {}
+          }
+        ]
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "apiVersion": "2020-02-02-preview",
+      "name": "[concat('fcs-', variables('subscriptionShortCode'), '-',variables('environmentShortCode'),'-ai')]",
+      "kind": "web",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "ApplicationId": "[concat('fcs-', variables('subscriptionShortCode'), '-',variables('environmentShortCode'),'-ai')]",
+        "Application_Type": "web",
+        "WorkspaceResourceId": "[parameters('workspaceResourceId')]"
+      }
+    }
+  ]
+}

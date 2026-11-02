@@ -1,0 +1,25 @@
+<Map Name="FundingStream" Source="Import">
+  <Description>Data map created automatically using the map settings specified during an import.</Description>
+  <EntitiesPerFile>Single</EntitiesPerFile>
+  <EntityMaps>
+    <EntityMap TargetEntityName="sfa_fundingstream" SourceEntityName="FundingStreams" Dedupe="Ignore" ProcessCode="Process">
+      <AttributeMaps>
+        <AttributeMap>
+          <SourceAttributeName>Funding Stream Name</SourceAttributeName>
+          <TargetAttributeName>sfa_fundingstreamname</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Funding Stream Short Code</SourceAttributeName>
+          <TargetAttributeName>sfa_fundingstreamshortcode</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Funding Stream Code</SourceAttributeName>
+          <TargetAttributeName>sfa_fundingstreamcode</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+  </EntityMaps>
+</Map>

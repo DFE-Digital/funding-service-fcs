@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{e1729e40-8b36-4849-8e63-17fdee92d881}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_fundingallocationid">
+        <cell name="sfa_name" width="300" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="sfa_ukprn" width="100" />
+        <cell name="sfa_provider" width="300" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="sfa_allocationfundingstream" width="100" />
+        <cell name="sfa_period" width="100" />
+        <cell name="sfa_fundingversion" width="100" />
+        <cell name="sfa_value" width="100" />
+        <cell name="sfa_fundingtype" width="200" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="sfa_fspgroupid" width="125" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="sfa_contracttypeid" width="300" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="createdon" width="150" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+      <entity name="sfa_fundingallocation">
+        <attribute name="sfa_name" />
+        <attribute name="sfa_value" />
+        <attribute name="sfa_ukprn" />
+        <attribute name="sfa_provider" />
+        <attribute name="sfa_period" />
+        <attribute name="sfa_fundingversion" />
+        <attribute name="sfa_fundingtype" />
+        <attribute name="sfa_allocationfundingstream" />
+        <order attribute="sfa_name" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+          <condition attribute="sfa_status" operator="eq" value="229660000" />
+          <condition attribute="sfa_substatus" operator="eq" value="229660000" />
+        </filter>
+        <attribute name="sfa_fspgroupid" />
+        <attribute name="createdon" />
+        <attribute name="sfa_contracttypeid" />
+        <attribute name="sfa_fundingallocationid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.99.1.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Funding Allocations Awaiting Release" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

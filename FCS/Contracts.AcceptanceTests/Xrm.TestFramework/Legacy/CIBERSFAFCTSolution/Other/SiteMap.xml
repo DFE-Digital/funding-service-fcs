@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SiteMap>
+  <SiteMap>
+    <Area Id="SFA" Icon=" " ResourceId="Area_Sales" DescriptionResourceId="Sales_Description" Description="The Contract entity represents an agreement between the Agency (known as the funding organisation) and a Provider to deliver learning provision. The Contract is the single legal agreement (also referred to as ’Master Terms &amp; Conditions’) between any particular Provider and the Agency. This Contract may be further borken down by funding streams and periods of time (known as Contract Schedules)." Title="Contract Management" ShowGroups="true">
+      <Group Id="Extensions" ResourceId="Group_Extensions" Title="Contracts" IsProfile="false">
+        <SubArea GetStartedPanePath="Dashboards_Web_User_Visor.html" GetStartedPanePathAdmin="Dashboards_Web_Admin_Visor.html" GetStartedPanePathAdminOutlook="Dashboards_Outlook_Admin_Visor.html" GetStartedPanePathOutlook="Dashboards_Outlook_User_Visor.html" Icon="/_imgs/area/18_home.gif" Id="nav_dashboards" Url="/workplace/home_dashboards.aspx" ResourceId="Homepage_Dashboards" DescriptionResourceId="Dashboards_Description" AvailableOffline="false" PassParams="false" />
+        <SubArea Entity="task" Id="contracts_Tasks" AvailableOffline="false" PassParams="false">
+          <Titles>
+            <Title LCID="1033" Title="Tasks" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sfa_contract" Entity="sfa_contract" />
+        <SubArea Id="sfa_allocation" Entity="sfa_allocation" />
+        <SubArea Id="sfa_notification" Entity="sfa_notification" />
+        <SubArea Id="sfa_caseload" Entity="sfa_caseload">
+          <Titles>
+            <Title LCID="1033" Title="Caseloads" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sfa_fcrallocation" Entity="sfa_fcrallocation" />
+        <SubArea Id="sfa_fcrallocationdeliverable" Entity="sfa_fcrallocationdeliverable" />
+      </Group>
+    </Area>
+    <Area Id="Settings" Icon="/_imgs/settings_24x24.gif" ResourceId="Area_Settings" DescriptionResourceId="Settings_Area_Description" ShowGroups="true">
+      <Group Id="Business_Setting" ResourceId="Menu_Label_Business" DescriptionResourceId="Menu_Label_Business">
+        <SubArea Id="nav_businessmanagement" ResourceId="Homepage_BusinessManagement" DescriptionResourceId="BizManagement_SubArea_Description" Icon="/_imgs/ico_18_busmanagement.gif" Url="/tools/business/business.aspx" AvailableOffline="false">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_template" ResourceId="Homepage_Template" DescriptionResourceId="Template_SubArea_Description" Icon="/_imgs/ico_18_templates.gif" Url="/tools/templates/templates.aspx" AvailableOffline="false">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_productcatalog" ResourceId="Homepage_ProductCatalog" DescriptionResourceId="ProductCatalog_SubArea_Description" Icon="/_imgs/ico_18_productcatalog.gif" Url="/tools/productcatalog/productcatalog.aspx" AvailableOffline="false">
+          <Privilege Entity="product" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_servicemanagement" ResourceId="Homepage_ServiceManagement" DescriptionResourceId="ServiceManagement_SubArea_Description" Url="/tools/servicemanagement/servicemanagement.aspx" AvailableOffline="false" />
+      </Group>
+      <Group Id="Customizations" ResourceId="Homepage_SystemCustomization" DescriptionResourceId="Homepage_SystemCustomization">
+        <SubArea Id="nav_syscust" ResourceId="Menu_Label_Customizations" DescriptionResourceId="Customization_SubArea_Description" Icon="/_imgs/area/18_syscust.gif" Url="/tools/systemcustomization/systemcustomization.aspx" AvailableOffline="false">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_solution" Entity="solution" ResourceId="Web.Tools.Solution.map_xml.aspx_1" AvailableOffline="false" GetStartedPanePath="Solutions_Web_Admin_Visor.html" GetStartedPanePathAdmin="Solutions_Web_Admin_Visor.html" GetStartedPanePathOutlook="Solutions_Outlook_Admin_Visor.html" GetStartedPanePathAdminOutlook="Solutions_Outlook_Admin_Visor.html" DescriptionResourceId="Web.Tools.Solution.map_xml.aspx_2" Url="/tools/Solution/home_solution.aspx?etc=7100">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_marketplace" ResourceId="Homepage_Marketplace" DescriptionResourceId="Marketplace_SubArea_Description" Icon="/_imgs/SystemCustomization/ico_18_marketplace.png" Url="/tools/SystemCustomization/SolutionsMarketplace/SolutionsMarketplace.aspx" Client="Web">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+      </Group>
+      <Group Id="System_Setting" ResourceId="Menu_Label_System" DescriptionResourceId="Menu_Label_System">
+        <SubArea Id="nav_administration" ResourceId="Homepage_Administration" DescriptionResourceId="Administration_SubArea_Description" Icon="/_imgs/ico_18_administration.gif" Url="/tools/Admin/admin.aspx" AvailableOffline="false">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_datamanagement" ResourceId="Homepage_DataManagement" DescriptionResourceId="DataManagement_SubArea_Description" Icon="/_imgs/ico_18_datamanagement.gif" Url="/tools/DataManagement/datamanagement.aspx" AvailableOffline="false">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_systemjobs" ResourceId="Homepage_SystemJobs" DescriptionResourceId="SystemJobs_SubArea_Description" Entity="asyncoperation" Url="/tools/business/home_asyncoperation.aspx" AvailableOffline="false">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_documentmanagement" ResourceId="DocumentManagement.SettingsArea.Heading" DescriptionResourceId="DocumentManagement.SettingsArea.Description" Icon="/_imgs/DocumentManagement_16.png" Url="/tools/documentmanagement/documentmanagement.aspx" AvailableOffline="false">
+          <Privilege Entity="sharepointsite" Privilege="Read" />
+          <Privilege Entity="sharepointdocumentlocation" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_audit" ResourceId="Audit_SubArea_Title" DescriptionResourceId="Audit_SubArea_Description" Icon="/_imgs/area/16_audit.png" Url="/tools/audit/audit_area.aspx" AvailableOffline="false">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="nav_social" ResourceId="Social_SubArea_Title" DescriptionResourceId="Social_SubArea_Description" Icon="/_imgs/area/16_social.png" Url="/tools/social/social_area.aspx" AvailableOffline="false">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="msdyn_postconfig" ResourceId="Activity_Feed_Configuration" Entity="msdyn_postconfig">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="msdyn_postruleconfig" ResourceId="Activity_Feed_Rules_Configuration" Entity="msdyn_postruleconfig">
+          <Privilege Entity="solution" />
+        </SubArea>
+      </Group>
+      <Group Id="ProcessCenter" ResourceId="Menu_Label_ProcessCenter" DescriptionResourceId="Menu_Label_ProcessCenter">
+        <SubArea Id="nav_workflow" Entity="workflow" DescriptionResourceId="Workflow_SubArea_Description" AvailableOffline="false" GetStartedPanePath="Workflows_Web_User_Visor.html" GetStartedPanePathAdmin="Workflows_Web_Admin_Visor.html" GetStartedPanePathOutlook="Workflows_Outlook_User_Visor.html" GetStartedPanePathAdminOutlook="Workflows_Outlook_Admin_Visor.html">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+      </Group>
+      <Group Id="Extensions" ResourceId="Group_Extensions">
+        <SubArea Id="sfa_webserviceresource" Entity="sfa_webserviceresource" />
+      </Group>
+    </Area>
+    <Area Id="HLP" ResourceId="Area_Help" ShowGroups="true" Icon="/_imgs/settings_24x24.gif" DescriptionResourceId="Help_Area_Description">
+      <Group Id="HLP_GRP" ResourceId="Group_Help" DescriptionResourceId="Help_Description">
+        <SubArea Id="Help_Data_Protection" Url="$webresource:sfa_help_data_protection" Description="Data Protection" Title="Data Protection" AvailableOffline="false" PassParams="false" />
+        <SubArea Id="Help_Resource_Center" Url="http://go.microsoft.com/fwlink/?LinkId=296269&amp;clcid=0x409" ResourceId="Area_CustomerCenter" DescriptionResourceId="ResourceCenter_Area_Description" AvailableOffline="false" />
+      </Group>
+    </Area>
+    <Area Id="SFA_Configuration" Icon="/_imgs/settings_24x24.gif" Description="Configuration" Title="Configuration" ShowGroups="true">
+      <Titles>
+        <Title LCID="1033" Title="Configuration" />
+      </Titles>
+      <Group Id="Extensions" ResourceId="Group_Extensions" Description="Configuration" Title="Configuration" IsProfile="false">
+        <SubArea Id="sfa_fundingstreamperiod" Entity="sfa_fundingstreamperiod">
+          <Privilege Entity="sfa_fundingstreamperiod" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_fundingstream" Entity="sfa_fundingstream">
+          <Privilege Entity="sfa_fundingstream" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_fundingtype" Entity="sfa_fundingtype">
+          <Privilege Entity="sfa_fundingtype" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_period" Entity="sfa_period">
+          <Privilege Entity="sfa_period" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_periodtype" Entity="sfa_periodtype">
+          <Privilege Entity="sfa_periodtype" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_agency" Entity="sfa_agency">
+          <Privilege Entity="sfa_agency" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_deliverable" Entity="sfa_deliverable">
+          <Privilege Entity="sfa_deliverable" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_fundingstreamperioddeliverable" Entity="sfa_fundingstreamperioddeliverable">
+          <Privilege Entity="sfa_fundingstreamperioddeliverable" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_status" Entity="sfa_status">
+          <Privilege Entity="sfa_status" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_transition" Entity="sfa_transition">
+          <Privilege Entity="sfa_transition" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_contractnumber" Entity="sfa_contractnumber">
+          <Privilege Entity="sfa_contractnumber" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_unitofprocurement" Entity="sfa_unitofprocurement" />
+        <SubArea Id="sfa_subnominalaggregation" Entity="sfa_subnominalaggregation" />
+        <SubArea Id="sfa_stagingentity" Entity="sfa_stagingentity" />
+        <SubArea Id="sfa_cappinggroups" Entity="sfa_cappinggroups" />
+        <SubArea Id="sfa_specificationtitle" Entity="sfa_specificationtitle" />
+        <SubArea Id="sfa_regiontype" Entity="sfa_regiontype" />
+        <SubArea Id="sfa_investmentpriority" Entity="sfa_investmentpriority" />
+        <SubArea Id="sfa_fundingtypefundingperiod" Entity="sfa_fundingtypefundingperiod" />
+        <SubArea Id="sfa_fundingclaimreconciliation" Entity="sfa_fundingclaimreconciliation" />
+        <SubArea Id="sfa_claimreconallocgroup" Entity="sfa_claimreconallocgroup" />
+        <SubArea Id="sfa_claimtype" Entity="sfa_claimtype" />
+        <SubArea Id="sfa_taskaction" Entity="sfa_taskaction" />
+        <SubArea Id="sfa_paymenttimetable" Entity="sfa_paymenttimetable" />
+        <SubArea Id="sfa_claimreconciliationbehaviour" Entity="sfa_claimreconciliationbehaviour" />
+        <SubArea Id="sfa_claimreconciliationpublicationexception" Entity="sfa_claimreconciliationpublicationexception" />
+      </Group>
+    </Area>
+  </SiteMap>
+</SiteMap>

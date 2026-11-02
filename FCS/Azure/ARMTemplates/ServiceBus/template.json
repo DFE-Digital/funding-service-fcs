@@ -1,0 +1,249 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "namespaces": {
+            "type": "String"
+        },
+        "environmentTag": {
+            "type": "String"
+        },
+        "parentBusinessTag": {
+            "type": "String"
+        },
+        "portfolioTag": {
+            "type": "String"
+        },
+        "productTag": {
+            "type": "String"
+        },
+        "serviceLineTag": {
+            "type": "String"
+        },
+        "serviceOfferingTag": {
+            "type": "String"
+        },
+        "serviceTag": {
+            "type": "String"
+        },
+        "environmentID": {
+            "type": "String"
+        },
+        "externalresrouceid": {
+            "type": "String"
+        },
+        "agID": {
+            "type": "String"
+        },
+        "createErrorQueue": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Create the error queue if it doesn't already exist"
+            }
+        }
+    },
+    "variables": {
+        "metricName1": "[concat('Total user errors - fcs-nservicebus-', parameters('environmentID'))]",
+        "metricName2": "[concat('Total throttled requests - fcs-nservicebus-', parameters('environmentID'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.ServiceBus/namespaces",
+            "apiVersion": "2023-01-01-preview",
+            "name": "[parameters('namespaces')]",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "Parent Business": "[parameters('environmentTag')]",
+                "Service Offering": "[parameters('parentBusinessTag')]",
+                "Environment": "[parameters('portfolioTag')]",
+                "Portfolio": "[parameters('productTag')]",
+                "Product": "[parameters('serviceLineTag')]",
+                "Service Line": "[parameters('serviceOfferingTag')]",
+                "Service": "[parameters('serviceTag')]"
+            },
+            "sku": {
+                "name": "Standard",
+                "tier": "Standard"
+            },
+            "properties": {
+                "mode": "Incremental",
+                "geotstaReplication": {
+                    "maxReplicationLagDurationInSeconds": 0,
+                    "locations": [
+                        {
+                            "locationName": "[resourceGroup().location]",
+                            "roleType": "Primary"
+                        }
+                    ]
+                },
+                "premiumMessagingPartitions": 0,
+                "minimumTlsVersion": "1.2",
+                "publicNetworkAccess": "Enabled",
+                "disableLocalAuth": false,
+                "zoneRedundant": false
+            }
+        },
+        {
+            "type": "Microsoft.ServiceBus/namespaces/authorizationrules",
+            "apiVersion": "2023-01-01-preview",
+            "name": "[concat(parameters('namespaces'), '/RootManageSharedAccessKey')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.ServiceBus/namespaces/networkrulesets",
+            "apiVersion": "2023-01-01-preview",
+            "name": "[concat(parameters('namespaces'), '/default')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "publicNetworkAccess": "Enabled",
+                "defaultAction": "Allow",
+                "virtualNetworkRules": [],
+                "ipRules": [],
+                "trustedServiceAccessEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+            "apiVersion": "2023-01-01-preview",
+            "name": "[concat(parameters('namespaces'), '/error')]",
+            "condition": "[parameters('createErrorQueue')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces'))]"
+            ],
+            "properties": {
+                "enablePartitioning": true,
+                "requiresDuplicateDetection": false,
+                "enableExpress": false,
+                "defaultMessageTimeToLive": "P14D",
+                "deadLetteringOnMessageExpiration": true,
+                "maxDeliveryCount": 10,
+                "lockDuration": "PT1M"
+            }
+        },
+        {
+            "type": "microsoft.insights/metricalerts",
+            "apiVersion": "2018-03-01",
+            "name": "[variables('metricName1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces'))]"
+            ],
+            "location": "global",
+            "tags": {
+                "Parent Business": "[parameters('environmentTag')]",
+                "Service Offering": "[parameters('parentBusinessTag')]",
+                "Environment": "[parameters('portfolioTag')]",
+                "Portfolio": "[parameters('productTag')]",
+                "Product": "[parameters('serviceLineTag')]",
+                "Service Line": "[parameters('serviceOfferingTag')]",
+                "Service": "[parameters('serviceTag')]"
+            },
+            "properties": {
+                "description": "[variables('metricName1')]",
+                "severity": 3,
+                "enabled": true,
+                "scopes": [
+                    "[parameters('externalresrouceid')]"
+                ],
+                "evaluationFrequency": "PT5M",
+                "windowSize": "PT5M",
+                "criteria": {
+                    "allOf": [
+                        {
+                            "alertSensitivity": "Medium",
+                            "failingPeriods": {
+                                "numberOfEvaluationPeriods": 4,
+                                "minFailingPeriodsToAlert": 4
+                            },
+                            "name": "Metric1",
+                            "metricNamespace": "Microsoft.ServiceBus/namespaces",
+                            "metricName": "ThrottledRequests",
+                            "operator": "GreaterOrLessThan",
+                            "timeAggregation": "Total",
+                            "criterionType": "DynamicThresholdCriterion"
+                        }
+                    ],
+                    "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+                },
+                "autoMitigate": true,
+                "targetResourceType": "Microsoft.ServiceBus/namespaces",
+                "actions": [
+                    {
+                        "actionGroupId": "[parameters('agID')]",
+                        "webHookProperties": {}
+                    }
+                ]
+            }
+        },
+        {
+            "type": "microsoft.insights/metricalerts",
+            "apiVersion": "2018-03-01",
+            "name": "[variables('metricName2')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces'))]"
+            ],
+            "location": "global",
+            "tags": {
+                "Parent Business": "[parameters('environmentTag')]",
+                "Service Offering": "[parameters('parentBusinessTag')]",
+                "Environment": "[parameters('portfolioTag')]",
+                "Portfolio": "[parameters('productTag')]",
+                "Product": "[parameters('serviceLineTag')]",
+                "Service Line": "[parameters('serviceOfferingTag')]",
+                "Service": "[parameters('serviceTag')]"
+            },
+            "properties": {
+                "description": "[variables('metricName2')]",
+                "severity": 3,
+                "enabled": true,
+                "scopes": [
+                    "[parameters('externalresrouceid')]"
+                ],
+                "evaluationFrequency": "PT5M",
+                "windowSize": "PT5M",
+                "criteria": {
+                    "allOf": [
+                        {
+                            "alertSensitivity": "Medium",
+                            "failingPeriods": {
+                                "numberOfEvaluationPeriods": 4,
+                                "minFailingPeriodsToAlert": 4
+                            },
+                            "name": "Metric1",
+                            "metricNamespace": "Microsoft.ServiceBus/namespaces",
+                            "metricName": "UserErrors",
+                            "operator": "GreaterOrLessThan",
+                            "timeAggregation": "Total",
+                            "criterionType": "DynamicThresholdCriterion"
+                        }
+                    ],
+                    "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+                },
+                "autoMitigate": true,
+                "targetResourceType": "Microsoft.ServiceBus/namespaces",
+                "actions": [
+                    {
+                        "actionGroupId": "[parameters('agID')]",
+                        "webHookProperties": {}
+                    }
+                ]
+            }
+        }
+
+    ]
+}

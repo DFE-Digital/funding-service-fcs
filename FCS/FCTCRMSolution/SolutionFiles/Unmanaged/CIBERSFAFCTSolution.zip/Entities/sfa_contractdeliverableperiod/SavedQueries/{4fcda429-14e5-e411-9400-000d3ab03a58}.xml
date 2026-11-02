@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <savedqueryid>{4fcda429-14e5-e411-9400-000d3ab03a58}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_name" select="1" preview="1" icon="1">
+      <row name="result" id="sfa_contractdeliverableperiodid">
+        <cell name="aa.sfa_contractallocationid" width="100" disableSorting="1" />
+        <cell name="sfa_period" width="100" />
+        <cell name="sfa_plannedvalue" width="100" />
+        <cell name="sfa_year" width="100" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+      <entity name="sfa_contractdeliverableperiod">
+        <order attribute="sfa_year" descending="false" />
+        <attribute name="sfa_year" />
+        <attribute name="sfa_period" />
+        <link-entity name="sfa_contractdeliverable" from="sfa_contractdeliverableid" to="sfa_contractdeliverableid" alias="aa">
+          <link-entity name="sfa_contractallocation" from="sfa_contractallocationid" to="sfa_contractallocationid" alias="ab">
+            <link-entity name="sfa_contract" from="sfa_contractid" to="sfa_contractid" alias="ac">
+              <filter type="and">
+                <condition attribute="sfa_fundingtype" operator="not-null" />
+                <condition attribute="sfa_periodid" operator="not-null" />
+              </filter>
+            </link-entity>
+          </link-entity>
+          <attribute name="sfa_contractallocationid" />
+        </link-entity>
+        <attribute name="sfa_plannedvalue" />
+        <attribute name="sfa_contractdeliverableperiodid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.1.8.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Allocations Data Extract Report2" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>
