@@ -1,0 +1,923 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SFA.FCT.CrossDomain.Integration.Entities</RootNamespace>
+    <AssemblyName>CrossDomain.Integration.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\CI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
+    <OutputPath>bin\AT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
+    <OutputPath>bin\MO\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
+    <OutputPath>bin\OAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DEV\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PS|AnyCPU'">
+    <OutputPath>bin\PS\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
+    <OutputPath>bin\DAT\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
+    <OutputPath>bin\DMO\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
+    <OutputPath>bin\DOAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.6.1.1\lib\net45\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.6.1.1\lib\net45\Microsoft.Xrm.Sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AllocationActuals\Allocation_Actuals_1.01.designer.cs" />
+    <Compile Include="AllocationDeliveryPerformance\allocation-delivery-performance-schema.designer.cs" />
+    <Compile Include="AllocationDeliveryPerformance\allocation-delivery-performance-schema.partial.cs" />
+    <Compile Include="ContractApproval\ContractApprovalType.cs" />
+    <Compile Include="ContractCommon\CrmEntityOwner.cs" />
+    <Compile Include="ContractIdentity.cs" />
+    <Compile Include="CorporateContract\ContractIntent.cs" />
+    <Compile Include="CorporateContract\ExtendedContractTypeAndIntent.cs" />
+    <Compile Include="CrmContractIdentity.cs" />
+    <Compile Include="ContractInformation.cs" />
+    <Compile Include="ContractRequest\AllocationValueData.cs" />
+    <Compile Include="ContractRequest\amendmentType.cs" />
+    <Compile Include="ContractRequest\contractAllocation.cs" />
+    <Compile Include="ContractRequest\contractAllocationHierarchyType.cs" />
+    <Compile Include="ContractRequest\contractDeliverable.cs" />
+    <Compile Include="ContractRequest\contractDeliverablePeriodType.cs" />
+    <Compile Include="ContractRequest\contractor.cs" />
+    <Compile Include="ContractRequest\contractRequestType.cs" />
+    <Compile Include="ContractRequest\contractType.cs" />
+    <Compile Include="ContractRequest\correlationInfoType.cs" />
+    <Compile Include="ContractRequest\DasRequest.cs" />
+    <Compile Include="ContractRequest\deliverableDimensionRelationships.cs" />
+    <Compile Include="ContractRequest\deliverableOrganisationRelationships.cs" />
+    <Compile Include="ContractRequest\DeliverablePeriodsValueData.cs" />
+    <Compile Include="ContractRequest\deliverableType.cs" />
+    <Compile Include="ContractRequest\dimensionRelationshipType.cs" />
+    <Compile Include="ContractRequest\errorInfoType.cs" />
+    <Compile Include="ContractRequest\errorInfoTypeLevel.cs" />
+    <Compile Include="ContractRequest\ErrorMessages.cs" />
+    <Compile Include="ContractRequest\ErrorSeverity.cs" />
+    <Compile Include="ContractRequest\FundingConfigurationDataType.cs" />
+    <Compile Include="ContractRequest\hierarchyType.cs" />
+    <Compile Include="ContractRequest\AllocationIdentityInfo.cs" />
+    <Compile Include="ContractRequest\ContractIdentityInfo.cs" />
+    <Compile Include="ContractRequest\intent.cs" />
+    <Compile Include="ContractRequest\organisationRelationshipType.cs" />
+    <Compile Include="ContractRequest\periodType.cs" />
+    <Compile Include="ContractRequest\periodTypeType.cs" />
+    <Compile Include="ContractTermination\TerminationAllocation.cs" />
+    <Compile Include="ContractWithdrawal\ContractWithdrawalType.cs" />
+    <Compile Include="CorporateContract\ApprovedContractAllocationInfo.cs" />
+    <Compile Include="CorporateContract\ApprovedContractDeliverableInfo.cs" />
+    <Compile Include="CorporateContract\ApprovedContractInfo.cs" />
+    <Compile Include="CorporateContract\contract.Partial.cs" />
+    <Compile Include="CorporateContract\contractDeliverable.Partial.cs" />
+    <Compile Include="CorporateContract\contractDeliverablePeriod.Partial.cs" />
+    <Compile Include="CorporateContract\Contractor.Partial.cs" />
+    <Compile Include="CorporateContract\contractsAllocationsContractAllocation.Partial.cs" />
+    <Compile Include="CorporateContract\ContractSummary.cs" />
+    <Compile Include="CorporateContract\contractType.partial.cs" />
+    <Compile Include="CorporateContract\contract_corporate_schema_v8.04.designer.cs" />
+    <Compile Include="CorporateContract\ExtendedContract.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="CorporateContract\ExtendedContractType.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="CorporateContract\period.partial.cs" />
+    <Compile Include="CorporateSchema\contract.Partial.cs" />
+    <Compile Include="CorporateSchema\contractAllocationsContractAllocation.Partial.cs" />
+    <Compile Include="CorporateSchema\contractDeliverablesTypeContractDeliverable.Partial.cs" />
+    <Compile Include="CorporateSchema\contractType.Partial.cs" />
+    <Compile Include="CorporateSchema\contract_corporate_schema_v11.09.designer.cs" />
+    <Compile Include="CorporateSchema\period.Partial.cs" />
+    <Compile Include="Data\ConnectionInfo.cs" />
+    <Compile Include="Data\EntityCache.cs" />
+    <Compile Include="Data\IEntityCache.cs" />
+    <Compile Include="DeliveryAllocation\contractDeliverableType.cs" />
+    <Compile Include="DeliveryAllocation\DeliverableType.cs" />
+    <Compile Include="DeliveryAllocation\DeliveryAllocation.Partial.cs" />
+    <Compile Include="DeliveryAllocation\delivery_allocation.designer.cs" />
+    <Compile Include="Documents\MergeStatus.cs" />
+    <Compile Include="ESFFundingStreams.cs" />
+    <Compile Include="ExcelUpload\dataLoadResults.Partial.cs" />
+    <Compile Include="ExcelUpload\excelupload_schema.designer.cs" />
+    <Compile Include="CorporateContract\ExtendedContractAllocation.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Extensions\BooleanExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="FundingPolicy\funding_policy_api_schema.designer.cs" />
+    <Compile Include="FundingTypes.cs" />
+    <Compile Include="Organisation\Organisation.custom.cs" />
+    <Compile Include="Organisation\organisation_corporate_schema.designer.cs" />
+    <Compile Include="Organisation\OrganisationSchemaValidationError.cs" />
+    <Compile Include="PaymentGeneration\PaymentDetail.Custom.cs" />
+    <Compile Include="PaymentGeneration\PaymentPeriod.Custom.cs" />
+    <Compile Include="PaymentGeneration\payments_generation_corporate_schema.designer.cs" />
+    <Compile Include="PaymentGeneration\Payment_Generation_Corporate_Schema_Extended .cs" />
+    <Compile Include="PaymentInstruction\AllocationPaymentInstruction.cs" />
+    <Compile Include="PaymentInstruction\DeliverablePaymentInstruction.cs" />
+    <Compile Include="PaymentsAggregation\Aggregation.cs" />
+    <Compile Include="PaymentsAggregation\AggregationPaymentType.cs" />
+    <Compile Include="PaymentsAggregation\AggregationPaymentTypeExtensions.cs" />
+    <Compile Include="PaymentsAggregation\Allocation.cs" />
+    <Compile Include="PaymentsAggregation\AllocationPeriod.cs" />
+    <Compile Include="PaymentsAggregation\AllocationPeriodPeriodTypeCode.cs" />
+    <Compile Include="PaymentsAggregation\DeliverableDetail.cs" />
+    <Compile Include="PaymentsAggregation\OrgainsationIdentifier.cs" />
+    <Compile Include="PaymentsAggregation\OrgainsationIdentifierOrganisationIdentifierName.cs" />
+    <Compile Include="PaymentsAggregation\Organisation.cs" />
+    <Compile Include="PaymentSchedule\Allocation.cs" />
+    <Compile Include="PaymentSchedule\AllocationDeliverable.cs" />
+    <Compile Include="PaymentSchedule\Organisation.cs" />
+    <Compile Include="PaymentSchedule\OrganisationIdentifier.cs" />
+    <Compile Include="PaymentSchedule\OrganisationIdentifierOrganisationIdentifierName.cs" />
+    <Compile Include="PaymentSchedule\ProvisionIdentifier.cs" />
+    <Compile Include="PaymentSchedule\ScheduledPayment.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\ClaimAdjustment.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\CorporateSchema\3_0\FundingClaimReconciliation.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\Infos\AllocationInfo.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\Infos\ContractInfo.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\ClaimTypeNameExtensions.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\AllocationGroup.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\AmountSummary.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\ClaimType.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\Contract.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\ContractAllocation.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\ContractDeliverable.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\Contractor.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\Deliverable.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\FundingClaimReconciliation.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\FundingType.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\Period.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\PeriodTypeCode.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\PeriodTypeName.cs" />
+    <Compile Include="PerformanceManagement\FundingClaimReconciliation\ReconciliationStatus.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\ClaimTypeName.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\ContractAllocation.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\Contractor.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\CorporateSchema\3_0\Extensions\ContractAllocationAllAttrsCTExtensions.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\CorporateSchema\3_0\FundingClaim.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\DebatchedFundingClaim.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\DeliverableLine.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\FundingClaim.cs" />
+    <Compile Include="PerformanceManagement\FundingClaim\PeriodTypeCode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExcelUpload\RowType.Partial.cs" />
+    <Compile Include="FSCDeliverableStructure\FSCDeliverableStructureDefinitionResponse.designer.cs" />
+    <Compile Include="SimpleAllocationInfo.cs" />
+    <Compile Include="Xrm\Account.cs" />
+    <Compile Include="Xrm\Contact.cs" />
+    <Compile Include="Xrm\CustomerAddress.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_approvaltype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_ClaimAdjustmentReason.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_FCRServiceStatus.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_FundingAllocationHoldReason.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_FundingAllocationServiceResponse.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_FundingAllocationStatus.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_FundingAllocationSubStatus.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_newstartssuspendedreason.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_ReleaseGroupStatus.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_sfastatuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_sfasubstatuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_TerminationReasons.cs" />
+    <Compile Include="Xrm\Partials\sfa_fundingstreamperioddeliverable.cs" />
+    <Compile Include="Xrm\sfa_cappinggroups.cs" />
+    <Compile Include="Xrm\Partials\sfa_fundingstreamperiod.cs" />
+    <Compile Include="Xrm\sfa_claimreconallocgroup.cs" />
+    <Compile Include="Xrm\sfa_claimreconciliationbehaviour.cs" />
+    <Compile Include="Xrm\sfa_claimreconciliationpublicationexception.cs" />
+    <Compile Include="Xrm\sfa_claimtype.cs" />
+    <Compile Include="Xrm\sfa_deliverable_setting.cs" />
+    <Compile Include="Xrm\sfa_fcrallocation.cs" />
+    <Compile Include="Xrm\sfa_fcrallocationdeliverable.cs" />
+    <Compile Include="Xrm\sfa_fspgroup.cs" />
+    <Compile Include="Xrm\sfa_fundingallocation.cs" />
+    <Compile Include="Xrm\sfa_fundingclaimreconciliation.cs" />
+    <Compile Include="Xrm\sfa_fundingtypefundingperiod.cs" />
+    <Compile Include="Xrm\OptionSets\account_accountcategorycode.cs" />
+    <Compile Include="Xrm\OptionSets\account_accountclassificationcode.cs" />
+    <Compile Include="Xrm\OptionSets\account_accountratingcode.cs" />
+    <Compile Include="Xrm\OptionSets\account_address1_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\account_address1_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\account_address1_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\account_address2_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\account_address2_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\account_address2_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\account_businesstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\account_customersizecode.cs" />
+    <Compile Include="Xrm\OptionSets\account_customertypecode.cs" />
+    <Compile Include="Xrm\OptionSets\account_industrycode.cs" />
+    <Compile Include="Xrm\OptionSets\account_ownershipcode.cs" />
+    <Compile Include="Xrm\OptionSets\account_paymenttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\account_preferredappointmentdaycode.cs" />
+    <Compile Include="Xrm\OptionSets\account_preferredappointmenttimecode.cs" />
+    <Compile Include="Xrm\OptionSets\account_preferredcontactmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\account_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\account_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\account_territorycode.cs" />
+    <Compile Include="Xrm\OptionSets\activityparty_instancetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\activityparty_participationtypemask.cs" />
+    <Compile Include="Xrm\OptionSets\activitypointer_activitytypecode.cs" />
+    <Compile Include="Xrm\OptionSets\activitypointer_deliveryprioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\activitypointer_instancetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\activitypointer_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\activitypointer_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\appointment_instancetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\appointment_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\appointment_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\asyncoperation_operationtype.cs" />
+    <Compile Include="Xrm\OptionSets\asyncoperation_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\audit_action.cs" />
+    <Compile Include="Xrm\OptionSets\audit_operation.cs" />
+    <Compile Include="Xrm\OptionSets\budgetstatus.cs" />
+    <Compile Include="Xrm\OptionSets\bulkdeleteoperation_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\bulkoperation_createdrecordtypecode.cs" />
+    <Compile Include="Xrm\OptionSets\bulkoperation_operationtypecode.cs" />
+    <Compile Include="Xrm\OptionSets\bulkoperation_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\bulkoperation_targetedrecordtypecode.cs" />
+    <Compile Include="Xrm\OptionSets\businessunitnewsarticle_articletypecode.cs" />
+    <Compile Include="Xrm\OptionSets\businessunit_address1_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\businessunit_address1_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\businessunit_address2_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\businessunit_address2_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\calendar_type.cs" />
+    <Compile Include="Xrm\OptionSets\campaignactivity_channeltypecode.cs" />
+    <Compile Include="Xrm\OptionSets\campaignactivity_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\campaignactivity_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\campaignactivity_typecode.cs" />
+    <Compile Include="Xrm\OptionSets\campaignresponse_channeltypecode.cs" />
+    <Compile Include="Xrm\OptionSets\campaignresponse_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\campaignresponse_responsecode.cs" />
+    <Compile Include="Xrm\OptionSets\campaignresponse_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\campaign_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\campaign_typecode.cs" />
+    <Compile Include="Xrm\OptionSets\columnmapping_processcode.cs" />
+    <Compile Include="Xrm\OptionSets\columnmapping_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\competitor_address1_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\competitor_address1_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\competitor_address2_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\competitor_address2_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\componentstate.cs" />
+    <Compile Include="Xrm\OptionSets\componenttype.cs" />
+    <Compile Include="Xrm\OptionSets\connectionrole_category.cs" />
+    <Compile Include="Xrm\OptionSets\connectionrole_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\connection_record1objecttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\connection_record2objecttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\connection_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\constraintbasedgroup_grouptypecode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_accountrolecode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_address1_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_address1_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_address1_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_address2_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_address2_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_address2_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_customersizecode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_customertypecode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_educationcode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_familystatuscode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_gendercode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_haschildrencode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_leadsourcecode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_paymenttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_preferredappointmentdaycode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_preferredappointmenttimecode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_preferredcontactmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\contact_territorycode.cs" />
+    <Compile Include="Xrm\OptionSets\contractdetail_contractstatecode.cs" />
+    <Compile Include="Xrm\OptionSets\contractdetail_servicecontractunitscode.cs" />
+    <Compile Include="Xrm\OptionSets\contractdetail_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\contracttemplate_allotmenttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\contracttemplate_billingfrequencycode.cs" />
+    <Compile Include="Xrm\OptionSets\contracttemplate_contractservicelevelcode.cs" />
+    <Compile Include="Xrm\OptionSets\contract_allotmenttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\contract_billingfrequencycode.cs" />
+    <Compile Include="Xrm\OptionSets\contract_contractservicelevelcode.cs" />
+    <Compile Include="Xrm\OptionSets\contract_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\convertrule_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\converttorule_sourcetype.cs" />
+    <Compile Include="Xrm\OptionSets\customeraddress_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\customeraddress_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\customeraddress_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\dependencytype.cs" />
+    <Compile Include="Xrm\OptionSets\discounttype_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\duplicaterulecondition_operatorcode.cs" />
+    <Compile Include="Xrm\OptionSets\emailserverprofile_authenticationprotocol.cs" />
+    <Compile Include="Xrm\OptionSets\emailserverprofile_exchangeversion.cs" />
+    <Compile Include="Xrm\OptionSets\emailserverprofile_incomingcredentialretrieval.cs" />
+    <Compile Include="Xrm\OptionSets\emailserverprofile_outgoingcredentialretrieval.cs" />
+    <Compile Include="Xrm\OptionSets\emailserverprofile_servertype.cs" />
+    <Compile Include="Xrm\OptionSets\emailserverprofile_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\email_correlationmethod.cs" />
+    <Compile Include="Xrm\OptionSets\email_notifications.cs" />
+    <Compile Include="Xrm\OptionSets\email_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\email_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\entitlementtemplate_allocationtype.cs" />
+    <Compile Include="Xrm\OptionSets\entitlementtemplate_decreaseremainingon.cs" />
+    <Compile Include="Xrm\OptionSets\entitlementtemplate_kbaccesslevel.cs" />
+    <Compile Include="Xrm\OptionSets\entitlement_allocationtype.cs" />
+    <Compile Include="Xrm\OptionSets\entitlement_decreaseremainingon.cs" />
+    <Compile Include="Xrm\OptionSets\entitlement_kbaccesslevel.cs" />
+    <Compile Include="Xrm\OptionSets\entitlement_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\fax_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\fax_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\field_security_permission_type.cs" />
+    <Compile Include="Xrm\OptionSets\goalrollupquery_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\goal_fiscalperiod.cs" />
+    <Compile Include="Xrm\OptionSets\goal_fiscalyear.cs" />
+    <Compile Include="Xrm\OptionSets\goal_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\importentitymapping_dedupe.cs" />
+    <Compile Include="Xrm\OptionSets\importentitymapping_processcode.cs" />
+    <Compile Include="Xrm\OptionSets\importentitymapping_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\importfile_datadelimitercode.cs" />
+    <Compile Include="Xrm\OptionSets\importfile_fielddelimitercode.cs" />
+    <Compile Include="Xrm\OptionSets\importfile_filetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\importfile_processcode.cs" />
+    <Compile Include="Xrm\OptionSets\importfile_processingstatus.cs" />
+    <Compile Include="Xrm\OptionSets\importfile_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\importlog_logphasecode.cs" />
+    <Compile Include="Xrm\OptionSets\importlog_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\importmap_entitiesperfile.cs" />
+    <Compile Include="Xrm\OptionSets\importmap_importmaptype.cs" />
+    <Compile Include="Xrm\OptionSets\importmap_sourcetype.cs" />
+    <Compile Include="Xrm\OptionSets\importmap_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\importmap_targetentity.cs" />
+    <Compile Include="Xrm\OptionSets\import_modecode.cs" />
+    <Compile Include="Xrm\OptionSets\import_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\incidentresolution_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\incident_caseorigincode.cs" />
+    <Compile Include="Xrm\OptionSets\incident_casetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\incident_contractservicelevelcode.cs" />
+    <Compile Include="Xrm\OptionSets\incident_customersatisfactioncode.cs" />
+    <Compile Include="Xrm\OptionSets\incident_firstresponseslastatus.cs" />
+    <Compile Include="Xrm\OptionSets\incident_incidentstagecode.cs" />
+    <Compile Include="Xrm\OptionSets\incident_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\incident_resolvebyslastatus.cs" />
+    <Compile Include="Xrm\OptionSets\incident_severitycode.cs" />
+    <Compile Include="Xrm\OptionSets\incident_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\initialcommunication.cs" />
+    <Compile Include="Xrm\OptionSets\invoicedetail_invoicestatecode.cs" />
+    <Compile Include="Xrm\OptionSets\invoicedetail_shipto_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\invoice_paymenttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\invoice_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\invoice_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\invoice_shipto_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\invoice_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\kbarticle_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_address1_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_address1_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_address2_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_address2_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_industrycode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_leadqualitycode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_leadsourcecode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_preferredcontactmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_salesstage.cs" />
+    <Compile Include="Xrm\OptionSets\lead_salesstagecode.cs" />
+    <Compile Include="Xrm\OptionSets\lead_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\letter_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\letter_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\list_createdfromcode.cs" />
+    <Compile Include="Xrm\OptionSets\list_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\lookupmapping_lookupsourcecode.cs" />
+    <Compile Include="Xrm\OptionSets\lookupmapping_processcode.cs" />
+    <Compile Include="Xrm\OptionSets\lookupmapping_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\mailbox_actdeliverymethod.cs" />
+    <Compile Include="Xrm\OptionSets\mailbox_actstatus.cs" />
+    <Compile Include="Xrm\OptionSets\mailbox_emailrouteraccessapproval.cs" />
+    <Compile Include="Xrm\OptionSets\mailbox_incomingemaildeliverymethod.cs" />
+    <Compile Include="Xrm\OptionSets\mailbox_incomingemailstatus.cs" />
+    <Compile Include="Xrm\OptionSets\mailbox_outgoingemaildeliverymethod.cs" />
+    <Compile Include="Xrm\OptionSets\mailbox_outgoingemailstatus.cs" />
+    <Compile Include="Xrm\OptionSets\mailbox_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\mailmergetemplate_documentformat.cs" />
+    <Compile Include="Xrm\OptionSets\mailmergetemplate_mailmergetype.cs" />
+    <Compile Include="Xrm\OptionSets\mailmergetemplate_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\metric_goaltype.cs" />
+    <Compile Include="Xrm\OptionSets\metric_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\msdyn_postalbum_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\msdyn_postconfig_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\msdyn_postruleconfig_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\msdyn_wallsavedqueryusersettings_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\msdyn_wallsavedquery_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\need.cs" />
+    <Compile Include="Xrm\OptionSets\opportunityclose_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\opportunityproduct_opportunitystatecode.cs" />
+    <Compile Include="Xrm\OptionSets\opportunity_opportunityratingcode.cs" />
+    <Compile Include="Xrm\OptionSets\opportunity_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\opportunity_salesstage.cs" />
+    <Compile Include="Xrm\OptionSets\opportunity_salesstagecode.cs" />
+    <Compile Include="Xrm\OptionSets\opportunity_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\opportunity_timeline.cs" />
+    <Compile Include="Xrm\OptionSets\OptionSets.cs" />
+    <Compile Include="Xrm\OptionSets\orderclose_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\organization_currencydisplayoption.cs" />
+    <Compile Include="Xrm\OptionSets\organization_defaultrecurrenceendrangetype.cs" />
+    <Compile Include="Xrm\OptionSets\organization_emailconnectionchannel.cs" />
+    <Compile Include="Xrm\OptionSets\organization_fiscalperiodformat.cs" />
+    <Compile Include="Xrm\OptionSets\organization_fiscalyearformatprefix.cs" />
+    <Compile Include="Xrm\OptionSets\organization_fiscalyearformatsuffix.cs" />
+    <Compile Include="Xrm\OptionSets\organization_fiscalyearformatyear.cs" />
+    <Compile Include="Xrm\OptionSets\organization_fullnameconventioncode.cs" />
+    <Compile Include="Xrm\OptionSets\organization_isvintegrationcode.cs" />
+    <Compile Include="Xrm\OptionSets\organization_negativeformatcode.cs" />
+    <Compile Include="Xrm\OptionSets\organization_reportscripterrors.cs" />
+    <Compile Include="Xrm\OptionSets\organization_yammerpostmethod.cs" />
+    <Compile Include="Xrm\OptionSets\ownermapping_processcode.cs" />
+    <Compile Include="Xrm\OptionSets\ownermapping_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\phonecall_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\phonecall_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\picklistmapping_processcode.cs" />
+    <Compile Include="Xrm\OptionSets\picklistmapping_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\pluginassembly_isolationmode.cs" />
+    <Compile Include="Xrm\OptionSets\pluginassembly_sourcetype.cs" />
+    <Compile Include="Xrm\OptionSets\post_source.cs" />
+    <Compile Include="Xrm\OptionSets\post_type.cs" />
+    <Compile Include="Xrm\OptionSets\pricelevel_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\pricelevel_paymentmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\pricelevel_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\pricelevel_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\processsession_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\processstage_category.cs" />
+    <Compile Include="Xrm\OptionSets\processtrigger_controltype.cs" />
+    <Compile Include="Xrm\OptionSets\productpricelevel_pricingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\productpricelevel_quantitysellingcode.cs" />
+    <Compile Include="Xrm\OptionSets\productpricelevel_roundingoptioncode.cs" />
+    <Compile Include="Xrm\OptionSets\productpricelevel_roundingpolicycode.cs" />
+    <Compile Include="Xrm\OptionSets\product_producttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\product_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\publisheraddress_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\publisheraddress_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\publisheraddress_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\publisher_address1_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\publisher_address1_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\publisher_address2_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\publisher_address2_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\purchaseprocess.cs" />
+    <Compile Include="Xrm\OptionSets\purchasetimeframe.cs" />
+    <Compile Include="Xrm\OptionSets\qooi_pricingerrorcode.cs" />
+    <Compile Include="Xrm\OptionSets\queueitem_objecttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\queueitem_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\queue_emailrouteraccessapproval.cs" />
+    <Compile Include="Xrm\OptionSets\queue_incomingemaildeliverymethod.cs" />
+    <Compile Include="Xrm\OptionSets\queue_incomingemailfilteringmethod.cs" />
+    <Compile Include="Xrm\OptionSets\queue_outgoingemaildeliverymethod.cs" />
+    <Compile Include="Xrm\OptionSets\queue_queuetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\queue_queueviewtype.cs" />
+    <Compile Include="Xrm\OptionSets\queue_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\quoteclose_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\quotedetail_quotestatecode.cs" />
+    <Compile Include="Xrm\OptionSets\quotedetail_shipto_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\quote_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\quote_paymenttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\quote_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\quote_shipto_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\recurrencerule_instance.cs" />
+    <Compile Include="Xrm\OptionSets\recurrencerule_monthofyear.cs" />
+    <Compile Include="Xrm\OptionSets\recurrencerule_patternendtype.cs" />
+    <Compile Include="Xrm\OptionSets\recurrencerule_recurrencepatterntype.cs" />
+    <Compile Include="Xrm\OptionSets\recurringappointmentmaster_expansionstatecode.cs" />
+    <Compile Include="Xrm\OptionSets\recurringappointmentmaster_instance.cs" />
+    <Compile Include="Xrm\OptionSets\recurringappointmentmaster_instancetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\recurringappointmentmaster_patternendtype.cs" />
+    <Compile Include="Xrm\OptionSets\recurringappointmentmaster_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\recurringappointmentmaster_recurrencepatterntype.cs" />
+    <Compile Include="Xrm\OptionSets\recurringappointmentmaster_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\relationshiprole_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\reportcategory_categorycode.cs" />
+    <Compile Include="Xrm\OptionSets\reportlink_linktypecode.cs" />
+    <Compile Include="Xrm\OptionSets\reportvisibility_visibilitycode.cs" />
+    <Compile Include="Xrm\OptionSets\report_reporttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\routingrule_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\salesliteratureitem_filetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\salesliterature_literaturetypecode.cs" />
+    <Compile Include="Xrm\OptionSets\salesorderdetail_salesorderstatecode.cs" />
+    <Compile Include="Xrm\OptionSets\salesorderdetail_shipto_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\salesorder_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\salesorder_paymenttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\salesorder_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\salesorder_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\salesorder_shipto_freighttermscode.cs" />
+    <Compile Include="Xrm\OptionSets\salesorder_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\savedquery_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sdkmessageprocessingstepimage_imagetype.cs" />
+    <Compile Include="Xrm\OptionSets\sdkmessageprocessingstep_invocationsource.cs" />
+    <Compile Include="Xrm\OptionSets\sdkmessageprocessingstep_mode.cs" />
+    <Compile Include="Xrm\OptionSets\sdkmessageprocessingstep_stage.cs" />
+    <Compile Include="Xrm\OptionSets\sdkmessageprocessingstep_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sdkmessageprocessingstep_supporteddeployment.cs" />
+    <Compile Include="Xrm\OptionSets\serviceappointment_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\serviceappointment_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\serviceendpoint_connectionmode.cs" />
+    <Compile Include="Xrm\OptionSets\serviceendpoint_contract.cs" />
+    <Compile Include="Xrm\OptionSets\serviceendpoint_userclaim.cs" />
+    <Compile Include="Xrm\OptionSets\servicestage.cs" />
+    <Compile Include="Xrm\OptionSets\service_initialstatuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_action.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_actiononcontractallocation.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_actiononexisitingtask.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_agency_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_amendmenttype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_assignto.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_cappinggroup.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_cappinggroups_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_caseload_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_completedby.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contractallocationhierarchytype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contractallocation_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contractdeliverableperiod_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contractdeliverable_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contracthierarchytype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contractnumber_sfa_contractnumbertype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contractnumber_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contractstatus.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contracttransitionhistory_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contracttype_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_contract_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_deliverablestatus.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_deliverable_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_fspdeliverablesetting_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_fundingstreampaymenttype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_fundingstreamperioddeliverable_sfa_parentdeliverabletype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_fundingstreamperioddeliverable_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_fundingstreamperiod_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_fundingstream_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_fundingtype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_fundingtype_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_notificationtype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_notification_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_organisationcategory.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_organisationtype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_paymentcappinglevel.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_paymentcappingperiod.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_paymenttype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_periodtype_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_period_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_planningunit.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_process_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_serviceresponse.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_setrecordstates.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_settingdatatype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_settingvaluelist_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_setting_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_stagingentity_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_status_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_subnominalaggregation_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_tasktype.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_transition_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_unitofprocurement_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sfa_webserviceresource_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sharepointdocumentlocation_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sharepointsite_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\sharepoint_validationstatus.cs" />
+    <Compile Include="Xrm\OptionSets\sharepoint_validationstatusreason.cs" />
+    <Compile Include="Xrm\OptionSets\site_address1_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\site_address1_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\site_address2_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\site_address2_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\slabase_applicablefrom.cs" />
+    <Compile Include="Xrm\OptionSets\sla_objecttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\sla_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\socialactivity_postmessagetype.cs" />
+    <Compile Include="Xrm\OptionSets\socialactivity_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\socialactivity_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\socialinsightsconfiguration_dataitemtype.cs" />
+    <Compile Include="Xrm\OptionSets\socialinsightsconfiguration_formtypecode.cs" />
+    <Compile Include="Xrm\OptionSets\socialprofile_community.cs" />
+    <Compile Include="Xrm\OptionSets\socialprofile_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\systemform_formactivationstate.cs" />
+    <Compile Include="Xrm\OptionSets\systemform_formpresentation.cs" />
+    <Compile Include="Xrm\OptionSets\systemform_type.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_accessmode.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_address1_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_address1_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_address2_addresstypecode.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_address2_shippingmethodcode.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_caltype.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_emailrouteraccessapproval.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_incomingemaildeliverymethod.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_invitestatuscode.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_outgoingemaildeliverymethod.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_preferredaddresscode.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_preferredemailcode.cs" />
+    <Compile Include="Xrm\OptionSets\systemuser_preferredphonecode.cs" />
+    <Compile Include="Xrm\OptionSets\task_prioritycode.cs" />
+    <Compile Include="Xrm\OptionSets\task_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\team_type.cs" />
+    <Compile Include="Xrm\OptionSets\tracelog_level.cs" />
+    <Compile Include="Xrm\OptionSets\transactioncurrency_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\transformationmapping_processcode.cs" />
+    <Compile Include="Xrm\OptionSets\transformationmapping_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\transformationparametermapping_datatypecode.cs" />
+    <Compile Include="Xrm\OptionSets\transformationparametermapping_parametertypecode.cs" />
+    <Compile Include="Xrm\OptionSets\uomschedule_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\userform_type.cs" />
+    <Compile Include="Xrm\OptionSets\userquery_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\usersettings_datavalidationmodeforexporttoexcel.cs" />
+    <Compile Include="Xrm\OptionSets\usersettings_entityformmode.cs" />
+    <Compile Include="Xrm\OptionSets\usersettings_incomingemailfilteringmethod.cs" />
+    <Compile Include="Xrm\OptionSets\usersettings_reportscripterrors.cs" />
+    <Compile Include="Xrm\OptionSets\usersettings_visualizationpanelayout.cs" />
+    <Compile Include="Xrm\OptionSets\webresource_webresourcetype.cs" />
+    <Compile Include="Xrm\OptionSets\workflowdependency_type.cs" />
+    <Compile Include="Xrm\OptionSets\workflowlog_objecttypecode.cs" />
+    <Compile Include="Xrm\OptionSets\workflowlog_status.cs" />
+    <Compile Include="Xrm\OptionSets\workflow_category.cs" />
+    <Compile Include="Xrm\OptionSets\workflow_mode.cs" />
+    <Compile Include="Xrm\OptionSets\workflow_runas.cs" />
+    <Compile Include="Xrm\OptionSets\workflow_scope.cs" />
+    <Compile Include="Xrm\OptionSets\workflow_stage.cs" />
+    <Compile Include="Xrm\OptionSets\workflow_statuscode.cs" />
+    <Compile Include="Xrm\OptionSets\workflow_type.cs" />
+    <Compile Include="Xrm\sfa_agency.cs" />
+    <Compile Include="Xrm\sfa_caseload.cs" />
+    <Compile Include="Xrm\sfa_contract.cs" />
+    <Compile Include="Xrm\sfa_contractallocation.cs" />
+    <Compile Include="Xrm\sfa_contractdeliverable.cs" />
+    <Compile Include="Xrm\sfa_contractdeliverableperiod.cs" />
+    <Compile Include="Xrm\sfa_contractnumber.cs" />
+    <Compile Include="Xrm\sfa_contracttransitionhistory.cs" />
+    <Compile Include="Xrm\sfa_contracttype.cs" />
+    <Compile Include="Xrm\sfa_deliverable.cs" />
+    <Compile Include="Xrm\sfa_fundingstream.cs" />
+    <Compile Include="Xrm\sfa_fundingstreamperiod.cs" />
+    <Compile Include="Xrm\sfa_fundingstreamperioddeliverable.cs" />
+    <Compile Include="Xrm\sfa_fundingtype.cs" />
+    <Compile Include="Xrm\sfa_fundingtype_fundingstream.cs" />
+    <Compile Include="Xrm\sfa_notification.cs" />
+    <Compile Include="Xrm\sfa_paymenttimetable.cs" />
+    <Compile Include="Xrm\sfa_period.cs" />
+    <Compile Include="Xrm\sfa_periodtype.cs" />
+    <Compile Include="Xrm\sfa_process.cs" />
+    <Compile Include="Xrm\sfa_releasegroup.cs" />
+    <Compile Include="Xrm\sfa_sfa_subnominalaggregation_sfa_contracta.cs" />
+    <Compile Include="Xrm\sfa_stagingentity.cs" />
+    <Compile Include="Xrm\sfa_status.cs" />
+    <Compile Include="Xrm\sfa_subnominalaggregation.cs" />
+    <Compile Include="Xrm\sfa_terminationselectionaction.cs" />
+    <Compile Include="Xrm\sfa_transition.cs" />
+    <Compile Include="Xrm\sfa_unitofprocurement.cs" />
+    <Compile Include="Xrm\sfa_webserviceresource.cs" />
+    <Compile Include="Xrm\SystemUser.cs" />
+    <Compile Include="Xrm\Task.cs" />
+    <Compile Include="Xrm\Team.cs" />
+    <Compile Include="Xrm\XrmServiceContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AllocationActuals\Allocation_Actuals_1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="AllocationDeliveryPerformance\allocation-delivery-performance-schema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CorporateSchema\contract_corporate_schema_v11.03.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeliveryAllocation\delivery_allocation.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CorporateSchema\contract_corporate_schema_v11.09.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="ExcelUpload\excelupload_schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="Organisation\organisation_corporate_schema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FundingPolicy\funding_policy_api_schema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FundingPolicy\funding_policy_corporate_schema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaymentGeneration\payments_generation_corporate_schema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="FSCDeliverableStructure\FSCDeliverableStructureDefinitionResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="PerformanceManagement\FundingClaimReconciliation\CorporateSchema\1_0\FundingClaimReconciliation.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformanceManagement\FundingClaim\CorporateSchema\1_0\FundingClaim.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformanceManagement\FundingClaim\CorporateSchema\2_0\FundingClaim.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformanceManagement\FundingClaim\CorporateSchema\3_0\FundingClaim.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformanceManagement\FundingClaimReconciliation\CorporateSchema\2_0\FundingClaimReconciliation.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <EmbeddedResource Include="PerformanceManagement\FundingClaimReconciliation\CorporateSchema\3_0\FundingClaimReconciliation.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Settings.StyleCop" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Organisation\ReadMe.txt" />
+    <Content Include="PaymentGeneration\ReadMe.txt" />
+    <Content Include="xsd2codeREADME.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

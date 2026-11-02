@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentTag": {
+      "type": "string"
+    },
+    "parentBusinessTag": {
+      "type": "string"
+    },
+    "portfolioTag": {
+      "type": "string"
+    },
+    "productTag": {
+      "type": "string"
+    },
+    "serviceLineTag": {
+      "type": "string"
+    },
+    "deploymentUrlBase": {
+      "type": "string",
+      "metadata": {
+        "description": "The root url which holds all of the linked templates used by this template, a parameter to ease testing."
+      }
+    },
+    "dataFactoryName": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "deployDataFactory",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'data-factory.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "environmentTag": {
+            "value": "[parameters('environmentTag')]"
+          },
+          "parentBusinessTag": {
+            "value": "[parameters('parentBusinessTag')]"
+          },
+          "portfolioTag": {
+            "value": "[parameters('portfolioTag')]"
+          },
+          "productTag": {
+            "value": "[parameters('productTag')]"
+          },
+          "serviceLineTag": {
+            "value": "[parameters('serviceLineTag')]"
+          },
+          "location": {
+            "value": "West Europe"
+          },
+          "dataFactoryName": {
+            "value": "[parameters('dataFactoryName')]"
+          }
+        }
+      }
+    }
+  ]
+}

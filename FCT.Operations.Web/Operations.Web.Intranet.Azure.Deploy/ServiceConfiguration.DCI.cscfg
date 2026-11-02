@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Operations.Web.Intranet.Azure.Deploy" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="6" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Operations.Web">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="ccd3a825-1f5e-47cd-9083-bfb9b3eaeecd" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SSLCertificate" thumbprint="F96341234ED529C5426035B9D2D08FF47454F263" thumbprintAlgorithm="sha1" />
+      <Certificate name="CPDSAuth" thumbprint="902EF2DEEB3C5B13EA4C3D5193629309E231AE55" thumbprintAlgorithm="sha1" />
+      <Certificate name="DedsAuth" thumbprint="B1BC968BD4F49D622AA89A81F2150152A41D829C" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="Group fcs-env-shared-rg fcs-env-shared-asm-vnet-01" />
+    <AddressAssignments>
+      <InstanceAddress roleName="Operations.Web">
+        <Subnets>
+          <Subnet name="default" />
+        </Subnets>
+      </InstanceAddress>
+    </AddressAssignments>
+    <LoadBalancers>
+      <LoadBalancer name="fcs-opsweb-ilb">
+        <FrontendIPConfiguration type="private" subnet="opsweb" staticVirtualNetworkIPAddress="10.0.1.153" />
+      </LoadBalancer>
+    </LoadBalancers>
+  </NetworkConfiguration>
+</ServiceConfiguration>

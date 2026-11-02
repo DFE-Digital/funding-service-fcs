@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)'=='' ">12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectsToBuild Include="$(MSBuildThisFileDirectory)\PaymentsGateway\PaymentsGateway.csproj">
+      <AdditionalProperties>
+        VisualStudioVersion=$(VisualStudioVersion);
+        Configuration=$(Configuration);
+        Platform=$(Platform);
+        DeployOnBuild=true;
+        DeployTarget=WebPublish;
+        AllowUntrustedCertificate=True;
+        CreatePackageOnPublish=True;
+        PublishProfile=$(MSBuildThisFileDirectory)\PaymentsGateway\Properties\PublishProfiles\PaymentsGateway-$(Configuration).pubxml
+      </AdditionalProperties>
+    </ProjectsToBuild>
+  </ItemGroup>
+
+  <Target Name="Build">
+    <MSBuild Projects="@(ProjectsToBuild)" />
+  </Target>
+</Project>

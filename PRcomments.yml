@@ -1,0 +1,155 @@
+trigger: none
+
+# ---------- PARAMETERS ----------
+parameters:
+- name: orgUrl
+  default: 'https://dev.azure.com/dfe-gov-uk'
+- name: project
+  default: 'Funding Transformation Programme'
+
+# scan mode window (UTC)
+- name: start
+  default: '2025-07-02T00:00:00Z'
+- name: end
+  default: '2025-07-15T23:59:59Z'
+
+# optional: limit to a repo name (exact match); leave blank for all repos
+- name: repoFilter
+  default: ''
+
+# run mode: 'scan' (project) or 'single' (one PR)
+- name: runMode
+  default: 'scan'   # 'scan' | 'single'
+
+# only used in 'single' mode:
+- name: singleRepo
+  default: ''       # e.g. 'FCS'
+- name: singlePrId
+  default: '0'      # e.g. '11979'
+
+# include draft comments? (true/false)
+- name: includeDrafts
+  default: 'false'
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: none
+
+- task: PowerShell@2
+  displayName: Export PR review comments to CSV
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+  inputs:
+    targetType: 'inline'
+    script: |
+      $ErrorActionPreference = 'Stop'
+
+      # -------- Parameters --------
+      $orgUrl      = '${{ parameters.orgUrl }}'
+      $project     = '${{ parameters.project }}'
+      $start       = [datetime]::Parse('${{ parameters.start }}')
+      $end         = [datetime]::Parse('${{ parameters.end }}')
+      $repoFilter  = '${{ parameters.repoFilter }}'
+      $runMode     = '${{ parameters.runMode }}'.ToLower()
+      $singleRepo  = '${{ parameters.singleRepo }}'
+      $singlePrId  = [int]'${{ parameters.singlePrId }}'
+      $includeDrafts = '${{ parameters.includeDrafts }}'.ToLower() -eq 'true'
+
+      # -------- Auth --------
+      $token = "$(System.AccessToken)"
+      if ([string]::IsNullOrWhiteSpace($token)) {
+        throw "System.AccessToken is empty. In the pipeline's settings, enable 'Allow scripts to access OAuth token'."
+      }
+      $headers = @{ Authorization = "Bearer $token"; Accept = "application/json" }
+
+      $rows = New-Object System.Collections.Generic.List[Object]
+      $threadsTotal = 0; $commentsTotal = 0
+
+      function Get-Repos {
+        $repos = (Invoke-RestMethod -Headers $headers -Uri "$orgUrl/$project/_apis/git/repositories?api-version=7.1").value
+        if ($repoFilter) {
+          $repos = $repos | Where-Object name -eq $repoFilter
+          if (-not $repos) { Write-Warning "repoFilter '$repoFilter' matched no repos." }
+        }
+        return $repos
+      }
+
+      function Add-CommentsFromThreads([object]$repo, [object]$pr, [object[]]$threads) {
+        foreach ($t in $threads) {
+          $file = $t.threadContext.filePath
+          $line = $t.threadContext.rightFileStart.line
+          foreach ($c in $t.comments) {
+            if ($c.isDeleted) { continue }
+            if (-not $includeDrafts -and $c.isDraft) { continue }
+            $script:commentsTotal++
+            $rows.Add([pscustomobject]@{
+              Repo            = $repo.name
+              PR_ID           = $pr.pullRequestId
+              PR_Title        = $pr.title
+              PR_Status       = $pr.status
+              PR_Created      = $pr.creationDate
+              PR_Closed       = $pr.closedDate
+              PR_Url          = $pr._links.web.href
+              File            = $file
+              Line            = $line
+              Comment_Author  = $c.author.displayName
+              Comment_Date    = $c.publishedDate
+              Comment         = ($c.content -replace "`r?`n"," ").Trim()
+            })
+          }
+        }
+      }
+
+      if ($runMode -eq 'single') {
+        if ([string]::IsNullOrWhiteSpace($singleRepo) -or $singlePrId -le 0) {
+          throw "single mode requires parameters: singleRepo and singlePrId"
+        }
+        Write-Host "Mode: SINGLE → repo='$singleRepo', PR=$singlePrId"
+
+        $repo = (Invoke-RestMethod -Headers $headers -Uri "$orgUrl/$project/_apis/git/repositories/$singleRepo?api-version=7.1")
+        $pr   = (Invoke-RestMethod -Headers $headers -Uri "$orgUrl/$project/_apis/git/repositories/$($repo.id)/pullRequests/$singlePrId?api-version=7.1")
+        $threads = (Invoke-RestMethod -Headers $headers -Uri "$orgUrl/$project/_apis/git/repositories/$($repo.id)/pullRequests/$singlePrId/threads?api-version=7.1").value
+        $threadsTotal += $threads.Count
+        Write-Host "Threads: $($threads.Count)"
+        Add-CommentsFromThreads -repo $repo -pr $pr -threads $threads
+
+      } else {
+        Write-Host "Mode: SCAN → project='$project'  window=$start .. $end"
+        $repos = Get-Repos
+        Write-Host "Repos found: $($repos.Count)"
+        $totalPRs = 0; $prsInWindow = 0
+
+        foreach ($repo in $repos) {
+          Write-Host "== Repo: $($repo.name)"
+          $prs = (Invoke-RestMethod -Headers $headers -Uri "$orgUrl/$project/_apis/git/repositories/$($repo.id)/pullRequests?searchCriteria.status=all&`$top=1000&api-version=7.1").value
+          $totalPRs += $prs.Count
+          Write-Host "PRs returned: $($prs.Count)"
+
+          foreach ($pr in $prs) {
+            $created = Get-Date $pr.creationDate
+            $closed  = if ($pr.closedDate) { Get-Date $pr.closedDate } else { $null }
+            $inWindow = ($created -ge $start -and $created -le $end) -or ($closed -and $closed -ge $start -and $closed -le $end)
+            if (-not $inWindow) { continue }
+            $prsInWindow++
+
+            $threads = (Invoke-RestMethod -Headers $headers -Uri "$orgUrl/$project/_apis/git/repositories/$($repo.id)/pullRequests/$($pr.pullRequestId)/threads?api-version=7.1").value
+            $threadsTotal += $threads.Count
+            if ($threads.Count -eq 0) { Write-Host "  PR #$($pr.pullRequestId): 0 threads" } else { Write-Host "  PR #$($pr.pullRequestId): $($threads.Count) threads" }
+            Add-CommentsFromThreads -repo $repo -pr $pr -threads $threads
+          }
+        }
+        Write-Host "PRs in window: $prsInWindow / total $totalPRs"
+      }
+
+      Write-Host "SUMMARY: threads=$threadsTotal comments=$commentsTotal"
+
+      $outDir = "$(Build.ArtifactStagingDirectory)"
+      New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+      $csv = Join-Path $outDir "pr-comments.csv"
+      $rows | Export-Csv -NoTypeInformation -Encoding UTF8 $csv
+      Write-Host "CSV rows written: $($rows.Count) -> $csv"
+
+- publish: $(Build.ArtifactStagingDirectory)
+  artifact: pr-comments

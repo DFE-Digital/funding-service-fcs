@@ -1,0 +1,38 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017712</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017712</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>AETL-1712</AllocationNumber>
+        <VersionNumber>1</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2355870</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>19-24TrnContractLS</SubnominalDescription>
+      <AggregatedValue>2807.00</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>AERL</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2020-08-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2021-07-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2020-09-04</CensusEndDate>
+  <DueDate>2020-09-18</DueDate>
+  <FinancialPaymentFinancialYear>2020</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>06</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

@@ -1,0 +1,62 @@
+﻿{
+  "PaymentScheduleAllocation": {
+    "AllocationNumber": "LEVY-2905",
+    "VersionNumber": 1,
+    "FundingStreamPeriodCode": "LEVY1799",
+    "ContractNumber": "APPLEVY-2905",
+    "ContractVersionNumber": 1,
+    "AllocationDeliverables": [
+      {
+        "DeliverableCode": 11,
+        "ScheduledPayments": [
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201807",
+            "PlannedVolume": null,
+            "PlannedValue": null,
+            "ProfilePaymentAmount": null,
+            "CappedPaymentAmount": null,
+            "BalancingPaymentAmount": null,
+            "ReconciliationPaymentAmount": 261.67,
+            "NetPaymentAmount": 261.67,
+            "ActualVolume": null,
+            "ActualValue": null,
+            "CollectionReturnCode": null
+          }
+        ]
+      },
+      {
+        "DeliverableCode": 8,
+        "ScheduledPayments": [
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201807",
+            "PlannedVolume": null,
+            "PlannedValue": null,
+            "ProfilePaymentAmount": null,
+            "CappedPaymentAmount": null,
+            "BalancingPaymentAmount": null,
+            "ReconciliationPaymentAmount": 533.33,
+            "NetPaymentAmount": 533.33,
+            "ActualVolume": null,
+            "ActualValue": null,
+            "CollectionReturnCode": null
+          }
+        ]
+      }
+    ],
+    "ProvisionIdentifiers": [],
+    "Organisation": {
+      "MainOrganisationIdentifier": "ORG0002275",
+      "OrganisationIdentifiers": [
+        {
+          "OrganisationId": "10040909",
+          "OrganisationIdentifierName": 0
+        }
+      ]
+    },
+    "schemaVersion": 1.01
+  },
+  "PaymentEventOrigin": 4,
+  "TimesMessageDeferred": 0
+}

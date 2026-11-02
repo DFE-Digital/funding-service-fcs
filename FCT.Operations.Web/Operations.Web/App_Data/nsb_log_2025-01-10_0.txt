@@ -1,0 +1,84 @@
+﻿2025-01-10 12:29:50.713 INFO  DefaultFactory Logging to 'C:\Fcs-Repository\FCS\FCT.Operations.Web\Operations.Web\App_Data\' with level Info
+2025-01-10 12:29:50.745 WARN  NServiceBus.Hosting.Helpers.AssemblyScanner Could not enumerate all types for 'CrossDomain.Integration.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+
+Try to add the following binding redirects to the config file:
+<runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+        <dependentAssembly>
+            <assemblyIdentity name="NServiceBus.Core" publicKeyToken="9fc386479f8a226c" culture="neutral" />
+            <bindingRedirect oldVersion="0.0.0.0-7.0.0.0" newVersion="7.0.0.0" />
+        </dependentAssembly>
+    </assemblyBinding>
+</runtime>
+
+2025-01-10 12:29:50.942 WARN  NServiceBus.Hosting.Helpers.AssemblyScanner Could not enumerate all types for 'CrossDomain.Integration.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+
+Try to add the following binding redirects to the config file:
+<runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+        <dependentAssembly>
+            <assemblyIdentity name="NServiceBus.Core" publicKeyToken="9fc386479f8a226c" culture="neutral" />
+            <bindingRedirect oldVersion="0.0.0.0-7.0.0.0" newVersion="7.0.0.0" />
+        </dependentAssembly>
+    </assemblyBinding>
+</runtime>
+
+2025-01-10 12:29:51.149 INFO  NServiceBus.LicenseManager No valid license could be found. Falling back to trial license with start date '2024-01-27'.
+
+2025-01-10 12:29:51.149 WARN  NServiceBus.LicenseManager Trial for the Particular Service Platform has expired.
+2025-01-10 12:29:51.149 WARN  NServiceBus.LicenseManager Opening browser to: https://particular.net/license/nservicebus?v=7.1.4&t=0&p=windows
+2025-01-10 12:29:57.124 INFO  NServiceBus.Transport.AzureServiceBus.AzureServiceBusTopicCreator Checking existence cache for 'TestSendingEndpoint.events'
+2025-01-10 12:29:57.127 INFO  NServiceBus.Transport.AzureServiceBus.AzureServiceBusTopicCreator Checking namespace for existence of the topic 'TestSendingEndpoint.events'
+2025-01-10 12:29:57.368 INFO  NServiceBus.Transport.AzureServiceBus.AzureServiceBusTopicCreator Determined, from cache, that the topic 'TestSendingEndpoint.events' exists
+2025-01-10 12:29:57.371 INFO  NServiceBus.Transport.AzureServiceBus.AzureServiceBusTopicCreator Topic 'TestSendingEndpoint.events' already exists, skipping creation
+2025-01-10 12:29:57.373 INFO  NServiceBus.Transport.AzureServiceBus.AzureServiceBusTopicCreator Checking if topic 'TestSendingEndpoint.events' needs to be updated
+2025-01-10 12:30:08.427 FATAL NServiceBus Failed to receive message from Azure Service Bus.
+System.AggregateException: One or more errors occurred. ---> Microsoft.ServiceBus.Messaging.MessagingEntityNotFoundException: 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:85e43ac1-edf6-4818-962d-4a7644a4de25_G6, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:02 ---> System.ServiceModel.FaultException: 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:85e43ac1-edf6-4818-962d-4a7644a4de25_G6, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:02
+   at Microsoft.ServiceBus.Messaging.Sbmp.DuplexRequestBindingElement.DuplexRequestSessionChannel.ThrowIfFaultMessage(Message wcfMessage)
+   at Microsoft.ServiceBus.Messaging.Sbmp.DuplexRequestBindingElement.DuplexRequestSessionChannel.HandleMessageReceived(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.ServiceBus.Common.AsyncResult.End[TAsyncResult](IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.Sbmp.DuplexRequestBindingElement.DuplexRequestSessionChannel.EndRequest(IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.Channels.ReconnectBindingElement.ReconnectChannelFactory`1.RequestSessionChannel.RequestAsyncResult.<>c.<GetAsyncSteps>b__9_3(RequestAsyncResult thisPtr, IAsyncResult r)
+   at Microsoft.ServiceBus.Messaging.IteratorAsyncResult`1.StepCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.ServiceBus.Common.AsyncResult.End[TAsyncResult](IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.Channels.ReconnectBindingElement.ReconnectChannelFactory`1.RequestSessionChannel.EndRequest(IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.Sbmp.RedirectBindingElement.RedirectContainerChannelFactory`1.RedirectContainerSessionChannel.RequestAsyncResult.<>c__DisplayClass8_1.<GetAsyncSteps>b__4(RequestAsyncResult thisPtr, IAsyncResult r)
+   at Microsoft.ServiceBus.Messaging.IteratorAsyncResult`1.StepCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.ServiceBus.Common.AsyncResult.End[TAsyncResult](IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.Sbmp.RedirectBindingElement.RedirectContainerChannelFactory`1.RedirectContainerSessionChannel.EndRequest(IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.Channels.ReconnectBindingElement.ReconnectChannelFactory`1.RequestSessionChannel.RequestAsyncResult.<>c.<GetAsyncSteps>b__9_3(RequestAsyncResult thisPtr, IAsyncResult r)
+   at Microsoft.ServiceBus.Messaging.IteratorAsyncResult`1.StepCallback(IAsyncResult result)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.ServiceBus.Common.AsyncResult.End[TAsyncResult](IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.Channels.ReconnectBindingElement.ReconnectChannelFactory`1.RequestSessionChannel.EndRequest(IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.Sbmp.SbmpMessageReceiver.EndReceiveCommand(IAsyncResult result, IEnumerable`1& messages)
+   --- End of inner exception stack trace ---
+   at Microsoft.ServiceBus.Common.ExceptionExtensions.ThrowException(Exception exception)
+   at Microsoft.ServiceBus.Common.AsyncResult.End[TAsyncResult](IAsyncResult result)
+   at Microsoft.ServiceBus.Messaging.MessageReceiver.OnMessage(MessageReceivePump pump)
+   at NServiceBus.Transport.AzureServiceBus.MessageReceiverAdapter.OnMessage(Func`2 callback, OnMessageOptions options)
+   at NServiceBus.Transport.AzureServiceBus.MessageReceiverNotifier.<InitializeAndStartReceiver>d__6.MoveNext()
+   --- End of inner exception stack trace ---
+---> (Inner Exception #0) 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:85e43ac1-edf6-4818-962d-4a7644a4de25_G6, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:02<---
+
+---> (Inner Exception #1) 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:2f1ecaee-9211-4dab-b0cd-0f574df7c22d_G79, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:03<---
+
+---> (Inner Exception #2) 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:fe6e0e14-a454-4186-9543-a1ea363ebb5c_G29, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:04<---
+
+---> (Inner Exception #3) 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:daa9c948-80fb-421b-b5f1-527c3f4ae582_G7, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:05<---
+
+---> (Inner Exception #4) 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:45d9d89d-0bef-460a-aad7-a4d0e7152c2c_G6, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:06<---
+
+---> (Inner Exception #5) 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:f877125a-197d-477d-8b7d-78079743a8f8_G79, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:06<---
+
+---> (Inner Exception #6) 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:61c157c9-ba40-49f0-84c0-e785c023b1a3_G29, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:07<---
+
+---> (Inner Exception #7) 40400: Endpoint not found., Resource:sb://fct-integrationsb-dmo.servicebus.windows.net/testsendingendpoint. TrackingId:d2fed47e-8037-4e07-acfa-54d0e2730f50_G7, SystemTracker:fct-integrationsb-dmo.servicebus.windows.net:TestSendingEndpoint, Timestamp:2025-01-10T12:30:08<---
+

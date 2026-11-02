@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{16654191-19ad-48ca-9e46-c4b4fbdad76f}</formid>
+  <IntroducedVersion>6.0.0.0</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab name="TASK_TAB" verticallayout="true" id="{ADFD103B-691E-4A92-B4CF-F844B645A1F7}" IsUserDefined="0" showlabel="false" expanded="true" ordinalvalue="0">
+        <columns>
+          <column width="67%" id="0">
+            <sections>
+              <section name="TASK" showlabel="false" showbar="false" id="{EBB3C46D-5E9B-4EBB-A9E4-B8C25D364BB3}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelposition="Left" ordinalvalue="0">
+                <rows>
+                  <row>
+                    <cell id="{5FD2BE87-C1CF-41A6-9AD9-4D273733422E}" showlabel="true" locklevel="0" colspan="2" labelid="{f670bd68-6ea9-4665-b504-834f4c254a07}" ordinalvalue="10000">
+                      <labels>
+                        <label description="Task" languagecode="1033" solutionaction="Added" />
+                      </labels>
+                      <control id="subject" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="subject" disabled="true" solutionaction="Modified" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="Description" showlabel="true" showbar="false" locklevel="0" id="{bde07399-10a4-ddc1-ae5c-39b7ac6a0d7c}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Top" height="auto" labelid="{3e311b53-86ab-4733-ac24-54eba6327ebd}" ordinalvalue="1" solutionaction="Modified">
+                <rows>
+                  <row>
+                    <cell id="{34941c93-b671-08a7-5b39-5d4e1443b6e0}" showlabel="false" locklevel="0" auto="true" rowspan="4" ordinalvalue="10000" solutionaction="Modified">
+                      <labels>
+                        <label description="Description" languagecode="1033" solutionaction="Added" />
+                      </labels>
+                      <control id="description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="description" disabled="true" solutionaction="Modified" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{496d7aaa-80b5-c36e-bedd-40cd5eaaaba5}" showlabel="false" userspacer="true" ordinalvalue="10001" solutionaction="Added">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="task details" showlabel="false" showbar="false" locklevel="0" id="{96BF03F6-399F-42D0-8295-08E1B8890D01}" IsUserDefined="0" layout="varwidth" columns="11" labelid="{a75b944b-2152-476c-8a9c-73cfeda7c0fa}" ordinalvalue="2">
+                <rows>
+                  <row>
+                    <cell showlabel="true" id="{E1DB7569-03E5-4B12-A5C0-4E875D1163D8}" locklevel="0" colspan="2" labelid="{1f99d1b9-9de8-4d2f-86f7-0c589f6c24df}" ordinalvalue="10002" solutionaction="Modified">
+                      <labels>
+                        <label description="Regarding" languagecode="1033" solutionaction="Added" />
+                      </labels>
+                      <control id="regardingobjectid" classid="{F3015350-44A2-4aa0-97B5-00166532B5E9}" datafieldname="regardingobjectid" disabled="true" solutionaction="Modified" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell showlabel="true" id="{CC840E7F-65AB-4F53-B495-4AEA458370B0}" labelid="{a7a7baec-6af8-4ab9-8952-8f009923ee1d}" locklevel="0" ordinalvalue="10003" solutionaction="Modified">
+                      <labels>
+                        <label description="Duration" languagecode="1033" solutionaction="Added" />
+                      </labels>
+                      <control id="actualdurationminutes" classid="{AA987274-CE4E-4271-A803-66164311A958}" datafieldname="actualdurationminutes" disabled="true" solutionaction="Modified" />
+                    </cell>
+                    <cell id="{9c426b60-1a67-4a1b-bd31-1d66b241e59c}" showlabel="false" labelid="{6449a7c4-c173-4b6b-9796-ff33b8f0befd}" ordinalvalue="20002" solutionaction="Removed" />
+                  </row>
+                  <row>
+                    <cell id="{e24e9c22-ad2a-7e0c-90aa-2878adcc9c96}" showlabel="true" locklevel="0" ordinalvalue="10000" solutionaction="Added">
+                      <labels>
+                        <label description="Status" languagecode="1033" />
+                      </labels>
+                      <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="true" />
+                    </cell>
+                    <cell id="{972b3eab-832d-19b9-68a7-11e9d81bbbc8}" showlabel="true" locklevel="0" visible="false" ordinalvalue="20001" solutionaction="Added">
+                      <labels>
+                        <label description="Task Completed By" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_taskcompletedby" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_taskcompletedby" disabled="true" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{0890ce0b-6bb9-154e-c7c4-581d4149a868}" showlabel="true" locklevel="0" ordinalvalue="20004" solutionaction="Added">
+                      <labels>
+                        <label description="Assigned Team" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_assignedteam" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_assignedteam" disabled="true">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{57E39843-404C-48E5-B1D9-1889098FB65C}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{01e6675c-1b52-7411-1a19-529644594a83}" showlabel="true" locklevel="1" visible="false" ordinalvalue="10005" solutionaction="Added">
+                      <labels>
+                        <label description="State" languagecode="1033" />
+                      </labels>
+                      <control id="statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="true" />
+                    </cell>
+                    <cell id="{b876a227-d1e3-6eae-0a80-cc2e4e492a1c}" showlabel="false" ordinalvalue="20006" solutionaction="Added">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{26463226-894d-c8b9-ae2a-c96d2b7e7d58}" showlabel="true" locklevel="0" visible="false" ordinalvalue="10007" solutionaction="Added">
+                      <labels>
+                        <label description="Override Assignment Rules" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_overrideassignmentrules" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_overrideassignmentrules" disabled="false" />
+                    </cell>
+                    <cell id="{abcde4b6-b50e-ad23-61a0-a545dc6c88b6}" showlabel="false" ordinalvalue="20008" solutionaction="Added">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+          <column width="33%" id="1">
+            <sections>
+              <section name="tab_2_section_2" showlabel="false" showbar="false" locklevel="0" id="{7a19c1aa-7ac9-5449-dcb0-208db3ecd341}" IsUserDefined="0" layout="varwidth" columns="11" labelwidth="115" labelid="{bb6af410-fa41-4b02-aed7-2d9c15d663d5}" ordinalvalue="1" solutionaction="Modified" />
+              <section name="TASK_TAB_section_5" showlabel="false" showbar="true" locklevel="0" id="{7db39570-5448-e933-1820-a5a7296a7e57}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Top" ordinalvalue="0" solutionaction="Added">
+                <labels>
+                  <label description="Related Information" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{87ad281c-2ce1-40c4-2205-d903ac5eeb93}" showlabel="false" colspan="1" auto="false" ordinalvalue="10000">
+                      <labels>
+                        <label description="Contract Information:" languagecode="1033" />
+                      </labels>
+                      <control id="QuickFormContract" classid="{5C5600E0-1D6E-4205-A272-BE80DA87FD42}" datafieldname="regardingobjectid" disabled="false">
+                        <parameters>
+                          <QuickForms>&lt;QuickFormIds&gt;&lt;QuickFormId entityname="sfa_contract"&gt;cc60d757-85da-4361-ae9e-05404f130287&lt;/QuickFormId&gt;&lt;/QuickFormIds&gt;</QuickForms>
+                          <ControlMode>Edit</ControlMode>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <header id="{D7EF0A4A-7B76-4B39-A2E0-4207EC3C8C2D}" columns="1111" celllabelposition="Top" labelwidth="115">
+      <rows>
+        <row>
+          <cell id="{0A9B5273-AD20-4A08-8990-64CB20861D81}" showlabel="true" ordinalvalue="10000" solutionaction="Removed" />
+          <cell showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{E3CC7544-665F-4BDC-874C-FD933C7C05ED}" ordinalvalue="20001" solutionaction="Removed" />
+          <cell id="{6A04844E-9375-4428-BF70-85C6C3556B8B}" ordinalvalue="30002">
+            <labels>
+              <label description="State" languagecode="1033" solutionaction="Added" />
+            </labels>
+            <control id="header_statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" solutionaction="Modified" />
+          </cell>
+          <cell id="{59BF22C1-8C1D-4235-8516-4647EDEAE36C}" showlabel="true" locklevel="1" ordinalvalue="40003">
+            <labels>
+              <label description="Owner" languagecode="1033" solutionaction="Added" />
+            </labels>
+          </cell>
+        </row>
+        <row>
+          <cell id="{eca9664b-10d6-6de1-ed15-4b38ed2477eb}" showlabel="false" ordinalvalue="10000" solutionaction="Added">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+          <cell id="{be3006a1-91e8-962a-55e6-4d6b901d96ea}" showlabel="false" ordinalvalue="20001" solutionaction="Added">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+        </row>
+      </rows>
+    </header>
+    <DisplayConditions FallbackForm="true" Order="2" solutionaction="Modified" />
+    <events>
+      <event name="onload" application="true" active="true">
+        <InternalHandlers>
+          <Handler functionName="Activities.Task.Form_onload" libraryName="Activities/SystemLibraries/Task_main_system_library.js" handlerUniqueId="516bea27-d455-43f4-968f-1e372977fc93" enabled="true" passExecutionContext="true" solutionaction="Modified" />
+        </InternalHandlers>
+      </event>
+    </events>
+    <footer id="{cc26fe23-73da-45e1-b3b4-a6c23045cd96}" columns="111" solutionaction="Added">
+      <rows>
+        <row>
+          <cell id="{ad4863e7-6d39-4cb4-adba-dffcc14f0855}" showlabel="false" ordinalvalue="10000">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+          <cell id="{2b4b51eb-d25d-c219-4684-465d946123ab}" showlabel="false" ordinalvalue="20001">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+          <cell id="{3579c049-e350-5885-aa5c-28ed83982911}" showlabel="false" ordinalvalue="30002">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+        </row>
+      </rows>
+    </footer>
+    <Navigation solutionaction="Added">
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <LocalizedNames>
+    <LocalizedName description="Task" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Updated default Task form." languagecode="1033" />
+  </Descriptions>
+</systemform>

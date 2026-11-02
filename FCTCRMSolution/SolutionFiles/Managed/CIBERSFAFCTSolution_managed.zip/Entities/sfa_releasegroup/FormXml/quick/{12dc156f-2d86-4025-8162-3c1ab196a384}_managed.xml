@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{12dc156f-2d86-4025-8162-3c1ab196a384}</formid>
+  <IntroducedVersion>2.100.4.2</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{53ea3202-09e5-410a-9ab1-d4b7d0434975}" IsUserDefined="1">
+        <labels>
+          <label description="" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{b6c1585e-3530-4d26-8543-d2e4045628cf}">
+                <labels>
+                  <label description="GENERAL" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{6d3f89c0-e315-44a7-ae2c-25b92488ac12}">
+                      <labels>
+                        <label description="Release Group" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{63423ecf-ca0b-4dfb-9bf8-2bbf6cb3fa3b}">
+                      <labels>
+                        <label description="Owner" languagecode="1033" />
+                      </labels>
+                      <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+</systemform>

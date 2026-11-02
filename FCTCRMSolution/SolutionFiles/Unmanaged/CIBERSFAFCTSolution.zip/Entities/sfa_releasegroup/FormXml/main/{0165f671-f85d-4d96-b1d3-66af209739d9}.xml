@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{0165f671-f85d-4d96-b1d3-66af209739d9}</formid>
+  <IntroducedVersion>2.100.4.2</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{11dde41e-1b16-4f67-b747-9ba143a6f4bb}" IsUserDefined="1" name="{11dde41e-1b16-4f67-b747-9ba143a6f4bb}" locklevel="0" expanded="true" showlabel="true">
+        <labels>
+          <label description="Details" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{6c9bc0e2-f0ac-4e36-bc17-ab896b9c1440}" name="{6c9bc0e2-f0ac-4e36-bc17-ab896b9c1440}" columns="11" locklevel="0" labelwidth="130" celllabelalignment="Left" celllabelposition="Left">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{578cc479-ec7c-94be-ce63-761d7b7b78d6}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingperiod" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fundingperiod" disabled="true" uniqueid="{4c8d0774-1bda-5a3e-8ae5-235b638942b0}">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{BA205FA2-0C83-4842-A81B-D67A9691B3FC}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                    <cell id="{10ed78a5-e2a4-7597-b99b-2e068b7536d1}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingtype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fundingtype" disabled="true" uniqueid="{c82cb377-3b73-47b3-2c1b-ee9890ecd116}">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{BD0364A7-D435-42C1-8CAD-4122595A4F28}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{3c7cdb01-b403-0d55-5633-c3976b5b8237}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="FSP Group" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fspgroup" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fspgroup" disabled="true" uniqueid="{40593ada-43e0-e9bc-9c60-6d7bd0508608}">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{AE6B44D8-AD4C-44D9-B2FC-A1349F1A9B8E}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                    <cell id="{c208912a-dcdc-000b-4090-043ce1770a51}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Contract Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_contracttype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_contracttype" disabled="true" uniqueid="{a1352537-18e1-6dd8-339c-a87d710a0069}">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{22E513EE-4998-473D-A51A-6C6D544F4818}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{6ec3a0a6-d246-5a93-899e-924825501769}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Associated Count" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_associatedcount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="sfa_associatedcount" disabled="true" uniqueid="{d35795c8-0e46-6eab-c296-11aa7564dbcd}" />
+                    </cell>
+                    <cell id="{606e6767-19b3-cb75-410b-d06033eba45e}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Associated Value" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_associatedvalue" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="sfa_associatedvalue" disabled="true" uniqueid="{114c6d9c-bdb5-2e18-0277-d769584811a7}" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{2b848749-6223-2750-9361-1381ecdd77aa}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Release Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_releasestatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_releasestatus" disabled="true" uniqueid="{19a28015-2575-5c37-3854-523e9de44da3}" />
+                    </cell>
+                    <cell id="{ce5974c3-b5ba-a70d-47bb-69d084163d5d}" showlabel="false">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="{11dde41e-1b16-4f67-b747-9ba143a6f4bb}_section_3" showlabel="true" showbar="false" locklevel="0" id="{55d22678-73a5-2a96-4750-08369311272e}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Left">
+                <labels>
+                  <label description="Funding Allocations" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{23c33ccc-55d4-d021-081e-1e80a2921b93}" showlabel="false" colspan="1" auto="false" rowspan="12">
+                      <labels>
+                        <label description="Funding Allocations (Release Group)" languagecode="1033" />
+                      </labels>
+                      <control id="sec_fundingallocations" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true" uniqueid="{369910b2-6c4b-3ba6-11a0-2b00d7c201b5}">
+                        <parameters>
+                          <ViewId>{F44532B5-22CB-4732-AA28-158B19A021C6}</ViewId>
+                          <IsUserView>false</IsUserView>
+                          <RelationshipName>sfa_sfa_releasegroup_sfa_fundingallocation_releasegroup</RelationshipName>
+                          <TargetEntityType>sfa_fundingallocation</TargetEntityType>
+                          <AutoExpand>Fixed</AutoExpand>
+                          <EnableQuickFind>false</EnableQuickFind>
+                          <EnableViewPicker>false</EnableViewPicker>
+                          <ViewIds>{F44532B5-22CB-4732-AA28-158B19A021C6},{E1729E40-8B36-4849-8E63-17FDEE92D881}</ViewIds>
+                          <EnableJumpBar>false</EnableJumpBar>
+                          <ChartGridMode>Grid</ChartGridMode>
+                          <VisualizationId />
+                          <IsUserChart>false</IsUserChart>
+                          <EnableChartPicker>false</EnableChartPicker>
+                          <RecordsPerPage>10</RecordsPerPage>
+                          <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row />
+                  <row />
+                  <row />
+                  <row />
+                  <row />
+                  <row />
+                  <row />
+                  <row />
+                  <row />
+                  <row />
+                  <row />
+                </rows>
+              </section>
+              <section name="{11dde41e-1b16-4f67-b747-9ba143a6f4bb}_section_2" showlabel="false" showbar="false" locklevel="0" id="{91501548-520e-e388-ce2a-57645591c0db}" IsUserDefined="0" layout="varwidth" columns="11" labelwidth="115" celllabelalignment="Left" celllabelposition="Left" visible="false">
+                <labels>
+                  <label description="Section" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{42f5b8fa-8406-4aa4-9720-316b1526597d}">
+                      <labels>
+                        <label description="Release Group" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" />
+                    </cell>
+                    <cell id="{1b6a87dc-89b6-7167-14c4-a91e8ddc35b1}" showlabel="false">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{111967fe-5408-4489-baf1-902488d62d5d}">
+                      <labels>
+                        <label description="Owner" languagecode="1033" />
+                      </labels>
+                      <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                    </cell>
+                    <cell id="{51890cc2-dd9e-d44d-e2e5-452851516ac4}" showlabel="false">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+    <controlDescriptions />
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{f0ff2d85-9749-4821-a593-d1cecbc5f1fc}</formid>
+  <IntroducedVersion>1.1.5.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab id="{11d4e09b-2892-46f6-a69e-180722ae21d1}" name="tab_owner" showlabel="false" locklevel="0" expanded="true" labelid="{360e8a2d-3256-484f-a5ae-31082f82b107}">
+        <labels>
+          <label description="Tab" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section id="{9f337f40-9d6b-4144-829c-7fac1b0277f0}" name="tab_1_column_1_section_1" columns="1" showlabel="false" showbar="false" IsUserDefined="0" labelid="{adcf662e-0129-4292-9ebb-8eadbfcd4c48}">
+                <labels>
+                  <label description="section" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{3b774908-b451-8470-cdcd-a35d21e98d01}" showlabel="true" locklevel="0" labelid="{da02807d-22e5-4680-816c-697549633c49}">
+                      <labels>
+                        <label description="Contract Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_contractstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_contractstatus" disabled="true" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{10ba99b7-2132-0ac6-4b7d-daa827258e2e}" showlabel="true" locklevel="0" labelid="{949557f4-9648-48af-9bb2-f3259ecad9ae}">
+                      <labels>
+                        <label description="Sub Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_substatus" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_substatus" disabled="true">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{8508F50C-84C5-489F-B3C1-CFC65303A8D2}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{d37527e6-65e2-ca8a-7c76-65b0264457d7}" showlabel="true" locklevel="0" visible="false" labelid="{8622ac5d-13dc-42ab-b1b5-f7a1c34bdb6b}">
+                      <labels>
+                        <label description="Contract Number" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_number" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <DisplayConditions Order="5">
+      <Role Id="{627090ff-40a3-4053-8790-584edc5be201}" />
+      <Role Id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+    </DisplayConditions>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Contract Statuses" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A Quick-View form containing the Contract Status and Sub-Status" languagecode="1033" />
+  </Descriptions>
+</systemform>

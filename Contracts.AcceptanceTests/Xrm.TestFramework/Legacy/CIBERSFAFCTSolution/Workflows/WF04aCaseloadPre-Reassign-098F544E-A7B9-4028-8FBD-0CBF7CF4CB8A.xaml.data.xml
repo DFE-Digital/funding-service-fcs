@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{098f544e-a7b9-4028-8fbd-0cbf7cf4cb8a}" Name="WF04a Caseload: Pre-Reassign">
+  <XamlFileName>/Workflows/WF04aCaseloadPre-Reassign-098F544E-A7B9-4028-8FBD-0CBF7CF4CB8A.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>0</Category>
+  <Mode>1</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnUpdateAttributeList>ownerid</TriggerOnUpdateAttributeList>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>1</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <CreateStage>40</CreateStage>
+  <UpdateStage>20</UpdateStage>
+  <RunAs>0</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.1.3.4</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <PrimaryEntity>sfa_caseload</PrimaryEntity>
+</Workflow>

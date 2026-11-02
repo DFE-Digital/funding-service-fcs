@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CFCEB669-674A-43B2-90BB-3941E57533D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests</RootNamespace>
+    <AssemblyName>DocumentsDomain.Integration.DocumentGenEndpoint.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
+    <OutputPath>bin\CI\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
+    <OutputPath>bin\AT\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
+    <OutputPath>bin\DAT\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\DCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
+    <OutputPath>bin\DebugCI\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
+    <OutputPath>bin\DEV\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
+    <OutputPath>bin\DMO\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
+    <OutputPath>bin\DOAT\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
+    <OutputPath>bin\MO\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
+    <OutputPath>bin\OAT\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PS|AnyCPU'">
+    <OutputPath>bin\PS\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PUB|AnyCPU'">
+    <OutputPath>bin\PUB\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Label="SlowCheetah">
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Pdf, Version=11.0.0.0, Culture=neutral, PublicKeyToken=6947866647e416ec, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Aspose.Pdf.11.0.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Castle.Windsor.4.1.1\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Iesi.Collections.4.0.2\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NServiceBus.7.1.4\lib\net452\NServiceBus.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceBus.NHibernate, Version=8.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NServiceBus.NHibernate.8.0.0\lib\net452\NServiceBus.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceBus.Testing, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NServiceBus.Testing.7.0.0\lib\net452\NServiceBus.Testing.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="DocumentDeleterHandlerTests.cs" />
+    <Compile Include="DocumentGenerationHandlerTests.cs" />
+    <Compile Include="DocumentMergeHandlerIntegrationTests.cs" />
+    <Compile Include="DocumentMergeHandlerTests.cs" />
+    <Compile Include="DocumentSaverHandlerTests.cs" />
+    <Compile Include="GetDocumentsForDeleteHandlerTests.cs" />
+    <Compile Include="Integration\FspDeliverableRepositoryTests.cs" />
+    <Compile Include="Integration\FspGroupDocumentTemplateRepositoryTests.cs" />
+    <Compile Include="Integration\FundingStreamPeriodRepositoryTechnicalExploration.cs" />
+    <Compile Include="Integration\FundingStreamPeriodRepositoryTests.cs" />
+    <Compile Include="Integration\ContractDocumentTemplateRepositoryTests.cs" />
+    <Compile Include="Integration\FundingTypeFundingPeriodRepositoryTests.cs" />
+    <Compile Include="Integration\ProcessedMessageRepositoryTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DocumentMoveHandlerTests.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Tests\Tests.Common\UnitTests.Common.csproj">
+      <Project>{6edbfbfc-a0a0-4650-a92e-b9a686c967fe}</Project>
+      <Name>UnitTests.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj">
+      <Project>{67193B3F-0405-4DBF-A77C-C1D9C9FA11BA}</Project>
+      <Name>ContractManagement.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Framework.Logging\Framework.Logging.csproj">
+      <Project>{b93f0ed2-8af4-46c4-ae47-daa3483fd8f3}</Project>
+      <Name>Framework.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj">
+      <Project>{e766a4b6-88b4-4e18-a68b-761b65c7e015}</Project>
+      <Name>CrossDomain.Integration.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
+      <Project>{6e27f9ef-1391-41e7-8b8d-7c1b82665578}</Project>
+      <Name>CrossDomain.Integration.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj">
+      <Project>{d68560c9-7fcc-41e6-b48d-3cd237d97926}</Project>
+      <Name>CrossDomain.Integration.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj">
+      <Project>{9d36a2be-95d8-49b7-be54-9f063738cb5b}</Project>
+      <Name>CrossDomain.Integration.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DocumentsDomain.DataStore\DocumentsDomain.DataStore.csproj">
+      <Project>{9687f2ed-2638-4283-bbdf-a37c9d75f5f5}</Project>
+      <Name>DocumentsDomain.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PaymentManagementDomain.Integration.DataStore\PMD.PolicyCache.DataStore.csproj">
+      <Project>{D3DB2AF2-6AB8-4257-8678-C171B8C06E6A}</Project>
+      <Name>PMD.PolicyCache.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentsDomain.Common\DocumentsDomain.Common.csproj">
+      <Project>{fc9ee7c8-037c-4c6c-938b-68ab09a36e9a}</Project>
+      <Name>DocumentsDomain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentsDomain.DocumentGeneration\DocumentsDomain.DocumentGeneration.csproj">
+      <Project>{8c5bf73c-2b06-4902-8887-8f9603dd9428}</Project>
+      <Name>DocumentsDomain.DocumentGeneration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentsDomain.Integration.DocumentGenerationEndpoint\DocumentsDomain.Integration.DocumentGenerationEndpoint.csproj">
+      <Project>{bb53e06f-0fd8-4418-9931-524744394b47}</Project>
+      <Name>DocumentsDomain.Integration.DocumentGenerationEndpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentsDomain.Integration\DocumentsDomain.Integration.csproj">
+      <Project>{db061a14-b6cb-4226-a112-9a9c39c8836e}</Project>
+      <Name>DocumentsDomain.Integration</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.AT.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.CI.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.config">
+      <TransformOnBuild>true</TransformOnBuild>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.DAT.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.DCI.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.Debug.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.DebugCI.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.DEV.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.DMO.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.MO.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.PUB.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <EmbeddedResource Include="Resources\11111_Main-1234_49.pdf" />
+    <EmbeddedResource Include="Resources\11111_Main-1234_51.pdf" />
+    <EmbeddedResource Include="Resources\11111_Main-1234_v1.pdf" />
+    <None Include="packages.config" />
+    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
+    <None Include="Resources\TestPDFFile.PDF" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

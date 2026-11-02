@@ -1,0 +1,680 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ConfigData>
+  <Transitions>
+    <TransitionRecord>
+       <Name>Approve for Issue</Name>
+      <ManagersTeam>Lead Manager Team</ManagersTeam>
+      <Owner>Contract Managers Team</Owner>
+      <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Awaiting Internal Approval</FromAction>
+      <NextAction>Internally Approved</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Confirm Publication to Provider</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Lead Manager Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+
+    <TransitionRecord>
+      <Name>Caseload Assigned</Name>
+      <ManagersTeam>Document Management Team</ManagersTeam>
+      <Owner>Document Management Team</Owner>
+      <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction>Unassigned</FromAction>
+      <NextAction>Awaiting Documentation</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Initiate Document Merge</Subject>
+      <TaskDescription>Awaiting documentation</TaskDescription>
+      <DefaultAssignTo>Document Management Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+     <TransitionRecord>
+      <Name>Caseload Assigned No Documentation</Name>
+      <ManagersTeam>Contract Advisers Team</ManagersTeam>
+      <Owner>Unassigned</Owner>
+      <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction>Unassigned</FromAction>
+      <NextAction>In Review</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Review Contract Details</Subject>
+      <TaskDescription>Please review the contract</TaskDescription>
+      <DefaultAssignTo>Caseload Owner</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    <TransitionRecord>
+      <Name>Caseload Re-assigned</Name>
+      <ManagersTeam></ManagersTeam>
+      <Owner>Unassigned</Owner>
+      <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction></NextAction>
+      <FromState>Draft</FromState>
+      <ToState></ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo></DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+   
+    
+    <TransitionRecord>
+      <Name>Confirm Receipt of Signed Contract</Name>
+      <ManagersTeam>Contract Advisers Team</ManagersTeam>
+      <Owner>Contract Advisers Team</Owner>
+      <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Published to Provider</FromAction>
+      <NextAction>Approved</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Approved</ToState>
+      <ServiceIntent>approved</ServiceIntent>
+      <APICallRequired>True</APICallRequired>
+      <RequiresANotification>True</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Contract Adviser</DefaultAssignTo>
+      <NotificationType>Approval Received</NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject>Approval Received</NotificationSubject>
+      </TransitionRecord>
+    
+    <TransitionRecord>
+      <Name>Create New Draft Version</Name>
+      <ManagersTeam>Unassigned</ManagersTeam>
+      <Owner>Unassigned</Owner>
+      <ActionOnExistingTask></ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction>Unassigned</NextAction>
+      <FromState></FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo></DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    
+    <TransitionRecord>
+      <Name>Create New Draft Version (Create Task)</Name>
+      <ManagersTeam>Document Management Team</ManagersTeam>
+      <Owner>Document Management Team</Owner>
+      <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction>Awaiting Documentation</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Initiate Document Merge</Subject>
+      <TaskDescription>Awaiting documentation</TaskDescription>
+      <DefaultAssignTo>Document Management Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    
+     <TransitionRecord>
+    <Name>Document Merge Failed</Name>
+    <ManagersTeam>Document Management Team</ManagersTeam>
+    <Owner>Document Management Team</Owner>
+     <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction>Document Merge In Progress</FromAction>
+      <NextAction>Awaiting Documentation</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>True</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Initiate Document Merge</Subject>
+      <TaskDescription>Awaiting documentation</TaskDescription>
+      <DefaultAssignTo>Document Management Team</DefaultAssignTo>
+      <NotificationType>Document Merge Failed</NotificationType>
+      <NotificationDescription>Document Merge Failed - Please initiate document merge</NotificationDescription>
+      <NotificationSubject>Document Merge Failed</NotificationSubject>
+  </TransitionRecord>  
+      
+     <TransitionRecord>
+    <Name>Document Merge Successful</Name>
+    <ManagersTeam>Document Management Team</ManagersTeam>
+    <Owner>Document Management Team</Owner>
+      <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Document Merge In Progress</FromAction>
+      <NextAction>In Review</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Review Contract Details</Subject>
+      <TaskDescription>Please review the contract</TaskDescription>
+      <DefaultAssignTo>Caseload Owner</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+  </TransitionRecord>
+    
+        <TransitionRecord>
+    <Name>Document Publish Failed</Name>
+    <ManagersTeam>Lead Manager Team</ManagersTeam>
+    <Owner>Lead Manager Team</Owner>
+      <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction>Document Transfer in Progress</FromAction>
+      <NextAction>Internally Approved</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>True</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Confirm Publication to Provider</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Lead Manager Team</DefaultAssignTo>
+      <NotificationType>Publish To Provider Failed</NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject>Publish To Provider Failed</NotificationSubject>
+    </TransitionRecord>
+    
+     <TransitionRecord>
+    <Name>Document Publish Successful</Name>
+    <ManagersTeam>Lead Manager Team</ManagersTeam>
+    <Owner>Lead Manager Team</Owner>
+     <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Document Transfer in Progress</FromAction>
+      <NextAction>Published to Provider</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Confirm Receipt Of Signed Contract</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Caseload Owner</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    
+
+     <TransitionRecord>
+    <Name>Documentation Not Required</Name>
+    <ManagersTeam>Unassigned</ManagersTeam>
+    <Owner>Unassigned</Owner>
+      <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction>Unassigned</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Unassigned Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+     <TransitionRecord>
+    <Name>Documentation Not Required (Task Created)</Name>
+    <ManagersTeam></ManagersTeam>
+    <Owner>Contract Advisers Team</Owner>
+      <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction>In Review</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Review Contract Details</Subject>
+      <TaskDescription>Please review the contract</TaskDescription>
+      <DefaultAssignTo>Contract Adviser</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    
+    <TransitionRecord>
+    <Name>Document Published For Electronic Sign off</Name>
+    <ManagersTeam></ManagersTeam>
+    <Owner>FCS Support Team</Owner>
+      <ActionOnExistingTask></ActionOnExistingTask>
+      <FromAction>Document Transfer in Progress</FromAction>
+      <NextAction>Published to Provider</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Caseload Owner</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+      
+          
+    
+    <TransitionRecord>
+    <Name>Document Publish Successful With Auto Approve</Name>
+    <ManagersTeam></ManagersTeam>
+    <Owner>FCS Support Team</Owner>
+      <ActionOnExistingTask></ActionOnExistingTask>
+      <FromAction>Document Transfer in Progress</FromAction>
+      <NextAction>Published to Provider</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent>tempinitiateapproval</ServiceIntent>
+      <APICallRequired>True</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Caseload Owner</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+      
+    
+     <TransitionRecord>
+    <Name>Initiate Document Merge</Name>
+    <ManagersTeam>Document Management Team</ManagersTeam>
+    <Owner>Document Management Team</Owner>
+     <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Awaiting Documentation</FromAction>
+      <NextAction>Document Merge In Progress</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent>ReleaseForReview</ServiceIntent>
+      <APICallRequired>True</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Document Management Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+  </TransitionRecord>
+    
+    
+     <TransitionRecord>
+    <Name>Initiate Publish To Provider</Name>
+    <ManagersTeam>Lead Manager Team</ManagersTeam>
+    <Owner>Lead Manager Team</Owner>
+      <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Internally Approved</FromAction>
+      <NextAction>Document Transfer in Progress</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent>confirmpublicationtoprovider</ServiceIntent>
+      <APICallRequired>True</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Lead Manager Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    
+     <TransitionRecord>
+      <Name>Issue New Draft Version</Name>
+      <ManagersTeam></ManagersTeam>
+      <Owner>Unassigned</Owner>
+      <ActionOnExistingTask>Mark Cancelled</ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction></NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Superseded Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo></DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+     <TransitionRecord>
+      <Name>Reassigned</Name>
+      <ManagersTeam></ManagersTeam>
+      <Owner>Unassigned</Owner>
+     <ActionOnExistingTask></ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction></NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Reassigned</Subject>
+      <TaskDescription>Reassigned</TaskDescription>
+      <DefaultAssignTo></DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+     
+     <TransitionRecord>
+      <Name>Record Imported</Name>
+      <ManagersTeam>Unassigned</ManagersTeam>
+      <Owner>Unassigned</Owner>
+      <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction>Unassigned</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Unassigned Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+     <TransitionRecord>
+      <Name>Record Imported (Task generated)</Name>
+      <ManagersTeam>Document Management Team</ManagersTeam>
+      <Owner>Document Management Team</Owner>
+      <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction>Awaiting Documentation</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Initiate Document Merge</Subject>
+      <TaskDescription>Awaiting documentation</TaskDescription>
+      <DefaultAssignTo>Document Management Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+     <TransitionRecord>
+      <Name>Record Imported Documentation Required</Name>
+      <ManagersTeam>Unassigned</ManagersTeam>
+      <Owner>Unassigned</Owner>
+     <ActionOnExistingTask>Do Nothing</ActionOnExistingTask>
+      <FromAction></FromAction>
+      <NextAction>Unassigned</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>False</RequiresCreationOfTask>
+      <Subject></Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Unassigned Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+      
+     <TransitionRecord>
+      <Name>Reject</Name>
+      <ManagersTeam>Contract Advisers Team</ManagersTeam>
+      <Owner>Contract Managers Team</Owner>
+     <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Awaiting Internal Approval</FromAction>
+      <NextAction>In Review</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Progress Rejected Contract</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Contract Approval Requestor</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+     <TransitionRecord>
+      <Name>Reject Published Contract</Name>
+      <ManagersTeam>Contract Advisers Team</ManagersTeam>
+      <Owner>Contract Advisers Team</Owner>
+      <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Published to Provider</FromAction>
+      <NextAction>In Review</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Progress Contract Rejected After Publication</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Previous Owner</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+     <TransitionRecord>
+      <Name>Release For Internal Approval</Name>
+      <ManagersTeam>Contract Managers Team</ManagersTeam>
+      <Owner>Contract Advisers Team</Owner>
+      <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>In Review</FromAction>
+      <NextAction>Awaiting Internal Approval</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Confirm Internal Approval</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Contract Advisers Manager</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+  
+    <TransitionRecord>
+    <Name>Revert back to Awaiting Documentation</Name>
+    <ManagersTeam>Document Management Team</ManagersTeam>
+    <Owner>Contract Advisers Team</Owner>
+    <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>In Review</FromAction>
+      <NextAction>Awaiting Documentation</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Initiate Document Merge</Subject>
+      <TaskDescription>Awaiting documentation</TaskDescription>
+      <DefaultAssignTo>Document Management Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    <TransitionRecord>
+    <Name>Revert back to Awaiting Documentation (Admin)</Name>
+    <ManagersTeam>Document Management Team</ManagersTeam>
+    <Owner>FCS Support Team</Owner>
+       <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Document Merge In Progress</FromAction>
+      <NextAction>Awaiting Documentation</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Initiate Document Merge</Subject>
+      <TaskDescription>Awaiting documentation</TaskDescription>
+      <DefaultAssignTo>Document Management Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    
+    <TransitionRecord>
+    <Name>Revert Back To Awaiting Internal Approval</Name>
+    <ManagersTeam>Contract Managers Team</ManagersTeam>
+    <Owner>Lead Manager Team</Owner>
+       <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Internally Approved</FromAction>
+      <NextAction>Awaiting Internal Approval</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Confirm Internal Approval</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Contract Advisers Manager</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    <TransitionRecord>
+    <Name>Revert Back To Internally Approved (Admin)</Name>
+    <ManagersTeam>Lead Manager Team</ManagersTeam>
+    <Owner>FCS Support Team</Owner>
+       <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Document Transfer in Progress</FromAction>
+      <NextAction>Internally Approved</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>True</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Confirm Publication to Provider</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Lead Manager Team</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+    
+    <TransitionRecord>
+      <Name>Revise</Name>
+      <ManagersTeam>Contract Advisers Team</ManagersTeam>
+      <Owner>Contract Advisers Team</Owner>
+     <ActionOnExistingTask>Mark Complete</ActionOnExistingTask>
+      <FromAction>Internally Approved</FromAction>
+      <NextAction>In Review</NextAction>
+      <FromState>Draft</FromState>
+      <ToState>Draft</ToState>
+      <ServiceIntent></ServiceIntent>
+      <APICallRequired>False</APICallRequired>
+      <RequiresANotification>False</RequiresANotification>
+      <RequiresChangeOfOwnership>False</RequiresChangeOfOwnership>
+      <RequiresCreationOfTask>True</RequiresCreationOfTask>
+      <Subject>Revise Contract</Subject>
+      <TaskDescription></TaskDescription>
+      <DefaultAssignTo>Previous Owner</DefaultAssignTo>
+      <NotificationType></NotificationType>
+      <NotificationDescription></NotificationDescription>
+      <NotificationSubject></NotificationSubject>
+    </TransitionRecord>
+  
+  </Transitions>
+  
+  </ConfigData>

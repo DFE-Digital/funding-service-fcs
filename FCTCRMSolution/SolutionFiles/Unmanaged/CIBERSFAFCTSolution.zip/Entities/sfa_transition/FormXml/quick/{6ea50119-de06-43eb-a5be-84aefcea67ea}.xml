@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{6ea50119-de06-43eb-a5be-84aefcea67ea}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form maxWidth="400">
+    <tabs>
+      <tab id="{550bfdfd-b255-44e4-a42a-ec2e2beedcf7}" name="tab_1" showlabel="false" locklevel="0" expanded="true">
+        <labels>
+          <label description="Transition Details" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section id="{1139a043-f636-41e8-a6fd-c3b10d81125f}" name="tab_1_column_1_section_1" columns="1" showlabel="false" showbar="false" IsUserDefined="0">
+                <labels>
+                  <label description="section" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{8bd3819c-1294-9547-acb3-8d80aee2dd5c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Process" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_process" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_process" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{49ea51c8-32ea-c866-b6d3-5b35e54e5544}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Next Action" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_nextaction" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_nextaction" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{80936d39-30c7-44c0-94ca-4c545a466d97}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="From Action" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fromaction" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fromaction" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <DisplayConditions Order="1">
+      <Role Id="{627090ff-40a3-4053-8790-584edc5be201}" />
+      <Role Id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+    </DisplayConditions>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Quick Form - Process Transition" languagecode="1033" />
+  </LocalizedNames>
+</systemform>

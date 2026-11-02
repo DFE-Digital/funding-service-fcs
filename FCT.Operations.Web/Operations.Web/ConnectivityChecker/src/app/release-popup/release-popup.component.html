@@ -1,0 +1,21 @@
+<div class="popup-container" *ngIf="showPopup">
+    <div class="popup">
+      <h2>Create Release</h2>
+      <form [formGroup]="releaseForm" (ngSubmit)="onSubmitRelease()">
+        <div class="form-group">
+          <label for="releaseName">Release Name</label>
+          <input type="text" id="releaseName" formControlName="releaseName" required>
+        </div>
+        <div class="form-group">
+          <label for="createdDate">Version Number</label>
+          <input type="text" id="versionNumber" formControlName="versionNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Release Tag</label>
+          <textarea id="description" formControlName="description" rows="4" required></textarea>
+        </div>
+        <button type="submit">Create Release</button>
+        <button type="button" (click)="closePopup()">Cancel</button>
+      </form>
+    </div>
+  </div>

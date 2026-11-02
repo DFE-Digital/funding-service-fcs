@@ -1,0 +1,397 @@
+# In the definition which includes this the following variables need to be defined:
+
+#  BC_Override                     :  (optional)  the json contents for restricted builds, see wiki entry for more
+#  BuildConfiguration              :  (mandatory) DCI | DAT | DMO | DOAT | CI | AT | MO | OAT | Release
+#  CRMDeploymentMode               :  (optional)  1-3 - default is 3 (normal build and deploy)
+#  DeployAfterBuild                :  (optional)  Y | N - default is Y, anything other than N is taken as a Y
+#  RunAcceptanceTests              :  (optional)  Y | N - default is N (must be exactly Y to run, anything else is a N including missing)
+#  RunCleanUpTests                 :  (optional)  Y | N - default is N  "
+#  RunCRMConfigTests               :  (optional)  Y | N - default is N  "
+#  RunIntegrationTests             :  (optional)  Y | N - default is N  "
+#  RunIntegrationTestsNightlyBuild :  (optional)  Y | N - default is N  "
+#  RunUnitTests:                   :  (optional)  Y | N - default is N  "
+#  TestFilter                      :  (optional, mandatory if RunAcceptanceTests is Y) eg: (TestCategory=AcceptanceTest&TestCategory=Complete)
+
+name: $(Build.DefinitionName)-$(date:yyyyMMdd)$(rev:.r)
+
+trigger: none
+
+jobs:
+
+- job: MainJob
+  timeoutInMinutes: 1030
+  pool: $(BuildAgentPool)
+  workspace:
+    clean: all
+
+  variables:
+  - group: OAUTH CRMDeploy DEV
+  - group: Dev kv
+  - group: DMO-KeyVault-Config
+  - name: BuildPlatform
+    value: AnyCPU
+  - name: BuildSolutionPlatform
+    value: Any CPU
+  - name: Release.EnvironmentName
+    value: $(BuildConfiguration)
+  - name: SqlHost
+    value: acx03vg6p0
+  - name: ArtifactFeedName
+    value: FCT/master
+  - name: ShouldBuild
+    value: N
+  - name: NServiceBus/Transport
+    value: $(NServiceBusTransport)
+  - name: NServiceBus/Persistence
+    value: $(fcsPaaSDBConnectionstring)
+  - name: organisationDomainDatabase
+    value: $(fcsPaaSDBConnectionstring)
+  - name: AllocationDeliveryDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: AllocationDeliveryMonitoringDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: ContractCreateDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: ContractRequestDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: DocumentsDomainDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: OperationsDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: PaymentGenerationDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: PaymentManagementPolicyContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: PaymentSchedulePolicyContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: ContractManagementDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: MonitoringDeliverablesDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: PerformanceManagementDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: OverrideDateDBContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: ConnectionStrings.StorageConnectionString
+    value: $(StorageConnectionString)
+  - name: Environment.NoSqlConnectionString
+    value: $(StorageConnectionString)
+  - name: Environment.NoSqlConnectionString
+    value: $(StorageConnectionString)
+  - name: ida:AppKey_OrgService
+    value: $(idaAppKeyOrgService)
+  - name: ida:AppKey_CrmOnline
+    value: $(idaAppKeyCrmOnline)
+  - name: ida:AppKey_ContractPublish
+    value: $(idaAppKeyContractPublish)
+  - name: ContractManagementService:AppKey
+    value: $(ContractManagementServiceAppkey)
+  - name: DCT:Oauth:ClientSecret
+    value: $(DCTOauthClientSecret)
+  - name: DCT:FundingClaims:Oauth:ClientSecret
+    value: $(DCTFundingClaimsOauthClientSecret)
+  - name: ida:UserPassword
+    value: $(idaUserPassword)
+  - name: ReportDelivery.Password
+    value: $(ReportDeliveryPassword)
+  - name: Sharepoint:Oauth:ClientSecret
+    value: $(SharepointOauthClientSecret)
+  - name: OrgService:AppKey
+    value: $(idaAppKeyOrgService)
+  - name: iKey
+    value: $(Key)
+  - name: CFS:ClientSecret
+    value: $(CFSClientSecret)
+  - name: CRM-OAUTH-AppKey
+    value: $(OAUTH-CRMDeploy-AppKey)
+  - name: CRM-OAUTH-ClientID
+    value: $(OAUTH-CRMDeploy-ClientId)
+  - name: AzureAppKey
+    value: $(ContractManagementServiceAppkey)
+  - name: CodaAdapterDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: PaymentGenDBContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: CrmConnectionString_SarahSmith
+    value: $(CrmConnectionStringSarahSmith)
+  - name: CrmConnectionString_GraceGreen
+    value: $(CrmConnectionStringGraceGreen)
+  - name: CrmConnectionString_AntonDavies
+    value: $(CrmConnectionStringAntonDavies)
+  - name: CrmConnectionString_ZoeFoster
+    value: $(CrmConnectionStringZoeFoster)
+  - name: CrmConnectionString_HelenBose
+    value: $(CrmConnectionStringHelenBose)
+  - name: CrmConnectionString_GregoryShaw
+    value: $(CrmConnectionStringGregoryShaw)
+  - name: CrmReplicaDbContext
+    value: $(CrmReplicaDb)
+  - name: CrmGwtReplicaDbContext
+    value: $(CrmReplicaDb)
+  - name: CrmConnectionString_CRMIntegration
+    value: $(CrmConnectionString)
+  - name: Microsoft.ServiceBus.ConnectionString
+    value: $(NServiceBusTransport)
+  - name: ida:ClientId:FundingStreamConfig
+    value: $(idaClientIdFundingStreamConfig)
+  - name: ida:AppKey_FundingStreamConfig
+    value: $(idaAppKeyFundingStreamConfig)
+  - name: ConnectionStrings:ContractManagementDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: CRM.AppKey
+    value: $(CRMAppKey)
+  - name: ida:AppKey_OPS_WEB
+    value: $(idaAppKeyOPSWEB)
+  - name: ConnectionStrings.NServiceBus/Transport
+    value: $(NServiceBusTransport)
+  - name: ConnectionStrings.NServiceBus/Persistence
+    value: $(fcsPaaSDBConnectionstring)
+  - name: ConnectionStrings.AllocationDeliveryDBContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: ConnectionStrings.ContractManagementDbContext
+    value: $(fcsPaaSDBConnectionstring)
+  - name: Cfs.ClientSecret
+    value: $(CFSClientSecret)
+  - name: ida.appkey
+    value: $(ContractManagementServiceAppKey)
+  - name: Sharepoint.Oauth.ClientSecret
+    value: $(SharepointOauthClientSecret)
+  - name: Cfs.ClientSecret
+    value: $(CFSClientSecret)
+  - name: ida:ClientId_CrmOnline
+    value: $(CRMClientId)
+  - name: ErrorWebhook:UrlXml
+    value: $(ErrorWebhookUrlXml)
+  - name: ErrorWebhook:Url
+    value: $(ErrorWebhookUrl)
+  - name: ErrorWebhook.Url.General
+    value: $(ErrorWebhookUrl)
+  - name: ErrorWebhook.Url.Cfs_Read
+    value: $(ErrorWebhookUrl)
+  - name: NServiceBus/License
+    value: $(NServiceBusLicense)
+  - name: ConnectionStrings.NServiceBus/License
+    value: $(NServiceBusLicense) 
+
+  steps:
+
+  - task: FileTransform@2
+    displayName: 'Allocation Delivery Domain Allocation Delivery Service Tests appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\AllocationDeliveryDomain\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    displayName: 'Allocation Delivery Domain Allocation Delivery Service Tests appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\AllocationDeliveryDomain\'
+      jsonTargetFiles: |
+        **\*.json
+
+  - task: FileTransform@2
+    displayName: 'Allocation Delivery Performance Actuals Pull appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\AllocationDeliveryPerformance\'
+      xmlTargetFiles: |
+        **\*.config   
+
+  - task: FileTransform@2
+    displayName: 'Allocation Delivery Performance Actuals Pull appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\AllocationDeliveryPerformance\'
+      jsonTargetFiles: |
+        **\*.json
+
+  - task: FileTransform@2
+    displayName: 'Contract Management Domain Contract Management Service appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\ContractManagementDomain\'
+      xmlTargetFiles: |
+        **\*.config 
+
+  - task: FileTransform@2
+    displayName: 'Contract Management Domain Contract Management Service appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\ContractManagementDomain\'
+      jsonTargetFiles: |
+        **\*.json
+
+  - task: FileTransform@2
+    displayName: 'Contract Management Domain Contract Management Service Tests appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\ContractManagementDomain\ContractManagementService.Tests\'
+      jsonTargetFiles: |
+        **\*.json
+
+  - task: FileTransform@2
+    displayName: 'FCS Core Funding Allocation appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCS.Core\'
+      xmlTargetFiles: |
+        **\*.config  
+
+  - task: FileTransform@2
+    displayName: 'FCS Core Funding Allocation appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCS.Core\'
+      jsonTargetFiles: |
+        **\*.json
+
+  - task: FileTransform@2
+    displayName: 'FCT.Operations  App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCT.Operations\'
+      xmlTargetFiles: |
+        **\*.config 
+
+  - task: FileTransform@2
+    displayName: 'FCT Operations FCT Operations Tests appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCT.Operations\'
+      jsonTargetFiles: |
+        **\*.json
+
+  - task: FileTransform@2
+    displayName: 'Funding Stream Config Domain  appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FundingStreamConfigDomain\'
+      xmlTargetFiles: |
+        **\*.config 
+
+  - task: FileTransform@2
+    displayName: 'Funding Stream Config Domain Web Tests appsettings.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FundingStreamConfigDomain\'
+      jsonTargetFiles: |
+        **\*.json
+
+  - task: FileTransform@2
+    displayName: 'FCT Operations FCT Operations Tests appsettings.DCI.json - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCT.Operations\Operations.Worker.Tests\'
+      jsonTargetFiles: |
+        **\*.json
+
+  - task: FileTransform@2
+    displayName: 'Contracts.AcceptanceTests Contracts.AcceptanceTests App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\Contracts.AcceptanceTests\'
+      xmlTargetFiles: |
+        **\*.config    
+
+  - task: FileTransform@2
+    displayName: 'CDI Allocation Delivery Domain Endpoint Tests App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\CrossDomain.Integration\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    displayName: 'FCS Worker Contract Create Domain Endpoint Tests App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCS.Worker\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    displayName: 'FCT Console FCT Console Config Tests App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCT.Console\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    displayName: 'FCT Operations Web Operations Web Tests App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCT.Operations.Web\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    displayName: 'Mocks FctServices FctServices.Test App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\Mocks\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    condition: and(succeeded(), eq(variables['RunIntegrationTests'], 'Y'))
+    displayName: 'FCS.Worker testing - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCS.Worker\Datafix.Tests\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    displayName: 'OrganisationDomain App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\OrganisationDomain\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    displayName: 'SpecFlow.IntegrationTests App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\SpecFlow.IntegrationTests\'
+      xmlTargetFiles: |
+        **\*.config
+
+  - task: FileTransform@2
+    displayName: 'FCT.Operations.Web Operations.Web.Tests App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCT.Operations.Web\'
+      xmlTargetFiles: |
+        **\*.config   
+
+  - script: echo "name is $(EnvName)"
+  - powershell: |
+      if ('$(BuildConfiguration)'.ToLower() -in 'release','oat','doat') {
+        throw "Incorrect Deployment Script.yml file, this is for dev/test only"
+      }
+    displayName: Verify correct deployment scripts in use
+
+  - powershell: |
+      if ('$(BuildConfiguration)'.ToLower() -in 'ci','at') {
+         Write-Host ArtifactFeedName value FCT/RB1      
+         Write-Host "##vso[task.setvariable variable=ArtifactFeedName]FCT/RB1"
+      } else {
+         Write-Host ArtifactFeedName value $(ArtifactFeedName)
+      }
+    displayName: Set artifact feed name
+
+  - powershell: |
+      if ('$(BuildConfiguration)'.ToLower() -in 'dci','ci') {
+        Write-Host ShouldBuild value Y      
+        Write-Host "##vso[task.setvariable variable=ShouldBuild]Y"
+      } else {
+        Write-Host ShouldBuild value $(ShouldBuild)
+      }
+    displayName: Set ShouldBuild
+
+  - template: 'Build Deployed Artefacts - v2.yml'
+    parameters:
+      ClassicSubscription: SFA-FCS-Dev
+      BuildRoot: $(Build.SourcesDirectory)
+      ArtifactFeedName: $(ArtifactFeedName)
+      ShouldBuild: $(ShouldBuild)
+
+  - template: 'Deploy Artefact - v2.yml'
+    parameters:
+      StageFolder: $(Build.ArtifactStagingDirectory)/$(BuildConfiguration)
+      ClassicSubscription: SFA-FCS-Dev
+      AppStorageAccount: fcsappstoragedev
+      ARMSubscription: SFA-FCS-Dev (ARM)
+      AppNamePrefix: 'fcs-dev-'
+
+  - template: 'Deploy App Services.yml'
+    parameters:
+      StageFolder: $(Build.ArtifactStagingDirectory)/$(BuildConfiguration)
+      AppStorageAccount: fcsappstoragedev
+      ARMSubscription: SFA-FCS-Dev (ARM)
+
+  - template: 'Build and Execute Tests.yml'
+    parameters:
+      BuildRoot: $(Build.SourcesDirectory)
+      ArtifactFeedName: $(ArtifactFeedName)
+      ShouldBuild: $(ShouldBuild)

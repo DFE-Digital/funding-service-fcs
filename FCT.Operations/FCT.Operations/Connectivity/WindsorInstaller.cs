@@ -1,0 +1,31 @@
+﻿namespace FCT.Operations.Connectivity
+{
+    using Castle.MicroKernel.Registration;
+    using Castle.MicroKernel.SubSystems.Configuration;
+    using Castle.Windsor;
+    using Infrastructure;
+    using Repositories;
+    using SFA.FCS.Worker.Common;
+    using SFA.FCT.Framework.Logging.Interfaces;
+
+    public class WindsorInstaller : IWindsorInstaller
+    {
+        private readonly ILogger _logger;
+        private readonly IFcsConfiguration _appConfiguration;
+
+        public WindsorInstaller(ILogger logger, IFcsConfiguration appConfiguration)
+        {
+            _logger = logger;
+            _appConfiguration = appConfiguration;
+        }
+
+        public void Install(IWindsorContainer container, IConfigurationStore store)
+        {
+            container
+                .Register(Component.For<ILogger>().Instance(_logger))
+                .Register(Component.For<IFcsConfiguration>().Instance(_appConfiguration))
+                .Register(Component.For<ISessionConnectionFactory>().ImplementedBy<SessionConnectionFactory>().LifestyleSingleton())
+                .Register(Component.For<IConnectivityRepository>().ImplementedBy<ConnectivityRepository>().LifestyleSingleton());
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<div>
+    <br>
+        <div *ngFor="let notification of notifications" class="alert" [ngClass]="{'alert-danger': notification.isError(), 'alert-info': !notification.isError()}">      
+                <h6>{{notification.NotificationName}}</h6>
+          </div>
+    <form (ngSubmit)="onStartIntegrityCheck()" #integrityCheckForm="ngForm">
+        <div class="form-group">
+                <label for="name">Choose Integrity Check to Run</label>
+                <select name="integrityCheck" class="form-control" (change)="onIntegrityCheckChange($event.target.value)">
+                    <option *ngFor="let integrityCheck of integrityChecks">
+                        {{integrityCheck.Description}}
+                    </option>
+                </select>
+            </div>
+        <button type="submit" class="btn btn-primary pull-right" [ngClass]='{disabled: !isValid()}'>Run Integrity Check(s)</button>
+        <div *ngIf="!isLoggedIn()">
+            Login to use this
+        </div>   
+    </form>
+</div>

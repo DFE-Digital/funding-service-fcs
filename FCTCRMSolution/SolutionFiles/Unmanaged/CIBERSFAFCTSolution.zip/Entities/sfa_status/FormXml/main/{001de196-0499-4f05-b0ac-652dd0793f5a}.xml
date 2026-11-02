@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{001de196-0499-4f05-b0ac-652dd0793f5a}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{018418ea-e5ac-4872-84cd-06b73354a2e3}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{8e8f1801-0182-4e50-9e11-9ee71cb25976}" name="{8e8f1801-0182-4e50-9e11-9ee71cb25976}" columns="1" locklevel="0" labelwidth="115" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{00b750c1-1182-444f-8b6e-0c220352d799}">
+                      <labels>
+                        <label description="Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{1546078b-7d48-0aa2-462b-289217e167a9}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Process" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_process" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_process" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{3402da56-56bc-1a8e-c81b-c00b1a1bd415}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Status" languagecode="1033" />
+                      </labels>
+                      <control id="statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{3c775325-4d5d-325c-6228-0478be0b2bd7}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Default Bulk Action" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_defaultbulkaction" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_defaultbulkaction" disabled="false">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{0B260FC9-78C4-4609-9663-AF64DD52CF5B}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar>
+        <NavBarByRelationshipItem RelationshipName="sfa_sfa_status_sfa_transition_FromAction" Sequence="10000" Area="Info" Id="nav_sfa_sfa_status_sfa_transition_FromAction">
+          <Titles>
+            <Title LCID="1033" Text="From Action" />
+          </Titles>
+        </NavBarByRelationshipItem>
+        <NavBarByRelationshipItem RelationshipName="sfa_sfa_status_sfa_transition_NextAction" Sequence="10000" Area="Info" Id="nav_sfa_sfa_status_sfa_transition_NextAction">
+          <Titles>
+            <Title LCID="1033" Text="Next Action" />
+          </Titles>
+        </NavBarByRelationshipItem>
+      </NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

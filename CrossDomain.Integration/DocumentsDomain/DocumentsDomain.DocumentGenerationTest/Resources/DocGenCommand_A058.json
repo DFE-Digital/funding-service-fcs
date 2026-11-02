@@ -1,0 +1,452 @@
+﻿{
+  "CorrelationId": "92baf2dd-1659-48ab-b564-f29892f41225",
+  "CorporateContract": {
+    "schemaVersion": 8.04,
+    "ContractApprovalDate": null,
+    "StatusLastUpdatedDate": null,
+    "LastModifiedDate": null,
+    "DocumentationRequired": null,
+    "SkipCaseloadAssignment": null,
+    "SkipReviewAndInternalApproval": null,
+    "SkipDocumentMerge": false,
+    "IsNonFinancialAmendment": null,
+    "TerminationDate": null,
+    "TerminationReason": null,
+    "IsNewRevisedNewOrUpdateDraft": false,
+    "IsAmendment": true,
+    "SharedMasterApprovedContracts": [],
+    "LatestCreatedDateForNonNotificationApprovedContract": "2020-07-01T09:12:35",
+    "IsVariation": true,
+    "ShouldMergeAmendmentTemplate": false,
+    "IsNotification": false,
+    "contracts": [],
+    "fundingType": {
+      "fundingTypeCode": "AEB",
+      "fundingTypeName": null
+    },
+    "period": {
+      "periodType": {
+        "periodTypeCode": 0,
+        "periodTypeName": 0
+      },
+      "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "" } ],
+      "period1": "2021",
+      "startDate": "0001-01-01T00:00:00",
+      "endDate": "0001-01-01T00:00:00"
+    },
+    "fundingStream": {
+      "fundingStreamCode": "AEB",
+      "fundingStreamName": null,
+      "fundingTypeCode": null,
+      "fundingStreamShortCode": null
+    },
+    "contractAllocations": [
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "DeliveryOrganisation": null,
+        "DeliveryOrganisationDetail": {
+          "organisationIdentifier": null,
+          "ukprn": 0,
+          "legalName": null,
+          "registeredCompanyNumber": null,
+          "organisationAddressIdentifier": 0,
+          "addressLine1": null,
+          "addressLine2": null,
+          "addressLine3": null,
+          "addressLine4": null,
+          "county": null,
+          "town": null,
+          "postcode": null,
+          "Upin": null,
+          "CharityNumber": null,
+          "Status": null
+        },
+        "TerminationDate": null,
+        "StopNewStartsDate": null,
+        "HasBeenAddedOrUpdated": false,
+        "HasBeenAdded": false,
+        "OriginalAllocationNumber": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 0,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "AEB-AS2021" } ],
+          "period1": "2021",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "AEB-AS",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 15699.0000000000,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "AEB-AS",
+              "deliverableCode": 1,
+              "businessCode": null,
+              "deliverableName": "Adult Skills Total Funding"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2020,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 196.0000000000,
+                "aggregate": false,
+                "periodName": "Aug-20",
+                "displayOrder": 202008
+              },
+              {
+                "year": 2020,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 616.0000000000,
+                "aggregate": false,
+                "periodName": "Sep-20",
+                "displayOrder": 202009
+              },
+              {
+                "year": 2020,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 339.0000000000,
+                "aggregate": false,
+                "periodName": "Oct-20",
+                "displayOrder": 202010
+              },
+              {
+                "year": 2020,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1170.0000000000,
+                "aggregate": false,
+                "periodName": "Nov-20",
+                "displayOrder": 202011
+              },
+              {
+                "year": 2020,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2380.0000000000,
+                "aggregate": false,
+                "periodName": "Dec-20",
+                "displayOrder": 202012
+              },
+              {
+                "year": 2021,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3433.0000000000,
+                "aggregate": false,
+                "periodName": "Jan-21",
+                "displayOrder": 202101
+              },
+              {
+                "year": 2021,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 275.0000000000,
+                "aggregate": false,
+                "periodName": "Feb-21",
+                "displayOrder": 202102
+              },
+              {
+                "year": 2021,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 379.0000000000,
+                "aggregate": false,
+                "periodName": "Mar-21",
+                "displayOrder": 202103
+              },
+              {
+                "year": 2021,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1051.0000000000,
+                "aggregate": false,
+                "periodName": "Apr-21",
+                "displayOrder": 202104
+              },
+              {
+                "year": 2021,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2736.0000000000,
+                "aggregate": false,
+                "periodName": "May-21",
+                "displayOrder": 202105
+              },
+              {
+                "year": 2021,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2365.0000000000,
+                "aggregate": false,
+                "periodName": "Jun-21",
+                "displayOrder": 202106
+              },
+              {
+                "year": 2021,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 759.0000000000,
+                "aggregate": false,
+                "periodName": "Jul-21",
+                "displayOrder": 202107
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0000000000,
+            "plannedVolume": 0,
+            "plannedValue": 15699.0000000000
+          }
+        ],
+        "contractAllocationNumber": "AEBA-058",
+        "description": null,
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "AEB-AS2021",
+        "startDate": "2020-08-01T00:00:00Z",
+        "endDate": "2021-07-31T00:00:00Z",
+        "maximumContractValue": 15699.0000000000,
+        "reasonForAmendment": null,
+        "uopCode": null,
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      },
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "DeliveryOrganisation": null,
+        "DeliveryOrganisationDetail": {
+          "organisationIdentifier": null,
+          "ukprn": 0,
+          "legalName": null,
+          "registeredCompanyNumber": null,
+          "organisationAddressIdentifier": 0,
+          "addressLine1": null,
+          "addressLine2": null,
+          "addressLine3": null,
+          "addressLine4": null,
+          "county": null,
+          "town": null,
+          "postcode": null,
+          "Upin": null,
+          "CharityNumber": null,
+          "Status": null
+        },
+        "TerminationDate": null,
+        "StopNewStartsDate": null,
+        "HasBeenAddedOrUpdated": true,
+        "HasBeenAdded": true,
+        "OriginalAllocationNumber": "AERS-1075",
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 0,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "AEB-PRS2021" } ],
+          "period1": "2021",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "AEB-PRS",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 5453.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "AEB-PRS",
+              "deliverableCode": 3,
+              "businessCode": null,
+              "deliverableName": "AEB Provider Relief Scheme 2 (August to October 2020)"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2020,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3602.0,
+                "aggregate": false,
+                "periodName": "Sep-20",
+                "displayOrder": 202009
+              },
+              {
+                "year": 2020,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1851.0,
+                "aggregate": false,
+                "periodName": "Oct-20",
+                "displayOrder": 202010
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 5453.0
+          }
+        ],
+        "contractAllocationNumber": "AEBA-058",
+        "description": null,
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "AEB-PRS2021",
+        "startDate": "2020-09-01T00:00:00Z",
+        "endDate": "2020-10-31T00:00:00Z",
+        "maximumContractValue": 5453.0,
+        "reasonForAmendment": null,
+        "uopCode": null,
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      }
+    ],
+    "contractDimensionRelationships": [],
+    "contractOrganisationRelationships": [],
+    "contractNumber": "AEBP-058",
+    "contractVersionNumber": 2,
+    "contractSubVersionNumber": 0,
+    "description": null,
+    "contractor": {
+      "organisationIdentifier": "ORG0017058",
+      "ukprn": 10017058,
+      "legalName": "10017058 Co Ltd",
+      "registeredCompanyNumber": "AA017058",
+      "organisationAddressIdentifier": 0,
+      "addressLine1": "5 Alton House",
+      "addressLine2": "Gatehouse Way",
+      "addressLine3": null,
+      "addressLine4": null,
+      "county": "Buckinghamshire",
+      "town": "Alyesbury",
+      "postcode": "HP19 8HN",
+      "Upin": "117058",
+      "CharityNumber": null,
+      "Status": "Active"
+    },
+    "hierarchyType": 1,
+    "contractType1": "Procured",
+    "startDate": "2020-08-01T00:00:00Z",
+    "endDate": "2021-07-31T00:00:00Z",
+    "contractStatus": {
+      "status": "Approved",
+      "parentStatus": "Approved"
+    },
+    "contractValue": 21152.0000000000,
+    "parentContractNumber": null,
+    "parentContractVersionNumber": null,
+    "amendmentType": "Variation"
+  },
+  "MasterContractNumber": "ESFA-058"
+}

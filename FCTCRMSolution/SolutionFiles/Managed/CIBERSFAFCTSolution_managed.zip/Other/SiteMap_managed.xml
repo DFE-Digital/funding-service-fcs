@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SiteMap>
+  <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+  <ShowHome>True</ShowHome>
+  <ShowPinned>True</ShowPinned>
+  <ShowRecents>True</ShowRecents>
+  <SiteMap IntroducedVersion="undefined" solutionaction="Modified">
+    <Area Id="SFA" ResourceId="Area_Sales" DescriptionResourceId="Sales_Description" Icon=" " ShowGroups="true" Title="Contract Management" ordinalvalue="0" solutionaction="Modified">
+      <Group Id="MyWork" ResourceId="Group_MyWork" DescriptionResourceId="My_Work_Description" ToolTipResourseId="My_Work_ToolTip" IntroducedVersion="7.0.0.0" ordinalvalue="0" solutionaction="Removed" />
+      <Group Id="Customers" ResourceId="Group_Customers" DescriptionResourceId="Customers_Description" ToolTipResourseId="Customers_ToolTip" IntroducedVersion="7.0.0.0" ordinalvalue="1" solutionaction="Removed" />
+      <Group Id="SFA" ResourceId="Area_Sales" DescriptionResourceId="Sales_Description" ToolTipResourseId="Sales_ToolTip" IntroducedVersion="7.0.0.0" ordinalvalue="2" solutionaction="Removed" />
+      <Group Id="Collateral" ResourceId="Area_Collateral" DescriptionResourceId="Area_Collateral_Description" ToolTipResourseId="Area_Collateral_Sales_ToolTip" IntroducedVersion="7.0.0.0" ordinalvalue="3" solutionaction="Removed" />
+      <Group Id="MA" ResourceId="Area_Marketing" DescriptionResourceId="Marketing_Description" ToolTipResourseId="Marketing_ToolTip" IntroducedVersion="7.0.0.0" ordinalvalue="4" solutionaction="Removed" />
+      <Group Id="Goals" ResourceId="Area_Goals" DescriptionResourceId="Area_Goals_Description" ToolTipResourseId="Area_Goals_ToolTip" IntroducedVersion="7.0.0.0" ordinalvalue="5" solutionaction="Removed" />
+      <Group Id="Tools" ResourceId="Area_Tools" IsProfile="true" DescriptionResourceId="Area_Tools_Description" ToolTipResourseId="Area_Tools_ToolTip" IntroducedVersion="7.0.0.0" ordinalvalue="6" solutionaction="Removed" />
+      <Group Id="BusinessProcesses" ResourceId="Group_BusinessProcesses" DescriptionResourceId="BusinessProcesses_Description" ToolTipResourseId="Group_BusinessProcesses_ToolTip" IntroducedVersion="9.0.0.0" ordinalvalue="7" solutionaction="Removed" />
+      <Group Id="Extensions" ResourceId="Group_Extensions" IsProfile="false" Title="Contracts" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="0" solutionaction="Added">
+        <SubArea Id="nav_dashboards" ResourceId="Homepage_Dashboards" DescriptionResourceId="Dashboards_Description" Icon="/_imgs/area/18_home.gif" Url="/workplace/home_dashboards.aspx" GetStartedPanePath="Dashboards_Web_User_Visor.html" GetStartedPanePathAdmin="Dashboards_Web_Admin_Visor.html" GetStartedPanePathAdminOutlook="Dashboards_Outlook_Admin_Visor.html" GetStartedPanePathOutlook="Dashboards_Outlook_User_Visor.html" AvailableOffline="false" PassParams="false" ordinalvalue="0" />
+        <SubArea Id="contracts_Tasks" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="task" AvailableOffline="false" PassParams="false" ordinalvalue="1">
+          <Titles>
+            <Title LCID="1033" Title="Tasks" ordinalvalue="0" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sfa_contract" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_contract" AvailableOffline="true" PassParams="false" ordinalvalue="2" />
+        <SubArea Id="sfa_notification" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_notification" AvailableOffline="true" PassParams="false" ordinalvalue="3" />
+        <SubArea Id="sfa_caseload" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_caseload" AvailableOffline="true" PassParams="false" ordinalvalue="4">
+          <Titles>
+            <Title LCID="1033" Title="Caseloads" ordinalvalue="0" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sfa_fcrallocation" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_fcrallocation" AvailableOffline="true" PassParams="false" ordinalvalue="5" />
+        <SubArea Id="sfa_fundingclaimreconciliation" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_fundingclaimreconciliation" AvailableOffline="true" PassParams="false" ordinalvalue="6" />
+        <SubArea Id="sfa_fcrallocationdeliverable" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_fcrallocationdeliverable" AvailableOffline="true" PassParams="false" ordinalvalue="7" />
+      </Group>
+    </Area>
+    <Area Id="CS" ResourceId="Area_Service" DescriptionResourceId="Customer_Service_Description" Icon="/_imgs/services_24x24.gif" ShowGroups="true" IntroducedVersion="7.0.0.0" ordinalvalue="1" solutionaction="Removed" />
+    <Area Id="MA" ResourceId="Area_Marketing" DescriptionResourceId="Marketing_Description" Icon="/_imgs/marketing_24x24.gif" ShowGroups="true" IntroducedVersion="7.0.0.0" ordinalvalue="2" solutionaction="Removed" />
+    <Area Id="HLP" ResourceId="Area_Help" DescriptionResourceId="Help_Area_Description" Icon="/_imgs/settings_24x24.gif" ShowGroups="true" ordinalvalue="2" solutionaction="Modified">
+      <Group Id="HLP_GRP" ResourceId="Group_Help" DescriptionResourceId="Help_Description" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="0" solutionaction="Modified">
+        <SubArea Id="Help_Resource_Center" ResourceId="Area_CustomerCenter" DescriptionResourceId="ResourceCenter_Area_Description" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Url="http://go.microsoft.com/fwlink/?LinkId=296269&amp;clcid=0x409" AvailableOffline="false" PassParams="false" ordinalvalue="1" solutionaction="Modified" />
+        <SubArea Id="Help_Data_Protection" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Url="$webresource:sfa_help_data_protection" Title="Data Protection" AvailableOffline="false" PassParams="false" ordinalvalue="0" solutionaction="Added">
+          <Titles>
+            <Title LCID="1033" Title="Data Protection" ordinalvalue="0" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="LearningPath" IsProfile="false" ordinalvalue="1" solutionaction="Removed" />
+    </Area>
+    <Area Id="Settings" ResourceId="Area_Settings" DescriptionResourceId="Settings_Area_Description" Icon="/_imgs/settings_24x24.gif" ShowGroups="true" ordinalvalue="1" solutionaction="Modified">
+      <Group Id="Business_Setting" ResourceId="Menu_Label_Business" DescriptionResourceId="Menu_Label_Business" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="0" solutionaction="Modified">
+        <SubArea Id="nav_businessmanagement" ResourceId="Homepage_BusinessManagement" DescriptionResourceId="BizManagement_SubArea_Description" Icon="/_imgs/ico_18_busmanagement.gif" Url="/tools/business/business.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="0" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_template" ResourceId="Homepage_Template" DescriptionResourceId="Template_SubArea_Description" Icon="/_imgs/ico_18_templates.gif" Url="/tools/templates/templates.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="1" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_productcatalog" ResourceId="Homepage_ProductCatalog" DescriptionResourceId="ProductCatalog_SubArea_Description" Icon="/_imgs/ico_18_productcatalog.gif" Url="/tools/productcatalog/productcatalog.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="2" solutionaction="Modified" />
+        <SubArea Id="nav_externAppmanagement" ResourceId="Homepage_ExternAppManagement" DescriptionResourceId="ExternAppManagement_SubArea_Description" Icon="/_imgs/ExternalAppManagement_16.png" Url="/tools/externappmanagement/externappmanagement.aspx" AvailableOffline="false" IntroducedVersion="8.0.0.0" ordinalvalue="3" solutionaction="Removed" />
+        <SubArea Id="nav_servicemanagement" ResourceId="Homepage_ServiceManagement" DescriptionResourceId="ServiceManagement_SubArea_Description" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Url="/tools/servicemanagement/servicemanagement.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="3" solutionaction="Modified" />
+        <SubArea Id="nav_mocaoffline" ResourceId="Homepage_MobileOffline" DescriptionResourceId="MobileOffline_SubArea_Description" Icon="/_imgs/ico_18_mobileoffline.gif" Url="/tools/mobileoffline/mobileoffline.aspx" AvailableOffline="false" IntroducedVersion="8.0.0.0" ordinalvalue="5" solutionaction="Removed" />
+        <SubArea Id="nav_syncerror" ResourceId="Homepage_SyncError" DescriptionResourceId="SyncError_SubArea_Description=" ToolTipResourseId="SyncError_SubArea_ToolTip" Icon="/_imgs/ico_18_syncerror.gif" Entity="syncerror" AvailableOffline="false" IntroducedVersion="8.1.0.0" ordinalvalue="6" solutionaction="Removed" />
+      </Group>
+      <Group Id="Customizations" ResourceId="Homepage_SystemCustomization" DescriptionResourceId="Homepage_SystemCustomization" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="1" solutionaction="Modified">
+        <SubArea Id="nav_syscust" ResourceId="Menu_Label_Customizations" DescriptionResourceId="Customization_SubArea_Description" Icon="/_imgs/area/18_syscust.gif" Url="/tools/systemcustomization/systemcustomization.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="0" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_solution" ResourceId="Web.Tools.Solution.map_xml.aspx_1" DescriptionResourceId="Web.Tools.Solution.map_xml.aspx_2" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="/tools/Solution/home_solution.aspx?etc=7100" GetStartedPanePath="Solutions_Web_Admin_Visor.html" GetStartedPanePathAdmin="Solutions_Web_Admin_Visor.html" GetStartedPanePathAdminOutlook="Solutions_Outlook_Admin_Visor.html" GetStartedPanePathOutlook="Solutions_Outlook_Admin_Visor.html" Entity="solution" AvailableOffline="false" PassParams="false" ordinalvalue="1" solutionaction="Modified" />
+        <SubArea Id="nav_marketplace" ResourceId="Homepage_Marketplace" DescriptionResourceId="Marketplace_SubArea_Description" Icon="/_imgs/SystemCustomization/ico_18_marketplace.png" Url="/tools/SystemCustomization/SolutionsMarketplace/SolutionsMarketplace.aspx" Client="Web" AvailableOffline="true" PassParams="false" ordinalvalue="2" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_plugintrace" ResourceId="Homepage_PluginTraceLog" Icon="/_imgs/area/Plugin_TraceLog_32.png" IntroducedVersion="7.1.0.0" Entity="plugintracelog" Client="Web" AvailableOffline="true" PassParams="false" ordinalvalue="3" solutionaction="Modified" />
+        <SubArea Id="NewSubArea_0b440e2e" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="msdyn_solutionhistory" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="4" solutionaction="Modified" />
+      </Group>
+      <Group Id="System_Setting" ResourceId="Menu_Label_System" DescriptionResourceId="Menu_Label_System" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="2" solutionaction="Modified">
+        <SubArea Id="nav_administration" ResourceId="Homepage_Administration" DescriptionResourceId="Administration_SubArea_Description" Icon="/_imgs/ico_18_administration.gif" Url="/tools/Admin/admin.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="0" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_security" ResourceId="AdminSecurity_SubArea_Title" DescriptionResourceId="AdminSecurity_SubArea_Description" Icon="/_imgs/area/Security_32.png" Url="/tools/AdminSecurity/adminsecurity_area.aspx" IntroducedVersion="7.0.0.0" AvailableOffline="false" PassParams="false" ordinalvalue="1" solutionaction="Modified" />
+        <SubArea Id="nav_datamanagement" ResourceId="Homepage_DataManagement" DescriptionResourceId="DataManagement_SubArea_Description" Icon="/_imgs/ico_18_datamanagement.gif" Url="/tools/DataManagement/datamanagement.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="2" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_systemjobs" ResourceId="Homepage_SystemJobs" DescriptionResourceId="SystemJobs_SubArea_Description" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="/tools/business/home_asyncoperation.aspx" Entity="asyncoperation" AvailableOffline="false" PassParams="false" ordinalvalue="3" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_documentmanagement" ResourceId="DocumentManagement.SettingsArea.Heading" DescriptionResourceId="DocumentManagement.SettingsArea.Description" Icon="/_imgs/DocumentManagement_16.png" Url="/tools/documentmanagement/documentmanagement.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="4" solutionaction="Modified">
+          <Privilege Entity="sharepointsite" Privilege="Read" solutionaction="Removed" />
+          <Privilege Entity="sharepointdocumentlocation" Privilege="Read" solutionaction="Removed" />
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_audit" ResourceId="Audit_SubArea_Title" DescriptionResourceId="Audit_SubArea_Description" Icon="/_imgs/area/16_audit.png" Url="/tools/audit/audit_area.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="5" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_social" ResourceId="Social_SubArea_Title" DescriptionResourceId="Social_SubArea_Description" Icon="/_imgs/area/16_social.png" Url="/tools/social/social_area.aspx" AvailableOffline="false" PassParams="false" ordinalvalue="6" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="msdyn_postconfig" ResourceId="Activity_Feed_Configuration" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="msdyn_postconfig" AvailableOffline="true" PassParams="false" ordinalvalue="7" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="msdyn_postruleconfig" ResourceId="Activity_Feed_Rules_Configuration" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="msdyn_postruleconfig" AvailableOffline="true" PassParams="false" ordinalvalue="8" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="crmapp_outlook" ResourceId="MailApp_SubArea_Title" DescriptionResourceId="MailApp_SubArea_Description" Icon="/_imgs/area/crm_apps_16x16.png" Url="/tools/appsforcrm/AppForOutlookAdminSettings.aspx" AvailableOffline="false" IntroducedVersion="8.0.0.0" ordinalvalue="9" solutionaction="Removed" />
+        <SubArea Id="export_ExporterConfiguration" Icon="/WebResources/export_ExporterAppIcon" Url="$webresource:export_ExporterAppHost.html" Client="Web" AvailableOffline="false" PassParams="true" Sku="All" ordinalvalue="9" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_relationshipIntelligence" ResourceId="RelationshipIntelligence_SubArea_Title" DescriptionResourceId="RelationshipIntelligence_SubArea_Description" ToolTipResourseId="RelationshipIntelligence_SubArea_ToolTip" Icon="/_imgs/area/Relationship_Intelligence_16.png" Url="/_static/tools/RelationshipIntelligenceConfig/UnifiedConfig.html" AvailableOffline="false" IntroducedVersion="9.0.0.0" ordinalvalue="11" solutionaction="Removed" />
+      </Group>
+      <Group Id="ProcessCenter" ResourceId="Menu_Label_ProcessCenter" DescriptionResourceId="Menu_Label_ProcessCenter" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="3" solutionaction="Modified">
+        <SubArea Id="nav_workflow" DescriptionResourceId="Workflow_SubArea_Description" Icon="/_imgs/imagestrips/transparent_spacer.gif" GetStartedPanePath="Workflows_Web_User_Visor.html" GetStartedPanePathAdmin="Workflows_Web_Admin_Visor.html" GetStartedPanePathAdminOutlook="Workflows_Outlook_Admin_Visor.html" GetStartedPanePathOutlook="Workflows_Outlook_User_Visor.html" Entity="workflow" AvailableOffline="false" PassParams="false" ordinalvalue="0" solutionaction="Modified">
+          <Privilege Entity="solution" Privilege="Read" solutionaction="Added" />
+        </SubArea>
+        <SubArea Id="nav_manageflow" ResourceId="ManageFlow_Menu_Button" DescriptionResourceId="ManageFlow_SubArea_Description" Icon="/_imgs/NavBar/ActionImgs/MicrosoftFlow_32.png" Url="/tools/MicrosoftFlow/ManageFlowsPage.aspx" IntroducedVersion="9.0.0.0" AvailableOffline="false" PassParams="false" ordinalvalue="1" solutionaction="Modified" />
+      </Group>
+      <Group Id="Application" ResourceId="Menu_Label_Application" DescriptionResourceId="Menu_Label_Application" IntroducedVersion="8.1.0.0" IsProfile="false" ToolTipResourseId="Menu_Label_Application_ToolTip" ordinalvalue="5" solutionaction="Modified">
+        <SubArea Id="nav_app_modules" ResourceId="App_Modules_SubArea_Title" DescriptionResourceId="App_Modules_SubArea_Description" Icon="/_imgs/AppModules_32x32.png" Url="$webresource:msdyn_appmanagementcontrol" IntroducedVersion="8.2.0.0" Client="Web" AvailableOffline="false" PassParams="false" ordinalvalue="0" solutionaction="Modified" />
+      </Group>
+      <Group Id="UpgradeLogs_Group" ResourceId="SitemapDesigner.NewGroup" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="6" solutionaction="Modified">
+        <SubArea Id="UpgradeRuns" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="msdyn_upgraderun" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="0" solutionaction="Modified" />
+      </Group>
+      <Group Id="Extensions" ResourceId="Group_Extensions" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="4" solutionaction="Added">
+        <SubArea Id="sfa_webserviceresource" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_webserviceresource" AvailableOffline="true" PassParams="false" ordinalvalue="0">
+          <Privilege Entity="solution" Privilege="Read" />
+        </SubArea>
+      </Group>
+    </Area>
+    <Area Id="SFA_Configuration" Icon="/_imgs/settings_24x24.gif" ShowGroups="true" Title="Configuration" ordinalvalue="3" solutionaction="Added">
+      <Titles>
+        <Title LCID="1033" Title="Configuration" />
+      </Titles>
+      <Group Id="Extensions" ResourceId="Group_Extensions" IsProfile="false" Title="Configuration" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="0">
+        <SubArea Id="sfa_fundingstreamperiod" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_fundingstreamperiod" AvailableOffline="true" PassParams="false" ordinalvalue="0">
+          <Privilege Entity="sfa_fundingstreamperiod" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_fundingstream" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_fundingstream" AvailableOffline="true" PassParams="false" ordinalvalue="1">
+          <Privilege Entity="sfa_fundingstream" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_fundingtype" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_fundingtype" AvailableOffline="true" PassParams="false" ordinalvalue="2">
+          <Privilege Entity="sfa_fundingtype" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_period" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_period" AvailableOffline="true" PassParams="false" ordinalvalue="3">
+          <Privilege Entity="sfa_period" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_periodtype" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_periodtype" AvailableOffline="true" PassParams="false" ordinalvalue="4">
+          <Privilege Entity="sfa_periodtype" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_agency" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_agency" AvailableOffline="true" PassParams="false" ordinalvalue="5">
+          <Privilege Entity="sfa_agency" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_deliverable" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_deliverable" AvailableOffline="true" PassParams="false" ordinalvalue="6">
+          <Privilege Entity="sfa_deliverable" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_fundingstreamperioddeliverable" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_fundingstreamperioddeliverable" AvailableOffline="true" PassParams="false" ordinalvalue="7">
+          <Privilege Entity="sfa_fundingstreamperioddeliverable" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_status" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_status" AvailableOffline="true" PassParams="false" ordinalvalue="8">
+          <Privilege Entity="sfa_status" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_transition" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_transition" AvailableOffline="true" PassParams="false" ordinalvalue="9">
+          <Privilege Entity="sfa_transition" Privilege="Create" />
+        </SubArea>
+        <SubArea Id="sfa_unitofprocurement" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_unitofprocurement" AvailableOffline="true" PassParams="false" ordinalvalue="10" />
+        <SubArea Id="sfa_subnominalaggregation" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_subnominalaggregation" AvailableOffline="true" PassParams="false" ordinalvalue="11" />
+        <SubArea Id="sfa_stagingentity" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_stagingentity" AvailableOffline="true" PassParams="false" ordinalvalue="12" />
+        <SubArea Id="sfa_cappinggroups" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_cappinggroups" AvailableOffline="true" PassParams="false" ordinalvalue="13" />
+        <SubArea Id="sfa_specificationtitle" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_specificationtitle" AvailableOffline="true" PassParams="false" ordinalvalue="14" />
+        <SubArea Id="sfa_regiontype" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_regiontype" AvailableOffline="true" PassParams="false" ordinalvalue="15" />
+        <SubArea Id="sfa_investmentpriority" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_investmentpriority" AvailableOffline="true" PassParams="false" ordinalvalue="16" />
+        <SubArea Id="sfa_fundingtypefundingperiod" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_fundingtypefundingperiod" AvailableOffline="true" PassParams="false" ordinalvalue="17" />
+        <SubArea Id="sfa_claimreconallocgroup" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_claimreconallocgroup" AvailableOffline="true" PassParams="false" ordinalvalue="18" />
+        <SubArea Id="sfa_claimtype" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_claimtype" AvailableOffline="true" PassParams="false" ordinalvalue="19" />
+        <SubArea Id="sfa_taskaction" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_taskaction" AvailableOffline="true" PassParams="false" ordinalvalue="20" />
+        <SubArea Id="sfa_paymenttimetable" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_paymenttimetable" AvailableOffline="true" PassParams="false" ordinalvalue="21" />
+        <SubArea Id="sfa_claimreconciliationbehaviour" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_claimreconciliationbehaviour" AvailableOffline="true" PassParams="false" ordinalvalue="22" />
+        <SubArea Id="sfa_claimreconciliationpublicationexception" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Entity="sfa_claimreconciliationpublicationexception" AvailableOffline="true" PassParams="false" ordinalvalue="23" />
+      </Group>
+    </Area>
+  </SiteMap>
+</SiteMap>

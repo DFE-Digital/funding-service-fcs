@@ -1,0 +1,45 @@
+#azure-pipelines.release.yml
+parameters:
+- name: artifact
+  type: string
+
+- name: myServiceConnection
+  type: string
+
+- name: environment
+  type: string
+
+jobs:
+  - deployment: DeploySolution
+    displayName: 'Deploy solution'
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: none
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifact: ${{ parameters.artifact }}
+              path: $(Build.ArtifactStagingDirectory)\drop
+          - script: 
+          - task: AzurePowerShell@3
+            displayName: 'Get KeyVault Access Polices Script'
+            inputs:
+              ConnectedServiceNameARM: ${{ parameters.myServiceConnection }}
+              ScriptPath: '$(Build.ArtifactStagingDirectory)\drop\Azure\Scripts\GetKeyVaultAccessPolicies.ps1'
+              ScriptArguments: -KeyVaultName $(keyVaultName)
+              azurePowerShellVersion: LatestVersion
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              overrideParameters: -certificateDeployment $(certificateDeployment) -emailAddress $(emailAddress) -accessPolicies $(accessPolicies) -environmentTag "$(environmentTag)" -parentBusinessTag "$(parentBusinessTag)" -portfolioTag "$(portfolioTag)" -productTag "$(productTag)" -serviceLineTag "$(serviceLineTag)"  -existingAccessPolicies $(Infra.KeyVault.AccessPolicies)
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: ${{ parameters.myServiceConnection }}
+              subscriptionId: $(subscriptionId)
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: $(resourceGroupName)
+              location: $(location)
+              templateLocation: 'Linked artifact'
+              csmFile: '$(Build.ArtifactStagingDirectory)\drop\Azure\Templates\fcs-SUB-shared-rg\fcs-SUB-shared-rg.json'
+              csmParametersFile: '$(Build.ArtifactStagingDirectory)\drop\Azure\Templates\fcs-SUB-shared-rg\fcs-SUB-shared-rg-parameters-$(environment).json'
+              deploymentMode: 'Incremental'

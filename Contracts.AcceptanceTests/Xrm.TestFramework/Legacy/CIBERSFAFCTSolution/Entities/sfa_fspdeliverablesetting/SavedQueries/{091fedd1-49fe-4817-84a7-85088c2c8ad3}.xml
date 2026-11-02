@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10015</returnedtypecode>
+  <savedqueryid>{091fedd1-49fe-4817-84a7-85088c2c8ad3}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10015" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_fspdeliverablesettingid">
+        <cell name="sfa_settingid" width="150" />
+        <cell name="sfa_settingvaluelistid" width="150" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_fspdeliverablesetting">
+        <attribute name="createdon" />
+        <order attribute="sfa_settingid" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_settingvaluelistid" />
+        <attribute name="sfa_settingid" />
+        <attribute name="sfa_fspdeliverablesettingid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.1.5.2</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Active FSP Deliverable Settings" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

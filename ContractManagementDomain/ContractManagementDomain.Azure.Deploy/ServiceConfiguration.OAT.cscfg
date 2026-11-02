@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="ContractManagementDomain.Azure.Deploy" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="ContractManagementService">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=fctappstorageoat;AccountKey=" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="630ACF9857AC6DBD79ED146191A5751EDDD9F45B" thumbprintAlgorithm="sha1" />
+      <Certificate name="SSLCertificate" thumbprint="7506186A3B2A3F142CC4F8944DC7E08C9F4908D5" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="FCSPreProd-VNet" />
+    <AddressAssignments>
+      <InstanceAddress roleName="ContractManagementService">
+        <Subnets>
+          <Subnet name="Contract" />
+        </Subnets>
+      </InstanceAddress>
+      <ReservedIPs>
+        <ReservedIP name="fct-contractservice-oat-rip" />
+      </ReservedIPs>
+    </AddressAssignments>
+  </NetworkConfiguration>
+</ServiceConfiguration>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10050</returnedtypecode>
+  <savedqueryid>{779afeb7-6dd8-46ab-8876-f1e927e48bda}</savedqueryid>
+  <layoutxml>
+    <grid name="" object="10050" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="sfa_fcrallocation" id="sfa_fcrallocationid">
+        <cell name="createdon" width="125" />
+        <cell name="sfa_contractallocationid" width="200" />
+        <cell name="sfa_plannedvalue" width="100" />
+        <cell name="sfa_claimedvalue" width="100" />
+        <cell name="sfa_cappedclaimedvalue" width="200" />
+        <cell name="sfa_claimadjustmentvalue" width="150" />
+        <cell name="sfa_claimadjustmentreason" width="150" />
+        <cell name="sfa_adjustedcappedclaimedvalue" width="200" />
+        <cell name="sfa_proposedreconciliationvalue" width="200" />
+        <cell name="sfa_reconciliationvalue" width="150" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>2</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_fcrallocation">
+        <attribute name="createdon" />
+        <order attribute="createdon" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_reconciliationvalue" />
+        <attribute name="sfa_proposedreconciliationvalue" />
+        <attribute name="sfa_plannedvalue" />
+        <attribute name="sfa_contractallocationid" />
+        <attribute name="sfa_claimedvalue" />
+        <attribute name="sfa_cappedclaimedvalue" />
+        <attribute name="sfa_claimadjustmentvalue" />
+        <attribute name="sfa_claimadjustmentreason" />
+        <attribute name="sfa_adjustedcappedclaimedvalue" />
+        <attribute name="sfa_fcrallocationid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.10.1.0</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="FCR Allocation Associated View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

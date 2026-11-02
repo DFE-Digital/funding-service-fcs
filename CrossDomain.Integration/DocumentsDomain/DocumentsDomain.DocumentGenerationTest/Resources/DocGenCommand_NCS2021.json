@@ -1,0 +1,1304 @@
+{
+  "CorrelationId": "50150bd5-5cfd-4210-80e1-0a7532c8d073",
+  "CorporateContract": {
+    "schemaVersion": 8.04,
+    "ContractApprovalDate": null,
+    "StatusLastUpdatedDate": null,
+    "LastModifiedDate": null,
+    "DocumentationRequired": null,
+    "SkipCaseloadAssignment": null,
+    "SkipReviewAndInternalApproval": null,
+    "SkipDocumentMerge": false,
+    "IsNonFinancialAmendment": null,
+    "TerminationDate": null,
+    "InflightTerminationDate": null,
+    "TerminationReason": null,
+    "InflightTerminationReason": null,
+    "IsNewRevisedNewOrUpdateDraft": true,
+    "IsAmendment": false,
+    "SharedMasterApprovedContracts": [],
+    "LatestCreatedDateForNonNotificationApprovedContract": null,
+    "IsVariation": false,
+    "ShouldMergeAmendmentTemplate": false,
+    "IsNotification": true,
+    "StopNewStartsDate": null,
+    "InflightStopNewStartsDate": null,
+    "NewStartsSuspendedReason": null,
+    "InflightNewStartsSuspendedReason": null,
+    "IsModified": false,
+    "contracts": [],
+    "fundingType": {
+      "fundingTypeCode": "NCS",
+      "fundingTypeName": null
+    },
+    "period": {
+      "periodType": {
+        "periodTypeCode": 1,
+        "periodTypeName": 0
+      },
+      "fundingStreamPeriods": [
+        {
+          "fundingStreamPeriodCode": ""
+        }
+      ],
+      "period1": "2122",
+      "startDate": "0001-01-01T00:00:00",
+      "endDate": "0001-01-01T00:00:00"
+    },
+    "fundingStream": {
+      "fundingStreamCode": "NCS",
+      "fundingStreamName": null,
+      "fundingTypeCode": null,
+      "fundingStreamShortCode": null
+    },
+    "contractAllocations": [
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "DeliveryOrganisation": null,
+        "DeliveryOrganisationDetail": {
+          "organisationIdentifier": null,
+          "ukprn": 0,
+          "legalName": null,
+          "registeredCompanyNumber": null,
+          "organisationAddressIdentifier": 0,
+          "addressLine1": null,
+          "addressLine2": null,
+          "addressLine3": null,
+          "addressLine4": null,
+          "county": null,
+          "town": null,
+          "postcode": null,
+          "Upin": null,
+          "CharityNumber": null,
+          "Status": null
+        },
+        "FundingCessationDate": null,
+        "StopNewStartsDate": null,
+        "NewStartsSuspendedReason": null,
+        "HasBeenAddedOrUpdated": true,
+        "HasBeenAdded": true,
+        "OriginalAllocationNumber": null,
+        "InflightStopNewStartsDate": null,
+        "InflightNewStartsSuspendedReason": null,
+        "InflightTerminationDate": null,
+        "IsModified": false,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 1,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [
+            {
+              "fundingStreamPeriodCode": "NCS-C2122"
+            }
+          ],
+          "period1": "2122",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "NCS-C",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 1336,
+            "AggregatedPlannedValue": 0.0,
+            "DisplayOrder": 6,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "NCS-C",
+              "deliverableCode": 6,
+              "businessCode": null,
+              "deliverableName": "Customers Accessing Service"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2021,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 215,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Apr-21",
+                "displayOrder": 202104
+              },
+              {
+                "year": 2021,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 97,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "May-21",
+                "displayOrder": 202105
+              },
+              {
+                "year": 2021,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 50,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Jun-21",
+                "displayOrder": 202106
+              },
+              {
+                "year": 2021,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 73,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Jul-21",
+                "displayOrder": 202107
+              },
+              {
+                "year": 2021,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 165,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Aug-21",
+                "displayOrder": 202108
+              },
+              {
+                "year": 2021,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 145,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Sep-21",
+                "displayOrder": 202109
+              },
+              {
+                "year": 2021,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 58,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Oct-21",
+                "displayOrder": 202110
+              },
+              {
+                "year": 2021,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 65,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Nov-21",
+                "displayOrder": 202111
+              },
+              {
+                "year": 2021,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 191,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Dec-21",
+                "displayOrder": 202112
+              },
+              {
+                "year": 2022,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 68,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Jan-22",
+                "displayOrder": 202201
+              },
+              {
+                "year": 2022,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 89,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Feb-22",
+                "displayOrder": 202202
+              },
+              {
+                "year": 2022,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 120,
+                "plannedValue": 0.0,
+                "aggregate": false,
+                "periodName": "Mar-22",
+                "displayOrder": 202203
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 1336,
+            "plannedValue": 0.0
+          },
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 95914.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [
+              {
+                "ParentDeliverableCode": 1,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 33296.0,
+                "DisplayOrder": 2,
+                "contractDeliverables": [],
+                "deliverable": {
+                  "fundingStreamCode": "NCS-C",
+                  "deliverableCode": 2,
+                  "businessCode": null,
+                  "deliverableName": "Customer Satisfaction"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2021,
+                    "period": 4,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 3341.0,
+                    "aggregate": false,
+                    "periodName": "Apr-21",
+                    "displayOrder": 202104
+                  },
+                  {
+                    "year": 2021,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 3606.0,
+                    "aggregate": false,
+                    "periodName": "May-21",
+                    "displayOrder": 202105
+                  },
+                  {
+                    "year": 2021,
+                    "period": 6,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2813.0,
+                    "aggregate": false,
+                    "periodName": "Jun-21",
+                    "displayOrder": 202106
+                  },
+                  {
+                    "year": 2021,
+                    "period": 7,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 241.0,
+                    "aggregate": false,
+                    "periodName": "Jul-21",
+                    "displayOrder": 202107
+                  },
+                  {
+                    "year": 2021,
+                    "period": 8,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1689.0,
+                    "aggregate": false,
+                    "periodName": "Aug-21",
+                    "displayOrder": 202108
+                  },
+                  {
+                    "year": 2021,
+                    "period": 9,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 982.0,
+                    "aggregate": false,
+                    "periodName": "Sep-21",
+                    "displayOrder": 202109
+                  },
+                  {
+                    "year": 2021,
+                    "period": 10,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 4419.0,
+                    "aggregate": false,
+                    "periodName": "Oct-21",
+                    "displayOrder": 202110
+                  },
+                  {
+                    "year": 2021,
+                    "period": 11,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2694.0,
+                    "aggregate": false,
+                    "periodName": "Nov-21",
+                    "displayOrder": 202111
+                  },
+                  {
+                    "year": 2021,
+                    "period": 12,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2918.0,
+                    "aggregate": false,
+                    "periodName": "Dec-21",
+                    "displayOrder": 202112
+                  },
+                  {
+                    "year": 2022,
+                    "period": 1,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 4875.0,
+                    "aggregate": false,
+                    "periodName": "Jan-22",
+                    "displayOrder": 202201
+                  },
+                  {
+                    "year": 2022,
+                    "period": 2,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2641.0,
+                    "aggregate": false,
+                    "periodName": "Feb-22",
+                    "displayOrder": 202202
+                  },
+                  {
+                    "year": 2022,
+                    "period": 3,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 3077.0,
+                    "aggregate": false,
+                    "periodName": "Mar-22",
+                    "displayOrder": 202203
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": null,
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 33296.0
+              },
+              {
+                "ParentDeliverableCode": 1,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 62618.0,
+                "DisplayOrder": 3,
+                "contractDeliverables": [
+                  {
+                    "ParentDeliverableCode": 3,
+                    "AggregatedPlannedVolume": 0,
+                    "AggregatedPlannedValue": 26613.0,
+                    "DisplayOrder": 4,
+                    "contractDeliverables": [],
+                    "deliverable": {
+                      "fundingStreamCode": "NCS-C",
+                      "deliverableCode": 4,
+                      "businessCode": null,
+                      "deliverableName": "Career Management"
+                    },
+                    "contractDeliverablePeriods": [
+                      {
+                        "year": 2021,
+                        "period": 4,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 433.0,
+                        "aggregate": false,
+                        "periodName": "Apr-21",
+                        "displayOrder": 202104
+                      },
+                      {
+                        "year": 2021,
+                        "period": 5,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2430.0,
+                        "aggregate": false,
+                        "periodName": "May-21",
+                        "displayOrder": 202105
+                      },
+                      {
+                        "year": 2021,
+                        "period": 6,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 3712.0,
+                        "aggregate": false,
+                        "periodName": "Jun-21",
+                        "displayOrder": 202106
+                      },
+                      {
+                        "year": 2021,
+                        "period": 7,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2495.0,
+                        "aggregate": false,
+                        "periodName": "Jul-21",
+                        "displayOrder": 202107
+                      },
+                      {
+                        "year": 2021,
+                        "period": 8,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1193.0,
+                        "aggregate": false,
+                        "periodName": "Aug-21",
+                        "displayOrder": 202108
+                      },
+                      {
+                        "year": 2021,
+                        "period": 9,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 3784.0,
+                        "aggregate": false,
+                        "periodName": "Sep-21",
+                        "displayOrder": 202109
+                      },
+                      {
+                        "year": 2021,
+                        "period": 10,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 962.0,
+                        "aggregate": false,
+                        "periodName": "Oct-21",
+                        "displayOrder": 202110
+                      },
+                      {
+                        "year": 2021,
+                        "period": 11,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 843.0,
+                        "aggregate": false,
+                        "periodName": "Nov-21",
+                        "displayOrder": 202111
+                      },
+                      {
+                        "year": 2021,
+                        "period": 12,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 3520.0,
+                        "aggregate": false,
+                        "periodName": "Dec-21",
+                        "displayOrder": 202112
+                      },
+                      {
+                        "year": 2022,
+                        "period": 1,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1755.0,
+                        "aggregate": false,
+                        "periodName": "Jan-22",
+                        "displayOrder": 202201
+                      },
+                      {
+                        "year": 2022,
+                        "period": 2,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 3414.0,
+                        "aggregate": false,
+                        "periodName": "Feb-22",
+                        "displayOrder": 202202
+                      },
+                      {
+                        "year": 2022,
+                        "period": 3,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2072.0,
+                        "aggregate": false,
+                        "periodName": "Mar-22",
+                        "displayOrder": 202203
+                      }
+                    ],
+                    "deliverableOrganisationRelationships": [],
+                    "deliverableDimensionRelationships": [],
+                    "deliverableDescription": null,
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 26613.0
+                  },
+                  {
+                    "ParentDeliverableCode": 3,
+                    "AggregatedPlannedVolume": 0,
+                    "AggregatedPlannedValue": 36005.0,
+                    "DisplayOrder": 5,
+                    "contractDeliverables": [],
+                    "deliverable": {
+                      "fundingStreamCode": "NCS-C",
+                      "deliverableCode": 5,
+                      "businessCode": null,
+                      "deliverableName": "Jobs and Learning"
+                    },
+                    "contractDeliverablePeriods": [
+                      {
+                        "year": 2021,
+                        "period": 4,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 4928.0,
+                        "aggregate": false,
+                        "periodName": "Apr-21",
+                        "displayOrder": 202104
+                      },
+                      {
+                        "year": 2021,
+                        "period": 5,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2482.0,
+                        "aggregate": false,
+                        "periodName": "May-21",
+                        "displayOrder": 202105
+                      },
+                      {
+                        "year": 2021,
+                        "period": 6,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 3553.0,
+                        "aggregate": false,
+                        "periodName": "Jun-21",
+                        "displayOrder": 202106
+                      },
+                      {
+                        "year": 2021,
+                        "period": 7,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2971.0,
+                        "aggregate": false,
+                        "periodName": "Jul-21",
+                        "displayOrder": 202107
+                      },
+                      {
+                        "year": 2021,
+                        "period": 8,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 4716.0,
+                        "aggregate": false,
+                        "periodName": "Aug-21",
+                        "displayOrder": 202108
+                      },
+                      {
+                        "year": 2021,
+                        "period": 9,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 4432.0,
+                        "aggregate": false,
+                        "periodName": "Sep-21",
+                        "displayOrder": 202109
+                      },
+                      {
+                        "year": 2021,
+                        "period": 10,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1649.0,
+                        "aggregate": false,
+                        "periodName": "Oct-21",
+                        "displayOrder": 202110
+                      },
+                      {
+                        "year": 2021,
+                        "period": 11,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 3732.0,
+                        "aggregate": false,
+                        "periodName": "Nov-21",
+                        "displayOrder": 202111
+                      },
+                      {
+                        "year": 2021,
+                        "period": 12,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1120.0,
+                        "aggregate": false,
+                        "periodName": "Dec-21",
+                        "displayOrder": 202112
+                      },
+                      {
+                        "year": 2022,
+                        "period": 1,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 367.0,
+                        "aggregate": false,
+                        "periodName": "Jan-22",
+                        "displayOrder": 202201
+                      },
+                      {
+                        "year": 2022,
+                        "period": 2,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 4948.0,
+                        "aggregate": false,
+                        "periodName": "Feb-22",
+                        "displayOrder": 202202
+                      },
+                      {
+                        "year": 2022,
+                        "period": 3,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1107.0,
+                        "aggregate": false,
+                        "periodName": "Mar-22",
+                        "displayOrder": 202203
+                      }
+                    ],
+                    "deliverableOrganisationRelationships": [],
+                    "deliverableDimensionRelationships": [],
+                    "deliverableDescription": null,
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 36005.0
+                  }
+                ],
+                "deliverable": {
+                  "fundingStreamCode": "NCS-C",
+                  "deliverableCode": 3,
+                  "businessCode": null,
+                  "deliverableName": "Career Management and Jobs and Learning"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2021,
+                    "period": 4,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 5361.0,
+                    "aggregate": true,
+                    "periodName": "Apr-21",
+                    "displayOrder": 202104
+                  },
+                  {
+                    "year": 2021,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 4912.0,
+                    "aggregate": true,
+                    "periodName": "May-21",
+                    "displayOrder": 202105
+                  },
+                  {
+                    "year": 2021,
+                    "period": 6,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 7265.0,
+                    "aggregate": true,
+                    "periodName": "Jun-21",
+                    "displayOrder": 202106
+                  },
+                  {
+                    "year": 2021,
+                    "period": 7,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 5466.0,
+                    "aggregate": true,
+                    "periodName": "Jul-21",
+                    "displayOrder": 202107
+                  },
+                  {
+                    "year": 2021,
+                    "period": 8,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 5909.0,
+                    "aggregate": true,
+                    "periodName": "Aug-21",
+                    "displayOrder": 202108
+                  },
+                  {
+                    "year": 2021,
+                    "period": 9,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 8216.0,
+                    "aggregate": true,
+                    "periodName": "Sep-21",
+                    "displayOrder": 202109
+                  },
+                  {
+                    "year": 2021,
+                    "period": 10,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2611.0,
+                    "aggregate": true,
+                    "periodName": "Oct-21",
+                    "displayOrder": 202110
+                  },
+                  {
+                    "year": 2021,
+                    "period": 11,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 4575.0,
+                    "aggregate": true,
+                    "periodName": "Nov-21",
+                    "displayOrder": 202111
+                  },
+                  {
+                    "year": 2021,
+                    "period": 12,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 4640.0,
+                    "aggregate": true,
+                    "periodName": "Dec-21",
+                    "displayOrder": 202112
+                  },
+                  {
+                    "year": 2022,
+                    "period": 1,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2122.0,
+                    "aggregate": true,
+                    "periodName": "Jan-22",
+                    "displayOrder": 202201
+                  },
+                  {
+                    "year": 2022,
+                    "period": 2,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 8362.0,
+                    "aggregate": true,
+                    "periodName": "Feb-22",
+                    "displayOrder": 202202
+                  },
+                  {
+                    "year": 2022,
+                    "period": 3,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 3179.0,
+                    "aggregate": true,
+                    "periodName": "Mar-22",
+                    "displayOrder": 202203
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": "Career Management and Jobs and Learning",
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 62618.0
+              }
+            ],
+            "deliverable": {
+              "fundingStreamCode": "NCS-C",
+              "deliverableCode": 1,
+              "businessCode": null,
+              "deliverableName": "Total In The Community Funding"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2021,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 8702.0,
+                "aggregate": true,
+                "periodName": "Apr-21",
+                "displayOrder": 202104
+              },
+              {
+                "year": 2021,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 8518.0,
+                "aggregate": true,
+                "periodName": "May-21",
+                "displayOrder": 202105
+              },
+              {
+                "year": 2021,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 10078.0,
+                "aggregate": true,
+                "periodName": "Jun-21",
+                "displayOrder": 202106
+              },
+              {
+                "year": 2021,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5707.0,
+                "aggregate": true,
+                "periodName": "Jul-21",
+                "displayOrder": 202107
+              },
+              {
+                "year": 2021,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7598.0,
+                "aggregate": true,
+                "periodName": "Aug-21",
+                "displayOrder": 202108
+              },
+              {
+                "year": 2021,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 9198.0,
+                "aggregate": true,
+                "periodName": "Sep-21",
+                "displayOrder": 202109
+              },
+              {
+                "year": 2021,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7030.0,
+                "aggregate": true,
+                "periodName": "Oct-21",
+                "displayOrder": 202110
+              },
+              {
+                "year": 2021,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7269.0,
+                "aggregate": true,
+                "periodName": "Nov-21",
+                "displayOrder": 202111
+              },
+              {
+                "year": 2021,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7558.0,
+                "aggregate": true,
+                "periodName": "Dec-21",
+                "displayOrder": 202112
+              },
+              {
+                "year": 2022,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6997.0,
+                "aggregate": true,
+                "periodName": "Jan-22",
+                "displayOrder": 202201
+              },
+              {
+                "year": 2022,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 11003.0,
+                "aggregate": true,
+                "periodName": "Feb-22",
+                "displayOrder": 202202
+              },
+              {
+                "year": 2022,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6256.0,
+                "aggregate": true,
+                "periodName": "Mar-22",
+                "displayOrder": 202203
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": "Total In The Community Funding",
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 95914.0
+          }
+        ],
+        "contractAllocationNumber": "NCSC-2505",
+        "description": "London",
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "NCS-C2122",
+        "startDate": "2021-04-01T00:00:00Z",
+        "endDate": "2022-03-31T00:00:00Z",
+        "maximumContractValue": 95914.0,
+        "reasonForAmendment": null,
+        "uopCode": "0000000103",
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      }
+    ],
+    "contractDimensionRelationships": [],
+    "contractOrganisationRelationships": [],
+    "contractNumber": "NCS-2505",
+    "contractVersionNumber": 1,
+    "contractSubVersionNumber": 0,
+    "description": "London",
+    "contractor": {
+      "organisationIdentifier": "ORG0424220",
+      "ukprn": 10014415,
+      "legalName": "NACRO",
+      "registeredCompanyNumber": null,
+      "organisationAddressIdentifier": 0,
+      "addressLine1": null,
+      "addressLine2": null,
+      "addressLine3": null,
+      "addressLine4": null,
+      "county": null,
+      "town": null,
+      "postcode": null,
+      "Upin": "56585",
+      "CharityNumber": null,
+      "Status": "Active"
+    },
+    "hierarchyType": 1,
+    "contractType1": "Contract for Services",
+    "startDate": "2021-04-01T00:00:00Z",
+    "endDate": "2022-03-31T00:00:00Z",
+    "contractStatus": {
+      "status": null,
+      "parentStatus": null
+    },
+    "contractValue": 95914.0,
+    "parentContractNumber": null,
+    "parentContractVersionNumber": null,
+    "amendmentType": "None"
+  },
+  "MasterContractNumber": "ESFA-51998"
+}

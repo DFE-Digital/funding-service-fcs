@@ -1,0 +1,38 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017179</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017179</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>DADA-179</AllocationNumber>
+        <VersionNumber>2</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2207010</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>Dance &amp; Drama Awards</SubnominalDescription>
+      <AggregatedValue>3086.00</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>DADA</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2020-08-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2021-07-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2020-09-04</CensusEndDate>
+  <DueDate>2020-09-24</DueDate>
+  <FinancialPaymentFinancialYear>2020</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>06</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

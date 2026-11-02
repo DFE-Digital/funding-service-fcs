@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{c37132b4-d6cd-433b-974e-ac55ae05514f}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{ce3ca14b-a025-4a52-b354-a3e26c4c313a}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{1ecd5b2a-3a13-4f90-b289-a49b9b864be2}">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{17e3a562-7efb-419b-a9b1-753e2d43ddcf}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Period Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_periodname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_periodname" disabled="true" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{bd9104a5-65e4-0888-a847-b0eab7717c06}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Period Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_periodtypeid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_periodtypeid" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{79873d3d-7c18-6315-bd9b-45e9163b0b3c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_period" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_period" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{717eed46-dd55-927e-b0dd-7db47d7a5609}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Start Date" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_startdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_startdate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{b227ce77-e98c-b4c0-3202-95223191bc7c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="End Date" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_enddate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_enddate" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

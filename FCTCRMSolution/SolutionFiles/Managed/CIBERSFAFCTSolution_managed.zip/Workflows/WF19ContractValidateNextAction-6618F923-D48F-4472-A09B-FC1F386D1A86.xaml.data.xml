@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{6618f923-d48f-4472-a09b-fc1f386d1a86}" Name="WF19 Contract: Validate Next Action">
+  <XamlFileName>/Workflows/WF19ContractValidateNextAction-6618F923-D48F-4472-A09B-FC1F386D1A86.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>0</Category>
+  <Mode>1</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnUpdateAttributeList>sfa_nextaction</TriggerOnUpdateAttributeList>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>1</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <CreateStage>40</CreateStage>
+  <UpdateStage>20</UpdateStage>
+  <RunAs>0</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <PrimaryEntity>sfa_contract</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="WF19 Contract: Validate Next Action" />
+  </LocalizedNames>
+  <labels>
+    <steplabels id="{d27cd33f-dd6d-454d-acf6-5798bd5d1269}">
+      <label languagecode="1033" description="Documentation is not required for this funding type" />
+    </steplabels>
+  </labels>
+</Workflow>

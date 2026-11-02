@@ -1,0 +1,30 @@
+﻿namespace SFA.FCT.ContractCreateDomain.Implementation.Entities
+{
+    public enum CrmLookupType
+    {
+        NotSet,
+        BusinessUnit, 
+        User,
+        ContractType, 
+        CurrentTask, 
+        FundingType,
+        LastApprovedVersion,
+        LastWorkflowHistory, 
+        LatestVersion, 
+        NextAction, 
+        PreviousVersion,
+        Organisation, 
+        SubStatus,
+        Period,
+        FundingStreamCode,
+        FundingStreamPeriodCode,
+        PeriodType,
+        UnitOfProcurement,
+        InvestmentPriority,
+        RegionType,
+        LocalEnterprisePartnership,
+        Contract,
+        Owner,
+        SpecificationTitle
+    }
+}

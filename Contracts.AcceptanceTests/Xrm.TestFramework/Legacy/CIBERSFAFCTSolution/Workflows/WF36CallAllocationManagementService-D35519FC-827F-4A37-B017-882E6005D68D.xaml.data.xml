@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{d35519fc-827f-4a37-b017-882e6005d68d}" Name="WF36: Call Allocation Management Service">
+  <XamlFileName>/Workflows/WF36CallAllocationManagementService-D35519FC-827F-4A37-B017-882E6005D68D.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>1</Subprocess>
+  <Category>0</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>2.60.2.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <PrimaryEntity>sfa_fundingtypefundingperiod</PrimaryEntity>
+  <labels>
+    <steplabels id="{995be7c3-c625-4800-9451-b64a77e11d50}" />
+  </labels>
+</Workflow>

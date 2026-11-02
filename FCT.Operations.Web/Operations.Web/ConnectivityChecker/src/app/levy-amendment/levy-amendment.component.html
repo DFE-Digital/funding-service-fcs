@@ -1,0 +1,34 @@
+<div>
+      <p class="font-italic">Levy Contracts that cannot be amended</p>
+      <p class="font-italic">These are Levy Contracts that do not have a valid type (MainProvider, EmployerProvider) entry in Roatp, or the contract is closed or has a sub status of: 'Awaiting Closure Approval', 'Closure Initiation in Progress' or 'Awaiting Termination Initiation Approval'</p>
+      <div *ngIf="!loading; else showRefreshing">
+            <a href='#' (click)="createCsv($event)">Create CSV</a>
+            <table class="table table-striped table-bordered">
+                  <thead>
+                        <tr>
+                              <th class="service-min-width">Contract Number</th>
+                              <th class="service-min-width">Master Number</th>
+                              <th class="service-min-width">Ukprn</th>
+                              <th class="service-min-width">Version</th>
+                              <th class="service-min-width">Sub Version</th>
+                              <th class="service-min-width">Status</th>
+                              <th class="service-min-width">Sub Status</th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                        <tr *ngFor="let contract of contracts">
+                              <td> {{contract.ContractNumber}} </td>
+                              <td> {{contract.MasterContractNumber}} </td>
+                              <td> {{contract.Ukprn}} </td>
+                              <td> {{contract.ContractVersionNumber}} </td>
+                              <td> {{contract.SubVersionNumber}} </td>
+                              <td> {{contract.ContractStatus}} </td>
+                              <td> {{contract.ContractSubStatus}} </td>
+                        </tr>
+                  </tbody>
+            </table>
+      </div>
+      <ng-template #showRefreshing>
+            <i class="fa fa-refresh fa-spin"></i>
+      </ng-template>
+</div>

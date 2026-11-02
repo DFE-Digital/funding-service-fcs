@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="OrganisationDomain.Azure.Deploy" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="6" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="OrganisationDomain.Web">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SSLCertificate" thumbprint="a7e722b0971d48911d4e419612e5a02bfc71b591" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="FCSProd-VNet" />
+    <AddressAssignments>
+      <InstanceAddress roleName="OrganisationDomain.Web">
+        <Subnets>
+          <Subnet name="OrgService" />
+        </Subnets>
+      </InstanceAddress>
+      <ReservedIPs>
+        <ReservedIP name="fct-orgservice-release-rip" />
+      </ReservedIPs>
+    </AddressAssignments>
+  </NetworkConfiguration>
+</ServiceConfiguration>

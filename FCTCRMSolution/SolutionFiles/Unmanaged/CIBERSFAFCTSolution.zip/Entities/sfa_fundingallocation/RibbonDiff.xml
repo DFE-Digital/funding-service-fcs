@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml>
+  <CustomActions>
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_fundingallocation.Activate.Hide" Location="Mscrm.Form.sfa_fundingallocation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_fundingallocation.Deactivate.Hide" Location="Mscrm.Form.sfa_fundingallocation.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_fundingallocation.Activate.Hide" Location="Mscrm.HomepageGrid.sfa_fundingallocation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_fundingallocation.Deactivate.Hide" Location="Mscrm.HomepageGrid.sfa_fundingallocation.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_fundingallocation.Activate.Hide" Location="Mscrm.SubGrid.sfa_fundingallocation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_fundingallocation.Deactivate.Hide" Location="Mscrm.SubGrid.sfa_fundingallocation.Deactivate" />
+    <CustomAction Id="sfa.sfa_fundingallocation.Button11.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_fundingallocation.MainTab.Management.Controls._children" Sequence="24">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_fundingallocation.Button11.Button.Alt" Command="sfa.sfa_fundingallocation.ListRunReinstateCommand.Command" Id="sfa.sfa_fundingallocation.Button11.Button" Image16by16="$webresource:sfa_Reinstate16x16" LabelText="$LocLabels:sfa.sfa_fundingallocation.Button11.Button.LabelText" Sequence="24" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_fundingallocation.Button11.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_fundingallocation.Button11.Button.ToolTipDescription" ModernImage="$webresource:sfa_Reinstate" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_fundingallocation.Button5.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_fundingallocation.MainTab.Management.Controls._children" Sequence="21">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_fundingallocation.Button5.Button.Alt" Command="sfa.sfa_fundingallocation.ListRunHoldCommand.Command" Id="sfa.sfa_fundingallocation.Button5.Button" Image16by16="$webresource:sfa_HoldFCR16x16" LabelText="$LocLabels:sfa.sfa_fundingallocation.Button5.Button.LabelText" Sequence="21" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_fundingallocation.Button5.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_fundingallocation.Button5.Button.ToolTipDescription" ModernImage="$webresource:sfa_HoldFCR" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_fundingallocation.Button7.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_fundingallocation.MainTab.Management.Controls._children" Sequence="22">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_fundingallocation.Button7.Button.Alt" Command="sfa.sfa_fundingallocation.ListRunReleaseFromHoldCommand.Command" Id="sfa.sfa_fundingallocation.Button7.Button" Image16by16="$webresource:sfa_ReleaseFCR16x16" LabelText="$LocLabels:sfa.sfa_fundingallocation.Button7.Button.LabelText" Sequence="22" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_fundingallocation.Button7.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_fundingallocation.Button7.Button.ToolTipDescription" ModernImage="$webresource:sfa_ReleaseFCR" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_fundingallocation.Button9.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_fundingallocation.MainTab.Management.Controls._children" Sequence="23">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_fundingallocation.Button9.Button.Alt" Command="sfa.sfa_fundingallocation.ListRunWithdrawCommand.Command" Id="sfa.sfa_fundingallocation.Button9.Button" Image16by16="$webresource:sfa_Withdraw16x16" LabelText="$LocLabels:sfa.sfa_fundingallocation.Button9.Button.LabelText" Sequence="23" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_fundingallocation.Button9.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_fundingallocation.Button9.Button.ToolTipDescription" ModernImage="$webresource:sfa_Withdraw" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="sfa.sfa_fundingallocation.ListRunHoldCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_fundingallocation.TeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListToHoldAllocations" Library="$webresource:sfa_/js/fundingallocationscript.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_fundingallocation.ListRunReinstateCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_fundingallocation.TeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListReinstateAllocations" Library="$webresource:sfa_/js/fundingallocationscript.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_fundingallocation.ListRunReleaseFromHoldCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_fundingallocation.TeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListReleaseHeldAllocations" Library="$webresource:sfa_/js/fundingallocationscript.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_fundingallocation.ListRunWithdrawCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="sfa.sfa_fundingallocation.TeamVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunListToWithdrawAllocations" Library="$webresource:sfa_/js/fundingallocationscript.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules />
+    <EnableRules>
+      <EnableRule Id="sfa.sfa_fundingallocation.TeamVisibilityRule.EnableRule">
+        <CustomRule FunctionName="CheckFATeamVisibility" Library="$webresource:sfa_/js/fundingallocationscript.js" />
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button11.Button.Alt">
+      <Titles>
+        <Title description="Reinstate" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button11.Button.LabelText">
+      <Titles>
+        <Title description="Reinstate" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button11.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Reinstate to &quot;Awaiting Release&quot;" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button11.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Reinstate" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button5.Button.Alt">
+      <Titles>
+        <Title description="Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button5.Button.LabelText">
+      <Titles>
+        <Title description="Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button5.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Hold Funding Allocations from Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button5.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button7.Button.Alt">
+      <Titles>
+        <Title description="Release Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button7.Button.LabelText">
+      <Titles>
+        <Title description="Release Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button7.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Release selected Funding Allocation from Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button7.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Release Hold" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button9.Button.Alt">
+      <Titles>
+        <Title description="Withdraw" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button9.Button.LabelText">
+      <Titles>
+        <Title description="Withdraw" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button9.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Withdraw Funding Allocations from Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_fundingallocation.Button9.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Withdraw" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

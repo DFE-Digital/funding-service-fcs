@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml>
+  <CustomActions>
+    <CustomAction Id="sfa.ApplicationRibbon.Button1.ImportData.CustomAction" Location="Mscrm.DashboardTab.Management.Controls._children" Sequence="10">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.ApplicationRibbon.Button1.ImportData.Alt" Command="Mscrm.ImportData" Id="sfa.ApplicationRibbon.Button1.ImportData" Image32by32="/_imgs/ribbon/importdata32.png" Image16by16="/_imgs/ribbon/ImportData_16.png" LabelText="$LocLabels:sfa.ApplicationRibbon.Button1.ImportData.LabelText" Sequence="10" TemplateAlias="isv" ToolTipDescription="$LocLabels:sfa.ApplicationRibbon.Button1.ImportData.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="Mscrm.ImportData">
+      <EnableRules>
+        <EnableRule Id="Mscrm.IsNotIos" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="Mscrm.NotOffline" />
+        <DisplayRule Id="Mscrm.ImportData" />
+        <DisplayRule Id="Mscrm.HideOnSettingsCommandBarPage" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.ImportData_0" Library="$Webresource:Ribbon_main_system_library.js" />
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="Mscrm.HasDashboardCreatePrivilege">
+        <EntityPrivilegeRule PrivilegeType="Create" PrivilegeDepth="Basic" EntityName="userform" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideForTabletExperience">
+        <HideForTabletExperienceRule />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideOnSettingsCommandBarPage">
+        <OrRule>
+          <Or>
+            <PageRule Address="/tools/business/business.aspx" InvertResult="true" />
+            <PageRule Address="/tools/templates/templates.aspx" InvertResult="true" />
+            <PageRule Address="/tools/admin/admin.aspx" InvertResult="true" />
+            <PageRule Address="/tools/productcatalog/productcatalog.aspx" InvertResult="true" />
+            <PageRule Address="/tools/datamanagement/datamanagement.aspx" InvertResult="true" />
+            <PageRule Address="/tools/documentmanagement/documentmanagement.aspx" InvertResult="true" />
+            <PageRule Address="/tools/audit/audit_area.aspx" InvertResult="true" />
+            <PageRule Address="/tools/social/social_area.aspx" InvertResult="true" />
+            <PageRule Address="/tools/systemcustomization/systemcustomization.aspx" InvertResult="true" />
+            <PageRule Address="/tools/solution/home_solution.aspx" InvertResult="true" />
+            <PageRule Address="/tools/SystemCustomization/SolutionsMarketplace/SolutionsMarketplace.aspx" InvertResult="true" />
+            <PageRule Address="/tools/business/home_asyncoperation.aspx" InvertResult="true" />
+            <PageRule Address="/tools/servicemanagement/servicemanagement.aspx" InvertResult="true" />
+          </Or>
+          <Or>
+            <CrmClientTypeRule Type="Outlook" />
+          </Or>
+        </OrRule>
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.ImportData">
+        <EntityPrivilegeRule PrivilegeType="Create" PrivilegeDepth="Basic" EntityName="import" />
+        <EntityPrivilegeRule PrivilegeType="Delete" PrivilegeDepth="Basic" EntityName="import" />
+        <EntityPrivilegeRule PrivilegeType="Read" PrivilegeDepth="Basic" EntityName="import" />
+        <EntityPrivilegeRule PrivilegeType="Write" PrivilegeDepth="Basic" EntityName="import" />
+        <EntityPrivilegeRule PrivilegeType="Create" PrivilegeDepth="Basic" EntityName="importmap" />
+        <EntityPrivilegeRule PrivilegeType="Read" PrivilegeDepth="Basic" EntityName="importmap" />
+        <EntityPrivilegeRule PrivilegeType="AppendTo" PrivilegeDepth="Basic" EntityName="importmap" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.NotOffline">
+        <CrmOfflineAccessStateRule State="Offline" InvertResult="true" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="Mscrm.IsNotIos">
+        <CustomRule FunctionName="Mscrm.IsIos_0" Library="$Webresource:Ribbon_main_system_library.js" InvertResult="true" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.NotOffline">
+        <CrmOfflineAccessStateRule State="Offline" InvertResult="true" />
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="sfa.ApplicationRibbon.Button1.ImportData.Alt">
+      <Titles>
+        <Title description="Import Data" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.ApplicationRibbon.Button1.ImportData.LabelText">
+      <Titles>
+        <Title description="Import Data" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.ApplicationRibbon.Button1.ImportData.ToolTipDescription">
+      <Titles>
+        <Title description="Add new records to Microsoft Dynamics CRM by using the Import Data Wizard." languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

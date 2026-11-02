@@ -1,0 +1,802 @@
+﻿Feature: UpdateDraftValidation 19541
+
+@AcceptanceTest @Withdrawn20230123
+Scenario: A376 Check that DBR-003 is tripped when duplicate deliverables are present on an update draft of a 1718 EFA contract
+   #Given there is no Contract, Task or Workflow data for contract '1619F-376' and master contract 'ESFA-376'
+    Given there is no Contract, Task or Workflow data for UKPRN '10017376'
+    And   there is no Subnominal data for the following contract allocations
+    | AllocationRef |
+    | 16LR-3761     |
+    | 16LR-3762     |
+    | NMF-3761      |
+    | NMF-3762      |
+    | SSF-3761      |
+    | SSF-3762      |
+
+   # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017376'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017376 Co Ltd' with UKPRN '10017376' and OrgId 'ORG0017376' and has 'FCS1 Test' as a manager
+    And   UPIN '117376' is associated with UKPRN '10017376' in the CRM Organisation table
+
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017376 | 117376 | 10017376 Co Ltd | 0              | Active |
+
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017376 | 10017376 Co Ltd      | ESFA-376             | 1619F-376      | 1                     | 01/08/2017        | 31/07/2018      | 682556.00     |                                | Contract for Services | 1718   | New          | ORG0017376 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017376 | 1619F-376      | 16LR-3761     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 85540.00        |                         |            | BEXLEY COLLEGE (105658)                                     | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 150174.00       |                         |            | BEXLEY COLLEGE (105658)                                     | New          | 11737601    |
+    | 10017376 | 1619F-376      | SSF-3761      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 59999.00        |                         |            | BEXLEY COLLEGE (105658)                                     | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 146046.00       |                         |            | STRODE'S COLLEGE (108385)                                   | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 154342.00       |                         |            | STRODE'S COLLEGE (108385)                                   | New          | 11737602    |
+    | 10017376 | 1619F-376      | SSF-3762      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 86455.00        |                         |            | STRODE'S COLLEGE (108385)                                   | New          | 11737602    |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017376 | 1619F-376      | 16LR-3761     | 19              | 0                     | 5695.00   | -940.36  | -2672.85 | -273.29  | -1515.79 | -544.28  | -1528.32 | -955.14  | 2024.65  | 1899.78  | 693.35   | 4668.28  | 4839.11  | 16-19 Bursary Funds                                     | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3761     | 20              | 0                     | 16179.00  | -1247.74 | 3998.36  | -484.09  | 158.28   | 4958.57  | 3038.01  | -1828.68 | 3218.93  | 645.91   | 3318.10  | -1745.36 | 2148.23  | 16-19 Total Programme Funding                           | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3761     | 21              | 0                     | 19445.00  | 470.26   | 358.29   | 3944.36  | 4398.19  | 113.13   | -198.50  | 4649.25  | -670.05  | 2728.52  | 473.25   | 2430.24  | 748.26   | 16-19 Formula Protection Funding                        | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3761     | 22              | 0                     | 11890.00  | 539.76   | 2791.06  | 2372.28  | -2214.24 | -2613.63 | 3523.81  | 4906.22  | 1337.42  | 2021.01  | 301.12   | 80.66    | -1155.14 | 16-19 High Needs Element 2                              | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3761     | 24              | 0                     | 18336.00  | -43.77   | -1927.26 | 2783.91  | 4630.80  | -2538.54 | 1917.92  | 4115.73  | 2983.34  | -2690.15 | 4004.74  | 2709.32  | 2390.42  | 14-16 Programme Funding                                 | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3761     | 25              | 0                     | -4004.00  | -124.89  | 3699.55  | -996.86  | -1875.88 | -1621.60 | -1573.68 | -737.19  | -824.86  | -514.74  | -123.99  | -1847.04 | 2537.06  | 14-16 Pupil Premium                                     | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3761     | 31              | 0                     | 3633.00   | -947.59  | -2434.08 | 2259.14  | 640.76   | -1175.34 | 2349.15  | 959.63   | -1461.18 | 1681.78  | -1726.16 | 1647.41  | 1839.89  | 16-19 Free Meals in FE                                  | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3761     | 32              | 0                     | 4128.00   | 1035.37  | -2207.32 | 4501.96  | -1206.99 | 3375.77  | -2477.78 | 2611.14  | -1077.95 | -1831.13 | -1647.76 | -356.89  | 3410.06  | 16-19 High Needs SPI Element 1                          | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3761     | 33              | 0                     | 10238.00  | -96.95   | 4105.14  | -1731.82 | 833.62   | -1514.00 | -1254.71 | -1669.33 | 3847.29  | -2608.36 | 3538.48  | 4770.80  | 2017.88  | 19+ Continuing Learners Programme Funding               | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 31              | 0                     | 23469.00  | -22.39   | 3877.64  | 2862.09  | 2617.64  | 4936.81  | 2484.39  | -261.14  | 4646.25  | -575.82  | 3652.69  | -2507.28 | 1758.46  | Cadets Vocational Programme                             | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 32              | 0                     | -2525.00  | -83.81   | -2559.34 | 1086.73  | -947.44  | 1355.50  | -492.15  | 1079.85  | -1960.86 | 1647.85  | 1024.48  | -901.15  | -1774.54 | Closing Schools                                         | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 33              | 0                     | 21161.00  | 4708.97  | -1469.07 | 4060.12  | 649.84   | 2061.39  | 2347.07  | -858.45  | -2233.99 | 3181.37  | 131.60   | 4304.50  | 4277.55  | Residential Bursary Fund                                | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 39              | 0                     | 11276.00  | -2404.25 | 391.52   | 365.51   | 4122.16  | 4728.86  | -58.60   | 3218.36  | 806.15   | 899.30   | 112.83   | -394.21  | -511.28  | NMF Pre-16 Funding (NMSS)                               | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 43              | 0                     | 25124.00  | 4266.95  | 1513.74  | 1841.47  | -1183.59 | -2070.28 | 737.84   | 3081.83  | 307.41   | 3170.55  | 4623.93  | 4747.94  | 4085.98  | Primary PE and Sport Premium                            | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 47              | 0                     | 720.00    | -1345.87 | -334.71  | -902.59  | -1233.21 | -2426.06 | 1369.11  | 546.26   | 89.35    | 1948.99  | 4165.80  | 940.75   | -2097.68 | SSF Free Meals                                          | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 49              | 0                     | 11760.00  | -2129.23 | 3468.36  | 4779.31  | -1302.08 | -499.87  | 4081.82  | 3984.38  | -103.68  | 1414.08  | -637.44  | 1424.32  | -2720.05 | Pre-16 Universal Infant Free School Meals               | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 85              | 0                     | 15577.00  | 3102.77  | -872.29  | -2614.75 | 2177.98  | 4216.26  | 4914.53  | 1392.94  | -1799.42 | 1761.49  | 2789.73  | -815.33  | 1323.39  | Residential Support Scheme                              | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 86              | 0                     | 30109.00  | 4849.09  | 4908.92  | -368.86  | 4921.82  | 4590.27  | -574.05  | -2191.69 | 4755.49  | 543.71   | 3752.29  | 2419.30  | 2502.55  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 87              | 0                     | 6656.00   | -2087.57 | 2766.38  | 2766.24  | 3444.10  | -1109.34 | -1826.96 | 72.17    | 498.53   | 3760.72  | -2587.15 | 1752.89  | -794.08  | Area Review Transition Grant                            | New          | 11737601    |
+    | 10017376 | 1619F-376      | NMF-3761      | 89              | 0                     | 6847.00   | -1660.15 | 4521.49  | 2038.87  | -2137.60 | -2022.81 | -2660.90 | 3547.07  | 804.54   | -99.45   | 269.77   | 1802.89  | 2443.69  | 16+ Factor Removal (DSG) SSF                            | New          | 11737601    |
+    | 10017376 | 1619F-376      | SSF-3761      | 2               | 0                     | 14897.00  | 3554.72  | 3082.94  | 2736.32  | -1175.47 | 1527.34  | -1420.92 | 3155.87  | -207.97  | 1696.49  | -1393.24 | 3417.50  | -76.91   | SSF Total Programme funding                             | New          | 11737601    |
+    | 10017376 | 1619F-376      | SSF-3761      | 13              | 0                     | 2773.00   | 505.39   | -1276.27 | -214.53  | -787.52  | 407.28   | -142.13  | 3613.68  | -813.97  | -737.81  | 1116.53  | 517.53   | 584.97   | SSF Bursary Funds                                       | New          | 11737601    |
+    | 10017376 | 1619F-376      | SSF-3761      | 14              | 0                     | -2932.00  | -2716.13 | 2345.95  | -2704.16 | 3000.36  | -1863.31 | 840.58   | 602.72   | -1342.58 | 4182.44  | -2197.49 | -2430.62 | -650.05  | SSF Formula Protection Funding                          | New          | 11737601    |
+    | 10017376 | 1619F-376      | SSF-3761      | 15              | 0                     | 17819.00  | -1922.76 | -1049.15 | 776.10   | 2924.67  | 4318.48  | 1481.01  | 1574.03  | 715.59   | 4541.57  | -1425.80 | 3357.12  | 2528.42  | SSF High Needs Element 2                                | New          | 11737601    |
+    | 10017376 | 1619F-376      | SSF-3761      | 17              | 0                     | 15994.00  | 2966.91  | 1456.72  | 2183.92  | 1174.90  | 196.74   | 1009.37  | 549.56   | 1357.23  | 162.00   | 1526.81  | -292.47  | 3702.40  | Maintained Special SSF Element 2                        | New          | 11737601    |
+    | 10017376 | 1619F-376      | SSF-3761      | 18              | 0                     | 11448.00  | 3419.23  | 1826.96  | 1741.62  | -1453.43 | 2397.41  | 1710.33  | -2012.26 | 669.47   | 1994.88  | 2569.45  | -1594.14 | 178.75   | Maintained Special SSF Student Support                  | New          | 11737601    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 19              | 0                     | 11959.00  | -843.03  | 3561.19  | -1503.44 | 2408.91  | 628.95   | 960.04   | 2805.60  | 1914.95  | -2038.63 | -38.84   | 3557.09  | 545.99   | 16-19 Bursary Funds                                     | New          | 11737602    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 20              | 0                     | 20890.00  | 1361.75  | 1629.51  | 3893.58  | 1061.84  | 4988.18  | 578.32   | 2912.93  | 2756.48  | -2203.81 | -771.58  | -309.89  | 4992.45  | 16-19 Total Programme Funding                           | New          | 11737602    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 21              | 0                     | 13195.00  | -264.29  | 617.64   | -750.85  | 4885.21  | -1502.19 | 3160.19  | 4884.96  | 4737.53  | -2588.31 | -2644.02 | 4635.20  | -1976.14 | 16-19 Formula Protection Funding                        | New          | 11737602    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 22              | 0                     | 5166.00   | 2891.51  | 3450.11  | -1297.79 | 4124.72  | -1766.77 | 1842.09  | -2375.15 | 3611.03  | -2638.45 | -1954.66 | -999.62  | 278.53   | 16-19 High Needs Element 2                              | New          | 11737602    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 24              | 0                     | 3983.00   | -873.24  | 3796.54  | -2643.68 | -667.85  | -1848.40 | 4514.95  | 3772.35  | 3120.36  | -2371.86 | -1088.18 | -2747.85 | 1019.56  | 14-16 Programme Funding                                 | New          | 11737602    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 25              | 0                     | 13080.00  | 664.68   | 1549.82  | 2845.35  | 268.45   | 3582.59  | 552.31   | 119.29   | 4152.44  | -1036.81 | 3062.78  | -2619.01 | -62.04   | 14-16 Pupil Premium                                     | New          | 11737602    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 31              | 0                     | 21905.00  | 4044.69  | 4654.22  | -1350.98 | 3356.88  | -2531.08 | -311.53  | 3775.31  | 3640.89  | -1621.61 | 1425.64  | 2717.06  | 4105.83  | 16-19 Free Meals in FE                                  | New          | 11737602    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 32              | 0                     | 26885.00  | -736.99  | 1683.45  | 2958.64  | 2286.11  | 2157.06  | 2646.59  | 4283.43  | 3219.10  | 2185.99  | 3826.13  | -1104.27 | 3479.41  | 16-19 High Needs SPI Element 1                          | New          | 11737602    |
+    | 10017376 | 1619F-376      | 16LR-3762     | 33              | 0                     | 28983.00  | 4263.39  | -1231.11 | 4692.59  | 563.39   | 2737.77  | 4916.81  | -914.29  | 4223.42  | 1989.49  | 1816.29  | 2973.34  | 2952.29  | 19+ Continuing Learners Programme Funding               | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 31              | 0                     | 13002.00  | -86.67   | 2990.75  | 2911.96  | 4450.40  | 3241.40  | -1888.05 | 4182.10  | 3688.76  | -1670.03 | -2614.74 | 95.12    | -2299.19 | Cadets Vocational Programme                             | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 32              | 0                     | 19290.00  | 2790.45  | 3063.95  | -1971.25 | -59.12   | 2097.33  | 4612.00  | 4728.49  | 2359.99  | -564.93  | 763.54   | -870.53  | 2340.20  | Closing Schools                                         | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 33              | 0                     | 5898.00   | -2705.01 | 132.19   | 728.37   | 379.00   | 4422.08  | 370.41   | -494.76  | -276.29  | -2088.08 | 478.94   | 4795.45  | 155.80   | Residential Bursary Fund                                | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 39              | 0                     | 30189.00  | 4257.60  | -533.90  | 2511.45  | 1525.32  | 2946.48  | 4757.23  | 114.77   | 1435.21  | 3607.17  | 3554.02  | 3337.83  | 2675.77  | NMF Pre-16 Funding (NMSS)                               | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 43              | 0                     | 13666.00  | 306.35   | -1456.09 | 2655.80  | -791.07  | -2004.32 | -1240.54 | 708.50   | 3102.71  | 1908.64  | 4587.73  | 2672.32  | 3215.53  | Primary PE and Sport Premium                            | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 47              | 0                     | 12533.00  | 1107.42  | 2529.61  | 781.97   | 3830.65  | 779.81   | 909.27   | -197.49  | 2840.46  | 1886.05  | -2666.52 | -2348.90 | 3080.97  | SSF Free Meals                                          | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 49              | 0                     | 12462.00  | -1644.30 | 2701.02  | -831.05  | 2216.05  | -365.42  | 4762.02  | 643.14   | 171.93   | 581.53   | 3827.34  | -321.44  | 721.49   | Pre-16 Universal Infant Free School Meals               | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 85              | 0                     | 11950.00  | 115.41   | 3628.00  | -780.29  | -581.32  | -1588.11 | 4124.46  | -2077.35 | 4682.87  | 3850.34  | 4066.09  | -1923.19 | -1566.78 | Residential Support Scheme                              | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 86              | 0                     | 12084.00  | 2910.74  | -2299.52 | -123.09  | 73.12    | 2220.51  | 4632.85  | -2355.19 | -175.55  | 2351.41  | 235.39   | 1401.40  | 3212.07  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 87              | 0                     | 14104.00  | 4766.44  | 4006.68  | -2011.55 | -501.88  | -2683.37 | -1718.97 | -59.47   | 2266.43  | 4088.04  | 4887.88  | 2706.86  | -1643.13 | Area Review Transition Grant                            | New          | 11737602    |
+    | 10017376 | 1619F-376      | NMF-3762      | 89              | 0                     | 9164.00   | 4598.49  | -38.86   | -1576.86 | 149.76   | 3144.58  | 2298.62  | -566.48  | -1599.79 | -1301.56 | -128.67  | 1362.40  | 2822.52  | 16+ Factor Removal (DSG) SSF                            | New          | 11737602    |
+    | 10017376 | 1619F-376      | SSF-3762      | 2               | 0                     | 12490.00  | 3126.17  | 2148.19  | 501.81   | 1144.37  | 3818.90  | -948.82  | -800.79  | -217.03  | 2260.67  | -796.82  | -1338.66 | 3592.25  | SSF Total Programme funding                             | New          | 11737602    |
+    | 10017376 | 1619F-376      | SSF-3762      | 13              | 0                     | 13443.00  | 1795.89  | 858.41   | 2662.99  | -2164.69 | 2272.69  | 4959.98  | -887.67  | -224.90  | 1139.80  | 4049.23  | 1122.86  | -2141.29 | SSF Bursary Funds                                       | New          | 11737602    |
+    | 10017376 | 1619F-376      | SSF-3762      | 14              | 0                     | 23408.00  | 4293.40  | 4325.13  | 4235.17  | 2051.83  | -126.02  | 2853.62  | 188.89   | 2523.02  | 4213.30  | -2072.97 | 444.58   | 478.18   | SSF Formula Protection Funding                          | New          | 11737602    |
+    | 10017376 | 1619F-376      | SSF-3762      | 15              | 0                     | 9225.00   | 531.15   | 1373.43  | -744.48  | 1944.90  | 4382.31  | -1784.01 | 1089.69  | -2093.20 | -1546.62 | 1882.40  | 3201.56  | 987.95   | SSF High Needs Element 2                                | New          | 11737602    |
+    | 10017376 | 1619F-376      | SSF-3762      | 17              | 0                     | 17837.00  | 1909.70  | 2164.19  | 3554.01  | -1712.80 | 1292.16  | 926.14   | 2890.18  | -237.39  | 364.13   | 2965.65  | 955.39   | 2765.77  | Maintained Special SSF Element 2                        | New          | 11737602    |
+    | 10017376 | 1619F-376      | SSF-3762      | 18              | 0                     | 10052.00  | 1708.31  | 1022.11  | 2468.95  | -2473.79 | -1926.38 | 1736.29  | 1646.09  | -2014.24 | 4672.06  | -1040.31 | -130.21  | 4382.95  | Maintained Special SSF Student Support                  | New          | 11737602    |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Bulk file to execute a failing update draft
+    Given there are no files prefixed '10017376-1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017160225 v3_A376' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017160225 v3_A376' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 27062017160225 v3_A376.xlsx' exists in the Datafiles folder and UKPRN '10017376' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+    # Check the file has failed and no contracts have been created in CRM
+    And   'Failed' is displayed in field 'O2' on the 'Deliverable' tab of the result report
+    And   '[Deliverable] Cannot have multiple records for the same Deliverable Period for the same Deliverable for the same Contract Allocation' is displayed in field 'O2' on the 'Deliverable' tab of the result report file
+    #DBR-003 msg  = A Deliverable can only appear once against a Contract Allocation
+    # DBR-003 cannot be tripped. DBR-007 message appears instead. Treat as ok. 
+   #And   there are no contracts in CRM for UKPRN '10017376'
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20230123
+Scenario: A429 Check that DBR-004 is tripped when there are missing deliverable periods on a new 1718 EFA contract
+   #Given there is no Contract, Task or Workflow data for contract '1619F-429' and master contract 'ESFA-429'
+    Given there is no Contract, Task or Workflow data for UKPRN '10017429'
+    And   there is no Subnominal data for the following contract allocations
+    | AllocationRef |
+    | 16LR-4291     |
+    | 16LR-4292     |
+    | NMF-4291      |
+    | NMF-4292      |
+    | SSF-4291      |
+    | SSF-4292      |
+
+   # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017429'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017429 Co Ltd' with UKPRN '10017429' and OrgId 'ORG0017429' and has 'FCS1 Test' as a manager
+    And   UPIN '117429' is associated with UKPRN '10017429' in the CRM Organisation table
+
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017429 | 117429 | 10017429 Co Ltd | 0              | Active |
+
+    # Bulk file to execute a failing 'new'
+    Given there are no files prefixed '10017429-1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017161445 v3_A429' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017161445 v3_A429' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 27062017161445 v3_A429.xlsx' exists in the Datafiles folder and UKPRN '10017429' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+    # Check the file has failed and no contracts have been created in CRM
+    And   'Failed' is displayed in field 'O2' on the 'Deliverable' tab of the result report
+    And   '[Deliverable] A Deliverable must contain a period record for each month of the Contract Allocation in the Deliverable tab' is displayed in field 'O2' on the 'Deliverable' tab of the result report file
+    And   there are no contracts in CRM for UKPRN '10017429'
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20230123
+Scenario: A430 Check that DBR-005 is tripped when the deliverable start or end date is outside the bounds of an allocation on an update draft of a 1718 EFA contract
+   #Given there is no Contract, Task or Workflow data for contract '1619F-430' and master contract 'ESFA-430'
+    Given there is no Contract, Task or Workflow data for UKPRN '10017430'
+    And   there is no Subnominal data for the following contract allocations
+    | AllocationRef |
+    | 16LR-4301     |
+    | 16LR-4302     |
+    | NMF-4301      |
+    | NMF-4302      |
+    | SSF-4301      |
+    | SSF-4302      |
+
+   # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017430'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017430 Co Ltd' with UKPRN '10017430' and OrgId 'ORG0017430' and has 'FCS1 Test' as a manager
+    And   UPIN '117430' is associated with UKPRN '10017430' in the CRM Organisation table
+
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017430 | 117430 | 10017430 Co Ltd | 0              | Active |
+
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017430 | 10017430 Co Ltd      | ESFA-430             | 1619F-430      | 1                     | 01/08/2017        | 31/07/2018      | 722484.00     |                                | Contract for Services | 1718   | New          | ORG0017430 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017430 | 1619F-430      | 16LR-4301     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 107426.00       |                         |            | PALMER'S COLLEGE (108332)                                   | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 186461.00       |                         |            | PALMER'S COLLEGE (108332)                                   | New          | 11743001    |
+    | 10017430 | 1619F-430      | SSF-4301      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 76072.00        |                         |            | PALMER'S COLLEGE (108332)                                   | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 127461.00       |                         |            | SUNDERLAND COLLEGE (107096)                                 | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 162142.00       |                         |            | SUNDERLAND COLLEGE (107096)                                 | New          | 11743002    |
+    | 10017430 | 1619F-430      | SSF-4302      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 62922.00        |                         |            | SUNDERLAND COLLEGE (107096)                                 | New          | 11743002    |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017430 | 1619F-430      | 16LR-4301     | 19              | 0                     | 12392.00  | 2052.59  | 4054.97  | 2623.37  | -1446.00 | 4167.06  | 775.57   | -2580.48 | -1158.34 | 4425.70  | -1415.26 | 2386.68  | -1493.83 | 16-19 Bursary Funds                                     | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4301     | 20              | 0                     | 13530.00  | 2684.27  | -1597.26 | -2298.43 | -995.20  | 4808.47  | -1280.07 | 2030.61  | 3325.85  | 4270.85  | 4006.19  | 501.70   | -1926.92 | 16-19 Total Programme Funding                           | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4301     | 21              | 0                     | 27302.00  | 4697.67  | 3870.22  | -573.84  | -99.96   | -2434.24 | 969.00   | 4970.59  | 2494.46  | 4249.45  | 1867.12  | 4298.70  | 3512.63  | 16-19 Formula Protection Funding                        | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4301     | 22              | 0                     | 5496.00   | 3017.35  | 2046.17  | 143.28   | 2263.76  | -1620.67 | 4064.08  | 527.98   | -655.62  | -1216.67 | -1335.46 | 39.23    | -1777.32 | 16-19 High Needs Element 2                              | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4301     | 24              | 0                     | 25829.00  | 4062.24  | 2436.37  | 2048.12  | 972.93   | 2630.79  | 3822.85  | 762.24   | -1840.20 | 1832.43  | 4681.17  | 4747.62  | -327.21  | 14-16 Programme Funding                                 | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4301     | 25              | 0                     | 908.00    | -2163.82 | 1391.71  | 0.50     | -2689.44 | 2083.56  | -882.49  | 769.33   | -484.66  | -514.63  | 4613.59  | 926.56   | -2142.71 | 14-16 Pupil Premium                                     | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4301     | 31              | 0                     | -4411.00  | 2168.66  | -2413.68 | -2509.48 | -2131.14 | 4293.56  | -2397.16 | 497.35   | -2770.81 | -1899.87 | 350.40   | -1977.20 | 4898.48  | 16-19 Free Meals in FE                                  | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4301     | 32              | 0                     | 6147.00   | -294.68  | 1645.72  | 1154.19  | -197.67  | 4049.76  | -5.60    | -2687.82 | 666.19   | 4194.65  | 1100.31  | -877.25  | -2600.34 | 16-19 High Needs SPI Element 1                          | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4301     | 33              | 0                     | 20233.00  | 1648.68  | 924.88   | 1639.02  | 1430.91  | 3564.87  | 1896.59  | 3913.11  | 4391.01  | -1512.57 | -129.75  | 1318.06  | 1148.37  | 19+ Continuing Learners Programme Funding               | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 31              | 0                     | 9160.00   | -1580.24 | -2554.68 | 876.61   | 2221.35  | 1783.87  | 1568.58  | 2410.11  | 4661.05  | -1305.78 | 99.19    | 1983.28  | -1003.44 | Cadets Vocational Programme                             | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 32              | 0                     | 19371.00  | -527.41  | 1559.35  | 3767.01  | 502.73   | -268.05  | 3997.64  | 4353.09  | 391.71   | 4873.36  | -501.65  | 2626.07  | -1402.68 | Closing Schools                                         | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 33              | 0                     | 25500.00  | 1932.85  | 4040.95  | 4305.17  | -490.56  | 3578.27  | 3509.33  | 1916.10  | 1858.39  | 456.18   | 3051.30  | 3513.01  | -1650.73 | Residential Bursary Fund                                | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 39              | 0                     | 16691.00  | 1288.77  | 387.87   | -1649.73 | 646.38   | 4720.63  | 72.72    | 2504.47  | 3907.58  | 4315.71  | -1498.52 | 1926.16  | 68.63    | NMF Pre-16 Funding (NMSS)                               | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 43              | 0                     | 17338.00  | 3304.19  | 2071.15  | -638.18  | 877.62   | 79.31    | 489.49   | 825.69   | 479.32   | -955.72  | 4434.38  | 4021.67  | 2349.54  | Primary PE and Sport Premium                            | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 47              | 0                     | 6654.00   | 9.15     | -636.85  | 4315.18  | 1379.54  | -2662.33 | 2672.06  | 2655.01  | -889.65  | 4444.21  | -1994.45 | -154.72  | -2482.78 | SSF Free Meals                                          | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 49              | 0                     | 17627.00  | 2240.53  | 4115.74  | 567.22   | 2543.94  | -1267.20 | -2528.32 | 3751.09  | -1612.80 | 4768.37  | 618.84   | 2698.05  | 1731.06  | Pre-16 Universal Infant Free School Meals               | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 85              | 0                     | 25383.00  | 3932.67  | 888.40   | 2752.02  | 931.19   | 2396.10  | 3656.67  | 1921.60  | -1450.65 | 2710.89  | 1754.43  | 4651.89  | 1237.74  | Residential Support Scheme                              | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 86              | 0                     | 14954.00  | 2957.99  | 1426.36  | -1453.62 | 4293.34  | -2156.08 | 3440.38  | 3238.88  | -1557.69 | -2652.31 | 1746.99  | 4215.28  | 1974.39  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 87              | 0                     | 17835.00  | 517.62   | -311.28  | -2214.47 | -1372.78 | 2418.24  | 4759.46  | -994.49  | 2220.78  | 3027.19  | 1913.82  | 4748.82  | 3121.68  | Area Review Transition Grant                            | New          | 11743001    |
+    | 10017430 | 1619F-430      | NMF-4301      | 89              | 0                     | 15948.00  | 2482.04  | -973.44  | -2271.29 | 2977.63  | -1722.78 | 4101.91  | -730.00  | 4601.76  | 10.86    | 4432.97  | -769.12  | 3806.98  | 16+ Factor Removal (DSG) SSF                            | New          | 11743001    |
+    | 10017430 | 1619F-430      | SSF-4301      | 2               | 0                     | 12735.00  | 1773.59  | 2682.97  | -2233.67 | 1044.27  | 1738.82  | 732.53   | 3931.85  | -844.92  | -1465.74 | -87.44   | 642.68   | 4819.80  | SSF Total Programme funding                             | New          | 11743001    |
+    | 10017430 | 1619F-430      | SSF-4301      | 13              | 0                     | 23807.00  | 3898.48  | 4494.88  | 4820.90  | 2859.74  | 3404.99  | 3646.40  | 703.18   | -1847.73 | 459.14   | 3238.56  | 412.77   | -2284.77 | SSF Bursary Funds                                       | New          | 11743001    |
+    | 10017430 | 1619F-430      | SSF-4301      | 14              | 0                     | 697.00    | -154.98  | -2793.36 | -2718.69 | 2541.23  | 1022.28  | 3259.20  | -879.32  | 1382.04  | 1173.04  | -862.65  | 1044.95  | -2316.98 | SSF Formula Protection Funding                          | New          | 11743001    |
+    | 10017430 | 1619F-430      | SSF-4301      | 15              | 0                     | 20238.00  | 198.74   | 1224.27  | -757.83  | -532.54  | -132.95  | 4704.44  | -1103.66 | 3370.94  | 4908.73  | 3673.13  | 659.18   | 4025.72  | SSF High Needs Element 2                                | New          | 11743001    |
+    | 10017430 | 1619F-430      | SSF-4301      | 17              | 0                     | 8291.00   | 2664.47  | -2404.32 | 4672.11  | -2404.90 | -718.18  | -283.01  | 938.02   | 2857.87  | 3262.07  | 620.77   | 643.24   | -1557.47 | Maintained Special SSF Element 2                        | New          | 11743001    |
+    | 10017430 | 1619F-430      | SSF-4301      | 18              | 0                     | 10304.00  | 3157.02  | 3938.99  | -770.64  | 2411.86  | 1815.99  | 1611.23  | 3815.12  | -2202.88 | -2017.38 | -2105.92 | 168.27   | 482.53   | Maintained Special SSF Student Support                  | New          | 11743001    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 19              | 0                     | -1163.00  | 4248.69  | 4236.43  | 3219.68  | -806.93  | 815.91   | -2419.21 | -2001.58 | -1228.77 | -2311.79 | -1306.46 | -1978.73 | -1630.58 | 16-19 Bursary Funds                                     | New          | 11743002    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 20              | 0                     | 14251.00  | 1843.41  | 2728.70  | 763.61   | 2149.00  | 3234.90  | 1313.54  | -1318.91 | -1869.49 | 1238.56  | 4607.99  | -1168.50 | 728.05   | 16-19 Total Programme Funding                           | New          | 11743002    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 21              | 0                     | 21433.00  | 1849.59  | 2913.92  | -2353.33 | 1633.66  | 1229.40  | 434.59   | 4454.33  | 651.66   | 2402.49  | 4184.01  | 4549.97  | -516.93  | 16-19 Formula Protection Funding                        | New          | 11743002    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 22              | 0                     | 19369.00  | 2703.33  | -753.71  | 2218.72  | -2540.04 | -1226.80 | 3985.06  | 3307.27  | 4829.83  | 1307.12  | 2402.78  | -254.34  | 3389.96  | 16-19 High Needs Element 2                              | New          | 11743002    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 24              | 0                     | 25233.00  | 4950.69  | 3250.17  | 2819.26  | 2671.86  | -853.06  | -314.43  | 390.54   | 4475.55  | 4333.28  | 1084.32  | 1871.01  | 554.00   | 14-16 Programme Funding                                 | New          | 11743002    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 25              | 0                     | 17353.00  | 888.30   | 4398.10  | -656.91  | 3447.49  | 428.70   | -1335.64 | 831.95   | 1267.95  | 2056.12  | 2665.66  | 3127.44  | 233.41   | 14-16 Pupil Premium                                     | New          | 11743002    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 31              | 0                     | 10769.00  | -2645.97 | 3139.03  | -2244.11 | -1047.72 | 734.66   | 4135.41  | 2302.08  | 3657.83  | 3735.76  | 328.93   | 81.01    | -1407.55 | 16-19 Free Meals in FE                                  | New          | 11743002    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 32              | 0                     | 8003.00   | 1467.58  | -923.61  | -1240.12 | 4142.14  | -2390.31 | -2373.46 | -2670.13 | 4320.78  | 3557.91  | 1279.53  | 1828.10  | 1004.58  | 16-19 High Needs SPI Element 1                          | New          | 11743002    |
+    | 10017430 | 1619F-430      | 16LR-4302     | 33              | 0                     | 12213.00  | 521.07   | 4496.23  | 4009.41  | -83.55   | 4968.05  | -2642.38 | 968.34   | -1439.68 | 3424.48  | -2625.80 | 1110.92  | -494.44  | 19+ Continuing Learners Programme Funding               | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 31              | 0                     | 17205.00  | -718.32  | 2311.08  | 4874.80  | -1209.61 | 3935.86  | -1914.79 | -1907.62 | 1467.68  | 4063.91  | -1428.67 | 4293.26  | 3957.43  | Cadets Vocational Programme                             | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 32              | 0                     | 21872.00  | 2347.56  | 4011.74  | 4127.97  | 1615.52  | -443.38  | 4784.51  | 3159.81  | 2419.55  | -2404.14 | 3462.81  | -513.25  | -696.87  | Closing Schools                                         | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 33              | 0                     | 20127.00  | 4501.91  | -175.67  | 113.26   | -959.67  | 2390.06  | 1210.61  | 4952.24  | -1519.99 | 3151.23  | 3636.43  | 1096.81  | 1730.23  | Residential Bursary Fund                                | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 39              | 0                     | 20829.00  | 4698.79  | -1750.82 | -1957.72 | 292.57   | 3765.43  | 3138.27  | 2458.00  | 1946.56  | 2850.07  | 3494.44  | 2709.16  | -815.96  | NMF Pre-16 Funding (NMSS)                               | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 43              | 0                     | 17873.00  | 3514.72  | 2919.20  | 2128.77  | 1993.53  | 1631.33  | -1315.83 | -360.54  | 2394.59  | 178.69   | -2059.54 | 3525.43  | 3322.22  | Primary PE and Sport Premium                            | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 47              | 0                     | 18958.00  | 589.32   | 4678.06  | 354.20   | 2661.21  | 3846.31  | 835.16   | 3848.66  | 2630.56  | -2069.79 | -442.38  | 4308.75  | -2282.21 | SSF Free Meals                                          | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 49              | 0                     | 4149.00   | 1815.92  | -991.73  | -2016.49 | 3563.39  | 2219.53  | 526.31   | 2792.85  | 1995.10  | 1495.23  | -2463.35 | -2000.57 | -2787.61 | Pre-16 Universal Infant Free School Meals               | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 85              | 0                     | 1436.00   | -2717.84 | -2390.62 | -1569.39 | 3720.77  | 3101.33  | -330.96  | -1949.78 | -2783.84 | 702.40   | 4354.04  | 1280.54  | 19.31    | Residential Support Scheme                              | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 86              | 0                     | 21901.00  | 3560.68  | 2926.04  | 1674.08  | 4660.14  | -2476.11 | -670.70  | 1535.51  | 812.11   | 409.13   | 3000.12  | 2293.55  | 4176.65  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 87              | 0                     | 10478.00  | -1250.33 | 226.10   | 4622.77  | 1517.44  | 3491.90  | -2344.37 | 2715.56  | -955.12  | -1557.87 | -2442.79 | 3903.93  | 2550.42  | Area Review Transition Grant                            | New          | 11743002    |
+    | 10017430 | 1619F-430      | NMF-4302      | 89              | 0                     | 7314.00   | -136.44  | -1571.18 | 3431.43  | -509.08  | 1023.06  | -2442.68 | 174.99   | -2376.94 | 4488.09  | 3327.80  | -1283.16 | 3187.72  | 16+ Factor Removal (DSG) SSF                            | New          | 11743002    |
+    | 10017430 | 1619F-430      | SSF-4302      | 2               | 0                     | 17281.00  | 1041.78  | 4120.49  | -372.52  | 4239.62  | 916.38   | 4209.14  | 2174.19  | -2088.44 | 2314.33  | 123.83   | 454.46   | 147.65   | SSF Total Programme funding                             | New          | 11743002    |
+    | 10017430 | 1619F-430      | SSF-4302      | 13              | 0                     | 10138.00  | -1474.64 | 4682.88  | 1350.91  | 2487.55  | 1767.92  | -2681.57 | 2704.54  | 195.75   | -2513.97 | -1214.09 | 3186.63  | 1645.93  | SSF Bursary Funds                                       | New          | 11743002    |
+    | 10017430 | 1619F-430      | SSF-4302      | 14              | 0                     | 4069.00   | 1996.20  | -376.66  | -1479.41 | 655.30   | -2715.76 | -239.28  | 3053.90  | -2430.97 | 352.20   | 3279.46  | 3079.87  | -1105.44 | SSF Formula Protection Funding                          | New          | 11743002    |
+    | 10017430 | 1619F-430      | SSF-4302      | 15              | 0                     | 7110.00   | 1915.20  | -478.34  | -2090.36 | 3286.05  | 648.32   | 749.59   | 3894.00  | -2721.34 | 383.49   | 3754.97  | -2004.81 | -226.95  | SSF High Needs Element 2                                | New          | 11743002    |
+    | 10017430 | 1619F-430      | SSF-4302      | 17              | 0                     | 9896.00   | 1456.34  | 218.40   | 3708.96  | -730.37  | 1803.09  | 4618.74  | -463.78  | 2253.00  | 7.41     | -1707.57 | 1005.12  | -2273.67 | Maintained Special SSF Element 2                        | New          | 11743002    |
+    | 10017430 | 1619F-430      | SSF-4302      | 18              | 0                     | 14428.00  | 297.33   | 242.94   | 4242.79  | 1695.72  | 3892.07  | -499.90  | 1697.25  | 2204.55  | 2298.93  | -1370.55 | -190.68  | -82.11   | Maintained Special SSF Student Support                  | New          | 11743002    |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Bulk file to execute a failing update draft
+    Given there are no files prefixed '10017430-1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017165928 v3_A430' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017165928 v3_A430' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 27062017165928 v3_A430.xlsx' exists in the Datafiles folder and UKPRN '10017430' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+    # Check that the file has failed 
+    And   'Failed' is displayed in field 'O2' on the 'Deliverable' tab of the result report
+    And   '[Deliverable] Year and Period combination for the Deliverable must fall within the Contract Allocation start and end dates' is displayed in field 'O2' on the 'Deliverable' tab of the result report file
+   #And   there are no contracts in CRM for UKPRN '10017430'
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20230123
+Scenario: A379 Check that DBR-007 is tripped when duplicate deliverable periods are present on an update draft of a 1718 EFA contract
+   #Given there is no Contract, Task or Workflow data for contract '1619F-379' and master contract 'ESFA-379'
+    Given there is no Contract, Task or Workflow data for UKPRN '10017379'
+    And   there is no Subnominal data for the following contract allocations
+    | AllocationRef |
+    | 16LR-3791     |
+    | 16LR-3792     |
+    | NMF-3791      |
+    | NMF-3792      |
+    | SSF-3791      |
+    | SSF-3792      |
+
+   # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017379'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017379 Co Ltd' with UKPRN '10017379' and OrgId 'ORG0017379' and has 'FCS1 Test' as a manager
+    And   UPIN '117379' is associated with UKPRN '10017379' in the CRM Organisation table
+
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017379 | 117379 | 10017379 Co Ltd | 0              | Active |
+
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017379 | 10017379 Co Ltd      | ESFA-379             | 1619F-379      | 1                     | 01/08/2017        | 31/07/2018      | 618872.00     |                                | Contract for Services | 1718   | New          | ORG0017379 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017379 | 1619F-379      | 16LR-3791     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 144496.00       |                         |            | HERTFORD REGIONAL COLLEGE (106658)                          | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 127988.00       |                         |            | HERTFORD REGIONAL COLLEGE (106658)                          | New          | 11737901    |
+    | 10017379 | 1619F-379      | SSF-3791      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 69171.00        |                         |            | HERTFORD REGIONAL COLLEGE (106658)                          | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 114450.00       |                         |            | JOHN RUSKIN COLLEGE (108414)                                | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 95286.00        |                         |            | JOHN RUSKIN COLLEGE (108414)                                | New          | 11737902    |
+    | 10017379 | 1619F-379      | SSF-3792      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 67481.00        |                         |            | JOHN RUSKIN COLLEGE (108414)                                | New          | 11737902    |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017379 | 1619F-379      | 16LR-3791     | 19              | 0                     | 16037.00  | 3760.20  | 4591.71  | -365.55  | 3856.90  | -750.03  | -1848.00 | 2814.63  | -2116.89 | 621.08   | -1160.60 | 3900.23  | 2732.91  | 16-19 Bursary Funds                                     | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3791     | 20              | 0                     | 16539.00  | 2701.94  | -743.82  | 221.90   | -398.18  | 1943.39  | 2737.25  | 3712.46  | 3878.96  | 1415.64  | 559.49   | 78.70    | 431.34   | 16-19 Total Programme Funding                           | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3791     | 21              | 0                     | 21807.00  | 2155.12  | -2098.84 | 3523.37  | -2161.70 | 4261.33  | 2751.27  | 4216.95  | -1224.14 | 2143.70  | 1168.92  | 3519.59  | 3551.10  | 16-19 Formula Protection Funding                        | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3791     | 22              | 0                     | 15925.00  | -2681.45 | 4692.75  | 4352.96  | -13.52   | -2444.11 | -1699.80 | 3522.13  | 2054.34  | 2376.31  | -482.97  | 1587.42  | 4661.14  | 16-19 High Needs Element 2                              | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3791     | 24              | 0                     | 21158.00  | -1702.14 | 2476.56  | -913.67  | 2781.92  | 2832.93  | 1929.11  | 2505.38  | 4744.65  | 1235.12  | 3601.39  | 1001.97  | 664.59   | 14-16 Programme Funding                                 | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3791     | 25              | 0                     | 17507.00  | 2196.13  | -2494.17 | -323.72  | 3028.71  | 1892.59  | 3400.00  | 193.15   | 3430.01  | 4582.99  | 1195.93  | -1046.07 | 1451.91  | 14-16 Pupil Premium                                     | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3791     | 31              | 0                     | 26080.00  | -1645.48 | 3719.56  | 2818.38  | 4302.67  | 3019.98  | -1179.99 | -23.48   | 4999.70  | 2964.60  | 2629.10  | 2970.52  | 1503.97  | 16-19 Free Meals in FE                                  | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3791     | 32              | 0                     | -2556.00  | -1057.06 | -2229.45 | 66.59    | 2204.39  | -574.18  | -1680.46 | 2176.82  | 2152.16  | -1702.91 | -288.08  | -1868.92 | 245.18   | 16-19 High Needs SPI Element 1                          | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3791     | 33              | 0                     | 11999.00  | 1300.60  | 803.68   | -2301.11 | 2762.39  | -162.98  | 4480.33  | -1438.70 | -2351.85 | 1310.72  | 4616.20  | 2032.76  | 946.66   | 19+ Continuing Learners Programme Funding               | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 31              | 0                     | 12326.00  | 3770.54  | 946.34   | 1913.61  | 3490.23  | 437.58   | -1773.62 | 3379.86  | -2277.72 | 398.98   | -2280.51 | 918.65   | 3401.58  | Cadets Vocational Programme                             | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 32              | 0                     | 9089.00   | -1775.86 | 604.90   | -2670.24 | 916.23   | 586.20   | 2950.71  | 2946.40  | 2654.16  | 3958.88  | 223.26   | -1292.98 | -12.52   | Closing Schools                                         | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 33              | 0                     | 3896.00   | -2336.66 | 1546.52  | 2577.24  | -1993.14 | 65.12    | -888.57  | -2478.32 | -2394.12 | 3120.95  | 1935.34  | 1825.91  | 2915.44  | Residential Bursary Fund                                | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 39              | 0                     | 14286.00  | 4675.61  | 1371.29  | 968.20   | -511.88  | 3708.90  | 967.47   | -1558.47 | 4632.55  | -2467.59 | 1476.55  | -1674.63 | 2697.77  | NMF Pre-16 Funding (NMSS)                               | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 43              | 0                     | 20902.00  | 4336.49  | 3415.08  | -2392.40 | -692.33  | 1887.01  | 3772.83  | 3856.38  | -454.72  | 772.36   | 2472.20  | 241.99   | 3687.22  | Primary PE and Sport Premium                            | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 47              | 0                     | 19652.00  | 2600.24  | 2977.59  | -1691.23 | 4887.99  | -855.45  | -745.25  | -903.06  | 4414.44  | 4642.30  | 3680.21  | 3014.51  | -2369.93 | SSF Free Meals                                          | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 49              | 0                     | 3672.00   | 4240.45  | -1099.46 | -1740.92 | 929.47   | -2007.21 | 841.90   | -2010.13 | 2622.63  | 6.84     | -1130.77 | 1449.41  | 1569.33  | Pre-16 Universal Infant Free School Meals               | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 85              | 0                     | 15485.00  | 540.69   | -704.23  | 3835.56  | 963.58   | 249.88   | 642.36   | 323.29   | 4067.91  | -415.68  | 2046.82  | -163.37  | 4097.78  | Residential Support Scheme                              | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 86              | 0                     | 4169.00   | -2064.91 | -1976.66 | 1770.48  | -544.04  | 2531.40  | -1428.12 | -1937.49 | 3116.91  | 287.38   | 4437.49  | 615.08   | -638.88  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 87              | 0                     | 17916.00  | 1799.03  | -80.30   | 467.02   | 3859.54  | 1491.02  | 2231.94  | -884.41  | 907.90   | 2113.66  | 3610.87  | 2788.33  | -388.87  | Area Review Transition Grant                            | New          | 11737901    |
+    | 10017379 | 1619F-379      | NMF-3791      | 89              | 0                     | 6595.00   | 2189.67  | 1175.76  | 3064.90  | -1582.31 | 1011.13  | -2462.13 | -1551.00 | -1596.00 | -2213.67 | 3359.86  | 2290.24  | 2908.76  | 16+ Factor Removal (DSG) SSF                            | New          | 11737901    |
+    | 10017379 | 1619F-379      | SSF-3791      | 2               | 0                     | 6709.00   | 1734.01  | -2263.73 | 4402.68  | -2053.64 | -400.84  | 2451.71  | -2726.30 | 231.27   | -2599.58 | 4829.90  | 4743.23  | -1639.44 | SSF Total Programme funding                             | New          | 11737901    |
+    | 10017379 | 1619F-379      | SSF-3791      | 13              | 0                     | 19766.00  | -2050.97 | 4724.66  | 2387.19  | -206.16  | 4703.65  | 47.48    | 2808.73  | 2309.26  | 3367.30  | 2976.80  | -790.04  | -512.08  | SSF Bursary Funds                                       | New          | 11737901    |
+    | 10017379 | 1619F-379      | SSF-3791      | 14              | 0                     | 11247.00  | 34.20    | 3517.45  | 4513.95  | 3748.22  | -1113.34 | -2590.01 | -1163.54 | 1130.22  | -2558.03 | 390.11   | 3707.98  | 1630.06  | SSF Formula Protection Funding                          | New          | 11737901    |
+    | 10017379 | 1619F-379      | SSF-3791      | 15              | 0                     | 12283.00  | -650.77  | 1997.97  | 2245.48  | -2115.70 | -2063.74 | -662.39  | 1674.35  | 3804.31  | 706.47   | 1586.33  | 4200.22  | 1560.63  | SSF High Needs Element 2                                | New          | 11737901    |
+    | 10017379 | 1619F-379      | SSF-3791      | 17              | 0                     | 10280.00  | 1185.71  | -2545.99 | 3230.91  | -282.65  | -480.80  | 2592.57  | 4948.23  | -283.49  | 1618.35  | -244.77  | -2770.10 | 3312.45  | Maintained Special SSF Element 2                        | New          | 11737901    |
+    | 10017379 | 1619F-379      | SSF-3791      | 18              | 0                     | 8886.00   | 4657.66  | -2093.99 | -1478.57 | -1443.84 | 121.57   | -320.95  | -542.04  | 2329.73  | 2201.41  | 1987.93  | 36.16    | 3430.64  | Maintained Special SSF Student Support                  | New          | 11737901    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 19              | 0                     | 12331.00  | -973.32  | -1616.12 | -467.05  | 3786.26  | -1362.67 | 513.61   | 8.76     | -686.14  | -260.57  | 4902.58  | 4706.07  | 3779.32  | 16-19 Bursary Funds                                     | New          | 11737902    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 20              | 0                     | 19180.00  | 2820.96  | 2774.36  | -508.35  | 1569.76  | 2557.97  | 2788.27  | 3725.09  | 1394.02  | -1338.50 | -1501.28 | 4080.57  | 816.98   | 16-19 Total Programme Funding                           | New          | 11737902    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 21              | 0                     | 12001.00  | 874.40   | 164.67   | -481.17  | -456.05  | 4718.24  | -1691.12 | 1408.99  | -944.95  | 390.18   | -572.61  | 4400.47  | 4189.57  | 16-19 Formula Protection Funding                        | New          | 11737902    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 22              | 0                     | 12325.00  | -790.18  | 1248.86  | -1755.20 | 3280.35  | -383.86  | 1143.93  | 4967.57  | 4838.18  | 1914.29  | -1315.40 | 990.23   | -1813.87 | 16-19 High Needs Element 2                              | New          | 11737902    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 24              | 0                     | 11124.00  | 1572.51  | 153.62   | -2797.95 | 1843.99  | 69.03    | 1603.88  | 3981.92  | 4662.55  | 2088.88  | -2732.29 | -1829.76 | 2508.07  | 14-16 Programme Funding                                 | New          | 11737902    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 25              | 0                     | 13173.00  | -929.18  | -2283.64 | 1190.85  | -2103.40 | 1504.21  | 3169.30  | 3122.82  | 1578.37  | 2975.83  | 2153.60  | -2077.61 | 4872.18  | 14-16 Pupil Premium                                     | New          | 11737902    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 31              | 0                     | 11210.00  | 766.83   | 3313.36  | 4994.84  | 749.73   | 2799.57  | -1030.99 | -883.70  | -929.96  | -2465.54 | 826.75   | -1694.28 | 4763.83  | 16-19 Free Meals in FE                                  | New          | 11737902    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 32              | 0                     | 6902.00   | 3816.94  | -362.12  | -2353.31 | -2032.17 | -2125.79 | 4808.21  | -1340.70 | 1909.24  | -1737.78 | 157.39   | 1622.07  | 4540.06  | 16-19 High Needs SPI Element 1                          | New          | 11737902    |
+    | 10017379 | 1619F-379      | 16LR-3792     | 33              | 0                     | 16204.00  | 4562.52  | 3028.33  | -156.25  | -878.57  | 429.08   | 546.57   | -714.71  | 3358.10  | -2414.76 | 4829.61  | 1131.63  | 2482.71  | 19+ Continuing Learners Programme Funding               | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 31              | 0                     | 6516.00   | 536.66   | 2865.08  | -1944.02 | 3517.36  | -2056.56 | -702.97  | -2046.76 | -803.77  | 3344.86  | -71.30   | 2100.56  | 1777.27  | Cadets Vocational Programme                             | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 32              | 0                     | 20991.00  | -717.24  | 3021.94  | -1350.11 | 4392.13  | 999.66   | 2336.85  | 4858.44  | -1343.33 | 4885.45  | 1391.14  | 910.56   | 1605.33  | Closing Schools                                         | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 33              | 0                     | 10095.00  | 1274.41  | -1530.50 | -1710.35 | -1224.59 | 4792.03  | 4783.04  | 900.00   | -1558.41 | 851.84   | 2178.53  | -661.34  | 2000.18  | Residential Bursary Fund                                | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 39              | 0                     | 13032.00  | 3302.39  | 4197.93  | -1682.67 | -296.44  | 4824.03  | 2087.65  | -765.75  | -455.45  | -524.17  | -1442.02 | 296.05   | 3490.76  | NMF Pre-16 Funding (NMSS)                               | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 43              | 0                     | 5297.00   | -607.56  | 4492.47  | -1410.38 | 1268.97  | -1169.01 | -1392.76 | 1904.03  | -2700.46 | 2567.92  | -1739.54 | 3502.33  | 580.76   | Primary PE and Sport Premium                            | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 47              | 0                     | -2366.00  | 1645.90  | -388.37  | -2156.50 | 923.20   | -2129.32 | -2269.00 | -1745.71 | 1734.13  | -942.04  | 858.94   | 1951.10  | 151.86   | SSF Free Meals                                          | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 49              | 0                     | 18005.00  | 630.31   | -184.70  | 3811.84  | 330.15   | 363.96   | 1758.83  | 4297.83  | -2527.47 | -514.23  | 3496.48  | 3725.65  | 2816.76  | Pre-16 Universal Infant Free School Meals               | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 85              | 0                     | -52.00    | -2079.97 | -2057.16 | -1510.96 | 369.11   | -714.60  | -1870.50 | 2630.77  | -811.20  | 2241.73  | 764.40   | 1164.49  | 1822.35  | Residential Support Scheme                              | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 86              | 0                     | 6341.00   | 1586.93  | -1458.77 | -1053.36 | -1912.05 | -896.08  | 2198.81  | 1298.30  | -190.12  | 757.43   | 2130.41  | 4377.08  | -497.20  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 87              | 0                     | 16364.00  | 240.91   | 2143.21  | 3098.97  | 1206.22  | 3473.38  | 567.62   | 1010.25  | -1331.20 | 446.34   | 4516.67  | -1290.65 | 2282.77  | Area Review Transition Grant                            | New          | 11737902    |
+    | 10017379 | 1619F-379      | NMF-3792      | 89              | 0                     | 1063.00   | 1420.61  | -704.64  | -181.27  | -2231.74 | 4873.24  | -2239.91 | 3306.72  | 407.76   | -1405.66 | -1972.02 | -2240.56 | 2030.40  | 16+ Factor Removal (DSG) SSF                            | New          | 11737902    |
+    | 10017379 | 1619F-379      | SSF-3792      | 2               | 0                     | 9948.00   | 142.17   | -1414.87 | 1936.08  | 1206.21  | -1660.56 | 171.39   | 2793.08  | -662.09  | 3786.29  | 1855.04  | 219.63   | 1575.78  | SSF Total Programme funding                             | New          | 11737902    |
+    | 10017379 | 1619F-379      | SSF-3792      | 13              | 0                     | -4518.00  | -129.92  | -638.60  | -2222.75 | 1622.79  | 119.44   | -607.82  | -2701.65 | -1630.80 | 2501.05  | 734.81   | 958.11   | -2523.03 | SSF Bursary Funds                                       | New          | 11737902    |
+    | 10017379 | 1619F-379      | SSF-3792      | 14              | 0                     | 11027.00  | 266.55   | 721.84   | -303.63  | -685.89  | 2549.44  | 3640.34  | 2589.48  | 4439.05  | 2311.89  | -108.80  | -2027.82 | -2364.99 | SSF Formula Protection Funding                          | New          | 11737902    |
+    | 10017379 | 1619F-379      | SSF-3792      | 15              | 0                     | 15017.00  | 841.70   | 1698.60  | 2309.52  | 4094.45  | 2999.11  | 2769.30  | 1818.66  | -646.70  | -1186.31 | 2302.07  | -2559.20 | 575.50   | SSF High Needs Element 2                                | New          | 11737902    |
+    | 10017379 | 1619F-379      | SSF-3792      | 17              | 0                     | 24533.00  | 1631.23  | -252.95  | 4963.05  | 3787.24  | 2410.61  | -684.89  | 2490.26  | 1061.41  | 3970.67  | 837.25   | 4666.96  | -348.05  | Maintained Special SSF Element 2                        | New          | 11737902    |
+    | 10017379 | 1619F-379      | SSF-3792      | 18              | 0                     | 11474.00  | 2587.06  | 373.95   | -1550.81 | 4078.25  | 2739.19  | 574.56   | -2173.60 | 159.47   | 2607.00  | -413.31  | -906.71  | 3398.97  | Maintained Special SSF Student Support                  | New          | 11737902    |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Bulk file to execute a failing update draft
+    Given there are no files prefixed '10017379-1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017170244 v3_A379' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017170244 v3_A379' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 27062017170244 v3_A379.xlsx' exists in the Datafiles folder and UKPRN '10017379' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+    # Check the file has failed and no contracts have been created in CRM
+    And   'Failed' is displayed in field 'O2' on the 'Deliverable' tab of the result report
+    And   '[Deliverable] Cannot have multiple records for the same Deliverable Period for the same Deliverable for the same Contract Allocation' is displayed in field 'O2' on the 'Deliverable' tab of the result report file
+   #And   there are no contracts in CRM for UKPRN '10017379'
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20230123
+Scenario: A380 Check that DBR-008 is tripped when CRM Intent is not consistent for a deliverable on an update draft of a 1718 EFA contract
+   #Given there is no Contract, Task or Workflow data for contract '1619F-380' and master contract 'ESFA-380'
+    Given there is no Contract, Task or Workflow data for UKPRN '10017380'
+    And   there is no Subnominal data for the following contract allocations
+    | AllocationRef |
+    | 16LR-3801     |
+    | 16LR-3802     |
+    | NMF-3801      |
+    | NMF-3802      |
+    | SSF-3801      |
+    | SSF-3802      |
+
+   # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017380'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017380 Co Ltd' with UKPRN '10017380' and OrgId 'ORG0017380' and has 'FCS1 Test' as a manager
+    And   UPIN '117380' is associated with UKPRN '10017380' in the CRM Organisation table
+
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017380 | 117380 | 10017380 Co Ltd | 0              | Active |
+
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017380 | 10017380 Co Ltd      | ESFA-380             | 1619F-380      | 1                     | 01/08/2017        | 31/07/2018      | 723430.00     |                                | Contract for Services | 1718   | New          | ORG0017380 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017380 | 1619F-380      | 16LR-3801     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 116918.00       |                         |            | WAKEFIELD COLLEGE (108440)                                  | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 172645.00       |                         |            | WAKEFIELD COLLEGE (108440)                                  | New          | 11738001    |
+    | 10017380 | 1619F-380      | SSF-3801      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 95540.00        |                         |            | WAKEFIELD COLLEGE (108440)                                  | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 133898.00       |                         |            | EAST NORFOLK SIXTH FORM COLLEGE (108429)                    | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 117280.00       |                         |            | EAST NORFOLK SIXTH FORM COLLEGE (108429)                    | New          | 11738002    |
+    | 10017380 | 1619F-380      | SSF-3802      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 87149.00        |                         |            | EAST NORFOLK SIXTH FORM COLLEGE (108429)                    | New          | 11738002    |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017380 | 1619F-380      | 16LR-3801     | 19              | 0                     | 17116.00  | 4917.95  | -2484.47 | 471.74   | 118.66   | -1456.23 | 4833.32  | 282.62   | -256.61  | 4447.47  | -1861.42 | 4867.73  | 3235.31  | 16-19 Bursary Funds                                     | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3801     | 20              | 0                     | 9274.00   | -1219.92 | 2665.68  | -538.40  | 4678.22  | 1727.66  | -2656.00 | -986.53  | 2612.02  | 4508.04  | 1207.51  | -440.95  | -2282.98 | 16-19 Total Programme Funding                           | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3801     | 21              | 0                     | 4667.00   | -282.21  | -2046.04 | 1742.48  | 248.33   | -1970.92 | 2854.42  | -2711.85 | 420.25   | 36.53    | -987.50  | 4222.63  | 3140.62  | 16-19 Formula Protection Funding                        | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3801     | 22              | 0                     | 19676.00  | 1254.08  | 373.88   | 2646.47  | 2295.23  | -938.11  | -314.46  | -2743.86 | 3782.15  | 1603.22  | 4205.26  | 3815.92  | 3696.16  | 16-19 High Needs Element 2                              | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3801     | 24              | 0                     | 21112.00  | -368.72  | 3160.88  | -1420.34 | -336.95  | 2706.11  | -440.23  | 2262.82  | 4124.11  | -658.53  | 4948.17  | 2164.18  | 4970.35  | 14-16 Programme Funding                                 | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3801     | 25              | 0                     | 17374.00  | 4901.71  | 4920.54  | 1037.85  | -1672.98 | 2248.62  | 4578.96  | -2284.94 | -112.08  | 1338.36  | -2057.48 | 876.08   | 3599.75  | 14-16 Pupil Premium                                     | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3801     | 31              | 0                     | 9216.00   | -631.74  | 1706.67  | -2027.95 | 4696.53  | -2526.24 | -2647.41 | 4096.94  | 1283.96  | 3775.28  | 6.60     | 3609.29  | -2126.20 | 16-19 Free Meals in FE                                  | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3801     | 32              | 0                     | 10703.00  | -624.97  | 4449.49  | 2904.22  | 3068.25  | -96.03   | 3275.91  | -664.76  | -2005.73 | 2018.62  | -796.21  | -1113.87 | 288.05   | 16-19 High Needs SPI Element 1                          | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3801     | 33              | 0                     | 7780.00   | 2047.97  | 3733.65  | 4592.81  | -2570.70 | 990.36   | -1242.01 | -884.79  | -974.30  | 3660.32  | 1520.72  | -540.79  | -2552.83 | 19+ Continuing Learners Programme Funding               | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 31              | 0                     | 9209.00   | 817.14   | 4497.34  | -611.86  | 2284.00  | -795.88  | 883.20   | -1459.92 | 2849.63  | -2407.07 | -390.29  | -768.21  | 4310.79  | Cadets Vocational Programme                             | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 32              | 0                     | 36491.00  | 150.62   | 4263.14  | 4841.97  | 918.87   | 3160.50  | 3081.12  | 2395.22  | 4787.59  | 3918.94  | 4662.02  | 3633.91  | 677.34   | Closing Schools                                         | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 33              | 0                     | 15679.00  | 3782.26  | -2375.66 | 2240.05  | 4129.56  | -2436.36 | -1983.93 | 3207.20  | 4551.12  | 3879.98  | -2725.95 | -437.72  | 3848.69  | Residential Bursary Fund                                | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 39              | 0                     | 8310.00   | 3848.72  | -2066.60 | -2162.47 | 2413.14  | -1265.19 | 4486.81  | -1307.71 | 2653.88  | -652.50  | 593.99   | 2884.96  | -1116.76 | NMF Pre-16 Funding (NMSS)                               | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 43              | 0                     | 21474.00  | 1787.28  | -1558.99 | 3594.82  | 350.89   | 4142.71  | 4249.70  | 4093.93  | 1628.13  | 1737.30  | 1336.96  | -1631.02 | 1742.35  | Primary PE and Sport Premium                            | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 47              | 0                     | 13175.00  | -73.58   | -2475.76 | 493.23   | 1861.37  | -2355.87 | 4296.83  | -2051.71 | 4927.79  | 4100.11  | 2313.24  | 496.06   | 1643.40  | SSF Free Meals                                          | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 49              | 0                     | 6895.00   | 2826.45  | 2464.64  | -2599.40 | -2596.44 | 3474.61  | -315.83  | 2399.98  | 2181.57  | 1962.25  | -1093.67 | -771.84  | -1037.03 | Pre-16 Universal Infant Free School Meals               | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 85              | 0                     | 18956.00  | 4970.14  | 3976.39  | -1713.10 | -69.95   | 1788.97  | 709.69   | 1667.60  | 3196.12  | 516.29   | 4301.12  | 1323.16  | -1710.07 | Residential Support Scheme                              | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 86              | 0                     | 24882.00  | 3803.36  | -515.62  | 2589.91  | 4790.04  | 2152.02  | -358.54  | 2859.43  | 3709.17  | 361.58   | -1338.05 | 3400.46  | 3428.60  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 87              | 0                     | -4038.00  | -874.32  | 2752.42  | -269.24  | -1617.44 | 1979.17  | 1795.82  | -2661.01 | -107.42  | 794.98   | -2739.17 | -1843.41 | -1248.16 | Area Review Transition Grant                            | New          | 11738001    |
+    | 10017380 | 1619F-380      | NMF-3801      | 89              | 0                     | 21612.00  | 2231.02  | 861.27   | 4579.65  | -40.40   | 1527.01  | 3965.44  | 2040.74  | 4805.56  | -2748.60 | 3555.49  | -1869.11 | 2704.19  | 16+ Factor Removal (DSG) SSF                            | New          | 11738001    |
+    | 10017380 | 1619F-380      | SSF-3801      | 2               | 0                     | -175.00   | 1571.13  | -503.00  | 3104.30  | -2309.87 | -2778.07 | 3421.08  | -2747.49 | -565.89  | 2374.15  | -2237.95 | 2386.77  | -1890.19 | SSF Total Programme funding                             | New          | 11738001    |
+    | 10017380 | 1619F-380      | SSF-3801      | 13              | 0                     | 11058.00  | -2738.37 | 3305.80  | 1486.93  | 2365.14  | -2621.78 | -2541.69 | -1527.48 | 4829.03  | 3874.61  | 655.07   | 774.58   | 3195.85  | SSF Bursary Funds                                       | New          | 11738001    |
+    | 10017380 | 1619F-380      | SSF-3801      | 14              | 0                     | 19659.00  | 2705.15  | 920.43   | 3857.55  | -140.22  | 4724.82  | -2623.02 | 1091.14  | 3499.19  | 1936.05  | -1095.04 | 3372.23  | 1410.97  | SSF Formula Protection Funding                          | New          | 11738001    |
+    | 10017380 | 1619F-380      | SSF-3801      | 15              | 0                     | 11056.00  | 3685.61  | 1351.54  | -1703.33 | 3994.98  | 4611.48  | -2109.69 | 4881.30  | -2411.65 | 1339.70  | -869.42  | -2364.38 | 649.92   | SSF High Needs Element 2                                | New          | 11738001    |
+    | 10017380 | 1619F-380      | SSF-3801      | 17              | 0                     | 26402.00  | 3331.32  | 576.79   | 4183.88  | 4894.57  | -1120.83 | -1162.15 | 2036.79  | 4177.59  | 1054.85  | 1986.55  | 4513.48  | 1929.11  | Maintained Special SSF Element 2                        | New          | 11738001    |
+    | 10017380 | 1619F-380      | SSF-3801      | 18              | 0                     | 27540.00  | 2005.50  | 2868.94  | 413.34   | 4938.44  | -599.27  | 1163.65  | 4837.96  | 3488.40  | 1429.51  | 3991.33  | 2762.87  | 239.78   | Maintained Special SSF Student Support                  | New          | 11738001    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 19              | 0                     | 18232.00  | 4185.48  | -1073.55 | 4448.41  | 610.39   | 4653.42  | 799.93   | -1253.92 | 4313.02  | 4508.56  | 1495.40  | -2172.98 | -2281.81 | 16-19 Bursary Funds                                     | New          | 11738002    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 20              | 0                     | 11245.00  | -300.97  | -1944.05 | 1299.42  | 1988.85  | -626.44  | 2522.94  | 2776.74  | 1672.07  | -2271.68 | 1595.31  | 1699.60  | 2833.54  | 16-19 Total Programme Funding                           | New          | 11738002    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 21              | 0                     | 29771.00  | 2403.84  | 4039.04  | 1507.62  | -458.17  | 2431.83  | 4246.44  | 1961.35  | 4702.87  | 532.10   | 2345.58  | 1214.09  | 4844.20  | 16-19 Formula Protection Funding                        | New          | 11738002    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 22              | 0                     | 16487.00  | 559.43   | 2859.63  | -166.19  | 2649.46  | 4700.43  | -283.74  | -1025.03 | -957.29  | 4820.42  | 2207.04  | 500.46   | 622.82   | 16-19 High Needs Element 2                              | New          | 11738002    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 24              | 0                     | 14164.00  | -839.70  | 496.72   | 1253.44  | -2152.16 | 3183.44  | 3282.72  | 4879.20  | -230.64  | -27.46   | -595.59  | 4397.05  | 516.91   | 14-16 Programme Funding                                 | New          | 11738002    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 25              | 0                     | 7221.00   | 1776.53  | -597.42  | -2077.77 | 2332.33  | 4307.39  | 1028.71  | -1462.26 | 1554.12  | -2412.93 | 3504.43  | -683.79  | -48.15   | 14-16 Pupil Premium                                     | New          | 11738002    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 31              | 0                     | 12895.00  | 2144.40  | 330.83   | 2691.82  | 2410.53  | -2038.14 | -2552.09 | 4982.13  | 964.96   | 3572.57  | 2143.89  | -1540.04 | -215.89  | 16-19 Free Meals in FE                                  | New          | 11738002    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 32              | 0                     | 8598.00   | 1107.06  | -1685.41 | -1224.66 | 3105.53  | 3690.23  | 1672.86  | 4127.25  | -2680.33 | -11.83   | -92.12   | 3185.61  | -2595.69 | 16-19 High Needs SPI Element 1                          | New          | 11738002    |
+    | 10017380 | 1619F-380      | 16LR-3802     | 33              | 0                     | 15285.00  | 2105.08  | 3994.61  | 563.09   | 1708.92  | 1830.10  | 53.08    | -2562.96 | 3288.97  | -965.78  | 4557.85  | -2478.70 | 3190.42  | 19+ Continuing Learners Programme Funding               | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 31              | 0                     | 10538.00  | 198.23   | -1063.17 | 1271.38  | 3979.18  | -2566.02 | -1802.51 | 1335.62  | 4397.73  | 4094.49  | 3217.50  | -978.93  | -1545.00 | Cadets Vocational Programme                             | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 32              | 0                     | 8099.00   | 131.78   | 4428.23  | -1828.93 | 2408.47  | 1610.99  | 921.80   | 46.74    | 1262.25  | 1357.20  | -889.54  | -451.14  | -898.45  | Closing Schools                                         | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 33              | 0                     | -8932.00  | -2647.68 | -2264.04 | -1010.29 | 1177.00  | -317.99  | -1771.12 | 414.99   | -2061.00 | 432.47   | 1418.09  | -124.34  | -2177.83 | Residential Bursary Fund                                | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 39              | 0                     | 13396.00  | 137.38   | -1609.98 | -750.17  | -420.31  | 4974.76  | 2298.16  | 4414.65  | -2232.38 | 2513.83  | 4122.31  | 1968.14  | -2020.62 | NMF Pre-16 Funding (NMSS)                               | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 43              | 0                     | 8772.00   | 1811.91  | 578.03   | 301.10   | 2830.04  | -2538.75 | 576.02   | 2419.01  | -109.28  | -2014.01 | 2431.44  | 4113.84  | -1627.01 | Primary PE and Sport Premium                            | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 47              | 0                     | 14391.00  | 1588.94  | 4223.33  | 1885.96  | -2436.79 | -2751.50 | 503.98   | 2816.03  | 4006.94  | -1034.46 | 4358.29  | -2613.15 | 3843.25  | SSF Free Meals                                          | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 49              | 0                     | 12509.00  | 3960.26  | 1213.14  | 4455.25  | -510.82  | -380.93  | -1803.20 | 1173.94  | 1474.08  | 3591.49  | -2551.73 | 3063.42  | -1176.05 | Pre-16 Universal Infant Free School Meals               | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 85              | 0                     | 13811.00  | 4436.95  | 2576.67  | -2166.17 | 1595.86  | -2178.24 | 3670.61  | -1843.15 | -437.70  | 1265.94  | 3257.57  | 2787.54  | 845.58   | Residential Support Scheme                              | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 86              | 0                     | 8174.00   | 640.07   | -2586.75 | -1363.77 | 2302.19  | 12.20    | -2178.98 | 3790.43  | 857.15   | 3244.74  | 1181.20  | 3286.62  | -1011.57 | 19+ Continuing Learners in SFC (Student Support)        | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 87              | 0                     | 24622.00  | -2458.74 | -429.53  | 3832.24  | 4361.31  | 1343.48  | 551.28   | 4677.45  | 212.73   | 4978.03  | 2431.19  | 1637.09  | 3485.71  | Area Review Transition Grant                            | New          | 11738002    |
+    | 10017380 | 1619F-380      | NMF-3802      | 89              | 0                     | 11900.00  | -946.62  | 2672.24  | 862.52   | 113.67   | 4806.76  | 450.35   | 3363.49  | -745.15  | -2799.08 | 1164.68  | -719.98  | 3676.69  | 16+ Factor Removal (DSG) SSF                            | New          | 11738002    |
+    | 10017380 | 1619F-380      | SSF-3802      | 2               | 0                     | 11568.00  | 2546.99  | -2726.01 | 3759.56  | 2065.67  | 171.43   | 4844.39  | -2732.73 | -1764.18 | -2268.98 | 1305.38  | 3414.92  | 2951.06  | SSF Total Programme funding                             | New          | 11738002    |
+    | 10017380 | 1619F-380      | SSF-3802      | 13              | 0                     | 8394.00   | 1860.84  | -1560.67 | 992.89   | -1572.37 | -1850.38 | 967.47   | -2224.99 | 4731.60  | -963.29  | 3259.28  | 1390.38  | 3363.18  | SSF Bursary Funds                                       | New          | 11738002    |
+    | 10017380 | 1619F-380      | SSF-3802      | 14              | 0                     | 15908.00  | 58.92    | 3591.82  | -54.77   | 3191.16  | 447.38   | 4759.20  | -805.18  | -862.74  | 2274.46  | 1031.84  | -734.69  | 3010.51  | SSF Formula Protection Funding                          | New          | 11738002    |
+    | 10017380 | 1619F-380      | SSF-3802      | 15              | 0                     | 20937.00  | 3750.57  | -1734.06 | 4525.64  | -1708.41 | 2271.13  | 4762.83  | 4209.38  | -1732.72 | -586.64  | 678.26   | 1786.64  | 4714.75  | SSF High Needs Element 2                                | New          | 11738002    |
+    | 10017380 | 1619F-380      | SSF-3802      | 17              | 0                     | 12413.00  | 83.21    | 2981.94  | -514.08  | -264.01  | -1987.79 | -233.25  | 366.00   | 1942.17  | 2204.36  | 3508.23  | 4537.82  | -211.98  | Maintained Special SSF Element 2                        | New          | 11738002    |
+    | 10017380 | 1619F-380      | SSF-3802      | 18              | 0                     | 17929.00  | 2932.98  | 4873.89  | -463.70  | 3856.19  | 2087.61  | -1317.40 | -557.69  | -308.37  | -1329.13 | 4014.02  | 154.46   | 3986.00  | Maintained Special SSF Student Support                  | New          | 11738002    |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Bulk file to execute a failing update draft
+    Given there are no files prefixed '10017380-1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017171338 v3_A380' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 27062017171338 v3_A380' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 27062017171338 v3_A380.xlsx' exists in the Datafiles folder and UKPRN '10017380' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+    # Check the file has failed and no contracts have been created in CRM
+    And   'Failed' is displayed in field 'O2' on the 'Deliverable' tab of the result report
+    And   '[Deliverable] CRM intent must be the same for each deliverable period for the same deliverable for the same Contract Allocation' is displayed in field 'O2' on the 'Deliverable' tab of the result report file
+   #And   there are no contracts in CRM for UKPRN '10017380'
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20211216
+Scenario: A238 Create a three-allocation 1718 EFA contract with a delivery org. Update draft to remove the delivery org then check docs.
+   #Given there is no Contract, Task or Workflow data for contract '1619F-238' and master contract 'ESFA-238'
+    Given there is no Contract, Task or Workflow data for UKPRN '10017238'
+    And   there is no Subnominal data for the following contract allocations
+    | AllocationRef |
+    | 16LR-238      |
+    | NMF-238       |
+    | SSF-238       |
+
+   # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017238'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017238 Co Ltd' with UKPRN '10017238' and OrgId 'ORG0017238' and has 'FCS1 Test' as a manager
+    And   UPIN '117238' is associated with UKPRN '10017238' in the CRM Organisation table
+
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017238 | 117238 | 10017238 Co Ltd | 0              | Active |
+
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017238 | 10017238 Co Ltd      | ESFA-238             | 1619F-238      | 1                     | 01/08/2017        | 31/07/2018      | 245919.00     |                                | Contract for Services | 1718   | New          | ORG0017238 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017238 | 1619F-238      | 16LR-238      | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 75630.00        |                         |            | HAVANT COLLEGE (108422)                                     | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 100235.00       |                         |            | HAVANT COLLEGE (108422)                                     | New          | 11723801    |
+    | 10017238 | 1619F-238      | SSF-238       | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 70054.00        |                         |            | HAVANT COLLEGE (108422)                                     | New          | 11723801    |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017238 | 1619F-238      | 16LR-238      | 19              | 0                     | 970.00    | 249.02   | -1226.03 | -1133.62 | -2550.11 | 729.59   | -837.71  | 1961.33  | 735.32   | 1912.52  | 3445.89  | -1236.57 | -1079.64 | 16-19 Bursary Funds                                     | New          | 11723801    |
+    | 10017238 | 1619F-238      | 16LR-238      | 20              | 0                     | 12137.00  | 4533.35  | -1794.36 | 767.52   | 4808.07  | -79.64   | -1755.87 | -2796.66 | 4396.63  | -2583.46 | 3320.01  | -967.47  | 4288.72  | 16-19 Total Programme Funding                           | New          | 11723801    |
+    | 10017238 | 1619F-238      | 16LR-238      | 21              | 0                     | 22153.00  | -848.64  | 3632.31  | -904.62  | 3050.88  | 162.69   | 2854.90  | 4407.83  | 3522.89  | -1731.31 | 4120.84  | 208.21   | 3677.14  | 16-19 Formula Protection Funding                        | New          | 11723801    |
+    | 10017238 | 1619F-238      | 16LR-238      | 22              | 0                     | -6269.00  | -1910.35 | -2043.30 | 1754.25  | -2771.96 | 1419.92  | -1032.95 | -1130.15 | -408.66  | -450.31  | -1331.31 | 3842.02  | -2206.46 | 16-19 High Needs Element 2                              | New          | 11723801    |
+    | 10017238 | 1619F-238      | 16LR-238      | 24              | 0                     | 12340.00  | -1263.03 | -1724.85 | -132.29  | 3731.28  | 829.41   | 4431.00  | 650.72   | 180.63   | 1436.17  | 3496.22  | 2748.56  | -2043.40 | 14-16 Programme Funding                                 | New          | 11723801    |
+    | 10017238 | 1619F-238      | 16LR-238      | 25              | 0                     | 6874.00   | -2150.19 | 180.62   | 2269.32  | 1422.40  | -1081.81 | 3528.20  | -2081.45 | -651.13  | -2133.73 | -748.54  | 3796.15  | 4523.84  | 14-16 Pupil Premium                                     | New          | 11723801    |
+    | 10017238 | 1619F-238      | 16LR-238      | 31              | 0                     | 8506.00   | 1668.09  | 2015.91  | 1743.22  | 1711.49  | -31.47   | 474.28   | 4838.94  | -1038.22 | -1644.71 | -2148.96 | -1952.55 | 2869.77  | 16-19 Free Meals in FE                                  | New          | 11723801    |
+    | 10017238 | 1619F-238      | 16LR-238      | 32              | 0                     | 19558.00  | -1019.29 | -123.29  | -2185.24 | 3585.00  | -1266.37 | 4672.20  | 4415.55  | 770.87   | 4961.31  | 2383.26  | 3050.09  | 314.05   | 16-19 High Needs SPI Element 1                          | New          | 11723801    |
+    | 10017238 | 1619F-238      | 16LR-238      | 33              | 0                     | -639.00   | -1458.73 | 164.80   | -1908.86 | -2616.18 | 303.19   | 2315.32  | 2480.77  | 441.45   | -999.23  | 161.19   | -2122.74 | 2599.57  | 19+ Continuing Learners Programme Funding               | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 31              | 0                     | 6114.00   | -1766.39 | 2891.15  | -1847.99 | 1731.54  | 2919.08  | 140.56   | -2163.67 | -869.12  | -85.81   | 4525.89  | 518.40   | 120.55   | Cadets Vocational Programme                             | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 32              | 0                     | 18954.00  | 2987.49  | 2528.99  | 2390.10  | 1012.43  | -1659.09 | 931.54   | 1143.91  | 1416.60  | 1281.69  | 4999.42  | -980.26  | 2900.77  | Closing Schools                                         | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 33              | 0                     | 1809.00   | -2155.84 | -1382.99 | 1.87     | 1799.65  | -2438.27 | 4371.67  | 1165.77  | -425.69  | 2388.69  | -2611.96 | 1575.00  | -478.44  | Residential Bursary Fund                                | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 39              | 0                     | 14071.00  | 972.07   | 512.45   | -2471.92 | -2366.66 | 3873.60  | 2047.28  | 3155.39  | -1193.93 | 2741.49  | 235.33   | 2765.98  | 3800.04  | NMF Pre-16 Funding (NMSS)                               | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 43              | 0                     | 1449.00   | 1632.39  | 2894.24  | -1255.50 | -1851.22 | 3483.19  | -2199.23 | -1001.91 | -2381.56 | -1467.06 | 3025.29  | -1446.82 | 2017.17  | Primary PE and Sport Premium                            | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 47              | 0                     | 23637.00  | 1494.72  | 2216.08  | 2102.46  | -2245.54 | 4877.50  | -1166.29 | 1701.65  | 1350.59  | 4458.02  | 2135.46  | 3216.48  | 3495.92  | SSF Free Meals                                          | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 49              | 0                     | 6175.00   | 3302.68  | -490.36  | 119.48   | 860.29   | 2139.39  | 959.99   | 3836.93  | -1347.56 | -520.52  | -259.92  | -1954.36 | -470.65  | Pre-16 Universal Infant Free School Meals               | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 85              | 0                     | 14913.00  | 1489.53  | -2662.38 | 4119.96  | 2255.60  | 2613.27  | -791.08  | 328.48   | 2312.77  | -656.53  | 4663.18  | -1018.91 | 2258.80  | Residential Support Scheme                              | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 86              | 0                     | 69.00     | -1856.20 | -1303.08 | 725.71   | 637.39   | 1920.68  | 378.35   | -2404.76 | -1562.66 | -1554.81 | 3981.72  | 1404.42  | -298.05  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 87              | 0                     | 497.00    | -2475.07 | 71.71    | 3896.69  | -1511.61 | -74.07   | -1462.18 | 1241.07  | -1022.94 | -555.56  | -1021.28 | 4879.07  | -1469.02 | Area Review Transition Grant                            | New          | 11723801    |
+    | 10017238 | 1619F-238      | NMF-238       | 89              | 0                     | 12547.00  | 2528.90  | 2036.64  | -278.50  | 3905.19  | 3051.75  | -718.30  | -2104.59 | 2606.05  | -1968.66 | 4046.40  | 840.94   | -1399.30 | 16+ Factor Removal (DSG) SSF                            | New          | 11723801    |
+    | 10017238 | 1619F-238      | SSF-238       | 2               | 0                     | 7126.00   | -2496.21 | -1590.15 | 2358.14  | 3176.38  | -2655.13 | -867.74  | 1403.96  | 4349.82  | 841.88   | 739.24   | 1239.01  | 626.63   | SSF Total Programme funding                             | New          | 11723801    |
+    | 10017238 | 1619F-238      | SSF-238       | 13              | 0                     | 1364.00   | 3215.50  | -1443.77 | 2724.53  | -2289.35 | 1491.70  | -1907.18 | -430.81  | -636.64  | -1476.42 | 2977.20  | -1074.00 | 213.19   | SSF Bursary Funds                                       | New          | 11723801    |
+    | 10017238 | 1619F-238      | SSF-238       | 14              | 0                     | 28874.00  | 1163.30  | 4840.43  | 4939.19  | 3914.98  | 4783.88  | -1449.09 | 4241.08  | 4259.28  | 3151.12  | -601.27  | 198.92   | -568.23  | SSF Formula Protection Funding                          | New          | 11723801    |
+    | 10017238 | 1619F-238      | SSF-238       | 15              | 0                     | 16414.00  | 245.49   | -169.98  | 2311.85  | 422.64   | 633.97   | -1668.67 | 1957.66  | 2385.92  | 1791.94  | -935.96  | 4689.79  | 4748.90  | SSF High Needs Element 2                                | New          | 11723801    |
+    | 10017238 | 1619F-238      | SSF-238       | 17              | 0                     | 11551.00  | 3975.04  | -2151.33 | 2084.07  | 2071.46  | -1358.93 | 1299.34  | 135.72   | 255.51   | -2178.14 | 1108.08  | 2806.16  | 3504.32  | Maintained Special SSF Element 2                        | New          | 11723801    |
+    | 10017238 | 1619F-238      | SSF-238       | 18              | 0                     | 4725.00   | 3045.15  | 4879.21  | -2480.13 | 3231.86  | -393.60  | -1286.26 | -2788.67 | 122.27   | -409.21  | -2456.25 | -1478.17 | 4739.16  | Maintained Special SSF Student Support                  | New          | 11723801    |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Bulk file to execute a successful update draft to remove the delivery org
+    Given there are no files prefixed '10017238_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 28062017161918 v3_A238' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 28062017161918 v3_A238' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 28062017161918 v3_A238.xlsx' exists in the Datafiles folder and UKPRN '10017238' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+    # Check that the file has been successful
+    And   'Success' is displayed in field 'O2' on the 'Deliverable' tab of the result report
+   #And   there are no contracts in CRM for UKPRN '10017238'
+
+    # Retrieve parameters
+    And   I retrieve the latest contract details from CRM for provider '10017238' for FundingType '1619FUND' and period '1718'
+   #And   I retrieve the latest EFA contract details from CRM for provider '10017238' for FundingType '1619FUND' and period '1718' and Delivery Organisation '11723801'
+    
+    # Check the contents of the Appendices
+    And   a file for this contract exists in sharepoint location '1619FUND-1718-Input-Appendices'
+    And   the pdf file contains the following simple lines in order
+   #And   the pdf file contains the following parameterized lines in order
+   #And   the pdf file which contains a upin and the following parameterized lines in order
+    """
+    Payment Schedule Summary
+    Provider: 10017238 Co Ltd UPIN: 117238 UKPRN: 10017238
+    Master Contract Ref: ESFA-238 Start Date: 01/08/2017 End Date: 31/07/2018
+    Cash (£) Aug 2017 Sep 2017 Oct 2017 Nov 2017 Dec 2017 Jan 2018 Feb 2018 Mar 2018 Apr 2018 May 2018 Jun 2018 Jul 2018
+    16-19 Total Programme Funding 8,770 -971.65 -598.54 2,105.13 1,080.44 3,142.51 1,609.17 2,402.94
+    16-19 Bursary Funds 2,908 -4,773.34 4,009.57 2,052.26 445.95 1,173.56
+    16-19 Formula Protection Funding 4,279 -1,912.28 1,755.12 551.71 3,884.45
+    16-19 High Needs Element 2 9,745 1,662.05 974.69 1,047.66 4,388.31 1,672.29
+    14-16 Programme Funding -788 -4,357.83 -3,130.75 2,854.97 1,393.62 2,451.09 0.90
+    14-16 Pupil Premium 18,826 950.53 4,665.34 4,315.33 3,806.69 3,839.47 1,248.64
+    16-19 Free Meals in FE 12,532 -142.83 613.19 2,166.62 230.41 2,378.12 1,776.41 2,781.01 2,729.07
+    16-19 High Needs SPI Element 1 6,135 -856.29 -3,770.23 1,235.01 2,325.24 3,204.98 1,195.79 1,975.23 825.27
+    19+ Continuing Learners Programme 9,529 -3,631.71 -2,149.92 1,869.48 3,680.84 4,758.42 263.18 4,738.32 0.39
+    Funding
+    SSF Total Programme Funding 11,093 -2,842.46 1,553.06 3,107.49 2,069.12 1,170.27 3,318.98 2,716.54
+    SSF Bursary Funds 10,418 -1,294.14 -1,348.99 2,208.64 365.68 1,866.24 2,957.48 3,836.23 1,826.04 0.82
+    SSF Formula Protection Funding 13,912 -2,419.53 3,506.32 4,259.22 2,501.72 4,312.09 438.66 894.42 419.10
+    SSF High Needs Element 2 10,055 -325.79 3,453.44 736.79 967.39 1,919.12 1,529.91 1,774.14
+    Maintained Special SSF Element 2 15,308 2,831.63 398.46 4,966.67 3,730.48 3,380.76
+    Maintained Special SSF Student Support 3,767 -4,040.83 2,871.83 2,904.61 313.81 293.71 1,423.16 0.71
+    Residential Bursary Fund -1,022 -3,364.34 -4,357.83 2,854.97 1,393.62 2,451.09 0.49
+    Closing Schools 9,469 -1,443.89 -1,583.42 2,146.52 1,373.52 1,829.28 1,353.42 666.07 739.04 4,388.46
+    Cadets Vocational Programme 1,300 -2,937.36 -2,223.89 4,771.09 1,446.49 243.67
+    NMF Pre-16 Funding (NMSS) 16,079 283.28 950.53 4,665.34 4,315.33 1,117.41 4,746.56 0.55
+    SSF Free Meals 6,144 -1,348.99 -4,903.43 674.31 2,175.86 3,265.11 4,144.85 2,135.66 0.63
+    Pre-16 Universal Infant Free School 21,187 4,567.84 2,809.35 4,620.71 1,520.29 747.29 1,203.05 727.19 4,991.28
+    Meals
+    Primary PE and Sport Premium 0
+    Residential Support Scheme 5,250 -4,936.19 -207.56 3,761.07 1,044.42 1,276.02 2,228.74 2,082.79 0.71
+    19+ Continuing Learners in SFC 8,758 707.09 324.31 4,038.11 3,688.11 0.38
+    (Student Support)
+    Area Review Transition Grant 6,168 3,212.24 621.44 601.34 1,732.78 0.20
+    16+ Factor Removal (DSG) SSF 9,955 -3,282.13 2,155.76 2,102.89 641.54 4,058.21 1,699.01 2,579.72
+    Total Funding 219,777 -38,614.16 -30,541.98 0.00 43,523.92 34,381.64 29,305.52 29,122.21 26,689.36 16,731.37 32,903.97 41,839.48 34,435.67
+    Ref (for internal use only):  1619F-238
+    Page 1 of 1 of the Payment Schedules
+    """
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20211216
+Scenario: A239 Create a three-allocation 1718 EFA contract with a delivery org. Update draft to amend a delivery org then check docs.
+   #Given there is no Contract, Task or Workflow data for contract '1619F-239' and master contract 'ESFA-239'
+    Given there is no Contract, Task or Workflow data for UKPRN '10017239'
+    And   there is no Subnominal data for the following contract allocations
+    | AllocationRef |
+    | 16LR-239      |
+    | NMF-239       |
+    | SSF-239       |
+
+   # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017239'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017239 Co Ltd' with UKPRN '10017239' and OrgId 'ORG0017239' and has 'FCS1 Test' as a manager
+    And   UPIN '117239' is associated with UKPRN '10017239' in the CRM Organisation table
+
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017239 | 117239 | 10017239 Co Ltd | 0              | Active |
+
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017239 | 10017239 Co Ltd      | ESFA-239             | 1619F-239      | 1                     | 01/08/2017        | 31/07/2018      | 418984.00     |                                | Contract for Services | 1718   | New          | ORG0017239 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017239 | 1619F-239      | 16LR-239      | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 191409.00       |                         |            | HALESOWEN COLLEGE (108457)                                  | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 117236.00       |                         |            | HALESOWEN COLLEGE (108457)                                  | New          | 11723901    |
+    | 10017239 | 1619F-239      | SSF-239       | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 110339.00       |                         |            | HALESOWEN COLLEGE (108457)                                  | New          | 11723901    |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017239 | 1619F-239      | 16LR-239      | 19              | 0                     | 24308.00  | 1044.96  | 3816.74  | 4346.38  | 1085.00  | 3698.99  | -670.00  | 1530.57  | -2089.49 | 3238.21  | 1415.02  | 2917.45  | 3974.05  | 16-19 Bursary Funds                                     | New          | 11723901    |
+    | 10017239 | 1619F-239      | 16LR-239      | 20              | 0                     | 5467.00   | 3125.11  | 4071.84  | -2255.59 | -2549.09 | 4971.21  | -946.59  | -2409.94 | -1307.18 | 858.91   | -1099.98 | -1528.92 | 4537.22  | 16-19 Total Programme Funding                           | New          | 11723901    |
+    | 10017239 | 1619F-239      | 16LR-239      | 21              | 0                     | 10030.00  | -1186.60 | -476.39  | -510.88  | 2566.63  | 3424.51  | -657.81  | 27.67    | 2918.13  | -1581.41 | 4764.20  | -1101.09 | 1842.63  | 16-19 Formula Protection Funding                        | New          | 11723901    |
+    | 10017239 | 1619F-239      | 16LR-239      | 22              | 0                     | 25144.00  | 1380.40  | -1377.14 | 3240.64  | 1814.28  | 3424.96  | 4160.62  | 363.09   | 2389.87  | 4419.46  | 2763.42  | 1745.83  | 818.15   | 16-19 High Needs Element 2                              | New          | 11723901    |
+    | 10017239 | 1619F-239      | 16LR-239      | 24              | 0                     | 27140.00  | 3355.07  | 1845.19  | 3184.67  | 2399.26  | -1531.09 | 3282.13  | 1488.46  | 1594.08  | 4915.86  | 4997.12  | -2473.96 | 4083.60  | 14-16 Programme Funding                                 | New          | 11723901    |
+    | 10017239 | 1619F-239      | 16LR-239      | 25              | 0                     | 37598.00  | 4190.41  | 4494.11  | 1223.11  | 3978.31  | 4698.62  | 4342.48  | -490.98  | 1977.55  | 2879.93  | 4011.39  | 4213.76  | 2078.94  | 14-16 Pupil Premium                                     | New          | 11723901    |
+    | 10017239 | 1619F-239      | 16LR-239      | 31              | 0                     | 31201.00  | 879.05   | 1454.21  | 514.73   | 2437.67  | 2767.85  | 4442.85  | -1266.28 | 3775.95  | 4917.21  | 4852.15  | 2283.71  | 4142.36  | 16-19 Free Meals in FE                                  | New          | 11723901    |
+    | 10017239 | 1619F-239      | 16LR-239      | 32              | 0                     | 23009.00  | 3918.91  | 1694.25  | 965.74   | 3421.21  | -1342.49 | 2702.99  | -2584.15 | 1991.92  | 2132.24  | 4468.24  | 4301.90  | 1338.43  | 16-19 High Needs SPI Element 1                          | New          | 11723901    |
+    | 10017239 | 1619F-239      | 16LR-239      | 33              | 0                     | 7512.00   | 628.79   | -2079.70 | 4470.45  | -1191.48 | 641.32   | -835.69  | -1156.35 | -76.77   | -255.78  | 4264.55  | 1666.13  | 1436.20  | 19+ Continuing Learners Programme Funding               | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 31              | 0                     | 6896.00   | -1585.96 | 578.86   | -1298.16 | -256.92  | -1798.64 | 3443.04  | 980.95   | 1240.88  | 1852.64  | 1205.16  | -903.31  | 3437.35  | Cadets Vocational Programme                             | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 32              | 0                     | 10107.00  | -217.86  | 3609.99  | -2547.72 | 1410.35  | -2506.26 | -1466.67 | 3657.79  | 4017.26  | -1847.14 | 4266.45  | 4276.94  | -2545.72 | Closing Schools                                         | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 33              | 0                     | 21113.00  | 2708.34  | -1049.61 | 4924.09  | 4365.91  | 4164.23  | 160.39   | 2111.04  | 4504.22  | -598.21  | -1759.78 | 3843.94  | -2261.72 | Residential Bursary Fund                                | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 39              | 0                     | 13562.00  | 2951.29  | 786.62   | -2429.88 | -1186.43 | 313.86   | 1083.60  | -1924.95 | 2861.25  | 4633.47  | 3086.86  | 3729.11  | -342.36  | NMF Pre-16 Funding (NMSS)                               | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 43              | 0                     | 10253.00  | -1681.33 | 1558.14  | 1484.52  | -2366.48 | 1414.59  | 3149.66  | -2777.76 | 3033.59  | 1524.71  | 2638.38  | 1248.81  | 1025.73  | Primary PE and Sport Premium                            | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 47              | 0                     | 6588.00   | 2682.82  | 110.47   | 143.20   | 1160.46  | -1825.16 | 4495.68  | 753.75   | -1019.68 | -89.27   | 51.64    | -1855.00 | 1979.18  | SSF Free Meals                                          | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 49              | 0                     | 11045.00  | -453.67  | 598.31   | 94.57    | 2911.67  | 1755.26  | 4302.35  | -1059.95 | 1852.54  | 4850.79  | -2788.58 | -24.15   | -994.00  | Pre-16 Universal Infant Free School Meals               | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 85              | 0                     | -7967.00  | -1042.30 | -2261.34 | -2799.89 | -2734.81 | -2665.81 | 1697.01  | -2188.44 | -1078.57 | -556.26  | -516.44  | 1856.37  | 4323.70  | Residential Support Scheme                              | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 86              | 0                     | 19758.00  | 2776.95  | 3013.97  | -574.96  | 4687.93  | 1023.45  | 4406.84  | 999.32   | 256.46   | -206.22  | -981.94  | -451.00  | 4807.36  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 87              | 0                     | 18084.00  | 3091.26  | 2625.21  | 4778.88  | -2486.22 | 1733.82  | 361.92   | 1325.54  | 1553.44  | 2725.96  | -997.76  | 2504.32  | 867.84   | Area Review Transition Grant                            | New          | 11723901    |
+    | 10017239 | 1619F-239      | NMF-239       | 89              | 0                     | 7797.00   | -1819.45 | 3195.06  | 4606.12  | -728.22  | -1409.25 | 1448.39  | -2255.71 | 3512.66  | -2148.15 | 863.86   | 2051.56  | 479.86   | 16+ Factor Removal (DSG) SSF                            | New          | 11723901    |
+    | 10017239 | 1619F-239      | SSF-239       | 2               | 0                     | 22265.00  | 2633.20  | 1420.98  | 4426.83  | -1235.84 | 1299.98  | 3411.59  | -1367.90 | 1967.05  | 4985.22  | 1224.20  | 3939.34  | -439.85  | SSF Total Programme funding                             | New          | 11723901    |
+    | 10017239 | 1619F-239      | SSF-239       | 13              | 0                     | 23103.00  | 4811.54  | 2478.38  | -72.68   | -1305.44 | 1263.12  | 2309.13  | 3628.58  | 3360.28  | 4307.53  | -1398.75 | 426.19   | 3295.52  | SSF Bursary Funds                                       | New          | 11723901    |
+    | 10017239 | 1619F-239      | SSF-239       | 14              | 0                     | 18636.00  | 4267.60  | 1373.72  | 1700.72  | 3846.11  | -756.68  | -2685.92 | 3027.05  | 3174.88  | 1083.71  | 2062.80  | -1078.72 | 2621.04  | SSF Formula Protection Funding                          | New          | 11723901    |
+    | 10017239 | 1619F-239      | SSF-239       | 15              | 0                     | 10758.00  | 4308.67  | -2552.36 | -462.39  | 3409.51  | 3780.88  | 3268.06  | 2515.17  | -2489.64 | -1272.32 | 2829.56  | -2025.05 | -551.86  | SSF High Needs Element 2                                | New          | 11723901    |
+    | 10017239 | 1619F-239      | SSF-239       | 17              | 0                     | 19798.00  | -1287.08 | 3028.08  | -1133.34 | 2061.27  | 358.86   | 2784.35  | 3065.57  | 4411.39  | -2781.98 | 2428.30  | 4219.41  | 2642.78  | Maintained Special SSF Element 2                        | New          | 11723901    |
+    | 10017239 | 1619F-239      | SSF-239       | 18              | 0                     | 15779.00  | -604.92  | -566.60  | 4545.27  | -1608.29 | 518.74   | 1701.06  | -1623.57 | 1345.82  | 1263.59  | 3794.98  | 4459.28  | 2553.49  | Maintained Special SSF Student Support                  | New          | 11723901    |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Bulk file to execute a successful update draft to alter the delivery org
+    Given there are no files prefixed '10017239_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 28062017172234 v3_A239' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 28062017172234 v3_A239' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 28062017172234 v3_A239.xlsx' exists in the Datafiles folder and UKPRN '10017239' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+    # Check that the file has been successful
+    And   'Success' is displayed in field 'O2' on the 'Deliverable' tab of the result report
+   #And   there are no contracts in CRM for UKPRN '10017239'
+
+    # Retrieve parameters
+    And   I retrieve the latest contract details from CRM for provider '10017239' for FundingType '1619FUND' and period '1718'
+   #And   I retrieve the latest EFA contract details from CRM for provider '10017239' for FundingType '1619FUND' and period '1718' and Delivery Organisation '11723901'
+    
+    # Check the contents of the Appendices
+    And   a file for this contract exists in sharepoint location '1619FUND-1718-Input-Appendices'
+    And   the pdf file contains the following simple lines in order
+   #And   the pdf file contains the following parameterized lines in order
+   #And   the pdf file which contains a upin and the following parameterized lines in order
+    """
+    Payment Schedule Summary
+    Provider: 10017239 Co Ltd UPIN: 117239 UKPRN: 10017239
+    Master Contract Ref: ESFA-239 Start Date: 01/08/2017 End Date: 31/07/2018
+    Cash (£) Aug 2017 Sep 2017 Oct 2017 Nov 2017 Dec 2017 Jan 2018 Feb 2018 Mar 2018 Apr 2018 May 2018 Jun 2018 Jul 2018
+    16-19 Total Programme Funding 12,281 -1,857.16 1,227.63 3,375.34 1,459.23 2,463.82 2,411.94 202.93 2,265.01 731.67 0.59
+    16-19 Bursary Funds 1,855 -663.83 -4,685.44 1,174.75 4,803.92 930.49 295.11
+    16-19 Formula Protection Funding 19,469 -2,797.77 -1,697.53 4,834.51 4,822.83 4,940.26 1,966.67 4,451.72 82.33 2,865.52 0.46
+    16-19 High Needs Element 2 11,880 -3,172.08 -1,345.69 4,749.86 254.62 4,729.76 3,850.02 2,812.65 0.86
+    14-16 Programme Funding 19,739 -4,720.39 1,278.32 888.11 4,769.96 1,417.83 4,028.73 2,918.41 875.43 4,887.38 3,395.22
+    14-16 Pupil Premium 5,257 -3,472.22 -1,518.99 4,326.87 2,739.67 359.37 558.19 2,263.81 0.30
+    16-19 Free Meals in FE 5,744 -1,732.49 961.08 4,504.61 803.46 1,206.35 0.99
+    16-19 High Needs SPI Element 1 15,147 3,903.88 3,268.41 3,374.16 399.57 4,200.98
+    19+ Continuing Learners Programme 5,448 -224.37 -3,739.58 432.35 3,955.76 2,475.31 2,548.53
+    Funding
+    SSF Total Programme Funding 11,509 -2,215.79 2,174.71 3,728.14 2,690.77 1,791.92 3,339.25
+    SSF Bursary Funds 17,373 -721.35 2,829.31 1,295.96 2,089.07 2,796.52 4,766.51 2,756.32 1,560.66
+    SSF Formula Protection Funding 14,216 238.51 3,569.52 3,431.01 291.37 2,142.93 1,368.93 1,824.71 1,349.02
+    SSF High Needs Element 2 5,489 -4,383.52 -4,309.54 4,383.72 1,666.08 681.58 1,897.67 2,849.41 2,703.60
+    Maintained Special SSF Element 2 13,711 -3,069.78 3,761.91 1,507.46 1,593.11 945.95 4,660.76 4,311.59
+    Maintained Special SSF Student Support 13,650 -1,575.33 3,801.12 3,834.88 1,243.09 1,222.01 2,353.43 608.61 2,162.04 0.15
+    Residential Bursary Fund 6,336 -2,099.45 -3,093.94 2,342.94 3,717.65 1,906.29 795.94 2,766.57
+    Closing Schools 4,657 -3,172.08 1,919.95 1,992.93 3,915.48 0.72
+    Cadets Vocational Programme 27,160 3,195.43 4,834.51 4,822.83 4,940.26 1,966.67 4,451.72 82.33 2,865.52 0.73
+    NMF Pre-16 Funding (NMSS) 6,613 -618.66 1,536.18 967.24 3,188.92 1,430.43 108.59 0.30
+    SSF Free Meals 11,373 -1,032.97 -4,587.39 987.34 1,780.44 2,488.89 3,578.14 4,457.88 2,448.69 1,251.71 0.27
+    Pre-16 Universal Infant Free School 18,740 4,880.87 3,122.38 4,933.74 1,833.32 1,060.31 1,516.08 1,040.22 353.08
+    Meals
+    Primary PE and Sport Premium 0
+    Residential Support Scheme 7,339 -4,620.17 4,074.11 1,357.45 1,589.05 2,541.77 2,395.82 0.97
+    19+ Continuing Learners in SFC 11,295 1,020.12 1,284.48 637.33 4,351.14 4,001.13 0.80
+    (Student Support)
+    Area Review Transition Grant 7,720 3,525.26 934.47 914.37 2,045.81 299.98 0.11
+    16+ Factor Removal (DSG) SSF 18,228 -2,966.09 2,468.79 2,415.92 3,843.51 954.57 4,371.24 2,236.21 2,012.04 2,891.81
+    Total Funding 292,229 -24,323.54 -45,770.06 0.00 54,156.68 34,119.09 54,108.85 42,215.44 40,128.80 34,294.23 29,805.76 43,771.08 29,722.67
+    Ref (for internal use only):  1619F-239
+    Page 1 of 4 of the Payment Schedules
+
+    Payment Schedule
+    Provider: ST STEPHEN'S COLLEGE UK LTD (126175)
+    Master Contract Ref: ESFA-239 Start Date: 01/08/2017 End Date: 31/07/2018
+    Contract Ref: 16LR-239
+    Cash (£) Aug 2017 Sep 2017 Oct 2017 Nov 2017 Dec 2017 Jan 2018 Feb 2018 Mar 2018 Apr 2018 May 2018 Jun 2018 Jul 2018
+    16-19 Total Programme Funding 12,281 -1,857.16 1,227.63 3,375.34 1,459.23 2,463.82 2,411.94 202.93 2,265.01 731.67 0.59
+    16-19 Bursary Funds 1,855 -663.83 -4,685.44 1,174.75 4,803.92 930.49 295.11
+    16-19 Formula Protection Funding 19,469 -2,797.77 -1,697.53 4,834.51 4,822.83 4,940.26 1,966.67 4,451.72 82.33 2,865.52 0.46
+    16-19 High Needs Element 2 11,880 -3,172.08 -1,345.69 4,749.86 254.62 4,729.76 3,850.02 2,812.65 0.86
+    14-16 Programme Funding 19,739 -4,720.39 1,278.32 888.11 4,769.96 1,417.83 4,028.73 2,918.41 875.43 4,887.38 3,395.22
+    14-16 Pupil Premium 5,257 -3,472.22 -1,518.99 4,326.87 2,739.67 359.37 558.19 2,263.81 0.30
+    16-19 Free Meals in FE 5,744 -1,732.49 961.08 4,504.61 803.46 1,206.35 0.99
+    16-19 High Needs SPI Element 1 15,147 3,903.88 3,268.41 3,374.16 399.57 4,200.98
+    19+ Continuing Learners Programme 5,448 -224.37 -3,739.58 432.35 3,955.76 2,475.31 2,548.53
+    Funding
+    Total Funding 96,820 -12,187.43 -19,440.11 0.00 20,753.42 10,515.65 24,403.88 14,668.06 15,649.48 7,857.15 9,380.12 14,776.74 10,443.04
+    Ref (for internal use only):  1619F-239
+    Page 2 of 4 of the Payment Schedules
+
+    Payment Schedule
+    Provider: ST STEPHEN'S COLLEGE UK LTD (126175)
+    Master Contract Ref: ESFA-239 Start Date: 01/08/2017 End Date: 31/07/2018
+    Contract Ref: SSF-239
+    Cash (£) Aug 2017 Sep 2017 Oct 2017 Nov 2017 Dec 2017 Jan 2018 Feb 2018 Mar 2018 Apr 2018 May 2018 Jun 2018 Jul 2018
+    SSF Total Programme Funding 11,509 -2,215.79 2,174.71 3,728.14 2,690.77 1,791.92 3,339.25
+    SSF Bursary Funds 17,373 -721.35 2,829.31 1,295.96 2,089.07 2,796.52 4,766.51 2,756.32 1,560.66
+    SSF Formula Protection Funding 14,216 238.51 3,569.52 3,431.01 291.37 2,142.93 1,368.93 1,824.71 1,349.02
+    SSF High Needs Element 2 5,489 -4,383.52 -4,309.54 4,383.72 1,666.08 681.58 1,897.67 2,849.41 2,703.60
+    Maintained Special SSF Element 2 13,711 -3,069.78 3,761.91 1,507.46 1,593.11 945.95 4,660.76 4,311.59
+    Maintained Special SSF Student Support 13,650 -1,575.33 3,801.12 3,834.88 1,243.09 1,222.01 2,353.43 608.61 2,162.04 0.15
+    Total Funding 75,948 -4,383.52 -11,891.79 0.00 10,392.34 11,260.53 10,742.47 10,637.25 3,411.05 13,546.75 7,564.82 11,403.83 13,264.27
+    Ref (for internal use only):  1619F-239
+    Page 3 of 4 of the Payment Schedules
+
+    Payment Schedule
+    Provider: ST STEPHEN'S COLLEGE UK LTD (126175)
+    Master Contract Ref: ESFA-239 Start Date: 01/08/2017 End Date: 31/07/2018
+    Contract Ref: NMF-239
+    Cash (£) Aug 2017 Sep 2017 Oct 2017 Nov 2017 Dec 2017 Jan 2018 Feb 2018 Mar 2018 Apr 2018 May 2018 Jun 2018 Jul 2018
+    Residential Bursary Fund 6,336 -2,099.45 -3,093.94 2,342.94 3,717.65 1,906.29 795.94 2,766.57
+    Closing Schools 4,657 -3,172.08 1,919.95 1,992.93 3,915.48 0.72
+    Cadets Vocational Programme 27,160 3,195.43 4,834.51 4,822.83 4,940.26 1,966.67 4,451.72 82.33 2,865.52 0.73
+    NMF Pre-16 Funding (NMSS) 6,613 -618.66 1,536.18 967.24 3,188.92 1,430.43 108.59 0.30
+    SSF Free Meals 11,373 -1,032.97 -4,587.39 987.34 1,780.44 2,488.89 3,578.14 4,457.88 2,448.69 1,251.71 0.27
+    Pre-16 Universal Infant Free School 18,740 4,880.87 3,122.38 4,933.74 1,833.32 1,060.31 1,516.08 1,040.22 353.08
+    Meals
+    Primary PE and Sport Premium 0
+    Residential Support Scheme 7,339 -4,620.17 4,074.11 1,357.45 1,589.05 2,541.77 2,395.82 0.97
+    19+ Continuing Learners in SFC 11,295 1,020.12 1,284.48 637.33 4,351.14 4,001.13 0.80
+    (Student Support)
+    Area Review Transition Grant 7,720 3,525.26 934.47 914.37 2,045.81 299.98 0.11
+    16+ Factor Removal (DSG) SSF 18,228 -2,966.09 2,468.79 2,415.92 3,843.51 954.57 4,371.24 2,236.21 2,012.04 2,891.81
+    Total Funding 119,461 -7,752.59 -14,438.16 0.00 23,010.92 12,342.91 18,962.50 16,910.13 21,068.27 12,890.33 12,860.82 17,590.51 6,015.36
+    Ref (for internal use only):  1619F-239
+    Page 4 of 4 of the Payment Schedules
+    """
+
+    # Tidy up
+    And   the override date is reset
+

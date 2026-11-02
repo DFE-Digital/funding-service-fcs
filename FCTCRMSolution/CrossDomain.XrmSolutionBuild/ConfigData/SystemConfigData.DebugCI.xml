@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- For more information on using transformations 
+     see the web.config examples at http://go.microsoft.com/fwlink/?LinkId=214134. -->
+<SystemData xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <BusinessUnits xdt:Transform="Replace" xdt:Locator="XPath(/SystemData/BusinessUnits)"/>
+  <SystemUsers xdt:Transform="Replace" xdt:Locator="XPath(/SystemData/SystemUsers)">
+    <SystemUser domainname="FCTDEV\ci-crmintegration">
+      <FirstName>CRM</FirstName>
+      <LastName>Integration</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>ci@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Contract Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="System Administrator"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\test-grace">
+      <FirstName>Grace</FirstName>
+      <LastName>Green</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>grace.green@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Contract Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\test-jon">
+      <FirstName>Jon</FirstName>
+      <LastName>Jones</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>jon.jones@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Allocations Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\test-sarah">
+      <FirstName>Sarah</FirstName>
+      <LastName>Smith</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>sarah.smith@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager>FCTDEV\test-grace</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\test-susan">
+      <FirstName>Susan</FirstName>
+      <LastName>Sutherland</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>susan.sutherland@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager>
+      </Manager>
+      <PrimaryRole></PrimaryRole>
+      <Title>Performance Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\test-paul">
+      <FirstName>Paul</FirstName>
+      <LastName>Patricks</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>paul.patricks@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole></PrimaryRole>
+      <Title>Budget Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\test-dimitris">
+      <FirstName>Dimitris</FirstName>
+      <LastName>Davies</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>dmitris.davies@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Finance Payments</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\fctguest">
+      <FirstName>FCT</FirstName>
+      <LastName>Guest</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>fct.guest@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Base Role</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\BoseH">
+      <FirstName>Helen</FirstName>
+      <LastName>Bose</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Helen.Bose@fct.com</Email>
+      <Telephone>0345 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Contract Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\ThorpeA">
+      <FirstName>Alan</FirstName>
+      <LastName>Thorpe</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Alan.Thorpe@fct.com</Email>
+      <Telephone>346 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Contract Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\HeardT">
+      <FirstName>Timothy</FirstName>
+      <LastName>Heard</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Timothy.Heard@fct.com</Email>
+      <Telephone>347 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Contract Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\DexterM">
+      <FirstName>Mark</FirstName>
+      <LastName>Dexter</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Mark.Dexter@fct.com</Email>
+      <Telephone>348 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Contract Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\DaviesA">
+      <FirstName>Anton</FirstName>
+      <LastName>Davies</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Anton.Davies@fct.com</Email>
+      <Telephone>349 377 5000</Telephone>
+      <Manager></Manager>
+      <PrimaryRole>Contract Managers Team</PrimaryRole>
+      <Title>Contract Manager</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\LaiP">
+      <FirstName>Paul</FirstName>
+      <LastName>Lai</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Paul.Lai@fct.com</Email>
+      <Telephone>350 377 5000</Telephone>
+      <Manager>FCTDEV\BoseH</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\FosterZ">
+      <FirstName>Zoe</FirstName>
+      <LastName>Foster</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Zoe.Foster@fct.com</Email>
+      <Telephone>351 377 5000</Telephone>
+      <Manager>FCTDEV\BoseH</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\CooperD">
+      <FirstName>Dennis</FirstName>
+      <LastName>Cooper</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Dennis.Cooper@fct.com</Email>
+      <Telephone>352 377 5000</Telephone>
+      <Manager>FCTDEV\ThorpeA</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\ShawG">
+      <FirstName>Gregory</FirstName>
+      <LastName>Shaw</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Gregory.Shaw@fct.com</Email>
+      <Telephone>353 377 5000</Telephone>
+      <Manager>FCTDEV\DaviesA</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\EllisS">
+      <FirstName>Susan</FirstName>
+      <LastName>Ellis</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Susan.Ellis@fct.com</Email>
+      <Telephone>354 377 5000</Telephone>
+      <Manager>FCTDEV\DaviesA</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\JamesW">
+      <FirstName>Wendy</FirstName>
+      <LastName>James</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Wendy.James@fct.com</Email>
+      <Telephone>355 377 5000</Telephone>
+      <Manager>FCTDEV\DaviesA</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\LevyS">
+      <FirstName>Stephen</FirstName>
+      <LastName>Levy</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Stephen.Levy@fct.com</Email>
+      <Telephone>356 377 5000</Telephone>
+      <Manager>FCTDEV\boseh</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\KhanN">
+      <FirstName>Nazim</FirstName>
+      <LastName>Khan</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Nazim.Khan@fct.com</Email>
+      <Telephone>357 377 5000</Telephone>
+      <Manager>FCTDEV\DexterM</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\MackA">
+      <FirstName>Angus</FirstName>
+      <LastName>Mack</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Angus.Mack@fct.com</Email>
+      <Telephone>358 377 5000</Telephone>
+      <Manager>FCTDEV\DexterM</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+    <SystemUser domainname="FCTDEV\SahotaH">
+      <FirstName>Hardev</FirstName>
+      <LastName>Sahota</LastName>
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Email>Hardev.Sahota@fct.com</Email>
+      <Telephone>359 377 5000</Telephone>
+      <Manager>FCTDEV\DexterM</Manager>
+      <PrimaryRole>Contract Advisers Team</PrimaryRole>
+      <Title>Contract Adviser</Title>
+      <AccessMode>0</AccessMode>
+      <LicenseType>0</LicenseType>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </SystemUser>
+  </SystemUsers>
+  <Teams xdt:Transform="Replace" xdt:Locator="XPath(/SystemData/Teams)">
+    <Team name="Contract Advisers Team">
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Manager>FCTDEV\test-sarah</Manager>
+      <Description>Contract Managers Team</Description>
+      <Members>
+        <Member domainname="FCTDEV\test-sarah"/>
+        <Member domainname="FCTDEV\CooperD"/>
+        <Member domainname="FCTDEV\FosterZ"/>
+        <Member domainname="FCTDEV\LaiP"/>
+        <Member domainname="FCTDEV\ShawG"/>
+        <Member domainname="FCTDEV\EllisS"/>
+        <Member domainname="FCTDEV\JamesW"/>
+        <Member domainname="FCTDEV\LevyS"/>
+        <Member domainname="FCTDEV\KhanN"/>
+        <Member domainname="FCTDEV\MackA"/>
+        <Member domainname="FCTDEV\SahotaH"/>
+      </Members>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </Team>
+    <Team name="Contract Managers Team">
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Manager>FCTDEV\test-grace</Manager>
+      <Description></Description>
+      <Members>
+        <Member domainname="FCTDEV\test-grace"/>
+        <Member domainname="FCTDEV\test-jon"/>
+        <Member domainname="FCTDEV\BoseH"/>
+        <Member domainname="FCTDEV\ThorpeA"/>
+        <Member domainname="FCTDEV\HeardT"/>
+        <Member domainname="FCTDEV\DexterM"/>
+        <Member domainname="FCTDEV\DaviesA"/>
+      </Members>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </Team>
+    <Team name="Unassigned">
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Manager>FCTDEV\test-grace</Manager>
+      <Description>
+      </Description>
+      <Members/>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+      </Roles>
+    </Team>
+    <Team name="Document Management Team">
+      <BusinessUnit>Continuous Integration</BusinessUnit>
+      <Manager>FCTDEV\test-grace</Manager>
+      <Description>Document Management Team</Description>
+      <Members>
+        <Member domainname="FCTDEV\FosterZ"/>
+        <Member domainname="FCTDEV\ShawG"/>
+      </Members>
+      <Roles>
+        <Role name="Base Role"/>
+        <Role name="Contract Adviser"/>
+        <Role name="Contract Manager"/>
+      </Roles>
+    </Team>
+  </Teams>
+  <Queues xdt:Transform="Replace" xdt:Locator="XPath(/SystemData/Queues)">
+  </Queues>
+  <Services xdt:Transform="Replace" xdt:Locator="XPath(/SystemData/Services)">
+    <Service>
+      <Name>Contract Management Service</Name>
+      <Uri>http://fct-contractservice-dci.fctdev.local</Uri>
+    </Service>
+  </Services>
+  <Settings xdt:Transform="Replace" xdt:Locator="XPath(/SystemData/Settings)">
+    <DateFormat>dd/MM/yyyy</DateFormat>
+    <TimeFormat>HH:mm</TimeFormat>
+    <LocaleId>2057</LocaleId>
+    <AutoSave>False</AutoSave>
+    <AuditEnabled>True</AuditEnabled>
+  </Settings>
+  <ViewsForDeactivation xdt:Transform="Replace" xdt:Locator="XPath(/SystemData/ViewsForDeactivation)">
+    <View id="930DD9C3-F287-4AD9-A82B-5E9B47752EB0"/>
+  </ViewsForDeactivation>
+</SystemData>

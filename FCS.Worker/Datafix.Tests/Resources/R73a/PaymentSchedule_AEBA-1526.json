@@ -1,0 +1,165 @@
+{
+  "PaymentScheduleAllocation": {
+    "AllocationNumber": "AEBA-1526",
+    "VersionNumber": 2,
+    "FundingStreamPeriodCode": "AEB-AS1920",
+    "ContractNumber": "AEBP-2398",
+    "ContractVersionNumber": 2,
+    "AllocationDeliverables": [
+      {
+        "DeliverableCode": 1,
+        "ScheduledPayments": [
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201908",
+            "PlannedVolume": 0,
+            "PlannedValue": 9459.0000000000,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 0.0,
+            "NetPaymentAmount": 0.0,
+            "ActualVolume": null,
+            "ActualValue": 0.0,
+            "CollectionReturnCode": null
+          },
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201909",
+            "PlannedVolume": 0,
+            "PlannedValue": 10902.0000000000,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 0.0,
+            "NetPaymentAmount": 0.0,
+            "ActualVolume": null,
+            "ActualValue": 0.0,
+            "CollectionReturnCode": null
+          },
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201910",
+            "PlannedVolume": 0,
+            "PlannedValue": 11260.0000000000,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 0.0,
+            "NetPaymentAmount": 0.0,
+            "ActualVolume": null,
+            "ActualValue": 0.0,
+            "CollectionReturnCode": null
+          }
+        ]
+      },
+      {
+        "DeliverableCode": 2,
+        "ScheduledPayments": [
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201908",
+            "PlannedVolume": 0,
+            "PlannedValue": 0.0,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 2516.49,
+            "NetPaymentAmount": 2516.49,
+            "ActualVolume": 0,
+            "ActualValue": 2760.85,
+            "CollectionReturnCode": null
+          },
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201909",
+            "PlannedVolume": 0,
+            "PlannedValue": 0.0,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 3096.17,
+            "NetPaymentAmount": 3096.17,
+            "ActualVolume": 0,
+            "ActualValue": 2851.81,
+            "CollectionReturnCode": null
+          },
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201910",
+            "PlannedVolume": 0,
+            "PlannedValue": 0.0,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 0.0,
+            "NetPaymentAmount": 0.0,
+            "ActualVolume": null,
+            "ActualValue": 0.0,
+            "CollectionReturnCode": null
+          }
+        ]
+      },
+      {
+        "DeliverableCode": 3,
+        "ScheduledPayments": [
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201908",
+            "PlannedVolume": 0,
+            "PlannedValue": 0.0,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 0.0,
+            "NetPaymentAmount": 0.0,
+            "ActualVolume": null,
+            "ActualValue": 0.0,
+            "CollectionReturnCode": null
+          },
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201909",
+            "PlannedVolume": 0,
+            "PlannedValue": 0.0,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 0.0,
+            "NetPaymentAmount": 0.0,
+            "ActualVolume": null,
+            "ActualValue": 0.0,
+            "CollectionReturnCode": null
+          },
+          {
+            "PeriodTypeCode": "CM",
+            "Period": "201910",
+            "PlannedVolume": 0,
+            "PlannedValue": 0.0,
+            "ProfilePaymentAmount": 0.0,
+            "CappedPaymentAmount": 0.0,
+            "BalancingPaymentAmount": 0.0,
+            "ReconciliationPaymentAmount": 0.0,
+            "NetPaymentAmount": 0.0,
+            "ActualVolume": null,
+            "ActualValue": 0.0,
+            "CollectionReturnCode": null
+          }
+        ]
+      }
+    ],
+    "ProvisionIdentifiers": [],
+    "Organisation": {
+      "MainOrganisationIdentifier": "ORG0000550",
+      "OrganisationIdentifiers": [
+        {
+          "OrganisationId": "10001259",
+          "OrganisationIdentifierName": 0
+        }
+      ]
+    },
+    "schemaVersion": 1.01
+  },
+  "PaymentEventOrigin": 1,
+  "TimesMessageDeferred": 40
+}

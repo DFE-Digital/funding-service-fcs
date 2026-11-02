@@ -1,0 +1,63 @@
+namespace OrganisationDomain.Integration.MainEndpoint
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Ioc;
+    using Messages.Commands;
+    using NServiceBus;
+    using NServiceBus.Persistence.Sql;
+    using SFA.FCS.Worker.Common;
+    using SFA.FCT.CrossDomain.Integration.Common;
+    using SFA.FCT.CrossDomain.Integration.Events;
+    using SFA.FCT.Framework.Logging.Interfaces;
+
+    public class EndpointConfig : IEndpointConfig
+    {
+        public string EndpointName => FctEndpoint.GenerateEndpointName("OrgService.Main");
+
+        public string NameOfAssembly => "OrganisationDomain.Integration.MainEndpoint.dll";
+
+        public static IReadOnlyCollection<Type> TypesPublished => new List<Type>
+        {
+            typeof(OrganisationDetailsChanged)
+        };
+
+        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+
+        public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>
+        {
+           new CommandRoute(EndpointName, typeof(PopulateSupplementaryDataForUkprnBatchCommand)),
+           new CommandRoute("OrgService.XrmEndpoint", typeof(UpdateXrmOrganisationCommand)),
+           new CommandRoute("OrgService.XrmEndpoint", typeof(CreateProviderUpdatedNotificationCommand)),
+           new CommandRoute("OrgService.CPDS", typeof(GetProviderSummary)),
+           new CommandRoute("OrgService.CPDS", typeof(GetOrganisationDetails)),
+           new CommandRoute("OrgService.DataStore", typeof(GetUpdatedOrganisations)),
+           new CommandRoute("OrgService.DataStore", typeof(SaveUpdatedOrganisation)),
+           new CommandRoute(EndpointName, typeof(UpdateSupplementaryBatchOfDataCommand)),
+        };
+
+        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        {
+            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+
+            var logger = loggerFactory.CreateDefaultLogger();
+
+            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CDI");
+
+            configuration.Conventions()
+                .DefiningCommandsAs(t => t.Namespace != null && (t.Namespace.EndsWith("Commands") || t.Namespace.StartsWith("OrganisationDomain.Integration.Messages.Commands")))
+                .DefiningMessagesAs(t => t.Namespace != null && (t.Namespace.EndsWith("Messages") || t.Namespace.StartsWith("OrganisationDomain.Integration.Messages.Messages")))
+                .DefiningDataBusPropertiesAs(p => p.Name.EndsWith("Databus"))
+                .DefiningEventsAs(t => Subscriptions.Select(s => s.EventType.Name).Any(e => t.Name.EndsWith(e)) || TypesPublished.Contains(t));
+
+            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            {
+                var container = Bootstrapper.CreateContainer(loggerFactory);
+                customizations.ExistingContainer(container);
+            });
+            configuration.UsePersistence<SqlPersistence>();
+            return configuration;
+        }
+    }
+}

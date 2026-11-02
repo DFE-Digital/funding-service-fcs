@@ -1,0 +1,234 @@
+<entities >
+  <entity name="sfa_transition" displayname="Transition" etc="10011" primaryidfield="sfa_transitionid" primarynamefield="sfa_name" disableplugins="true">
+    <fields>
+      <field displayname="Action" name="sfa_wfaction" type="optionsetvalue" customfield="true" />
+      <field displayname="Action On Task" name="sfa_actionontask" type="optionsetvalue" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Default Assign To" name="sfa_defaultassignto" type="optionsetvalue" customfield="true" />
+      <field displayname="From Action" name="sfa_fromaction" type="entityreference" lookupType="sfa_status" customfield="true" />
+      <field displayname="From State" name="sfa_fromstate" type="optionsetvalue" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Maintains Previous Owner" name="sfa_maintainspreviousowner" type="bool" customfield="true" />
+      <field displayname="Managers Team" name="sfa_managersteam" type="entityreference" lookupType="team" customfield="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field updateCompare="true" displayname="Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Next Action" name="sfa_nextaction" type="entityreference" lookupType="sfa_status" customfield="true" />
+      <field updateCompare="true" displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Process" name="sfa_process" type="entityreference" lookupType="sfa_process" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Requires Change Of Ownership" name="sfa_requireschangeofownership" type="bool" customfield="true" />
+      <field displayname="Requires Creation Of Task" name="sfa_createtask" type="bool" customfield="true" />
+      <field displayname="Secondary Assign To" name="sfa_secondaryassignto" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Subject" name="sfa_subject" type="string" customfield="true" />
+      <field displayname="Task description" name="sfa_taskdescription" type="string" customfield="true" />
+      <field displayname="Task Type" name="sfa_tasktype" type="optionsetvalue" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="To State" name="sfa_tostate" type="optionsetvalue" customfield="true" />
+      <field displayname="Transition" name="sfa_transitionid" type="guid" primaryKey="true" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Action On Contract Allocation" name="sfa_actiononcontractallocation" type="optionsetvalue" customfield="true" />
+      <field displayname="Requires Action On Allocation" name="sfa_requiresactiononallocation" type="bool" customfield="true" />
+      <field displayname="Set Record State" name="sfa_setrecordstate" type="optionsetvalue" customfield="true" />
+      <field displayname="Call Api" name="sfa_callapi" type="bool" customfield="true" />
+      <field displayname="Requires A Notification" name="sfa_requiresanotification" type="bool" customfield="true" />
+      <field displayname="Notification Description" name="sfa_notificationdescription" type="string" customfield="true" />
+      <field displayname="Notification Subject" name="sfa_notificationsubject" type="string" customfield="true" />
+      <field displayname="Notification Type" name="sfa_notificationtype" type="optionsetvalue" customfield="true" />
+      <field displayname="Service Intent" name="sfa_serviceintent" type="string" customfield="true" />
+    </fields>
+  </entity>
+  <entity name="sfa_status" displayname="Status" etc="10009" primaryidfield="sfa_statusid" primarynamefield="sfa_name" disableplugins="true">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Default Bulk Action" name="sfa_defaultbulkaction" type="entityreference" lookupType="sfa_transition" customfield="true" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field updateCompare="true" displayname="Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Organization Id" name="organizationid" type="entityreference" lookupType="organization" />
+      <field displayname="Process" name="sfa_process" type="entityreference" lookupType="sfa_process" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status" name="sfa_statusid" type="guid" primaryKey="true" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+    </fields>
+  </entity>
+  <entity name="sfa_process" displayname="Business Procedure" etc="10010" primaryidfield="sfa_processid" primarynamefield="sfa_name" disableplugins="true">
+    <fields>
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field updateCompare="true" displayname="Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Organization Id" name="organizationid" type="entityreference" lookupType="organization" />
+      <field displayname="Process" name="sfa_processid" type="guid" primaryKey="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Start Status" name="sfa_startstatus" type="entityreference" lookupType="sfa_status" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+    </fields>
+  </entity>
+  <entity name="sfa_periodtype" displayname="Period Type" etc="10015" primaryidfield="sfa_periodtypeid" primarynamefield="sfa_periodtypecode" disableplugins="true">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Organization Id" name="organizationid" type="entityreference" lookupType="organization" />
+      <field displayname="Period Type" name="sfa_periodtypeid" type="guid" primaryKey="true" />
+      <field updateCompare="true" displayname="Period Type Code" name="sfa_periodtypecode" type="string" customfield="true" />
+      <field displayname="Period Type Name" name="sfa_periodtypename" type="string" customfield="true" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="sfa_investmentpriority" displayname="Investment Priority" etc="10046" primaryidfield="sfa_investmentpriorityid" primarynamefield="sfa_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Investment Priority" name="sfa_investmentpriorityid" type="guid" primaryKey="true" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Organization Id" name="organizationid" type="entityreference" lookupType="organization" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+    </fields>
+  </entity>
+  <entity name="sfa_specificationtitle" displayname="Specification Title" etc="10045" primaryidfield="sfa_specificationtitleid" primarynamefield="sfa_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Organization Id" name="organizationid" type="entityreference" lookupType="organization" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Specification Title" name="sfa_specificationtitleid" type="guid" primaryKey="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+    </fields>
+  </entity>
+  <entity name="sfa_regiontype" displayname="Region Type" etc="10044" primaryidfield="sfa_regiontypeid" primarynamefield="sfa_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Organization Id" name="organizationid" type="entityreference" lookupType="organization" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Region Type" name="sfa_regiontypeid" type="guid" primaryKey="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+    </fields>
+  </entity>
+  <entity name="sfa_claimtype" displayname="Claim Type" etc="10052" primaryidfield="sfa_claimtypeid" primarynamefield="sfa_name" disableplugins="false">
+    <fields>
+      <field displayname="Claim Type" name="sfa_claimtypeid" type="guid" primaryKey="true" />
+      <field displayname="Claim Type Code" name="sfa_claimtypecode" type="string" customfield="true" />
+      <field displayname="Claim Type Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Organization Id" name="organizationid" type="entityreference" lookupType="organization" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="sfa_taskaction" displayname="Task Action" etc="10054" primaryidfield="sfa_taskactionid" primarynamefield="sfa_name" disableplugins="false">
+    <fields>
+      <field displayname="Action Role" name="sfa_actionroleid" type="entityreference" lookupType="role" customfield="true" />
+      <field displayname="Action Team" name="sfa_actionteamid" type="entityreference" lookupType="team" customfield="true" />
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Organization Id" name="organizationid" type="entityreference" lookupType="organization" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Task Action" name="sfa_taskactionid" type="guid" primaryKey="true" />
+      <field displayname="Task Name" name="sfa_taskname" type="string" customfield="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+    </fields>
+    <relationships />
+  </entity>
+  <entity name="sfa_terminationselectionaction" displayname="Selection Action" etc="10195" primaryidfield="sfa_terminationselectionactionid" primarynamefield="sfa_name" disableplugins="false">
+    <fields>
+      <field displayname="Created By" name="createdby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created By (Delegate)" name="createdonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Created On" name="createdon" type="datetime" />
+      <field displayname="Import Sequence Number" name="importsequencenumber" type="number" />
+      <field displayname="Modified By" name="modifiedby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified By (Delegate)" name="modifiedonbehalfby" type="entityreference" lookupType="systemuser" />
+      <field displayname="Modified On" name="modifiedon" type="datetime" />
+      <field displayname="Name" name="sfa_name" type="string" customfield="true" />
+      <field displayname="Owner" name="ownerid" type="owner" />
+      <field displayname="Owning Business Unit" name="owningbusinessunit" type="entityreference" lookupType="businessunit" />
+      <field displayname="Owning Team" name="owningteam" type="entityreference" lookupType="team" />
+      <field displayname="Owning User" name="owninguser" type="entityreference" lookupType="systemuser" />
+      <field displayname="Record Created On" name="overriddencreatedon" type="datetime" />
+      <field displayname="Related Status" name="sfa_relatedstatus" type="entityreference" lookupType="sfa_status" customfield="true" />
+      <field displayname="Selection Type" name="sfa_selectiontype" type="optionsetvalue" customfield="true" />
+      <field displayname="Status" name="statecode" type="state" />
+      <field displayname="Status Reason" name="statuscode" type="status" />
+      <field displayname="Termination Selection Action" name="sfa_terminationselectionactionid" type="guid" primaryKey="true" />
+      <field displayname="Time Zone Rule Version Number" name="timezoneruleversionnumber" type="number" />
+      <field displayname="UTC Conversion Time Zone Code" name="utcconversiontimezonecode" type="number" />
+      <field displayname="Version Number" name="versionnumber" type="bigint" />
+    </fields>
+    <relationships />
+  </entity>
+</entities>

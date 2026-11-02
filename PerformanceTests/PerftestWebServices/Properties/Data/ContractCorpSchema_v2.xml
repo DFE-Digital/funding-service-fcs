@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ctr:contract xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:fn="http://www.w3.org/2005/xpath-functions"
+              xmlns:cr="contractrequest"
+              xmlns:ctr="contract"
+              schemaVersion="6.02">
+      <ctr:contracts>
+         <ctr:contract>
+            <ctr:fundingType>
+               <ctr:fundingTypeCode>24+LOANS</ctr:fundingTypeCode>
+               <ctr:fundingTypeName/>
+            </ctr:fundingType>
+            <ctr:period>
+               <ctr:periodType>
+                  <ctr:periodTypeCode>AY</ctr:periodTypeCode>
+                  <ctr:periodTypeName>ACADEMIC YEAR</ctr:periodTypeName>
+               </ctr:periodType>
+               <ctr:period>1516</ctr:period>
+               <ctr:startDate>1900-01-01</ctr:startDate>
+               <ctr:endDate>1900-01-01</ctr:endDate>
+            </ctr:period>
+            <ctr:contractAllocations>
+               <ctr:contractAllocation>
+                  <ctr:period>
+                     <ctr:periodType>
+                        <ctr:periodTypeCode>AY</ctr:periodTypeCode>
+                        <ctr:periodTypeName>ACADEMIC YEAR</ctr:periodTypeName>
+                     </ctr:periodType>
+                     <ctr:period>1516</ctr:period>
+                     <ctr:startDate>1900-01-01</ctr:startDate>
+                     <ctr:endDate>1900-01-01</ctr:endDate>
+                  </ctr:period>
+                  <ctr:fundingStream>
+                     <ctr:fundingStreamCode>24+ ALLB</ctr:fundingStreamCode>
+                     <ctr:fundingStreamName/>
+                     <ctr:fundingTypeCode>24+LOANS</ctr:fundingTypeCode>
+                     <ctr:fundingStreamShortCode/>
+                  </ctr:fundingStream>
+                  <ctr:contractDeliverables>
+                     <ctr:contractDeliverable>
+                        <ctr:deliverable>
+                           <ctr:fundingStreamCode>24+ ALLB</ctr:fundingStreamCode>
+                           <ctr:deliverableCode>1</ctr:deliverableCode>
+                           <ctr:businessCode/>
+                           <ctr:deliverableName>Total 24+ Advanced Learning Loans Bursary Funding</ctr:deliverableName>
+                        </ctr:deliverable>
+                        <ctr:contractDeliverablePeriods>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>8</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>5428.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>9</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>0.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>10</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>0.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>11</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>4443.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>12</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>2759.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>1</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>3935.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>2</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>4719.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>3</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>2374.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>4</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>0.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>5</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>1894.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>6</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>2845.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>7</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>0.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                        </ctr:contractDeliverablePeriods>
+                        <ctr:deliverableDescription>AT Deliverable Data 24Plus</ctr:deliverableDescription>
+                     </ctr:contractDeliverable>
+                  </ctr:contractDeliverables>
+                  <ctr:contractAllocationNumber>24+ ALLB-3</ctr:contractAllocationNumber>
+                  <ctr:contractAllocationVersionNumber>1</ctr:contractAllocationVersionNumber>
+                  <ctr:description>AT Allocation Data 24Plus</ctr:description>
+                  <ctr:hierarchyType>CONTRACT ALLOCATION</ctr:hierarchyType>
+                  <ctr:startDate>2015-08-01</ctr:startDate>
+                  <ctr:endDate>2016-07-31</ctr:endDate>
+                  <ctr:status>Draft</ctr:status>
+               </ctr:contractAllocation>
+               <ctr:contractAllocation>
+                  <ctr:period>
+                     <ctr:periodType>
+                        <ctr:periodTypeCode>AY</ctr:periodTypeCode>
+                        <ctr:periodTypeName>ACADEMIC YEAR</ctr:periodTypeName>
+                     </ctr:periodType>
+                     <ctr:period>1516</ctr:period>
+                     <ctr:startDate>1900-01-01</ctr:startDate>
+                     <ctr:endDate>1900-01-01</ctr:endDate>
+                  </ctr:period>
+                  <ctr:fundingStream>
+                     <ctr:fundingStreamCode>24+ ALLBC</ctr:fundingStreamCode>
+                     <ctr:fundingStreamName/>
+                     <ctr:fundingTypeCode>24+LOANS</ctr:fundingTypeCode>
+                     <ctr:fundingStreamShortCode/>
+                  </ctr:fundingStream>
+                  <ctr:contractAllocationNumber>24+ ALLBC-3</ctr:contractAllocationNumber>
+                  <ctr:contractAllocationVersionNumber>1</ctr:contractAllocationVersionNumber>
+                  <ctr:description>AT Allocation Data 24Plus</ctr:description>
+                  <ctr:hierarchyType>CONTRACT ALLOCATION</ctr:hierarchyType>
+                  <ctr:startDate>2015-08-01</ctr:startDate>
+                  <ctr:endDate>2016-07-31</ctr:endDate>
+                  <ctr:status>Draft</ctr:status>
+               </ctr:contractAllocation>
+               <ctr:contractAllocation>
+                  <ctr:period>
+                     <ctr:periodType>
+                        <ctr:periodTypeCode>AY</ctr:periodTypeCode>
+                        <ctr:periodTypeName>ACADEMIC YEAR</ctr:periodTypeName>
+                     </ctr:periodType>
+                     <ctr:period>1516</ctr:period>
+                     <ctr:startDate>1900-01-01</ctr:startDate>
+                     <ctr:endDate>1900-01-01</ctr:endDate>
+                  </ctr:period>
+                  <ctr:fundingStream>
+                     <ctr:fundingStreamCode>24+ ALLF</ctr:fundingStreamCode>
+                     <ctr:fundingStreamName/>
+                     <ctr:fundingTypeCode>24+LOANS</ctr:fundingTypeCode>
+                     <ctr:fundingStreamShortCode/>
+                  </ctr:fundingStream>
+                  <ctr:contractDeliverables>
+                     <ctr:contractDeliverable>
+                        <ctr:deliverable>
+                           <ctr:fundingStreamCode>24+ ALLF</ctr:fundingStreamCode>
+                           <ctr:deliverableCode>1</ctr:deliverableCode>
+                           <ctr:businessCode/>
+                           <ctr:deliverableName>Loans Submitted</ctr:deliverableName>
+                        </ctr:deliverable>
+                        <ctr:contractDeliverablePeriods>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>8</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>5540.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>9</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>2647.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>10</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>0.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>11</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>5242.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2015</ctr:year>
+                              <ctr:period>12</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>1036.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>1</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>4832.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>2</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>3598.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>3</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>0.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>4</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>0.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>5</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>0.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>6</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>2591.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                           <ctr:contractDeliverablePeriod>
+                              <ctr:year>2016</ctr:year>
+                              <ctr:period>7</ctr:period>
+                              <ctr:periodType>
+                                 <ctr:periodTypeCode>CM</ctr:periodTypeCode>
+                                 <ctr:periodTypeName>CALENDAR MONTH</ctr:periodTypeName>
+                              </ctr:periodType>
+                              <ctr:plannedValue>1979.00</ctr:plannedValue>
+                           </ctr:contractDeliverablePeriod>
+                        </ctr:contractDeliverablePeriods>
+                        <ctr:deliverableDescription>AT Deliverable Data 24Plus</ctr:deliverableDescription>
+                     </ctr:contractDeliverable>
+                  </ctr:contractDeliverables>
+                  <ctr:contractAllocationNumber>24+ ALLF-3</ctr:contractAllocationNumber>
+                  <ctr:contractAllocationVersionNumber>1</ctr:contractAllocationVersionNumber>
+                  <ctr:description>AT Allocation Data 24Plus</ctr:description>
+                  <ctr:hierarchyType>CONTRACT ALLOCATION</ctr:hierarchyType>
+                  <ctr:startDate>2015-08-01</ctr:startDate>
+                  <ctr:endDate>2016-07-31</ctr:endDate>
+                  <ctr:status>Draft</ctr:status>
+               </ctr:contractAllocation>
+            </ctr:contractAllocations>
+            <ctr:contractNumber>24Loans-3</ctr:contractNumber>
+            <ctr:contractVersionNumber>1</ctr:contractVersionNumber>
+            <ctr:description>AT Data 24Plus</ctr:description>
+            <ctr:contractor>
+               <ctr:organisationIdentifier>1</ctr:organisationIdentifier>
+               <ctr:ukprn>78900204</ctr:ukprn>
+               <ctr:legalName>NACRO </ctr:legalName>
+            </ctr:contractor>
+            <ctr:hierarchyType>CONTRACT</ctr:hierarchyType>
+            <ctr:contractType>Contract for Services</ctr:contractType>
+            <ctr:startDate>2015-08-01</ctr:startDate>
+            <ctr:endDate>2016-07-31</ctr:endDate>
+            <ctr:contractStatus>
+               <ctr:status>Draft</ctr:status>
+               <ctr:parentStatus>Draft</ctr:parentStatus>
+            </ctr:contractStatus>
+         </ctr:contract>
+      </ctr:contracts>
+      <ctr:fundingType>
+         <ctr:fundingTypeCode>24+LOANS</ctr:fundingTypeCode>
+         <ctr:fundingTypeName/>
+      </ctr:fundingType>
+      <ctr:contractNumber>SFA-382</ctr:contractNumber>
+      <ctr:contractVersionNumber>1</ctr:contractVersionNumber>
+      <ctr:contractor>
+         <ctr:organisationIdentifier>1</ctr:organisationIdentifier>
+         <ctr:ukprn>78900204</ctr:ukprn>
+         <ctr:legalName>NACRO </ctr:legalName>
+      </ctr:contractor>
+      <ctr:hierarchyType>MASTER CONTRACT</ctr:hierarchyType>
+      <ctr:contractStatus>
+         <ctr:status>Draft</ctr:status>
+         <ctr:parentStatus>Draft</ctr:parentStatus>
+      </ctr:contractStatus>
+   </ctr:contract>

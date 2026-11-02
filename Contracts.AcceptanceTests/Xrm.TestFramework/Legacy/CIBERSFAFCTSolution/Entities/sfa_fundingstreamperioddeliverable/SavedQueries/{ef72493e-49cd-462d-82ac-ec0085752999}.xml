@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10018</returnedtypecode>
+  <savedqueryid>{ef72493e-49cd-462d-82ac-ec0085752999}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10018" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_fundingstreamperioddeliverableid">
+        <cell name="sfa_fundingstreamperiodid" width="150" />
+        <cell name="sfa_deliverablecode" width="25" />
+        <cell name="sfa_name" width="300" />
+        <cell name="sfa_parentdeliverableid" width="300" />
+        <cell name="sfa_parentdeliverabletype" width="150" />
+        <cell name="sfa_setting_allowpayment" width="100" />
+        <cell name="sfa_setting_allowprofile" width="100" />
+        <cell name="sfa_setting_mandatory" width="100" />
+        <cell name="sfa_setting_planningunit" width="100" />
+        <cell name="createdon" width="125" />
+        <cell name="sfa_setting_allowactuals" width="100" />
+        <cell name="sfa_setting_allowcustomdeliverabledescription" width="100" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_fundingstreamperioddeliverable">
+        <attribute name="createdon" />
+        <order attribute="sfa_fundingstreamperiodid" descending="false" />
+        <order attribute="sfa_deliverablecode" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_parentdeliverabletype" />
+        <attribute name="sfa_parentdeliverableid" />
+        <attribute name="sfa_fundingstreamperiodid" />
+        <attribute name="sfa_name" />
+        <attribute name="sfa_setting_planningunit" />
+        <attribute name="sfa_setting_mandatory" />
+        <attribute name="sfa_setting_allowprofile" />
+        <attribute name="sfa_deliverablecode" />
+        <attribute name="sfa_setting_allowpayment" />
+        <attribute name="sfa_setting_allowcustomdeliverabledescription" />
+        <attribute name="sfa_setting_allowactuals" />
+        <attribute name="sfa_fundingstreamperioddeliverableid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.1.4.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Active Funding Stream Period Deliverables" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{b2eea280-11b8-4f70-a079-83b7385d0a7f}</savedqueryid>
+  <layoutxml>
+    <grid name="sfa_releasegroups" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="sfa_releasegroup" id="sfa_releasegroupid">
+        <cell name="sfa_name" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>2</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_releasegroup">
+        <attribute name="sfa_releasegroupid" />
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <order attribute="sfa_name" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.100.4.2</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Release Group Associated View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

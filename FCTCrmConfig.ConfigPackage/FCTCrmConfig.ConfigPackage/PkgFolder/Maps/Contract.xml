@@ -1,0 +1,316 @@
+<Map Name="Contract" Source="Import">
+  <Description>Data map created automatically using the map settings specified during an import.</Description>
+  <EntitiesPerFile>Single</EntitiesPerFile>
+  <EntityMaps>
+    <EntityMap TargetEntityName="sfa_contract" SourceEntityName="Contracts" Dedupe="Ignore" ProcessCode="Process">
+      <AttributeMaps>
+        <AttributeMap>
+          <SourceAttributeName>Org_Type</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Legal entity_Postcode</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Legal entity_Address_5</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Latest Version</SourceAttributeName>
+          <TargetAttributeName>sfa_latestversion</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <PicklistMaps>
+            <PicklistMap>
+              <SourceValue>No</SourceValue>
+              <TargetValue>0</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+            <PicklistMap>
+              <SourceValue>Yes</SourceValue>
+              <TargetValue>1</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+          </PicklistMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Organisation</SourceAttributeName>
+          <TargetAttributeName>sfa_providername</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>account</LookupEntityName>
+              <LookupAttributeName>name</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Contract Number</SourceAttributeName>
+          <TargetAttributeName>sfa_number</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>1st Name</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Postal Address Different</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Sub-status</SourceAttributeName>
+          <TargetAttributeName>sfa_substatus</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_status</LookupEntityName>
+              <LookupAttributeName>sfa_name</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>CDS</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>End Date</SourceAttributeName>
+          <TargetAttributeName>sfa_enddate</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Legal entity_Address_1</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>S6F</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>UPIN</SourceAttributeName>
+          <TargetAttributeName>sfa_upin</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Start Date</SourceAttributeName>
+          <TargetAttributeName>sfa_startdate</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>14/15 Parent Contract</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Last Approved Version</SourceAttributeName>
+          <TargetAttributeName>sfa_lastapprovedversion</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <PicklistMaps>
+            <PicklistMap>
+              <SourceValue>Yes</SourceValue>
+              <TargetValue>1</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+            <PicklistMap>
+              <SourceValue>No</SourceValue>
+              <TargetValue>0</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+          </PicklistMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>NAS</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Surname</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Legal entity_Address_3</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Contract Value</SourceAttributeName>
+          <TargetAttributeName>sfa_contractvalue</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Parent_Contract</SourceAttributeName>
+          <TargetAttributeName>sfa_parentcontractid</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_contract</LookupEntityName>
+              <LookupAttributeName>sfa_number</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+            <LookupMap>
+              <LookupType>Source</LookupType>
+              <LookupEntityName>Contracts</LookupEntityName>
+              <LookupAttributeName>Contract Number</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Org_Contact greeting</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>EOP</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Contract Owner</SourceAttributeName>
+          <TargetAttributeName>sfa_contractadviser</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>systemuser</LookupEntityName>
+              <LookupAttributeName>fullname</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Legal entity_Address_2</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Task_Owner</SourceAttributeName>
+          <TargetAttributeName>ownerid</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>team</LookupEntityName>
+              <LookupAttributeName>name</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>systemuser</LookupEntityName>
+              <LookupAttributeName>fullname</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>UKPRN</SourceAttributeName>
+          <TargetAttributeName>sfa_ukprn</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Hierarchy_Type</SourceAttributeName>
+          <TargetAttributeName>sfa_hierarchytype</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <PicklistMaps>
+            <PicklistMap>
+              <SourceValue>Contract</SourceValue>
+              <TargetValue>229660000</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+            <PicklistMap>
+              <SourceValue>Master</SourceValue>
+              <TargetValue>229660001</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+          </PicklistMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Area</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Version</SourceAttributeName>
+          <TargetAttributeName>sfa_version</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Status</SourceAttributeName>
+          <TargetAttributeName>sfa_contractstatus</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <PicklistMaps>
+            <PicklistMap>
+              <SourceValue>Approved</SourceValue>
+              <TargetValue>229660001</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+            <PicklistMap>
+              <SourceValue>Draft</SourceValue>
+              <TargetValue>229660000</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+          </PicklistMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>ESF Only</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Variation_Type</SourceAttributeName>
+          <TargetAttributeName>sfa_fundingtype</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_fundingtype</LookupEntityName>
+              <LookupAttributeName>sfa_fundingtypecode</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Postal Address and Postcode</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Legal entity_Address_4</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Type of Contract</SourceAttributeName>
+          <TargetAttributeName>sfa_contracttype</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_contracttype</LookupEntityName>
+              <LookupAttributeName>sfa_name</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Contact_email</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+  </EntityMaps>
+</Map>

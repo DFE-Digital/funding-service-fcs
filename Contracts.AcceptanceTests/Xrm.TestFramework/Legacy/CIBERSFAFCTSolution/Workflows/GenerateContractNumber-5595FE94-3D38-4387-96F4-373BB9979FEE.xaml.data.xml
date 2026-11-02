@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{5595fe94-3d38-4387-96f4-373bb9979fee}" Name="Generate Contract Number">
+  <XamlFileName>/Workflows/GenerateContractNumber-5595FE94-3D38-4387-96F4-373BB9979FEE.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>3</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>1</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>1</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <CreateStage>40</CreateStage>
+  <RunAs>1</RunAs>
+  <SdkMessageId>{2fc285a2-f3a2-e411-93fb-000d3ab03a58}</SdkMessageId>
+  <UniqueName>GenerateContractNumber</UniqueName>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <PrimaryEntity>sfa_contractnumber</PrimaryEntity>
+</Workflow>

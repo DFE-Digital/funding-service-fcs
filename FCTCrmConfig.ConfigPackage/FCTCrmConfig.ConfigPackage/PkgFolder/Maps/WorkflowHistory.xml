@@ -1,0 +1,187 @@
+<Map Name="WorkflowHistory" Source="Import">
+  <Description>Data map created automatically using the map settings specified during an import.</Description>
+  <EntitiesPerFile>Single</EntitiesPerFile>
+  <EntityMaps>
+    <EntityMap TargetEntityName="sfa_contracttransitionhistory" SourceEntityName="WorkflowHistory" Dedupe="Ignore" ProcessCode="Process">
+      <AttributeMaps>
+        <AttributeMap>
+          <SourceAttributeName>Action By</SourceAttributeName>
+          <TargetAttributeName>sfa_actionby</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>systemuser</LookupEntityName>
+              <LookupAttributeName>systemuserid</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>systemuser</LookupEntityName>
+              <LookupAttributeName>fullname</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>SFA_Name</SourceAttributeName>
+          <TargetAttributeName>sfa_name</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>New Sub Status</SourceAttributeName>
+          <TargetAttributeName>sfa_newsubstatus</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_status</LookupEntityName>
+              <LookupAttributeName>sfa_name</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_status</LookupEntityName>
+              <LookupAttributeName>sfa_statusid</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>New Status</SourceAttributeName>
+          <TargetAttributeName>sfa_newstatus</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <PicklistMaps>
+            <PicklistMap>
+              <SourceValue>Draft</SourceValue>
+              <TargetValue>229660000</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+            <PicklistMap>
+              <SourceValue>Approved</SourceValue>
+              <TargetValue>229660001</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+          </PicklistMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Previous Sub Status</SourceAttributeName>
+          <TargetAttributeName>sfa_previoussubstatus</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_status</LookupEntityName>
+              <LookupAttributeName>sfa_statusid</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_status</LookupEntityName>
+              <LookupAttributeName>sfa_name</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Action On</SourceAttributeName>
+          <TargetAttributeName>sfa_actionon</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Contract</SourceAttributeName>
+          <TargetAttributeName>sfa_contract</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_contract</LookupEntityName>
+              <LookupAttributeName>sfa_contractid</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_contract</LookupEntityName>
+              <LookupAttributeName>sfa_number</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Completed On</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Previous Task Owner</SourceAttributeName>
+          <TargetAttributeName>sfa_previousowner</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Previous Status</SourceAttributeName>
+          <TargetAttributeName>sfa_previousstatus</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <PicklistMaps>
+            <PicklistMap>
+              <SourceValue>Draft</SourceValue>
+              <TargetValue>229660000</TargetValue>
+              <ProcessCode>Process</ProcessCode>
+            </PicklistMap>
+            <PicklistMap>
+              <SourceValue />
+              <TargetValue />
+              <ProcessCode>Ignore</ProcessCode>
+            </PicklistMap>
+          </PicklistMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Completed By</SourceAttributeName>
+          <TargetAttributeName />
+          <ProcessCode>Ignore</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Action</SourceAttributeName>
+          <TargetAttributeName>sfa_action</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>sfa_transition</LookupEntityName>
+              <LookupAttributeName>sfa_name</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>New Task Owner</SourceAttributeName>
+          <TargetAttributeName>sfa_newowner</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Comments</SourceAttributeName>
+          <TargetAttributeName>sfa_comments</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+        </AttributeMap>
+        <AttributeMap>
+          <SourceAttributeName>Action Requested From</SourceAttributeName>
+          <TargetAttributeName>sfa_actionrequestedfrom</TargetAttributeName>
+          <ProcessCode>Process</ProcessCode>
+          <LookupMaps>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>systemuser</LookupEntityName>
+              <LookupAttributeName>fullname</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+            <LookupMap>
+              <LookupType>System</LookupType>
+              <LookupEntityName>systemuser</LookupEntityName>
+              <LookupAttributeName>systemuserid</LookupAttributeName>
+              <ProcessCode>Process</ProcessCode>
+            </LookupMap>
+          </LookupMaps>
+        </AttributeMap>
+      </AttributeMaps>
+    </EntityMap>
+  </EntityMaps>
+</Map>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <returnedtypecode>10057</returnedtypecode>
+  <savedqueryid>{383a4522-d985-414b-99b8-edf00d6c53b2}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" object="10057" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_claimreconciliationpublicationexceptionid">
+        <cell name="sfa_name" width="150" />
+        <cell name="sfa_ukprn" width="100" />
+        <cell name="sfa_claimreconciliationallocationgroup" width="300" />
+        <cell name="sfa_provider" width="300" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_claimreconciliationpublicationexception">
+        <attribute name="sfa_name" />
+        <order attribute="sfa_name" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_ukprn" />
+        <attribute name="sfa_provider" />
+        <attribute name="sfa_claimreconciliationallocationgroup" />
+        <attribute name="sfa_claimreconciliationpublicationexceptionid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.33.5.0</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Claim Reconciliation Publication Exceptions" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

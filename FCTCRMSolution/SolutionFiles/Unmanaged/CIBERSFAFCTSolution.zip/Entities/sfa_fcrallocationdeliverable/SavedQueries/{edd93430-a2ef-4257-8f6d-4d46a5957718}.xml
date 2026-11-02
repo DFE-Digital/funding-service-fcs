@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{edd93430-a2ef-4257-8f6d-4d46a5957718}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_fcrallocationdeliverableid">
+        <cell name="sfa_name" width="300" />
+        <cell name="sfa_fcrallocationid" width="300" />
+        <cell name="sfa_deliverableid" width="200" />
+        <cell name="sfa_plannedvalue" width="100" />
+        <cell name="sfa_claimedvalue" width="100" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_fcrallocationdeliverable">
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <order attribute="sfa_name" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_plannedvalue" />
+        <attribute name="sfa_fcrallocationid" />
+        <attribute name="sfa_claimedvalue" />
+        <attribute name="sfa_deliverableid" />
+        <attribute name="sfa_fcrallocationdeliverableid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.10.1.0</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Active FCR Allocation Deliverable" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

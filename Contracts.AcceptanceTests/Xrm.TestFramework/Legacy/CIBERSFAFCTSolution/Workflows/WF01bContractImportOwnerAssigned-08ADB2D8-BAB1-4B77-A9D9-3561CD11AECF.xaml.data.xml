@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{08adb2d8-bab1-4b77-a9d9-3561cd11aecf}" Name="WF01b Contract: Import Owner Assigned">
+  <XamlFileName>/Workflows/WF01bContractImportOwnerAssigned-08ADB2D8-BAB1-4B77-A9D9-3561CD11AECF.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>1</Subprocess>
+  <Category>0</Category>
+  <Mode>1</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>1</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <CreateStage>40</CreateStage>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>2.11.4.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <PrimaryEntity>sfa_contract</PrimaryEntity>
+</Workflow>

@@ -1,0 +1,2513 @@
+﻿{
+  "CorrelationId": "f0c86411-ca2a-412f-8ecb-38f887e57375",
+  "CorporateContract": {
+    "schemaVersion": 8.04,
+    "ContractApprovalDate": null,
+    "StatusLastUpdatedDate": null,
+    "LastModifiedDate": null,
+    "DocumentationRequired": null,
+    "SkipCaseloadAssignment": null,
+    "SkipReviewAndInternalApproval": null,
+    "SkipDocumentMerge": false,
+    "contracts": [],
+    "fundingType": {
+      "fundingTypeCode": "NCS",
+      "fundingTypeName": null
+    },
+    "period": {
+      "periodType": {
+        "periodTypeCode": 1,
+        "periodTypeName": 0
+      },
+      "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "" } ],
+      "period1": "1718",
+      "startDate": "0001-01-01T00:00:00",
+      "endDate": "0001-01-01T00:00:00"
+    },
+    "fundingStream": {
+      "fundingStreamCode": "NCS",
+      "fundingStreamName": null,
+      "fundingTypeCode": null,
+      "fundingStreamShortCode": null
+    },
+    "contractAllocations": [
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 1,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "NCS-C1718" } ],
+          "period1": "1718",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "NCS-C",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 38573.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [
+              {
+                "ParentDeliverableCode": 1,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 14654.0,
+                "DisplayOrder": 2,
+                "contractDeliverables": [],
+                "deliverable": {
+                  "fundingStreamCode": "NCS-C",
+                  "deliverableCode": 2,
+                  "businessCode": null,
+                  "deliverableName": "Customer Satisfaction"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2017,
+                    "period": 4,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 493.0,
+                    "aggregate": false,
+                    "periodName": "Apr-17",
+                    "displayOrder": 201704
+                  },
+                  {
+                    "year": 2017,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1734.0,
+                    "aggregate": false,
+                    "periodName": "May-17",
+                    "displayOrder": 201705
+                  },
+                  {
+                    "year": 2017,
+                    "period": 6,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1173.0,
+                    "aggregate": false,
+                    "periodName": "Jun-17",
+                    "displayOrder": 201706
+                  },
+                  {
+                    "year": 2017,
+                    "period": 7,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 918.0,
+                    "aggregate": false,
+                    "periodName": "Jul-17",
+                    "displayOrder": 201707
+                  },
+                  {
+                    "year": 2017,
+                    "period": 8,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 391.0,
+                    "aggregate": false,
+                    "periodName": "Aug-17",
+                    "displayOrder": 201708
+                  },
+                  {
+                    "year": 2017,
+                    "period": 9,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1802.0,
+                    "aggregate": false,
+                    "periodName": "Sep-17",
+                    "displayOrder": 201709
+                  },
+                  {
+                    "year": 2017,
+                    "period": 10,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2380.0,
+                    "aggregate": false,
+                    "periodName": "Oct-17",
+                    "displayOrder": 201710
+                  },
+                  {
+                    "year": 2017,
+                    "period": 11,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1360.0,
+                    "aggregate": false,
+                    "periodName": "Nov-17",
+                    "displayOrder": 201711
+                  },
+                  {
+                    "year": 2017,
+                    "period": 12,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 238.0,
+                    "aggregate": false,
+                    "periodName": "Dec-17",
+                    "displayOrder": 201712
+                  },
+                  {
+                    "year": 2018,
+                    "period": 1,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1938.0,
+                    "aggregate": false,
+                    "periodName": "Jan-18",
+                    "displayOrder": 201801
+                  },
+                  {
+                    "year": 2018,
+                    "period": 2,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1037.0,
+                    "aggregate": false,
+                    "periodName": "Feb-18",
+                    "displayOrder": 201802
+                  },
+                  {
+                    "year": 2018,
+                    "period": 3,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1190.0,
+                    "aggregate": false,
+                    "periodName": "Mar-18",
+                    "displayOrder": 201803
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": null,
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 14654.0
+              },
+              {
+                "ParentDeliverableCode": 1,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 23919.0,
+                "DisplayOrder": 3,
+                "contractDeliverables": [
+                  {
+                    "ParentDeliverableCode": 3,
+                    "AggregatedPlannedVolume": 0,
+                    "AggregatedPlannedValue": 13481.0,
+                    "DisplayOrder": 4,
+                    "contractDeliverables": [],
+                    "deliverable": {
+                      "fundingStreamCode": "NCS-C",
+                      "deliverableCode": 4,
+                      "businessCode": null,
+                      "deliverableName": "Career Management"
+                    },
+                    "contractDeliverablePeriods": [
+                      {
+                        "year": 2017,
+                        "period": 4,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1258.0,
+                        "aggregate": false,
+                        "periodName": "Apr-17",
+                        "displayOrder": 201704
+                      },
+                      {
+                        "year": 2017,
+                        "period": 5,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 544.0,
+                        "aggregate": false,
+                        "periodName": "May-17",
+                        "displayOrder": 201705
+                      },
+                      {
+                        "year": 2017,
+                        "period": 6,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 850.0,
+                        "aggregate": false,
+                        "periodName": "Jun-17",
+                        "displayOrder": 201706
+                      },
+                      {
+                        "year": 2017,
+                        "period": 7,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 255.0,
+                        "aggregate": false,
+                        "periodName": "Jul-17",
+                        "displayOrder": 201707
+                      },
+                      {
+                        "year": 2017,
+                        "period": 8,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1513.0,
+                        "aggregate": false,
+                        "periodName": "Aug-17",
+                        "displayOrder": 201708
+                      },
+                      {
+                        "year": 2017,
+                        "period": 9,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 442.0,
+                        "aggregate": false,
+                        "periodName": "Sep-17",
+                        "displayOrder": 201709
+                      },
+                      {
+                        "year": 2017,
+                        "period": 10,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2380.0,
+                        "aggregate": false,
+                        "periodName": "Oct-17",
+                        "displayOrder": 201710
+                      },
+                      {
+                        "year": 2017,
+                        "period": 11,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 255.0,
+                        "aggregate": false,
+                        "periodName": "Nov-17",
+                        "displayOrder": 201711
+                      },
+                      {
+                        "year": 2017,
+                        "period": 12,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1139.0,
+                        "aggregate": false,
+                        "periodName": "Dec-17",
+                        "displayOrder": 201712
+                      },
+                      {
+                        "year": 2018,
+                        "period": 1,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 697.0,
+                        "aggregate": false,
+                        "periodName": "Jan-18",
+                        "displayOrder": 201801
+                      },
+                      {
+                        "year": 2018,
+                        "period": 2,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2227.0,
+                        "aggregate": false,
+                        "periodName": "Feb-18",
+                        "displayOrder": 201802
+                      },
+                      {
+                        "year": 2018,
+                        "period": 3,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1921.0,
+                        "aggregate": false,
+                        "periodName": "Mar-18",
+                        "displayOrder": 201803
+                      }
+                    ],
+                    "deliverableOrganisationRelationships": [],
+                    "deliverableDimensionRelationships": [],
+                    "deliverableDescription": null,
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 13481.0
+                  },
+                  {
+                    "ParentDeliverableCode": 3,
+                    "AggregatedPlannedVolume": 0,
+                    "AggregatedPlannedValue": 10438.0,
+                    "DisplayOrder": 5,
+                    "contractDeliverables": [],
+                    "deliverable": {
+                      "fundingStreamCode": "NCS-C",
+                      "deliverableCode": 5,
+                      "businessCode": null,
+                      "deliverableName": "Jobs and Learning"
+                    },
+                    "contractDeliverablePeriods": [
+                      {
+                        "year": 2017,
+                        "period": 4,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 697.0,
+                        "aggregate": false,
+                        "periodName": "Apr-17",
+                        "displayOrder": 201704
+                      },
+                      {
+                        "year": 2017,
+                        "period": 5,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1734.0,
+                        "aggregate": false,
+                        "periodName": "May-17",
+                        "displayOrder": 201705
+                      },
+                      {
+                        "year": 2017,
+                        "period": 6,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 663.0,
+                        "aggregate": false,
+                        "periodName": "Jun-17",
+                        "displayOrder": 201706
+                      },
+                      {
+                        "year": 2017,
+                        "period": 7,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 238.0,
+                        "aggregate": false,
+                        "periodName": "Jul-17",
+                        "displayOrder": 201707
+                      },
+                      {
+                        "year": 2017,
+                        "period": 8,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 85.0,
+                        "aggregate": false,
+                        "periodName": "Aug-17",
+                        "displayOrder": 201708
+                      },
+                      {
+                        "year": 2017,
+                        "period": 9,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 833.0,
+                        "aggregate": false,
+                        "periodName": "Sep-17",
+                        "displayOrder": 201709
+                      },
+                      {
+                        "year": 2017,
+                        "period": 10,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2023.0,
+                        "aggregate": false,
+                        "periodName": "Oct-17",
+                        "displayOrder": 201710
+                      },
+                      {
+                        "year": 2017,
+                        "period": 11,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 765.0,
+                        "aggregate": false,
+                        "periodName": "Nov-17",
+                        "displayOrder": 201711
+                      },
+                      {
+                        "year": 2017,
+                        "period": 12,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 612.0,
+                        "aggregate": false,
+                        "periodName": "Dec-17",
+                        "displayOrder": 201712
+                      },
+                      {
+                        "year": 2018,
+                        "period": 1,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1241.0,
+                        "aggregate": false,
+                        "periodName": "Jan-18",
+                        "displayOrder": 201801
+                      },
+                      {
+                        "year": 2018,
+                        "period": 2,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 663.0,
+                        "aggregate": false,
+                        "periodName": "Feb-18",
+                        "displayOrder": 201802
+                      },
+                      {
+                        "year": 2018,
+                        "period": 3,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 884.0,
+                        "aggregate": false,
+                        "periodName": "Mar-18",
+                        "displayOrder": 201803
+                      }
+                    ],
+                    "deliverableOrganisationRelationships": [],
+                    "deliverableDimensionRelationships": [],
+                    "deliverableDescription": null,
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 10438.0
+                  }
+                ],
+                "deliverable": {
+                  "fundingStreamCode": "NCS-C",
+                  "deliverableCode": 3,
+                  "businessCode": null,
+                  "deliverableName": "Career Management and Jobs and Learning"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2017,
+                    "period": 4,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1955.0,
+                    "aggregate": true,
+                    "periodName": "Apr-17",
+                    "displayOrder": 201704
+                  },
+                  {
+                    "year": 2017,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2278.0,
+                    "aggregate": true,
+                    "periodName": "May-17",
+                    "displayOrder": 201705
+                  },
+                  {
+                    "year": 2017,
+                    "period": 6,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1513.0,
+                    "aggregate": true,
+                    "periodName": "Jun-17",
+                    "displayOrder": 201706
+                  },
+                  {
+                    "year": 2017,
+                    "period": 7,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 493.0,
+                    "aggregate": true,
+                    "periodName": "Jul-17",
+                    "displayOrder": 201707
+                  },
+                  {
+                    "year": 2017,
+                    "period": 8,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1598.0,
+                    "aggregate": true,
+                    "periodName": "Aug-17",
+                    "displayOrder": 201708
+                  },
+                  {
+                    "year": 2017,
+                    "period": 9,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1275.0,
+                    "aggregate": true,
+                    "periodName": "Sep-17",
+                    "displayOrder": 201709
+                  },
+                  {
+                    "year": 2017,
+                    "period": 10,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 4403.0,
+                    "aggregate": true,
+                    "periodName": "Oct-17",
+                    "displayOrder": 201710
+                  },
+                  {
+                    "year": 2017,
+                    "period": 11,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1020.0,
+                    "aggregate": true,
+                    "periodName": "Nov-17",
+                    "displayOrder": 201711
+                  },
+                  {
+                    "year": 2017,
+                    "period": 12,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1751.0,
+                    "aggregate": true,
+                    "periodName": "Dec-17",
+                    "displayOrder": 201712
+                  },
+                  {
+                    "year": 2018,
+                    "period": 1,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1938.0,
+                    "aggregate": true,
+                    "periodName": "Jan-18",
+                    "displayOrder": 201801
+                  },
+                  {
+                    "year": 2018,
+                    "period": 2,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2890.0,
+                    "aggregate": true,
+                    "periodName": "Feb-18",
+                    "displayOrder": 201802
+                  },
+                  {
+                    "year": 2018,
+                    "period": 3,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2805.0,
+                    "aggregate": true,
+                    "periodName": "Mar-18",
+                    "displayOrder": 201803
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": "Career Management and Jobs and Learning",
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 23919.0
+              }
+            ],
+            "deliverable": {
+              "fundingStreamCode": "NCS-C",
+              "deliverableCode": 1,
+              "businessCode": null,
+              "deliverableName": "Total In The Community Funding"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2017,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2448.0,
+                "aggregate": true,
+                "periodName": "Apr-17",
+                "displayOrder": 201704
+              },
+              {
+                "year": 2017,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4012.0,
+                "aggregate": true,
+                "periodName": "May-17",
+                "displayOrder": 201705
+              },
+              {
+                "year": 2017,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2686.0,
+                "aggregate": true,
+                "periodName": "Jun-17",
+                "displayOrder": 201706
+              },
+              {
+                "year": 2017,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1411.0,
+                "aggregate": true,
+                "periodName": "Jul-17",
+                "displayOrder": 201707
+              },
+              {
+                "year": 2017,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1989.0,
+                "aggregate": true,
+                "periodName": "Aug-17",
+                "displayOrder": 201708
+              },
+              {
+                "year": 2017,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3077.0,
+                "aggregate": true,
+                "periodName": "Sep-17",
+                "displayOrder": 201709
+              },
+              {
+                "year": 2017,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6783.0,
+                "aggregate": true,
+                "periodName": "Oct-17",
+                "displayOrder": 201710
+              },
+              {
+                "year": 2017,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2380.0,
+                "aggregate": true,
+                "periodName": "Nov-17",
+                "displayOrder": 201711
+              },
+              {
+                "year": 2017,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1989.0,
+                "aggregate": true,
+                "periodName": "Dec-17",
+                "displayOrder": 201712
+              },
+              {
+                "year": 2018,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3876.0,
+                "aggregate": true,
+                "periodName": "Jan-18",
+                "displayOrder": 201801
+              },
+              {
+                "year": 2018,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3927.0,
+                "aggregate": true,
+                "periodName": "Feb-18",
+                "displayOrder": 201802
+              },
+              {
+                "year": 2018,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3995.0,
+                "aggregate": true,
+                "periodName": "Mar-18",
+                "displayOrder": 201803
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": "Total In The Community Funding",
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 38573.0
+          }
+        ],
+        "contractAllocationNumber": "NCSC-1058",
+        "description": "NCS - Central Eastern",
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "NCS-C1718",
+        "startDate": "2017-04-01T00:00:00Z",
+        "endDate": "2018-03-31T00:00:00Z",
+        "maximumContractValue": 38573.0,
+        "reasonForAmendment": null,
+        "uopCode": "6",
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      },
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 1,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "NCS-I1718" } ],
+          "period1": "1718",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "NCS-I",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 17238.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "NCS-I",
+              "deliverableCode": 1,
+              "businessCode": null,
+              "deliverableName": "Inspiration Activity"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2017,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1394.0,
+                "aggregate": false,
+                "periodName": "Apr-17",
+                "displayOrder": 201704
+              },
+              {
+                "year": 2017,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 408.0,
+                "aggregate": false,
+                "periodName": "May-17",
+                "displayOrder": 201705
+              },
+              {
+                "year": 2017,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2397.0,
+                "aggregate": false,
+                "periodName": "Jun-17",
+                "displayOrder": 201706
+              },
+              {
+                "year": 2017,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1683.0,
+                "aggregate": false,
+                "periodName": "Jul-17",
+                "displayOrder": 201707
+              },
+              {
+                "year": 2017,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1292.0,
+                "aggregate": false,
+                "periodName": "Aug-17",
+                "displayOrder": 201708
+              },
+              {
+                "year": 2017,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1003.0,
+                "aggregate": false,
+                "periodName": "Sep-17",
+                "displayOrder": 201709
+              },
+              {
+                "year": 2017,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 289.0,
+                "aggregate": false,
+                "periodName": "Oct-17",
+                "displayOrder": 201710
+              },
+              {
+                "year": 2017,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2006.0,
+                "aggregate": false,
+                "periodName": "Nov-17",
+                "displayOrder": 201711
+              },
+              {
+                "year": 2017,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1173.0,
+                "aggregate": false,
+                "periodName": "Dec-17",
+                "displayOrder": 201712
+              },
+              {
+                "year": 2018,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1938.0,
+                "aggregate": false,
+                "periodName": "Jan-18",
+                "displayOrder": 201801
+              },
+              {
+                "year": 2018,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1530.0,
+                "aggregate": false,
+                "periodName": "Feb-18",
+                "displayOrder": 201802
+              },
+              {
+                "year": 2018,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2125.0,
+                "aggregate": false,
+                "periodName": "Mar-18",
+                "displayOrder": 201803
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 17238.0
+          }
+        ],
+        "contractAllocationNumber": "NCSI-1058",
+        "description": "NCS - Central Eastern",
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "NCS-I1718",
+        "startDate": "2017-04-01T00:00:00Z",
+        "endDate": "2018-03-31T00:00:00Z",
+        "maximumContractValue": 17238.0,
+        "reasonForAmendment": null,
+        "uopCode": "6",
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      },
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 1,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "NCS-IC1718" } ],
+          "period1": "1718",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "NCS-IC",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 9078.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "NCS-IC",
+              "deliverableCode": 1,
+              "businessCode": null,
+              "deliverableName": "Inspiration and Employer Engagement in Custody Activity"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2017,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 51.0,
+                "aggregate": false,
+                "periodName": "Apr-17",
+                "displayOrder": 201704
+              },
+              {
+                "year": 2017,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 544.0,
+                "aggregate": false,
+                "periodName": "May-17",
+                "displayOrder": 201705
+              },
+              {
+                "year": 2017,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 204.0,
+                "aggregate": false,
+                "periodName": "Jun-17",
+                "displayOrder": 201706
+              },
+              {
+                "year": 2017,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 272.0,
+                "aggregate": false,
+                "periodName": "Jul-17",
+                "displayOrder": 201707
+              },
+              {
+                "year": 2017,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 850.0,
+                "aggregate": false,
+                "periodName": "Aug-17",
+                "displayOrder": 201708
+              },
+              {
+                "year": 2017,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 340.0,
+                "aggregate": false,
+                "periodName": "Sep-17",
+                "displayOrder": 201709
+              },
+              {
+                "year": 2017,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 17.0,
+                "aggregate": false,
+                "periodName": "Oct-17",
+                "displayOrder": 201710
+              },
+              {
+                "year": 2017,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1377.0,
+                "aggregate": false,
+                "periodName": "Nov-17",
+                "displayOrder": 201711
+              },
+              {
+                "year": 2017,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1683.0,
+                "aggregate": false,
+                "periodName": "Dec-17",
+                "displayOrder": 201712
+              },
+              {
+                "year": 2018,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1394.0,
+                "aggregate": false,
+                "periodName": "Jan-18",
+                "displayOrder": 201801
+              },
+              {
+                "year": 2018,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2125.0,
+                "aggregate": false,
+                "periodName": "Feb-18",
+                "displayOrder": 201802
+              },
+              {
+                "year": 2018,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 221.0,
+                "aggregate": false,
+                "periodName": "Mar-18",
+                "displayOrder": 201803
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 9078.0
+          }
+        ],
+        "contractAllocationNumber": "NCSE-1058",
+        "description": "NCS - Central Eastern",
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "NCS-IC1718",
+        "startDate": "2017-04-01T00:00:00Z",
+        "endDate": "2018-03-31T00:00:00Z",
+        "maximumContractValue": 9078.0,
+        "reasonForAmendment": null,
+        "uopCode": "6",
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      },
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 1,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "NCS-P1718" } ],
+          "period1": "1718",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "NCS-P",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 48535.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [
+              {
+                "ParentDeliverableCode": 1,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 15079.0,
+                "DisplayOrder": 2,
+                "contractDeliverables": [],
+                "deliverable": {
+                  "fundingStreamCode": "NCS-P",
+                  "deliverableCode": 2,
+                  "businessCode": null,
+                  "deliverableName": "Customer Satisfaction"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2017,
+                    "period": 4,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 119.0,
+                    "aggregate": false,
+                    "periodName": "Apr-17",
+                    "displayOrder": 201704
+                  },
+                  {
+                    "year": 2017,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1241.0,
+                    "aggregate": false,
+                    "periodName": "May-17",
+                    "displayOrder": 201705
+                  },
+                  {
+                    "year": 2017,
+                    "period": 6,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 527.0,
+                    "aggregate": false,
+                    "periodName": "Jun-17",
+                    "displayOrder": 201706
+                  },
+                  {
+                    "year": 2017,
+                    "period": 7,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2210.0,
+                    "aggregate": false,
+                    "periodName": "Jul-17",
+                    "displayOrder": 201707
+                  },
+                  {
+                    "year": 2017,
+                    "period": 8,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1513.0,
+                    "aggregate": false,
+                    "periodName": "Aug-17",
+                    "displayOrder": 201708
+                  },
+                  {
+                    "year": 2017,
+                    "period": 9,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1938.0,
+                    "aggregate": false,
+                    "periodName": "Sep-17",
+                    "displayOrder": 201709
+                  },
+                  {
+                    "year": 2017,
+                    "period": 10,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2380.0,
+                    "aggregate": false,
+                    "periodName": "Oct-17",
+                    "displayOrder": 201710
+                  },
+                  {
+                    "year": 2017,
+                    "period": 11,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 850.0,
+                    "aggregate": false,
+                    "periodName": "Nov-17",
+                    "displayOrder": 201711
+                  },
+                  {
+                    "year": 2017,
+                    "period": 12,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1394.0,
+                    "aggregate": false,
+                    "periodName": "Dec-17",
+                    "displayOrder": 201712
+                  },
+                  {
+                    "year": 2018,
+                    "period": 1,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 221.0,
+                    "aggregate": false,
+                    "periodName": "Jan-18",
+                    "displayOrder": 201801
+                  },
+                  {
+                    "year": 2018,
+                    "period": 2,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1632.0,
+                    "aggregate": false,
+                    "periodName": "Feb-18",
+                    "displayOrder": 201802
+                  },
+                  {
+                    "year": 2018,
+                    "period": 3,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1054.0,
+                    "aggregate": false,
+                    "periodName": "Mar-18",
+                    "displayOrder": 201803
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": null,
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 15079.0
+              },
+              {
+                "ParentDeliverableCode": 1,
+                "AggregatedPlannedVolume": 0,
+                "AggregatedPlannedValue": 33456.0,
+                "DisplayOrder": 3,
+                "contractDeliverables": [
+                  {
+                    "ParentDeliverableCode": 3,
+                    "AggregatedPlannedVolume": 0,
+                    "AggregatedPlannedValue": 13668.0,
+                    "DisplayOrder": 4,
+                    "contractDeliverables": [],
+                    "deliverable": {
+                      "fundingStreamCode": "NCS-P",
+                      "deliverableCode": 4,
+                      "businessCode": null,
+                      "deliverableName": "Career Management"
+                    },
+                    "contractDeliverablePeriods": [
+                      {
+                        "year": 2017,
+                        "period": 4,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2465.0,
+                        "aggregate": false,
+                        "periodName": "Apr-17",
+                        "displayOrder": 201704
+                      },
+                      {
+                        "year": 2017,
+                        "period": 5,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 306.0,
+                        "aggregate": false,
+                        "periodName": "May-17",
+                        "displayOrder": 201705
+                      },
+                      {
+                        "year": 2017,
+                        "period": 6,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2363.0,
+                        "aggregate": false,
+                        "periodName": "Jun-17",
+                        "displayOrder": 201706
+                      },
+                      {
+                        "year": 2017,
+                        "period": 7,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1598.0,
+                        "aggregate": false,
+                        "periodName": "Jul-17",
+                        "displayOrder": 201707
+                      },
+                      {
+                        "year": 2017,
+                        "period": 8,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 901.0,
+                        "aggregate": false,
+                        "periodName": "Aug-17",
+                        "displayOrder": 201708
+                      },
+                      {
+                        "year": 2017,
+                        "period": 9,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 391.0,
+                        "aggregate": false,
+                        "periodName": "Sep-17",
+                        "displayOrder": 201709
+                      },
+                      {
+                        "year": 2017,
+                        "period": 10,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1224.0,
+                        "aggregate": false,
+                        "periodName": "Oct-17",
+                        "displayOrder": 201710
+                      },
+                      {
+                        "year": 2017,
+                        "period": 11,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 561.0,
+                        "aggregate": false,
+                        "periodName": "Nov-17",
+                        "displayOrder": 201711
+                      },
+                      {
+                        "year": 2017,
+                        "period": 12,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2550.0,
+                        "aggregate": false,
+                        "periodName": "Dec-17",
+                        "displayOrder": 201712
+                      },
+                      {
+                        "year": 2018,
+                        "period": 1,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 340.0,
+                        "aggregate": false,
+                        "periodName": "Jan-18",
+                        "displayOrder": 201801
+                      },
+                      {
+                        "year": 2018,
+                        "period": 2,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 85.0,
+                        "aggregate": false,
+                        "periodName": "Feb-18",
+                        "displayOrder": 201802
+                      },
+                      {
+                        "year": 2018,
+                        "period": 3,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 884.0,
+                        "aggregate": false,
+                        "periodName": "Mar-18",
+                        "displayOrder": 201803
+                      }
+                    ],
+                    "deliverableOrganisationRelationships": [],
+                    "deliverableDimensionRelationships": [],
+                    "deliverableDescription": null,
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 13668.0
+                  },
+                  {
+                    "ParentDeliverableCode": 3,
+                    "AggregatedPlannedVolume": 0,
+                    "AggregatedPlannedValue": 19788.0,
+                    "DisplayOrder": 5,
+                    "contractDeliverables": [],
+                    "deliverable": {
+                      "fundingStreamCode": "NCS-P",
+                      "deliverableCode": 5,
+                      "businessCode": null,
+                      "deliverableName": "Jobs and Learning"
+                    },
+                    "contractDeliverablePeriods": [
+                      {
+                        "year": 2017,
+                        "period": 4,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1411.0,
+                        "aggregate": false,
+                        "periodName": "Apr-17",
+                        "displayOrder": 201704
+                      },
+                      {
+                        "year": 2017,
+                        "period": 5,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2363.0,
+                        "aggregate": false,
+                        "periodName": "May-17",
+                        "displayOrder": 201705
+                      },
+                      {
+                        "year": 2017,
+                        "period": 6,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1377.0,
+                        "aggregate": false,
+                        "periodName": "Jun-17",
+                        "displayOrder": 201706
+                      },
+                      {
+                        "year": 2017,
+                        "period": 7,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1037.0,
+                        "aggregate": false,
+                        "periodName": "Jul-17",
+                        "displayOrder": 201707
+                      },
+                      {
+                        "year": 2017,
+                        "period": 8,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2176.0,
+                        "aggregate": false,
+                        "periodName": "Aug-17",
+                        "displayOrder": 201708
+                      },
+                      {
+                        "year": 2017,
+                        "period": 9,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2108.0,
+                        "aggregate": false,
+                        "periodName": "Sep-17",
+                        "displayOrder": 201709
+                      },
+                      {
+                        "year": 2017,
+                        "period": 10,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1717.0,
+                        "aggregate": false,
+                        "periodName": "Oct-17",
+                        "displayOrder": 201710
+                      },
+                      {
+                        "year": 2017,
+                        "period": 11,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1853.0,
+                        "aggregate": false,
+                        "periodName": "Nov-17",
+                        "displayOrder": 201711
+                      },
+                      {
+                        "year": 2017,
+                        "period": 12,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 2550.0,
+                        "aggregate": false,
+                        "periodName": "Dec-17",
+                        "displayOrder": 201712
+                      },
+                      {
+                        "year": 2018,
+                        "period": 1,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 867.0,
+                        "aggregate": false,
+                        "periodName": "Jan-18",
+                        "displayOrder": 201801
+                      },
+                      {
+                        "year": 2018,
+                        "period": 2,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1275.0,
+                        "aggregate": false,
+                        "periodName": "Feb-18",
+                        "displayOrder": 201802
+                      },
+                      {
+                        "year": 2018,
+                        "period": 3,
+                        "periodType": {
+                          "periodTypeCode": 3,
+                          "periodTypeName": 3
+                        },
+                        "unitCost": 0.0,
+                        "plannedVolume": 0,
+                        "plannedValue": 1054.0,
+                        "aggregate": false,
+                        "periodName": "Mar-18",
+                        "displayOrder": 201803
+                      }
+                    ],
+                    "deliverableOrganisationRelationships": [],
+                    "deliverableDimensionRelationships": [],
+                    "deliverableDescription": null,
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 19788.0
+                  }
+                ],
+                "deliverable": {
+                  "fundingStreamCode": "NCS-P",
+                  "deliverableCode": 3,
+                  "businessCode": null,
+                  "deliverableName": "Career Management and Jobs and Learning"
+                },
+                "contractDeliverablePeriods": [
+                  {
+                    "year": 2017,
+                    "period": 4,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 3876.0,
+                    "aggregate": true,
+                    "periodName": "Apr-17",
+                    "displayOrder": 201704
+                  },
+                  {
+                    "year": 2017,
+                    "period": 5,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2669.0,
+                    "aggregate": true,
+                    "periodName": "May-17",
+                    "displayOrder": 201705
+                  },
+                  {
+                    "year": 2017,
+                    "period": 6,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 3740.0,
+                    "aggregate": true,
+                    "periodName": "Jun-17",
+                    "displayOrder": 201706
+                  },
+                  {
+                    "year": 2017,
+                    "period": 7,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2635.0,
+                    "aggregate": true,
+                    "periodName": "Jul-17",
+                    "displayOrder": 201707
+                  },
+                  {
+                    "year": 2017,
+                    "period": 8,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 3077.0,
+                    "aggregate": true,
+                    "periodName": "Aug-17",
+                    "displayOrder": 201708
+                  },
+                  {
+                    "year": 2017,
+                    "period": 9,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2499.0,
+                    "aggregate": true,
+                    "periodName": "Sep-17",
+                    "displayOrder": 201709
+                  },
+                  {
+                    "year": 2017,
+                    "period": 10,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2941.0,
+                    "aggregate": true,
+                    "periodName": "Oct-17",
+                    "displayOrder": 201710
+                  },
+                  {
+                    "year": 2017,
+                    "period": 11,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 2414.0,
+                    "aggregate": true,
+                    "periodName": "Nov-17",
+                    "displayOrder": 201711
+                  },
+                  {
+                    "year": 2017,
+                    "period": 12,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 5100.0,
+                    "aggregate": true,
+                    "periodName": "Dec-17",
+                    "displayOrder": 201712
+                  },
+                  {
+                    "year": 2018,
+                    "period": 1,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1207.0,
+                    "aggregate": true,
+                    "periodName": "Jan-18",
+                    "displayOrder": 201801
+                  },
+                  {
+                    "year": 2018,
+                    "period": 2,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1360.0,
+                    "aggregate": true,
+                    "periodName": "Feb-18",
+                    "displayOrder": 201802
+                  },
+                  {
+                    "year": 2018,
+                    "period": 3,
+                    "periodType": {
+                      "periodTypeCode": 3,
+                      "periodTypeName": 3
+                    },
+                    "unitCost": 0.0,
+                    "plannedVolume": 0,
+                    "plannedValue": 1938.0,
+                    "aggregate": true,
+                    "periodName": "Mar-18",
+                    "displayOrder": 201803
+                  }
+                ],
+                "deliverableOrganisationRelationships": [],
+                "deliverableDimensionRelationships": [],
+                "deliverableDescription": "Career Management and Jobs and Learning",
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 33456.0
+              }
+            ],
+            "deliverable": {
+              "fundingStreamCode": "NCS-P",
+              "deliverableCode": 1,
+              "businessCode": null,
+              "deliverableName": "Total In Custody Funding"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2017,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3995.0,
+                "aggregate": true,
+                "periodName": "Apr-17",
+                "displayOrder": 201704
+              },
+              {
+                "year": 2017,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3910.0,
+                "aggregate": true,
+                "periodName": "May-17",
+                "displayOrder": 201705
+              },
+              {
+                "year": 2017,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4267.0,
+                "aggregate": true,
+                "periodName": "Jun-17",
+                "displayOrder": 201706
+              },
+              {
+                "year": 2017,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4845.0,
+                "aggregate": true,
+                "periodName": "Jul-17",
+                "displayOrder": 201707
+              },
+              {
+                "year": 2017,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4590.0,
+                "aggregate": true,
+                "periodName": "Aug-17",
+                "displayOrder": 201708
+              },
+              {
+                "year": 2017,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4437.0,
+                "aggregate": true,
+                "periodName": "Sep-17",
+                "displayOrder": 201709
+              },
+              {
+                "year": 2017,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5321.0,
+                "aggregate": true,
+                "periodName": "Oct-17",
+                "displayOrder": 201710
+              },
+              {
+                "year": 2017,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3264.0,
+                "aggregate": true,
+                "periodName": "Nov-17",
+                "displayOrder": 201711
+              },
+              {
+                "year": 2017,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6494.0,
+                "aggregate": true,
+                "periodName": "Dec-17",
+                "displayOrder": 201712
+              },
+              {
+                "year": 2018,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1428.0,
+                "aggregate": true,
+                "periodName": "Jan-18",
+                "displayOrder": 201801
+              },
+              {
+                "year": 2018,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2992.0,
+                "aggregate": true,
+                "periodName": "Feb-18",
+                "displayOrder": 201802
+              },
+              {
+                "year": 2018,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2992.0,
+                "aggregate": true,
+                "periodName": "Mar-18",
+                "displayOrder": 201803
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": "Total In Custody Funding",
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 48535.0
+          }
+        ],
+        "contractAllocationNumber": "NCSP-1061",
+        "description": "NCS - Central Eastern",
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "NCS-P1718",
+        "startDate": "2017-04-01T00:00:00Z",
+        "endDate": "2018-03-31T00:00:00Z",
+        "maximumContractValue": 48535.0,
+        "reasonForAmendment": null,
+        "uopCode": "6",
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      }
+    ],
+    "contractDimensionRelationships": [],
+    "contractOrganisationRelationships": [],
+    "contractNumber": "NCS-1060",
+    "contractVersionNumber": 1,
+    "contractSubVersionNumber": 0,
+    "description": "Contract Description 6",
+    "contractor": {
+      "organisationIdentifier": "ORG0009281",
+      "ukprn": 10017692,
+      "legalName": "NACRO",
+      "registeredCompanyNumber": null,
+      "organisationAddressIdentifier": 0,
+      "addressLine1": null,
+      "addressLine2": null,
+      "addressLine3": null,
+      "addressLine4": null,
+      "addressLine5": null,
+      "town": null,
+      "postcode": null
+    },
+    "hierarchyType": 1,
+    "contractType1": "Contract for Services",
+    "startDate": "2017-04-01T00:00:00Z",
+    "endDate": "2018-03-31T00:00:00Z",
+    "contractStatus": {
+      "status": null,
+      "parentStatus": null
+    },
+    "contractValue": 113424.0,
+    "parentContractNumber": null,
+    "parentContractVersionNumber": null,
+    "amendmentType": "None"
+  },
+  "MasterContractNumber": "SFA-18853"
+}

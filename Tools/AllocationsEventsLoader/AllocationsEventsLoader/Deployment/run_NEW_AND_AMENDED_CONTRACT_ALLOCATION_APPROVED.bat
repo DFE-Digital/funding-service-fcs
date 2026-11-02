@@ -1,0 +1,2 @@
+..\AllocationsEventsLoader NEW_AND_AMENDED_CONTRACT_ALLOCATION_APPROVED
+Pause

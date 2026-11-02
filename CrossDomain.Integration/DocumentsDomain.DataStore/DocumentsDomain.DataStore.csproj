@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9687F2ED-2638-4283-BBDF-A37C9D75F5F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SFA.FCT.DocumentsDomain.DataStore</RootNamespace>
+    <AssemblyName>DocumentsDomain.DataStore</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
+    <OutputPath>bin\AT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
+    <OutputPath>bin\CI\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
+    <OutputPath>bin\DAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
+    <OutputPath>bin\DOAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
+    <OutputPath>bin\OAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
+    <OutputPath>bin\DMO\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
+    <OutputPath>bin\DCI\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\MO\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Optional, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Optional.4.0.0\lib\net45\Optional.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DocumentsDomainDbContext.cs" />
+    <Compile Include="Migrations\201705221059591_CreateFundingStreamPeriod.cs" />
+    <Compile Include="Migrations\201705221059591_CreateFundingStreamPeriod.Designer.cs">
+      <DependentUpon>201705221059591_CreateFundingStreamPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705231325295_FundingStreamPeriod_DisplayNameNullable.cs" />
+    <Compile Include="Migrations\201705231325295_FundingStreamPeriod_DisplayNameNullable.Designer.cs">
+      <DependentUpon>201705231325295_FundingStreamPeriod_DisplayNameNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804231525447_AddColumnsToFundingStreamPeriod.cs" />
+    <Compile Include="Migrations\201804231525447_AddColumnsToFundingStreamPeriod.Designer.cs">
+      <DependentUpon>201804231525447_AddColumnsToFundingStreamPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804231536117_CreateTableFSPDeliverable.cs" />
+    <Compile Include="Migrations\201804231536117_CreateTableFSPDeliverable.Designer.cs">
+      <DependentUpon>201804231536117_CreateTableFSPDeliverable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804240825191_AddFkToFspDeliverable.cs" />
+    <Compile Include="Migrations\201804240825191_AddFkToFspDeliverable.Designer.cs">
+      <DependentUpon>201804240825191_AddFkToFspDeliverable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903041325230_AddDocumentTemplateTable.cs" />
+    <Compile Include="Migrations\201903041325230_AddDocumentTemplateTable.Designer.cs">
+      <DependentUpon>201903041325230_AddDocumentTemplateTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903041935494_DocumentTemplateTableAddCreateDate.cs" />
+    <Compile Include="Migrations\201903041935494_DocumentTemplateTableAddCreateDate.Designer.cs">
+      <DependentUpon>201903041935494_DocumentTemplateTableAddCreateDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903131004481_AddArchivedDocumentTable.cs" />
+    <Compile Include="Migrations\201903131004481_AddArchivedDocumentTable.Designer.cs">
+      <DependentUpon>201903131004481_AddArchivedDocumentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903200830139_ArchivedDocumentTableRemoveColumnAmendmentType.cs" />
+    <Compile Include="Migrations\201903200830139_ArchivedDocumentTableRemoveColumnAmendmentType.Designer.cs">
+      <DependentUpon>201903200830139_ArchivedDocumentTableRemoveColumnAmendmentType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906041052026_CreateTableFspGroup.cs" />
+    <Compile Include="Migrations\201906041052026_CreateTableFspGroup.Designer.cs">
+      <DependentUpon>201906041052026_CreateTableFspGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906041413160_AddForeignKeyToDocumentTemplate.cs" />
+    <Compile Include="Migrations\201906041413160_AddForeignKeyToDocumentTemplate.Designer.cs">
+      <DependentUpon>201906041413160_AddForeignKeyToDocumentTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906051050125_AddFspGroupForeignKeyToFsp.cs" />
+    <Compile Include="Migrations\201906051050125_AddFspGroupForeignKeyToFsp.Designer.cs">
+      <DependentUpon>201906051050125_AddFspGroupForeignKeyToFsp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906051347220_RenameDocumentTemplateToFspGrpDocTemp.cs" />
+    <Compile Include="Migrations\201906051347220_RenameDocumentTemplateToFspGrpDocTemp.Designer.cs">
+      <DependentUpon>201906051347220_RenameDocumentTemplateToFspGrpDocTemp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906060744398_ContractDocumentTemplate.cs" />
+    <Compile Include="Migrations\201906060744398_ContractDocumentTemplate.Designer.cs">
+      <DependentUpon>201906060744398_ContractDocumentTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906251606011_AddFundingAgreementDisplayNameToFundingStreamPeriod.cs" />
+    <Compile Include="Migrations\201906251606011_AddFundingAgreementDisplayNameToFundingStreamPeriod.Designer.cs">
+      <DependentUpon>201906251606011_AddFundingAgreementDisplayNameToFundingStreamPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907011413520_RenameColumnToSummaryOfFundingDisplayNameOnFundingStreamPeriodTable.cs" />
+    <Compile Include="Migrations\201907011413520_RenameColumnToSummaryOfFundingDisplayNameOnFundingStreamPeriodTable.Designer.cs">
+      <DependentUpon>201907011413520_RenameColumnToSummaryOfFundingDisplayNameOnFundingStreamPeriodTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908291137458_AddFundingTypeFundingPeriodTable.cs" />
+    <Compile Include="Migrations\201908291137458_AddFundingTypeFundingPeriodTable.Designer.cs">
+      <DependentUpon>201908291137458_AddFundingTypeFundingPeriodTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001131349083_CreateTableNlapFundingConfig.cs" />
+    <Compile Include="Migrations\202001131349083_CreateTableNlapFundingConfig.Designer.cs">
+      <DependentUpon>202001131349083_CreateTableNlapFundingConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001151106108_AddColumnsTotalEstimatedNewStartsFunding.cs" />
+    <Compile Include="Migrations\202001151106108_AddColumnsTotalEstimatedNewStartsFunding.Designer.cs">
+      <DependentUpon>202001151106108_AddColumnsTotalEstimatedNewStartsFunding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001161341028_AddColumnsNewStartsEstimatedFutureFunding.cs" />
+    <Compile Include="Migrations\202001161341028_AddColumnsNewStartsEstimatedFutureFunding.Designer.cs">
+      <DependentUpon>202001161341028_AddColumnsNewStartsEstimatedFutureFunding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003231058425_CreateUploadedDocumentTemplate.cs" />
+    <Compile Include="Migrations\202003231058425_CreateUploadedDocumentTemplate.Designer.cs">
+      <DependentUpon>202003231058425_CreateUploadedDocumentTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005261303317_CreateTableProcessedMessage.cs" />
+    <Compile Include="Migrations\202005261303317_CreateTableProcessedMessage.Designer.cs">
+      <DependentUpon>202005261303317_CreateTableProcessedMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007291053168_ContractReferenceConfigTable.cs" />
+    <Compile Include="Migrations\202007291053168_ContractReferenceConfigTable.Designer.cs">
+      <DependentUpon>202007291053168_ContractReferenceConfigTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010151203206_AddDocumentsRequiredToFundingTypeFundingPeriod.cs" />
+    <Compile Include="Migrations\202010151203206_AddDocumentsRequiredToFundingTypeFundingPeriod.Designer.cs">
+      <DependentUpon>202010151203206_AddDocumentsRequiredToFundingTypeFundingPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202407171223060_CreateStoredProceduretoUpdateIsPrioritisedApment.cs" />
+    <Compile Include="Migrations\202407171223060_CreateStoredProceduretoUpdateIsPrioritisedApment.Designer.cs">
+      <DependentUpon>202407171223060_CreateStoredProceduretoUpdateIsPrioritisedApment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ArchivedDocument.cs" />
+    <Compile Include="Models\ContractDocumentTemplate.cs" />
+    <Compile Include="Models\ContractReferenceConfig.cs" />
+    <Compile Include="Models\ProcessedMessage.cs" />
+    <Compile Include="Models\UploadedDocumentTemplate.cs" />
+    <Compile Include="Models\FspGroupDocumentTemplate.cs" />
+    <Compile Include="Models\FSPDeliverable.cs" />
+    <Compile Include="Models\FSPGroup.cs" />
+    <Compile Include="Models\FundingStreamPeriod.cs" />
+    <Compile Include="Models\FundingTypeFundingPeriod.cs" />
+    <Compile Include="Models\NlapFundingConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ContractDocumentTemplateRepository.cs" />
+    <Compile Include="Repositories\FspDeliverableRepository.cs" />
+    <Compile Include="Repositories\FspGroupDocumentTemplateRepository.cs" />
+    <Compile Include="Repositories\FundingStreamPeriodRepository.cs" />
+    <Compile Include="Repositories\FundingTypeFundingPeriodRepository.cs" />
+    <Compile Include="Repositories\IContractDocumentTemplateRepository.cs" />
+    <Compile Include="Repositories\IFspDeliverableRepository.cs" />
+    <Compile Include="Repositories\IFspGroupDocumentTemplateRepository.cs" />
+    <Compile Include="Repositories\IFundingStreamPeriodRepository.cs" />
+    <Compile Include="Repositories\IFundingTypeFundingPeriodRepository.cs" />
+    <Compile Include="Repositories\INlapFundingConfigRepository.cs" />
+    <Compile Include="Repositories\IProcessedMessageRepository.cs" />
+    <Compile Include="Repositories\NlapFundingConfigRepository.cs" />
+    <Compile Include="Repositories\ProcessedMessageRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705221059591_CreateFundingStreamPeriod.resx">
+      <DependentUpon>201705221059591_CreateFundingStreamPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705231325295_FundingStreamPeriod_DisplayNameNullable.resx">
+      <DependentUpon>201705231325295_FundingStreamPeriod_DisplayNameNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804231525447_AddColumnsToFundingStreamPeriod.resx">
+      <DependentUpon>201804231525447_AddColumnsToFundingStreamPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804231536117_CreateTableFSPDeliverable.resx">
+      <DependentUpon>201804231536117_CreateTableFSPDeliverable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804240825191_AddFkToFspDeliverable.resx">
+      <DependentUpon>201804240825191_AddFkToFspDeliverable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903041325230_AddDocumentTemplateTable.resx">
+      <DependentUpon>201903041325230_AddDocumentTemplateTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903041935494_DocumentTemplateTableAddCreateDate.resx">
+      <DependentUpon>201903041935494_DocumentTemplateTableAddCreateDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903131004481_AddArchivedDocumentTable.resx">
+      <DependentUpon>201903131004481_AddArchivedDocumentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903200830139_ArchivedDocumentTableRemoveColumnAmendmentType.resx">
+      <DependentUpon>201903200830139_ArchivedDocumentTableRemoveColumnAmendmentType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906041052026_CreateTableFspGroup.resx">
+      <DependentUpon>201906041052026_CreateTableFspGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906041413160_AddForeignKeyToDocumentTemplate.resx">
+      <DependentUpon>201906041413160_AddForeignKeyToDocumentTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051050125_AddFspGroupForeignKeyToFsp.resx">
+      <DependentUpon>201906051050125_AddFspGroupForeignKeyToFsp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051347220_RenameDocumentTemplateToFspGrpDocTemp.resx">
+      <DependentUpon>201906051347220_RenameDocumentTemplateToFspGrpDocTemp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906060744398_ContractDocumentTemplate.resx">
+      <DependentUpon>201906060744398_ContractDocumentTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906251606011_AddFundingAgreementDisplayNameToFundingStreamPeriod.resx">
+      <DependentUpon>201906251606011_AddFundingAgreementDisplayNameToFundingStreamPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907011413520_RenameColumnToSummaryOfFundingDisplayNameOnFundingStreamPeriodTable.resx">
+      <DependentUpon>201907011413520_RenameColumnToSummaryOfFundingDisplayNameOnFundingStreamPeriodTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908291137458_AddFundingTypeFundingPeriodTable.resx">
+      <DependentUpon>201908291137458_AddFundingTypeFundingPeriodTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001131349083_CreateTableNlapFundingConfig.resx">
+      <DependentUpon>202001131349083_CreateTableNlapFundingConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001151106108_AddColumnsTotalEstimatedNewStartsFunding.resx">
+      <DependentUpon>202001151106108_AddColumnsTotalEstimatedNewStartsFunding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001161341028_AddColumnsNewStartsEstimatedFutureFunding.resx">
+      <DependentUpon>202001161341028_AddColumnsNewStartsEstimatedFutureFunding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003231058425_CreateUploadedDocumentTemplate.resx">
+      <DependentUpon>202003231058425_CreateUploadedDocumentTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261303317_CreateTableProcessedMessage.resx">
+      <DependentUpon>202005261303317_CreateTableProcessedMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007291053168_ContractReferenceConfigTable.resx">
+      <DependentUpon>202007291053168_ContractReferenceConfigTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010151203206_AddDocumentsRequiredToFundingTypeFundingPeriod.resx">
+      <DependentUpon>202010151203206_AddDocumentsRequiredToFundingTypeFundingPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407171223060_CreateStoredProceduretoUpdateIsPrioritisedApment.resx">
+      <DependentUpon>202407171223060_CreateStoredProceduretoUpdateIsPrioritisedApment.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
+      <Project>{6e27f9ef-1391-41e7-8b8d-7c1b82665578}</Project>
+      <Name>CrossDomain.Integration.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

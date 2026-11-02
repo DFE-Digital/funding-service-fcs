@@ -1,0 +1,49 @@
+
+    <div >
+        <p>Re-run failed Levy Contracts</p>       
+        <div *ngIf="!loading; else showRefreshing"> 
+          <div class="make-gold center" *ngIf="errorQueueContract.lstContract == null" >
+            <b> No data available on failed queue</b>
+          </div>
+        <div *ngIf="errorQueueContract.lstContract != null" >
+            <button type="submit" (click)="onButtonClick()" class="btn btn-primary pull-right" [disabled]="!isSearchButtonEnabled" >Re-Run Failed Queue Messages</button>            <br>
+            <br>
+         
+            <table class="table table-striped table-bordered table table-striped">
+              <thead>
+                <tr class="make-gold">
+                  <th>
+                    <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAll($event)">
+                  </th>
+                  <th>MessageId</th>
+                  <th>Message Text</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>                
+                <tr *ngFor="let ErrorMessage of errorQueueContract.lstContract">
+                  <td> 
+                    <input type="checkbox" [checked]="selectedIds.has(ErrorMessage.MessageId)"   [value]="ErrorMessage.MessageId"  (change)="onCheckboxChange($event, ErrorMessage.MessageId)">
+                  </td>
+                  <td>{{ErrorMessage.MessageId}}</td>
+                  <td>{{ ErrorMessage.MessageBody  }}</td>
+                  <td> {{ ErrorMessage.CompleteDate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+         
+    </div>
+    <ng-template #showRefreshing>
+          <i class="fa fa-refresh fa-spin"></i>
+    </ng-template>
+
+    
+</div>
+ <!-- Full-Screen Loading Overlay -->
+<!-- <div *ngIf="isLoading" class="loading-overlay">
+  <div class="spinner">
+    <i class="fa fa-refresh fa-spin">Loading...</i>
+    <img src="path-to-your-spinner-image.gif" alt="Loading..." />
+  </div>
+</div> -->

@@ -1,0 +1,97 @@
+<html><head>
+<script type="text/javascript">  
+var inpData;
+
+function getDataParam() {  
+   //Get the any query string parameters and load them  
+   //into the vals array  
+   var vals = new Array();  
+   if (location.search != "") {  
+    vals = location.search.substr(1).split("&");  
+    for (var i in vals) {  
+     vals[i] = vals[i].replace(/\+/g, " ").split("=");  
+    }  
+    //look for the parameter named 'data'  
+    var found = false;  
+    for (var i in vals) {  
+     if (vals[i][0].toLowerCase() == "data") {  
+      inpData = decodeURIComponent(vals[i][1]);
+      found = true;  
+      break;  
+     }  
+    }
+  }  
+ 
+}
+
+function CascadeHoldReason(holdReason, inputComments, inpIds) {
+
+    ////using action
+    var req = {};
+	req.inputReason = holdReason;
+	req.inputComments = inputComments;
+	req.inputIDs = inpIds;
+
+	req.getMetadata = function () {
+        return {
+            parameterTypes: {
+				"inputReason": { typeName: "Edm.String", structuralProperty: 1 },
+				"inputComments": { typeName: "Edm.String", structuralProperty: 1 },
+				"inputIDs": { typeName: "Edm.String", structuralProperty: 1 },
+            },
+            operationType: 0,
+            operationName: "sfa_FundingAllocationHold"
+        };
+    };
+    parent.Xrm.Utility.showProgressIndicator("Processing");
+	parent.Xrm.WebApi.online.execute(req).then( 
+        function (result) { 
+            if (result.ok) { 
+	       parent.Xrm.Utility.closeProgressIndicator();
+               var lookupOptions = { entityType: "sfa_fundingallocation" };
+               parent.Xrm.Utility.refreshParentGrid(lookupOptions);
+
+               window.open('','_parent','');
+               window.close();
+            } 
+        },
+        function (error) { 
+               var errMsg = error.message; 
+               parent.Xrm.Utility.closeProgressIndicator();
+	       parent.Xrm.Navigation.openAlertDialog({text: "error:"+errMsg});
+        }
+    );
+}
+
+function doSomething() {
+	var reasonSelected = document.getElementById('inpReason').value;
+    var inputComments = document.getElementById('inputComments').value;
+
+    CascadeHoldReason(reasonSelected, inputComments, inpData);
+
+}
+
+</script>
+<meta><meta><meta><meta><meta><meta><meta><meta></head>
+
+<body onload="getDataParam()" onfocusout="parent.setEmailRange();" style="overflow-wrap: break-word;">
+
+ <form>
+    <label for="inpReason">Reason:</label><br>
+	<select name="inpReason" id="inpReason">
+		<option value="229660000">Under Investigation</option>
+		<option value="229660001">Infrastructure Change</option>
+		<option value="229660002">Contracting Query</option>
+		<option value="229660003">Held by Allocations Team</option>
+	</select>
+	<br><br>
+	<label for="inputComments">Comments(Optional):</label><br>
+	<textarea id="inputComments" name="inputComments" value="" rows="3" cols="40"></textarea>
+	<br><br>
+	<button onclick="doSomething();return false;" style="width:125px;">Hold</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" onclick="window.open('', '_self', ''); window.close();">Cancel</button>
+</form>
+
+
+</body></html>

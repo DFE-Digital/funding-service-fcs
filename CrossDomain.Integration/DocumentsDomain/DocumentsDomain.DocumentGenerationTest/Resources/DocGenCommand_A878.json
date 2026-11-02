@@ -1,0 +1,1083 @@
+{
+  "CorrelationId": "b1f90c01-f691-4202-bad8-5b3d92b4976f",
+  "CorporateContract": {
+    "schemaVersion": 8.04,
+    "ContractApprovalDate": null,
+    "StatusLastUpdatedDate": null,
+    "LastModifiedDate": null,
+    "DocumentationRequired": null,
+    "SkipCaseloadAssignment": null,
+    "SkipReviewAndInternalApproval": null,
+    "SkipDocumentMerge": false,
+    "IsNonFinancialAmendment": null,
+    "TerminationDate": null,
+    "TerminationReason": null,
+    "contracts": [],
+    "fundingType": {
+      "fundingTypeCode": "EDSK",
+      "fundingTypeName": null
+    },
+    "period": {
+      "periodType": {
+        "periodTypeCode": 0,
+        "periodTypeName": 0
+      },
+      "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "" } ],
+      "period1": "1920",
+      "startDate": "0001-01-01T00:00:00",
+      "endDate": "0001-01-01T00:00:00"
+    },
+    "fundingStream": {
+      "fundingStreamCode": "EDSK",
+      "fundingStreamName": null,
+      "fundingTypeCode": null,
+      "fundingStreamShortCode": null
+    },
+    "contractAllocations": [
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "DeliveryOrganisation": "10028341",
+        "DeliveryOrganisationDetail": {
+          "organisationIdentifier": "ORG0011815",
+          "ukprn": 10028341,
+          "legalName": "QUESTIONS & ANSWERS CIC",
+          "registeredCompanyNumber": "AA125341",
+          "organisationAddressIdentifier": 0,
+          "addressLine1": "8 Tudor Way",
+          "addressLine2": "Petts Wood",
+          "addressLine3": "Kent",
+          "addressLine4": null,
+          "county": null,
+          "town": null,
+          "postcode": "BR1 1DZ",
+          "Upin": "125341",
+          "CharityNumber": null,
+          "Status": "Active"
+        },
+        "TerminationDate": null,
+        "StopNewStartsDate": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 0,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "ALLF1920" } ],
+          "period1": "1920",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "ALLF",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 45542.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "ALLF",
+              "deliverableCode": 5,
+              "businessCode": null,
+              "deliverableName": "Advanced Learner Loans Facility"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2019,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1825.0,
+                "aggregate": false,
+                "periodName": "Aug-19",
+                "displayOrder": 201908
+              },
+              {
+                "year": 2019,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5243.0,
+                "aggregate": false,
+                "periodName": "Sep-19",
+                "displayOrder": 201909
+              },
+              {
+                "year": 2019,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7164.0,
+                "aggregate": false,
+                "periodName": "Oct-19",
+                "displayOrder": 201910
+              },
+              {
+                "year": 2019,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1401.0,
+                "aggregate": false,
+                "periodName": "Nov-19",
+                "displayOrder": 201911
+              },
+              {
+                "year": 2019,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6517.0,
+                "aggregate": false,
+                "periodName": "Dec-19",
+                "displayOrder": 201912
+              },
+              {
+                "year": 2020,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1231.0,
+                "aggregate": false,
+                "periodName": "Jan-20",
+                "displayOrder": 202001
+              },
+              {
+                "year": 2020,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7027.0,
+                "aggregate": false,
+                "periodName": "Feb-20",
+                "displayOrder": 202002
+              },
+              {
+                "year": 2020,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7653.0,
+                "aggregate": false,
+                "periodName": "Mar-20",
+                "displayOrder": 202003
+              },
+              {
+                "year": 2020,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3662.0,
+                "aggregate": false,
+                "periodName": "Apr-20",
+                "displayOrder": 202004
+              },
+              {
+                "year": 2020,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1846.0,
+                "aggregate": false,
+                "periodName": "May-20",
+                "displayOrder": 202005
+              },
+              {
+                "year": 2020,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1454.0,
+                "aggregate": false,
+                "periodName": "Jun-20",
+                "displayOrder": 202006
+              },
+              {
+                "year": 2020,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 519.0,
+                "aggregate": false,
+                "periodName": "Jul-20",
+                "displayOrder": 202007
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 45542.0
+          }
+        ],
+        "contractAllocationNumber": "ALLF-8849",
+        "description": null,
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "ALLF1920",
+        "startDate": "2019-08-01T00:00:00Z",
+        "endDate": "2020-07-31T00:00:00Z",
+        "maximumContractValue": 45542.0,
+        "reasonForAmendment": null,
+        "uopCode": null,
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      },
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "DeliveryOrganisation": "10027769",
+        "DeliveryOrganisationDetail": {
+          "organisationIdentifier": "ORG0011814",
+          "ukprn": 10027769,
+          "legalName": "PROMISE TRAINING CENTRE LIMITED",
+          "registeredCompanyNumber": "AA133767",
+          "organisationAddressIdentifier": 0,
+          "addressLine1": "46 Abergarw Road",
+          "addressLine2": "Brynmenyn",
+          "addressLine3": "Bridgend",
+          "addressLine4": null,
+          "county": null,
+          "town": null,
+          "postcode": "CF32 9LF",
+          "Upin": "133767",
+          "CharityNumber": "133767",
+          "Status": "Active"
+        },
+        "TerminationDate": null,
+        "StopNewStartsDate": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 0,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "ALLF1920" } ],
+          "period1": "1920",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "ALLF",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 55643.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "ALLF",
+              "deliverableCode": 5,
+              "businessCode": null,
+              "deliverableName": "Advanced Learner Loans Facility"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2019,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2826.0,
+                "aggregate": false,
+                "periodName": "Aug-19",
+                "displayOrder": 201908
+              },
+              {
+                "year": 2019,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2370.0,
+                "aggregate": false,
+                "periodName": "Sep-19",
+                "displayOrder": 201909
+              },
+              {
+                "year": 2019,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5852.0,
+                "aggregate": false,
+                "periodName": "Oct-19",
+                "displayOrder": 201910
+              },
+              {
+                "year": 2019,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1245.0,
+                "aggregate": false,
+                "periodName": "Nov-19",
+                "displayOrder": 201911
+              },
+              {
+                "year": 2019,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5002.0,
+                "aggregate": false,
+                "periodName": "Dec-19",
+                "displayOrder": 201912
+              },
+              {
+                "year": 2020,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5904.0,
+                "aggregate": false,
+                "periodName": "Jan-20",
+                "displayOrder": 202001
+              },
+              {
+                "year": 2020,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5310.0,
+                "aggregate": false,
+                "periodName": "Feb-20",
+                "displayOrder": 202002
+              },
+              {
+                "year": 2020,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7093.0,
+                "aggregate": false,
+                "periodName": "Mar-20",
+                "displayOrder": 202003
+              },
+              {
+                "year": 2020,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7582.0,
+                "aggregate": false,
+                "periodName": "Apr-20",
+                "displayOrder": 202004
+              },
+              {
+                "year": 2020,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1892.0,
+                "aggregate": false,
+                "periodName": "May-20",
+                "displayOrder": 202005
+              },
+              {
+                "year": 2020,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5172.0,
+                "aggregate": false,
+                "periodName": "Jun-20",
+                "displayOrder": 202006
+              },
+              {
+                "year": 2020,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5395.0,
+                "aggregate": false,
+                "periodName": "Jul-20",
+                "displayOrder": 202007
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 55643.0
+          }
+        ],
+        "contractAllocationNumber": "ALLF-8850",
+        "description": null,
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "ALLF1920",
+        "startDate": "2019-08-01T00:00:00Z",
+        "endDate": "2020-07-31T00:00:00Z",
+        "maximumContractValue": 55643.0,
+        "reasonForAmendment": null,
+        "uopCode": null,
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      },
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "DeliveryOrganisation": "10023871",
+        "DeliveryOrganisationDetail": {
+          "organisationIdentifier": "ORG0011816",
+          "ukprn": 10023871,
+          "legalName": "RESULTS CONSORTIUM LIMITED",
+          "registeredCompanyNumber": "AA122643",
+          "organisationAddressIdentifier": 0,
+          "addressLine1": "4 Red Lion Court",
+          "addressLine2": "Alexandra Road",
+          "addressLine3": null,
+          "addressLine4": null,
+          "county": "Middlesex",
+          "town": "Hounslow",
+          "postcode": "TW3 1JS",
+          "Upin": "122643",
+          "CharityNumber": null,
+          "Status": "Active"
+        },
+        "TerminationDate": null,
+        "StopNewStartsDate": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 0,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "ALLF1920" } ],
+          "period1": "1920",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "ALLF",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 49140.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "ALLF",
+              "deliverableCode": 5,
+              "businessCode": null,
+              "deliverableName": "Advanced Learner Loans Facility"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2019,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4338.0,
+                "aggregate": false,
+                "periodName": "Aug-19",
+                "displayOrder": 201908
+              },
+              {
+                "year": 2019,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5846.0,
+                "aggregate": false,
+                "periodName": "Sep-19",
+                "displayOrder": 201909
+              },
+              {
+                "year": 2019,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5049.0,
+                "aggregate": false,
+                "periodName": "Oct-19",
+                "displayOrder": 201910
+              },
+              {
+                "year": 2019,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1600.0,
+                "aggregate": false,
+                "periodName": "Nov-19",
+                "displayOrder": 201911
+              },
+              {
+                "year": 2019,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3998.0,
+                "aggregate": false,
+                "periodName": "Dec-19",
+                "displayOrder": 201912
+              },
+              {
+                "year": 2020,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6865.0,
+                "aggregate": false,
+                "periodName": "Jan-20",
+                "displayOrder": 202001
+              },
+              {
+                "year": 2020,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 1992.0,
+                "aggregate": false,
+                "periodName": "Feb-20",
+                "displayOrder": 202002
+              },
+              {
+                "year": 2020,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4932.0,
+                "aggregate": false,
+                "periodName": "Mar-20",
+                "displayOrder": 202003
+              },
+              {
+                "year": 2020,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 4063.0,
+                "aggregate": false,
+                "periodName": "Apr-20",
+                "displayOrder": 202004
+              },
+              {
+                "year": 2020,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 2449.0,
+                "aggregate": false,
+                "periodName": "May-20",
+                "displayOrder": 202005
+              },
+              {
+                "year": 2020,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7290.0,
+                "aggregate": false,
+                "periodName": "Jun-20",
+                "displayOrder": 202006
+              },
+              {
+                "year": 2020,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 718.0,
+                "aggregate": false,
+                "periodName": "Jul-20",
+                "displayOrder": 202007
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 49140.0
+          }
+        ],
+        "contractAllocationNumber": "ALLF-8851",
+        "description": null,
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "ALLF1920",
+        "startDate": "2019-08-01T00:00:00Z",
+        "endDate": "2020-07-31T00:00:00Z",
+        "maximumContractValue": 49140.0,
+        "reasonForAmendment": null,
+        "uopCode": null,
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      },
+      {
+        "ActivityDescription": null,
+        "AgreementNumber": null,
+        "SpecificationTitle": null,
+        "RegionType": null,
+        "LearningRatePremium": null,
+        "InvestmentPriority": null,
+        "LEPCode": null,
+        "LEPName": null,
+        "DeliveryOrganisation": "10022729",
+        "DeliveryOrganisationDetail": {
+          "organisationIdentifier": "ORG0011818",
+          "ukprn": 10022729,
+          "legalName": "SELECTION TRAINING LIMITED",
+          "registeredCompanyNumber": "AA128029",
+          "organisationAddressIdentifier": 0,
+          "addressLine1": "29 Church Street",
+          "addressLine2": "Basingstoke",
+          "addressLine3": null,
+          "addressLine4": null,
+          "county": null,
+          "town": null,
+          "postcode": "RG21 7QQ",
+          "Upin": "128029",
+          "CharityNumber": "128029",
+          "Status": "Active"
+        },
+        "TerminationDate": null,
+        "StopNewStartsDate": null,
+        "contractAllocations": [],
+        "period": {
+          "periodType": {
+            "periodTypeCode": 0,
+            "periodTypeName": 0
+          },
+          "fundingStreamPeriods": [ { "fundingStreamPeriodCode": "ALLF1920" } ],
+          "period1": "1920",
+          "startDate": "0001-01-01T00:00:00",
+          "endDate": "0001-01-01T00:00:00"
+        },
+        "fundingStream": {
+          "fundingStreamCode": "ALLF",
+          "fundingStreamName": null,
+          "fundingTypeCode": null,
+          "fundingStreamShortCode": null
+        },
+        "allocationDimensionRelationships": [],
+        "allocationOrganisationRelationships": [],
+        "contractDeliverables": [
+          {
+            "ParentDeliverableCode": null,
+            "AggregatedPlannedVolume": 0,
+            "AggregatedPlannedValue": 41009.0,
+            "DisplayOrder": 1,
+            "contractDeliverables": [],
+            "deliverable": {
+              "fundingStreamCode": "ALLF",
+              "deliverableCode": 5,
+              "businessCode": null,
+              "deliverableName": "Advanced Learner Loans Facility"
+            },
+            "contractDeliverablePeriods": [
+              {
+                "year": 2019,
+                "period": 8,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 88.0,
+                "aggregate": false,
+                "periodName": "Aug-19",
+                "displayOrder": 201908
+              },
+              {
+                "year": 2019,
+                "period": 9,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 53.0,
+                "aggregate": false,
+                "periodName": "Sep-19",
+                "displayOrder": 201909
+              },
+              {
+                "year": 2019,
+                "period": 10,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 817.0,
+                "aggregate": false,
+                "periodName": "Oct-19",
+                "displayOrder": 201910
+              },
+              {
+                "year": 2019,
+                "period": 11,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6475.0,
+                "aggregate": false,
+                "periodName": "Nov-19",
+                "displayOrder": 201911
+              },
+              {
+                "year": 2019,
+                "period": 12,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5403.0,
+                "aggregate": false,
+                "periodName": "Dec-19",
+                "displayOrder": 201912
+              },
+              {
+                "year": 2020,
+                "period": 1,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 6507.0,
+                "aggregate": false,
+                "periodName": "Jan-20",
+                "displayOrder": 202001
+              },
+              {
+                "year": 2020,
+                "period": 2,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 3195.0,
+                "aggregate": false,
+                "periodName": "Feb-20",
+                "displayOrder": 202002
+              },
+              {
+                "year": 2020,
+                "period": 3,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5181.0,
+                "aggregate": false,
+                "periodName": "Mar-20",
+                "displayOrder": 202003
+              },
+              {
+                "year": 2020,
+                "period": 4,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 5064.0,
+                "aggregate": false,
+                "periodName": "Apr-20",
+                "displayOrder": 202004
+              },
+              {
+                "year": 2020,
+                "period": 5,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 7526.0,
+                "aggregate": false,
+                "periodName": "May-20",
+                "displayOrder": 202005
+              },
+              {
+                "year": 2020,
+                "period": 6,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 138.0,
+                "aggregate": false,
+                "periodName": "Jun-20",
+                "displayOrder": 202006
+              },
+              {
+                "year": 2020,
+                "period": 7,
+                "periodType": {
+                  "periodTypeCode": 3,
+                  "periodTypeName": 3
+                },
+                "unitCost": 0.0,
+                "plannedVolume": 0,
+                "plannedValue": 562.0,
+                "aggregate": false,
+                "periodName": "Jul-20",
+                "displayOrder": 202007
+              }
+            ],
+            "deliverableOrganisationRelationships": [],
+            "deliverableDimensionRelationships": [],
+            "deliverableDescription": null,
+            "unitCost": 0.0,
+            "plannedVolume": 0,
+            "plannedValue": 41009.0
+          }
+        ],
+        "contractAllocationNumber": "ALLF-8852",
+        "description": null,
+        "hierarchyType": 0,
+        "fundingStreamPeriodCode": "ALLF1920",
+        "startDate": "2019-08-01T00:00:00Z",
+        "endDate": "2020-07-31T00:00:00Z",
+        "maximumContractValue": 41009.0,
+        "reasonForAmendment": null,
+        "uopCode": null,
+        "tenderSpecificationReference": null,
+        "lotReference": null,
+        "tenderAwardReference": null
+      }
+    ],
+    "contractDimensionRelationships": [],
+    "contractOrganisationRelationships": [],
+    "contractNumber": "EDSK-1092",
+    "contractVersionNumber": 1,
+    "contractSubVersionNumber": 0,
+    "description": null,
+    "contractor": {
+      "organisationIdentifier": "ORG0011846",
+      "ukprn": 10017878,
+      "legalName": "10017878 Co Ltd",
+      "registeredCompanyNumber": "AA017878",
+      "organisationAddressIdentifier": 0,
+      "addressLine1": "15 Linden Drive",
+      "addressLine2": "Bradley Stoke",
+      "addressLine3": "Bristol",
+      "addressLine4": null,
+      "county": null,
+      "town": null,
+      "postcode": "BS32 8DT",
+      "Upin": "117878",
+      "CharityNumber": "17878",
+      "Status": "Active"
+    },
+    "hierarchyType": 1,
+    "contractType1": "Contract for Services",
+    "startDate": "2019-08-01T00:00:00Z",
+    "endDate": "2020-07-31T00:00:00Z",
+    "contractStatus": {
+      "status": null,
+      "parentStatus": null
+    },
+    "contractValue": 191334.0,
+    "parentContractNumber": null,
+    "parentContractVersionNumber": null,
+    "amendmentType": "None"
+  },
+  "MasterContractNumber": "ESFA-127564"
+}

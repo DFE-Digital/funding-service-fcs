@@ -1,0 +1,38 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017015</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017015</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>FERA-1022</AllocationNumber>
+        <VersionNumber>1</VersionNumber>
+      </Allocation>
+      <SubnominalCode>101242</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>ReclassificationCap</SubnominalDescription>
+      <AggregatedValue>11390.00</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>FERC</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2023-04-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2024-03-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2023-08-02</CensusEndDate>
+  <DueDate>2023-08-18</DueDate>
+  <FinancialPaymentFinancialYear>2023</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>05</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

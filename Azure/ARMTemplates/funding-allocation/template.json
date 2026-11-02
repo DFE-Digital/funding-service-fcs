@@ -1,0 +1,583 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentTag": {
+      "type": "string"
+    },
+    "parentBusinessTag": {
+      "type": "string"
+    },
+    "portfolioTag": {
+      "type": "string"
+    },
+    "productTag": {
+      "type": "string"
+    },
+    "serviceLineTag": {
+      "type": "string"
+    },
+    "StorageTableSuffix": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Name of the StorageTableSuffix"
+      }
+    },
+    "CFSShouldUseStub": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Use stub in Development Environment"
+      }
+    },
+    "CFSAadInstance": {
+      "type": "string",
+      "metadata": {
+        "description": "Address of the CFS token provider"
+      }
+    },
+    "CFSTenant": {
+      "type": "string",
+      "metadata": {
+        "description": "Address of the CFS Tenant"
+      }
+    },
+    "CFSScope": {
+      "type": "string",
+      "metadata": {
+        "description": "Scope of the CFS API"
+      }
+    },
+    "CFSRootUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Address of the CFS RootUrl"
+      }
+    },
+    "CRMAadInstance": {
+      "type": "string",
+      "metadata": {
+        "description": "Address of the CRM token provider"
+      }
+    },
+    "CRMResourceId": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the CRM ResourceId"
+      }
+    },
+    "CRMTenant": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the CRM Azure AD Tenant"
+      }
+    },
+    "DeploymentId": {
+      "type": "string",
+      "metadata": {
+        "description": "Unique Id for collation of logs in the log reader"
+      }
+    },
+    "SlackShouldSend": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Post Alert to Slack"
+      }
+    },
+    "applicationInsightsName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the shared app insights instance"
+      }
+    },
+    "appServiceAllMetricsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "All Metrics diagnostic setting"
+      }
+    },
+    "appServiceAppLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service app logs diagnostic setting"
+      }
+    },
+    "appServiceAuditLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service audit logs diagnostic setting"
+      }
+    },
+    "appServiceConsoleLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service console logs diagnostic setting"
+      }
+    },
+    "appServiceFileAuditLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service file audit logs diagnostic setting"
+      }
+    },
+    "appServiceRetentionPolicyDays": {
+      "type": "string",
+      "defaultValue": "0"
+    },
+    "appServicePlanName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of shared api hosting plan"
+      }
+    },
+    "appServiceRetentionPolicyEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "deploymentUrlBase": {
+      "type": "string",
+      "metadata": {
+        "description": "The root url which holds all of the linked templates used by this template, a parameter to ease testing."
+      }
+    },
+    "http20Enabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "ipSecurityRestrictionsSetting": {
+      "type": "string",
+      "defaultValue": "Warning",
+      "metadata": {
+        "description": "one of the properties of the ipSecurityRestrictions variable below (eg denyAllInbound)"
+      }
+    },
+    "UseRealDate": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Use Real Data in Funding Allocations"
+      }
+    },
+    "appServiceHTTPLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service http logs diagnostic setting"
+      }
+    },
+    "idaResourceIdFundingStreamConfig": {
+      "type": "string",
+      "metadata": {
+        "description": "Resource Id Funding Stream Config"
+      }
+    },
+    "idaTenantFundingStreamConfig": {
+      "type": "string",
+      "metadata": {
+        "description": "Tenant Funding Stream Config"
+      }
+    },
+    "FscEnrichmentUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "FSC Enrichment Url"
+      }
+    }
+  },
+  "variables": {
+    "actionGroupName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-ag')]",
+    "appServicesVNetIntegrationSubnetId": "[resourceId(variables('sharedRG'), 'Microsoft.Network/virtualNetworks/subnets', variables('sharedVNetName'), 'appServiceVNetIntegration' )]",
+    "environmentShortCode": "[split(resourceGroup().name, '-')[2]]",
+    "fundingAllocationAppServiceName": "[concat('fcs-', variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-funding-allocation')]",
+    "ipSecurityRestrictions": {
+      "denyAllInbound": [
+        {
+          "ipAddress": "0.0.0.0/0",
+          "action": "Deny",
+          "priority": 100,
+          "name": "Deny All Inbound"
+        }
+      ],
+      "allowAll": [],
+      "allowSNetOnly": [
+        {
+          "vnetSubnetResourceId": "[variables('appServicesVNetIntegrationSubnetId')]",
+          "action": "Allow",
+          "priority": 100,
+          "name": "allow known subnet only"
+        }
+      ]
+    },
+    "sharedKeyVaultName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-kv')]",
+    "keyVaultName": "[concat('fcs-', variables('subscriptionShortCode'), '-', variables('environmentShortCode'),'-kv')]",
+    "logAnalyticsWorkspaceName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-la')]",
+    "sharedRG": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-rg')]",
+    "sharedVNetName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-vnet-01')]",
+    "sharedWorkspaceID": "[resourceId(variables('sharedRG'),'Microsoft.OperationalInsights/workspaces', variables('logAnalyticsWorkspaceName'))]",
+    "subscriptionShortCode": "[split(resourceGroup().name, '-')[1]]",
+    "alertRules": [
+      {
+        "AlertName": "Average_Response_Time_Funding_Allocation",
+        "MetricName": "HttpResponseTime",
+        "Operator": "GreaterThan",
+        "Description": "[concat('Average Response Time gt dynamic threshold on ', variables('fundingAllocationAppServiceName'))]",
+        "Aggregation": "Average",
+        "ResourceType": "Microsoft.Web/sites",
+        "ResourceName": "[variables('fundingAllocationAppServiceName')]",
+        "WindowSize": "PT5M"
+      },
+      {
+        "AlertName": "Alerts_http_server_errors_Funding_Allocation",
+        "MetricName": "Http5xx",
+        "Operator": "GreaterThan",
+        "Description": "[concat('Average https server errors gt dynamic threshold on ', variables('fundingAllocationAppServiceName'))]",
+        "Threshold": "0",
+        "Aggregation": "Average",
+        "ResourceType": "Microsoft.Web/sites",
+        "ResourceName": "[variables('fundingAllocationAppServiceName')]",
+        "WindowSize": "PT5M"
+      }
+    ]
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_function_allocation_appservice",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'app-service-premium.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "environmentTag": {
+            "value": "[parameters('environmentTag')]"
+          },
+          "parentBusinessTag": {
+            "value": "[parameters('parentBusinessTag')]"
+          },
+          "portfolioTag": {
+            "value": "[parameters('portfolioTag')]"
+          },
+          "productTag": {
+            "value": "[parameters('productTag')]"
+          },
+          "serviceLineTag": {
+            "value": "[parameters('serviceLineTag')]"
+          },
+          "appServiceName": {
+            "value": "[variables('fundingAllocationAppServiceName')]"
+          },
+          "appServicePlanName": {
+            "value": "[parameters('appServicePlanName')]"
+          },
+          "appServicePlanResourceGroup": {
+            "value": "[variables('sharedRG')]"
+          },
+          "deployStagingSlot": {
+            "value": false
+          },
+          "ipSecurityRestrictions": {
+            "value": "[variables('ipSecurityRestrictions')[parameters('ipSecurityRestrictionsSetting')]]"
+          },
+          "subnetResourceId": {
+            "value": "[variables('appServicesVNetIntegrationSubnetId')]"
+          },
+          "appServiceAppSettings": {
+            "value": [
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference(resourceId('Microsoft.Insights/components', parameters('applicationInsightsName')), '2015-05-01').InstrumentationKey]"
+              },
+              {
+                "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                "value": "[concat('InstrumentationKey=', reference(resourceId('Microsoft.Insights/components', parameters('applicationInsightsName')), '2015-05-01').InstrumentationKey)]"
+              },
+              {
+                "name": "CFS:ShouldUseStub",
+                "value": "[parameters('CFSShouldUseStub')]"
+              },
+              {
+                "name": "CFS:AADInstance",
+                "value": "[parameters('CFSAadInstance')]"
+              },
+              {
+                "name": "CFS:Tenant",
+                "value": "[parameters('CFSTenant')]"
+              },
+              {
+                "name": "CFS:Scope",
+                "value": "[parameters('CFSScope')]"
+              },
+              {
+                "name": "CFS:RootUrl",
+                "value": "[parameters('CFSRootUrl')]"
+              },
+              {
+                "name": "CFS:ClientSecret",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=CFSClientSecret)')]"
+              },
+              {
+                "name": "CFS:ClientId",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=CFSClientId)')]"
+              },
+              {
+                "name": "CRM:AppKey",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=CRMAppKey)')]"
+              },
+              {
+                "name": "CRM:ClientId",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=CRMClientId)')]"
+              },
+              {
+                "name": "CRM:AADInstance",
+                "value": "[parameters('CRMAadInstance')]"
+              },
+              {
+                "name": "CRM:ResourceId",
+                "value": "[parameters('CRMResourceId')]"
+              },
+              {
+                "name": "CRM:Tenant",
+                "value": "[parameters('CRMTenant')]"
+              },
+              {
+                "name": "DeploymentId",
+                "value": "[parameters('DeploymentId')]"
+              },
+              {
+                "name": "Slack:ShouldSend",
+                "value": "[parameters('SlackShouldSend')]"
+              },
+              {
+                "name": "ErrorWebhook:Url:General",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=ErrorWebhookUrl)')]"
+              },
+              {
+                "name": "StorageTableSuffix",
+                "value": "[parameters('StorageTableSuffix')]"
+              },
+              {
+                "name": "WEBSITE_RUN_FROM_PACKAGE",
+                "value": "1"
+              },
+              {
+                "name": "UseRealDate",
+                "value": "[parameters('UseRealDate')]"
+              },
+              {
+                "name": "ida:AppKey_FundingStreamConfig",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=idaAppKeyFundingStreamConfig)')]"
+              },
+              {
+                "name": "ida:ClientId_FundingStreamConfig",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=idaClientIdFundingStreamConfig)')]"
+              },
+              {
+                "name": "ida:ResourceId_FundingStreamConfig",
+                "value": "[parameters('idaResourceIdFundingStreamConfig')]"
+              },
+              {
+                "name": "ida:Tenant_FundingStreamConfig",
+                "value": "[parameters('idaTenantFundingStreamConfig')]"
+              },
+              {
+                "name": "FscEnrichmentUrl",
+                "value": "[parameters('FscEnrichmentUrl')]"
+              },
+              {
+                "name": "ida:AADInstance_FundingStreamConfig",
+                "value": "[parameters('CRMAADInstance')]"
+              }
+            ]
+          },
+          "appServiceConnectionStrings": {
+            "value": [
+              {
+                "name": "NServiceBus/Persistence",
+                "connectionString": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcsPaaSDBConnectionstring)')]",
+                "type": "Custom"
+              },
+              {
+                "name": "NServiceBus/Transport",
+                "connectionString": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=NServiceBusTransport)')]",
+                "type": "Custom"
+              },
+              {
+                "name": "StorageConnectionString",
+                "connectionString": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=StorageConnectionString)')]",
+                "type": "Custom"
+              }
+            ]
+          },
+          "workspaceId": {
+            "value": "[variables('sharedWorkspaceID')]"
+          },
+          "appServiceConsoleLogsSetting": {
+            "value": "[parameters('appServiceConsoleLogsSetting')]"
+          },
+          "appServiceAppLogsSetting": {
+            "value": "[parameters('appServiceAppLogsSetting')]"
+          },
+          "appServiceFileAuditLogsSetting": {
+            "value": "[parameters('appServiceFileAuditLogsSetting')]"
+          },
+          "appServiceAuditLogsSetting": {
+            "value": "[parameters('appServiceAuditLogsSetting')]"
+          },
+          "allMetricsSetting": {
+            "value": "[parameters('appServiceAllMetricsSetting')]"
+          },
+          "retentionPolicyEnabled": {
+            "value": "[parameters('appServiceRetentionPolicyEnabled')]"
+          },
+          "retentionPolicyDays": {
+            "value": "[parameters('appServiceRetentionPolicyDays')]"
+          },
+          "http20Enabled": {
+            "value": "[parameters('http20Enabled')]"
+          },
+          "appServiceHTTPLogsSetting": {
+            "value": "[parameters('appServiceHTTPLogsSetting')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_function_allocation_appservice_Identity_To_EnvKeyVault",
+      "dependsOn": [
+        "Deploy_function_allocation_appservice"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'keyvault-accesspolicies.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          },
+          "accessPolicies": {
+            "value": [
+              {
+                "tenantId": "[reference(concat('Deploy_function_allocation_appservice')).outputs.managedServiceIdentity.value.tenantId]",
+                "objectId": "[reference(concat('Deploy_function_allocation_appservice')).outputs.managedServiceIdentity.value.principalId]",
+                "permissions": {
+                  "secrets": [
+                    "get"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Deploy_function_allocation_appservice_Identity_To_SharedKeyVault",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "resourceGroup": "[variables('sharedRG')]",
+      "dependsOn": [
+        "Deploy_function_allocation_appservice"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'keyvault-accesspolicies.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[variables('sharedKeyVaultName')]"
+          },
+          "accessPolicies": {
+            "value": [
+              {
+                "tenantId": "[reference(concat('Deploy_function_allocation_appservice')).outputs.managedServiceIdentity.value.tenantId]",
+                "objectId": "[reference(concat('Deploy_function_allocation_appservice')).outputs.managedServiceIdentity.value.principalId]",
+                "permissions": {
+                  "secrets": [
+                    "get"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "microsoft.insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[variables('alertRules')[copyIndex()].AlertName]",
+      "dependsOn": [
+        "Deploy_function_allocation_appservice"
+      ],
+      "location": "global",
+      "tags": {
+        "Environment": "[parameters('environmentTag')]",
+        "Parent Business": "[parameters('parentBusinessTag')]",
+        "Portfolio": "[parameters('portfolioTag')]",
+        "Product": "[parameters('productTag')]",
+        "Service": "[parameters('productTag')]",
+        "Service Line": "[parameters('serviceLineTag')]",
+        "Service Offering": "[parameters('productTag')]"
+      },
+      "properties": {
+        "description": "[variables('alertRules')[copyIndex()].Description]",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId(resourceGroup().name, 'Microsoft.Web/sites', variables('fundingAllocationAppServiceName'))]"
+        ],
+        "evaluationFrequency": "PT5M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "allOf": [
+            {
+              "alertSensitivity": "Medium",
+              "failingPeriods": {
+                "numberOfEvaluationPeriods": 4,
+                "minFailingPeriodsToAlert": 4
+              },
+              "name": "Metric1",
+              "metricNamespace": "Microsoft.Web/sites",
+              "metricName": "[variables('alertRules')[copyIndex()].MetricName]",
+              "dimensions": [],
+              "operator": "[variables('alertRules')[copyIndex()].Operator]",
+              "timeAggregation": "[variables('alertRules')[copyIndex()].Aggregation]",
+              "criterionType": "DynamicThresholdCriterion"
+            }
+          ],
+          "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+        },
+        "autoMitigate": true,
+        "targetResourceType": "Microsoft.Web/sites",
+        "targetResourceRegion": "[resourceGroup().location]",
+        "actions": [
+          {
+            "actionGroupId": "[resourceId(variables('sharedRG'), 'Microsoft.Insights/actiongroups', variables('actionGroupName')) ]",
+            "webHookProperties": {}
+          }
+        ]
+      },
+      "copy": {
+        "name": "AlertRulesCopy",
+        "count": "[length(variables('alertRules'))]"
+      }
+    }
+  ]
+}

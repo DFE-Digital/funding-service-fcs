@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{b5e8c438-df25-4240-822d-124dcf424fab}</formid>
+  <IntroducedVersion>1.2.3.7</IntroducedVersion>
+  <FormPresentation>0</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab name="general" verticallayout="true" id="{c6af5957-cacc-402d-ae8e-c61a571beda0}" IsUserDefined="0">
+        <labels>
+          <label description="" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section name="account information" showlabel="false" showbar="false" id="{8329ccb3-05f7-41e7-a77c-69940f99d417}" IsUserDefined="0">
+                <labels>
+                  <label description="" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{3fee4e90-2149-4e4f-98b7-43df903416f5}">
+                      <labels>
+                        <label description="Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" disabled="false" />
+                    </cell>
+                    <cell id="{42bdffd7-70c9-446f-8099-1a49a507e97b}">
+                      <labels>
+                        <label description="Status" languagecode="1033" />
+                      </labels>
+                      <control id="statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="This is the form that is displayed for the CRM Mobile application." languagecode="1033" />
+  </Descriptions>
+</systemform>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{54af2507-1be1-4b80-a476-955272f6bd08}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_claimreconciliationbehaviourid">
+        <cell name="sfa_name" width="150" />
+        <cell name="sfa_claimtype" width="100" />
+        <cell name="sfa_fundingperiod" width="100" />
+        <cell name="sfa_allocationgroup" width="200" />
+        <cell name="sfa_publicationclosedate" width="150" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>1</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_claimreconciliationbehaviour">
+        <attribute name="sfa_name" />
+        <order attribute="sfa_name" descending="false" />
+        <attribute name="sfa_publicationclosedate" />
+        <attribute name="sfa_fundingperiod" />
+        <attribute name="sfa_claimtype" />
+        <attribute name="sfa_allocationgroup" />
+        <attribute name="sfa_claimreconciliationbehaviourid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.33.5.0</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Claim Reconciliation Behaviour Advanced Find View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

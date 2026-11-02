@@ -1,0 +1,1069 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<contract schemaVersion="11.00" xmlns="urn:sfa:schemas:contract" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <contracts>
+    <contract>
+      <fundingType>
+        <fundingTypeCode>NLA</fundingTypeCode>
+        <fundingTypeName>Non-Levy Apprenticeships</fundingTypeName>
+      </fundingType>
+      <period>
+        <periodType>
+          <periodTypeCode>NONLEVY</periodTypeCode>
+          <periodTypeName>NON-LEVY APPRENTICESHIPS</periodTypeName>
+        </periodType>
+        <period>2018</period>
+        <startDate>2018-01-01</startDate>
+        <endDate>2021-03-31</endDate>
+      </period>
+      <contractAllocations>
+        <contractAllocation>
+          <period>
+            <periodType>
+              <periodTypeCode>NONLEVY</periodTypeCode>
+              <periodTypeName>NON-LEVY APPRENTICESHIPS</periodTypeName>
+            </periodType>
+            <period>2018</period>
+            <startDate>2018-01-01</startDate>
+            <endDate>2021-03-31</endDate>
+          </period>
+          <fundingStream>
+            <fundingStreamCode>ANLAP</fundingStreamCode>
+            <fundingStreamName>Adult Non-Levy Apprenticeships (Procured)</fundingStreamName>
+            <fundingTypeCode>NLA</fundingTypeCode>
+            <fundingStreamShortCode xsi:nil="true"/>
+          </fundingStream>
+          <contractDeliverables>
+            <contractDeliverable>
+              <deliverable>
+                <fundingStreamCode>ANLAP</fundingStreamCode>
+                <deliverableCode>1</deliverableCode>
+                <deliverableName>Total Adult Non-Levy Apprenticeships Funding</deliverableName>
+              </deliverable>
+              <contractDeliverablePeriods>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>2009.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>3812.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>5747.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>4</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>8123.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>5</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>9452.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>6</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>10949.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>7</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>12334.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>8</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>36040.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>9</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>40010.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>10</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>43155.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>11</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>45165.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>12</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>46712.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>51507.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>53415.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>55270.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>4</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>19610.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>5</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>20206.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>6</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>20491.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>7</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>21457.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>8</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>22480.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>9</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>24924.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>10</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25549.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>11</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25919.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>12</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25521.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25833.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25549.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>26657.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+              </contractDeliverablePeriods>
+              <unitCost>0.0000000000</unitCost>
+              <plannedVolume>0</plannedVolume>
+              <plannedValue>707896.0000000000</plannedValue>
+            </contractDeliverable>
+          </contractDeliverables>
+          <contractAllocationNumber>ANLP-1001</contractAllocationNumber>
+          <hierarchyType>CONTRACT ALLOCATION</hierarchyType>
+          <fundingStreamPeriodCode>ANLAP2018</fundingStreamPeriodCode>
+          <startDate>2018-01-01</startDate>
+          <endDate>2020-03-31</endDate>
+          <maximumContractValue>707896.0000000000</maximumContractValue>
+          <StatusLastUpdatedDate xsi:nil="true"/>
+        </contractAllocation>
+        <contractAllocation>
+          <period>
+            <periodType>
+              <periodTypeCode>NONLEVY</periodTypeCode>
+              <periodTypeName>NON-LEVY APPRENTICESHIPS</periodTypeName>
+            </periodType>
+            <period>2018</period>
+            <startDate>2018-01-01</startDate>
+            <endDate>2021-03-31</endDate>
+          </period>
+          <fundingStream>
+            <fundingStreamCode>16-18NLAP-AS</fundingStreamCode>
+            <fundingStreamName>16-18 Non-Levy Apprenticeships (Procured) (Employer on App Service)</fundingStreamName>
+            <fundingTypeCode>NLA</fundingTypeCode>
+            <fundingStreamShortCode xsi:nil="true"/>
+          </fundingStream>
+          <contractDeliverables>
+            <contractDeliverable>
+              <deliverable>
+                <fundingStreamCode>ANLAP</fundingStreamCode>
+                <deliverableCode>1</deliverableCode>
+                <deliverableName>Total Adult Non-Levy Apprenticeships Funding</deliverableName>
+              </deliverable>
+              <contractDeliverablePeriods>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>2009.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>3812.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>5747.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>4</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>8123.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>5</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>9452.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>6</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>10949.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>7</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>12334.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>8</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>36040.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>9</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>40010.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>10</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>43155.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>11</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>45165.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>12</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>46712.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>51507.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>53415.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>55270.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>4</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>19610.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>5</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>20206.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>6</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>20491.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>7</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>21457.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>8</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>22480.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>9</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>24924.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>10</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25549.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>11</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25919.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>12</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25521.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25833.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25549.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>26657.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+              </contractDeliverablePeriods>
+              <unitCost>0.0000000000</unitCost>
+              <plannedVolume>0</plannedVolume>
+              <plannedValue>707896.0000000000</plannedValue>
+            </contractDeliverable>
+          </contractDeliverables>
+          <contractAllocationNumber>YNAS-1008</contractAllocationNumber>
+          <hierarchyType>CONTRACT ALLOCATION</hierarchyType>
+          <fundingStreamPeriodCode>16-18NLAP-AS2019</fundingStreamPeriodCode>
+          <startDate>2019-08-01</startDate>
+          <endDate>2019-12-31</endDate>
+          <maximumContractValue>1274.0000000000</maximumContractValue>
+          <StatusLastUpdatedDate xsi:nil="true"/>
+        </contractAllocation>
+        <contractAllocation>
+          <period>
+            <periodType>
+              <periodTypeCode>NONLEVY</periodTypeCode>
+              <periodTypeName>NON-LEVY APPRENTICESHIPS</periodTypeName>
+            </periodType>
+            <period>2018</period>
+            <startDate>2018-01-01</startDate>
+            <endDate>2021-03-31</endDate>
+          </period>
+          <fundingStream>
+            <fundingStreamCode>16-18NLAP</fundingStreamCode>
+            <fundingStreamName>16-18 Non-Levy Apprenticeships (Procured)</fundingStreamName>
+            <fundingTypeCode>NLA</fundingTypeCode>
+            <fundingStreamShortCode xsi:nil="true"/>
+          </fundingStream>
+          <contractDeliverables>
+            <contractDeliverable>
+              <deliverable>
+                <fundingStreamCode>ANLAP</fundingStreamCode>
+                <deliverableCode>1</deliverableCode>
+                <deliverableName>Total Adult Non-Levy Apprenticeships Funding</deliverableName>
+              </deliverable>
+              <contractDeliverablePeriods>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>2009.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>3812.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>5747.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>4</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>8123.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>5</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>9452.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>6</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>10949.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>7</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>12334.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>8</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>36040.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>9</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>40010.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>10</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>43155.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>11</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>45165.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2018</year>
+                  <period>12</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>46712.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>51507.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>53415.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>55270.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>4</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>19610.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>5</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>20206.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>6</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>20491.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>7</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>21457.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>8</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>22480.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>9</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>24924.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>10</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25549.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>11</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25919.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2019</year>
+                  <period>12</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25521.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>1</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25833.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>2</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>25549.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+                <contractDeliverablePeriod>
+                  <year>2020</year>
+                  <period>3</period>
+                  <periodType>
+                    <periodTypeCode>CM</periodTypeCode>
+                    <periodTypeName>CALENDAR MONTH</periodTypeName>
+                  </periodType>
+                  <unitCost>0</unitCost>
+                  <plannedVolume>0</plannedVolume>
+                  <plannedValue>26657.0000000000</plannedValue>
+                </contractDeliverablePeriod>
+              </contractDeliverablePeriods>
+              <unitCost>0.0000000000</unitCost>
+              <plannedVolume>0</plannedVolume>
+              <plannedValue>707896.0000000000</plannedValue>
+            </contractDeliverable>
+          </contractDeliverables>
+          <contractAllocationNumber>YNLP-1001</contractAllocationNumber>
+          <hierarchyType>CONTRACT ALLOCATION</hierarchyType>
+          <fundingStreamPeriodCode>16-18NLAP2018</fundingStreamPeriodCode>
+          <startDate>2018-01-01</startDate>
+          <endDate>2020-03-31</endDate>
+          <maximumContractValue>1521858.0000000000</maximumContractValue>
+          <reasonForAmendment>Adjustment</reasonForAmendment>
+          <StatusLastUpdatedDate xsi:nil="true"/>
+        </contractAllocation>
+      </contractAllocations>
+      <contractNumber>NLAP-1001</contractNumber>
+      <contractVersionNumber>10</contractVersionNumber>
+      <contractSubVersionNumber>0</contractSubVersionNumber>
+      <ContractApprovalDate>2020-01-24</ContractApprovalDate>
+      <StatusLastUpdatedDate>2020-01-24</StatusLastUpdatedDate>
+      <LastModifiedDate>2020-01-24</LastModifiedDate>
+      <contractor>
+        <organisationIdentifier>ORG0000511</organisationIdentifier>
+        <ukprn>10000028</ukprn>
+        <legalName>WOODSPEEN TRAINING LIMITED</legalName>
+        <organisationAddressIdentifier>0</organisationAddressIdentifier>
+      </contractor>
+      <hierarchyType>CONTRACT</hierarchyType>
+      <contractType>Procured</contractType>
+      <startDate>2018-01-01</startDate>
+      <endDate>2020-03-31</endDate>
+      <contractStatus>
+        <status>Approved</status>
+        <parentStatus>Approved</parentStatus>
+      </contractStatus>
+      <contractValue>2231028.0000</contractValue>
+      <parentContractNumber>ESFA-11481</parentContractNumber>
+      <parentContractVersionNumber>1</parentContractVersionNumber>
+      <amendmentType>Variation</amendmentType>
+    </contract>
+  </contracts>
+  <fundingType>
+    <fundingTypeCode>NLA</fundingTypeCode>
+    <fundingTypeName>Non-Levy Apprenticeships</fundingTypeName>
+  </fundingType>
+  <contractNumber>ESFA-11481</contractNumber>
+  <contractVersionNumber>1</contractVersionNumber>
+  <contractSubVersionNumber>0</contractSubVersionNumber>
+  <contractor>
+    <organisationIdentifier>ORG0000511</organisationIdentifier>
+    <ukprn>10000028</ukprn>
+    <legalName>WOODSPEEN TRAINING LIMITED</legalName>
+    <organisationAddressIdentifier>0</organisationAddressIdentifier>
+  </contractor>
+  <hierarchyType>MASTER CONTRACT</hierarchyType>
+  <contractType>Procured</contractType>
+  <startDate>2018-01-01</startDate>
+  <endDate>2019-03-31</endDate>
+</contract>

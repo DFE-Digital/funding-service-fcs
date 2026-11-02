@@ -1,0 +1,7 @@
+Name,Action,Action On Task,Default Assign To,From Action,From State,Maintains Previous Owner,Managers Team,Next Action,Owner,Process,Requires Change Of Ownership,Requires Creation Of Task,Secondary Assign To,Status,Status Reason,Subject,Task description,Task Type,To State
+Approve for Issue,Progress Contract,Mark Complete,Previous Owner,Awaiting Internal Approval,Draft,Yes,Contract Advisers Team,Internally Approved,Contract Managers Team,Contract Management Process,Yes,Yes,,Active,Active,Confirm Publication to Provider,,,Draft
+Publish To Provider,Progress Contract,Mark Complete,Previous Owner,Internally Approved,Draft,Yes,Contract Advisers Team,Published to Provider,Contract Advisers Team,Contract Management Process,Yes,Yes,Contract Adviser,Active,Active,Confirm Final Approval,,Contract Awaiting Approval,Draft
+Reassigned,,,,,,,,,Contract Managers Team,Contract Management Process,,,,Active,Active,,,,
+Record Imported,,,,,,,,,Contract Managers Team,Contract Management Process,,,,Active,Active,,,,
+Reject,Progress Contract,Mark Complete,Previous Owner,Awaiting Internal Approval,Draft,Yes,Contract Advisers Team,In Review,Contract Managers Team,Contract Management Process,Yes,Yes,,Active,Active,Progress Rejected Contract,,,Draft
+Release For Internal Approval,Progress Contract,Mark Complete,Contract Advisers Manager,In Review,Draft,No,Contract Managers Team,Awaiting Internal Approval,Contract Advisers Team,Contract Management Process,Yes,Yes,Contract Managers Team,Active,Active,Confirm Internal Approval,,Contract Awaiting Approval,Draft

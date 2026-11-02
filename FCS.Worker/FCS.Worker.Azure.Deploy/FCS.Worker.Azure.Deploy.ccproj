@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>2.9</ProductVersion>
+    <ProjectGuid>efe5d4b6-c3f7-45e5-ac9d-0ce34bf22b41</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FCS.Worker.Azure.Deploy</RootNamespace>
+    <AssemblyName>FCS.Worker.Azure.Deploy</AssemblyName>
+    <StartDevelopmentStorage>True</StartDevelopmentStorage>
+    <Name>FCS.Worker.Azure.Deploy</Name>
+    <PackageEnableRemoteDebugger>False</PackageEnableRemoteDebugger>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetProfile>Debug</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetProfile>Release</TargetProfile>
+  </PropertyGroup>
+  <!-- Items for the project -->
+  <ItemGroup>
+    <ServiceConfiguration Include="ServiceConfiguration.DMO.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.Release.cscfg" />
+    <ServiceDefinition Include="ServiceDefinition.csdef" />
+    <ServiceConfiguration Include="ServiceConfiguration.AT.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.DOAT.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.DAT.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.DCI.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.CI.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.OAT.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.Local.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.MO.cscfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WorkerRole\WorkerRole.csproj">
+      <Name>WorkerRole</Name>
+      <Project>{6107e310-9ca8-4c69-8921-c60250537064}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>WorkerRole</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WorkerRoleContent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="WorkerRoleContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <!-- Import the target files for this project template -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <CloudExtensionsDir Condition=" '$(CloudExtensionsDir)' == '' ">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Windows Azure Tools\2.9\</CloudExtensionsDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DCI' ">
+    <OutputPath>bin\DCI\</OutputPath>
+    <TargetProfile>DCI</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'CI' ">
+    <OutputPath>bin\CI\</OutputPath>
+    <TargetProfile>CI</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DAT' ">
+    <OutputPath>bin\DAT\</OutputPath>
+    <TargetProfile>DAT</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'AT' ">
+    <OutputPath>bin\AT\</OutputPath>
+    <TargetProfile>AT</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DOAT' ">
+    <OutputPath>bin\DOAT\</OutputPath>
+    <TargetProfile>DOAT</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'OAT' ">
+    <OutputPath>bin\OAT\</OutputPath>
+    <TargetProfile>OAT</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DMO' ">
+    <OutputPath>bin\DMO\</OutputPath>
+    <TargetProfile>DMO</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'MO' ">
+    <OutputPath>bin\MO\</OutputPath>
+    <TargetProfile>MO</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DebugCI' ">
+    <OutputPath>bin\DebugCI\</OutputPath>
+    <TargetProfile>DebugCI</TargetProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DEV' ">
+    <OutputPath>bin\DEV\</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(CloudExtensionsDir)Microsoft.WindowsAzure.targets" />
+</Project>

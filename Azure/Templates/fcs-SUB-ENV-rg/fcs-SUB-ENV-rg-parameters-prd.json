@@ -1,0 +1,132 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "fct-proxy": {
+      "value": [
+        {
+          "name": "x-fctservices-proxy",
+          "customName": "api-services-fcs.education.gov.uk",
+          "certificateName": "api-services-fcs-education-gov-uk",
+          "backendHost": "fcs-prd-{ENV}-app-x-fctservices"
+        },
+        {
+          "name": "org-webapi-proxy",
+          "customName": "api-org-fcs.education.gov.uk",
+          "certificateName": "api-org-fcs-education-gov-uk",
+          "backendHost": "fcs-prd-{ENV}-app-org-webapi"
+        }
+      ]
+    },
+    "appServices": {
+      "value": [
+        {
+          "name": "x-fctservices",
+          "authEnabled": true,
+          "issuer": "https://login.microsoftonline.com/3aacc835-4b83-483d-841d-cd787f6f1486",
+          "clientId": "d86ecc2d-96fa-4207-821c-1d4e9467ab94",
+          "allowedAudiences": [
+            "https://fcsazuresfabisgovuk.onmicrosoft.com/FCS-PROD-contractmanagementservice"
+          ],
+          "ipSecurityRestrictions": "allowSNetOnly",
+          "customName": "",
+          "certificateName": "",
+          "certificatesToLoad": ""
+        },
+        {
+          "name": "org-webapi",
+          "authEnabled": true,
+          "issuer": "https://login.microsoftonline.com/3aacc835-4b83-483d-841d-cd787f6f1486",
+          "clientId": "564e701d-4194-4a78-8381-bb4bfcfa9bde",
+          "allowedAudiences": [
+            "https://fcsazuresfabisgov.onmicrosoft.com/FCS-PROD-OrgServiceService"
+          ],
+          "ipSecurityRestrictions": "allowSNetOnly",
+          "customName": "",
+          "certificateName": "",
+          "certificatesToLoad": ""
+        },
+        {
+          "name": "x-opsweb",
+          "authEnabled": true,
+          "issuer": "https://login.microsoftonline.com/3aacc835-4b83-483d-841d-cd787f6f1486",
+          "clientId": "c4b0d3c3-a947-4bca-a5ab-c1f0b018b77c",
+          "allowedAudiences": [
+            "http://fcsazuresfabisgov.onmicrosoft.com/FCS-PROD-OpsWebService"
+          ],
+          "ipSecurityRestrictions": "allowAll",
+          "customName": "web-operations-fcs.education.gov.uk",
+          "certificateName": "web-operations-fcs-education-gov-uk",
+          "certificatesToLoad": "1D41AE063B34F3D53762C7E55B4B01823ABF1D04"
+        },
+        {
+          "name": "x-fcsworker",
+          "authEnabled": false,
+          "issuer": "",
+          "clientId": "",
+          "allowedAudiences": [],
+          "ipSecurityRestrictions": "denyAllInbound",
+          "customName": "",
+          "certificateName": "",
+          "certificatesToLoad": ""
+        },
+        {
+          "name": "x-cdi",
+          "authEnabled": false,
+          "issuer": "",
+          "clientId": "",
+          "allowedAudiences": [],
+          "ipSecurityRestrictions": "denyAllInbound",
+          "customName": "",
+          "certificateName": "",
+          "certificatesToLoad": "1D41AE063B34F3D53762C7E55B4B01823ABF1D04"
+        },
+        {
+          "name": "x-operations",
+          "authEnabled": false,
+          "issuer": "",
+          "clientId": "",
+          "allowedAudiences": [],
+          "ipSecurityRestrictions": "denyAllInbound",
+          "customName": "",
+          "certificateName": "",
+          "certificatesToLoad": ""
+        },
+        {
+          "name": "x-webjobs",
+          "authEnabled": false,
+          "issuer": "",
+          "clientId": "",
+          "allowedAudiences": [],
+          "ipSecurityRestrictions": "denyAllInbound",
+          "customName": "",
+          "certificateName": "",
+          "certificatesToLoad": ""
+        },
+        {
+          "name": "funding-allocation",
+          "authEnabled": false,
+          "issuer": "",
+          "clientId": "",
+          "allowedAudiences": [],
+          "ipSecurityRestrictions": "denyAllInbound",
+          "customName": "",
+          "certificateName": "",
+          "certificatesToLoad": ""
+        }
+      ]
+    },
+    "additionalCertificates": {
+      "value": [
+        {
+          "name": "exsilclient",
+          "certificateName": "exsilclient"
+        },
+        {
+          "name": "fcscpdsclient",
+          "certificateName": "fcscpdsclient"
+        }
+      ]
+    }
+  }
+}

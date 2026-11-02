@@ -1,0 +1,63 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017646</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017646</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>ALLC-6461</AllocationNumber>
+        <VersionNumber>1</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2303900</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>Adv LL Bursary</SubnominalDescription>
+      <AggregatedValue>2807.00</AggregatedValue>
+    </PaymentDetail>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0040271</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10040271</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>ALLC-6463</AllocationNumber>
+        <VersionNumber>1</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2303900</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>Adv LL Bursary</SubnominalDescription>
+      <AggregatedValue>1589.00</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>LBCO</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2021-08-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2022-07-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2021-08-05</CensusEndDate>
+  <DueDate>2021-08-19</DueDate>
+  <FinancialPaymentFinancialYear>2021</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>05</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017795</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017795</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>SDFII-795</AllocationNumber>
+        <VersionNumber>1</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2888882</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>SDFII Resource</SubnominalDescription>
+      <AggregatedValue>116.00</AggregatedValue>
+    </PaymentDetail>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017795</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017795</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>SDFII-795</AllocationNumber>
+        <VersionNumber>1</VersionNumber>
+      </Allocation>
+      <SubnominalCode>2888883</SubnominalCode>
+      <PaymentType>PROFILE</PaymentType>
+      <SubnominalDescription>SDFII Capital</SubnominalDescription>
+      <AggregatedValue>7523.00</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>SDF2</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2022-04-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2023-03-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2022-09-02</CensusEndDate>
+  <DueDate>2022-09-16</DueDate>
+  <FinancialPaymentFinancialYear>2022</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>06</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

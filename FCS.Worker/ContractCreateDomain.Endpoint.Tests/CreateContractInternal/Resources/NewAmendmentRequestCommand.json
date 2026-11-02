@@ -1,0 +1,2681 @@
+{
+  "ContractRequest": {
+    "correlationInfo": {
+      "batchId": "69b11a79-f4f5-476c-884e-707b575a8e05",
+      "correlationId": "f96a8389-42d4-433b-b0ae-117b28707e2c"
+    },
+    "contract": {
+      "correlationId": "5220e6d4-80a5-4dd1-a72b-f7b338345567",
+      "contracts": [
+        {
+          "correlationId": "5220e6d4-80a5-4dd1-a72b-f7b338345567",
+          "contracts": [],
+          "fundingTypeCode": "MAIN",
+          "period": {
+            "periodType1": {
+              "periodTypeCode": "AY",
+              "periodTypeName": ""
+            },
+            "period": "1718",
+            "startDate": "0001-01-01T00:00:00",
+            "endDate": "0001-01-01T00:00:00"
+          },
+          "contractAllocations": [
+            {
+              "correlationId": "0d8ea6b5-bb54-4639-9dcb-68d70a8d7f5a",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "16-18 APPS",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "16-18APPS1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "f6a79134-f516-4c44-a1ab-dc29f5de8311",
+                  "deliverable": {
+                    "fundingStreamCode": "16-18 APPS",
+                    "deliverableCode": 2,
+                    "businessCode": null,
+                    "deliverableName": "16-18 Apprenticeships Total Funding"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "f6a79134-f516-4c44-a1ab-dc29f5de8311",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1281.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "9d457d17-b7bb-4d03-8bfe-857de65d2a89",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2814.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1826b563-6299-4c85-89b4-f453b49d0443",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3165.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ce15e556-87d2-4582-aa50-c8642efa9a83",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3429.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "14006be9-6f04-4fc0-aebc-68cc614bfead",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2636.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "49f523c7-c769-4d85-a9dc-83e30fca3a93",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 64.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "b30dfc9e-7afc-4297-9f9c-2760d6a42a98",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1512.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8c5c13cc-735f-480b-bbb6-6d5b56d0d601",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 805.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "36c7f6d1-8170-4986-acd2-63d585b74662",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4242.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "98cf8518-9658-40d6-99ed-3b5fd59ce15c",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2517.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "873c3431-13d5-4fa3-8bf1-feb03119c24f",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2742.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "df31d66a-fba6-4b8d-9c07-096a2847f323",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4698.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            },
+            {
+              "correlationId": "3cf30a43-33b8-42f4-9583-e6e03d1711eb",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "16-18NLA",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "16-18NLA1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "963fdf45-57fd-47df-bd65-ae1e18f0f855",
+                  "deliverable": {
+                    "fundingStreamCode": "16-18NLA",
+                    "deliverableCode": 1,
+                    "businessCode": null,
+                    "deliverableName": "Total 16-18 Non-Levy Apprenticeships Funding"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "963fdf45-57fd-47df-bd65-ae1e18f0f855",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2464.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e439d798-342a-4d41-9713-5177077b3217",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2900.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "7a2ac0bf-3a35-4bb2-a3ff-dc07efc0a226",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4222.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "b0c85ce8-5d33-400b-8a76-f0e5b796b7fe",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3892.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6950f6cc-27e6-4af7-a0a1-2c798d6fc456",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2253.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "fa2b291f-4af0-44ad-ab46-ef4f12cf7e7a",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3535.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cc2655e0-350b-4756-8265-8e0feec483ea",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1004.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "daecef0c-89ed-4e2a-a750-7855c9fa7ac6",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1016.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f72eef15-30e5-42cb-b8ad-1e690ff175fd",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3608.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1c4040ca-01ea-442f-84d3-0196023db3c9",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4421.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "09fa8a63-717c-4e1d-885b-15f966e432ba",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 666.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "4554086c-6d0a-48bc-9e7b-93cf8a40f38a",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3343.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            },
+            {
+              "correlationId": "2218b1ad-5928-4028-a336-dec0cbbb2bb0",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "16-18TRN",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "16-18TRN1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "0fc16915-991b-4104-a5a7-5112fef0cda9",
+                  "deliverable": {
+                    "fundingStreamCode": "16-18TRN",
+                    "deliverableCode": 2,
+                    "businessCode": null,
+                    "deliverableName": "16-18 Traineeships Programme Funding"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "0fc16915-991b-4104-a5a7-5112fef0cda9",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4906.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "62784dc2-a8bc-454c-9393-28a45d1fa5d1",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2929.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "87844f2b-cbd3-42fb-bd25-4a7caf7d9013",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 272.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e2149e2f-85d1-4391-bd30-29b61c0a4e5b",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1977.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "516b7d1d-b838-4f6b-aeb0-f6eedf47418a",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4443.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "535c0560-960e-494a-bf6a-82fdae823daf",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1997.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a5872b90-e0f2-4fc0-8a7f-e338f9fc2759",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3068.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ed38d4d6-fdfb-4147-88b5-9d7c1ed53391",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2486.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ffb94661-342b-47db-aa12-42ccfff4b515",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4231.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8e8618c1-814b-4939-b72a-dbdf2532b5e4",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2632.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "afe12fdc-579a-4db6-ad1d-6607b2059ed1",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4800.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "06a1f36e-00e0-4ee1-9b48-22fa49ce8256",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3246.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                },
+                {
+                  "correlationId": "d6d9d490-71f7-4183-ad9f-b5b061d5e1e3",
+                  "deliverable": {
+                    "fundingStreamCode": "16-18TRN",
+                    "deliverableCode": 3,
+                    "businessCode": null,
+                    "deliverableName": "16-18 Traineeships Bursary Funding"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "d6d9d490-71f7-4183-ad9f-b5b061d5e1e3",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4271.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "93bcdc0c-7105-4fee-9719-d76f5d7e9947",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4833.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "2634cac1-b823-44fb-a680-1b3dbfec9fdb",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4463.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "95224ddb-4536-4f9a-95fe-25075aac9d8d",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 622.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6b51da21-e984-4aab-be2b-5c1847993a04",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2241.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "077e347a-13e7-44cd-b15b-c77b34c93d86",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3649.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "5935abd5-afe8-4a6b-a0f1-7140c0e9ffdc",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4377.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "2206e9dc-6026-4d7e-ba71-73540849a3fa",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4515.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "dfb54958-e94d-4042-abe6-87d1fadd91e8",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 463.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "9c58f85c-e931-4d90-aed1-9ecf63cf70c0",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2717.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e8b840fa-0016-40e3-a381-42467e9adffc",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2221.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6db88bbd-f1c1-4984-9e92-01c70229bbfa",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 73.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            },
+            {
+              "correlationId": "8b69bc60-56ae-4fd5-8b19-1a7feeb0ff2f",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "AAPP",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "AAPP1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "81e6a22a-eb8e-436d-82dc-5c59fce81614",
+                  "deliverable": {
+                    "fundingStreamCode": "AAPP",
+                    "deliverableCode": 1,
+                    "businessCode": null,
+                    "deliverableName": "Adult Apprenticeships Total Funding"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "81e6a22a-eb8e-436d-82dc-5c59fce81614",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 252.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "19d70d13-d1aa-419c-8ba0-a11856aef83a",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3352.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1987bdd6-53a0-40cf-9d4d-5f89d47eedf5",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3954.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "766ccd95-89c2-4099-a59a-f00d24f10845",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 834.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "02b9aa84-dd7b-4a81-ba09-0ef529f609d0",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1607.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ba0c0a05-5d19-4693-a10e-50552131226f",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 602.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c431c9ba-26ac-4000-8efd-38304d80e71e",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3616.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8c6b494e-59c1-42a8-803a-75a053d4a4f3",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3161.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "2e0400dd-9c9a-4a42-9a6d-5b635c2827d4",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3213.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "da894dc0-6b74-49d7-9a5e-5a27b2e06599",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3055.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a1c22a38-dfa5-41e6-8a8e-78fc0ba1f5ff",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3531.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "ad5b3d32-da2c-4dd8-ab06-2b93b2c09bcd",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2103.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            },
+            {
+              "correlationId": "b6235194-7338-4311-b324-5096b84b2ce7",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "AEBC",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "AEBC1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "71d0203c-b974-4a78-8861-6446aca47e7a",
+                  "deliverable": {
+                    "fundingStreamCode": "AEBC",
+                    "deliverableCode": 1,
+                    "businessCode": null,
+                    "deliverableName": "Adult Education Budget Total Funding"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "71d0203c-b974-4a78-8861-6446aca47e7a",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2750.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "18083ebf-d3bc-43a9-9f62-469979ab9ab5",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3438.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d4bf0fce-55ba-4b03-a53e-25b4f6fe7d13",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 60.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1f002fbf-028d-4ad9-957d-512a81c90468",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2612.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "6b43d1e7-a151-4b9e-8cca-df6400ef5122",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2539.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "20351993-01de-49d6-9159-e70f66f0ae4f",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4072.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "8d76d608-0feb-46b0-b46b-d4ae02857e9a",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3108.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "bf7c57bb-2d7e-4c5f-9ce5-09ac2591a611",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3372.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1a45eab8-13a6-434a-b4f5-a071fb6f342f",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4739.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "522763d4-3016-4b04-81bf-dc98225a28f8",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2167.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "7ca36159-ece0-4183-88f7-169b1fea55b8",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4930.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c063d727-0876-4ae2-8112-2de0a8a59544",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2908.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            },
+            {
+              "correlationId": "33dae9b5-1978-47b5-bd5e-ad60d84f9c82",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "AEBTO-CL",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "AEBTO-CL1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "76577f8b-d2fd-416f-ad85-0671bf455006",
+                  "deliverable": {
+                    "fundingStreamCode": "AEBTO-CL",
+                    "deliverableCode": 1,
+                    "businessCode": null,
+                    "deliverableName": "Adult Education Budget - Community Learning"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "76577f8b-d2fd-416f-ad85-0671bf455006",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2709.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "578f6ef8-c66f-489e-b71f-46e2c87e952d",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 984.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "169899e5-1f06-4131-ac83-0b5884d70afc",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4844.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3838b801-646a-4af8-b086-67afd5244660",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1850.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "5da72655-9aaa-403f-a18a-43cb9d53c653",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 931.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d00e527f-08ba-4af2-89cf-96c751519dcd",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 52.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "99ce08cd-c350-41fd-8c12-933469b5969b",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1374.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "5c7712b9-d955-4bbd-9b28-104f318c6737",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2359.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "b34b7d5c-3c52-49c0-98c2-8107de9b7300",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 719.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c62ef317-be63-4218-8eca-4498fb3b74b9",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 687.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "630125b1-d051-4a19-a98d-2bf9156911e4",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4421.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "d88cb511-7b7f-4229-8125-b89f38ecce6d",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4434.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            },
+            {
+              "correlationId": "e7ebde30-3806-4c0b-8d46-c8613bee4e26",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "AEBTO-LS",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "AEBTO-LS1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "775fb6ab-c7ba-49d7-8f19-ad8588409150",
+                  "deliverable": {
+                    "fundingStreamCode": "AEBTO-LS",
+                    "deliverableCode": 1,
+                    "businessCode": null,
+                    "deliverableName": "Adult Education Budget - Learner Support"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "775fb6ab-c7ba-49d7-8f19-ad8588409150",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2074.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "4c1215be-3fb0-4b9e-b27c-5acc5035af48",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2888.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f717d5f0-f358-4605-b78c-e87d87bc4995",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4084.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "303fb86f-dfda-4c87-9dab-c406e25dfac2",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1810.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "7bb68914-a68d-4171-8d55-28c0016c1e5d",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3681.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "cc464ab6-3889-48d2-957e-1b9472ccfcc7",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1704.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "7c883e6f-b3cf-415c-b87a-ffd11e1e2fba",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3998.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1ac3777e-3f39-469a-bb18-e190e350c3c8",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 752.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "fa194330-a2c9-46fb-97a2-b72e83d9a9bf",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1903.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3e875df2-846c-47a1-bba5-59a4c1623ea8",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 772.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "b0b8932a-78f9-4bf2-bf74-2682de779e49",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 528.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "e26fb8f0-2254-4849-aa23-a8539f2d0b22",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4897.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            },
+            {
+              "correlationId": "4824acef-c83d-4d6a-897b-0f47d71dbf44",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "AEBTO-TOL",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "AEBTO-TOL1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "c4bc92bf-fdef-4daf-a9e8-abb492bf1f5c",
+                  "deliverable": {
+                    "fundingStreamCode": "AEBTO-TOL",
+                    "deliverableCode": 1,
+                    "businessCode": null,
+                    "deliverableName": "Adult Education - Traineeships and Other Learning Total Funding"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "c4bc92bf-fdef-4daf-a9e8-abb492bf1f5c",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1383.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "90aff035-fd58-426e-9bfe-f996124b1f1f",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1098.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c6ba4ed9-29ef-4d9d-9e9a-3c1ed6ed70df",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3267.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "9b08acc0-b461-4792-a83c-f7a395ea90e8",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1713.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "f1ffaa76-7842-4e5e-8f20-4c588d24f2d4",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2738.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "a9b1ae3c-ca71-444b-a466-1832ac4bb25e",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3299.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "dacdccae-ee20-4d07-ace1-3371abf2d08a",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2929.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "29adf7ea-c8f9-400e-88fd-1a85121a3378",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4040.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "2b7164c3-1969-4213-a4fa-f293f5d84ede",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 708.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3481dbf9-ff32-4906-8e80-3993559fc07c",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 801.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "133c17bb-5b38-4225-8bb7-c81f40922981",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2843.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "05664b9d-ffac-4cae-856f-065f0e767964",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2982.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            },
+            {
+              "correlationId": "8a08f145-5d24-46e7-a8d2-c71df7562ed6",
+              "period": {
+                "periodType1": {
+                  "periodTypeCode": "AY",
+                  "periodTypeName": ""
+                },
+                "period": "1718",
+                "startDate": "0001-01-01T00:00:00",
+                "endDate": "0001-01-01T00:00:00"
+              },
+              "ukprn": 10017194,
+              "fundingStreamCode": "ANLA",
+              "LEPCode": null,
+              "LEPName": null,
+              "UoPCode": null,
+              "tenderSpecificationReference": null,
+              "lotReference": null,
+              "tenderAwardReference": null,
+              "activityDescription": null,
+              "description": null,
+              "investmentPriority": null,
+              "agreementNumber": null,
+              "specificationTitle": null,
+              "regionType": null,
+              "learningRatePremium": null,
+              "hierarchyType": 0,
+              "startDate": "2017-08-01T00:00:00Z",
+              "endDate": "2018-07-31T00:00:00Z",
+              "contractAllocationNumber": null,
+              "maximumContractValue": 0.0,
+              "fundingStreamPeriodCode": "ANLA1718",
+              "contractDeliverables": [
+                {
+                  "correlationId": "46d490c9-2d8e-44ee-bfb6-73de7a0c4db0",
+                  "deliverable": {
+                    "fundingStreamCode": "ANLA",
+                    "deliverableCode": 1,
+                    "businessCode": null,
+                    "deliverableName": "Total Adult Non-Levy Apprenticeships Funding"
+                  },
+                  "contractDeliverablePeriods": [
+                    {
+                      "correlationId": "46d490c9-2d8e-44ee-bfb6-73de7a0c4db0",
+                      "year": 2017,
+                      "period": 8,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3881.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3a997b70-04ee-4526-b5ad-14e41cb2a563",
+                      "year": 2017,
+                      "period": 9,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1184.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "819ddb75-1357-4559-94b6-c7e180a541af",
+                      "year": 2017,
+                      "period": 10,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4324.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "20dcbb18-0be1-40b2-9906-def68a35e990",
+                      "year": 2017,
+                      "period": 11,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2176.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "99989f33-c1ce-4cb7-a022-36bbaab88816",
+                      "year": 2017,
+                      "period": 12,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 3670.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "3e349eb6-3de7-466f-9d61-e6cb3153cb5d",
+                      "year": 2018,
+                      "period": 1,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1819.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "58555763-b591-4afa-b6ff-6386098ddc81",
+                      "year": 2018,
+                      "period": 2,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2420.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "c498340c-7450-41d1-be0a-4813f7f90bef",
+                      "year": 2018,
+                      "period": 3,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4251.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "19bfc040-895e-4424-81df-6d7e70a59be8",
+                      "year": 2018,
+                      "period": 4,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 74.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "414ea508-0642-4f94-82df-14ac3f2b51c7",
+                      "year": 2018,
+                      "period": 5,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 4020.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "47968fcf-bfbc-42d4-8c0d-d4db6dc6eb99",
+                      "year": 2018,
+                      "period": 6,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 2083.0,
+                      "aggregate": false,
+                      "periodName": null
+                    },
+                    {
+                      "correlationId": "1a388a88-e233-4f2a-8a97-f0a1bb3796a5",
+                      "year": 2018,
+                      "period": 7,
+                      "periodType": {
+                        "periodTypeCode": "CM",
+                        "periodTypeName": "CALENDAR MONTH"
+                      },
+                      "unitCost": null,
+                      "plannedVolume": null,
+                      "plannedValue": 1627.0,
+                      "aggregate": false,
+                      "periodName": null
+                    }
+                  ],
+                  "deliverableOrganisationRelationships": [],
+                  "deliverableDimensionRelationships": [],
+                  "deliverableDescription": null,
+                  "unitCost": null,
+                  "plannedVolume": null,
+                  "plannedValue": null,
+                  "crmNotPresent": false,
+                  "CRMIntent": 0
+                }
+              ],
+              "crmNotPresent": false,
+              "CRMIntent": 0,
+              "amendmentReason": null,
+              "ValueVariation": null,
+              "DeliveryOrganisation": null,
+              "DeliveryOrganisationDetail": {
+                "organisationIdentifier": null,
+                "ukprn": 0,
+                "legalName": null,
+                "registeredCompanyNumber": null,
+                "organisationAddressIdentifier": 0,
+                "addressLine1": null,
+                "addressLine2": null,
+                "addressLine3": null,
+                "addressLine4": null,
+                "town": null,
+                "county": null,
+                "postcode": null,
+                "organisationStatus": null,
+                "Upin": null,
+                "CharityNumber": null
+              },
+              "TerminationDate": null,
+              "StopNewStartsDate": null
+            }
+          ],
+          "contractNumber": null,
+          "contractVersionNumber": 1,
+          "contractSubVersionNumber": null,
+          "description": null,
+          "contractor": {
+            "organisationIdentifier": null,
+            "ukprn": 10017194,
+            "legalName": null,
+            "registeredCompanyNumber": null,
+            "organisationAddressIdentifier": 0,
+            "addressLine1": null,
+            "addressLine2": null,
+            "addressLine3": null,
+            "addressLine4": null,
+            "town": null,
+            "county": null,
+            "postcode": null,
+            "organisationStatus": null,
+            "Upin": null,
+            "CharityNumber": null
+          },
+          "hierarchyType": 1,
+          "contractType1": "Contract for Services",
+          "startDate": "2017-08-01T00:00:00Z",
+          "endDate": "2018-07-31T00:00:00Z",
+          "status": null,
+          "subStatus": null,
+          "crmNotPresent": false,
+          "CRMIntent": 6,
+          "amendmentType": 0,
+          "IsPresentInCrm": false,
+          "IsContractWithMatchingUKPRNPeriodAndFundingTypePresentInCrm": false,
+          "IsContractNumberWithMatchingUKPRNPeriodAndFundingTypePresentInCrm": false,
+          "IsDraftContractWithContractNumberPresentInCrm": false,
+          "IsApprovedContractWithContractNumberPresentInCrm": false,
+          "IsWithdrawnContractWithContractNumberPresentInCrm": false,
+          "IsNonWithdrawnOrSupersededDraftContractWithContractNumberPresentInCrm": false,
+          "IsMasterContractWithMatchingMasterContractNumberPresentInCrm": false,
+          "IsDraftOrApprovedContractForUkprnPresentInCrm": false,
+          "ValueVariation": null,
+          "PreviousVersionId": null,
+          "Id": null,
+          "Owner": null,
+          "ContractAdvisorId": null,
+          "ParentContractId": null,
+          "ApprovedAllocationValues": [],
+          "SkipCaseloadAssignment": null,
+          "SkipReviewAndInternalApproval": null,
+          "SkipDocumentMerge": null,
+          "TerminationDate": null,
+          "TerminationReason": null
+        }
+      ],
+      "fundingTypeCode": "MAIN",
+      "period": null,
+      "contractAllocations": [],
+      "contractNumber": "SFA-194",
+      "contractVersionNumber": 1,
+      "contractSubVersionNumber": null,
+      "description": null,
+      "contractor": {
+        "organisationIdentifier": null,
+        "ukprn": 10017194,
+        "legalName": null,
+        "registeredCompanyNumber": null,
+        "organisationAddressIdentifier": 0,
+        "addressLine1": null,
+        "addressLine2": null,
+        "addressLine3": null,
+        "addressLine4": null,
+        "town": null,
+        "county": null,
+        "postcode": null,
+        "organisationStatus": null,
+        "Upin": null,
+        "CharityNumber": null
+      },
+      "hierarchyType": 0,
+      "contractType1": null,
+      "startDate": "2017-08-01T00:00:00Z",
+      "endDate": "2018-07-31T00:00:00Z",
+      "status": null,
+      "subStatus": null,
+      "crmNotPresent": false,
+      "CRMIntent": 6,
+      "amendmentType": 0,
+      "IsPresentInCrm": false,
+      "IsContractWithMatchingUKPRNPeriodAndFundingTypePresentInCrm": false,
+      "IsContractNumberWithMatchingUKPRNPeriodAndFundingTypePresentInCrm": false,
+      "IsDraftContractWithContractNumberPresentInCrm": false,
+      "IsApprovedContractWithContractNumberPresentInCrm": false,
+      "IsWithdrawnContractWithContractNumberPresentInCrm": false,
+      "IsNonWithdrawnOrSupersededDraftContractWithContractNumberPresentInCrm": false,
+      "IsMasterContractWithMatchingMasterContractNumberPresentInCrm": false,
+      "IsDraftOrApprovedContractForUkprnPresentInCrm": false,
+      "ValueVariation": null,
+      "PreviousVersionId": null,
+      "Id": null,
+      "Owner": null,
+      "ContractAdvisorId": null,
+      "ParentContractId": null,
+      "ApprovedAllocationValues": [],
+      "SkipCaseloadAssignment": null,
+      "SkipReviewAndInternalApproval": null,
+      "SkipDocumentMerge": null,
+      "TerminationDate": null,
+      "TerminationReason": null
+    },
+    "errorInfo": [],
+    "FundingConfiguration": [
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "AEBC",
+        "FundingStreamId": "9735230f-e00a-e611-80e7-000d3ab031fe",
+        "FundingStreamName": "Adult Education Budget (College)",
+        "FundingStreamCodeId": "9735230f-e00a-e611-80e7-000d3ab031fe",
+        "FundingStreamPeriodCode": "AEBC1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "AEBTO-CL",
+        "FundingStreamId": "9935230f-e00a-e611-80e7-000d3ab031fe",
+        "FundingStreamName": "Adult Education Budget - Community Learning (TO)",
+        "FundingStreamCodeId": "9935230f-e00a-e611-80e7-000d3ab031fe",
+        "FundingStreamPeriodCode": "AEBTO-CL1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "AEBTO-LS",
+        "FundingStreamId": "9b35230f-e00a-e611-80e7-000d3ab031fe",
+        "FundingStreamName": "Adult Education Budget - Learner Support (TO)",
+        "FundingStreamCodeId": "9b35230f-e00a-e611-80e7-000d3ab031fe",
+        "FundingStreamPeriodCode": "AEBTO-LS1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "AEBTO-TOL",
+        "FundingStreamId": "9d35230f-e00a-e611-80e7-000d3ab031fe",
+        "FundingStreamName": "Adult Education Budget - Traineeships and Other Learning (TO)",
+        "FundingStreamCodeId": "9d35230f-e00a-e611-80e7-000d3ab031fe",
+        "FundingStreamPeriodCode": "AEBTO-TOL1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "16-18NLA",
+        "FundingStreamId": "024f648d-74e8-e611-80f7-000d3ab031fe",
+        "FundingStreamName": "16-18 Non-Levy Apprenticeships",
+        "FundingStreamCodeId": "024f648d-74e8-e611-80f7-000d3ab031fe",
+        "FundingStreamPeriodCode": "16-18NLA1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "ANLA",
+        "FundingStreamId": "044f648d-74e8-e611-80f7-000d3ab031fe",
+        "FundingStreamName": "Adult Non-Levy Apprenticeships",
+        "FundingStreamCodeId": "044f648d-74e8-e611-80f7-000d3ab031fe",
+        "FundingStreamPeriodCode": "ANLA1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "16-18TRN",
+        "FundingStreamId": "456e6b79-f83a-e711-80fb-000d3ab031fe",
+        "FundingStreamName": "16-18 Traineeships",
+        "FundingStreamCodeId": "456e6b79-f83a-e711-80fb-000d3ab031fe",
+        "FundingStreamPeriodCode": "16-18TRN1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "AAPP",
+        "FundingStreamId": "476e6b79-f83a-e711-80fb-000d3ab031fe",
+        "FundingStreamName": "Adult Apprenticeships",
+        "FundingStreamCodeId": "476e6b79-f83a-e711-80fb-000d3ab031fe",
+        "FundingStreamPeriodCode": "AAPP1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "24+ ALLBC",
+        "FundingStreamId": "89250fad-a89c-e411-93fb-000d3ab03a58",
+        "FundingStreamName": "Advanced Learner Loans Bursary (College)",
+        "FundingStreamCodeId": "89250fad-a89c-e411-93fb-000d3ab03a58",
+        "FundingStreamPeriodCode": "ALLBC1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "24+ ALLB",
+        "FundingStreamId": "8b250fad-a89c-e411-93fb-000d3ab03a58",
+        "FundingStreamName": "Advanced Learner Loans Bursary",
+        "FundingStreamCodeId": "8b250fad-a89c-e411-93fb-000d3ab03a58",
+        "FundingStreamPeriodCode": "ALLB1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      },
+      {
+        "FundingTypeCode": "MAIN",
+        "FundingStreamCode": "16-18 APPS",
+        "FundingStreamId": "e1889202-21ad-e411-93fc-000d3ab03a58",
+        "FundingStreamName": "16-18 Apprenticeships",
+        "FundingStreamCodeId": "e1889202-21ad-e411-93fc-000d3ab03a58",
+        "FundingStreamPeriodCode": "16-18APPS1718",
+        "Period": "1718",
+        "FundingPeriodStartDate": "2017-08-01T00:00:00Z",
+        "FundingPeriodEndDate": "2018-07-31T00:00:00Z",
+        "PeriodTypeName": "Academic Year",
+        "PeriodTypeCode": "AY"
+      }
+    ]
+  }
+}

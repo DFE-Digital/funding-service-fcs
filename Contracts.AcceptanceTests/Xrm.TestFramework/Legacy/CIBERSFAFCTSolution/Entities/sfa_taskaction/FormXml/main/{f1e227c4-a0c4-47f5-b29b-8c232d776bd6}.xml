@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{f1e227c4-a0c4-47f5-b29b-8c232d776bd6}</formid>
+  <IntroducedVersion>2.10.3.4</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{c3540620-3a70-45b1-bf6f-c1622d652854}" IsUserDefined="1">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{dc9e626b-f430-46d2-8da5-8188123c75bb}">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{6d561c7e-e4f3-47f3-a105-5aa46e042c34}" showlabel="true" locklevel="0" visible="false">
+                      <labels>
+                        <label description="Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{d3db2eec-5d82-b396-15a8-300d077a6347}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Task Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_taskname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_taskname" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{e722e6aa-5358-d60d-7306-d807e0992dc6}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Action Team" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_actionteamid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_actionteamid" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{51c11a64-d38a-92eb-aead-e2ed40738484}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Action Role" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_actionroleid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_actionroleid" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

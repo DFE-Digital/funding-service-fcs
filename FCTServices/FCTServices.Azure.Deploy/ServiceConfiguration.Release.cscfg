@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="FCTServices.Azure.Deploy" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="6" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="ContractManagementService">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SSLCertificate" thumbprint="0A3122253F70F3C773DF67F3692BCE929259B330" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="FCSProd-VNet" />
+    <AddressAssignments>
+      <InstanceAddress roleName="ContractManagementService">
+        <Subnets>
+          <Subnet name="Contract" />
+        </Subnets>
+      </InstanceAddress>
+      <ReservedIPs>
+        <ReservedIP name="fct-services-release-rip" />
+      </ReservedIPs>
+    </AddressAssignments>
+    <!--<AccessControls>
+      <AccessControl name="fctrules">
+        <Rule action="permit" description="fctservices" order="50" remoteSubnet="40.115.57.108/32" />
+        <Rule action="permit" description="orgservice" order="51" remoteSubnet="104.40.244.243/32" />
+        <Rule action="permit" description="servicebus" order="52" remoteSubnet="104.40.245.26/32" />
+        <Rule action="permit" description="mysubnet" order="100" remoteSubnet="10.78.101.64/28" />
+        <Rule action="deny" description="world" order="200" remoteSubnet="0.0.0.0/0" />
+      </AccessControl>
+    </AccessControls>
+    <EndpointAcls>
+      <EndpointAcl role="ContractManagementService" endPoint="ContractHttpEndpoint" accessControl="fctrules" />
+      <EndpointAcl role="FundingStreamConfigDomain.Web" endPoint="FscHttpEndpoint" accessControl="fctrules" />
+    </EndpointAcls>-->
+  </NetworkConfiguration>
+</ServiceConfiguration>

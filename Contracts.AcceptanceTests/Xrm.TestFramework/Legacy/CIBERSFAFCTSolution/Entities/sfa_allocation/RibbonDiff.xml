@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml>
+  <CustomActions>
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_allocation.Activate.Hide" Location="Mscrm.Form.sfa_allocation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_allocation.Deactivate.Hide" Location="Mscrm.Form.sfa_allocation.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.Form.sfa_allocation.SaveAsComplete.Hide" Location="Mscrm.Form.sfa_allocation.SaveAsComplete" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_allocation.Activate.Hide" Location="Mscrm.HomepageGrid.sfa_allocation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_allocation.Deactivate.Hide" Location="Mscrm.HomepageGrid.sfa_allocation.Deactivate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.HomepageGrid.sfa_allocation.RunReport.Hide" Location="Mscrm.HomepageGrid.sfa_allocation.RunReport" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_allocation.Activate.Hide" Location="Mscrm.SubGrid.sfa_allocation.Activate" />
+    <HideCustomAction HideActionId="sfa.Mscrm.SubGrid.sfa_allocation.Deactivate.Hide" Location="Mscrm.SubGrid.sfa_allocation.Deactivate" />
+    <CustomAction Id="sfa.Mscrm.SubGrid.sfa_allocation.RunWorkflow.CustomAction" Location="Mscrm.SubGrid.sfa_allocation.MainTab.Workflow.Controls._children" Sequence="30">
+      <CommandUIDefinition>
+        <Button Alt="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" Command="Mscrm.RunWorkflowSelected" Id="Mscrm.SubGrid.sfa_allocation.RunWorkflow" Image32by32="/_imgs/ribbon/runworkflow32.png" Image16by16="/_imgs/ribbon/RunWorkflow_16.png" LabelText="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" Sequence="30" TemplateAlias="o1" ToolTipTitle="$Resources:Ribbon.HomepageGrid.Data.Workflow.RunWorkflow" ToolTipDescription="$Resources(EntityDisplayName):Ribbon.Tooltip.RunWorkflow" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_allocation.Button1.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_allocation.MainTab.Management.Controls._children" Sequence="25">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_allocation.Button1.Button.Alt" Command="sfa.sfa_allocation.ReadyForReleaseCommand.Command" Description="READY FOR RELEASE" Id="sfa.sfa_allocation.Button1.Button" Image16by16="$webresource:sfa_ReadyForRelease16x16" LabelText="$LocLabels:sfa.sfa_allocation.Button1.Button.LabelText" Sequence="25" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_allocation.Button1.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_allocation.Button1.Button.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_allocation.Button2.Button.CustomAction" Location="Mscrm.SubGrid.sfa_allocation.MainTab.Management.Controls._children" Sequence="30">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_allocation.Button2.Button.Alt" Command="sfa.sfa_allocation.ReadyForReleaseCommand.Command" Description="READY FOR RELEASE" Id="sfa.sfa_allocation.Button2.Button" Image16by16="$webresource:sfa_ReadyForRelease16x16" LabelText="$LocLabels:sfa.sfa_allocation.Button2.Button.LabelText" Sequence="30" TemplateAlias="o2" ToolTipTitle="$LocLabels:sfa.sfa_allocation.Button2.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_allocation.Button2.Button.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_allocation.Button3.Button.CustomAction" Location="Mscrm.Form.sfa_allocation.MainTab.Save.Controls._children" Sequence="46">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_allocation.Button3.Button.Alt" Command="sfa.sfa_allocation.FormReadyForReleaseCommand.Command" Description="READY FOR RELEASE" Id="sfa.sfa_allocation.Button3.Button" Image16by16="$webresource:sfa_ReadyForRelease16x16" LabelText="$LocLabels:sfa.sfa_allocation.Button3.Button.LabelText" Sequence="46" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_allocation.Button3.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_allocation.Button3.Button.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_allocation.Button4.Button.CustomAction" Location="Mscrm.HomepageGrid.sfa_allocation.MainTab.Management.Controls._children" Sequence="35">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_allocation.Button4.Button.Alt" Command="sfa.sfa_allocation.RunReleaseCommand.Command" Description="Release" Id="sfa.sfa_allocation.Button4.Button" Image16by16="$webresource:sfa_PublishFCR16x16" LabelText="$LocLabels:sfa.sfa_allocation.Button4.Button.LabelText" Sequence="35" TemplateAlias="o1" ToolTipTitle="$LocLabels:sfa.sfa_allocation.Button4.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_allocation.Button4.Button.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="sfa.sfa_allocation.Button5.Button.CustomAction" Location="Mscrm.SubGrid.sfa_allocation.MainTab.Management.Controls._children" Sequence="55">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:sfa.sfa_allocation.Button5.Button.Alt" Command="sfa.sfa_allocation.RunReleaseCommand.Command" Description="Release" Id="sfa.sfa_allocation.Button5.Button" Image16by16="$webresource:sfa_PublishFCR16x16" LabelText="$LocLabels:sfa.sfa_allocation.Button5.Button.LabelText" Sequence="55" TemplateAlias="o2" ToolTipTitle="$LocLabels:sfa.sfa_allocation.Button5.Button.ToolTipTitle" ToolTipDescription="$LocLabels:sfa.sfa_allocation.Button5.Button.ToolTipDescription" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="Mscrm.EditSelectedRecord">
+      <EnableRules>
+        <EnableRule Id="Mscrm.CheckBulkEditSupportForEntity" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.BulkEditPrivilege" />
+        <DisplayRule Id="Mscrm.WriteSelectedEntityPermission" />
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="sfa.sfa_allocation.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.bulkEdit" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.RunInteractiveWorkflowPrimary">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="Mscrm.RunWorkflowPrimary" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="sfa.sfa_allocation.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.FormAction.runScript" Library="/_static/_forms/form.js">
+          <CrmParameter Value="PrimaryEntityTypeCode" />
+          <CrmParameter Value="PrimaryEntityTypeName" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.RunInteractiveWorkflowSelected">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountExactlyOne" />
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="sfa.sfa_allocation.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.runScript" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.RunWorkflowPrimary">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="Mscrm.RunWorkflowPrimary" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="sfa.sfa_allocation.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.FormAction.launchOnDemandWorkflowForm" Library="/_static/_forms/form.js">
+          <CrmParameter Value="PrimaryEntityTypeCode" />
+          <StringParameter Value="" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.RunWorkflowSelected">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.HideOnModern" />
+        <DisplayRule Id="Mscrm.HideForTabletExperience" />
+        <DisplayRule Id="sfa.sfa_allocation.AdminUserDisplayRule.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.launchOnDemandWorkflow" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+          <StringParameter Value="" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_allocation.FormReadyForReleaseCommand.Command">
+      <EnableRules>
+        <EnableRule Id="sfa.sfa_allocation.FormReadyForReleaseEnableRule.EnableRule" />
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="Mscrm.RunWorkflowPrimary" />
+        <EnableRule Id="sfa.sfa_allocation.ReadyForReleaseVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunReadyForReleaseWorkflow" Library="$webresource:sfa_runallocationprocess.js" />
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_allocation.ReadyForReleaseCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+        <EnableRule Id="sfa.sfa_allocation.ReadyForReleaseVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="Mscrm.GridRibbonActions.launchOnDemandWorkflow" Library="/_static/_common/scripts/RibbonActions.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeCode" />
+          <StringParameter Value="6907BE09-B3D1-4968-B331-32FD643A32A6" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="sfa.sfa_allocation.RunReleaseCommand.Command">
+      <EnableRules>
+        <EnableRule Id="Mscrm.RunWorkflowSelected" />
+        <EnableRule Id="sfa.sfa_allocation.ReadyForReleaseVisibilityRule.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="RunReleaseAllocationDialog" Library="$webresource:sfa_runallocationprocess.js" />
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="Mscrm.BulkEditPrivilege">
+        <MiscellaneousPrivilegeRule PrivilegeName="BulkEdit" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideForTabletExperience">
+        <HideForTabletExperienceRule />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.HideOnModern">
+        <CommandClientTypeRule Type="Modern" InvertResult="true" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.WriteSelectedEntityPermission">
+        <EntityPrivilegeRule PrivilegeType="Write" PrivilegeDepth="Basic" AppliesTo="SelectedEntity" />
+      </DisplayRule>
+      <DisplayRule Id="sfa.sfa_allocation.AdminUserDisplayRule.DisplayRule">
+        <EntityPrivilegeRule PrivilegeType="Create" PrivilegeDepth="Global" EntityName="sfa_allocation" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="Mscrm.CheckBulkEditSupportForEntity">
+        <OrRule>
+          <Or>
+            <SelectionCountRule AppliesTo="SelectedEntity" Minimum="1" Maximum="1" />
+          </Or>
+          <Or>
+            <SelectionCountRule AppliesTo="SelectedEntity" Minimum="2" />
+            <CustomRule FunctionName="Mscrm.RibbonActions.isBulkEditEnabledForEntity" Library="/_static/_common/scripts/RibbonActions.js">
+              <CrmParameter Value="SelectedEntityTypeCode" />
+            </CustomRule>
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="Mscrm.SelectionCountExactlyOne">
+        <SelectionCountRule AppliesTo="SelectedEntity" Minimum="1" Maximum="1" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.VisualizationPaneNotMaximized">
+        <OrRule>
+          <Or>
+            <CommandClientTypeRule Type="Modern" />
+          </Or>
+          <Or>
+            <CustomRule FunctionName="Mscrm.RibbonActions.disableButtonsWhenChartMaximized" Library="/_static/_common/scripts/RibbonActions.js">
+              <CrmParameter Value="SelectedControl" />
+            </CustomRule>
+          </Or>
+        </OrRule>
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_allocation.FormReadyForReleaseEnableRule.EnableRule">
+        <CustomRule FunctionName="EnableReadyForReleaseButton" Library="$webresource:sfa_runallocationprocess.js" />
+      </EnableRule>
+      <EnableRule Id="sfa.sfa_allocation.ReadyForReleaseVisibilityRule.EnableRule">
+        <CustomRule FunctionName="isNaN" Library="$webresource:sfa_/js/contract.forms.main.js" />
+        <CustomRule FunctionName="CheckReadyForReleaseTeamVisibility" Library="$webresource:sfa_runallocationprocess.js" />
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="sfa.sfa_allocation.Button1.Button.Alt">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button1.Button.LabelText">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button1.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Mark selected allocations as 'ready to release'" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button1.Button.ToolTipTitle">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button2.Button.Alt">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button2.Button.LabelText">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button2.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Mark selected allocations as 'ready to release'" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button2.Button.ToolTipTitle">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button3.Button.Alt">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button3.Button.LabelText">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button3.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Mark current allocation as 'ready to release'" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button3.Button.ToolTipTitle">
+      <Titles>
+        <Title description="READY FOR RELEASE" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button4.Button.Alt">
+      <Titles>
+        <Title description="Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button4.Button.LabelText">
+      <Titles>
+        <Title description="Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button4.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Release allocations for contracting" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button4.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button5.Button.Alt">
+      <Titles>
+        <Title description="Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button5.Button.LabelText">
+      <Titles>
+        <Title description="Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button5.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Release allocations for contracting" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="sfa.sfa_allocation.Button5.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Release" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

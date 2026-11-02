@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <savedqueryid>{d83cd615-15e5-e411-9400-000d3ab03a58}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_contractallocationnumber" select="1" preview="1" icon="1">
+      <row name="result" id="sfa_contractallocationid">
+        <cell name="ab.sfa_ukprn" width="100" disableSorting="1" />
+        <cell name="ab.sfa_providername" width="100" disableSorting="1" />
+        <cell name="ab.sfa_parentcontractid" width="100" disableSorting="1" />
+        <cell name="ab.sfa_number" width="100" disableSorting="1" />
+        <cell name="ab.sfa_version" width="100" disableSorting="1" />
+        <cell name="ab.modifiedon" width="100" disableSorting="1" />
+        <cell name="ab.sfa_contractadviser" width="100" disableSorting="1" />
+        <cell name="sfa_contractallocationnumber" width="100" />
+        <cell name="ab.sfa_contractstatus" width="100" disableSorting="1" />
+        <cell name="ab.sfa_substatus" width="100" disableSorting="1" />
+        <cell name="sfa_stopnewstartsdate" width="100" />
+        <cell name="sfa_terminationdate" width="100" />
+        <cell name="a_b66827ce8afde4119403000d3ab03a58.sfa_fundingstreamperiodname" width="150" disableSorting="1" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+      <entity name="sfa_contractallocation">
+        <order attribute="sfa_contractallocationnumber" descending="false" />
+        <link-entity name="sfa_contractdeliverable" from="sfa_contractallocationid" to="sfa_contractallocationid" alias="aa" />
+        <link-entity name="sfa_contract" from="sfa_contractid" to="sfa_contractid" alias="ab">
+          <filter type="and">
+            <condition attribute="sfa_fundingtype" operator="not-null" />
+            <condition attribute="sfa_periodid" operator="not-null" />
+          </filter>
+          <attribute name="sfa_version" />
+          <attribute name="sfa_ukprn" />
+          <attribute name="sfa_providername" />
+          <attribute name="sfa_parentcontractid" />
+          <attribute name="modifiedon" />
+          <attribute name="sfa_contractadviser" />
+          <attribute name="sfa_number" />
+          <attribute name="sfa_substatus" />
+          <attribute name="sfa_contractstatus" />
+        </link-entity>
+        <attribute name="sfa_contractallocationnumber" />
+        <attribute name="sfa_terminationdate" />
+        <attribute name="sfa_stopnewstartsdate" />
+        <link-entity alias="a_b66827ce8afde4119403000d3ab03a58" name="sfa_fundingstreamperiod" from="sfa_fundingstreamperiodid" to="sfa_fundingstreamperiodid" link-type="outer" visible="false">
+          <attribute name="sfa_fundingstreamperiodname" />
+        </link-entity>
+        <attribute name="sfa_contractallocationid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.1.8.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Allocations Data Extract Report1" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

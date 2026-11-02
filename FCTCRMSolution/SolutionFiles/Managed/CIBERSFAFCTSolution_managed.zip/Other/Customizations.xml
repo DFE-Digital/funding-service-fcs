@@ -1,0 +1,1327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Entities />
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <RibbonDiffXml />
+  <SiteMap />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <Reports />
+  <Dashboards />
+  <InteractionCentricDashboards>
+    <InteractionCentricDashboard>
+      <LocalizedNames>
+        <LocalizedName description="Accounts Dashboard" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Shows an overview of data related to accounts." languagecode="1033" />
+      </Descriptions>
+      <FormId>{15915835-b87c-49ec-9ffc-bfac3ac44ef1}</FormId>
+      <IsDefault>0</IsDefault>
+      <FormXml>
+        <forms type="interactioncentricdashboard">
+          <form>
+            <tabs filterby="createdon" timeframe="7" primaryentitylogicalname="account" entityview="{00000000-0000-0000-00AA-000010001002}" dashboardCategory="1_1" tilespresent="false">
+              <tab showlabel="true" verticallayout="true" collapsible="true" id="{24fa8919-d169-4242-81cf-328f4a32377d}">
+                <labels>
+                  <label description="" languagecode="1033" />
+                </labels>
+                <columns>
+                  <column width="100%">
+                    <sections>
+                      <section name="VisualFilters" showlabel="false" showbar="false" columns="1111" id="{0a032952-edaf-4639-8613-10890822010f}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <rows>
+                          <row>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{34e280b1-b19c-429c-8fd5-a348ee9bae12}" auto="false">
+                              <labels>
+                                <label description="Organisations" languagecode="1033" />
+                              </labels>
+                              <control id="Componentc4e86d7" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                                <parameters>
+                                  <TargetEntityType>account</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001002}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{74A622C0-5193-DE11-97D4-00155DA3B01E}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{8e3a4afb-fe9c-40c0-ab92-7b29e22a3fda}" auto="false">
+                              <labels>
+                                <label description="Organisations" languagecode="1033" />
+                              </labels>
+                              <control id="Component2316e00" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                                <parameters>
+                                  <TargetEntityType>account</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001002}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{be178262-6142-4b41-85b7-4ccedc62cfd9}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{46dcfd3b-a55f-4a31-ac5b-0600e9825760}" auto="false">
+                              <labels>
+                                <label description="Organisations" languagecode="1033" />
+                              </labels>
+                              <control id="Component666c4a4" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                                <parameters>
+                                  <TargetEntityType>account</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001002}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{5B290FFF-355F-DF11-AE90-00155D2E3002}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                            <cell colspan="1" rowspan="12" showlabel="false" ispreviewcell="true" ischartcell="true" id="{134cc0fd-761c-4b6c-8651-a6f65699daf0}">
+                              <labels>
+                                <label description="" languagecode="1033" />
+                              </labels>
+                            </cell>
+                          </row>
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                        </rows>
+                      </section>
+                    </sections>
+                  </column>
+                </columns>
+              </tab>
+              <tab name="StreamsContainer" showlabel="true" verticallayout="true" collapsible="false" id="{04777963-a981-4d85-bb77-948111df0bdf}">
+                <labels>
+                  <label description="" languagecode="1033" />
+                </labels>
+                <columns>
+                  <column width="100%">
+                    <sections>
+                      <section name="Streams" showlabel="false" showbar="false" columns="1111" id="{98a04539-b529-4c9a-bf6d-d7ea5f171302}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <rows>
+                          <row>
+                            <cell colspan="4" rowspan="12" showlabel="false" isstreamcell="true" id="{0c1ce1d7-749f-4fcc-86cb-9f10d78ea056}">
+                              <labels>
+                                <label description="" languagecode="1033" />
+                              </labels>
+                              <control id="Component{c25c1ba2-33b6-0760-d1cc-7621224bdaa7}" classid="{EE9078C8-6946-4E2C-B8F8-35E65F4BE6A8}">
+                                <parameters>
+                                  <StreamObjects>
+                                    <ShowAsTiles>false</ShowAsTiles>
+                                    <StreamObject type="1" id="{f4e583f5-7e73-43eb-8793-276b20ff1b27}">
+                                      <LogicalEntityName>account</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001001}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{1974731d-f185-4bc4-b6dd-37a6fcb8e847}">
+                                      <LogicalEntityName>account</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001002}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{81CFD7EA-7DBD-451F-A2BA-60E61EB50E29}">
+                                      <LogicalEntityName>account</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001031}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{AF63BE3B-FBAA-44D4-AF06-7B52EF6C7F8E}">
+                                      <LogicalEntityName>account</LogicalEntityName>
+                                      <EntityViewId>{65FFAF9A-E8C5-432D-860B-32F841B00D87}</EntityViewId>
+                                    </StreamObject>
+                                  </StreamObjects>
+                                </parameters>
+                              </control>
+                            </cell>
+                          </row>
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                        </rows>
+                      </section>
+                    </sections>
+                  </column>
+                </columns>
+              </tab>
+            </tabs>
+          </form>
+        </forms>
+      </FormXml>
+      <IntroducedVersion>8.0.0.0</IntroducedVersion>
+      <IsTabletEnabled>0</IsTabletEnabled>
+    </InteractionCentricDashboard>
+    <InteractionCentricDashboard>
+      <LocalizedNames>
+        <LocalizedName description="Activities Dashboard" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Shows an overview of data related to activities." languagecode="1033" />
+      </Descriptions>
+      <FormId>{a4640db1-4962-4e79-92c6-690e627924d7}</FormId>
+      <IsDefault>0</IsDefault>
+      <FormXml>
+        <forms type="interactioncentricdashboard">
+          <form>
+            <tabs filterby="createdon" timeframe="7" primaryentitylogicalname="activitypointer" entityview="{00000000-0000-0000-00AA-000010001899}" dashboardCategory="1_1" tilespresent="false">
+              <tab showlabel="true" verticallayout="true" collapsible="true" id="{a64fd802-8d6d-45dd-9ff9-ae6c2121809e}">
+                <labels>
+                  <label description="" languagecode="1033" />
+                </labels>
+                <columns>
+                  <column width="100%">
+                    <sections>
+                      <section name="VisualFilters" showlabel="false" showbar="false" columns="1111" id="{7bcddf77-2158-4687-bef8-853deb709c2d}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <rows>
+                          <row>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{d2624379-f02a-432c-93d1-9baaa7a7829e}" auto="false">
+                              <labels>
+                                <label description="Activities" languagecode="1033" />
+                              </labels>
+                              <control id="Component41be97b" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                                <parameters>
+                                  <TargetEntityType>activitypointer</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001899}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{c83b331e-87c7-488c-b8e7-89a6098ea102}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{3267bfa3-9311-46f1-935d-e130bb85e3ca}" auto="false">
+                              <labels>
+                                <label description="Activities" languagecode="1033" />
+                              </labels>
+                              <control id="Component0f6d343" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                                <parameters>
+                                  <TargetEntityType>activitypointer</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001899}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{DF920A65-5293-DE11-97D4-00155DA3B01E}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{36a5ad48-d95e-4bb3-b54a-218b77929230}" auto="false">
+                              <labels>
+                                <label description="Activities" languagecode="1033" />
+                              </labels>
+                              <control id="Component002d99d" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                                <parameters>
+                                  <TargetEntityType>activitypointer</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001899}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{d3f6c1eb-2e4b-428b-8949-682a311ae057}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{6f56ac44-27fc-4500-9557-e11c6d8d531e}" auto="false">
+                              <labels>
+                                <label description="Activities" languagecode="1033" />
+                              </labels>
+                              <control id="Component3a4e804" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                                <parameters>
+                                  <TargetEntityType>activitypointer</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001899}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{EDF35649-5293-DE11-97D4-00155DA3B01E}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                          </row>
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                        </rows>
+                      </section>
+                    </sections>
+                  </column>
+                </columns>
+              </tab>
+              <tab name="StreamsContainer" showlabel="true" verticallayout="true" collapsible="false" id="{fb3f0a60-9266-496e-8914-def4123b8ff8}">
+                <labels>
+                  <label description="" languagecode="1033" />
+                </labels>
+                <columns>
+                  <column width="100%">
+                    <sections>
+                      <section name="Streams" showlabel="false" showbar="false" columns="1111" id="{4aec2fb9-a154-4d7e-8959-32bbb35b19e9}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <rows>
+                          <row>
+                            <cell colspan="4" rowspan="12" showlabel="false" isstreamcell="true" id="{47e53d98-8039-4315-beae-1e5323e1e9cb}">
+                              <labels>
+                                <label description="" languagecode="1033" />
+                              </labels>
+                              <control id="Component{c79d4d57-85b1-1b7c-3deb-17cd716911cd}" classid="{EE9078C8-6946-4E2C-B8F8-35E65F4BE6A8}">
+                                <parameters>
+                                  <StreamObjects>
+                                    <ShowAsTiles>false</ShowAsTiles>
+                                    <StreamObject type="1" id="{efae2a00-3e55-4a2f-8c16-7e29f2a290fe}">
+                                      <LogicalEntityName>activitypointer</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001899}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{113c4462-26b5-4860-aadc-209b4a394b58}">
+                                      <LogicalEntityName>activitypointer</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001902}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{1b9cc9f1-ecea-478d-9e8a-31e0d7e68937}">
+                                      <LogicalEntityName>activitypointer</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001900}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{31f2e8ce-2791-4105-b15c-b048e9c04c2b}">
+                                      <LogicalEntityName>activitypointer</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001901}</EntityViewId>
+                                    </StreamObject>
+                                  </StreamObjects>
+                                </parameters>
+                              </control>
+                            </cell>
+                          </row>
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                        </rows>
+                      </section>
+                    </sections>
+                  </column>
+                </columns>
+              </tab>
+            </tabs>
+          </form>
+        </forms>
+      </FormXml>
+      <IntroducedVersion>8.0.0.0</IntroducedVersion>
+      <IsTabletEnabled>0</IsTabletEnabled>
+    </InteractionCentricDashboard>
+    <InteractionCentricDashboard>
+      <LocalizedNames>
+        <LocalizedName description="Contacts Dashboard" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Shows an overview of data related to contacts." languagecode="1033" />
+      </Descriptions>
+      <FormId>{70ad8b15-e3f3-4d7d-9e4b-16cb4e51b484}</FormId>
+      <IsDefault>0</IsDefault>
+      <FormXml>
+        <forms type="interactioncentricdashboard">
+          <form>
+            <tabs filterby="createdon" timeframe="7" primaryentitylogicalname="contact" entityview="{00000000-0000-0000-00AA-000010001004}" dashboardCategory="1_1" tilespresent="false">
+              <tab showlabel="true" verticallayout="true" collapsible="true" id="{bef24afb-7af8-4c52-876d-b77dee00a8c1}">
+                <labels>
+                  <label description="" languagecode="1033" />
+                </labels>
+                <columns>
+                  <column width="100%">
+                    <sections>
+                      <section name="VisualFilters" showlabel="false" showbar="false" columns="111" id="{67ff7714-faf2-4f54-a649-dcbbd6c406a4}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <rows>
+                          <row>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{548005aa-1dbf-4ef0-8f41-119ca9df2b81}" auto="false">
+                              <labels>
+                                <label description="Contacts" languagecode="1033" />
+                              </labels>
+                              <control id="Component5cdf2fb" uniqueid="{79d2e270-ad25-6b14-4600-08e74a8d2c3c}" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                                <parameters>
+                                  <TargetEntityType>contact</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001004}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{EA89E2AD-2602-4333-8724-AA5775D66B77}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{f91583a4-886d-4916-ab46-a169b8f32d98}" auto="false">
+                              <labels>
+                                <label description="Contacts" languagecode="1033" />
+                              </labels>
+                              <control id="Componentd265f20" uniqueid="{e688add6-8d88-cd2d-8b07-64a8928289b3}" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                                <parameters>
+                                  <TargetEntityType>contact</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001004}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{E365462F-1DB9-46A8-928D-BEAB1A7A2375}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                            <cell colspan="1" rowspan="12" showlabel="false" ischartcell="true" id="{e1fa35b4-7894-4084-a1ed-da097c41125c}" auto="false">
+                              <labels>
+                                <label description="Contacts" languagecode="1033" />
+                              </labels>
+                              <control id="Component7d7ff61" uniqueid="{aed78e2b-8b15-db31-e4b9-8d7b6a887575}" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                                <parameters>
+                                  <TargetEntityType>contact</TargetEntityType>
+                                  <ChartGridMode>Chart</ChartGridMode>
+                                  <EnableQuickFind>false</EnableQuickFind>
+                                  <EnableViewPicker>false</EnableViewPicker>
+                                  <EnableJumpBar>false</EnableJumpBar>
+                                  <RecordsPerPage>10</RecordsPerPage>
+                                  <ViewId>{00000000-0000-0000-00AA-000010001004}</ViewId>
+                                  <IsUserView>false</IsUserView>
+                                  <ViewIds />
+                                  <AutoExpand>Fixed</AutoExpand>
+                                  <VisualizationId>{751B7456-308E-4568-A3A9-47135AAE833A}</VisualizationId>
+                                  <IsUserChart>false</IsUserChart>
+                                  <EnableChartPicker>false</EnableChartPicker>
+                                  <RelationshipName />
+                                </parameters>
+                              </control>
+                            </cell>
+                          </row>
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                        </rows>
+                      </section>
+                    </sections>
+                  </column>
+                </columns>
+              </tab>
+              <tab name="StreamsContainer" showlabel="true" verticallayout="true" collapsible="false" id="{c7c07fa6-9f57-4023-9619-ab966c78e3cb}">
+                <labels>
+                  <label description="" languagecode="1033" />
+                </labels>
+                <columns>
+                  <column width="100%">
+                    <sections>
+                      <section name="Streams" showlabel="false" showbar="false" columns="1111" id="{e4388732-5e88-4e8b-8149-0f0bdfd29a2d}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <rows>
+                          <row>
+                            <cell colspan="4" rowspan="12" showlabel="false" isstreamcell="true" id="{4bdc2575-aa31-48b8-9315-d144558a4302}">
+                              <labels>
+                                <label description="" languagecode="1033" />
+                              </labels>
+                              <control id="Component{c1b0b0ed-3490-671d-aa95-a3cb5e8505d6}" classid="{EE9078C8-6946-4E2C-B8F8-35E65F4BE6A8}">
+                                <parameters>
+                                  <StreamObjects>
+                                    <ShowAsTiles>false</ShowAsTiles>
+                                    <StreamObject type="1" id="{89c98a6d-a6a2-4107-a442-b1f779fc06af}">
+                                      <LogicalEntityName>contact</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001003}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{fd259d8c-2ace-4eff-b764-97c59b32c97b}">
+                                      <LogicalEntityName>contact</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001004}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{47CBE7D7-E094-473C-8EB4-F01DF57FD484}">
+                                      <LogicalEntityName>contact</LogicalEntityName>
+                                      <EntityViewId>{00000000-0000-0000-00AA-000010001033}</EntityViewId>
+                                    </StreamObject>
+                                    <StreamObject type="1" id="{0DF3056B-AC80-4D62-B727-DFA2DED740EB}">
+                                      <LogicalEntityName>contact</LogicalEntityName>
+                                      <EntityViewId>{0D5D377B-5E7C-47B5-BAB1-A5CB8B4AC105}</EntityViewId>
+                                    </StreamObject>
+                                  </StreamObjects>
+                                </parameters>
+                              </control>
+                            </cell>
+                          </row>
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                          <row />
+                        </rows>
+                      </section>
+                    </sections>
+                  </column>
+                </columns>
+              </tab>
+            </tabs>
+          </form>
+        </forms>
+      </FormXml>
+      <IntroducedVersion>8.0.0.0</IntroducedVersion>
+      <IsTabletEnabled>0</IsTabletEnabled>
+    </InteractionCentricDashboard>
+  </InteractionCentricDashboards>
+  <WebResources />
+  <CustomControls />
+  <SolutionPluginAssemblies />
+  <SdkMessageProcessingSteps />
+  <AppModuleSiteMaps>
+    <AppModuleSiteMap>
+      <SiteMapUniqueName>sfa_SkillsFundingAgency</SiteMapUniqueName>
+      <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+      <ShowHome>True</ShowHome>
+      <ShowPinned>True</ShowPinned>
+      <ShowRecents>True</ShowRecents>
+      <SiteMap IntroducedVersion="undefined">
+        <Area Id="SFA" ResourceId="Area_Sales" DescriptionResourceId="Sales_Description" Icon=" " ShowGroups="true" Title="Contract Management">
+          <Group Id="Extensions" ResourceId="Group_Extensions" IsProfile="false" Title="Contracts" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="nav_dashboards" ResourceId="Homepage_Dashboards" DescriptionResourceId="Dashboards_Description" Icon="/_imgs/area/18_home.gif" Url="/workplace/home_dashboards.aspx" GetStartedPanePath="Dashboards_Web_User_Visor.html" GetStartedPanePathAdmin="Dashboards_Web_Admin_Visor.html" GetStartedPanePathAdminOutlook="Dashboards_Outlook_Admin_Visor.html" GetStartedPanePathOutlook="Dashboards_Outlook_User_Visor.html" AvailableOffline="false" PassParams="false" />
+            <SubArea Id="contracts_Tasks" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="task" AvailableOffline="false" PassParams="false">
+              <Titles>
+                <Title LCID="1033" Title="Tasks" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="sfa_contract" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_contract" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_notification" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_notification" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_caseload" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_caseload" AvailableOffline="true" PassParams="false">
+              <Titles>
+                <Title LCID="1033" Title="Caseloads" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="sfa_fcrallocation" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_fcrallocation" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_fundingclaimreconciliation" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_fundingclaimreconciliation" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_fcrallocationdeliverable" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_fcrallocationdeliverable" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="subarea_b6507c03" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:sfa_accessibility_statement" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+              <Titles>
+                <Title LCID="1033" Title="Accessibility Statement" />
+              </Titles>
+            </SubArea>
+          </Group>
+        </Area>
+        <Area Id="NewArea_17932774" ResourceId="SitemapDesigner.NewArea" ShowGroups="true">
+          <Titles>
+            <Title LCID="1033" Title="Contract Control" />
+          </Titles>
+          <Group Id="NewGroup_b4bd2df2" ResourceId="SitemapDesigner.NewGroup" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <Titles>
+              <Title LCID="1033" Title="Contract Control" />
+            </Titles>
+            <SubArea Id="sfa_fundingallocation" Entity="sfa_fundingallocation" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+              <Privilege Entity="sfa_fundingallocation" Privilege="Write" />
+            </SubArea>
+            <SubArea Id="sfa_releasegroup" Entity="sfa_releasegroup" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+              <Privilege Entity="sfa_releasegroup" Privilege="Write" />
+            </SubArea>
+            <SubArea Id="subarea_b6eb0314" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:sfa_accessibility_statement" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+              <Titles>
+                <Title LCID="1033" Title="Accessibility Statement" />
+              </Titles>
+            </SubArea>
+          </Group>
+        </Area>
+        <Area Id="Settings" ResourceId="Area_Settings" DescriptionResourceId="Settings_Area_Description" Icon="/_imgs/settings_24x24.gif" ShowGroups="true">
+          <Group Id="Customizations" ResourceId="Homepage_SystemCustomization" DescriptionResourceId="Homepage_SystemCustomization" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="nav_syscust" ResourceId="Menu_Label_Customizations" DescriptionResourceId="Customization_SubArea_Description" Icon="/_imgs/area/18_syscust.gif" Url="/tools/systemcustomization/systemcustomization.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_solution" ResourceId="Web.Tools.Solution.map_xml.aspx_1" DescriptionResourceId="Web.Tools.Solution.map_xml.aspx_2" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="/tools/Solution/home_solution.aspx?etc=7100" GetStartedPanePath="Solutions_Web_Admin_Visor.html" GetStartedPanePathAdmin="Solutions_Web_Admin_Visor.html" GetStartedPanePathAdminOutlook="Solutions_Outlook_Admin_Visor.html" GetStartedPanePathOutlook="Solutions_Outlook_Admin_Visor.html" Entity="solution" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_marketplace" ResourceId="Homepage_Marketplace" DescriptionResourceId="Marketplace_SubArea_Description" Icon="/_imgs/SystemCustomization/ico_18_marketplace.png" Url="/tools/SystemCustomization/SolutionsMarketplace/SolutionsMarketplace.aspx" Client="Web" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_plugintrace" ResourceId="Homepage_PluginTraceLog" Icon="/_imgs/area/Plugin_TraceLog_32.png" IntroducedVersion="7.1.0.0" Entity="plugintracelog" Client="Web" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="plugintracelog" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="NewSubArea_0b440e2e" Entity="msdyn_solutionhistory" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+          </Group>
+          <Group Id="System_Setting" ResourceId="Menu_Label_System" DescriptionResourceId="Menu_Label_System" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="nav_administration" ResourceId="Homepage_Administration" DescriptionResourceId="Administration_SubArea_Description" Icon="/_imgs/ico_18_administration.gif" Url="/tools/Admin/admin.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_security" ResourceId="AdminSecurity_SubArea_Title" DescriptionResourceId="AdminSecurity_SubArea_Description" Icon="/_imgs/area/Security_32.png" Url="/tools/AdminSecurity/adminsecurity_area.aspx" IntroducedVersion="7.0.0.0" AvailableOffline="false" PassParams="false" />
+            <SubArea Id="nav_datamanagement" ResourceId="Homepage_DataManagement" DescriptionResourceId="DataManagement_SubArea_Description" Icon="/_imgs/ico_18_datamanagement.gif" Url="/tools/DataManagement/datamanagement.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_systemjobs" ResourceId="Homepage_SystemJobs" DescriptionResourceId="SystemJobs_SubArea_Description" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="/tools/business/home_asyncoperation.aspx" Entity="asyncoperation" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_documentmanagement" ResourceId="DocumentManagement.SettingsArea.Heading" DescriptionResourceId="DocumentManagement.SettingsArea.Description" Icon="/_imgs/DocumentManagement_16.png" Url="/tools/documentmanagement/documentmanagement.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_audit" ResourceId="Audit_SubArea_Title" DescriptionResourceId="Audit_SubArea_Description" Icon="/_imgs/area/16_audit.png" Url="/tools/audit/audit_area.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_social" ResourceId="Social_SubArea_Title" DescriptionResourceId="Social_SubArea_Description" Icon="/_imgs/area/16_social.png" Url="/tools/social/social_area.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="msdyn_postconfig" ResourceId="Activity_Feed_Configuration" Entity="msdyn_postconfig" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="msdyn_postruleconfig" ResourceId="Activity_Feed_Rules_Configuration" Entity="msdyn_postruleconfig" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="export_ExporterConfiguration" Icon="/WebResources/export_ExporterAppIcon" Url="$webresource:export_ExporterAppHost.html" Client="Web" AvailableOffline="false" PassParams="true" Sku="All">
+              <Titles>
+                <Title LCID="1033" Title="Data Export" />
+                <Title LCID="1025" Title="تصدير البيانات" />
+                <Title LCID="1026" Title="Експортиране на данни" />
+                <Title LCID="1027" Title="Exportació de dades" />
+                <Title LCID="1029" Title="Export dat" />
+                <Title LCID="1030" Title="Dataeksport" />
+                <Title LCID="1031" Title="Datenexport" />
+                <Title LCID="1032" Title="Εξαγωγή δεδομένων" />
+                <Title LCID="3082" Title="Exportación de datos" />
+                <Title LCID="1061" Title="Andmete eksport" />
+                <Title LCID="1069" Title="Datuen esportazioa" />
+                <Title LCID="1035" Title="Tietojen vienti" />
+                <Title LCID="1036" Title="Exportation de données" />
+                <Title LCID="1110" Title="Exportación de datos" />
+                <Title LCID="1037" Title="ייצוא נתונים" />
+                <Title LCID="1081" Title="डेटा निर्यात" />
+                <Title LCID="1050" Title="Izvoz podataka" />
+                <Title LCID="1038" Title="Adatok exportálása" />
+                <Title LCID="1057" Title="Ekspor Data" />
+                <Title LCID="1040" Title="Esportazione dati" />
+                <Title LCID="1041" Title="データのエクスポート" />
+                <Title LCID="1087" Title="Деректер экспорттау" />
+                <Title LCID="1042" Title="데이터 내보내기" />
+                <Title LCID="1063" Title="Duomenų eksportavimas" />
+                <Title LCID="1062" Title="Datu eksportēšana" />
+                <Title LCID="1086" Title="Eksport Data" />
+                <Title LCID="1044" Title="Dataeksport" />
+                <Title LCID="1043" Title="Gegevens exporteren" />
+                <Title LCID="1045" Title="Eksport danych" />
+                <Title LCID="1046" Title="Exportação de Dados" />
+                <Title LCID="2070" Title="Exportação de Dados" />
+                <Title LCID="1048" Title="Export date" />
+                <Title LCID="1049" Title="Экспорт данных" />
+                <Title LCID="1051" Title="Export údajov" />
+                <Title LCID="1060" Title="Izvoz podatkov" />
+                <Title LCID="3098" Title="Извоз података" />
+                <Title LCID="2074" Title="Izvoz podataka" />
+                <Title LCID="1053" Title="Dataexport" />
+                <Title LCID="1054" Title="การส่งออกข้อมูล" />
+                <Title LCID="1055" Title="Veri Dışa Aktarma" />
+                <Title LCID="1058" Title="Експорт даних" />
+                <Title LCID="1066" Title="Xuất Dữ liệu" />
+                <Title LCID="2052" Title="数据导出" />
+                <Title LCID="3076" Title="資料匯出" />
+                <Title LCID="1028" Title="資料匯出" />
+              </Titles>
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+          </Group>
+          <Group Id="ProcessCenter" ResourceId="Menu_Label_ProcessCenter" DescriptionResourceId="Menu_Label_ProcessCenter" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="nav_workflow" DescriptionResourceId="Workflow_SubArea_Description" Icon="/_imgs/imagestrips/transparent_spacer.gif" GetStartedPanePath="Workflows_Web_User_Visor.html" GetStartedPanePathAdmin="Workflows_Web_Admin_Visor.html" GetStartedPanePathAdminOutlook="Workflows_Outlook_Admin_Visor.html" GetStartedPanePathOutlook="Workflows_Outlook_User_Visor.html" Entity="workflow" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_manageflow" ResourceId="ManageFlow_Menu_Button" DescriptionResourceId="ManageFlow_SubArea_Description" Icon="/_imgs/NavBar/ActionImgs/MicrosoftFlow_32.png" Url="/tools/MicrosoftFlow/ManageFlowsPage.aspx" IntroducedVersion="9.0.0.0" AvailableOffline="false" PassParams="false" />
+          </Group>
+          <Group Id="Extensions_8de0b163" ResourceId="Group_Extensions" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="sfa_webserviceresource" Entity="sfa_webserviceresource" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+          </Group>
+          <Group Id="Application" ResourceId="Menu_Label_Application" DescriptionResourceId="Menu_Label_Application" IntroducedVersion="8.1.0.0" IsProfile="false" ToolTipResourseId="Menu_Label_Application_ToolTip">
+            <SubArea Id="nav_app_modules" ResourceId="App_Modules_SubArea_Title" DescriptionResourceId="App_Modules_SubArea_Description" Icon="/_imgs/AppModules_32x32.png" Url="$webresource:msdyn_appmanagementcontrol" IntroducedVersion="8.2.0.0" Client="Web" AvailableOffline="false" PassParams="false" />
+          </Group>
+          <Group Id="UpgradeLogs_Group" ResourceId="SitemapDesigner.NewGroup" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <Titles>
+              <Title LCID="1033" Title="Upgrade Logs" />
+              <Title LCID="1025" Title="سجلات الترقية" />
+              <Title LCID="1026" Title="Регистрационни файлове на надстройка" />
+              <Title LCID="1027" Title="Registres d'actualització" />
+              <Title LCID="1029" Title="Protokoly upgradu" />
+              <Title LCID="1030" Title="Opgraderingslogge" />
+              <Title LCID="1031" Title="Upgrade-Protokolle" />
+              <Title LCID="1032" Title="Αρχεία καταγραφής αναβάθμισης" />
+              <Title LCID="3082" Title="Registros de actualización" />
+              <Title LCID="1061" Title="Täienduse logid" />
+              <Title LCID="1069" Title="Bertsio-berritzearen erregistroak" />
+              <Title LCID="1035" Title="Päivityslokit" />
+              <Title LCID="1036" Title="Mettre à niveau les journaux" />
+              <Title LCID="1110" Title="Actualizar rexistros" />
+              <Title LCID="1037" Title="יומני שדרוג" />
+              <Title LCID="1081" Title="नवीनीकरण लॉग" />
+              <Title LCID="1050" Title="Nadogradi zapisnike" />
+              <Title LCID="1038" Title="Naplók frissítése" />
+              <Title LCID="1057" Title="Log Peningkatan" />
+              <Title LCID="1040" Title="Registri di aggiornamento" />
+              <Title LCID="1041" Title="アップグレード ログ" />
+              <Title LCID="1087" Title="Журналдарды жаңарту" />
+              <Title LCID="1042" Title="업그레이드 로그" />
+              <Title LCID="1063" Title="Naujinimo žurnalai" />
+              <Title LCID="1062" Title="Jaunināšanas žurnāli" />
+              <Title LCID="1086" Title="Naik Taraf Log" />
+              <Title LCID="1044" Title="Oppgraderingslogger" />
+              <Title LCID="1043" Title="Upgradelogboeken" />
+              <Title LCID="1045" Title="Dzienniki uaktualniania" />
+              <Title LCID="1046" Title="Logs da Atualização" />
+              <Title LCID="2070" Title="Registos de Atualização" />
+              <Title LCID="1048" Title="Actualizare jurnale" />
+              <Title LCID="1049" Title="Журналы обновления" />
+              <Title LCID="1051" Title="Denníky inovácií" />
+              <Title LCID="1060" Title="Dnevniki nadgradnje" />
+              <Title LCID="3098" Title="Евиденције надоградње" />
+              <Title LCID="2074" Title="Evidencije nadogradnje" />
+              <Title LCID="1053" Title="Uppgraderingsloggar" />
+              <Title LCID="1054" Title="บันทึกการปรับรุ่น" />
+              <Title LCID="1055" Title="Yükseltme Günlükleri" />
+              <Title LCID="1058" Title="Журнали оновлень" />
+              <Title LCID="1066" Title="Nhật ký Nâng cấp" />
+              <Title LCID="2052" Title="升级日志" />
+              <Title LCID="3076" Title="升級記錄" />
+              <Title LCID="1028" Title="升級記錄" />
+            </Titles>
+            <SubArea Id="UpgradeRuns" Entity="msdyn_upgraderun" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+          </Group>
+          <Group Id="Business_Setting" ResourceId="Menu_Label_Business" DescriptionResourceId="Menu_Label_Business" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="nav_businessmanagement" ResourceId="Homepage_BusinessManagement" DescriptionResourceId="BizManagement_SubArea_Description" Icon="/_imgs/ico_18_busmanagement.gif" Url="/tools/business/business.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_template" ResourceId="Homepage_Template" DescriptionResourceId="Template_SubArea_Description" Icon="/_imgs/ico_18_templates.gif" Url="/tools/templates/templates.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="solution" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_productcatalog" ResourceId="Homepage_ProductCatalog" DescriptionResourceId="ProductCatalog_SubArea_Description" Icon="/_imgs/ico_18_productcatalog.gif" Url="/tools/productcatalog/productcatalog.aspx" AvailableOffline="false" PassParams="false">
+              <Privilege Entity="product" Privilege="Read" />
+            </SubArea>
+            <SubArea Id="nav_servicemanagement" ResourceId="Homepage_ServiceManagement" DescriptionResourceId="ServiceManagement_SubArea_Description" Url="/tools/servicemanagement/servicemanagement.aspx" AvailableOffline="false" PassParams="false" />
+            <SubArea Id="subarea_188afcc0" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:sfa_accessibility_statement" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+              <Titles>
+                <Title LCID="1033" Title="Accessibility Statement" />
+              </Titles>
+            </SubArea>
+          </Group>
+        </Area>
+        <Area Id="HLP" ResourceId="Area_Help" DescriptionResourceId="Help_Area_Description" Icon="/_imgs/settings_24x24.gif" ShowGroups="true">
+          <Group Id="HLP_GRP" ResourceId="Group_Help" DescriptionResourceId="Help_Description" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="Help_Data_Protection" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Url="$webresource:sfa_help_data_protection" Title="Data Protection" AvailableOffline="false" PassParams="false">
+              <Titles>
+                <Title LCID="1033" Title="Data Protection" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="Help_Resource_Center" ResourceId="Area_CustomerCenter" DescriptionResourceId="ResourceCenter_Area_Description" Icon="/WebResources/msdyn_/Images/Subarea_Default_Icon.png" Url="http://go.microsoft.com/fwlink/?LinkId=296269&amp;clcid=0x409" AvailableOffline="false" PassParams="false" />
+            <SubArea Id="subarea_b32b08ef" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:sfa_accessibility_statement" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+              <Titles>
+                <Title LCID="1033" Title="Accessibility Statement" />
+              </Titles>
+            </SubArea>
+          </Group>
+        </Area>
+        <Area Id="SFA_Configuration" Icon="/_imgs/settings_24x24.gif" ShowGroups="true" Title="Configuration">
+          <Titles>
+            <Title LCID="1033" Title="Configuration" />
+          </Titles>
+          <Group Id="Extensions_599c8999" ResourceId="Group_Extensions" IsProfile="false" Title="Configuration" ToolTipResourseId="SitemapDesigner.Unknown">
+            <SubArea Id="sfa_fundingstreamperiod" Entity="sfa_fundingstreamperiod" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_fundingstreamperiod" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_fundingstream" Entity="sfa_fundingstream" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_fundingstream" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_fundingtype" Entity="sfa_fundingtype" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_fundingtype" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_period" Entity="sfa_period" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_period" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_periodtype" Entity="sfa_periodtype" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_periodtype" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_agency" Entity="sfa_agency" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_agency" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_deliverable" Entity="sfa_deliverable" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_deliverable" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_fundingstreamperioddeliverable" Entity="sfa_fundingstreamperioddeliverable" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_fundingstreamperioddeliverable" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_status" Entity="sfa_status" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_status" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_transition" Entity="sfa_transition" AvailableOffline="true" PassParams="false">
+              <Privilege Entity="sfa_transition" Privilege="Create" />
+            </SubArea>
+            <SubArea Id="sfa_unitofprocurement" Entity="sfa_unitofprocurement" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_subnominalaggregation" Entity="sfa_subnominalaggregation" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_cappinggroups" Entity="sfa_cappinggroups" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_specificationtitle" Entity="sfa_specificationtitle" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_regiontype" Entity="sfa_regiontype" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_investmentpriority" Entity="sfa_investmentpriority" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_fundingtypefundingperiod" Entity="sfa_fundingtypefundingperiod" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_claimreconallocgroup" Entity="sfa_claimreconallocgroup" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_claimtype" Entity="sfa_claimtype" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_taskaction" Entity="sfa_taskaction" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_paymenttimetable" Entity="sfa_paymenttimetable" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_claimreconciliationbehaviour" Entity="sfa_claimreconciliationbehaviour" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="sfa_claimreconciliationpublicationexception" Entity="sfa_claimreconciliationpublicationexception" AvailableOffline="true" PassParams="false" />
+            <SubArea Id="subarea_57bb4356" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:sfa_accessibility_statement" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+              <Titles>
+                <Title LCID="1033" Title="Accessibility Statement" />
+              </Titles>
+            </SubArea>
+          </Group>
+        </Area>
+      </SiteMap>
+      <LocalizedNames>
+        <LocalizedName description="Skills Funding Agency" languagecode="1033" />
+      </LocalizedNames>
+    </AppModuleSiteMap>
+    <AppModuleSiteMap>
+      <SiteMapUniqueName>TeamMembersAppSiteMap</SiteMapUniqueName>
+      <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+      <ShowHome>True</ShowHome>
+      <ShowPinned>True</ShowPinned>
+      <ShowRecents>True</ShowRecents>
+      <SiteMap IntroducedVersion="9.0.0.0">
+        <Area Id="Enterprise_Sales" ResourceId="Area_Sales" DescriptionResourceId="Sales_Description" Icon="/WebResources/msdyn_/Images/Area_Default_Icon.png" ShowGroups="true" IntroducedVersion="9.0.0.0" ordinalvalue="0" solutionaction="Removed" />
+        <Area Id="tm_ContractManagement" ResourceId="Area_Sales" DescriptionResourceId="Sales_Description" Icon="/WebResources/msdyn_/Images/Area_Default_Icon.png" ShowGroups="true" IntroducedVersion="9.0.0.0" ordinalvalue="0" solutionaction="Added">
+          <Titles>
+            <Title LCID="1025" Title="المبيعات" />
+            <Title LCID="1026" Title="Продажби" />
+            <Title LCID="1027" Title="Vendes" />
+            <Title LCID="1029" Title="Prodej" />
+            <Title LCID="1030" Title="Salg" />
+            <Title LCID="1031" Title="Vertrieb" />
+            <Title LCID="1032" Title="Πωλήσεις" />
+            <Title LCID="3082" Title="Ventas" />
+            <Title LCID="1061" Title="Müük" />
+            <Title LCID="1069" Title="Salmentak" />
+            <Title LCID="1035" Title="Myynti" />
+            <Title LCID="1036" Title="Ventes" />
+            <Title LCID="1110" Title="Vendas" />
+            <Title LCID="1037" Title="מכירות" />
+            <Title LCID="1081" Title="विक्रय" />
+            <Title LCID="1050" Title="Prodaja" />
+            <Title LCID="1038" Title="Értékesítés" />
+            <Title LCID="1057" Title="Penjualan" />
+            <Title LCID="1040" Title="Vendite" />
+            <Title LCID="1041" Title="営業" />
+            <Title LCID="1087" Title="Сатылым" />
+            <Title LCID="1042" Title="영업" />
+            <Title LCID="1063" Title="Pardavimas" />
+            <Title LCID="1062" Title="Pārdošana" />
+            <Title LCID="1086" Title="Jualan" />
+            <Title LCID="1044" Title="Salg" />
+            <Title LCID="1043" Title="Verkoop" />
+            <Title LCID="1045" Title="Sprzedaż" />
+            <Title LCID="1046" Title="Vendas" />
+            <Title LCID="2070" Title="Vendas" />
+            <Title LCID="1048" Title="Vânzări" />
+            <Title LCID="1049" Title="Продажи" />
+            <Title LCID="1051" Title="Predaj" />
+            <Title LCID="1060" Title="Prodaja" />
+            <Title LCID="3098" Title="Продаја" />
+            <Title LCID="2074" Title="Prodaja" />
+            <Title LCID="1053" Title="Försäljning" />
+            <Title LCID="1054" Title="การขาย" />
+            <Title LCID="1055" Title="Satış" />
+            <Title LCID="1058" Title="Збут" />
+            <Title LCID="1066" Title="Bán hàng" />
+            <Title LCID="2052" Title="销售" />
+            <Title LCID="3076" Title="銷售" />
+            <Title LCID="1028" Title="銷售" />
+            <Title LCID="10266" Title="Продаја" />
+            <Title LCID="9242" Title="Prodaja" />
+            <Title LCID="1033" Title="Contract Management" />
+          </Titles>
+          <Group Id="tm_Contracts" ResourceId="Group_MyWork" DescriptionResourceId="My_Work_Description" IntroducedVersion="9.0.0.0" IsProfile="false" ToolTipResourseId="My_Work_ToolTip" ordinalvalue="0">
+            <Titles>
+              <Title LCID="1025" Title="العمل الخاص بي" />
+              <Title LCID="1026" Title="Моята работа" />
+              <Title LCID="1027" Title="El meu treball" />
+              <Title LCID="1029" Title="Úkoly" />
+              <Title LCID="1030" Title="Mit arbejde" />
+              <Title LCID="1031" Title="Meine Arbeit" />
+              <Title LCID="1032" Title="Η εργασία μου" />
+              <Title LCID="3082" Title="Mi trabajo" />
+              <Title LCID="1061" Title="Minu töö" />
+              <Title LCID="1069" Title="Nire lana" />
+              <Title LCID="1035" Title="Omat työt" />
+              <Title LCID="1036" Title="Mes tâches" />
+              <Title LCID="1110" Title="O meu traballo" />
+              <Title LCID="1037" Title="העבודה שלי" />
+              <Title LCID="1081" Title="मेरा कार्य" />
+              <Title LCID="1050" Title="Moj posao" />
+              <Title LCID="1038" Title="Saját munka" />
+              <Title LCID="1057" Title="Pekerjaan Saya" />
+              <Title LCID="1040" Title="Attività personali" />
+              <Title LCID="1041" Title="自分の仕事" />
+              <Title LCID="1087" Title="Менің жұмысым" />
+              <Title LCID="1042" Title="내 작업" />
+              <Title LCID="1063" Title="Mano darbas" />
+              <Title LCID="1062" Title="Mans darbs" />
+              <Title LCID="1086" Title="Kerja Saya" />
+              <Title LCID="1044" Title="Mine oppgaver" />
+              <Title LCID="1043" Title="Mijn werk" />
+              <Title LCID="1045" Title="Moja praca" />
+              <Title LCID="1046" Title="Meu Trabalho" />
+              <Title LCID="2070" Title="O Meu Trabalho" />
+              <Title LCID="1048" Title="Lucrul meu" />
+              <Title LCID="1049" Title="Моя работа" />
+              <Title LCID="1051" Title="Moja práca" />
+              <Title LCID="1060" Title="Moje delo" />
+              <Title LCID="3098" Title="Мој посао" />
+              <Title LCID="2074" Title="Moj posao" />
+              <Title LCID="1053" Title="Mitt arbete" />
+              <Title LCID="1054" Title="งานของฉัน" />
+              <Title LCID="1055" Title="Çalışmam" />
+              <Title LCID="1058" Title="Моя робота" />
+              <Title LCID="1066" Title="Công việc của tôi" />
+              <Title LCID="2052" Title="我的工作" />
+              <Title LCID="3076" Title="我的工作" />
+              <Title LCID="1028" Title="我的工作" />
+              <Title LCID="10266" Title="Мој посао" />
+              <Title LCID="9242" Title="Moj posao" />
+              <Title LCID="1033" Title="Contracts" />
+            </Titles>
+            <SubArea Id="tm_Dashboards" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="/workplace/home_dashboards.aspx" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="0">
+              <Titles>
+                <Title LCID="1025" Title="النشاطات" ordinalvalue="0" />
+                <Title LCID="1026" Title="Дейности" ordinalvalue="1" />
+                <Title LCID="1027" Title="Activitats" ordinalvalue="2" />
+                <Title LCID="1029" Title="Aktivity" ordinalvalue="3" />
+                <Title LCID="1030" Title="Aktiviteter" ordinalvalue="4" />
+                <Title LCID="1031" Title="Aktivitäten" ordinalvalue="5" />
+                <Title LCID="1032" Title="Δραστηριότητες" ordinalvalue="6" />
+                <Title LCID="3082" Title="Actividades" ordinalvalue="7" />
+                <Title LCID="1061" Title="Tegevused" ordinalvalue="8" />
+                <Title LCID="1069" Title="Jarduerak" ordinalvalue="9" />
+                <Title LCID="1035" Title="Aktiviteetit" ordinalvalue="10" />
+                <Title LCID="1036" Title="Activités" ordinalvalue="11" />
+                <Title LCID="1110" Title="Actividades" ordinalvalue="12" />
+                <Title LCID="1037" Title="פעילויות" ordinalvalue="13" />
+                <Title LCID="1081" Title="गतिविधियाँ" ordinalvalue="14" />
+                <Title LCID="1050" Title="Aktivnosti" ordinalvalue="15" />
+                <Title LCID="1038" Title="Tevékenységek" ordinalvalue="16" />
+                <Title LCID="1057" Title="Aktivitas" ordinalvalue="17" />
+                <Title LCID="1040" Title="Impegni" ordinalvalue="18" />
+                <Title LCID="1041" Title="活動" ordinalvalue="19" />
+                <Title LCID="1087" Title="Әрекеттер" ordinalvalue="20" />
+                <Title LCID="1042" Title="활동" ordinalvalue="21" />
+                <Title LCID="1063" Title="Veiklos" ordinalvalue="22" />
+                <Title LCID="1062" Title="Darbības" ordinalvalue="23" />
+                <Title LCID="1086" Title="Aktiviti" ordinalvalue="24" />
+                <Title LCID="1044" Title="Aktiviteter" ordinalvalue="25" />
+                <Title LCID="1043" Title="Activiteiten" ordinalvalue="26" />
+                <Title LCID="1045" Title="Działania" ordinalvalue="27" />
+                <Title LCID="1046" Title="Atividades" ordinalvalue="28" />
+                <Title LCID="2070" Title="Atividades" ordinalvalue="29" />
+                <Title LCID="1048" Title="Activități" ordinalvalue="30" />
+                <Title LCID="1049" Title="Действия" ordinalvalue="31" />
+                <Title LCID="1051" Title="Aktivity" ordinalvalue="32" />
+                <Title LCID="1060" Title="Dejavnosti" ordinalvalue="33" />
+                <Title LCID="3098" Title="Активности" ordinalvalue="34" />
+                <Title LCID="2074" Title="Aktivnosti" ordinalvalue="35" />
+                <Title LCID="1053" Title="Aktiviteter" ordinalvalue="36" />
+                <Title LCID="1054" Title="กิจกรรม" ordinalvalue="37" />
+                <Title LCID="1055" Title="Etkinlikler" ordinalvalue="38" />
+                <Title LCID="1058" Title="Справи" ordinalvalue="39" />
+                <Title LCID="1066" Title="Hoạt động" ordinalvalue="40" />
+                <Title LCID="2052" Title="活动" ordinalvalue="41" />
+                <Title LCID="3076" Title="活動" ordinalvalue="42" />
+                <Title LCID="1028" Title="活動" ordinalvalue="43" />
+                <Title LCID="10266" Title="Активности" ordinalvalue="44" />
+                <Title LCID="9242" Title="Aktivnosti" ordinalvalue="45" />
+                <Title LCID="1033" Title="Dashboards" ordinalvalue="46" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="tm_Tasks" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="task" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="1">
+              <Titles>
+                <Title LCID="1033" Title="Tasks" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="tm_Contracts_a4070f87" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_contract" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="2">
+              <Titles>
+                <Title LCID="1033" Title="Contracts" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="tm_Notifications" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_notification" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="3">
+              <Titles>
+                <Title LCID="1033" Title="Notifications" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="tm_Caseloads" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_caseload" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="4">
+              <Titles>
+                <Title LCID="1033" Title="Caseloads" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="tm_fcrAllocation" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_fcrallocation" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="5">
+              <Titles>
+                <Title LCID="1033" Title="FCR Allocation" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="tm_fcrAllocationDeliverable" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="sfa_fcrallocationdeliverable" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="6">
+              <Titles>
+                <Title LCID="1033" Title="FCR Allocation Deliverable" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="subarea_72e2d5f4" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:sfa_accessibility_statement" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="7">
+              <Titles>
+                <Title LCID="1033" Title="Accessibility Statement" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+          </Group>
+        </Area>
+        <Area Id="tm_Training_Area" ResourceId="SitemapDesigner.NewArea" ShowGroups="true" ordinalvalue="1" solutionaction="Added">
+          <Titles>
+            <Title LCID="1033" Title="Training" />
+          </Titles>
+          <Group Id="tm_Training_Grp" ResourceId="SitemapDesigner.NewGroup" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown" ordinalvalue="0">
+            <Titles>
+              <Title LCID="1033" Title="Training" />
+            </Titles>
+            <SubArea Id="tm_DataProtection" ResourceId="SitemapDesigner.NewSubArea" Url="$webresource:sfa_help_data_protection" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="0">
+              <Titles>
+                <Title LCID="1033" Title="Data Protection" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="tm_HelpCenter" ResourceId="SitemapDesigner.NewSubArea" Url="http://go.microsoft.com/fwlink/?LinkId=296269&amp;clcid=0x409" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="false" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="1">
+              <Titles>
+                <Title LCID="1033" Title="Help Center" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+            <SubArea Id="subarea_410ac7f2" ResourceId="SitemapDesigner.NewSubArea" Icon="/_imgs/imagestrips/transparent_spacer.gif" Url="$webresource:sfa_accessibility_statement" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" ordinalvalue="2">
+              <Titles>
+                <Title LCID="1033" Title="Accessibility Statement" ordinalvalue="0" />
+              </Titles>
+            </SubArea>
+          </Group>
+        </Area>
+      </SiteMap>
+      <LocalizedNames>
+        <LocalizedName description="TeamMembersProApplication" languagecode="1033" />
+      </LocalizedNames>
+    </AppModuleSiteMap>
+  </AppModuleSiteMaps>
+  <AppModules>
+    <AppModule>
+      <UniqueName>msdyn_TeamMember_Sales</UniqueName>
+      <IntroducedVersion>1.0</IntroducedVersion>
+      <WebResourceId>386f0fdc-fffe-4710-a3bb-4156a7c597d9</WebResourceId>
+      <OptimizedFor></OptimizedFor>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+      <FormFactor>1</FormFactor>
+      <ClientType>4</ClientType>
+      <NavigationType>0</NavigationType>
+      <AppModuleComponents>
+        <AppModuleComponent type="1" schemaName="sfa_fcrallocation" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="sfa_fcrallocationdeliverable" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="sfa_notification" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="sfa_contractdeliverable" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="sfa_contract" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="task" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="sfa_contractdeliverableperiod" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="sfa_caseload" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="sfa_contractallocation" solutionaction="Added" />
+        <AppModuleComponent type="60" id="{add4c224-58a7-e711-9422-000d3ab03a58}" solutionaction="Added" />
+        <AppModuleComponent type="60" id="{b62ce022-cc0f-4c8c-bb29-21948f70dc74}" solutionaction="Added" />
+        <AppModuleComponent type="60" id="{16654191-19ad-48ca-9e46-c4b4fbdad76f}" solutionaction="Added" />
+        <AppModuleComponent type="1" schemaName="account" solutionaction="Removed" />
+        <AppModuleComponent type="1" schemaName="activitypointer" solutionaction="Removed" />
+        <AppModuleComponent type="1" schemaName="contact" solutionaction="Removed" />
+        <AppModuleComponent type="1" schemaName="lead" solutionaction="Removed" />
+        <AppModuleComponent type="1" schemaName="opportunity" solutionaction="Removed" />
+        <AppModuleComponent type="1" schemaName="opportunityproduct" solutionaction="Removed" />
+        <AppModuleComponent type="1" schemaName="product" solutionaction="Removed" />
+      </AppModuleComponents>
+      <AppModuleRoleMaps>
+        <Role id="{3cf54353-47d8-e411-9400-000d3ab03a58}" solutionaction="Added" />
+        <Role id="{7e13fe7f-ea02-4a4e-a523-89ed9361961d}" solutionaction="Added" />
+      </AppModuleRoleMaps>
+      <AppConfig>
+        <IntroducedVersion>9.1.0.0</IntroducedVersion>
+        <AppModuleUniqueName>msdyn_TeamMember_Sales</AppModuleUniqueName>
+        <StatusCode>1</StatusCode>
+        <StateCode>0</StateCode>
+        <AppConfigInstances />
+        <NavigationSettings />
+      </AppConfig>
+      <LocalizedNames>
+        <LocalizedName description="FCS (TM)" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Team Member access to the Dynamics 365 FCS App." languagecode="1033" />
+      </Descriptions>
+    </AppModule>
+    <AppModule>
+      <UniqueName>sfa_SkillsFundingAgency</UniqueName>
+      <IntroducedVersion>2.93.1.0</IntroducedVersion>
+      <WebResourceId>953b9fac-1e5e-e611-80d6-00155ded156f</WebResourceId>
+      <OptimizedFor></OptimizedFor>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+      <FormFactor>1</FormFactor>
+      <ClientType>4</ClientType>
+      <NavigationType>0</NavigationType>
+      <AppModuleComponents>
+        <AppModuleComponent type="1" schemaName="goal" />
+        <AppModuleComponent type="1" schemaName="sfa_releasegroup" />
+        <AppModuleComponent type="1" schemaName="sfa_paymenttimetable" />
+        <AppModuleComponent type="1" schemaName="sfa_transition" />
+        <AppModuleComponent type="1" schemaName="msdyn_postconfig" />
+        <AppModuleComponent type="1" schemaName="queueitem" />
+        <AppModuleComponent type="1" schemaName="sfa_webserviceresource" />
+        <AppModuleComponent type="1" schemaName="sfa_fundingstreamperioddeliverable" />
+        <AppModuleComponent type="1" schemaName="contact" />
+        <AppModuleComponent type="1" schemaName="sfa_contractnumber" />
+        <AppModuleComponent type="1" schemaName="sfa_fcrallocation" />
+        <AppModuleComponent type="1" schemaName="sfa_fcrallocationdeliverable" />
+        <AppModuleComponent type="1" schemaName="sfa_fundingallocation" />
+        <AppModuleComponent type="1" schemaName="sfa_notification" />
+        <AppModuleComponent type="1" schemaName="report" />
+        <AppModuleComponent type="1" schemaName="sfa_cappinggroups" />
+        <AppModuleComponent type="1" schemaName="sfa_contractdeliverable" />
+        <AppModuleComponent type="1" schemaName="sfa_claimreconallocgroup" />
+        <AppModuleComponent type="1" schemaName="sfa_taskaction" />
+        <AppModuleComponent type="1" schemaName="sfa_fundingallocationhistory" />
+        <AppModuleComponent type="1" schemaName="sfa_subnominalaggregation" />
+        <AppModuleComponent type="1" schemaName="sfa_fspdeliverablesetting" />
+        <AppModuleComponent type="1" schemaName="role" />
+        <AppModuleComponent type="1" schemaName="sfa_contract" />
+        <AppModuleComponent type="1" schemaName="sfa_setting" />
+        <AppModuleComponent type="1" schemaName="transactioncurrency" />
+        <AppModuleComponent type="1" schemaName="sfa_agency" />
+        <AppModuleComponent type="1" schemaName="msdyn_postruleconfig" />
+        <AppModuleComponent type="1" schemaName="sfa_periodtype" />
+        <AppModuleComponent type="1" schemaName="solution" />
+        <AppModuleComponent type="1" schemaName="opportunity" />
+        <AppModuleComponent type="1" schemaName="campaign" />
+        <AppModuleComponent type="1" schemaName="account" />
+        <AppModuleComponent type="1" schemaName="kbarticle" />
+        <AppModuleComponent type="1" schemaName="systemuser" />
+        <AppModuleComponent type="1" schemaName="task" />
+        <AppModuleComponent type="1" schemaName="activitypointer" />
+        <AppModuleComponent type="1" schemaName="sfa_regiontype" />
+        <AppModuleComponent type="1" schemaName="lead" />
+        <AppModuleComponent type="1" schemaName="sfa_fundingtypefundingperiod" />
+        <AppModuleComponent type="1" schemaName="workflow" />
+        <AppModuleComponent type="1" schemaName="sfa_contractdeliverableperiod" />
+        <AppModuleComponent type="1" schemaName="sfa_fundingtype" />
+        <AppModuleComponent type="1" schemaName="sfa_fundingstreamperiod" />
+        <AppModuleComponent type="1" schemaName="sfa_investmentpriority" />
+        <AppModuleComponent type="1" schemaName="sfa_stagingentity" />
+        <AppModuleComponent type="1" schemaName="sfa_caseload" />
+        <AppModuleComponent type="1" schemaName="msdyn_solutionhistory" />
+        <AppModuleComponent type="1" schemaName="sfa_contractallocation" />
+        <AppModuleComponent type="1" schemaName="contract" />
+        <AppModuleComponent type="1" schemaName="sfa_claimtype" />
+        <AppModuleComponent type="1" schemaName="sfa_fundingclaimreconciliation" />
+        <AppModuleComponent type="1" schemaName="sfa_fundingstream" />
+        <AppModuleComponent type="1" schemaName="sfa_status" />
+        <AppModuleComponent type="1" schemaName="msdyn_upgraderun" />
+        <AppModuleComponent type="1" schemaName="team" />
+        <AppModuleComponent type="1" schemaName="sfa_specificationtitle" />
+        <AppModuleComponent type="1" schemaName="sfa_period" />
+        <AppModuleComponent type="1" schemaName="sfa_contracttransitionhistory" />
+        <AppModuleComponent type="1" schemaName="sfa_unitofprocurement" />
+        <AppModuleComponent type="1" schemaName="incident" />
+        <AppModuleComponent type="1" schemaName="sfa_settingvaluelist" />
+        <AppModuleComponent type="1" schemaName="sfa_deliverable" />
+        <AppModuleComponent type="1" schemaName="sfa_claimreconciliationbehaviour" />
+        <AppModuleComponent type="1" schemaName="sfa_claimreconciliationpublicationexception" />
+        <AppModuleComponent type="1" schemaName="entitlement" />
+        <AppModuleComponent type="1" schemaName="product" />
+        <AppModuleComponent type="1" schemaName="sfa_contracttype" />
+        <AppModuleComponent type="1" schemaName="sfa_process" />
+        <AppModuleComponent type="60" id="{e3f25b25-2260-e411-93f7-000d3ab03a58}" />
+        <AppModuleComponent type="60" id="{7c6ffea5-24d9-e411-9400-000d3ab03a58}" />
+        <AppModuleComponent type="60" id="{47439fa1-e9a7-e511-940e-000d3ab03a58}" />
+        <AppModuleComponent type="60" id="{add4c224-58a7-e711-9422-000d3ab03a58}" />
+        <AppModuleComponent type="60" id="{70ad8b15-e3f3-4d7d-9e4b-16cb4e51b484}" />
+        <AppModuleComponent type="60" id="{b62ce022-cc0f-4c8c-bb29-21948f70dc74}" />
+        <AppModuleComponent type="60" id="{603b1002-d094-442f-9fbc-31d9da9c930f}" />
+        <AppModuleComponent type="60" id="{b669a7e7-ce9f-4c71-95f4-3ebb7dee5843}" />
+        <AppModuleComponent type="60" id="{75ccf1bb-616b-4f17-b823-6054b8606da7}" />
+        <AppModuleComponent type="60" id="{a4640db1-4962-4e79-92c6-690e627924d7}" />
+        <AppModuleComponent type="60" id="{e056baf6-e304-4cf7-b730-828fbfe050d4}" />
+        <AppModuleComponent type="60" id="{1930de47-e370-464c-833f-8658ee763c4c}" />
+        <AppModuleComponent type="60" id="{9b41db70-abcc-40ca-bb7f-8e6c7aa1c799}" />
+        <AppModuleComponent type="60" id="{15915835-b87c-49ec-9ffc-bfac3ac44ef1}" />
+        <AppModuleComponent type="60" id="{16654191-19ad-48ca-9e46-c4b4fbdad76f}" />
+        <AppModuleComponent type="60" id="{b028db32-3619-48a5-ac51-cf3f947b0ef3}" />
+        <AppModuleComponent type="60" id="{7e954199-4075-4e27-9052-cf76d35d2920}" />
+        <AppModuleComponent type="60" id="{ac121203-ce33-48b6-a363-db36f6e1fd64}" />
+        <AppModuleComponent type="60" id="{b88d6e5f-7154-430b-9bd5-f6e9b74788d3}" />
+        <AppModuleComponent type="62" schemaName="sfa_SkillsFundingAgency" />
+      </AppModuleComponents>
+      <AppModuleRoleMaps>
+        <Role id="{b5169844-674a-e611-9415-000d3ab03a58}" />
+        <Role id="{cfbac054-674a-e611-9415-000d3ab03a58}" />
+        <Role id="{812f2e14-da5a-e411-93f7-000d3ab03a58}" />
+        <Role id="{259c1b93-71fc-e811-9434-000d3ab03a58}" />
+        <Role id="{45984115-9074-e411-93f9-000d3ab03a58}" />
+        <Role id="{b6c87c72-c783-e511-940c-000d3ab03a58}" />
+        <Role id="{a07b38ac-d95a-e411-93f7-000d3ab03a58}" />
+        <Role id="{6c7f627d-15b6-e511-940e-000d3ab03a58}" />
+        <Role id="{627090ff-40a3-4053-8790-584edc5be201}" />
+        <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+        <Role id="{ae9bc656-884e-e611-9415-000d3ab03a58}" />
+      </AppModuleRoleMaps>
+      <LocalizedNames>
+        <LocalizedName description="FCS" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="app for FCS users" languagecode="1033" />
+      </Descriptions>
+    </AppModule>
+  </AppModules>
+  <EntityDataProviders />
+  <CanvasApps>
+    <CanvasApp>
+      <Name>cr23d_accessibilitystatement_b24bd</Name>
+      <AppVersion>2023-12-06T23:35:33Z</AppVersion>
+      <Status>Ready</Status>
+      <CreatedByClientVersion>3.23114.19.0</CreatedByClientVersion>
+      <MinClientVersion>3.23114.19.0</MinClientVersion>
+      <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"768","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"false","publisherVersion":"3.23114.19","minimumRequiredApiVersion":"2.2.0","hasComponent":"false","hasUnlockedComponent":"false","isUnifiedRootApp":"false","sienaVersion":"20231124T195026Z-3.23105.18.0","offlineLargeFilesSupport":"false"}</Tags>
+      <IsCdsUpgraded>0</IsCdsUpgraded>
+      <GalleryItemId xsi:nil="true"></GalleryItemId>
+      <BackgroundColor>RGBA(0,176,240,1)</BackgroundColor>
+      <DisplayName>Accessibility Statement</DisplayName>
+      <Description xsi:nil="true"></Description>
+      <CommitMessage xsi:nil="true"></CommitMessage>
+      <Publisher xsi:nil="true"></Publisher>
+      <AuthorizationReferences>[]</AuthorizationReferences>
+      <ConnectionReferences>{}</ConnectionReferences>
+      <DatabaseReferences>{}</DatabaseReferences>
+      <AppComponents>[]</AppComponents>
+      <AppComponentDependencies>[]</AppComponentDependencies>
+      <CanConsumeAppPass>1</CanConsumeAppPass>
+      <CanvasAppType>2</CanvasAppType>
+      <BypassConsent>0</BypassConsent>
+      <AdminControlBypassConsent>0</AdminControlBypassConsent>
+      <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+      <IntroducedVersion>1.0</IntroducedVersion>
+      <CdsDependencies>{"cdsdependencies":[]}</CdsDependencies>
+      <IsCustomizable>1</IsCustomizable>
+      <BackgroundImageUri>/CanvasApps/cr23d_accessibilitystatement_b24bd_BackgroundImageUri</BackgroundImageUri>
+      <DocumentUri>/CanvasApps/cr23d_accessibilitystatement_b24bd_DocumentUri.msapp</DocumentUri>
+    </CanvasApp>
+  </CanvasApps>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

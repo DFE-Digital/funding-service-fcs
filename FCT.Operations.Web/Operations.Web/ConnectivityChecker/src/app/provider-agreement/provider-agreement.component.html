@@ -1,0 +1,55 @@
+<div class="provider-agreement-page">
+    <div>
+        <form (ngSubmit)="addAgreement(txtUkprn)" #loginForm="ngForm">
+            <div *ngIf="isAuthorized; else NotAuthorised" class="form-group">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Trading Name:</label>
+                    <Label textWrap="true" class="col-sm-9 col-form-label font-weight-bold">
+                        {{tradingName}}
+                    </Label>
+                    <Label textWrap="true" class="col-sm-2 col-form-label font-weight-bold text-success" *ngIf="isCreated">
+                        Created
+                    </Label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Enter a ukprn" name="ukprn" [(ngModel)]="txtUkprn" (ngModelChange)="onUkprnChange($event)">
+                </div>
+                <div class="form-group">
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary" [disabled]="tradingName == null">Add Agreement for Provider</button>
+                    </div>
+                </div>
+                <br>
+            </div>            
+         </form>
+         <div *ngIf="dateLastRefreshed" class="text-right">Last checked: {{ dateLastRefreshed | date: "MMMM d 'at' h:mm:ss a"}}&nbsp;</div>
+         <div *ngIf="!loading; else showRefreshing">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="service-min-width">Ukprn</th>
+                        <th class="service-min-width">Processing State</th>
+                        <th class="service-min-width">Contract Number</th>
+                        <th class="service-min-width">Event Id</th>
+                        <th class="service-min-width">Added Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let engagementEventInfo of EngagementEventInfos"> 
+                        <td> {{engagementEventInfo.ProviderId}} </td>
+                        <td> {{engagementEventInfo.ProcessingState}} </td>
+                        <td> {{engagementEventInfo.ContractNumber}} </td>
+                        <td> {{engagementEventInfo.EventId}} </td>
+                        <td> {{engagementEventInfo.CreatedDate | date:"dd-MMM-yyyy HH:mm"}} </td>
+                    </tr>
+                </tbody>
+            </table>
+         </div>   
+         <ng-template #showRefreshing>
+             <i class="fa fa-refresh fa-spin"></i>
+         </ng-template>     
+         <ng-template #NotAuthorised>
+             <p class="font-italic">No permission to add levy agreement</p>
+         </ng-template>        
+    </div>
+</div>

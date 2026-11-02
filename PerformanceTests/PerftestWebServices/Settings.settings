@@ -1,0 +1,57 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SFA.FCT.Contracts.AcceptanceTests.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SolutionExportPackagePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Temp\</Value>
+    </Setting>
+    <Setting Name="RolesMappingDoc" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ConfigurationFiles\RoleMapping.xml</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString_Ben" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=AT-CRMintegration; Password=</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString_Sarah" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=test-sarah; Password=</Value>
+    </Setting>
+    <Setting Name="OrgServiceFileShare" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\\server\share</Value>
+    </Setting>
+    <Setting Name="OrganisationServiceUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8081/</Value>
+    </Setting>
+    <Setting Name="DownloadSolution" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=dev-crmintegration; Password=</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString_SarahSmith" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=test-sarah; Password=</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString_GraceGreen" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=test-grace; Password=</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString_AntonDavies" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=DaviesA; Password=</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString_ZoeFoster" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=FosterZ; Password=</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString_HelenBose" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=BoseH; Password=</Value>
+    </Setting>
+    <Setting Name="BulkUploadFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">bulkupload-in</Value>
+    </Setting>
+    <Setting Name="BulkUploadOutputFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">bulkupload-out</Value>
+    </Setting>
+    <Setting Name="CrmConnectionString_GregoryShaw" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Url=http://fct-at-crm-01.cloudapp.net/AcceptanceTest; Domain=FCTDEV; Username=Shawg; Password=</Value>
+    </Setting>
+    <Setting Name="InitOrganisationUpdateQueue" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">TestQueue</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

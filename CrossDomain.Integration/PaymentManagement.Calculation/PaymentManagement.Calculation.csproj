@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{16681EE9-1FEB-4E24-B93A-9AC69A3DEAF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PaymentManagement.Calculation</RootNamespace>
+    <AssemblyName>PaymentManagement.Calculation</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\AT\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
+    <OutputPath>bin\CI\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\DAT\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\DCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
+    <OutputPath>bin\DebugCI\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
+    <OutputPath>bin\DEV\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
+    <OutputPath>bin\DMO\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
+    <OutputPath>bin\DOAT\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
+    <OutputPath>bin\MO\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
+    <OutputPath>bin\OAT\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PS|AnyCPU'">
+    <OutputPath>bin\PS\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PUB|AnyCPU'">
+    <OutputPath>bin\PUB\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Optional, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Optional.4.0.0\lib\net45\Optional.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviour.cs" />
+    <Compile Include="Behaviours\AllocationDurationAllocationLevelBehaviour.cs" />
+    <Compile Include="Behaviours\AllocationDurationAllocationLevelWithPrioritisedApportionmentBehaviour.cs" />
+    <Compile Include="Behaviours\AllocationDurationDeliverableGroupBehaviour.cs" />
+    <Compile Include="Behaviours\AllocationDurationDeliverableLineBehaviour.cs" />
+    <Compile Include="Behaviours\FinancialYearAllocationLevelBehaviour.cs" />
+    <Compile Include="Behaviours\FinancialYearAllocationLevelWithPrioritisedApportionmentBehaviour.cs" />
+    <Compile Include="Behaviours\FinancialYearDeliverableGroupBehaviour.cs" />
+    <Compile Include="Behaviours\PaidExternallyBehaviour.cs" />
+    <Compile Include="Behaviours\PayOnProfileBehaviour.cs" />
+    <Compile Include="Behaviours\PayOnProfileFundingClaimReconciliationPublishedBehaviour.cs" />
+    <Compile Include="Dtos\CalculationAllocationInput.cs" />
+    <Compile Include="Dtos\CalculationResultLine.cs" />
+    <Compile Include="Dtos\CappingGroup.cs" />
+    <Compile Include="Dtos\CappingGroupInfo.cs" />
+    <Compile Include="Dtos\CappingPeriod.cs" />
+    <Compile Include="Dtos\DeliverablePeriodPaymentInfo.cs" />
+    <Compile Include="Dtos\DeliverablePeriodActualAndPaymentInfo.cs" />
+    <Compile Include="Dtos\FspDeliverableInfo.cs" />
+    <Compile Include="Dtos\OrganisationDetails.cs" />
+    <Compile Include="Dtos\Period.cs" />
+    <Compile Include="Dtos\PlannedValueAndActualsForFinancialPeriod.cs" />
+    <Compile Include="Extensions\ActualsSummaryTypeExtensions.cs" />
+    <Compile Include="Extensions\FcrAllocationInfoExtensions.cs" />
+    <Compile Include="Extensions\AllocationPaymentScheduleExtensions.cs" />
+    <Compile Include="Extensions\AllocationTypeExtensions.cs" />
+    <Compile Include="Extensions\CalculationAllocationInputExtensions.cs" />
+    <Compile Include="Extensions\CalculationDeliverableInputListExtensions.cs" />
+    <Compile Include="Extensions\CalculationDeliverablePeriodInputListExtensions.cs" />
+    <Compile Include="Extensions\CalculationResultLinesExtensions.cs" />
+    <Compile Include="Extensions\CensusPeriodInfosExtensions.cs" />
+    <Compile Include="Extensions\ContractAllocationActualsTypeExtensions.cs" />
+    <Compile Include="Extensions\ContractDeliverableInputsExtensions.cs" />
+    <Compile Include="Extensions\contractDeliverableTypeExtensions.cs" />
+    <Compile Include="Extensions\DecimalExtensions.cs" />
+    <Compile Include="Extensions\DeliverablePeriodPaymentInfoCollectionExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="FcrPaymentValuesCalculationService.cs" />
+    <Compile Include="IFcrPaymentValuesCalculationService.cs" />
+    <Compile Include="Repositories\AllocationQueryRepository.cs" />
+    <Compile Include="Repositories\DeliverablePaymentRepository.cs" />
+    <Compile Include="Repositories\IAllocationQueryRepository.cs" />
+    <Compile Include="Repositories\IDeliverablePaymentRepository.cs" />
+    <Compile Include="Repositories\IOrganisationDetailsRepository.cs" />
+    <Compile Include="Repositories\OrganisationDetailsRepository.cs" />
+    <Compile Include="Services\BehaviourFactory.cs" />
+    <Compile Include="Services\CalculationInputActualEnrichmentService.cs" />
+    <Compile Include="Services\CensusDateService.cs" />
+    <Compile Include="Services\DateService.cs" />
+    <Compile Include="Services\FundingClaimReconciliationService.cs" />
+    <Compile Include="Services\IActualEnrichmentService.cs" />
+    <Compile Include="Services\IBehaviourFactory.cs" />
+    <Compile Include="Services\ICensusDateService.cs" />
+    <Compile Include="Services\IDateService.cs" />
+    <Compile Include="Services\IFundingClaimReconciliationService.cs" />
+    <Compile Include="Services\ReconciliationCalculator.cs" />
+    <Compile Include="Dtos\CensusPeriodInfo.cs" />
+    <Compile Include="Dtos\FspCalcConfigInfo.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
+    <Compile Include="IPaymentValuesCalculationService.cs" />
+    <Compile Include="IPaymentValuesCalculator.cs" />
+    <Compile Include="PaymentValuesCalculationService.cs" />
+    <Compile Include="PaymentValuesCalculator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IPaymentTimetableRepository.cs" />
+    <Compile Include="Repositories\IPolicyFundingStreamPeriodRepository.cs" />
+    <Compile Include="Repositories\PaymentTimetableRepository.cs" />
+    <Compile Include="Repositories\PolicyFundingStreamPeriodRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
+      <Project>{B93F0ED2-8AF4-46C4-AE47-DAA3483FD8F3}</Project>
+      <Name>Framework.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
+      <Project>{6e27f9ef-1391-41e7-8b8d-7c1b82665578}</Project>
+      <Name>CrossDomain.Integration.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj">
+      <Project>{D68560C9-7FCC-41E6-B48D-3CD237D97926}</Project>
+      <Name>CrossDomain.Integration.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PaymentManagementDomain.Integration.DataStore\PMD.PolicyCache.DataStore.csproj">
+      <Project>{D3DB2AF2-6AB8-4257-8678-C171B8C06E6A}</Project>
+      <Name>PMD.PolicyCache.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PaymentManagementDomain.PaymentSchedule.DataStore\PMD.PaymentSchedule.DataStore.csproj">
+      <Project>{00AD2BF4-7448-4C7C-9CB1-6A7C39F64083}</Project>
+      <Name>PMD.PaymentSchedule.DataStore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

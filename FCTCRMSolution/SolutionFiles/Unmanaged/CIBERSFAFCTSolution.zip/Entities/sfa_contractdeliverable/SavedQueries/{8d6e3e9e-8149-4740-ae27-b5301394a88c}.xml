@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <savedqueryid>{8d6e3e9e-8149-4740-ae27-b5301394a88c}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_deliverablename" select="1" icon="1" preview="1">
+      <row name="result" id="sfa_contractdeliverableid">
+        <cell name="sfa_deliverablename" width="300" />
+        <cell name="sfa_plannedvalue" width="125" />
+        <cell name="sfa_actualvalue" width="125" />
+        <cell name="sfa_plannedvolume" width="125" />
+        <cell name="sfa_actualvolume" width="125" />
+        <cell name="sfa_displayorder" width="25" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_contractdeliverable">
+        <attribute name="sfa_deliverablename" />
+        <order attribute="sfa_displayorder" descending="false" />
+        <order attribute="sfa_deliverablename" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <attribute name="sfa_plannedvolume" />
+        <attribute name="sfa_plannedvalue" />
+        <attribute name="sfa_displayorder" />
+        <attribute name="sfa_actualvolume" />
+        <attribute name="sfa_actualvalue" />
+        <attribute name="sfa_contractdeliverableid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>1.1.3.2</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Active Contract Deliverables" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

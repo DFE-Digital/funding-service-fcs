@@ -1,0 +1,1113 @@
+﻿Feature: DeliveryOrgAmendments 19743
+
+@AcceptanceTest @Withdrawn20231002
+@Long2Run @Long2Run45
+Scenario: A530 Create and approve a 1718 EFA contract without a Delivery org. Amend contract. Update draft amendment to change Delivery Org to add a Delivery org which isn't the Contracting org (CABR-025)
+    Given there is no Contract, Task or Workflow data for UKPRN '10017530'
+	And   the Allocation Delivery Monitoring Service atom feed is empty
+   #And   there is no Subnominal data for the following contract allocations
+    And   there is no Subnominal or event history data for the following contract allocations
+    | AllocationRef |
+    | 16LR-530      |
+    | NMF-530       |
+    | SSF-530       |
+
+    # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017530'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017530 Co Ltd' with UKPRN '10017530' and OrgId 'ORG0017530' and has 'FCS1 Test' as a manager
+    And   UPIN '117530' is associated with UKPRN '10017530' in the CRM Organisation table
+	
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017530 | 117530 | 10017530 Co Ltd | 0              | Active |   
+ 
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017530 | 10017530 Co Ltd      | ESFA-530             | 1619F-530      | 1                     | 01/08/2017        | 31/07/2018      | 598848.00     |                                | Contract for Services | 1718   | New          | ORG0017530 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName | UoPCode | AllocationDescription         | CRMIntent | DeliveryOrg |
+    | 10017530 | 1619F-530      | 16LR-530      | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 117792.00       |         |         |                               | New       |             |
+    | 10017530 | 1619F-530      | NMF-530       | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 111004.00       |         |         |                               | New       |             |
+    | 10017530 | 1619F-530      | SSF-530       | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 51833.00        |         |         |                               | New       |             |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017530 | 1619F-530      | 16LR-530      | 19              | 0                     | 11380.00  | 4666.29  | 4041.02  | -828.68  | -1570.62 | -2529.26 | 1612.55  | 2451.99  | 2551.59  | -238.52  | -481.81  | 4151.41  | -2445.73 | 16-19 Bursary Funds                                     | New          |             |
+    | 10017530 | 1619F-530      | 16LR-530      | 20              | 0                     | 13585.00  | 800.66   | 1209.02  | 2203.88  | 3771.98  | -1427.91 | -428.96  | 2838.86  | 1053.93  | 3315.66  | -2477.88 | -2209.76 | 4935.84  | 16-19 Total Programme Funding                           | New          |             |
+    | 10017530 | 1619F-530      | 16LR-530      | 21              | 0                     | 13453.00  | 4011.68  | -641.17  | -1944.16 | 4361.85  | -784.75  | 4053.33  | -593.32  | 2756.35  | -1359.32 | 500.22   | 4446.42  | -1354.11 | 16-19 Formula Protection Funding                        | New          |             |
+    | 10017530 | 1619F-530      | 16LR-530      | 22              | 0                     | 4872.00   | 3295.82  | 3713.48  | -179.32  | -568.94  | 3166.45  | -626.76  | -2223.52 | -1891.69 | 250.63   | -477.23  | 1671.59  | -1258.09 | 16-19 High Needs Element 2                              | New          |             |
+    | 10017530 | 1619F-530      | 16LR-530      | 24              | 0                     | 26857.00  | 2343.15  | -1184.72 | 4633.85  | 4885.75  | 3169.82  | 2910.82  | -2029.37 | 2155.22  | 3471.88  | 4223.14  | 4928.18  | -2650.84 | 14-16 Programme Funding                                 | New          |             |
+    | 10017530 | 1619F-530      | 16LR-530      | 25              | 0                     | 18756.00  | 2840.40  | -1383.43 | -599.07  | 4921.67  | 1300.59  | 4052.95  | -1809.01 | 4203.96  | 2846.25  | 3188.38  | -782.55  | -23.70   | 14-16 Pupil Premium                                     | New          |             |
+    | 10017530 | 1619F-530      | 16LR-530      | 31              | 0                     | 3070.00   | -2475.92 | 4920.24  | -324.26  | -810.15  | 68.13    | -1316.05 | 547.05   | -2561.45 | 4684.09  | 4299.92  | -2542.30 | -1419.01 | 16-19 Free Meals in FE                                  | New          |             |
+    | 10017530 | 1619F-530      | 16LR-530      | 32              | 0                     | 18660.00  | 4183.70  | -1029.63 | 4688.48  | -2687.75 | 3269.15  | 2226.26  | 3134.04  | 2685.86  | 2567.44  | -975.89  | -587.69  | 1185.57  | 16-19 High Needs SPI Element 1                          | New          |             |
+    | 10017530 | 1619F-530      | 16LR-530      | 33              | 0                     | 7159.00   | 214.73   | -2607.09 | 1530.81  | -252.68  | 3190.76  | 2231.01  | 1861.05  | 531.06   | 1603.16  | -1147.08 | -632.09  | 1042.63  | 19+ Continuing Learners Programme Funding               | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 31              | 0                     | 17104.00  | -2388.08 | 3900.71  | 3052.35  | 1755.98  | -868.10  | 2656.15  | -1210.12 | 1481.80  | 2089.19  | 4930.17  | -519.71  | 2223.22  | Cadets Vocational Programme                             | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 32              | 0                     | 16392.00  | 1176.96  | -2119.35 | -2662.63 | 2476.35  | -2505.51 | 4047.35  | 3229.43  | -626.23  | 4031.47  | 2498.69  | 2438.62  | 4406.51  | Closing Schools                                         | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 33              | 0                     | 6512.00   | -1497.64 | 128.72   | -1829.65 | -1304.19 | 2930.86  | 3503.93  | 2412.66  | -584.86  | 1384.18  | 460.13   | -2454.45 | 3361.92  | Residential Bursary Fund                                | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 39              | 0                     | 10694.00  | 57.47    | -1750.62 | 1300.42  | 2679.50  | 3508.20  | 5306.79  | 1069.38  | 2529.00  | 640.50   | -1652.55 | -635.31  | 1711.19  | NMF Pre-16 Funding (NMSS)                               | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 43              | 0                     | 10031.00  | -560.43  | -736.71  | -1171.93 | -1361.63 | 1256.02  | 2369.93  | 4790.14  | -743.77  | 440.29   | 3653.59  | -1420.27 | 3515.73  | Primary PE and Sport Premium                            | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 47              | 0                     | 1489.00   | 1526.99  | -252.05  | -1416.69 | 1594.98  | -630.74  | 731.03   | -1545.67 | 3271.12  | 223.22   | -1927.95 | 872.62   | -957.82  | SSF Free Meals                                          | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 49              | 0                     | 9121.00   | -2017.76 | 4728.34  | -1346.27 | 1198.98  | -838.59  | 3592.14  | 4608.37  | 1046.96  | 3031.86  | -712.42  | -2448.33 | -1721.89 | Pre-16 Universal Infant Free School Meals               | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 85              | 0                     | 25080.00  | -694.86  | 1717.48  | 2862.71  | 1092.82  | -1032.37 | 3760.25  | 3393.75  | 4871.73  | 4664.87  | -83.26   | 529.69   | 3997.62  | Residential Support Scheme                              | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 86              | 0                     | 5230.00   | -1364.06 | -892.84  | -802.56  | -2172.66 | 2797.90  | 417.93   | 2625.25  | -1386.39 | 380.06   | 1998.54  | 1252.11  | 2376.92  | 19+ Continuing Learners in SFC (Student Support)        | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 87              | 0                     | 12959.00  | -91.55   | 4108.46  | 2587.15  | 727.41   | -259.88  | -1486.02 | 618.98   | 2436.76  | 1347.58  | -1164.90 | 1775.07  | 2360.03  | Area Review Transition Grant                            | New          |             |
+    | 10017530 | 1619F-530      | NMF-530       | 89              | 0                     | -3608.00  | 1153.13  | 2642.44  | -1768.85 | -892.45  | -86.76   | 2304.03  | -2229.44 | -933.19  | -1547.03 | -2217.74 | 993.62   | -1025.66 | 16+ Factor Removal (DSG) SSF                            | New          |             |
+    | 10017530 | 1619F-530      | SSF-530       | 2               | 0                     | 12579.00  | -2148.96 | -1952.55 | 2869.77  | -1019.29 | -530.29  | -2185.24 | 3585.00  | -1266.37 | 4672.20  | 4415.55  | 770.87   | 4961.31  | SSF Total Programme funding                             | New          |             |
+    | 10017530 | 1619F-530      | SSF-530       | 13              | 0                     | 4470.00   | 2383.26  | 3050.09  | 314.05   | -1458.73 | 164.80   | -1908.86 | -2616.18 | 303.19   | 2315.32  | 2480.77  | 441.45   | -999.23  | SSF Bursary Funds                                       | New          |             |
+    | 10017530 | 1619F-530      | SSF-530       | 14              | 0                     | 1587.00   | 161.19   | -2122.74 | 2599.57  | -1766.39 | 2891.15  | -1847.99 | 1731.54  | 2919.08  | 140.56   | -2163.67 | -869.12  | -85.81   | SSF Formula Protection Funding                          | New          |             |
+    | 10017530 | 1619F-530      | SSF-530       | 15              | 0                     | 17198.00  | 4525.89  | 518.40   | 120.55   | 2987.49  | 2528.99  | 2390.10  | 1012.43  | -1659.09 | 931.54   | 1143.91  | 1416.60  | 1281.69  | SSF High Needs Element 2                                | New          |             |
+    | 10017530 | 1619F-530      | SSF-530       | 17              | 0                     | 10245.00  | 4999.42  | -980.26  | 2900.77  | -2155.84 | -1382.99 | 1.87     | 1799.65  | -2438.27 | 4371.67  | 1165.77  | -425.69  | 2388.69  | Maintained Special SSF Element 2                        | New          |             |
+    | 10017530 | 1619F-530      | SSF-530       | 18              | 0                     | 5754.00   | -2611.96 | 1575.00  | -478.44  | 972.07   | 512.45   | -2471.92 | -2366.66 | 3873.60  | 2047.28  | 3155.39  | -1193.93 | 2741.49  | Maintained Special SSF Student Support                  | New          |             |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Publish the contract
+    And   the latest version of contract '1619F-530' is in a state of 'Published to Provider'
+
+    # Inject an SFS approval message
+    And   the override date is '10/07/2017'
+    When  a contract approval message is received from SFS for version '1' actual MasterContractNumber 'ESFA-530' and actual ContractNumber '1619F-530'
+
+    # Check that the contract is now approved
+    Then  the latest version of contract '1619F-530' is in status 'Approved'
+
+    # Bulk file to execute a contract amendment leaving the Delivery Org blank
+    Given there are no files prefixed '10017530_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 12072017102607 v3_A530_1' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 12072017102607 v3_A530_1' in the Sharepoint 'Reports' folder
+    And   the override date is '16/07/2017'
+    And   spreadsheet '1619FUND AY 1718 12072017102607 v3_A530_1.xlsx' exists in the Datafiles folder and UKPRN '10017530' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Success' is displayed in field 'J2' on the 'Contract' tab of the result report file
+
+    # Bulk file to execute an update draft amendment which adds a Delivery Org which is not the Contracting Org
+   #Given there are no files prefixed '10017530_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    Given there are no files prefixed '1619FUND AY 1718 12072017103218 v3_A530_2' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 12072017103218 v3_A530_2' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 12072017103218 v3_A530_2.xlsx' exists in the Datafiles folder and UKPRN '10017530' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+	# Second bulk upload file should generate a CABR-025 error
+    And   'Failed' is displayed in field 'J2' on the 'Contract' tab of the result report file
+    And   '[Contract Allocation] Delivery Organisation cannot be changed or removed on an approved contract allocation' is displayed in field 'J2' on the 'Contract' tab of the result report file
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20260521
+Scenario: A536 Create and approve a 1718 EFA contract then attempt an amendment which changes the Delivery org (CABR-025)
+    Given there is no Contract, Task or Workflow data for UKPRN '10017536'
+   #And   there is no Subnominal data for the following contract allocations
+	And   there is no Subnominal or event history data for the following contract allocations
+    | AllocationRef |
+    | 16LR-5361     |
+    | 16LR-5362     |
+    | NMF-5361      |
+    | NMF-5362      |
+    | SSF-5361      |
+    | SSF-5362      |
+
+    # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017536'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017536 Co Ltd' with UKPRN '10017536' and OrgId 'ORG0017536' and has 'FCS1 Test' as a manager
+    And   UPIN '117536' is associated with UKPRN '10017536' in the CRM Organisation table
+	
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017536 | 117536 | 10017536 Co Ltd | 0              | Active |   
+ 
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017536 | 10017536 Co Ltd      | ESFA-536             | 1619F-536      | 1                     | 01/08/2017        | 31/07/2018      | 598848.00     |                                | Contract for Services | 1718   | New          | ORG0017536 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName | UoPCode | AllocationDescription         | CRMIntent | DeliveryOrg |
+    | 10017536 | 1619F-536      | 16LR-5361     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 117792.00       |         |         | CARSHALTON COLLEGE (101565)   | New       | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 111004.00       |         |         | CARSHALTON COLLEGE (101565)   | New       | 11753601    |
+    | 10017536 | 1619F-536      | SSF-5361      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 51833.00        |         |         | CARSHALTON COLLEGE (101565)   | New       | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 136547.00       |         |         | SALFORD CITY COLLEGE (102917) | New       | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 130519.00       |         |         | SALFORD CITY COLLEGE (102917) | New       | 11753602    |
+    | 10017536 | 1619F-536      | SSF-5362      | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 51153.00        |         |         | SALFORD CITY COLLEGE (102917) | New       | 11753602    |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017536 | 1619F-536      | 16LR-5361     | 19              | 0                     | 11380.00  | 4666.29  | 4041.02  | -828.68  | -1570.62 | -2529.26 | 1612.55  | 2451.99  | 2551.59  | -238.52  | -481.81  | 4151.41  | -2445.73 | 16-19 Bursary Funds                                     | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5361     | 20              | 0                     | 13585.00  | 800.66   | 1209.02  | 2203.88  | 3771.98  | -1427.91 | -428.96  | 2838.86  | 1053.93  | 3315.66  | -2477.88 | -2209.76 | 4935.84  | 16-19 Total Programme Funding                           | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5361     | 21              | 0                     | 13453.00  | 4011.68  | -641.17  | -1944.16 | 4361.85  | -784.75  | 4053.33  | -593.32  | 2756.35  | -1359.32 | 500.22   | 4446.42  | -1354.11 | 16-19 Formula Protection Funding                        | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5361     | 22              | 0                     | 4872.00   | 3295.82  | 3713.48  | -179.32  | -568.94  | 3166.45  | -626.76  | -2223.52 | -1891.69 | 250.63   | -477.23  | 1671.59  | -1258.09 | 16-19 High Needs Element 2                              | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5361     | 24              | 0                     | 26857.00  | 2343.15  | -1184.72 | 4633.85  | 4885.75  | 3169.82  | 2910.82  | -2029.37 | 2155.22  | 3471.88  | 4223.14  | 4928.18  | -2650.84 | 14-16 Programme Funding                                 | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5361     | 25              | 0                     | 18756.00  | 2840.40  | -1383.43 | -599.07  | 4921.67  | 1300.59  | 4052.95  | -1809.01 | 4203.96  | 2846.25  | 3188.38  | -782.55  | -23.70   | 14-16 Pupil Premium                                     | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5361     | 31              | 0                     | 3070.00   | -2475.92 | 4920.24  | -324.26  | -810.15  | 68.13    | -1316.05 | 547.05   | -2561.45 | 4684.09  | 4299.92  | -2542.30 | -1419.01 | 16-19 Free Meals in FE                                  | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5361     | 32              | 0                     | 18660.00  | 4183.70  | -1029.63 | 4688.48  | -2687.75 | 3269.15  | 2226.26  | 3134.04  | 2685.86  | 2567.44  | -975.89  | -587.69  | 1185.57  | 16-19 High Needs SPI Element 1                          | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5361     | 33              | 0                     | 7159.00   | 214.73   | -2607.09 | 1536.81  | -252.68  | 3190.76  | 2231.01  | 1861.05  | 531.06   | 1603.16  | -1147.08 | -632.09  | 1042.63  | 19+ Continuing Learners Programme Funding               | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 31              | 0                     | 17104.00  | -2388.08 | 3900.71  | 3052.35  | 1755.98  | -868.10  | 2656.15  | -1210.12 | 1481.80  | 2089.19  | 4930.17  | -519.71  | 2223.22  | Cadets Vocational Programme                             | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 32              | 0                     | 16392.00  | 1176.96  | -2119.35 | -2662.63 | 2476.35  | -2505.51 | 4047.35  | 3229.43  | -626.23  | 4031.47  | 2498.69  | 2438.62  | 4406.51  | Closing Schools                                         | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 33              | 0                     | 6512.00   | -1497.64 | 128.72   | -1829.65 | -1304.19 | 2930.86  | 3503.93  | 2412.66  | -584.86  | 1384.18  | 460.13   | -2454.45 | 3361.92  | Residential Bursary Fund                                | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 39              | 0                     | 10694.00  | 57.47    | -1750.62 | 1300.42  | 2679.50  | 3508.20  | 5366.79  | 1069.38  | 2529.00  | 640.50   | -1652.55 | -635.31  | 1711.19  | NMF Pre-16 Funding (NMSS)                               | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 43              | 0                     | 10031.00  | -560.43  | -736.71  | -1171.93 | -1361.63 | 1256.02  | 2369.93  | 4790.14  | -743.77  | 440.29   | 3653.59  | -1420.27 | 3515.73  | Primary PE and Sport Premium                            | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 47              | 0                     | 1489.00   | 1526.99  | -252.05  | -1416.69 | 1594.98  | -630.74  | 731.03   | -1545.67 | 3271.12  | 223.22   | -1927.95 | 872.62   | -957.82  | SSF Free Meals                                          | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 49              | 0                     | 9121.00   | -2017.76 | 4728.34  | -1346.27 | 1198.98  | -838.59  | 3592.14  | 4608.37  | 1046.96  | 3031.86  | -712.42  | -2448.33 | -1721.89 | Pre-16 Universal Infant Free School Meals               | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 85              | 0                     | 25080.00  | -694.86  | 1717.48  | 2862.71  | 1092.82  | -1032.37 | 3760.25  | 3393.75  | 4871.73  | 4664.87  | -83.26   | 529.69   | 3997.62  | Residential Support Scheme                              | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 86              | 0                     | 5230.00   | -1364.06 | -892.84  | -802.56  | -2172.66 | 2797.90  | 417.93   | 2625.25  | -1386.39 | 380.06   | 1998.54  | 1252.11  | 2376.92  | 19+ Continuing Learners in SFC (Student Support)        | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 87              | 0                     | 12959.00  | -91.55   | 4108.46  | 2587.15  | 727.41   | -259.88  | -1486.02 | 618.98   | 2436.76  | 1347.58  | -1164.90 | 1775.07  | 2360.03  | Area Review Transition Grant                            | New          | 11753601    |
+    | 10017536 | 1619F-536      | NMF-5361      | 89              | 0                     | -3608.00  | 1153.13  | 2642.44  | -1768.85 | -892.45  | -86.76   | 2304.03  | -2229.44 | -933.19  | -1547.03 | -2217.74 | 993.62   | -1025.66 | 16+ Factor Removal (DSG) SSF                            | New          | 11753601    |
+    | 10017536 | 1619F-536      | SSF-5361      | 2               | 0                     | 12579.00  | -2148.96 | -1952.55 | 2869.77  | -1019.29 | -536.29  | -2185.24 | 3585.00  | -1266.37 | 4672.20  | 4415.55  | 770.87   | 4961.31  | SSF Total Programme funding                             | New          | 11753601    |
+    | 10017536 | 1619F-536      | SSF-5361      | 13              | 0                     | 4470.00   | 2383.26  | 3050.09  | 314.05   | -1458.73 | 164.80   | -1908.86 | -2616.18 | 303.19   | 2315.32  | 2480.77  | 441.45   | -999.23  | SSF Bursary Funds                                       | New          | 11753601    |
+    | 10017536 | 1619F-536      | SSF-5361      | 14              | 0                     | 1587.00   | 161.19   | -2122.74 | 2599.57  | -1766.39 | 2891.15  | -1847.99 | 1731.54  | 2919.08  | 140.56   | -2163.67 | -869.12  | -85.81   | SSF Formula Protection Funding                          | New          | 11753601    |
+    | 10017536 | 1619F-536      | SSF-5361      | 15              | 0                     | 17198.00  | 4525.89  | 518.40   | 120.55   | 2987.49  | 2528.99  | 2390.10  | 1012.43  | -1659.09 | 931.54   | 1143.91  | 1416.60  | 1281.69  | SSF High Needs Element 2                                | New          | 11753601    |
+    | 10017536 | 1619F-536      | SSF-5361      | 17              | 0                     | 10245.00  | 4999.42  | -980.26  | 2900.77  | -2155.84 | -1382.99 | 1.87     | 1799.65  | -2438.27 | 4371.67  | 1165.77  | -425.69  | 2388.69  | Maintained Special SSF Element 2                        | New          | 11753601    |
+    | 10017536 | 1619F-536      | SSF-5361      | 18              | 0                     | 5754.00   | -2611.96 | 1575.00  | -478.44  | 972.07   | 512.45   | -2471.92 | -2366.66 | 3873.60  | 2047.28  | 3155.39  | -1193.93 | 2741.49  | Maintained Special SSF Student Support                  | New          | 11753601    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 19              | 0                     | 11392.00  | -478.09  | 886.28   | 49.04    | 4005.66  | 963.64   | -1281.33 | 2029.16  | -2016.59 | -2173.97 | 3494.52  | 3562.52  | 2350.68  | 16-19 Bursary Funds                                     | New          | 11753602    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 20              | 0                     | -623.00   | -1227.78 | -538.05  | -2207.80 | -2784.35 | -2334.87 | -330.32  | 659.58   | 3491.81  | -1448.12 | 2213.90  | 2763.60  | 1119.74  | 16-19 Total Programme Funding                           | New          | 11753602    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 21              | 0                     | 15950.00  | 3598.12  | 3035.12  | 1170.22  | -2560.92 | 2972.43  | 2865.06  | 1971.76  | 3910.40  | -2119.29 | 523.53   | 1396.28  | -813.03  | 16-19 Formula Protection Funding                        | New          | 11753602    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 22              | 0                     | 22366.00  | 2150.56  | 3765.32  | 66.97    | 3336.77  | -1034.41 | 3077.02  | 3611.51  | -1985.75 | 949.86   | 2023.96  | 1821.42  | 4582.33  | 16-19 High Needs Element 2                              | New          | 11753602    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 24              | 0                     | 16719.00  | 3002.25  | 2747.04  | 4361.49  | 384.12   | -519.23  | 1209.64  | 429.12   | 764.96   | 3337.06  | -5.56    | -1636.29 | 2644.14  | 14-16 Programme Funding                                 | New          | 11753602    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 25              | 0                     | 21752.00  | 4800.63  | -349.62  | 4806.03  | 236.90   | 2213.31  | -210.56  | -1992.46 | 2726.24  | 3613.62  | 2133.59  | 4489.90  | -715.21  | 14-16 Pupil Premium                                     | New          | 11753602    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 31              | 0                     | 18071.00  | -928.89  | -88.39   | -1745.81 | 4046.73  | -2629.19 | 406.03   | 4740.42  | 1629.61  | 2247.50  | 2649.94  | 3936.79  | 3806.28  | 16-19 Free Meals in FE                                  | New          | 11753602    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 32              | 0                     | 9954.00   | -1629.83 | 473.88   | -760.87  | -1073.27 | 1676.35  | 3102.75  | 2460.29  | 4689.97  | 2456.51  | 3102.65  | -2610.55 | -1934.10 | 16-19 High Needs SPI Element 1                          | New          | 11753602    |
+    | 10017536 | 1619F-536      | 16LR-5362     | 33              | 0                     | 20966.00  | 3988.43  | 877.76   | -1098.44 | 3167.22  | 721.54   | -82.77   | 4816.68  | 1671.25  | -2588.65 | 3992.06  | 4309.34  | 1191.84  | 19+ Continuing Learners Programme Funding               | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 31              | 0                     | 18004.00  | 3150.27  | 3580.75  | 3877.04  | 1637.53  | 2170.42  | 3041.16  | 2283.24  | 2406.57  | -1749.65 | -1809.85 | -1580.22 | 996.29   | Cadets Vocational Programme                             | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 32              | 0                     | 8429.00   | 4433.10  | -863.78  | 1448.73  | -341.95  | 2752.07  | -183.45  | -1154.02 | 3301.60  | -1534.48 | 2493.92  | -89.30   | -1833.04 | Closing Schools                                         | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 33              | 0                     | 3880.00   | -1759.13 | -2596.43 | 3224.66  | 2646.32  | -1910.92 | -1049.92 | -2738.37 | 3055.86  | 4449.08  | -1945.75 | 1946.75  | 557.69   | Residential Bursary Fund                                | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 39              | 0                     | 9152.00   | 2622.05  | 2249.94  | 2965.89  | -2368.32 | -2644.12 | -269.02  | -2774.97 | 2097.35  | 779.54   | 3348.07  | 1259.68  | 1885.74  | NMF Pre-16 Funding (NMSS)                               | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 43              | 0                     | 1041.00   | -1112.63 | 2955.56  | -805.82  | 4161.29  | -2026.43 | -2291.57 | 1851.13  | -1606.30 | 2816.50  | -890.88  | -1389.26 | -620.14  | Primary PE and Sport Premium                            | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 47              | 0                     | 25357.00  | 4613.05  | 4804.39  | 4820.22  | -1384.36 | 2063.07  | -2267.80 | 1953.13  | 3417.84  | 1003.71  | 1818.63  | 4518.80  | -4.00    | SSF Free Meals                                          | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 49              | 0                     | 5329.00   | 393.79   | -775.31  | 4121.64  | 4274.33  | 3648.20  | -2256.75 | 1270.59  | -2336.44 | 722.24   | -1254.11 | 138.43   | -2617.17 | Pre-16 Universal Infant Free School Meals               | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 85              | 0                     | 2429.00   | -1053.97 | -1720.26 | -2528.80 | 3931.54  | 1208.87  | -2085.58 | 4647.56  | -2688.79 | 1693.59  | 1938.91  | 1488.13  | -2402.55 | Residential Support Scheme                              | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 86              | 0                     | 16972.00  | -839.01  | 908.34   | 1214.93  | 2661.73  | 4384.15  | 3940.99  | 360.72   | -1956.73 | 2732.82  | 2765.04  | 828.35   | -29.01   | 19+ Continuing Learners in SFC (Student Support)        | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 87              | 0                     | 14940.00  | 4507.83  | 115.55   | 2700.20  | -1064.71 | 3625.42  | 1081.29  | -1002.53 | -1190.00 | 651.64   | -1398.42 | 3589.67  | 3324.20  | Area Review Transition Grant                            | New          | 11753602    |
+    | 10017536 | 1619F-536      | NMF-5362      | 89              | 0                     | 24986.00  | 4386.74  | -86.76   | 3053.86  | 4484.13  | 4199.49  | 347.41   | 4084.12  | 4145.05  | -1088.40 | -1923.57 | 4850.91  | -1466.89 | 16+ Factor Removal (DSG) SSF                            | New          | 11753602    |
+    | 10017536 | 1619F-536      | SSF-5362      | 2               | 0                     | 4655.00   | 235.33   | 2765.98  | 3800.04  | 1632.39  | 2894.24  | -1255.50 | -1851.22 | 3483.19  | -2199.23 | -1001.91 | -2381.56 | -1467.06 | SSF Total Programme funding                             | New          | 11753602    |
+    | 10017536 | 1619F-536      | SSF-5362      | 13              | 0                     | 18385.00  | 3025.29  | -1446.82 | 2017.17  | 1494.72  | 2216.08  | 2102.46  | -2245.54 | 4877.50  | -1166.29 | 1701.65  | 1350.59  | 4458.02  | SSF Bursary Funds                                       | New          | 11753602    |
+    | 10017536 | 1619F-536      | SSF-5362      | 14              | 0                     | 17708.00  | 2135.46  | 3216.48  | 3495.92  | 3302.68  | -490.36  | 119.48   | 860.29   | 2139.39  | 959.99   | 3836.93  | -1347.56 | -520.52  | SSF Formula Protection Funding                          | New          | 11753602    |
+    | 10017536 | 1619F-536      | SSF-5362      | 15              | 0                     | 6325.00   | -259.92  | -1954.36 | -470.65  | 1489.53  | -2662.38 | 4119.96  | 2255.60  | 2613.27  | -791.08  | 328.48   | 2312.77  | -656.53  | SSF High Needs Element 2                                | New          | 11753602    |
+    | 10017536 | 1619F-536      | SSF-5362      | 17              | 0                     | 884.00    | 4663.18  | -1018.91 | 2258.80  | -1856.20 | -1303.08 | 725.71   | 637.39   | 1920.68  | 378.35   | -2404.76 | -1562.66 | -1554.81 | Maintained Special SSF Element 2                        | New          | 11753602    |
+    | 10017536 | 1619F-536      | SSF-5362      | 18              | 0                     | 3196.00   | 3981.72  | 1404.42  | -298.05  | -2475.07 | 71.71    | 3896.69  | -1511.61 | -74.07   | -1462.18 | 1241.07  | -1022.94 | -555.56  | Maintained Special SSF Student Support                  | New          | 11753602    |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Publish the contract
+    And   the latest version of contract '1619F-536' is in a state of 'Published to Provider'
+
+    # Inject an SFS approval message
+	And   the override date is '10/07/2017'
+    When  a contract approval message is received from SFS for version '1' actual MasterContractNumber 'ESFA-536' and actual ContractNumber '1619F-536'
+
+    # Check that the contract is now approved
+    Then  the latest version of contract '1619F-536' is in status 'Approved'
+
+    # Bulk file to execute a contract amendment including a change to the Delivery Org
+    Given there are no files prefixed '10017536_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 05072017173530 v3_A536' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 05072017173530 v3_A536' in the Sharepoint 'Reports' folder
+    And   the override date is '16/07/2017'
+    And   spreadsheet '1619FUND AY 1718 05072017173530 v3_A536.xlsx' exists in the Datafiles folder and UKPRN '10017536' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+	# Bulk upload file should generate a CABR-025 error
+    And   'Failed' is displayed in field 'J2' on the 'Contract' tab of the result report file
+    And   '[Contract Allocation] Delivery Organisation cannot be changed or removed on an approved contract allocation' is displayed in field 'J2' on the 'Contract' tab of the result report file
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20260521
+@Long2Run @Long2Run45
+Scenario: A540 Create and approve a 1718 EFA contract without a Delivery org then amend to add the Contracting org as a Delivery org. Check Subnominal Aggregations table
+    Given there are no allocations marked as Under Termination for UKPRN '10017540' 
+    And   there are no terminated or closed allocations for UKPRN '10017540' 
+    And   there is no Contract, Task or Workflow data for UKPRN '10017540' 
+    And   the Allocation Delivery Monitoring Service atom feed is empty 
+    And   the Contract Management atom feed is empty 
+
+    # Clear down subnominal data from CRM and PaaS for an allocation
+    And   there is no Subnominal data in CRM or PaaS for the following contract allocations
+    | AllocationRef |
+    | 16LR-540      |
+    | NMF-540       |
+    | SSF-540       |
+
+    # Clear down all subnominal data from PaaS for an FSP
+    And   there is no Subnominal data in PaaS for the following FSPs
+    | FSP            |
+    | 1619LR1718     |
+    | NMF1718        |
+    | SSF1718        |
+
+
+    # Set organisation and advisors 
+    Given there is no Organisation data for UKPRN '10017540' 
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017540 Co Ltd' with UKPRN '10017540' and OrgId 'ORG0017540' and has 'FCS1 Test' as a manager 
+   #And   caseload advisor 'FCS2 Test' is assigned to UKPRN '10017540' 
+
+    # Put Provider data in the PaaS Organisation table (dbo.Organisations) J056
+    And   the following Organisations exist in the FCT Organisation Service 
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status                | UKRLPCalledOk | CompanyNumber | CharityNumber | AddressLine1           | AddressLine2           | AddressLine3           | AddressLine4           | Town                   | County                 | Postcode  |
+    | 10017540 | 117540 | 10017540 Co Ltd | 0              | Active                | Yes           | AA017540      | ?             | 50 Lucks Hill          | ?                      | ?                      | ?                      | Hemel Hempstead        | Hertfordshire          | HP1 2JW   |
+
+    # Put the same Provider data in the CRM Organisation table 
+    And   PaaS Organisation data has been replicated in CRM for the following UKPRNs
+    | UKPRN    |
+    | 10017540 |
+
+
+
+ 
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017540 | 10017540 Co Ltd      | ESFA-540             | 1619F-540      | 1                     | 01/08/2017        | 31/07/2018      | 347297.00     |                                | Contract for Services | 1718   | New          | ORG0017540 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017540 | 1619F-540      | 16LR-540      | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 148849.00       |                         |            |                                                             | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 122741.00       |                         |            |                                                             | New          |             |
+    | 10017540 | 1619F-540      | SSF-540       | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 75707.00        |                         |            |                                                             | New          |             |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017540 | 1619F-540      | 16LR-540      | 19              | 0                     | 6236.00   | 2183.63  | -853.72  | 1158.62  | 333.17   | 4237.27  | -545.76  | -1621.96 | 594.97   | -1558.33 | 2621.66  | 2283.96  | -2597.24 | 16-19 Bursary Funds                                     | New          |             |
+    | 10017540 | 1619F-540      | 16LR-540      | 20              | 0                     | 10455.00  | -8.31    | 601.43   | 2405.12  | 1207.80  | 1421.05  | -1270.10 | 2720.07  | 2511.94  | 511.73   | 2198.64  | -158.47  | -1685.54 | 16-19 Total Programme Funding                           | New          |             |
+    | 10017540 | 1619F-540      | 16LR-540      | 21              | 0                     | 20637.00  | -1046.69 | 4476.39  | 2150.82  | 4909.04  | 2952.37  | 1080.91  | 4082.13  | 2430.49  | 2391.86  | -2499.14 | 1356.98  | -1648.24 | 16-19 Formula Protection Funding                        | New          |             |
+    | 10017540 | 1619F-540      | 16LR-540      | 22              | 0                     | 6097.00   | -1259.53 | 3467.68  | 368.59   | -669.23  | 3712.01  | -2022.56 | -1683.81 | 607.23   | 874.76   | -2337.24 | 4289.50  | 749.59   | 16-19 High Needs Element 2                              | New          |             |
+    | 10017540 | 1619F-540      | 16LR-540      | 24              | 0                     | 31245.00  | 2810.91  | 2314.64  | -97.03   | 2751.89  | 1025.84  | 4754.34  | 3280.30  | 1480.61  | 3607.61  | 2655.30  | 2388.69  | 4271.59  | 14-16 Programme Funding                                 | New          |             |
+    | 10017540 | 1619F-540      | 16LR-540      | 25              | 0                     | 21094.00  | 4636.21  | 4514.97  | -476.69  | -1123.16 | 2343.02  | -1423.32 | 3141.62  | 1361.52  | 3620.19  | 1701.58  | -1752.25 | 4550.71  | 14-16 Pupil Premium                                     | New          |             |
+    | 10017540 | 1619F-540      | 16LR-540      | 31              | 0                     | 18179.00  | -720.05  | 990.42   | 4526.90  | -1373.70 | 3664.04  | -1244.52 | 3829.68  | 1473.96  | 2603.06  | 4842.49  | 2206.53  | -2620.12 | 16-19 Free Meals in FE                                  | New          |             |
+    | 10017540 | 1619F-540      | 16LR-540      | 32              | 0                     | 18260.00  | 4725.85  | -297.63  | 292.05   | 2477.77  | 1118.88  | 813.26   | 4639.41  | -454.39  | 4935.61  | -1547.71 | 2004.69  | -447.35  | 16-19 High Needs SPI Element 1                          | New          |             |
+    | 10017540 | 1619F-540      | 16LR-540      | 33              | 0                     | 16646.00  | -644.15  | 2617.50  | -2018.71 | 3756.20  | 4495.17  | -1700.32 | 2984.29  | -1051.49 | -1935.76 | 4104.32  | 4584.82  | 1453.72  | 19+ Continuing Learners Programme Funding               | New          |             |
+    #
+	| 10017540 | 1619F-540      | NMF-540       | 31              | 0                     | 7696.00   | 1778.26  | 223.36   | 4194.43  | 1674.64  | -1883.76 | -1242.80 | 1099.49  | 4189.67  | -2769.51 | -1013.51 | 1845.56  | -400.33  | Cadets Vocational Programme                             | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 32              | 0                     | 7740.00   | 4405.90  | -805.97  | 371.71   | 724.86   | -2730.66 | 2636.65  | -905.01  | 2751.65  | -1450.91 | 2067.05  | 744.74   | -70.48   | Closing Schools                                         | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 33              | 0                     | 7787.00   | 2584.16  | -2594.25 | 2146.95  | 4217.96  | -2616.35 | -237.11  | -2241.31 | 3483.24  | 4236.19  | -1589.88 | 752.49   | -354.62  | Residential Bursary Fund                                | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 39              | 0                     | 19842.00  | 2269.24  | -97.47   | 3650.62  | 1974.98  | 3158.53  | -1049.56 | 3309.56  | -1059.92 | 2987.39  | -1958.65 | 4454.37  | 2203.09  | NMF Pre-16 Funding (NMSS)                               | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 43              | 0                     | 6212.00   | -1543.86 | -2188.24 | 1762.99  | -1032.42 | -2758.49 | 4969.10  | 2900.72  | -124.74  | -894.08  | 3163.53  | -1095.52 | 3052.78  | Primary PE and Sport Premium                            | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 47              | 0                     | 19423.00  | 2356.92  | 3809.89  | -1082.70 | -891.39  | 4456.57  | -2540.47 | 4472.61  | 1479.95  | 4580.78  | 722.23   | 1328.63  | 729.59   | SSF Free Meals                                          | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 49              | 0                     | 6731.00   | 328.69   | 3737.98  | 52.81    | -1207.25 | 1982.11  | -2401.03 | 556.10   | -1625.97 | 1914.78  | 3721.41  | -2422.58 | 2094.22  | Pre-16 Universal Infant Free School Meals               | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 85              | 0                     | 20238.00  | 551.85   | 3767.39  | 3717.97  | -2012.83 | 3079.19  | 4116.77  | 4225.64  | 1546.73  | 2502.79  | 889.07   | -470.63  | -1676.42 | Residential Support Scheme                              | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 86              | 0                     | 13596.00  | 3658.15  | 1515.35  | 2923.54  | -2327.92 | 2369.60  | 1460.04  | 1202.31  | 2647.23  | -2240.25 | 1892.85  | 3044.06  | -2548.57 | 19+ Continuing Learners in SFC (Student Support)        | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 87              | 0                     | 5331.00   | -1291.19 | -1889.35 | 3545.69  | -768.54  | 1063.99  | 1109.32  | -2492.97 | 2625.29  | -2001.15 | -1294.35 | 2465.26  | 4258.99  | Area Review Transition Grant                            | New          |             |
+    | 10017540 | 1619F-540      | NMF-540       | 89              | 0                     | 8145.00   | 122.72   | 4409.21  | -2120.84 | -2006.44 | 2940.02  | -955.82  | -1136.35 | 3321.90  | 3059.68  | -878.70  | -725.98  | 2115.54  | 16+ Factor Removal (DSG) SSF                            | New          |             |
+    #
+	| 10017540 | 1619F-540      | SSF-540       | 2               | 0                     | 12835.00  | 754.47   | 2359.71  | 2540.39  | 2121.66  | 4470.45  | -2441.20 | -147.95  | 1009.86  | -1713.75 | -179.87  | 4891.86  | -830.89  | SSF Total Programme funding                             | New          |             |
+    | 10017540 | 1619F-540      | SSF-540       | 13              | 0                     | 3402.00   | 4922.54  | 1919.26  | 4720.59  | -1145.44 | 2501.29  | -2172.33 | -1588.69 | -2515.54 | -744.73  | 384.61   | -1366.19 | -1512.97 | SSF Bursary Funds                                       | New          |             |
+    | 10017540 | 1619F-540      | SSF-540       | 14              | 0                     | 26768.00  | 987.36   | -1481.04 | 3988.91  | 697.31   | 3879.91  | 2221.16  | 4492.83  | -2495.94 | 4854.15  | 3665.01  | 4611.63  | 1346.62  | SSF Formula Protection Funding                          | New          |             |
+    | 10017540 | 1619F-540      | SSF-540       | 15              | 0                     | 12882.00  | -1720.47 | 2679.59  | 1445.55  | -38.20   | -1966.83 | 2971.16  | 3863.38  | 380.73   | -890.86  | 2494.97  | -1013.18 | 4675.78  | SSF High Needs Element 2                                | New          |             |
+    | 10017540 | 1619F-540      | SSF-540       | 17              | 0                     | 16037.00  | 3577.89  | 1377.18  | -1375.09 | 3257.36  | 1695.58  | 3986.72  | 1858.34  | 1320.88  | 1763.55  | -442.82  | -1426.13 | 443.58   | Maintained Special SSF Element 2                        | New          |             |
+    | 10017540 | 1619F-540      | SSF-540       | 18              | 0                     | 3783.00   | -462.41  | -641.34  | -1651.32 | -2268.60 | 4187.36  | -2180.34 | -1115.24 | 2515.88  | 3805.76  | -2001.04 | 3193.29  | 400.99   | Maintained Special SSF Student Support                  | New          |             |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Publish the contract
+    And   the latest version of contract '1619F-540' is in a state of 'Published to Provider'
+
+    # Inject an SFS approval message
+    And   the override date is '10/07/2017'
+    When  a contract approval message is received from SFS for version '1' actual MasterContractNumber 'ESFA-540' and actual ContractNumber '1619F-540'
+
+    # Check that the contract is now approved
+    Then  the latest version of contract '1619F-540' is in status 'Approved'
+
+    # Check the CONTRACT version, status and dates in CRM
+    And   the following contract values are present in CRM
+    | UKPRN    | ContractNumber     | ContractVersionNumber | ContractSubVersionNumber | ContractStatus   | ContractSubStatus         | LatestVersion | LastApprovedVersion | ContractStartDate | ContractEndDate | AmendmentType |
+    | 10017540 | 1619F-540          | 1                     | 0                        | Approved         | Approved                  | True          | True                | 01/08/2017        | 31/07/2018      | ?             |
+    | 10017540 | ESFA-540           | 1                     | 0                        | Draft            | ?                         | False         | False               | 01/08/2017        | 31/07/2018      | ?             |
+
+
+
+
+    # Change the date
+	Given the override date is '18/07/2017'
+	
+	# Bulk file to execute a contract amendment including a change to the Delivery Org
+    Given there are no files prefixed '10017540_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 06072017113115 v3_A540' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 06072017113115 v3_A540' in the Sharepoint 'Reports' folder
+    And   the override date is '16/07/2017'
+    And   spreadsheet '1619FUND AY 1718 06072017113115 v3_A540.xlsx' exists in the Datafiles folder and UKPRN '10017540' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Success' is displayed in field 'J2' on the 'Contract' tab of the result report file
+
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Publish the contract
+    And   the latest version of contract '1619F-540' is in a state of 'Published to Provider'
+
+    # Inject an SFS approval message
+    When  a contract approval message is received from SFS for version '2' actual MasterContractNumber 'ESFA-540' and actual ContractNumber '1619F-540'
+
+    # Check that the contract is now approved
+    Then  the latest version of contract '1619F-540' is in status 'Approved'
+
+    # Check the CONTRACT version, status and dates in CRM
+    And   the following contract values are present in CRM
+    | UKPRN    | ContractNumber     | ContractVersionNumber | ContractSubVersionNumber | ContractStatus   | ContractSubStatus         | LatestVersion | LastApprovedVersion | ContractStartDate | ContractEndDate | AmendmentType |
+    | 10017540 | 1619F-540          | 2                     | 0                        | Approved         | Approved                  | True          | True                | 01/08/2017        | 31/07/2018      | Variation     |
+    | 10017540 | 1619F-540          | 1                     | 0                        | Replaced         | Approved                  | False         | False               | 01/08/2017        | 31/07/2018      | ?             |
+    | 10017540 | ESFA-540           | 1                     | 0                        | Draft            | ?                         | False         | False               | 01/08/2017        | 31/07/2018      | ?             |
+
+
+
+
+    # Check the PROFILE PAYMENTS in CRM
+    And   the Profile Payments are calculated as follows 
+    | ContractNumber | AllocationRef   | DeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   |
+    | 1619F-540      | 16LR-540        | 19              | 8623.00   | -67.97   | -4136.03 | 0.00     | 2452.97  | 324.37   | 3404.69  | 1699.08  | 1943.34  | 0.00     | 0.00     | 0.00     | 3002.55  | 
+    | 1619F-540      | 16LR-540        | 20              | 8890.00   | 0.00     | -4476.37 | 0.00     | 0.00     | 832.01   | 0.00     | 3900.65  | 3549.64  | 0.00     | 0.00     | 727.25   | 4356.82  | 
+    | 1619F-540      | 16LR-540        | 21              | 2981.00   | -1948.22 | -4563.02 | 0.00     | 462.88   | 1593.33  | 0.00     | 2716.34  | 0.00     | 0.00     | 779.13   | 2928.83  | 1011.73  | 
+    | 1619F-540      | 16LR-540        | 22              | 8161.00   | -3015.68 | -3069.56 | 0.00     | 502.09   | 3920.75  | 0.00     | 0.00     | 2875.96  | 2439.31  | 4078.38  | 429.12   | 0.63     | 
+    | 1619F-540      | 16LR-540        | 24              | 12602.00  | -2502.06 | -4990.99 | 0.00     | 3424.79  | 0.00     | 2557.72  | 2419.21  | 2915.17  | 0.00     | 356.14   | 4448.49  | 3973.53  | 
+    | 1619F-540      | 16LR-540        | 25              | 6516.00   | -1735.72 | 0.00     | 0.00     | 1646.21  | 3371.92  | 0.00     | 0.00     | 885.87   | 0.00     | 1837.59  | 132.97   | 377.16   | 
+    | 1619F-540      | 16LR-540        | 31              | 16557.00  | -3056.88 | -421.98  | 0.00     | 1434.71  | 4131.25  | 3952.53  | 0.00     | 0.00     | 0.00     | 4884.15  | 2333.55  | 3299.67  | 
+    | 1619F-540      | 16LR-540        | 32              | 18262.00  | -454.76  | -3922.53 | 0.00     | 2789.32  | 2822.09  | 3867.88  | 2505.84  | 3847.78  | 4977.23  | 0.00     | 0.00     | 1829.15  | 
+    | 1619F-540      | 16LR-540        | 33              | 3162.00   | -4625.49 | 0.00     | 0.00     | 4704.25  | 758.83   | 705.96   | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 1618.45  | 
+    #
+    | 1619F-540      | NMF-540         | 31              | 8200.00   | -343.95  | -1637.59 | 0.00     | 0.00     | 771.51   | 1901.95  | 156.13   | 3025.96  | 0.00     | 0.00     | 1088.75  | 3237.24  | 
+    | 1619F-540      | NMF-540         | 32              | 15468.00  | -3718.65 | -2704.06 | 0.00     | 3699.65  | 811.71   | 4228.38  | 0.00     | 2093.35  | 3183.59  | 2747.92  | 4387.01  | 739.10   | 
+    | 1619F-540      | NMF-540         | 33              | 18278.00  | 0.00     | 0.00     | 0.00     | 0.00     | 3732.42  | 3170.91  | 0.00     | 2727.82  | 3223.78  | 0.00     | 665.76   | 4757.31  | 
+    | 1619F-540      | NMF-540         | 39              | 11540.00  | -730.74  | -1423.09 | 0.00     | 4717.91  | 1954.82  | 3679.55  | 0.00     | 0.00     | 1194.51  | 0.00     | 2146.22  | 0.82     | 
+    | 1619F-540      | NMF-540         | 43              | 0.00      | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 0.00     | 
+    | 1619F-540      | NMF-540         | 47              | 16157.00  | -1410.43 | -143.14  | 0.00     | 0.00     | 3098.94  | 3130.71  | 4175.51  | 2813.47  | 4155.41  | 335.85   | 0.00     | 0.68     | 
+    | 1619F-540      | NMF-540         | 49              | 10.00     | -3204.03 | -4625.49 | 0.00     | 1670.36  | 4704.25  | 758.83   | 705.96   | 0.00     | 0.00     | 0.00     | 0.00     | 0.12     | 
+    | 1619F-540      | NMF-540         | 85              | 17935.00  | -3418.52 | 0.00     | 0.00     | 4122.63  | 4241.06  | 1267.47  | 3752.52  | 4334.13  | 2166.32  | 0.00     | 0.00     | 1469.39  | 
+    | 1619F-540      | NMF-540         | 86              | 13990.00  | -1739.28 | 0.00     | 0.00     | 4814.05  | 4338.19  | 0.00     | 0.00     | 3459.44  | 696.35   | 2421.08  | 0.00     | 0.17     | 
+    | 1619F-540      | NMF-540         | 87              | 20171.00  | -118.97  | -939.18  | 0.00     | 498.53   | 4378.39  | 1026.26  | 3638.16  | 2527.82  | 485.85   | 4497.81  | 3003.68  | 1172.65  | 
+    | 1619F-540      | NMF-540         | 89              | 9766.00   | -1912.57 | 0.00     | 0.00     | 0.00     | 0.00     | 4920.79  | 167.61   | 3162.31  | 0.00     | 1872.24  | 0.00     | 1555.62  | 
+    #
+    | 1619F-540      | SSF-540         | 2               | 12055.00  | 0.00     | -4047.51 | 0.00     | 0.00     | 4094.92  | 2051.95  | 0.00     | 4570.78  | 0.00     | 0.00     | 4834.15  | 550.71   | 
+    | 1619F-540      | SSF-540         | 13              | 16388.00  | -2072.19 | -1099.79 | 0.00     | 0.00     | 0.00     | 3406.57  | 3439.34  | 4484.14  | 3122.11  | 4464.04  | 643.48   | 0.30     | 
+    | 1619F-540      | SSF-540         | 14              | 5855.00   | 0.00     | -2893.39 | 0.00     | 0.00     | 1978.98  | 62.87    | 1066.46  | 1014.59  | 3756.58  | 868.64   | 0.00     | 0.27     | 
+    | 1619F-540      | SSF-540         | 15              | 23073.00  | 0.00     | -3107.89 | 0.00     | 4444.93  | 4431.26  | 4550.68  | 1575.11  | 4061.15  | 4642.75  | 2474.94  | 0.00     | 0.07     | 
+    | 1619F-540      | SSF-540         | 17              | 14781.00  | -3567.65 | -1739.28 | 0.00     | 4358.29  | 4814.05  | 4338.19  | 0.00     | 0.00     | 3459.44  | 696.35   | 2421.08  | 0.53     | 
+    | 1619F-540      | SSF-540         | 18              | 23294.00  | 0.00     | -118.97  | 0.00     | 888.74   | 806.16   | 4687.02  | 1335.88  | 3946.78  | 2836.44  | 793.48   | 4805.43  | 3313.04  | 
+
+    # Check the PROFILE subnominal aggregations in CRM
+    And   the Profile Subnominal Amounts are calculated as follows
+    | ContractNumber | AllocationRef   | ProfileSubnominal        | Aug-17    | Sep-17    | Oct-17    | Nov-17    | Dec-17    | Jan-18    | Feb-18    | Mar-18    | Apr-18    | May-18    | Jun-18    | Jul-18    |
+    | 1619F-540      | 16LR-540        | 2200030                  | -4625.49  | 0.00      | 0.00      | 4704.25   | 758.83    | 705.96    | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 1618.45   | 
+    | 1619F-540      | 16LR-540        | 2202850                  | -3056.88  | -421.98   | 0.00      | 1434.71   | 4131.25   | 3952.53   | 0.00      | 0.00      | 0.00      | 4884.15   | 2333.55   | 3299.67   | 
+    | 1619F-540      | 16LR-540        | 2203000                  | 0.00      | -4476.37  | 0.00      | 0.00      | 832.01    | 0.00      | 3900.65   | 3549.64   | 0.00      | 0.00      | 727.25    | 4356.82   | 
+    | 1619F-540      | 16LR-540        | 2203001                  | -1948.22  | -4563.02  | 0.00      | 462.88    | 1593.33   | 0.00      | 2716.34   | 0.00      | 0.00      | 779.13    | 2928.83   | 1011.73   | 
+    | 1619F-540      | 16LR-540        | 2203002                  | -3015.68  | -3069.56  | 0.00      | 502.09    | 3920.75   | 0.00      | 0.00      | 2875.96   | 2439.31   | 4078.38   | 429.12    | 0.63      | 
+    | 1619F-540      | 16LR-540        | 2203006                  | -454.76   | -3922.53  | 0.00      | 2789.32   | 2822.09   | 3867.88   | 2505.84   | 3847.78   | 4977.23   | 0.00      | 0.00      | 1829.15   | 
+    | 1619F-540      | 16LR-540        | 2203020                  | -2502.06  | -4990.99  | 0.00      | 3424.79   | 0.00      | 2557.72   | 2419.21   | 2915.17   | 0.00      | 356.14    | 4448.49   | 3973.53   | 
+    | 1619F-540      | 16LR-540        | 2203021                  | -1735.72  | 0.00      | 0.00      | 1646.21   | 3371.92   | 0.00      | 0.00      | 885.87    | 0.00      | 1837.59   | 132.97    | 377.16    | 
+    | 1619F-540      | 16LR-540        | 2206036                  | -67.97    | -4136.03  | 0.00      | 2452.97   | 324.37    | 3404.69   | 1699.08   | 1943.34   | 0.00      | 0.00      | 0.00      | 3002.55   | 
+    #
+	| 1619F-540      | NMF-540         | 2202080                  | -118.97   | -939.18   | 0.00      | 498.53    | 4378.39   | 1026.26   | 3638.16   | 2527.82   | 485.85    | 4497.81   | 3003.68   | 1172.65   | 
+    | 1619F-540      | NMF-540         | 2202800                  | -1410.43  | -143.14   | 0.00      | 0.00      | 3098.94   | 3130.71   | 4175.51   | 2813.47   | 4155.41   | 335.85    | 0.00      | 0.68      | 
+    | 1619F-540      | NMF-540         | 2202993                  | -343.95   | -1637.59  | 0.00      | 0.00      | 771.51    | 1901.95   | 156.13    | 3025.96   | 0.00      | 0.00      | 1088.75   | 3237.24   | 
+    | 1619F-540      | NMF-540         | 2206020                  | 0.00      | 0.00      | 0.00      | 0.00      | 3732.42   | 3170.91   | 0.00      | 2727.82   | 3223.78   | 0.00      | 665.76    | 4757.31   | 
+    | 1619F-540      | NMF-540         | 2206025                  | -3418.52  | 0.00      | 0.00      | 4122.63   | 4241.06   | 1267.47   | 3752.52   | 4334.13   | 2166.32   | 0.00      | 0.00      | 1469.39   | 
+    | 1619F-540      | NMF-540         | 2206041                  | -1739.28  | 0.00      | 0.00      | 4814.05   | 4338.19   | 0.00      | 0.00      | 3459.44   | 696.35    | 2421.08   | 0.00      | 0.17      | 
+    | 1619F-540      | NMF-540         | 2218120                  | -3718.65  | -2704.06  | 0.00      | 3699.65   | 811.71    | 4228.38   | 0.00      | 2093.35   | 3183.59   | 2747.92   | 4387.01   | 739.10    | 
+    | 1619F-540      | NMF-540         | 2218300                  | -1912.57  | 0.00      | 0.00      | 0.00      | 0.00      | 4920.79   | 167.61    | 3162.31   | 0.00      | 1872.24   | 0.00      | 1555.62   | 
+    | 1619F-540      | NMF-540         | 2520500                  | -730.74   | -1423.09  | 0.00      | 4717.91   | 1954.82   | 3679.55   | 0.00      | 0.00      | 1194.51   | 0.00      | 2146.22   | 0.82      | 
+    | 1619F-540      | NMF-540         | 2520900                  | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 0.00      | 
+    | 1619F-540      | NMF-540         | 2521300                  | -3204.03  | -4625.49  | 0.00      | 1670.36   | 4704.25   | 758.83    | 705.96    | 0.00      | 0.00      | 0.00      | 0.00      | 0.12      | 
+    #
+	| 1619F-540      | SSF-540         | 2203007                  | -3567.65  | -1739.28  | 0.00      | 4358.29   | 4814.05   | 4338.19   | 0.00      | 0.00      | 3459.44   | 696.35    | 2421.08   | 0.53      | 
+    | 1619F-540      | SSF-540         | 2206029                  | 0.00      | -118.97   | 0.00      | 888.74    | 806.16    | 4687.02   | 1335.88   | 3946.78   | 2836.44   | 793.48    | 4805.43   | 3313.04   | 
+    | 1619F-540      | SSF-540         | 2206037                  | -2072.19  | -1099.79  | 0.00      | 0.00      | 0.00      | 3406.57   | 3439.34   | 4484.14   | 3122.11   | 4464.04   | 643.48    | 0.30      | 
+    | 1619F-540      | SSF-540         | 2219100                  | 0.00      | -4047.51  | 0.00      | 0.00      | 4094.92   | 2051.95   | 0.00      | 4570.78   | 0.00      | 0.00      | 4834.15   | 550.71    | 
+    | 1619F-540      | SSF-540         | 2219110                  | 0.00      | -2893.39  | 0.00      | 0.00      | 1978.98   | 62.87     | 1066.46   | 1014.59   | 3756.58   | 868.64    | 0.00      | 0.27      | 
+    | 1619F-540      | SSF-540         | 2219120                  | 0.00      | -3107.89  | 0.00      | 4444.93   | 4431.26   | 4550.68   | 1575.11   | 4061.15   | 4642.75   | 2474.94   | 0.00      | 0.07      | 
+
+    # Check the PROFILE subnominal aggregations in PaaS
+    And   the PaymentGeneration.SubnominalAggregation table contains the following values 
+    | UKPRN    | Org ID     | Allocation Number | Subnominal Code | Funding Stream Period Code | Calendar Year/Period | Payment Type    | PeriodTypeCode | Posted Flag | AggregatedValue |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | -4625.49        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 4704.25         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 758.83          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 705.96          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2200030         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 1618.45         |
+    #
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -118.97         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201709               | PROFILE         | CM             | False       | -939.18         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 498.53          |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 4378.39         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 1026.26         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 3638.16         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 2527.82         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 485.85          |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 4497.81         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 3003.68         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202080         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 1172.65         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -1410.43        |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201709               | PROFILE         | CM             | False       | -143.14         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 3098.94         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 3130.71         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 4175.51         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 2813.47         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 4155.41         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 335.85          |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2202800         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 0.68            |
+    #
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | -3056.88        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | -421.98         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 1434.71         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 4131.25         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 3952.53         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 4884.15         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 2333.55         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2202850         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 3299.67         |
+    #
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -343.95         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201709               | PROFILE         | CM             | False       | -1637.59        |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 771.51          |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 1901.95         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 156.13          |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 3025.96         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 1088.75         |
+    | 10017540 | ORG0017540 | NMF-540           | 2202993         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 3237.24         |
+    #
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | -4476.37        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 832.01          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 3900.65         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 3549.64         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 727.25          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203000         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 4356.82         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | -1948.22        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | -4563.02        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 462.88          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 1593.33         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 2716.34         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 779.13          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 2928.83         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203001         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 1011.73         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | -3015.68        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | -3069.56        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 502.09          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 3920.75         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 2875.96         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 2439.31         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 4078.38         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 429.12          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203002         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 0.63            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | -454.76         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | -3922.53        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 2789.32         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 2822.09         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 3867.88         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 2505.84         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 3847.78         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 4977.23         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203006         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 1829.15         |
+    #
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201708               | PROFILE         | CM             | False       | -3567.65        |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201709               | PROFILE         | CM             | False       | -1739.28        |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201711               | PROFILE         | CM             | False       | 4358.29         |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201712               | PROFILE         | CM             | False       | 4814.05         |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201801               | PROFILE         | CM             | False       | 4338.19         |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201803               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201804               | PROFILE         | CM             | False       | 3459.44         |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201805               | PROFILE         | CM             | False       | 696.35          |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201806               | PROFILE         | CM             | False       | 2421.08         |
+    | 10017540 | ORG0017540 | SSF-540           | 2203007         | SSF1718                    | 201807               | PROFILE         | CM             | False       | 0.53            |
+    #
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | -2502.06        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | -4990.99        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 3424.79         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 2557.72         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 2419.21         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 2915.17         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 356.14          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 4448.49         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203020         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 3973.53         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | -1735.72        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 1646.21         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 3371.92         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 885.87          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 1837.59         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 132.97          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2203021         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 377.16          |
+    #
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201708               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201709               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 3732.42         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 3170.91         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 2727.82         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 3223.78         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 665.76          |
+    | 10017540 | ORG0017540 | NMF-540           | 2206020         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 4757.31         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -3418.52        |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201709               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 4122.63         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 4241.06         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 1267.47         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 3752.52         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 4334.13         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 2166.32         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206025         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 1469.39         |
+    #
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201708               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201709               | PROFILE         | CM             | False       | -118.97         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201711               | PROFILE         | CM             | False       | 888.74          |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201712               | PROFILE         | CM             | False       | 806.16          |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201801               | PROFILE         | CM             | False       | 4687.02         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201802               | PROFILE         | CM             | False       | 1335.88         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201803               | PROFILE         | CM             | False       | 3946.78         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201804               | PROFILE         | CM             | False       | 2836.44         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201805               | PROFILE         | CM             | False       | 793.48          |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201806               | PROFILE         | CM             | False       | 4805.43         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206029         | SSF1718                    | 201807               | PROFILE         | CM             | False       | 3313.04         |
+    #
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201708               | PROFILE         | CM             | False       | -67.97          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201709               | PROFILE         | CM             | False       | -4136.03        |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201711               | PROFILE         | CM             | False       | 2452.97         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201712               | PROFILE         | CM             | False       | 324.37          |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201801               | PROFILE         | CM             | False       | 3404.69         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201802               | PROFILE         | CM             | False       | 1699.08         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201803               | PROFILE         | CM             | False       | 1943.34         |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | 16LR-540          | 2206036         | 1619LR1718                 | 201807               | PROFILE         | CM             | False       | 3002.55         |
+    #
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201708               | PROFILE         | CM             | False       | -2072.19        |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201709               | PROFILE         | CM             | False       | -1099.79        |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201712               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201801               | PROFILE         | CM             | False       | 3406.57         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201802               | PROFILE         | CM             | False       | 3439.34         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201803               | PROFILE         | CM             | False       | 4484.14         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201804               | PROFILE         | CM             | False       | 3122.11         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201805               | PROFILE         | CM             | False       | 4464.04         |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201806               | PROFILE         | CM             | False       | 643.48          |
+    | 10017540 | ORG0017540 | SSF-540           | 2206037         | SSF1718                    | 201807               | PROFILE         | CM             | False       | 0.30            |
+    #
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -1739.28        |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201709               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 4814.05         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 4338.19         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 3459.44         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 696.35          |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 2421.08         |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2206041         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 0.17            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -3718.65        |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201709               | PROFILE         | CM             | False       | -2704.06        |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 3699.65         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 811.71          |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 4228.38         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 2093.35         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 3183.59         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 2747.92         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 4387.01         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218120         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 739.10          |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -1912.57        |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201709               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 4920.79         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 167.61          |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 3162.31         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 1872.24         |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2218300         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 1555.62         |
+    #
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201708               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201709               | PROFILE         | CM             | False       | -4047.51        |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201712               | PROFILE         | CM             | False       | 4094.92         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201801               | PROFILE         | CM             | False       | 2051.95         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201803               | PROFILE         | CM             | False       | 4570.78         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201806               | PROFILE         | CM             | False       | 4834.15         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219100         | SSF1718                    | 201807               | PROFILE         | CM             | False       | 550.71          |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201708               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201709               | PROFILE         | CM             | False       | -2893.39        |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201712               | PROFILE         | CM             | False       | 1978.98         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201801               | PROFILE         | CM             | False       | 62.87           |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201802               | PROFILE         | CM             | False       | 1066.46         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201803               | PROFILE         | CM             | False       | 1014.59         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201804               | PROFILE         | CM             | False       | 3756.58         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201805               | PROFILE         | CM             | False       | 868.64          |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219110         | SSF1718                    | 201807               | PROFILE         | CM             | False       | 0.27            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201708               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201709               | PROFILE         | CM             | False       | -3107.89        |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201711               | PROFILE         | CM             | False       | 4444.93         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201712               | PROFILE         | CM             | False       | 4431.26         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201801               | PROFILE         | CM             | False       | 4550.68         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201802               | PROFILE         | CM             | False       | 1575.11         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201803               | PROFILE         | CM             | False       | 4061.15         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201804               | PROFILE         | CM             | False       | 4642.75         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201805               | PROFILE         | CM             | False       | 2474.94         |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | SSF-540           | 2219120         | SSF1718                    | 201807               | PROFILE         | CM             | False       | 0.07            |
+    #
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -730.74         |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201709               | PROFILE         | CM             | False       | -1423.09        |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 4717.91         |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 1954.82         |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 3679.55         |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 1194.51         |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 2146.22         |
+    | 10017540 | ORG0017540 | NMF-540           | 2520500         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 0.82            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201708               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201709               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2520900         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201708               | PROFILE         | CM             | False       | -3204.03        |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201709               | PROFILE         | CM             | False       | -4625.49        |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201710               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201711               | PROFILE         | CM             | False       | 1670.36         |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201712               | PROFILE         | CM             | False       | 4704.25         |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201801               | PROFILE         | CM             | False       | 758.83          |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201802               | PROFILE         | CM             | False       | 705.96          |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201803               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201804               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201805               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201806               | PROFILE         | CM             | False       | 0.00            |
+    | 10017540 | ORG0017540 | NMF-540           | 2521300         | NMF1718                    | 201807               | PROFILE         | CM             | False       | 0.12            |
+    
+	
+	# Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20230123
+Scenario: A543 Create and approve a 1718 EFA contract without a Delivery org then amend to add a Delivery org which isnt the Contracting org (CABR-025)
+    Given there is no Contract, Task or Workflow data for UKPRN '10017543'
+   #And   there is no Subnominal data for the following contract allocations
+	And   there is no Subnominal or event history data for the following contract allocations
+    | AllocationRef |
+    | 16LR-543      |
+    | NMF-543       |
+    | SSF-543       |
+
+    # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017543'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017543 Co Ltd' with UKPRN '10017543' and OrgId 'ORG0017543' and has 'FCS1 Test' as a manager
+    And   UPIN '117543' is associated with UKPRN '10017543' in the CRM Organisation table
+	
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017543 | 117543 | 10017543 Co Ltd | 0              | Active |   
+ 
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017543 | 10017543 Co Ltd      | ESFA-543             | 1619F-543      | 1                     | 01/08/2017        | 31/07/2018      | 347297.00     |                                | Contract for Services | 1718   | New          | ORG0017543 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017543 | 1619F-543      | 16LR-543      | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 148849.00       |                         |            |                                                             | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 122741.00       |                         |            |                                                             | New          |             |
+    | 10017543 | 1619F-543      | SSF-543       | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 75707.00        |                         |            |                                                             | New          |             |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017543 | 1619F-543      | 16LR-543      | 19              | 0                     | 6236.00   | 2183.63  | -853.72  | 1158.62  | 333.17   | 4237.27  | -545.76  | -1621.96 | 594.97   | -1558.33 | 2621.66  | 2283.96  | -2597.24 | 16-19 Bursary Funds                                     | New          |             |
+    | 10017543 | 1619F-543      | 16LR-543      | 20              | 0                     | 10455.00  | -8.31    | 601.43   | 2405.12  | 1207.80  | 1421.05  | -1270.10 | 2720.07  | 2511.94  | 511.73   | 2198.64  | -158.47  | -1685.54 | 16-19 Total Programme Funding                           | New          |             |
+    | 10017543 | 1619F-543      | 16LR-543      | 21              | 0                     | 20637.00  | -1046.69 | 4476.39  | 2150.82  | 4909.04  | 2952.37  | 1080.91  | 4082.13  | 2430.49  | 2391.86  | -2499.14 | 1356.98  | -1648.24 | 16-19 Formula Protection Funding                        | New          |             |
+    | 10017543 | 1619F-543      | 16LR-543      | 22              | 0                     | 6097.00   | -1259.53 | 3467.68  | 368.59   | -669.23  | 3712.01  | -2022.56 | -1683.81 | 607.23   | 874.76   | -2337.24 | 4289.50  | 749.59   | 16-19 High Needs Element 2                              | New          |             |
+    | 10017543 | 1619F-543      | 16LR-543      | 24              | 0                     | 31245.00  | 2810.91  | 2314.64  | -97.03   | 2751.89  | 1025.84  | 4754.34  | 3280.30  | 1480.61  | 3607.61  | 2655.30  | 2388.69  | 4271.59  | 14-16 Programme Funding                                 | New          |             |
+    | 10017543 | 1619F-543      | 16LR-543      | 25              | 0                     | 21094.00  | 4636.21  | 4514.97  | -476.69  | -1123.16 | 2343.02  | -1423.32 | 3141.62  | 1361.52  | 3620.19  | 1701.58  | -1752.25 | 4550.71  | 14-16 Pupil Premium                                     | New          |             |
+    | 10017543 | 1619F-543      | 16LR-543      | 31              | 0                     | 18179.00  | -720.05  | 990.42   | 4526.90  | -1373.70 | 3664.04  | -1244.52 | 3829.68  | 1473.96  | 2603.06  | 4842.49  | 2206.53  | -2620.12 | 16-19 Free Meals in FE                                  | New          |             |
+    | 10017543 | 1619F-543      | 16LR-543      | 32              | 0                     | 18260.00  | 4725.85  | -297.63  | 292.05   | 2477.77  | 1118.88  | 813.26   | 4639.41  | -454.39  | 4935.61  | -1547.71 | 2004.69  | -447.35  | 16-19 High Needs SPI Element 1                          | New          |             |
+    | 10017543 | 1619F-543      | 16LR-543      | 33              | 0                     | 16646.00  | -644.15  | 2617.50  | -2018.71 | 3756.20  | 4495.17  | -1700.32 | 2984.29  | -1051.49 | -1935.76 | 4104.32  | 4584.82  | 1453.72  | 19+ Continuing Learners Programme Funding               | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 31              | 0                     | 7696.00   | 1778.26  | 223.36   | 4194.43  | 1674.64  | -1883.76 | -1242.80 | 1099.49  | 4189.67  | -2769.51 | -1013.51 | 1845.56  | -400.33  | Cadets Vocational Programme                             | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 32              | 0                     | 7740.00   | 4405.90  | -805.97  | 371.71   | 724.86   | -2730.66 | 2636.65  | -905.01  | 2751.65  | -1450.91 | 2067.05  | 744.74   | -70.48   | Closing Schools                                         | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 33              | 0                     | 7787.00   | 2584.16  | -2594.25 | 2146.95  | 4217.96  | -2616.35 | -237.11  | -2241.31 | 3483.24  | 4236.19  | -1589.88 | 752.49   | -354.62  | Residential Bursary Fund                                | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 39              | 0                     | 19842.00  | 2269.24  | -97.47   | 3650.62  | 1974.98  | 3158.53  | -1049.56 | 3309.56  | -1059.92 | 2987.39  | -1958.65 | 4454.37  | 2203.09  | NMF Pre-16 Funding (NMSS)                               | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 43              | 0                     | 6212.00   | -1543.86 | -2188.24 | 1762.99  | -1032.42 | -2758.49 | 4969.10  | 2900.72  | -124.74  | -894.08  | 3163.53  | -1095.52 | 3052.78  | Primary PE and Sport Premium                            | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 47              | 0                     | 19423.00  | 2356.92  | 3809.89  | -1082.70 | -891.39  | 4456.57  | -2543.47 | 4472.61  | 1479.95  | 4580.78  | 722.23   | 1328.63  | 729.59   | SSF Free Meals                                          | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 49              | 0                     | 6731.00   | 328.69   | 3737.98  | 52.81    | -1207.25 | 1982.11  | -2401.03 | 556.10   | -1625.97 | 1914.78  | 3721.41  | -2422.58 | 2094.22  | Pre-16 Universal Infant Free School Meals               | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 85              | 0                     | 20238.00  | 551.85   | 3767.39  | 3717.97  | -2012.83 | 3079.19  | 4116.77  | 4225.64  | 1546.73  | 2502.79  | 889.07   | -470.63  | -1676.42 | Residential Support Scheme                              | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 86              | 0                     | 13596.00  | 3658.15  | 1515.35  | 2923.54  | -2327.92 | 2369.60  | 1460.04  | 1202.31  | 2647.23  | -2240.25 | 1892.85  | 3044.06  | -2548.57 | 19+ Continuing Learners in SFC (Student Support)        | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 87              | 0                     | 5331.00   | -1291.19 | -1889.35 | 3545.69  | -768.54  | 1063.99  | 1109.32  | -2492.97 | 2625.29  | -2001.15 | -1294.35 | 2465.26  | 4258.99  | Area Review Transition Grant                            | New          |             |
+    | 10017543 | 1619F-543      | NMF-543       | 89              | 0                     | 8145.00   | 122.72   | 4409.21  | -2120.84 | -2006.44 | 2940.02  | -955.82  | -1136.35 | 3321.90  | 3059.68  | -878.70  | -725.98  | 2115.54  | 16+ Factor Removal (DSG) SSF                            | New          |             |
+    | 10017543 | 1619F-543      | SSF-543       | 2               | 0                     | 12835.00  | 754.47   | 2359.71  | 2543.39  | 2121.66  | 4470.45  | -2441.20 | -147.95  | 1009.86  | -1713.75 | -179.87  | 4891.86  | -830.89  | SSF Total Programme funding                             | New          |             |
+    | 10017543 | 1619F-543      | SSF-543       | 13              | 0                     | 3402.00   | 4922.54  | 1919.26  | 4720.59  | -1145.44 | 2501.29  | -2172.33 | -1588.69 | -2515.54 | -744.73  | 384.61   | -1366.19 | -1512.97 | SSF Bursary Funds                                       | New          |             |
+    | 10017543 | 1619F-543      | SSF-543       | 14              | 0                     | 26768.00  | 987.36   | -1481.04 | 3988.91  | 697.31   | 3879.91  | 2221.16  | 4492.83  | -2495.94 | 4854.15  | 3665.01  | 4611.63  | 1346.62  | SSF Formula Protection Funding                          | New          |             |
+    | 10017543 | 1619F-543      | SSF-543       | 15              | 0                     | 12882.00  | -1720.47 | 2679.59  | 1445.55  | -38.20   | -1966.83 | 2971.16  | 3863.38  | 380.73   | -890.86  | 2494.97  | -1013.18 | 4675.78  | SSF High Needs Element 2                                | New          |             |
+    | 10017543 | 1619F-543      | SSF-543       | 17              | 0                     | 16037.00  | 3577.89  | 1377.18  | -1375.09 | 3257.36  | 1695.58  | 3986.72  | 1858.34  | 1320.88  | 1763.55  | -442.82  | -1426.13 | 443.58   | Maintained Special SSF Element 2                        | New          |             |
+    | 10017543 | 1619F-543      | SSF-543       | 18              | 0                     | 3783.00   | -462.41  | -641.34  | -1651.32 | -2268.60 | 4187.36  | -2180.34 | -1115.24 | 2515.88  | 3805.76  | -2001.04 | 3193.29  | 400.99   | Maintained Special SSF Student Support                  | New          |             |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Publish the contract
+    And   the latest version of contract '1619F-543' is in a state of 'Published to Provider'
+
+    # Inject an SFS approval message
+    And   the override date is '10/07/2017'
+    When  a contract approval message is received from SFS for version '1' actual MasterContractNumber 'ESFA-543' and actual ContractNumber '1619F-543'
+
+    # Check that the contract is now approved
+    Then  the latest version of contract '1619F-543' is in status 'Approved'
+
+    # Bulk file to execute a contract amendment including a change to the Delivery Org
+    Given there are no files prefixed '10017543_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 06072017113202 v3_A543' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 06072017113202 v3_A543' in the Sharepoint 'Reports' folder
+    And   the override date is '16/07/2017'
+    And   spreadsheet '1619FUND AY 1718 06072017113202 v3_A543.xlsx' exists in the Datafiles folder and UKPRN '10017543' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+
+    # Bulk upload file should generate a CABR-025 error
+    And   'Failed' is displayed in field 'J2' on the 'Contract' tab of the result report file
+    And   '[Contract Allocation] Delivery Organisation cannot be changed or removed on an approved contract allocation' is displayed in field 'J2' on the 'Contract' tab of the result report file
+
+    # Tidy up
+    And   the override date is reset
+
+@AcceptanceTest @Withdrawn20220330
+@Long2Run @Long2Run45
+Scenario: A544 Delivery Org test. Create 1718 EFA contract without Delivery org. Update draft x2. Check docs. Approve. Amend x2 (one fail). Update draft x3 (one fail). Check docs. Approve.
+   #Given there is no Contract, Task or Workflow data for contract '1619F-544' and master contract 'ESFA-544'
+    Given there is no Contract, Task or Workflow data for UKPRN '10017544'
+	And   there are no notifications of type 'Draft Contract Updated'
+    And   the Allocation Delivery Monitoring Service atom feed is empty
+
+    And   there is no Subnominal data for the following contract allocations
+    | AllocationRef |
+    | 16LR-544      |
+    | NMF-544       |
+    | SSF-544       |
+
+   # Set organisation and advisors
+    And   there is no Organisation data for UKPRN '10017544'
+    And   caseload advisor 'FCS2 Test' is assigned to provider '10017544 Co Ltd' with UKPRN '10017544' and OrgId 'ORG0017544' and has 'FCS1 Test' as a manager
+    And   UPIN '117544' is associated with UKPRN '10017544' in the CRM Organisation table
+
+    And   the following Organisations exist in the FCT Organisation Service
+    | UKPRN    | UPIN   | Name            | SequenceNumber | Status |
+    | 10017544 | 117544 | 10017544 Co Ltd | 0              | Active |
+
+    # Create contract 
+    And   the draft contract header details for the latest version of the contract are as follows 
+    | UKPRN    | LegalName            | MasterContractNumber | ContractNumber | ContractVersionNumber | ContractStartDate | ContractEndDate | ContractValue | ContractDescription            | ContractType          | Period | CRMIntent    | OrgId      |
+    | 10017544 | 10017544 Co Ltd      | ESFA-544             | 1619F-544      | 1                     | 01/08/2017        | 31/07/2018      | 377860.00     |                                | Contract for Services | 1718   | New          | ORG0017544 |
+
+    And   the draft contract allocations details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | FundingStreamCode | FundingStreamPeriodCode | FundingStreamPeriodType | AllocationStartDate | AllocationEndDate | AllocationValue | UoPName                 | UoPCode    | AllocationDescription                                       | CRMIntent    | DeliveryOrg |
+    | 10017544 | 1619F-544      | 16LR-544      | 1619LR            | 1619LR1718              | AY                      | 01/08/2017          | 31/07/2018        | 143464.00       |                         |            |                                                             | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | NMF               | NMF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 121603.00       |                         |            |                                                             | New          |             |
+    | 10017544 | 1619F-544      | SSF-544       | SSF               | SSF1718                 | AY                      | 01/08/2017          | 31/07/2018        | 112793.00       |                         |            |                                                             | New          |             |
+
+    And   the draft contract deliverables details for the latest version of the contract are as follows
+    | UKPRN    | ContractNumber | AllocationRef | DeliverableCode | ParentDeliverableCode | Total     | Aug-17   | Sep-17   | Oct-17   | Nov-17   | Dec-17   | Jan-18   | Feb-18   | Mar-18   | Apr-18   | May-18   | Jun-18   | Jul-18   | DeliverableDescription                                  | CRMIntent    | DeliveryOrg |
+    | 10017544 | 1619F-544      | 16LR-544      | 19              | 0                     | 19091.00  | 730.84   | 2329.69  | 983.25   | 1984.74  | 1756.25  | -2473.75 | -874.85  | 3714.25  | 2252.06  | 4335.84  | 2555.32  | 1796.93  | 16-19 Bursary Funds                                     | New          |             |
+    | 10017544 | 1619F-544      | 16LR-544      | 20              | 0                     | 15482.00  | 434.42   | 3247.51  | 3994.11  | 4909.26  | 1961.47  | -775.68  | 739.77   | 193.87   | -907.29  | -1574.74 | 2102.92  | 1156.54  | 16-19 Total Programme Funding                           | New          |             |
+    | 10017544 | 1619F-544      | 16LR-544      | 21              | 0                     | 27417.00  | -1401.59 | 2477.08  | -209.20  | 3912.97  | 4818.93  | 4696.15  | 2641.73  | -14.30   | 4674.12  | 3860.40  | 3109.47  | -1149.01 | 16-19 Formula Protection Funding                        | New          |             |
+    | 10017544 | 1619F-544      | 16LR-544      | 22              | 0                     | 13272.00  | 1422.72  | 4331.16  | 297.56   | -2164.31 | 3571.70  | 2524.99  | 1543.74  | 764.10   | 135.64   | -1264.36 | 2554.29  | -445.14  | 16-19 High Needs Element 2                              | New          |             |
+    | 10017544 | 1619F-544      | 16LR-544      | 24              | 0                     | 29931.00  | 246.13   | 3105.89  | 688.43   | 4567.83  | 4511.11  | 4549.38  | 2392.68  | -1099.08 | 1724.27  | 4022.55  | 1385.24  | 3837.06  | 14-16 Programme Funding                                 | New          |             |
+    | 10017544 | 1619F-544      | 16LR-544      | 25              | 0                     | 6096.00   | -1275.59 | 2946.47  | -2209.63 | -1959.05 | -2395.16 | 1378.76  | 3622.76  | 2506.07  | -1727.28 | -1864.59 | 3421.88  | 3651.44  | 14-16 Pupil Premium                                     | New          |             |
+    | 10017544 | 1619F-544      | 16LR-544      | 31              | 0                     | 6998.00   | 2958.47  | 662.72   | 2636.41  | 3168.53  | -724.91  | -2140.91 | -41.43   | -381.81  | -172.39  | -2753.03 | 608.52   | 3177.47  | 16-19 Free Meals in FE                                  | New          |             |
+    | 10017544 | 1619F-544      | 16LR-544      | 32              | 0                     | 15511.00  | -2027.58 | 1694.73  | 368.73   | -2263.55 | 3526.64  | 3688.48  | 2768.32  | -1454.74 | 2427.51  | 4953.98  | -782.52  | 2610.81  | 16-19 High Needs SPI Element 1                          | New          |             |
+    | 10017544 | 1619F-544      | 16LR-544      | 33              | 0                     | 9666.00   | 4141.78  | -971.49  | -2108.16 | 3443.72  | -2574.97 | 2582.80  | -33.16   | -44.79   | 1631.13  | 2892.79  | 1202.07  | -496.04  | 19+ Continuing Learners Programme Funding               | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 31              | 0                     | 16760.00  | 2971.53  | 861.59   | 3275.69  | -507.00  | 1924.68  | 1391.34  | 3668.81  | 2116.55  | 195.40   | -2094.93 | 3099.80  | -143.10  | Cadets Vocational Programme                             | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 32              | 0                     | 3673.00   | -2575.73 | -2181.39 | -691.25  | 1931.36  | -2353.04 | 3162.40  | -1608.20 | 289.01   | 2103.66  | 953.42   | 4685.50  | -42.33   | Closing Schools                                         | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 33              | 0                     | 24576.00  | 3998.39  | 2317.05  | 4801.21  | 4540.77  | 808.43   | -2241.07 | 409.48   | 3664.16  | 743.69   | 186.88   | 3974.41  | 1373.04  | Residential Bursary Fund                                | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 39              | 0                     | 9846.00   | -43.94   | 4082.72  | -2561.98 | -321.18  | 698.81   | 1224.16  | 2054.66  | -343.98  | 235.92   | -1643.29 | 1975.32  | 4489.08  | NMF Pre-16 Funding (NMSS)                               | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 43              | 0                     | 7378.00   | -2698.47 | -2184.50 | 2382.10  | 1069.31  | 509.24   | 3497.22  | 3772.47  | -1858.30 | -288.47  | -2418.10 | 1593.73  | 4001.87  | Primary PE and Sport Premium                            | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 47              | 0                     | 10497.00  | 1709.12  | -2795.09 | 3427.39  | -1657.15 | -2289.67 | 3878.74  | 1323.46  | -347.96  | 2940.53  | 1664.87  | 684.92   | 1958.04  | SSF Free Meals                                          | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 49              | 0                     | 19872.00  | 4601.39  | 4095.74  | 4302.04  | -672.46  | -2419.67 | 1646.52  | -1663.24 | 4512.19  | -1290.05 | 4757.05  | 2657.10  | -654.54  | Pre-16 Universal Infant Free School Meals               | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 85              | 0                     | -3774.00  | 577.27   | 3003.66  | -1678.52 | 4089.56  | -2516.79 | 4221.14  | -2586.84 | 532.25   | -2248.06 | -2425.52 | -2175.46 | -2566.20 | Residential Support Scheme                              | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 86              | 0                     | 15852.00  | -1009.78 | 4380.89  | 2391.61  | 4323.78  | 4296.82  | -1718.46 | 978.26   | -552.05  | 1421.88  | -1036.45 | 1310.70  | 1065.23  | 19+ Continuing Learners in SFC (Student Support)        | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 87              | 0                     | 4922.00   | -1523.74 | 4031.79  | -638.18  | 294.42   | -809.02  | 830.75   | -1514.43 | -2688.80 | 3526.51  | 3616.51  | -698.68  | 494.97   | Area Review Transition Grant                            | New          |             |
+    | 10017544 | 1619F-544      | NMF-544       | 89              | 0                     | 12001.00  | 2432.20  | -921.53  | -671.76  | 4125.68  | -2044.35 | 3011.39  | 2369.70  | -769.24  | 1902.08  | 1937.10  | -1352.41 | 1981.98  | 16+ Factor Removal (DSG) SSF                            | New          |             |
+    | 10017544 | 1619F-544      | SSF-544       | 2               | 0                     | 4759.00   | -2556.32 | -1923.51 | 1486.78  | -1757.69 | 4079.04  | 1671.36  | 149.39   | -737.18  | 4142.46  | 1856.26  | 419.26   | -2070.47 | SSF Total Programme funding                             | New          |             |
+    | 10017544 | 1619F-544      | SSF-544       | 13              | 0                     | 25486.00  | 3863.37  | 1880.39  | 4736.27  | 4960.31  | 2775.70  | 1679.49  | 2080.72  | 1251.71  | 4077.24  | -2002.32 | -1192.27 | 1375.89  | SSF Bursary Funds                                       | New          |             |
+    | 10017544 | 1619F-544      | SSF-544       | 14              | 0                     | 26801.00  | 3539.01  | 2059.37  | 4631.61  | 2027.47  | 3764.68  | 4591.11  | 4960.18  | 2620.41  | -800.12  | -2606.54 | -2420.77 | 4434.87  | SSF Formula Protection Funding                          | New          |             |
+    | 10017544 | 1619F-544      | SSF-544       | 15              | 0                     | 19366.00  | 2091.63  | 4662.91  | 86.86    | 3914.09  | 197.66   | -736.31  | 4677.82  | 3511.29  | 2245.86  | 349.71   | -2722.08 | 1086.51  | SSF High Needs Element 2                                | New          |             |
+    | 10017544 | 1619F-544      | SSF-544       | 17              | 0                     | 16798.00  | -456.42  | 1336.37  | 2028.43  | 4653.51  | -262.94  | 1222.51  | 2920.38  | 2276.64  | 120.75   | -1137.81 | -21.00   | 4117.69  | Maintained Special SSF Element 2                        | New          |             |
+    | 10017544 | 1619F-544      | SSF-544       | 18              | 0                     | 19583.00  | 1896.76  | 4786.67  | 4998.10  | 632.81   | 2984.15  | 376.20   | 224.38   | 719.36   | 578.38   | 381.94   | 391.86   | 1612.76  | Maintained Special SSF Student Support                  | New          |             |
+
+    And   the contract exists in CRM
+    # Contract status is now at 'Awaiting Documentation'
+
+    # Bulk file(1) to execute an update draft which changes the Delivery Org from blank to 11754401 - which isn't the Contracting org. This should be ok
+    Given there are no files prefixed '10017544_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017143443 v3_A544_1' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017143443 v3_A544_1' in the Sharepoint 'Reports' folder
+    And   the override date is '21/07/2017'
+    And   spreadsheet '1619FUND AY 1718 18072017143443 v3_A544_1.xlsx' exists in the Datafiles folder and UKPRN '10017544' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Success' is displayed in field 'J2' on the 'Contract' tab of the result report
+
+    # Retrieve parameters
+   #And   I retrieve the latest contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718'
+    #And   I retrieve the latest EFA contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718' and Delivery Organisation '11754401'
+
+    # Check the contents of the Appendices
+    #And   a file for this contract exists in sharepoint location '1619FUND-1718-Input-Appendices'
+	And   a file for a contract with Contract Number '1619F-544' version '1' for UKPRN '10017544' exists in sharepoint location '1619FUND-1718-Input-Appendices'
+    And   the pdf file contains the following simple lines in order
+   #And   the pdf file contains the following parameterized lines in order
+   #And   the pdf file which contains a upin and the following parameterized lines in order
+    """
+    Provider: 10017544 Co Ltd UPIN: 117544 UKPRN: 10017544
+    Master Contract Ref: ESFA-544 Start Date: 01/08/2017 End Date: 31/07/2018
+    Page 1 of 4 of the Payment Schedules
+    Payment Schedule
+    Provider: UNDERWOOD TRAINING LIMITED (129967)
+    Contract Ref: 16LR-544
+    Page 2 of 4 of the Payment Schedules
+    Payment Schedule
+    Provider: UNDERWOOD TRAINING LIMITED (129967)
+    Contract Ref: SSF-544
+    Page 3 of 4 of the Payment Schedules
+    Payment Schedule
+    Provider: UNDERWOOD TRAINING LIMITED (129967)
+    Contract Ref: NMF-544
+    Page 4 of 4 of the Payment Schedules
+    """
+
+    # Bulk file(2) to execute an update draft which changes the Delivery Org from 11754401 to blank. This should be ok
+    Given there are no files prefixed '10017544_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017143521 v3_A544_2' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017143521 v3_A544_2' in the Sharepoint 'Reports' folder
+    And   the override date is '22/07/2017'
+    And   spreadsheet '1619FUND AY 1718 18072017143521 v3_A544_2.xlsx' exists in the Datafiles folder and UKPRN '10017544' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Success' is displayed in field 'J2' on the 'Contract' tab of the result report
+
+    # Retrieve parameters
+   #And   I retrieve the latest contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718'
+    #And   I retrieve the latest EFA contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718' and Delivery Organisation '11754401'
+
+    # Check the contents of the Appendices
+    #And   a file for this contract exists in sharepoint location '1619FUND-1718-Input-Appendices'
+	And   a file for a contract with Contract Number '1619F-544' version '1' for UKPRN '10017544' exists in sharepoint location '1619FUND-1718-Input-Appendices'
+    And   the pdf file contains the following simple lines in order
+   #And   the pdf file contains the following parameterized lines in order
+   #And   the pdf file which contains a upin and the following parameterized lines in order
+    """
+    Provider: 10017544 Co Ltd UPIN: 117544 UKPRN: 10017544
+    Master Contract Ref: ESFA-544 Start Date: 01/08/2017 End Date: 31/07/2018
+    Page 1 of 1 of the Payment Schedules
+    """
+
+    # Publish the contract
+    And   the latest version of contract '1619F-544' is in a state of 'Published to Provider'
+
+    # Inject an SFS approval message
+    And   the override date is '23/07/2017'
+    When  a contract approval message is received from SFS for version '1' actual MasterContractNumber 'ESFA-544' and actual ContractNumber '1619F-544'
+
+    # Check that the contract is now approved
+    Then  the latest version of contract '1619F-544' is in status 'Approved'
+
+    # Bulk file(3) to execute a contract amendment which changes the Delivery Org from blank to 11754402 - which isn't the Contracting org. This should fail
+    Given there are no files prefixed '10017544_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017144007 v3_A544_3' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017144007 v3_A544_3' in the Sharepoint 'Reports' folder
+    And   the override date is '24/07/2017'
+    And   spreadsheet '1619FUND AY 1718 18072017144007 v3_A544_3.xlsx' exists in the Datafiles folder and UKPRN '10017544' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Failed' is displayed in field 'J2' on the 'Contract' tab of the result report
+	And   '[Contract Allocation] Delivery Organisation cannot be changed or removed on an approved contract allocation' is displayed in field 'J2' on the 'Contract' tab of the result report
+
+    # Bulk file(4) to execute a contract amendment which changes the Delivery Org from blank to 10017544 - which is the Contracting org. This should be ok
+    Given there are no files prefixed '10017544_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017145555 v3_A544_4' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017145555 v3_A544_4' in the Sharepoint 'Reports' folder
+    And   the override date is '25/07/2017'
+    And   spreadsheet '1619FUND AY 1718 18072017145555 v3_A544_4.xlsx' exists in the Datafiles folder and UKPRN '10017544' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Success' is displayed in field 'J2' on the 'Contract' tab of the result report
+
+    # Retrieve parameters
+   #And   I retrieve the latest contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718'
+    #And   I retrieve the latest EFA contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718' and Delivery Organisation '11754401'
+
+    # Check the contents of the Appendices
+    #And   a file for this contract exists in sharepoint location '1619FUND-1718-Input-Appendices'
+	And   a file for a contract with Contract Number '1619F-544' version '2' for UKPRN '10017544' exists in sharepoint location '1619FUND-1718-Input-Appendices'
+    And   the pdf file contains the following simple lines in order
+   #And   the pdf file contains the following parameterized lines in order
+   #And   the pdf file which contains a upin and the following parameterized lines in order
+    """
+    Provider: 10017544 Co Ltd UPIN: 117544 UKPRN: 10017544
+    Master Contract Ref: ESFA-544 Start Date: 01/08/2017 End Date: 31/07/2018
+    Page 1 of 1 of the Payment Schedules
+    """
+
+    # Bulk file(5) to execute an update draft amendment which changes the Delivery Org from the Contracting Org (10017544) to 11754403. This should fail.
+    Given there are no files prefixed '10017544_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017150203 v3_A544_5' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017150203 v3_A544_5' in the Sharepoint 'Reports' folder
+    And   the override date is '26/07/2017'
+    And   spreadsheet '1619FUND AY 1718 18072017150203 v3_A544_5.xlsx' exists in the Datafiles folder and UKPRN '10017544' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Failed' is displayed in field 'J2' on the 'Contract' tab of the result report
+    And   '[Contract Allocation] Delivery Organisation cannot be changed or removed on an approved contract allocation' is displayed in field 'J2' on the 'Contract' tab of the result report
+
+    # Bulk file(6) to execute an update draft amendment which changes the Delivery Org from the Contracting Org (10017544) to blank. This should be ok.
+    Given there are no files prefixed '10017544_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017161111 v3_A544_6' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017161111 v3_A544_6' in the Sharepoint 'Reports' folder
+    And   the override date is '27/07/2017'
+    And   spreadsheet '1619FUND AY 1718 18072017161111 v3_A544_6.xlsx' exists in the Datafiles folder and UKPRN '10017544' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Success' is displayed in field 'J2' on the 'Contract' tab of the result report
+
+    # Retrieve parameters
+   #And   I retrieve the latest contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718'
+    And   I retrieve the latest EFA contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718' and Delivery Organisation '11754401'
+
+    # Check the contents of the Appendices
+   #And   a file for this contract exists in sharepoint location '1619FUND-1718-Input-Appendices'
+	And   a file for a contract with Contract Number '1619F-544' version '2' for UKPRN '10017544' exists in sharepoint location '1619FUND-1718-Input-Appendices'
+
+    And   the pdf file contains the following simple lines in order
+   #And   the pdf file contains the following parameterized lines in order
+   #And   the pdf file which contains a upin and the following parameterized lines in order
+    """
+    Provider: 10017544 Co Ltd UPIN: 117544 UKPRN: 10017544
+    Master Contract Ref: ESFA-544 Start Date: 01/08/2017 End Date: 31/07/2018
+    Page 1 of 1 of the Payment Schedules
+    """
+
+    # Bulk file(7) to execute an update draft amendment which changes the Delivery Org from blank to the Contracting Org (10017544). This should be ok.
+    Given there are no files prefixed '10017544_1619F' in the Sharepoint '1619FUND-1718-Input-Appendices' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017172314 v3_A544_7' in the Sharepoint 'Processed' folder
+    And   there are no files prefixed '1619FUND AY 1718 18072017172314 v3_A544_7' in the Sharepoint 'Reports' folder
+    And   the override date is '28/07/2017'
+    And   spreadsheet '1619FUND AY 1718 18072017172314 v3_A544_7.xlsx' exists in the Datafiles folder and UKPRN '10017544' is present in cell 'A2' of the Contract tab
+    When  the file is copied to the Sharepoint 'Input' folder
+    Then  a syntax report should exist in the Sharepoint Reports folder
+    And   a results report should exist in the Sharepoint Reports folder
+    And   'Success' is displayed in field 'J2' on the 'Contract' tab of the result report
+
+    # Retrieve parameters
+   #And   I retrieve the latest contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718'
+    And   I retrieve the latest EFA contract details from CRM for provider '10017544' for FundingType '1619FUND' and period '1718' and Delivery Organisation '11754401'
+
+    # Check the contents of the Appendices
+   #And   a file for this contract exists in sharepoint location '1619FUND-1718-Input-Appendices'
+	And   a file for a contract with Contract Number '1619F-544' version '2' for UKPRN '10017544' exists in sharepoint location '1619FUND-1718-Input-Appendices'
+
+    And   the pdf file contains the following simple lines in order
+   #And   the pdf file contains the following parameterized lines in order
+   #And   the pdf file which contains a upin and the following parameterized lines in order
+    """
+    Provider: 10017544 Co Ltd UPIN: 117544 UKPRN: 10017544
+    Master Contract Ref: ESFA-544 Start Date: 01/08/2017 End Date: 31/07/2018
+    Page 1 of 1 of the Payment Schedules
+    """
+
+    # Publish the contract
+    And   the latest version of contract '1619F-544' is in a state of 'Published to Provider'
+
+    # Inject an SFS approval message
+    And   the override date is '29/07/2017'
+    When  a contract approval message is received from SFS for version '2' actual MasterContractNumber 'ESFA-544' and actual ContractNumber '1619F-544'
+
+    # Check that the contract is now approved
+    Then  the latest version of contract '1619F-544' is in status 'Approved'
+
+	# Tidy up
+	And   the override date is reset

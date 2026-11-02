@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contractRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="contractrequest">
+  <correlationInfo>
+    <batchId>67af0224-315d-4c28-ad38-4ee3b6d05650</batchId>
+    <correlationId>f59c6acc-8f3a-4355-9b4c-5779a1ecd796</correlationId>
+  </correlationInfo>
+  <contract CRMIntent="New" amendmentType="None">
+    <correlationId>bc890344-5278-4e54-81b4-0c492dc57331</correlationId>
+    <contracts>
+      <contract CRMIntent="New" amendmentType="None">
+        <correlationId>bc890344-5278-4e54-81b4-0c492dc57331</correlationId>
+        <fundingTypeCode>24+LOANS</fundingTypeCode>
+        <period>
+          <periodType>
+            <periodTypeCode>AY</periodTypeCode>
+            <periodTypeName/>
+          </periodType>
+          <period>1516</period>
+          <startDate>0001-01-01</startDate>
+          <endDate>0001-01-01</endDate>
+        </period>
+        <contractAllocations>
+          <contractAllocation CRMIntent="New" amendmentReason="reason1">
+            <correlationId>4b72a2b6-0718-4928-8087-2ed5e7c701c5</correlationId>
+            <period>
+              <periodType>
+                <periodTypeCode>AY</periodTypeCode>
+                <periodTypeName/>
+              </periodType>
+              <period>1516</period>
+              <startDate>0001-01-01</startDate>
+              <endDate>0001-01-01</endDate>
+            </period>
+            <ukprn>10000671</ukprn>
+            <fundingStreamCode>24+ ALLB</fundingStreamCode>
+            <tenderSpecificationReference/>
+            <tenderAwardReference/>
+            <activityDescription/>
+            <description>AT Allocation Data 24Plus</description>
+            <investmentPriority/>
+            <agreementNumber/>
+            <specificationTitle/>
+            <regionType/>
+            <learningRatePremium>learningRatePremium</learningRatePremium>
+            <hierarchyType>CONTRACT ALLOCATION</hierarchyType>
+            <startDate>2015-08-01</startDate>
+            <endDate>2016-07-31</endDate>
+            <maximumContractValue>0</maximumContractValue>
+            <fundingStreamPeriodCode>24+ALLB1516</fundingStreamPeriodCode>
+            <contractDeliverables>
+              <contractDeliverable CRMIntent="New">
+                <correlationId>1393e7e4-7716-48c3-af64-1c61d1e56d62</correlationId>
+                <deliverable>
+                  <fundingStreamCode>24+ ALLB</fundingStreamCode>
+                  <deliverableCode>1</deliverableCode>
+                  <deliverableName>Total 24+ Advanced Learning Loans Bursary Funding</deliverableName>
+                </deliverable>
+                <contractDeliverablePeriods>
+                  <contractDeliverablePeriod>
+                    <correlationId>1393e7e4-7716-48c3-af64-1c61d1e56d62</correlationId>
+                    <year>2015</year>
+                    <period>8</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>5428.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>40d1759e-86a5-4641-a682-1674dde5803a</correlationId>
+                    <year>2015</year>
+                    <period>9</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>c34a6654-f749-4312-9bee-43e6cc2fcdce</correlationId>
+                    <year>2015</year>
+                    <period>10</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>d4438b3b-6be8-48b4-b62b-7ea111794bdf</correlationId>
+                    <year>2015</year>
+                    <period>11</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>4443.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>2faba5c0-da82-4308-a60e-e28a38ce69ab</correlationId>
+                    <year>2015</year>
+                    <period>12</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>2759.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>36c62e10-d254-4446-896d-976894673f01</correlationId>
+                    <year>2016</year>
+                    <period>1</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>3935.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>4708fccc-687d-419f-b9ca-574266ad909a</correlationId>
+                    <year>2016</year>
+                    <period>2</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>4719.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>201c1669-9fa3-43ab-9178-f69c9aff3595</correlationId>
+                    <year>2016</year>
+                    <period>3</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>2374.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>63a01a7b-baf2-47b6-843c-cabba2c5e8b9</correlationId>
+                    <year>2016</year>
+                    <period>4</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>73994653-c829-41aa-98c5-85c96ad9fa8e</correlationId>
+                    <year>2016</year>
+                    <period>5</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>1894.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>542ef7fa-66dc-4442-8e16-3eb001fc919a</correlationId>
+                    <year>2016</year>
+                    <period>6</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>2845.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>d23c6124-e836-4c99-a1ea-715ed5d36ffd</correlationId>
+                    <year>2016</year>
+                    <period>7</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                </contractDeliverablePeriods>
+
+
+                <deliverableDescription>AT Deliverable Data 24Plus</deliverableDescription>
+                <unitCost>0</unitCost>
+                <plannedVolume>0</plannedVolume>
+                <plannedValue>0</plannedValue>
+                <crmNotPresent>false</crmNotPresent>
+              </contractDeliverable>
+            </contractDeliverables>
+            <crmNotPresent>false</crmNotPresent>
+          </contractAllocation>
+          <contractAllocation CRMIntent="New" amendmentReason="reason2">
+            <correlationId>b6cb3726-a3e5-4d5a-ba77-46a46f70c228</correlationId>
+            <period>
+              <periodType>
+                <periodTypeCode>AY</periodTypeCode>
+                <periodTypeName/>
+              </periodType>
+              <period>1516</period>
+              <startDate>0001-01-01</startDate>
+              <endDate>0001-01-01</endDate>
+            </period>
+            <ukprn>10000671</ukprn>
+            <fundingStreamCode>24+ ALLBC</fundingStreamCode>
+            <tenderSpecificationReference/>
+            <tenderAwardReference/>
+            <activityDescription/>
+            <description>AT Allocation Data 24Plus</description>
+            <investmentPriority/>
+            <agreementNumber/>
+            <specificationTitle/>
+            <regionType/>
+            <learningRatePremium>learningRatePremium</learningRatePremium>
+            <hierarchyType>CONTRACT ALLOCATION</hierarchyType>
+            <startDate>2015-08-01</startDate>
+            <endDate>2016-07-31</endDate>
+            <maximumContractValue>0</maximumContractValue>
+            <fundingStreamPeriodCode>24+ALLBC1516</fundingStreamPeriodCode>
+            <contractDeliverables>
+              <contractDeliverable CRMIntent="New">
+                <correlationId>dbeff10f-0a98-4305-b173-e10431cec0e9</correlationId>
+                <deliverable>
+                  <fundingStreamCode>24+ ALLBC</fundingStreamCode>
+                  <deliverableCode>1</deliverableCode>
+                  <deliverableName>Total 24+ Advanced Learning Loans Bursary Funding</deliverableName>
+                </deliverable>
+                <contractDeliverablePeriods>
+                  <contractDeliverablePeriod>
+                    <correlationId>dbeff10f-0a98-4305-b173-e10431cec0e9</correlationId>
+                    <year>2015</year>
+                    <period>8</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>5428.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>a9fd8598-1e5c-4777-95dc-b2f6105cbbb3</correlationId>
+                    <year>2015</year>
+                    <period>9</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>dce3d1e8-09ba-44c5-90fb-138b222b5ed6</correlationId>
+                    <year>2015</year>
+                    <period>10</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>eebf0a47-15a9-4756-ac01-32e027cb7da8</correlationId>
+                    <year>2015</year>
+                    <period>11</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>4443.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>7196d23d-509c-4417-9c61-cb6555f826c1</correlationId>
+                    <year>2015</year>
+                    <period>12</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>2759.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>1504affa-b814-48f9-af90-5f5f1c9dc4de</correlationId>
+                    <year>2016</year>
+                    <period>1</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>3935.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>ee3bad65-d1ee-4f17-abd2-d33db3f60151</correlationId>
+                    <year>2016</year>
+                    <period>2</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>4719.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>91008dfc-fb95-4df3-9889-2e22cd59383a</correlationId>
+                    <year>2016</year>
+                    <period>3</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>2374.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>8207d810-e7bb-4e25-bd43-0f5befc630a0</correlationId>
+                    <year>2016</year>
+                    <period>4</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>f5aadc55-da50-49e6-8f0a-797fd85fd80e</correlationId>
+                    <year>2016</year>
+                    <period>5</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>1894.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>d07de479-9400-4a48-94b0-bc756dfe3f00</correlationId>
+                    <year>2016</year>
+                    <period>6</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>2845.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>e7afee73-749d-4102-a943-6730cbcabf8b</correlationId>
+                    <year>2016</year>
+                    <period>7</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                </contractDeliverablePeriods>
+
+                <deliverableDescription>AT Deliverable Data 24Plus</deliverableDescription>
+                <unitCost>0</unitCost>
+                <plannedVolume>0</plannedVolume>
+                <plannedValue>0</plannedValue>
+                <crmNotPresent>false</crmNotPresent>
+              </contractDeliverable>
+            </contractDeliverables>
+            <crmNotPresent>false</crmNotPresent>
+          </contractAllocation>
+          <contractAllocation CRMIntent="New" amendmentReason="reason3">
+            <correlationId>64a7f472-a08e-48b9-b7b9-a4af9ceef611</correlationId>
+            <period>
+              <periodType>
+                <periodTypeCode>AY</periodTypeCode>
+                <periodTypeName/>
+              </periodType>
+              <period>1516</period>
+              <startDate>0001-01-01</startDate>
+              <endDate>0001-01-01</endDate>
+            </period>
+            <ukprn>10000671</ukprn>
+            <fundingStreamCode>24+ ALLF</fundingStreamCode>
+            <tenderSpecificationReference/>
+            <tenderAwardReference/>
+            <activityDescription/>
+            <description>AT Allocation Data 24Plus</description>
+            <investmentPriority/>
+            <agreementNumber/>
+            <specificationTitle/>
+            <regionType/>
+            <learningRatePremium>learningRatePremium</learningRatePremium>
+            <hierarchyType>CONTRACT ALLOCATION</hierarchyType>
+            <startDate>2015-08-01</startDate>
+            <endDate>2016-07-31</endDate>
+            <maximumContractValue>0</maximumContractValue>
+            <fundingStreamPeriodCode>24+ALLF1516</fundingStreamPeriodCode>
+            <contractDeliverables>
+              <contractDeliverable CRMIntent="New">
+                <correlationId>9bcfeeda-543d-4f96-8a9c-765afdc4443d</correlationId>
+                <deliverable>
+                  <fundingStreamCode>24+ ALLF</fundingStreamCode>
+                  <deliverableCode>1</deliverableCode>
+                  <deliverableName>Loans Submitted</deliverableName>
+                </deliverable>
+                <contractDeliverablePeriods>
+                  <contractDeliverablePeriod>
+                    <correlationId>9bcfeeda-543d-4f96-8a9c-765afdc4443d</correlationId>
+                    <year>2015</year>
+                    <period>8</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>5540.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>43d17a06-d3d5-4a97-99d8-f373d8ddc6b5</correlationId>
+                    <year>2015</year>
+                    <period>9</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>2647.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>e29f0421-8172-4c32-9117-6428c1c00bc0</correlationId>
+                    <year>2015</year>
+                    <period>10</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>dd42b14d-df95-4869-b4a6-553bf2bfb6b0</correlationId>
+                    <year>2015</year>
+                    <period>11</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>5242.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>734b8035-4444-4a2f-885f-e96605ae5b70</correlationId>
+                    <year>2015</year>
+                    <period>12</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>1036.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>4e0b4049-8a3d-4eaf-94f9-73f0dc9178a5</correlationId>
+                    <year>2016</year>
+                    <period>1</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>4832.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>1417e1a5-a232-46a9-bad7-392bcbba6ff6</correlationId>
+                    <year>2016</year>
+                    <period>2</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>3598.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>ef82ddc6-9942-487a-b1d3-9bbfed3e5947</correlationId>
+                    <year>2016</year>
+                    <period>3</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>312bb751-78be-44fe-8f9e-aa52da573ecb</correlationId>
+                    <year>2016</year>
+                    <period>4</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>18555b42-e6bc-4337-82ef-2172d81bcf92</correlationId>
+                    <year>2016</year>
+                    <period>5</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>0.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>01fc19d2-812e-4fcd-aae0-2c9b6749f8c6</correlationId>
+                    <year>2016</year>
+                    <period>6</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>2591.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                  <contractDeliverablePeriod>
+                    <correlationId>c7d486b7-5ab4-4177-802c-0dfb1ed2edee</correlationId>
+                    <year>2016</year>
+                    <period>7</period>
+                    <periodType>
+                      <periodTypeCode>CM</periodTypeCode>
+                      <periodTypeName>CALENDAR MONTH</periodTypeName>
+                    </periodType>
+                    <unitCost>0.0</unitCost>
+                    <plannedVolume>0</plannedVolume>
+                    <plannedValue>1979.00</plannedValue>
+                    <aggregate>false</aggregate>
+                  </contractDeliverablePeriod>
+                </contractDeliverablePeriods>
+
+                <deliverableDescription>AT Deliverable Data 24Plus</deliverableDescription>
+                <unitCost>0</unitCost>
+                <plannedVolume>0</plannedVolume>
+                <plannedValue>0</plannedValue>
+                <crmNotPresent>false</crmNotPresent>
+              </contractDeliverable>
+            </contractDeliverables>
+            <crmNotPresent>false</crmNotPresent>
+          </contractAllocation>
+        </contractAllocations>
+        <contractVersionNumber>1</contractVersionNumber>
+        <contractSubVersionNumber xsi:nil="true"/>
+        <description>AT Data 24Plus</description>
+        <contractor>
+          <organisationIdentifier>A12345678</organisationIdentifier>
+          <ukprn>10000671</ukprn>
+          <legalName>LegalName</legalName>
+          <organisationAddressIdentifier>0</organisationAddressIdentifier>
+        </contractor>
+        <hierarchyType>CONTRACT</hierarchyType>
+        <contractType>Contract for Services</contractType>
+        <startDate>2015-08-01</startDate>
+        <endDate>2016-07-31</endDate>
+        <crmNotPresent>false</crmNotPresent>
+      </contract>
+    </contracts>
+    <fundingTypeCode>24+LOANS</fundingTypeCode>
+    <contractVersionNumber>1</contractVersionNumber>
+    <contractSubVersionNumber xsi:nil="true"/>
+    <contractor>
+      <organisationIdentifier>A1234567</organisationIdentifier>
+      <ukprn>10000671</ukprn>
+      <legalName>LegalName</legalName>
+      <organisationAddressIdentifier>0</organisationAddressIdentifier>
+    </contractor>
+    <hierarchyType>MASTER CONTRACT</hierarchyType>
+    <startDate>2015-08-01</startDate>
+    <endDate>2016-07-31</endDate>
+    <crmNotPresent>false</crmNotPresent>
+  </contract>
+  <FundingConfiguration>
+    <FundingTypeCode>24+LOANS</FundingTypeCode>
+    <FundingStreamCode>24+ ALLF</FundingStreamCode>
+    <FundingStreamId>87250fad-a89c-e411-93fb-000d3ab03a58</FundingStreamId>
+    <FundingStreamName>24+ Advanced Learning Loans Facility</FundingStreamName>
+    <FundingStreamShortCode>ALLF</FundingStreamShortCode>
+    <FundingStreamCodeId>87250fad-a89c-e411-93fb-000d3ab03a58</FundingStreamCodeId>
+    <FundingStreamPeriodCode>24+ALLF1516</FundingStreamPeriodCode>
+    <Period>1516</Period>
+    <FundingPeriodStartDate>2015-07-31T23:00:00Z</FundingPeriodStartDate>
+    <FundingPeriodEndDate>2016-07-30T23:00:00Z</FundingPeriodEndDate>
+    <PeriodTypeName>Academic Year</PeriodTypeName>
+    <PeriodTypeCode>AY</PeriodTypeCode>
+  </FundingConfiguration>
+  <FundingConfiguration>
+    <FundingTypeCode>24+LOANS</FundingTypeCode>
+    <FundingStreamCode>24+ ALLBC</FundingStreamCode>
+    <FundingStreamId>89250fad-a89c-e411-93fb-000d3ab03a58</FundingStreamId>
+    <FundingStreamName>24+ Advanced Learning Loans Bursary (College)</FundingStreamName>
+    <FundingStreamShortCode>ALLC</FundingStreamShortCode>
+    <FundingStreamCodeId>89250fad-a89c-e411-93fb-000d3ab03a58</FundingStreamCodeId>
+    <FundingStreamPeriodCode>24+ALLBC1516</FundingStreamPeriodCode>
+    <Period>1516</Period>
+    <FundingPeriodStartDate>2015-07-31T23:00:00Z</FundingPeriodStartDate>
+    <FundingPeriodEndDate>2016-07-30T23:00:00Z</FundingPeriodEndDate>
+    <PeriodTypeName>Academic Year</PeriodTypeName>
+    <PeriodTypeCode>AY</PeriodTypeCode>
+  </FundingConfiguration>
+  <FundingConfiguration>
+    <FundingTypeCode>24+LOANS</FundingTypeCode>
+    <FundingStreamCode>24+ ALLB</FundingStreamCode>
+    <FundingStreamId>8b250fad-a89c-e411-93fb-000d3ab03a58</FundingStreamId>
+    <FundingStreamName>24+ Advanced Learning Loans Bursary</FundingStreamName>
+    <FundingStreamShortCode>ALLB</FundingStreamShortCode>
+    <FundingStreamCodeId>8b250fad-a89c-e411-93fb-000d3ab03a58</FundingStreamCodeId>
+    <FundingStreamPeriodCode>24+ALLB1516</FundingStreamPeriodCode>
+    <Period>1516</Period>
+    <FundingPeriodStartDate>2015-07-31T23:00:00Z</FundingPeriodStartDate>
+    <FundingPeriodEndDate>2016-07-30T23:00:00Z</FundingPeriodEndDate>
+    <PeriodTypeName>Academic Year</PeriodTypeName>
+    <PeriodTypeCode>AY</PeriodTypeCode>
+  </FundingConfiguration>
+</contractRequest>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0"?>
+<PaymentPeriod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="3.02" xmlns="urn:sfa:schemas:paymentsaggregation">
+  <PaymentDetails>
+    <PaymentDetail>
+      <Organisation>
+        <OrganisationId>ORG0017184</OrganisationId>
+        <AlternateOrganisationIdentifiers>
+          <OrganisationIdentifier>
+            <AlternateOrganisationIdentifier>10017184</AlternateOrganisationIdentifier>
+            <AlternateOrganisationIdentifierName>UK PROVIDER REFERENCE NUMBER</AlternateOrganisationIdentifierName>
+          </OrganisationIdentifier>
+        </AlternateOrganisationIdentifiers>
+        <OrganisationStatusRelationships>
+          <OrganisationStatusRelationship>
+            <OrganisationStatusScheme>LEGAL</OrganisationStatusScheme>
+            <OrganisationStatus>ACTIVE</OrganisationStatus>
+          </OrganisationStatusRelationship>
+        </OrganisationStatusRelationships>
+      </Organisation>
+      <Allocation>
+        <AllocationNumber>ESF-184</AllocationNumber>
+        <VersionNumber>2</VersionNumber>
+        <ProcurementAttrs>
+          <TenderSpecReference>TSS_20125</TenderSpecReference>
+          <TenderSpecTitle>SSR</TenderSpecTitle>
+          <LotReference>00-01</LotReference>
+          <LotSpecificationTitle>SSR</LotSpecificationTitle>
+          <AwardReference>20125/23-413-00-01/10017184</AwardReference>
+          <ActivityDescription>Job Seekers Fund</ActivityDescription>
+          <InvestmentPriority>1.4 Active Inclusion</InvestmentPriority>
+          <LEPCode>E37011</LEPCode>
+          <LEPName>Gloucestershire LEP</LEPName>
+          <RegionType>Less Developed</RegionType>
+          <AgreementNumber>08SESF01AAA</AgreementNumber>
+          <LearningRatePremium>1.01</LearningRatePremium>
+        </ProcurementAttrs>
+      </Allocation>
+      <SubnominalCode>2671114</SubnominalCode>
+      <PaymentType>RECONCILIATION</PaymentType>
+      <SubnominalDescription>ESF1420 IP1.4LessDev</SubnominalDescription>
+      <AggregatedValue>4998.00</AggregatedValue>
+    </PaymentDetail>
+  </PaymentDetails>
+  <Agency>ESFA</Agency>
+  <FundingStreamShortCode>ESFC</FundingStreamShortCode>
+  <FundingStreamPeriodStartDate>2014-08-01</FundingStreamPeriodStartDate>
+  <FundingStreamPeriodEndDate>2023-12-31</FundingStreamPeriodEndDate>
+  <CensusEndDate>2018-05-08</CensusEndDate>
+  <DueDate>2018-05-25</DueDate>
+  <FinancialPaymentFinancialYear>2018</FinancialPaymentFinancialYear>
+  <FinancialPaymentFinancialMonth>01</FinancialPaymentFinancialMonth>
+</PaymentPeriod>

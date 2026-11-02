@@ -1,0 +1,92 @@
+parameters:
+  BuildRoot: ''
+  ClassicSubscription: ''
+  ArtifactFeedName: ''  
+  ShouldBuild: ''
+
+steps:
+
+##if ShouldBuild == 'Y'
+- task: DotNetCoreCLI@2
+  displayName: Restore Nuget for FCS Core
+  inputs:
+    command: restore
+    projects: '${{ parameters.BuildRoot }}/FCS.Core/FCS.Core.sln'
+    feedsToUse: select
+    includeNuGetOrg: true
+  condition: and(succeeded(), eq(variables['BC_FcsCore'], 'Y'), eq(variables['ShouldBuild'], 'Y'))
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore for Fcs Core - Framework'
+  inputs:
+    restoreSolution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.B.sln'
+    restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+  condition: and(succeeded(), eq(variables['BC_FcsCore'], 'Y'), eq(variables['ShouldBuild'], 'Y'))
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build FCS Core for $(BuildConfiguration)'
+  inputs:
+    command: "build"
+    projects: '${{ parameters.BuildRoot }}/FCS.Core/FCS.Core.sln'
+  condition: and(succeeded(), eq(variables['BC_FcsCore'], 'Y'), eq(variables['ShouldBuild'], 'Y'))
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build FCS Core for $(BuildConfiguration) - create artifact'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '${{ parameters.BuildRoot }}/FCS.Core/FundingAllocation/FundingAllocation.csproj'
+    arguments: '--output ${{ parameters.BuildRoot }}/FCS.Core/publish_output/App_Data/jobs/continuous/FundingAllocationWebJob'
+    zipAfterPublish: false
+  condition: and(succeeded(), eq(variables['BC_FcsCore'], 'Y'), eq(variables['ShouldBuild'], 'Y'))
+
+- task: ArchiveFiles@2
+  displayName: 'Build FCS Core for $(BuildConfiguration) - zip artifact'
+  inputs:
+    rootFolderOrFile: '${{ parameters.BuildRoot }}/FCS.Core/publish_output'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '${{ parameters.BuildRoot }}/FCS.Core/publish/FundingAllocationWebJob.zip'
+    replaceExistingArchive: true
+  condition: and(succeeded(), eq(variables['BC_FcsCore'], 'Y'), eq(variables['ShouldBuild'], 'Y'))
+
+- task: CopyFiles@2
+  displayName: 'Copy FCS Core for $(BuildConfiguration) - zipped artifact'
+  inputs:
+    SourceFolder: '${{ parameters.BuildRoot }}/FCS.Core/publish'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/FcsCore'
+    CleanTargetFolder: true
+  condition: and(succeeded(),  ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FcsCore'], 'Y'), eq(variables['ShouldBuild'], 'Y'))
+
+- task: UniversalPackages@0
+  displayName: 'Upload FCS Core artifact for $(BuildConfiguration)'
+  inputs:
+    command: publish
+    publishDirectory: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/FcsCore'
+    vstsFeedPublish: '${{ parameters.ArtifactFeedName }}'
+    vstsFeedPackagePublish: 'fundingallocationwebjob.zip'
+    packagePublishDescription: 'FCS Core Package'
+  condition: and(succeeded(),  ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FcsCore'], 'Y'), eq(variables['ShouldBuild'], 'Y'))
+##end region  
+
+##if ShouldBuild == 'N'
+- task: UniversalPackages@0
+  displayName: 'Download FCS Core artifact for $(BuildConfiguration)'
+  inputs:
+    command: download
+    vstsFeed: '${{ parameters.ArtifactFeedName }}'
+    vstsFeedPackage: 'fundingallocationwebjob.zip'
+    vstsPackageVersion: 0.0.*
+    downloadDirectory: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/FcsCore'
+  condition: and(succeeded(),  ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FcsCore'], 'Y'), eq(variables['ShouldBuild'], 'N'))
+##end region   
+     
+- task: SqlAzureDacpacDeployment@1
+  inputs:
+    azureConnectionType: connectedServiceName
+    azureClassicSubscription: ${{parameters.ClassicSubscription}}
+    authenticationType: 'connectionString'
+    connectionString: '$(fcsPaaSDBConnectionstring)'
+    deployType: sqlTask
+    sqlFile: '${{ parameters.BuildRoot }}/FCS.Core/FundingAllocation/DataStore/Resources/FundingAllocationMigrationScript.sql'
+  condition: and(succeeded(), eq(variables['BC_FcsCore'], 'Y'))

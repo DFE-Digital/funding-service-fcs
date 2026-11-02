@@ -1,0 +1,98 @@
+﻿<Project ToolsVersion="4.0"
+         DefaultTargets="Build"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <BuildDir Condition=" '$(BuildDir)'=='' ">$(MSBuildThisFileDirectory)Build\$(Configuration)</BuildDir>
+    <TfBuild Condition=" '$(TfBuild)'=='' ">False</TfBuild>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition=" '$(Configuration)' == 'CI' ">
+      <PropertyGroup>
+        <DeploymentServiceUrl Condition=" '$(DeploymentServiceUrl)'=='' ">http://fct-ci-crm-01.cloudapp.net/xrmdeployment/2011/deployment.svc</DeploymentServiceUrl>
+        <SqlServerName Condition=" '$(SqlServerName)'=='' ">fct-ci-crm-01.cloudapp.net</SqlServerName>
+        <SrsUrl Condition=" '$(SrsUrl)'=='' ">http://fct-ci-crm-01/reportserver</SrsUrl>
+        <OrganizationUniqueName Condition=" '$(OrganizationUniqueName)'=='' ">ContinuousIntegration</OrganizationUniqueName>
+        <OrganizationFriendlyName Condition=" '$(OrganizationFriendlyName)'=='' ">Continuous Integration</OrganizationFriendlyName>
+        <CrmUrl Condition=" '$(CrmUrl)'=='' ">http://fct-ci-crm-01.cloudapp.net</CrmUrl>
+        <DropOrganization Condition=" '$(DropOrganization)'=='' "></DropOrganization>
+        <ManagedSolution Condition=" '$(ManagedSolution)'=='' ">Unmanaged</ManagedSolution>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'AT' ">
+      <PropertyGroup>
+        <DeploymentServiceUrl Condition=" '$(DeploymentServiceUrl)'=='' ">http://fct-at-crm-01.cloudapp.net/xrmdeployment/2011/deployment.svc</DeploymentServiceUrl>
+        <SqlServerName Condition=" '$(SqlServerName)'=='' ">fct-at-crm-01.cloudapp.net</SqlServerName>
+        <SrsUrl Condition=" '$(SrsUrl)'=='' ">http://fct-at-crm-01/reportserver</SrsUrl>
+        <OrganizationUniqueName Condition=" '$(OrganizationUniqueName)'=='' ">AcceptanceTest</OrganizationUniqueName>
+        <OrganizationFriendlyName Condition=" '$(OrganizationFriendlyName)'=='' ">Acceptance Test</OrganizationFriendlyName>
+        <CrmUrl Condition=" '$(CrmUrl)'=='' ">http://fct-at-crm-01.cloudapp.net</CrmUrl>
+        <DropOrganization Condition=" '$(DropOrganization)'=='' ">-DropOrganization</DropOrganization>
+        <ManagedSolution Condition=" '$(ManagedSolution)'=='' ">Unmanaged</ManagedSolution>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'MO' ">
+      <PropertyGroup>
+        <DeploymentServiceUrl Condition=" '$(DeploymentServiceUrl)'=='' ">http://fct-modeloffice.cloudapp.net/xrmdeployment/2011/deployment.svc</DeploymentServiceUrl>
+        <SqlServerName Condition=" '$(SqlServerName)'=='' ">fct-modeloffice.cloudapp.net</SqlServerName>
+        <SrsUrl Condition=" '$(SrsUrl)'=='' ">http://fct-modeloffice/reportserver</SrsUrl>
+        <OrganizationUniqueName Condition=" '$(OrganizationUniqueName)'=='' ">Training</OrganizationUniqueName>
+        <OrganizationFriendlyName Condition=" '$(OrganizationFriendlyName)'=='' ">Training</OrganizationFriendlyName>
+        <CrmUrl Condition=" '$(CrmUrl)'=='' ">http://fct-modeloffice.cloudapp.net</CrmUrl>
+        <DropOrganization Condition=" '$(DropOrganization)'=='' "></DropOrganization>
+        <ManagedSolution Condition=" '$(ManagedSolution)'=='' ">Managed</ManagedSolution>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'OAT' ">
+      <PropertyGroup>
+        <DeploymentServiceUrl Condition=" '$(DeploymentServiceUrl)'=='' ">http://fcs-pp-crma-01.preprod.fcs.sfa.bis.gov.uk/XRMDeployment/2011/Deployment.svc</DeploymentServiceUrl>
+        <SqlServerName Condition=" '$(SqlServerName)'=='' ">fcs-pp-sql-01</SqlServerName>
+        <SrsUrl Condition=" '$(SrsUrl)'=='' ">http://fcs-pp-ssrs:8085/reportserver</SrsUrl>
+        <OrganizationUniqueName Condition=" '$(OrganizationUniqueName)'=='' ">SkillsFundingAgency</OrganizationUniqueName>
+        <OrganizationFriendlyName Condition=" '$(OrganizationFriendlyName)'=='' ">Skills Funding Agency</OrganizationFriendlyName>
+        <CrmUrl Condition=" '$(CrmUrl)'=='' ">https://fcs-pp-crmw.preprod.fcs.sfa.bis.gov.uk</CrmUrl>
+        <DropOrganization Condition=" '$(DropOrganization)'=='' "></DropOrganization>
+        <ManagedSolution Condition=" '$(ManagedSolution)'=='' ">Managed</ManagedSolution>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'PS' ">
+      <PropertyGroup>
+        <DeploymentServiceUrl Condition=" '$(DeploymentServiceUrl)'=='' ">https://fcs-op-crmw.opsupazure.sfa.bis.gov.uk/XRMDeployment/2011/deployment.svc</DeploymentServiceUrl>
+        <SqlServerName Condition=" '$(SqlServerName)'=='' ">fcs-prd-sql-01.opsupazure.sfa.bis.gov.uk</SqlServerName>
+        <SrsUrl Condition=" '$(SrsUrl)'=='' ">https://fcs-op-ssrs.opsupazure.sfa.bis.gov.uk:8085/ReportServer</SrsUrl>
+        <OrganizationUniqueName Condition=" '$(OrganizationUniqueName)'=='' ">SkillsFundingAgency</OrganizationUniqueName>
+        <OrganizationFriendlyName Condition=" '$(OrganizationFriendlyName)'=='' ">Skills Funding Agency</OrganizationFriendlyName>
+        <CrmUrl Condition=" '$(CrmUrl)'=='' ">https://fcs-op-crmw.opsupazure.sfa.bis.gov.uk</CrmUrl>
+        <DropOrganization Condition=" '$(DropOrganization)'=='' "></DropOrganization>
+        <ManagedSolution Condition=" '$(ManagedSolution)'=='' ">Managed</ManagedSolution>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'Release' ">
+      <PropertyGroup>
+        <DeploymentServiceUrl Condition=" '$(DeploymentServiceUrl)'=='' ">https://fcs-prd-crma.prod.fcs.sfa.bis.gov.uk/XRMDeployment/2011/deployment.svc</DeploymentServiceUrl>
+        <SqlServerName Condition=" '$(SqlServerName)'=='' ">fcs-prd-sql-01.prod.fcs.sfa.bis.gov.uk</SqlServerName>
+        <SrsUrl Condition=" '$(SrsUrl)'=='' ">https://fcs-prd-ssrs.prod.fcs.sfa.bis.gov.uk:8085/ReportServer</SrsUrl>
+        <OrganizationUniqueName Condition=" '$(OrganizationUniqueName)'=='' ">SkillsFundingAgency</OrganizationUniqueName>
+        <OrganizationFriendlyName Condition=" '$(OrganizationFriendlyName)'=='' ">Skills Funding Agency</OrganizationFriendlyName>
+        <CrmUrl Condition=" '$(CrmUrl)'=='' ">https://fcs-prd-crmw.prod.fcs.sfa.bis.gov.uk</CrmUrl>
+        <DropOrganization Condition=" '$(DropOrganization)'=='' "></DropOrganization>
+        <ManagedSolution Condition=" '$(ManagedSolution)'=='' ">Managed</ManagedSolution>
+      </PropertyGroup>
+    </When>
+  </Choose>
+
+  <Target Name="BuildCRMPackage">
+    <Message Text="Creating the FCT CRM package ..."/>
+    <MSBuild Projects="$(MSBuildThisFileDirectory)\CrossDomain.XrmSolutionBuild\CrossDomain.XrmSolutionBuild.csproj"
+             Properties="Configuration=$(Configuration);" />
+  </Target>
+
+  <Target Name="Build"
+          DependsOnTargets="BuildCRMPackage">
+    <Message Text="OUTDIR: $(BuildDir)" />
+    <Message Text="Deploying the FCT CRM package ..."/>
+    <Exec WorkingDirectory="$(MSBuildThisFileDirectory)"
+          Command="powershell.exe -ExecutionPolicy Unrestricted -f &quot;$(BuildDir)\BuildScripts\Deploy-FctCrm.ps1&quot; -BuildDir &quot;$(BuildDir)&quot; -Configuration &quot;$(Configuration)&quot; -DeploymentServiceUrl &quot;$(DeploymentServiceUrl)&quot; -SqlServerName &quot;$(SqlServerName)&quot; -SrsUrl &quot;$(SrsUrl)&quot; -OrganizationUniqueName &quot;$(OrganizationUniqueName)&quot; -OrganizationFriendlyName &quot;$(OrganizationFriendlyName)&quot; -CrmUrl &quot;$(CrmUrl)&quot; -ManagedSolution &quot;$(ManagedSolution)&quot; $(DropOrganization) "/>
+  </Target>
+</Project>

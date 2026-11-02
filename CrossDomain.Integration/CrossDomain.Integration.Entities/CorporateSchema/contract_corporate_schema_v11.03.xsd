@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Rahul Mehta (Capgemini) -->
+<xs:schema xmlns:ctr="urn:sfa:schemas:contract" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" targetNamespace="urn:sfa:schemas:contract" elementFormDefault="qualified" attributeFormDefault="unqualified" version="11.03">
+	<xs:element name="contract">
+		<xs:annotation>
+			<xs:documentation>
+        Higher level contracts that suuport the legalisation of allocations
+      </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="ctr:contractType">
+					<xs:attribute name="schemaVersion" use="required" fixed="11.03">
+						<xs:annotation>
+							<xs:documentation>Version of schema in use. First digit refers to Major version of Data Model the schema conforms to, second digit refers to minor version of the Data Model, and the third digit is for the version of the schema for this version of the data model</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:decimal">
+								<xs:totalDigits value="4"/>
+								<xs:fractionDigits value="2"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="periodTypeType">
+		<xs:annotation>
+			<xs:documentation>
+        A reference of possible types of Period.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="periodTypeCode" type="ctr:periodTypeCodeType"/>
+			<xs:element name="periodTypeName" type="ctr:periodTypeNameType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fundingType">
+		<xs:annotation>
+			<xs:documentation>
+        A grouping of Funding Streams used to determine Contract related behaviour
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fundingTypeCode">
+				<xs:annotation>
+					<xs:documentation>
+            This is the abbreviation of the Funding Type Name
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fundingTypeName">
+				<xs:annotation>
+					<xs:documentation>
+            The name of the Funding Type. Funding Type is a collector of Funding Streams (used to control Contract behaviour)
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="period">
+		<xs:annotation>
+			<xs:documentation>
+        A reference list of possible reusable periods of time
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="periodType" type="ctr:periodTypeType"/>
+			<xs:element name="fundingStreamPeriods" type="ctr:fundingStreamPeriods" minOccurs="0"/>
+			<xs:element name="period">
+				<xs:annotation>
+					<xs:documentation>
+            A code used to describe the period of time
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="startDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>
+            The first date of the Period
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>
+            The last date of the Period
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fundingStream">
+		<xs:annotation>
+			<xs:documentation>
+        A business construct used to channel funding to providers in support of policy
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fundingStreamCode">
+				<xs:annotation>
+					<xs:documentation>
+            The code used to identify a Funding Stream
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fundingStreamName">
+				<xs:annotation>
+					<xs:documentation>
+            The name usually applied to this Funding Stream
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fundingTypeCode">
+				<xs:annotation>
+					<xs:documentation>
+            The Funding Type of this Funding Stream
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fundingStreamShortCode" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The code used to identify a Funding Stream (the same or shorter in length than the Funding Stream Code). Exists to support the key used to identifer a Contract Allocation
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fundingStreamPeriods">
+		<xs:annotation>
+			<xs:documentation>
+        A list of funding stream periods
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fundingStreamPeriod" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+            A cross reference realtionship between a Funding Stream and a Period
+          </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="fundingStreamPeriodCode">
+							<xs:annotation>
+								<xs:documentation>
+                  The code used to identify a Funding Stream Period
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contractAllocations">
+		<xs:annotation>
+			<xs:documentation>
+        A list of contract allocations
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="contractAllocation" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+            An allocation within the Contract domain
+          </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contractAllocations" type="ctr:contractAllocations" minOccurs="0"/>
+						<xs:element name="period" type="ctr:period" minOccurs="0"/>
+						<xs:element name="fundingStream" type="ctr:fundingStream" minOccurs="0"/>
+						<xs:element name="contractDeliverables" type="ctr:contractDeliverablesType" minOccurs="0"/>
+						<xs:element name="contractAllocationNumber" type="ctr:String0020ST">
+							<xs:annotation>
+								<xs:documentation>
+                  The unique identifier of a Contract Allocation (along with Contract Allocation Version Number)
+                </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="description" type="ctr:description" minOccurs="0"/>
+						<xs:element name="hierarchyType">
+							<xs:annotation>
+								<xs:documentation>
+                  Contract Allocation is a resursive entity and each level needs to be identified and this element does this. It is a controlled list of possible values.
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="CONTRACT ALLOCATION"/>
+									<xs:enumeration value="SUB ALLOCATION"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="fundingStreamPeriodCode" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="startDate" type="xs:date" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  The date from which the Contract Allocation is valid.Although in most cases the start and end date will be defined in the Contract (Hierarchy Type = 'CONTRACT'), there remains the possibility that in some circumstances it will need to be recorded at this level.
+                </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="endDate" type="xs:date" nillable="true" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  The date after which the Contract Allocation is no longer valid
+                </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="maximumContractValue" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  An upper limit to the value of the Contract Allocation
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:totalDigits value="13"/>
+									<xs:fractionDigits value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="reasonForAmendment" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>When a new version of a Contract is created this attribuute allows a free text record to be kept of the reason for the amendment. This attribute is set to 'Not Amended' for those Contract Allocations under a Contract that were not changed from the old version of the Contract to the new version.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="100"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="uopCode" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  A code used to identify the OLASS Unit of Procurement to which this Contract Allocation relates
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="ProcurementAttrs" type="ctr:ProcurementAttrsCT" minOccurs="0"/>
+						<xs:element name="allocationOrganisationRelationships" type="ctr:allocationOrganisationRelationships" minOccurs="0"/>
+						<xs:element name="allocationStatus" type="ctr:allocationStatusType" minOccurs="0"/>
+						<xs:element name="StatusLastUpdatedDate" type="xs:date" nillable="true" minOccurs="0"/>
+						<xs:element name="allocationTerminationAttrs" type="ctr:TerminationAllocationAttrsCT" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProcurementAttrsCT">
+		<xs:sequence>
+			<xs:element name="TenderSpecReference" type="ctr:String0100ST" nillable="false"/>
+			<xs:element name="TenderSpecTitle" type="ctr:String0255ST" nillable="false"/>
+			<xs:element name="LotReference" type="ctr:String0100ST" nillable="true" minOccurs="0"/>
+			<xs:element name="LotSpecificationTitle" type="ctr:String0255ST" nillable="true" minOccurs="0"/>
+			<xs:element name="AwardReference" type="ctr:String0100ST" nillable="false"/>
+			<xs:element name="ActivityDescription" type="ctr:String1024ST" nillable="false"/>
+			<xs:element name="InvestmentPriority" type="ctr:String0255ST" nillable="false"/>
+			<xs:element name="LEPCode" type="ctr:String0006ST" nillable="false"/>
+			<xs:element name="LEPName" type="ctr:String0255ST" nillable="false"/>
+			<xs:element name="RegionType" type="ctr:String0020ST" nillable="false"/>
+			<xs:element name="AgreementNumber" nillable="false">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="11"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LearningRatePremium" nillable="false">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="13"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contractor">
+		<xs:annotation>
+			<xs:documentation>
+        The organisation with whom the Agency is contracting
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="organisationIdentifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+            The Organisation Identifier of the Contractor (an entity that agrees to furnish certain number or quantity of goods, material, equipment, personnel, and/or services that meet or exceed stated requirements or specifications, at a mutually agreed upon price and within a specified timeframe to another independent entity called contractee)
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ukprn" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The UK Provider Reference Number of the Contractor
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="legalName">
+				<xs:annotation>
+					<xs:documentation>
+            The legal name of the Contractor as used on the Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="registeredCompanyNumber" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The Company Number, issued by Companies House, of the Contractor as has been recorded on this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="organisationAddressIdentifier" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The Address Identifier (as provided by the Organisation Service) of the legal address of the Contractor, that has been used on this Contract
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addressLine1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The first line of the legal address (as provided by the Organisation Service) of the Contractor, that has been used on this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="addressLine2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The second line of the legal address (as provided by the Organisation Service) of the Contractor, that has been used on this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="addressLine3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The third line of the legal address (as provided by the Organisation Service) of the Contractor, that has been used on this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="addressLine4" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The fourth line of the legal address (as provided by the Organisation Service) of the Contractor, that has been used on this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="addressLine5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The fifth line of the legal address (as provided by the Organisation Service) of the Contractor, that has been used on this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="town" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The post town of the legal address (as provided by the Organisation Service) of the Contractor, that has been used on this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="postcode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The postcode of the legal address (as provided by the Organisation Service) of the Contractor, that has been used on this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="deliverableType">
+		<xs:annotation>
+			<xs:documentation>A reference list of each deliverable</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="deliverableCode" type="xs:int"/>
+			<xs:element name="businessCode" minOccurs="0">
+				<xs:simpleType>
+					<xs:annotation>
+						<xs:documentation>
+              A code used by the business to give more meaning to the Deliverable
+            </xs:documentation>
+					</xs:annotation>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="deliverableName">
+				<xs:simpleType>
+					<xs:annotation>
+						<xs:documentation>
+              A description or name of the Deliverable
+            </xs:documentation>
+					</xs:annotation>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="120"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contractDeliverablesType">
+		<xs:annotation>
+			<xs:documentation>
+        Essentially an intersection between a Contract and Deliverables - so the Deliverables that apply to the Contract.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="contractDeliverable" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contractDeliverables" type="ctr:contractDeliverablesType" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="deliverable" type="ctr:deliverableType"/>
+						<xs:element name="contractDeliverablePeriods" type="ctr:contractDeliverablePeriodsType" minOccurs="0"/>
+						<xs:element name="deliverableOrganisationRelationships" type="ctr:deliverableOrganisationRelationships" minOccurs="0"/>
+						<xs:element name="deliverableDescription" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  The description of the Deliverable as entered by the business in relation to this Contract. This may differ from the description found in Funding Stream Configuration.
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="255"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="unitCost" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The unit cost of the deliverable</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:totalDigits value="13"/>
+									<xs:fractionDigits value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="plannedVolume" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  The volume of the Deliverable that has to be delivered. This is not a summary, rather it enables a single volume to be allocated across all periods.
+                </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="plannedValue" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  The planned value (equals Unit Cost x Planned Volume if both are populated) of what has to be delivered.  This is not a summary, rather it enables a single value to be allocated across all periods.
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:totalDigits value="13"/>
+									<xs:fractionDigits value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contractDeliverablePeriodsType">
+		<xs:annotation>
+			<xs:documentation>
+        The planned delivery against periods of time
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="contractDeliverablePeriod" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="year" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>The Year of the period</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="period" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>
+                  The period (eg a calendar month, a calendar quarter, a calendar year but usually calendar month) of the Period
+                </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="periodType" type="ctr:periodTypeType"/>
+						<xs:element name="unitCost" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  The unit cost of the Deliverable in £££.pp
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:totalDigits value="13"/>
+									<xs:fractionDigits value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="plannedVolume" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  The volume of the Deliverable that has to be delivered. This is not a summary, rather it enables a single volume to be allocated across all periods.
+                </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="plannedValue" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  The planned value (equals Unit Cost x Planned Volume if both are populated) of what has to be delivered.  This is not a summary, rather it enables a single value to be allocated across all periods.
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:totalDigits value="13"/>
+									<xs:fractionDigits value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="organisationRelationship">
+		<xs:sequence>
+			<xs:element name="organisationRelationshipType" type="ctr:organisationRelationshipType"/>
+			<xs:element name="organisationIdentifier">
+				<xs:annotation>
+					<xs:documentation>
+            Organisation Identifier note: This is Organisation Identifier from Org schema and NOT UKPRN etc.
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="allocationOrganisationRelationships">
+		<xs:sequence>
+			<xs:element name="contractAllocationNumber" type="ctr:String0020ST">
+				<xs:annotation>
+					<xs:documentation>
+            The unique identifier of a Contract Allocation (along with Contract Allocation Version Number)
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelationshipType" type="ctr:allocationOrganisationRelationshipType"/>
+			<xs:element name="Organisation" type="ctr:contractor"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="deliverableOrganisationRelationships">
+		<xs:annotation>
+			<xs:documentation>
+        A list of entities that record any organisations related to a Contract Deliverable.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="deliverableOrganisationRelationship" type="ctr:organisationRelationship" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+            An entity that records any organisations related to a Contract Deliverable.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contractStatusType">
+		<xs:sequence>
+			<xs:element name="status">
+				<xs:annotation>
+					<xs:documentation>
+            A term used to describe the position of the Contract in its lifecycle
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Draft"/>
+						<xs:enumeration value="Approved"/>
+						<xs:enumeration value="Unassigned"/>
+						<xs:enumeration value="In Review"/>
+						<xs:enumeration value="Awaiting Internal Approval"/>
+						<xs:enumeration value="Internally Approved"/>
+						<xs:enumeration value="Published To Provider"/>
+						<xs:enumeration value="Withdrawn By Provider"/>
+						<xs:enumeration value="Withdrawn By Agency"/>
+						<xs:enumeration value="Auto-Withdrawn"/>
+						<xs:enumeration value="Closed"/>
+						<xs:enumeration value="Under Termination"/>
+						<xs:enumeration value="Terminated"/>
+						<xs:enumeration value="Modified"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="parentStatus">
+				<xs:annotation>
+					<xs:documentation>A higher level classification of a status</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Draft"/>
+						<xs:enumeration value="Approved"/>
+						<xs:enumeration value="Withdrawn"/>
+						<xs:enumeration value="Closed"/>
+						<xs:enumeration value="Replaced"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="allocationStatusType">
+		<xs:sequence>
+			<xs:element name="status">
+				<xs:annotation>
+					<xs:documentation>
+            A term used to describe the position of the Contract in its lifecycle
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Draft"/>
+						<xs:enumeration value="Approved"/>
+						<xs:enumeration value="Withdrawn"/>
+						<xs:enumeration value="Replaced"/>
+						<xs:enumeration value="Closed"/>
+						<xs:enumeration value="Under Termination"/>
+						<xs:enumeration value="Terminated"/>
+						<xs:enumeration value="New Starts Suspended"/>
+						<xs:enumeration value="Funding Ceased"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contractType">
+		<xs:sequence>
+			<xs:element name="contracts" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contract" type="ctr:contractType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fundingType" type="ctr:fundingType" minOccurs="0"/>
+			<xs:element name="period" type="ctr:period" minOccurs="0"/>
+			<xs:element name="fundingStream" type="ctr:fundingStream" minOccurs="0"/>
+			<xs:element name="contractAllocations" type="ctr:contractAllocations" minOccurs="0"/>
+			<xs:element name="contractNumber">
+				<xs:annotation>
+					<xs:documentation>
+            The unique identifier of a Contract (along with Contract Version Number)
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="contractVersionNumber" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>
+            An identifier used to differentiate the different versions of a Contract.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractSubVersionNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>An identifier used to allow a Contract Version to be amended without incrementing the Contract Version Number, for example, when updates are made to draft contracts.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TerminationContractAttrs" type="ctr:TerminationContractAttrsCT" minOccurs="0"/>
+			<xs:element name="ContractApprovalDate" type="xs:date" nillable="true" minOccurs="0"/>
+			<xs:element name="StatusLastUpdatedDate" type="xs:date" nillable="true" minOccurs="0"/>
+			<xs:element name="LastModifiedDate" type="xs:date" nillable="true" minOccurs="0"/>
+			<xs:element name="description" type="ctr:description" minOccurs="0"/>
+			<xs:element name="contractor" type="ctr:contractor"/>
+			<xs:element name="hierarchyType" type="ctr:hierarchyType">
+				<xs:annotation>
+					<xs:documentation>
+            Contract is a resursive entity and each level needs to be identified and this attribute does this. It is a controlled list of possible values.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            A classfication of Contract used to determine the template and Terms/Conditions to be added to the Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="startDate" type="xs:date" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The date from which the Contract is valid. It is probable that the Contract Start and End Dates can be deduced from the earliest start date of Contract Allocations and latest end date of Contract Allocations respectively.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endDate" type="xs:date" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The date after which the Contract is no longer valid. It is probable that the Contract Start and End Dates can be deduced from the earliest start date of Contract Allocations and latest end date of Contract Allocations respectively.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractStatus" type="ctr:contractStatusType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            A reference of possible Contract related statuses
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractValue" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The value of funding associated with this Contract
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="15"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="parentContractNumber" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The Contract Number of the parent Contract (if any)
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="parentContractVersionNumber" type="xs:int" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            The Version Number of the parent Contract (if any)
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="amendmentType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates whether the new version of the Contract is a  Notification or a Variation. Applies only to the Hierarchy Type = "CONTRACT". Applies only to Version Number >= 2.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TerminationContractAttrsCT">
+		<xs:sequence>
+			<xs:element name="terminationDate" type="xs:date" nillable="true" minOccurs="0"/>
+			<xs:element name="ReasonForTermination" type="ctr:ReasonForTerminationType" nillable="false"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TerminationAllocationAttrsCT">
+		<xs:sequence>
+			<xs:element name="terminationDate" type="xs:date" nillable="true" minOccurs="0"/>
+			<xs:element name="stopNewStartsFromDate" type="xs:date" nillable="true" minOccurs="0"/>
+			<xs:element name="newStartsSuspendedReason" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Possible reasons for new starts suspended are documented in metadata for this schema</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="150"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fundingCessationReason" type="ctr:ReasonForTerminationType" nillable="true" minOccurs="0"/>
+			<xs:element name="fundingCessationDate" type="xs:date" nillable="true" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- SIMPLE TYPES SIMPLE TYPES SIMPLE TYPES SIMPLE TYPES	-->
+	<xs:simpleType name="periodTypeCodeType">
+		<xs:annotation>
+			<xs:documentation>
+        A code used to describe a type of period of time
+      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AY"/>
+			<xs:enumeration value="FY"/>
+			<xs:enumeration value="CY"/>
+			<xs:enumeration value="CM"/>
+			<xs:enumeration value="CQ"/>
+			<xs:enumeration value="ESF"/>
+			<xs:enumeration value="EOF"/>
+			<xs:enumeration value="EOP"/>
+			<xs:enumeration value="LEVY"/>
+			<xs:enumeration value="NONLEVY"/>
+			<xs:enumeration value="NCS"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="periodTypeNameType">
+		<xs:annotation>
+			<xs:documentation>
+        A name used to describe a type of period of time
+      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ACADEMIC YEAR"/>
+			<xs:enumeration value="FINANCIAL YEAR"/>
+			<xs:enumeration value="CALENDAR YEAR"/>
+			<xs:enumeration value="CALENDAR MONTH"/>
+			<xs:enumeration value="CALENDAR QUARTER"/>
+			<xs:enumeration value="EUROPEAN SOCIAL FUND"/>
+			<xs:enumeration value="EMPLOYER OWNERSHIP FUND"/>
+			<xs:enumeration value="EMPLOYER OWNERSHIP PILOT"/>
+			<xs:enumeration value="APPRENTICESHIP LEVY"/>
+			<xs:enumeration value="NON-LEVY APPRENTICESHIPS"/>
+			<xs:enumeration value="NATIONAL CAREERS SERVICE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ReasonForTerminationType">
+		<xs:annotation>
+			<xs:documentation>
+        Reasons for Termination
+      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Notice from Provider"/>
+			<xs:enumeration value="Notice from Agency"/>
+			<xs:enumeration value="Provider in Liquidation"/>
+			<xs:enumeration value="Provider Change"/>
+			<xs:enumeration value="Other"/>
+			<xs:enumeration value="Removed from RoATP"/>
+			<xs:enumeration value="Provider in Administration"/>
+			<xs:enumeration value="Inadequate Ofsted"/>
+			<xs:enumeration value="Inadequate Financial Health"/>
+			<xs:enumeration value="Contract Novation"/>
+			<xs:enumeration value="Minimum Standards"/>
+			<xs:enumeration value="Serious Breach"/>
+			<xs:enumeration value="Deactivated UKPRN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="description">
+		<xs:annotation>
+			<xs:documentation>The description or title of the Contract/Contract Allocation</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="organisationRelationshipType">
+		<xs:annotation>
+			<xs:documentation>
+        The nature of the relationship between a  Contract Deliverable and an Organisation
+      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LEP"/>
+			<xs:enumeration value="FUNDING ORGANISATION"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="allocationOrganisationRelationshipType">
+		<xs:annotation>
+			<xs:documentation>
+        The nature of the relationship between a  Contract Allocation and an Organisation
+      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DELIVERY ORGANISATION"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hierarchyType">
+		<xs:annotation>
+			<xs:documentation>
+        A reference of possible Contract levels
+      </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MASTER CONTRACT"/>
+			<xs:enumeration value="CONTRACT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String1024ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1024"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String0255ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String0100ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String0020ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String0010ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String0006ST">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

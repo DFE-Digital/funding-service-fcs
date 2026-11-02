@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <savedqueryid>{997f6567-9a60-e711-9420-000d3ab03a58}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_name" select="1" preview="1" icon="1">
+      <row name="result" id="sfa_notificationid">
+        <cell name="createdon" width="125" />
+        <cell name="sfa_notificationtype" width="300" />
+        <cell name="sfa_notification" width="300" disableSorting="1" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+      <entity name="sfa_notification">
+        <attribute name="sfa_notificationtype" />
+        <attribute name="sfa_notification" />
+        <attribute name="createdon" />
+        <order attribute="createdon" descending="true" />
+        <filter type="and">
+          <condition attribute="sfa_notificationtype" operator="in">
+            <value>229660009</value>
+            <value>229660019</value>
+            <value>229660020</value>
+            <value>229660021</value>
+          </condition>
+        </filter>
+        <attribute name="sfa_notificationid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.28.4.0</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="FCR Publish Notifications" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

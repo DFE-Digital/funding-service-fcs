@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10021</returnedtypecode>
+  <savedqueryid>{4e1fb110-2f06-424b-90fb-e8c0909ef830}</savedqueryid>
+  <layoutxml>
+    <grid name="" object="10021" jump="sfa_periodname" select="1" icon="1" preview="1">
+      <row name="sfa_period" id="sfa_periodid">
+        <cell name="sfa_periodname" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>2</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_period">
+        <attribute name="sfa_periodid" />
+        <attribute name="sfa_periodname" />
+        <attribute name="createdon" />
+        <order attribute="sfa_periodname" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Period Associated View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

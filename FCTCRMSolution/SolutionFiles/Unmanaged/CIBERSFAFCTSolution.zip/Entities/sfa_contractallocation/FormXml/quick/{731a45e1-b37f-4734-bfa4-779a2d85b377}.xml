@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{731a45e1-b37f-4734-bfa4-779a2d85b377}</formid>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form maxWidth="400">
+    <tabs>
+      <tab id="{fcf183a0-194b-4b04-9daa-0a5ab60e4c55}" name="tab_1" showlabel="false" locklevel="0" expanded="true">
+        <labels>
+          <label description="Tab" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="100%">
+            <sections>
+              <section id="{7e9d9875-b2db-49a1-9df0-8e302376fb5b}" name="tab_1_column_1_section_1" columns="1" showlabel="true" showbar="true" IsUserDefined="0" locklevel="0" labelwidth="115" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="Allocation Details" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{2e448a1a-a4c4-a2c1-b0d2-448a3384024e}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Contract Allocation Ref" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_contractallocationnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_contractallocationnumber" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{8144c120-a037-46c8-40be-0e1c19e671e6}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Stream" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingstreamid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fundingstreamid" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{ac146d89-6d14-d7d3-64ce-5eee9830b3b7}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Contract Allocation Value (£)" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_maximumcontractvalue" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="sfa_maximumcontractvalue" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{32c763d6-aa22-cbe7-0a47-3a8a8782c771}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Funding Stream Period" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fundingstreamperiodid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fundingstreamperiodid" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{e2a67dbe-aa82-60d7-81dd-987132c4e52e}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Start Date" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_startdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_startdate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{a1c38ca3-d102-e218-3bed-67709771de97}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="End Date" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_enddate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_enddate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{c05d016c-8206-9bd9-91ab-0ad612d7632c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Delivery Provider" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_deliveryorganisationprovider" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_deliveryorganisationprovider" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{5e8884a0-76a0-ab72-b940-915e63b93054}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Delivery UKPRN" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_deliveryorganisationukprn" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_deliveryorganisationukprn" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{b9e331b9-595c-a242-2d77-255d422685e8}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Local Enterprise Partnership" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_lepname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_lepname" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{e9503d59-08b8-a45a-74b0-5b1443531c78}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Agreement Number" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_agreementnumber" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_agreementnumber" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <DisplayConditions Order="4">
+      <Role Id="{627090ff-40a3-4053-8790-584edc5be201}" />
+      <Role Id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+    </DisplayConditions>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Allocation Details with Delivery Org and LEP" languagecode="1033" />
+  </LocalizedNames>
+</systemform>

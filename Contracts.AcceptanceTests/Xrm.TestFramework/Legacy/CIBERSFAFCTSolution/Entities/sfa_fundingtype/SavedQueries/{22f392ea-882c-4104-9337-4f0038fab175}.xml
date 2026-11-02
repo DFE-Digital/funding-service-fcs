@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>0</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>10019</returnedtypecode>
+  <savedqueryid>{22f392ea-882c-4104-9337-4f0038fab175}</savedqueryid>
+  <layoutxml>
+    <grid name="" object="10019" jump="sfa_name" select="1" icon="1" preview="1">
+      <row name="sfa_fundingtype" id="sfa_fundingtypeid">
+        <cell name="sfa_name" width="300" />
+        <cell name="createdon" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>2</querytype>
+  <fetchxml>
+    <fetch version="1.0" mapping="logical">
+      <entity name="sfa_fundingtype">
+        <attribute name="sfa_fundingtypeid" />
+        <attribute name="sfa_name" />
+        <attribute name="createdon" />
+        <order attribute="sfa_name" descending="false" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Funding Type Associated View" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

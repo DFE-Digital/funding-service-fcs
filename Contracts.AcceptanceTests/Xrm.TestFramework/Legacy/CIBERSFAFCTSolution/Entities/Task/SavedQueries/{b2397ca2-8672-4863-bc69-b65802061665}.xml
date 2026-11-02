@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <isquickfindquery>1</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>1</isdefault>
+  <returnedtypecode>4212</returnedtypecode>
+  <savedqueryid>{b2397ca2-8672-4863-bc69-b65802061665}</savedqueryid>
+  <queryapi></queryapi>
+  <layoutxml>
+    <grid name="resultset" object="4212" jump="subject" select="1" preview="1" icon="1">
+      <row name="result" id="activityid">
+        <cell name="subject" width="300" />
+        <cell name="regardingobjectid" width="125" />
+        <cell name="a_41a107b68afde4119403000d3ab03a58.sfa_version" width="50" disableSorting="1" />
+        <cell name="description" width="200" disableSorting="1" />
+        <cell name="scheduledend" width="100" />
+        <cell name="statuscode" width="100" />
+        <cell name="createdon" width="100" />
+        <cell name="ownerid" width="125" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>4</querytype>
+  <fetchxml>
+    <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+      <entity name="task">
+        <attribute name="subject" />
+        <attribute name="scheduledend" />
+        <attribute name="regardingobjectid" />
+        <attribute name="createdon" />
+        <attribute name="description" />
+        <attribute name="ownerid" />
+        <attribute name="statuscode" />
+        <order attribute="createdon" descending="true" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+        <filter type="or" isquickfindfields="1">
+          <condition attribute="subject" operator="like" value="{0}" />
+          <condition attribute="statuscode" operator="like" value="{0}" />
+          <condition attribute="statecode" operator="like" value="{0}" />
+          <condition attribute="regardingobjectid" operator="like" value="{0}" />
+          <condition attribute="ownerid" operator="like" value="{0}" />
+          <condition attribute="description" operator="like" value="{0}" />
+        </filter>
+        <link-entity alias="a_41a107b68afde4119403000d3ab03a58" name="sfa_contract" from="sfa_contractid" to="regardingobjectid" link-type="outer" visible="false">
+          <attribute name="sfa_version" />
+        </link-entity>
+        <attribute name="activityid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>5.0.0.0</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Quick Find All Tasks" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>

@@ -1,0 +1,59 @@
+<div>
+      <h3>CFS Import</h3>
+      <div class=”row”>
+            <h6 class="pull-left" >There are a total of {{cfsImportInfoResult?.TotalRowsInTable}} rows in table showing page {{pageNumber}}</h6>
+            <div class="pull-right">
+                  <a class="btn" href="#" style="font-size: 3em; color:rgb(89, 71, 255);" title="First Page" (click)="firstPage($event)" [class.disabled]="showFirstPage === false">
+                        <i class="fa fa-angle-double-left"></i>
+                  </a>
+                  <a class="btn" href="#" style="font-size: 3em; color: rgb(89, 71, 255);" title="Previous Page" (click)="previousPage($event)" [class.disabled]="showFirstPage === false">
+                        <i class="fa fa-angle-left"></i>
+                  </a>
+                  <a class="btn" href="#" style="font-size: 3em; color: rgb(89, 71, 255);" title="Next Page" (click)="nextPage($event)" [class.disabled]="showNextPage === false">
+                        <i class="fa fa-angle-right"></i>
+                  </a>
+            </div>
+      </div>
+      <div *ngIf="!loading; else showRefreshing">
+            <table class="table table-striped table-bordered">
+                  <thead>
+                      <tr>
+                          <th class="service-min-width">Start Time</th>
+                          <th class="service-min-width">Complete Time</th>
+                          <th class="service-min-width">All Read</th>
+                          <th class="service-min-width">All Processed</th>
+                          <th class="service-min-width">Funding Allocations Received</th>
+                          <th class="service-min-width">Provider Fundings Received</th>
+                          <th class="service-min-width">Funding Allocations in CRM</th>
+                          <th class="service-min-width">Funding Allocations Discarded</th>
+                          <th class="service-min-width">Funding Allocations Parked</th>
+                          <th class="service-min-width">Totals Match</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                        <tr *ngFor="let cfsImportInfo of cfsImportInfoResult.CfsImportInfos">
+                              <td class="text-nowrap"> {{cfsImportInfo.RunStart || '' | date:"dd-MMM-yyyy HH:mm:ss" }} </td>
+                              <td class="text-nowrap"> {{cfsImportInfo.RunEnd || '' | date:"dd-MMM-yyyy HH:mm:ss" }} </td>
+                              <td> {{cfsImportInfo.AllFundingAllocationsRead}} </td>
+                              <td> {{cfsImportInfo.AllFundingAllocationsProcessed}} </td>
+                              <td> {{cfsImportInfo.FundingAllocationsReceived}} </td>
+                              <td> {{cfsImportInfo.ProviderFundingsReceived}} </td>
+                              <td> {{cfsImportInfo.FundingAllocationPutInCrm}} </td>
+                              <td> {{cfsImportInfo.FundingAllocationsDiscarded}} </td>
+                              <td> {{cfsImportInfo.FundingAllocationsParked}} </td>
+                              <td>
+                                    <div *ngIf="cfsImportInfo.DoTotalsReconcile; else showFailure">
+                                          <i class="fa fa-check" aria-hidden="true" [ngClass]="'text-success'"></i>
+                                    </div>
+                                    <ng-template #showFailure>
+                                          <i class="fa fa-times" aria-hidden="true" [ngClass]="'text-danger'"></i>
+                                    </ng-template> 
+                              </td>
+                        </tr>
+                  </tbody>
+            </table>
+      </div>
+      <ng-template #showRefreshing>
+            <i class="fa fa-refresh fa-spin"></i>
+      </ng-template>
+</div>

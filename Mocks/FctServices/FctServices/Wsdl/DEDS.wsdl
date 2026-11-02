@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:tns="http://ws.imservices.org.uk/dcft/deds/1.0" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://ws.imservices.org.uk/dcft/deds/1.0" name="DedsSearchService">
+  -<wsdl:types>
+    -<xs:schema targetNamespace="http://ws.imservices.org.uk/dcft/deds/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/><xs:import namespace="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>-<xs:element name="GetDataSet">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="dataSetId" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/" type="q1:guid" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetDataSetResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="GetDataSetResult" type="q2:DataSetDescriptor" minOccurs="0" xmlns:q2="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts" nillable="true"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetDataSetByCode">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="code" type="xs:string" minOccurs="0" nillable="true"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetDataSetByCodeResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="GetDataSetByCodeResult" type="q3:DataSetDescriptor" minOccurs="0" nillable="true" xmlns:q3="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="DiscoverDataSetVersions">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="discoverDataSetVersionsCriteria" type="q4:DiscoverDataSetVersionsCriteria" minOccurs="0" nillable="true" xmlns:q4="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="DiscoverDataSetVersionsResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="DiscoverDataSetVersionsResult" type="q5:ArrayOfDataSetVersionDescriptor" minOccurs="0" nillable="true" xmlns:q5="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="DiscoverQueries">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="discoverQueriesCriteria" type="q6:DiscoverQueriesCriteria" minOccurs="0" nillable="true" xmlns:q6="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="DiscoverQueriesResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="DiscoverQueriesResult" type="q7:ArrayOfQueryDescriptor" minOccurs="0" nillable="true" xmlns:q7="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="DiscoverFiles">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="discoverFilesCriteria" type="q8:DiscoverFilesCriteria" minOccurs="0" nillable="true" xmlns:q8="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="DiscoverFilesResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="DiscoverFilesResult" type="q9:ArrayOfFileDescriptor" minOccurs="0" nillable="true" xmlns:q9="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="DiscoverFilesCount">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="discoverFilesCriteria" type="q10:DiscoverFilesCriteria" minOccurs="0" nillable="true" xmlns:q10="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="DiscoverFilesCountResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="DiscoverFilesCountResult" type="xs:long" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="ExecuteQuery">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="queryId" type="q11:guid" minOccurs="0" xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/"/>
+            <xs:element name="queryExecution" type="q12:QueryExecution" minOccurs="0" nillable="true" xmlns:q12="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="ExecuteQueryResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="ExecuteQueryResult" type="q13:ArrayOfQueryResults" minOccurs="0" nillable="true" xmlns:q13="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetTotalCount">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="queryId" type="q14:guid" minOccurs="0" xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/"/>
+            <xs:element name="queryExecution" type="q15:QueryExecution" minOccurs="0" nillable="true" xmlns:q15="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetTotalCountResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="GetTotalCountResult" type="xs:long" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="ExecuteQueryByCode">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="dataSetVersionId" type="q16:guid" minOccurs="0" xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/"/>
+            <xs:element name="queryCode" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="queryExecution" type="q17:QueryExecution" minOccurs="0" nillable="true" xmlns:q17="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="ExecuteQueryByCodeResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="ExecuteQueryByCodeResult" type="q18:ArrayOfQueryResults" minOccurs="0" nillable="true" xmlns:q18="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetTotalCountByCode">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="dataSetVersionId" type="q19:guid" minOccurs="0" xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/"/>
+            <xs:element name="queryCode" type="xs:string" minOccurs="0" nillable="true"/>
+            <xs:element name="queryExecution" type="q20:QueryExecution" minOccurs="0" nillable="true" xmlns:q20="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetTotalCountByCodeResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="GetTotalCountByCodeResult" type="xs:long" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetFile">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="fileId" type="q21:guid" minOccurs="0" xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetFileResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="GetFileResult" type="q22:FileData" minOccurs="0" nillable="true" xmlns:q22="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetLatestPublishedDataSetVersion">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="dataSetCode" type="xs:string" minOccurs="0" nillable="true"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetLatestPublishedDataSetVersionResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="GetLatestPublishedDataSetVersionResult" type="q23:DataSetVersionDescriptor" minOccurs="0" nillable="true" xmlns:q23="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetPublishedDataSetVersions">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="dataSetCode" type="xs:string" minOccurs="0" nillable="true"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>-<xs:element name="GetPublishedDataSetVersionsResponse">
+        -<xs:complexType>
+          -<xs:sequence>
+            <xs:element name="GetPublishedDataSetVersionsResult" type="q24:ArrayOfDataSetVersionDescriptor" minOccurs="0" nillable="true" xmlns:q24="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+      <xs:element name="anyType" type="xs:anyType" nillable="true"/><xs:element name="anyURI" type="xs:anyURI" nillable="true"/><xs:element name="base64Binary" type="xs:base64Binary" nillable="true"/><xs:element name="boolean" type="xs:boolean" nillable="true"/><xs:element name="byte" type="xs:byte" nillable="true"/><xs:element name="dateTime" type="xs:dateTime" nillable="true"/><xs:element name="decimal" type="xs:decimal" nillable="true"/><xs:element name="double" type="xs:double" nillable="true"/><xs:element name="float" type="xs:float" nillable="true"/><xs:element name="int" type="xs:int" nillable="true"/><xs:element name="long" type="xs:long" nillable="true"/><xs:element name="QName" type="xs:QName" nillable="true"/><xs:element name="short" type="xs:short" nillable="true"/><xs:element name="string" type="xs:string" nillable="true"/><xs:element name="unsignedByte" type="xs:unsignedByte" nillable="true"/><xs:element name="unsignedInt" type="xs:unsignedInt" nillable="true"/><xs:element name="unsignedLong" type="xs:unsignedLong" nillable="true"/><xs:element name="unsignedShort" type="xs:unsignedShort" nillable="true"/><xs:element name="char" type="tns:char" nillable="true"/>-<xs:simpleType name="char">
+        <xs:restriction base="xs:int"/>
+      </xs:simpleType><xs:element name="duration" type="tns:duration" nillable="true"/>-<xs:simpleType name="duration">
+        -<xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+        </xs:restriction>
+      </xs:simpleType><xs:element name="guid" type="tns:guid" nillable="true"/>-<xs:simpleType name="guid">
+        -<xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+        </xs:restriction>
+      </xs:simpleType><xs:attribute name="FactoryType" type="xs:QName"/><xs:attribute name="Id" type="xs:ID"/><xs:attribute name="Ref" type="xs:IDREF"/>
+    </xs:schema>-<xs:schema xmlns:tns="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts" targetNamespace="http://ws.imservices.org.uk/dcft/deds/1.0/datacontracts" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/><xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>-<xs:complexType name="DataSetDescriptor">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="Code" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="CollectionId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="DataProviderId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="DatabaseName" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="Description" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="Id" type="ser:guid" minOccurs="0" nillable="true"/>
+              <xs:element name="Name" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="RetentionDuration" type="ser:duration" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="DataSetDescriptor" type="tns:DataSetDescriptor" nillable="true"/>-<xs:complexType name="DataContractBase">
+        <xs:sequence/>
+      </xs:complexType><xs:element name="DataContractBase" type="tns:DataContractBase" nillable="true"/>-<xs:complexType name="DiscoverDataSetVersionsCriteria">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="DataSetCollectionId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="DataSetDataProviderId" type="xs:string" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="DiscoverDataSetVersionsCriteria" type="tns:DiscoverDataSetVersionsCriteria" nillable="true"/>-<xs:complexType name="ArrayOfDataSetVersionDescriptor">
+        -<xs:sequence>
+          <xs:element name="DataSetVersionDescriptor" type="tns:DataSetVersionDescriptor" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfDataSetVersionDescriptor" type="tns:ArrayOfDataSetVersionDescriptor" nillable="true"/>-<xs:complexType name="DataSetVersionDescriptor">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="DataSetId" type="ser:guid" minOccurs="0" nillable="true"/>
+              <xs:element name="DatabaseName" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="HasBeenThroughQualityAssurance" type="xs:boolean" minOccurs="0" nillable="true"/>
+              <xs:element name="Id" type="ser:guid" minOccurs="0" nillable="true"/>
+              <xs:element name="IsMandatory" type="xs:boolean" minOccurs="0" nillable="true"/>
+              <xs:element name="PublishedDateTime" type="xs:dateTime" minOccurs="0" nillable="true"/>
+              <xs:element name="PublishedState" type="tns:PublishedStateDescriptor" minOccurs="0" nillable="true"/>
+              <xs:element name="ReasonForVersion" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="Roles" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" type="q1:ArrayOfstring" minOccurs="0" nillable="true"/>
+              <xs:element name="Version" type="xs:int" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="DataSetVersionDescriptor" type="tns:DataSetVersionDescriptor" nillable="true"/>-<xs:simpleType name="PublishedStateDescriptor">
+        -<xs:restriction base="xs:string">
+          <xs:enumeration value="Created"/>
+          <xs:enumeration value="PendingQualityAssurance"/>
+          <xs:enumeration value="Published"/>
+        </xs:restriction>
+      </xs:simpleType><xs:element name="PublishedStateDescriptor" type="tns:PublishedStateDescriptor" nillable="true"/>-<xs:complexType name="DiscoverQueriesCriteria">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="DataSetVersionId" type="ser:guid" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="DiscoverQueriesCriteria" type="tns:DiscoverQueriesCriteria" nillable="true"/>-<xs:complexType name="ArrayOfQueryDescriptor">
+        -<xs:sequence>
+          <xs:element name="QueryDescriptor" type="tns:QueryDescriptor" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfQueryDescriptor" type="tns:ArrayOfQueryDescriptor" nillable="true"/>-<xs:complexType name="QueryDescriptor">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="Code" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="Description" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FilterDescriptors" type="tns:ArrayOfFilterDescriptor" minOccurs="0" nillable="true"/>
+              <xs:element name="GetTotalCountSupported" type="xs:boolean" minOccurs="0" nillable="true"/>
+              <xs:element name="Id" type="ser:guid" minOccurs="0" nillable="true"/>
+              <xs:element name="Name" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="PagingSupported" type="xs:boolean" minOccurs="0" nillable="true"/>
+              <xs:element name="Roles" type="q2:ArrayOfstring" minOccurs="0" xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" nillable="true"/>
+              <xs:element name="SortDescriptors" type="tns:ArrayOfSortDescriptor" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="QueryDescriptor" type="tns:QueryDescriptor" nillable="true"/>-<xs:complexType name="ArrayOfFilterDescriptor">
+        -<xs:sequence>
+          <xs:element name="FilterDescriptor" type="tns:FilterDescriptor" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfFilterDescriptor" type="tns:ArrayOfFilterDescriptor" nillable="true"/>-<xs:complexType name="FilterDescriptor">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="FieldDescription" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FieldName" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FieldOperator" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FieldType" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="IsRequired" type="xs:boolean" minOccurs="0" nillable="true"/>
+              <xs:element name="PickListValues" type="q3:ArrayOfstring" minOccurs="0" nillable="true" xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="FilterDescriptor" type="tns:FilterDescriptor" nillable="true"/>-<xs:complexType name="ArrayOfSortDescriptor">
+        -<xs:sequence>
+          <xs:element name="SortDescriptor" type="tns:SortDescriptor" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfSortDescriptor" type="tns:ArrayOfSortDescriptor" nillable="true"/>-<xs:complexType name="SortDescriptor">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="FieldDescription" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FieldName" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="IsRequired" type="xs:boolean" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="SortDescriptor" type="tns:SortDescriptor" nillable="true"/>-<xs:complexType name="DiscoverFilesCriteria">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="CollectionId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="DataProviderId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FileType" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="PageNumber" type="xs:int" minOccurs="0" nillable="true"/>
+              <xs:element name="PageSize" type="xs:int" minOccurs="0" nillable="true"/>
+              <xs:element name="Roles" type="q4:ArrayOfstring" minOccurs="0" nillable="true" xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+              <xs:element name="SortValues" type="tns:ArrayOfSortValue" minOccurs="0" nillable="true"/>
+              <xs:element name="SubmissionId" type="ser:guid" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="DiscoverFilesCriteria" type="tns:DiscoverFilesCriteria" nillable="true"/>-<xs:complexType name="ArrayOfSortValue">
+        -<xs:sequence>
+          <xs:element name="SortValue" type="tns:SortValue" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfSortValue" type="tns:ArrayOfSortValue" nillable="true"/>-<xs:complexType name="SortValue">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="FieldName" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="SortOrder" type="tns:SortOrder" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="SortValue" type="tns:SortValue" nillable="true"/>-<xs:simpleType name="SortOrder">
+        -<xs:restriction base="xs:string">
+          <xs:enumeration value="Ascending"/>
+          <xs:enumeration value="Descending"/>
+        </xs:restriction>
+      </xs:simpleType><xs:element name="SortOrder" type="tns:SortOrder" nillable="true"/>-<xs:complexType name="ArrayOfFileDescriptor">
+        -<xs:sequence>
+          <xs:element name="FileDescriptor" type="tns:FileDescriptor" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfFileDescriptor" type="tns:ArrayOfFileDescriptor" nillable="true"/>-<xs:complexType name="FileDescriptor">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="CollectionId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="DataProviderId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="Description" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FileName" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FileSizeBytes" type="xs:long" minOccurs="0" nillable="true"/>
+              <xs:element name="FileType" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="Id" type="ser:guid" minOccurs="0" nillable="true"/>
+              <xs:element name="MimeType" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="PublishedDateTime" type="xs:dateTime" minOccurs="0" nillable="true"/>
+              <xs:element name="RetentionDuration" type="ser:duration" minOccurs="0" nillable="true"/>
+              <xs:element name="Roles" type="q5:ArrayOfstring" minOccurs="0" nillable="true" xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+              <xs:element name="SubmissionId" type="ser:guid" minOccurs="0" nillable="true"/>
+              <xs:element name="Title" type="xs:string" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="FileDescriptor" type="tns:FileDescriptor" nillable="true"/>-<xs:complexType name="QueryExecution">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="FilterValues" type="tns:ArrayOfFilterValue" minOccurs="0" nillable="true"/>
+              <xs:element name="PageNumber" type="xs:int" minOccurs="0" nillable="true"/>
+              <xs:element name="PageSize" type="xs:int" minOccurs="0" nillable="true"/>
+              <xs:element name="SortValues" type="tns:ArrayOfSortValue" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="QueryExecution" type="tns:QueryExecution" nillable="true"/>-<xs:complexType name="ArrayOfFilterValue">
+        -<xs:sequence>
+          <xs:element name="FilterValue" type="tns:FilterValue" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfFilterValue" type="tns:ArrayOfFilterValue" nillable="true"/>-<xs:complexType name="FilterValue">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="FieldName" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FieldValue" type="xs:string" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="FilterValue" type="tns:FilterValue" nillable="true"/>-<xs:complexType name="ArrayOfQueryResults">
+        -<xs:sequence>
+          <xs:element name="QueryResults" type="tns:QueryResults" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfQueryResults" type="tns:ArrayOfQueryResults" nillable="true"/>-<xs:complexType name="QueryResults">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="FieldNames" type="q6:ArrayOfstring" minOccurs="0" nillable="true" xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+              <xs:element name="Results" type="q7:ArrayOfArrayOfstring" minOccurs="0" nillable="true" xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="QueryResults" type="tns:QueryResults" nillable="true"/>-<xs:complexType name="FileData">
+        -<xs:complexContent mixed="false">
+          -<xs:extension base="tns:DataContractBase">
+            -<xs:sequence>
+              <xs:element name="CollectionId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="DataProviderId" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="Description" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FileContent" type="xs:base64Binary" minOccurs="0" nillable="true"/>
+              <xs:element name="FileName" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="FileSizeBytes" type="xs:long" minOccurs="0" nillable="true"/>
+              <xs:element name="FileType" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="Id" type="ser:guid" minOccurs="0" nillable="true"/>
+              <xs:element name="MimeType" type="xs:string" minOccurs="0" nillable="true"/>
+              <xs:element name="PublishedDateTime" type="xs:dateTime" minOccurs="0" nillable="true"/>
+              <xs:element name="Roles" type="q8:ArrayOfstring" minOccurs="0" nillable="true" xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+              <xs:element name="SubmissionId" type="ser:guid" minOccurs="0" nillable="true"/>
+              <xs:element name="Title" type="xs:string" minOccurs="0" nillable="true"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType><xs:element name="FileData" type="tns:FileData" nillable="true"/>
+    </xs:schema>-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+      -<xs:complexType name="ArrayOfstring">
+        -<xs:sequence>
+          <xs:element name="string" type="xs:string" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfstring" type="tns:ArrayOfstring" nillable="true"/>-<xs:complexType name="ArrayOfArrayOfstring">
+        -<xs:sequence>
+          <xs:element name="ArrayOfstring" type="tns:ArrayOfstring" minOccurs="0" nillable="true" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType><xs:element name="ArrayOfArrayOfstring" type="tns:ArrayOfArrayOfstring" nillable="true"/>
+    </xs:schema>
+  </wsdl:types>-<wsdl:message name="IDedsSearchService_GetDataSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataSet"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetDataSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataSetResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetDataSetByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataSetByCode"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetDataSetByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataSetByCodeResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_DiscoverDataSetVersions_InputMessage">
+    <wsdl:part name="parameters" element="tns:DiscoverDataSetVersions"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_DiscoverDataSetVersions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DiscoverDataSetVersionsResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_DiscoverQueries_InputMessage">
+    <wsdl:part name="parameters" element="tns:DiscoverQueries"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_DiscoverQueries_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DiscoverQueriesResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_DiscoverFiles_InputMessage">
+    <wsdl:part name="parameters" element="tns:DiscoverFiles"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_DiscoverFiles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DiscoverFilesResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_DiscoverFilesCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:DiscoverFilesCount"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_DiscoverFilesCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DiscoverFilesCountResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_ExecuteQuery_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExecuteQuery"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_ExecuteQuery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExecuteQueryResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetTotalCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalCount"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetTotalCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalCountResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_ExecuteQueryByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExecuteQueryByCode"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_ExecuteQueryByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExecuteQueryByCodeResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetTotalCountByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalCountByCode"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetTotalCountByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalCountByCodeResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFile"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFileResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetLatestPublishedDataSetVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLatestPublishedDataSetVersion"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetLatestPublishedDataSetVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLatestPublishedDataSetVersionResponse"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetPublishedDataSetVersions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPublishedDataSetVersions"/>
+  </wsdl:message>-<wsdl:message name="IDedsSearchService_GetPublishedDataSetVersions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPublishedDataSetVersionsResponse"/>
+  </wsdl:message>-<wsdl:portType name="IDedsSearchService">
+    -<wsdl:operation name="GetDataSet">
+      <wsdl:input message="tns:IDedsSearchService_GetDataSet_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetDataSet"/>
+      <wsdl:output message="tns:IDedsSearchService_GetDataSet_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetDataSetResponse"/>
+    </wsdl:operation>-<wsdl:operation name="GetDataSetByCode">
+      <wsdl:input message="tns:IDedsSearchService_GetDataSetByCode_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetDataSetByCode"/>
+      <wsdl:output message="tns:IDedsSearchService_GetDataSetByCode_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetDataSetByCodeResponse"/>
+    </wsdl:operation>-<wsdl:operation name="DiscoverDataSetVersions">
+      <wsdl:input message="tns:IDedsSearchService_DiscoverDataSetVersions_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverDataSetVersions"/>
+      <wsdl:output message="tns:IDedsSearchService_DiscoverDataSetVersions_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverDataSetVersionsResponse"/>
+    </wsdl:operation>-<wsdl:operation name="DiscoverQueries">
+      <wsdl:input message="tns:IDedsSearchService_DiscoverQueries_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverQueries"/>
+      <wsdl:output message="tns:IDedsSearchService_DiscoverQueries_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverQueriesResponse"/>
+    </wsdl:operation>-<wsdl:operation name="DiscoverFiles">
+      <wsdl:input message="tns:IDedsSearchService_DiscoverFiles_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverFiles"/>
+      <wsdl:output message="tns:IDedsSearchService_DiscoverFiles_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverFilesResponse"/>
+    </wsdl:operation>-<wsdl:operation name="DiscoverFilesCount">
+      <wsdl:input message="tns:IDedsSearchService_DiscoverFilesCount_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverFilesCount"/>
+      <wsdl:output message="tns:IDedsSearchService_DiscoverFilesCount_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverFilesCountResponse"/>
+    </wsdl:operation>-<wsdl:operation name="ExecuteQuery">
+      <wsdl:input message="tns:IDedsSearchService_ExecuteQuery_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/ExecuteQuery"/>
+      <wsdl:output message="tns:IDedsSearchService_ExecuteQuery_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/ExecuteQueryResponse"/>
+    </wsdl:operation>-<wsdl:operation name="GetTotalCount">
+      <wsdl:input message="tns:IDedsSearchService_GetTotalCount_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetTotalCount"/>
+      <wsdl:output message="tns:IDedsSearchService_GetTotalCount_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetTotalCountResponse"/>
+    </wsdl:operation>-<wsdl:operation name="ExecuteQueryByCode">
+      <wsdl:input message="tns:IDedsSearchService_ExecuteQueryByCode_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/ExecuteQueryByCode"/>
+      <wsdl:output message="tns:IDedsSearchService_ExecuteQueryByCode_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/ExecuteQueryByCodeResponse"/>
+    </wsdl:operation>-<wsdl:operation name="GetTotalCountByCode">
+      <wsdl:input message="tns:IDedsSearchService_GetTotalCountByCode_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetTotalCountByCode"/>
+      <wsdl:output message="tns:IDedsSearchService_GetTotalCountByCode_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetTotalCountByCodeResponse"/>
+    </wsdl:operation>-<wsdl:operation name="GetFile">
+      <wsdl:input message="tns:IDedsSearchService_GetFile_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetFile"/>
+      <wsdl:output message="tns:IDedsSearchService_GetFile_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetFileResponse"/>
+    </wsdl:operation>-<wsdl:operation name="GetLatestPublishedDataSetVersion">
+      <wsdl:input message="tns:IDedsSearchService_GetLatestPublishedDataSetVersion_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetLatestPublishedDataSetVersion"/>
+      <wsdl:output message="tns:IDedsSearchService_GetLatestPublishedDataSetVersion_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetLatestPublishedDataSetVersionResponse"/>
+    </wsdl:operation>-<wsdl:operation name="GetPublishedDataSetVersions">
+      <wsdl:input message="tns:IDedsSearchService_GetPublishedDataSetVersions_InputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetPublishedDataSetVersions"/>
+      <wsdl:output message="tns:IDedsSearchService_GetPublishedDataSetVersions_OutputMessage" wsaw:Action="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetPublishedDataSetVersionsResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>-<wsdl:binding name="BasicHttpBinding_IDedsSearchService" type="tns:IDedsSearchService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>-<wsdl:operation name="GetDataSet">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetDataSet"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="GetDataSetByCode">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetDataSetByCode"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="DiscoverDataSetVersions">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverDataSetVersions"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="DiscoverQueries">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverQueries"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="DiscoverFiles">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverFiles"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="DiscoverFilesCount">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/DiscoverFilesCount"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="ExecuteQuery">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/ExecuteQuery"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="GetTotalCount">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetTotalCount"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="ExecuteQueryByCode">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/ExecuteQueryByCode"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="GetTotalCountByCode">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetTotalCountByCode"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="GetFile">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetFile"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="GetLatestPublishedDataSetVersion">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetLatestPublishedDataSetVersion"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>-<wsdl:operation name="GetPublishedDataSetVersions">
+      <soap:operation style="document" soapAction="http://ws.imservices.org.uk/dcft/deds/1.0/IDedsSearchService/GetPublishedDataSetVersions"/>-<wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>-<wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>-<wsdl:service name="DedsSearchService">
+    -<wsdl:port name="BasicHttpBinding_IDedsSearchService" binding="tns:BasicHttpBinding_IDedsSearchService">
+      <soap:address location="http://il-deds.opsdes.imservices.org.uk/Search/DedsSearchService.svc"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

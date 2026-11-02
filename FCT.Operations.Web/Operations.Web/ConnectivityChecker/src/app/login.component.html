@@ -1,0 +1,19 @@
+<div class="login-page">
+  <div>
+    <form (ngSubmit)="onLogin(token)" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="name">Login with your token</label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="token" name="token" #name="ngModel" placeholder="Enter Token">
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+      <br>
+      <br>
+      <div *ngIf="loginFailed">
+        <i class="fa fa-times" aria-hidden="true">The token is incorrect</i>
+      </div>
+      <div *ngIf="serverProblem">
+        <i class="fa fa-times" aria-hidden="true">Server Problem!</i>
+      </div>
+    </form>
+  </div>
+</div>

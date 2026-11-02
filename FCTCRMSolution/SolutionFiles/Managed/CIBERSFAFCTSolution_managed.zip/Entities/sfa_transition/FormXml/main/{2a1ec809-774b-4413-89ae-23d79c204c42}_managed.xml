@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{2a1ec809-774b-4413-89ae-23d79c204c42}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{6855680f-0522-49a4-8e66-b04b5af9d3d2}" IsUserDefined="1" name="tab_General" locklevel="0" showlabel="true" expanded="true">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="50%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{4e58927b-3cb6-493b-9425-2ea8d2d54f90}" name="{4e58927b-3cb6-493b-9425-2ea8d2d54f90}" columns="1" locklevel="0" labelwidth="115" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{ea6bfb66-16b0-43a0-89e0-e830be0fbd37}">
+                      <labels>
+                        <label description="Name" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{059ae13d-d3b3-9105-ebd4-115b7d178450}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Process" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_process" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_process" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{d485813a-342b-b3ba-a35d-870b0cb6aac2}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Action" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_wfaction" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_wfaction" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{82833966-6ea5-c32c-33c6-0a8b8d43bcb2}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Action On Existing Task" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_actionontask" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_actionontask" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{34c5a2da-799e-a397-8b86-88315ec66ae8}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="From Action" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fromaction" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_fromaction" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{895c59c3-e87e-e91e-1c83-d7359eb23408}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Next Action" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_nextaction" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_nextaction" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{4c4adc7d-684a-a4b3-45e9-a7dc9b56c4c6}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="From State" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_fromstate" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_fromstate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{669eb015-1e6e-2d04-5d30-2c75de030db4}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="To State" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_tostate" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_tostate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{d2e9c254-534c-e4d7-d449-44cee81ce8a9}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Set Record State" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_setrecordstate" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_setrecordstate" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{9891ae82-6589-d4b5-e285-5a3911e9e8d6}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Managers Team" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_managersteam" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_managersteam" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{65143fca-0310-4370-8b87-380e1feec602}">
+                      <labels>
+                        <label description="Owner" languagecode="1033" />
+                      </labels>
+                      <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{a09dae40-94b7-50dc-8228-3c6a5d5e4ac4}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Service Intent" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_serviceintent" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_serviceintent" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+          <column width="50%">
+            <sections>
+              <section name="{6855680f-0522-49a4-8e66-b04b5af9d3d2}_section_2" showlabel="false" showbar="false" locklevel="0" id="{55646192-7540-d519-ddb3-3a929cb17dd8}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="Section" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{59e3bed8-3489-b223-1034-7aaeea5ded4a}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="API Call Required" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_callapi" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_callapi" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{79890ca7-8dd8-22ba-5a10-e23b6e2dbba4}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Requires A Notification" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_requiresanotification" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_requiresanotification" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{a22a07a3-7948-60e9-ad44-3a1b719db87a}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Requires Creation Of Task" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_createtask" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_createtask" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{12530c88-55e6-433e-5c92-0c9b6a305b8d}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Requires Change Of Ownership" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_requireschangeofownership" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_requireschangeofownership" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{2c2c1081-bc06-ab14-b4bb-d06144493362}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Maintains Previous Task Owner" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_maintainspreviousowner" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_maintainspreviousowner" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{1bced388-a2aa-7671-bed2-e0e92c42358c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Maintains Previous Contract Owner" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_maintainspreviouscontractowner" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_maintainspreviouscontractowner" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{e896a657-2827-ea52-e3b3-b8dda911e546}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Requires Action On Allocation" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_requiresactiononallocation" classid="{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}" datafieldname="sfa_requiresactiononallocation" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="tab_General_section_5" showlabel="false" showbar="false" locklevel="0" id="{bce8cbca-753a-648a-27d7-8d68991065a6}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Left">
+                <labels>
+                  <label description="Change On Allocation" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{47c8b5dd-5261-5462-506a-ee6250b2203a}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Action On Contract Allocation" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_actiononcontractallocation" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_actiononcontractallocation" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="Section-CreationOfTask" showlabel="false" showbar="false" locklevel="0" id="{50cc395c-458a-e11c-0c5d-b10b9ad73926}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="Creation Of Task" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{5959dced-0094-37ed-9adb-d1964966972b}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Subject" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_subject" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_subject" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{a76eb04e-b098-1796-3e78-b9a2519d788a}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Task description" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_taskdescription" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="sfa_taskdescription" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="Section-ChangeOfOwnership" showlabel="false" showbar="false" locklevel="0" id="{75543213-0e49-1cad-ed98-6b152ad73e1e}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="Change Ownership" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{2686d911-5dc8-5701-816a-a99583d0eddd}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Default Assign To" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_defaultassignto" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_defaultassignto" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{7295a9c0-deb0-cd3e-cd30-28c3d6a09841}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Secondary Assign To" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_secondaryassignto" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_secondaryassignto" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+              <section name="tab_General_section_6" showlabel="false" showbar="false" locklevel="0" id="{b3629436-2e28-a9e1-c91e-325b2c6058a6}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="Creation Of Notification" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{331845e6-2842-b9ec-6829-0d7b0687ea4d}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Notification Type" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_notificationtype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_notificationtype" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{ea160aa5-3ded-ec42-4bc1-d52e7cd964de}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Notification Subject" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_notificationsubject" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_notificationsubject" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{b5ad44b9-17d7-e061-77ad-4bd47243179c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Notification Description" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_notificationdescription" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="sfa_notificationdescription" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{8a50490f-f94b-475a-b3d2-c194bcc205c4}" Name="WF01 Contract: Record Imported">
+  <XamlFileName>/Workflows/WF01ContractRecordImported-8A50490F-F94B-475A-B3D2-C194BCC205C4.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>1</Subprocess>
+  <Category>0</Category>
+  <Mode>1</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>1</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <CreateStage>40</CreateStage>
+  <UpdateStage>40</UpdateStage>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <PrimaryEntity>sfa_contract</PrimaryEntity>
+  <labels>
+    <steplabels id="{56dfc4fe-2284-4fff-bc0d-6932da0ec953}">
+      <label languagecode="1033" description="Contract does not have a valid provider" />
+    </steplabels>
+  </labels>
+</Workflow>

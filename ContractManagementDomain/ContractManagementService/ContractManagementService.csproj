@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+  </PropertyGroup>
+   <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Castle.Windsor" Version="5.1.1" />
+    <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.4.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions" Version="4.0.1" />
+   
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NServiceBus" Version="7.4.4" />
+    <PackageReference Include="NServiceBus.CastleWindsor" Version="7.2.0" />
+    <PackageReference Include="NServiceBus.Extensions.DependencyInjection" Version="1.0.1" />
+    <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.2.0" />
+    <PackageReference Include="NServiceBus.Persistence.Sql" Version="6.0.4" />
+    <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="1.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.1.22" />
+    <PackageReference Include="Castle.Windsor.Extensions.DependencyInjection" Version="5.1.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.22" />
+    <PackageReference Include="Azure.Data.Tables" Version="12.4.0" />
+    <PackageReference Include="LanguageExt.Core" Version="3.4.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentGenerationDomain.Integration.DataStore\PaymentGenerationDomain.Integration.DataStore.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PerformanceManagementDomain.DataStore\PerformanceManagementDomain.DataStore.csproj" />
+    <ProjectReference Include="..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
+    <ProjectReference Include="..\..\FundingStreamConfigDomain\FundingStreamConfigDomain.BusinessLogic\FundingStreamConfigDomain.BusinessLogic.csproj" />
+  </ItemGroup>
+
+</Project>

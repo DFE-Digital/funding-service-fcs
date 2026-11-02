@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndToEndTests", "EndToEndTests\EndToEndTests.csproj", "{970FBD3C-8157-4709-B391-C9541DAA0E5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1E6D3C6-1C11-46DF-8BD1-E036ED2FCDEB}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AT|Any CPU = AT|Any CPU
+		CI|Any CPU = CI|Any CPU
+		DAT|Any CPU = DAT|Any CPU
+		DCI|Any CPU = DCI|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		DMO|Any CPU = DMO|Any CPU
+		DOAT|Any CPU = DOAT|Any CPU
+		MO|Any CPU = MO|Any CPU
+		OAT|Any CPU = OAT|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.AT|Any CPU.ActiveCfg = AT|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.AT|Any CPU.Build.0 = AT|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.CI|Any CPU.ActiveCfg = CI|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.CI|Any CPU.Build.0 = CI|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.DAT|Any CPU.ActiveCfg = DAT|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.DAT|Any CPU.Build.0 = DAT|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.DCI|Any CPU.ActiveCfg = DCI|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.DCI|Any CPU.Build.0 = DCI|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.DMO|Any CPU.ActiveCfg = DMO|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.DMO|Any CPU.Build.0 = DMO|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.DOAT|Any CPU.ActiveCfg = DOAT|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.DOAT|Any CPU.Build.0 = DOAT|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.MO|Any CPU.ActiveCfg = MO|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.MO|Any CPU.Build.0 = MO|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.OAT|Any CPU.ActiveCfg = OAT|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.OAT|Any CPU.Build.0 = OAT|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{970FBD3C-8157-4709-B391-C9541DAA0E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.sfa.bis.gov.uk/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = EndToEndTests\\EndToEndTests.csproj
+		SccProjectName1 = EndToEndTests
+		SccLocalPath1 = EndToEndTests
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemform>
+  <formid>{003cf107-229d-43d2-ac73-5fd7460418de}</formid>
+  <IntroducedVersion>0.0.0.1</IntroducedVersion>
+  <FormPresentation>1</FormPresentation>
+  <FormActivationState>1</FormActivationState>
+  <form>
+    <tabs>
+      <tab verticallayout="true" id="{9638eaab-4871-4190-88d3-3d58bb3fdfe5}" IsUserDefined="1" name="{9638eaab-4871-4190-88d3-3d58bb3fdfe5}" locklevel="0" expanded="true" showlabel="true">
+        <labels>
+          <label description="General" languagecode="1033" />
+        </labels>
+        <columns>
+          <column width="80%">
+            <sections>
+              <section showlabel="false" showbar="false" IsUserDefined="0" id="{5139b4ca-52af-45c9-858f-16e0fb55f835}" name="{5139b4ca-52af-45c9-858f-16e0fb55f835}" columns="11" locklevel="0" labelwidth="115" celllabelalignment="Left" celllabelposition="Top">
+                <labels>
+                  <label description="General" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{8b9dd8a2-e113-541d-636c-ac5e9d7ce7d0}" showlabel="true" locklevel="0" colspan="1">
+                      <labels>
+                        <label description="Contract" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_contract" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_contract" disabled="false">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{FCC837F5-A628-4323-ABEA-D5EEBEDAE4AC}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                    <cell id="{87a68481-41e5-daa9-4ee5-4753ac4c9b03}" showlabel="true" locklevel="0" rowspan="4" colspan="1">
+                      <labels>
+                        <label description="Comments" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_comments" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="sfa_comments" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{3455c463-1376-5267-4d76-1592b9e8b830}" showlabel="true" locklevel="0" colspan="1" visible="false">
+                      <labels>
+                        <label description="Transition" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_action" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_action" disabled="false">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{0B260FC9-78C4-4609-9663-AF64DD52CF5B}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{e27a96b9-a6b1-6be3-6c1d-ee7c8e297365}" showlabel="true" locklevel="0" colspan="1">
+                      <labels>
+                        <label description="Completed On" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_actionon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="sfa_actionon" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{38a35187-4821-5888-c1b6-aa1283a2c9e8}" showlabel="false" userspacer="true">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{67574c52-17e4-247a-67d0-406ec4dd3797}" showlabel="false" userspacer="true">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                    <cell id="{09300530-0952-d4c9-d209-13a6901e75e5}" showlabel="false" userspacer="true">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{ab4c6659-8897-5e7c-bca2-d452751782e2}" showlabel="true" locklevel="0" colspan="1">
+                      <labels>
+                        <label description="Completed By" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_actionby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_actionby" disabled="false">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{E88CA999-0B16-4AE9-B6A9-9EDC840D42D8}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                    <cell id="{c28e839d-dcd9-770c-134b-47b88790a083}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Action Requested From" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_actionrequestedfrom" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_actionrequestedfrom" disabled="false">
+                        <parameters>
+                          <AutoResolve>true</AutoResolve>
+                          <DisableMru>false</DisableMru>
+                          <DisableQuickFind>false</DisableQuickFind>
+                          <DisableViewPicker>false</DisableViewPicker>
+                          <DefaultViewId>{E88CA999-0B16-4AE9-B6A9-9EDC840D42D8}</DefaultViewId>
+                          <AllowFilterOff>false</AllowFilterOff>
+                        </parameters>
+                      </control>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{e4831416-dc17-79db-3194-ac9cdda7192c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Previous Task Owner" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_previousowner" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_previousowner" disabled="false" />
+                    </cell>
+                    <cell id="{91c28aca-0e24-25c8-dd06-15914c087480}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="New Task Owner" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_newowner" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_newowner" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{c9eb0200-3119-47d1-80c6-4e328a3285bc}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Previous Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_previousstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_previousstatus" disabled="false" />
+                    </cell>
+                    <cell id="{ed6956bb-06a3-8759-e8d9-ad0ba128debe}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="New Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_newstatus" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="sfa_newstatus" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{a2a72c0e-e09d-a64c-c343-1eb39b743183}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Previous Sub Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_previoussubstatus" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_previoussubstatus" disabled="false" />
+                    </cell>
+                    <cell id="{0d9e5435-48e8-3653-d24a-862c52be1382}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="New Sub Status" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_newsubstatus" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_newsubstatus" disabled="false" />
+                    </cell>
+                  </row>
+                  <row>
+                    <cell id="{ea30e785-6718-4247-54e5-97541ba9934c}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Contract Approval Requested From" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_contractapprovalrequestedfrom" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_contractapprovalrequestedfrom" disabled="false" />
+                    </cell>
+                    <cell id="{98440a4b-42e3-9d15-6d95-0e2547cda69a}" showlabel="true" locklevel="0">
+                      <labels>
+                        <label description="Contract Approved By" languagecode="1033" />
+                      </labels>
+                      <control id="sfa_contractapprovedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sfa_contractapprovedby" disabled="false" />
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+          <column width="20%">
+            <sections>
+              <section name="{9638eaab-4871-4190-88d3-3d58bb3fdfe5}_section_2" showlabel="false" showbar="false" locklevel="0" id="{6d7b0d7d-7466-5c63-b635-c212ed871800}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="115">
+                <labels>
+                  <label description="Section" languagecode="1033" />
+                </labels>
+                <rows>
+                  <row>
+                    <cell id="{a8b578ac-633d-547e-93ad-27b117957b27}" showlabel="false">
+                      <labels>
+                        <label description="" languagecode="1033" />
+                      </labels>
+                    </cell>
+                  </row>
+                </rows>
+              </section>
+            </sections>
+          </column>
+        </columns>
+      </tab>
+    </tabs>
+    <header id="{ecdc0846-4689-4628-904b-a704ee2c8dad}" columns="111">
+      <rows>
+        <row>
+          <cell id="{28550669-4810-66be-e825-69a34eb801a6}" showlabel="false" locklevel="0" colspan="1" visible="false">
+            <labels>
+              <label description="Action" languagecode="1033" />
+            </labels>
+            <control id="header_sfa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sfa_name" disabled="false" />
+          </cell>
+          <cell id="{cdbe9060-84a4-3106-0d0e-5c60271314eb}" showlabel="false">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+          <cell id="{27c84489-7703-6b35-a22d-6495d544a270}" showlabel="false">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+        </row>
+      </rows>
+    </header>
+    <footer id="{6e681272-0ad4-4893-b44c-0da4b94c93a7}" columns="111">
+      <rows>
+        <row>
+          <cell id="{3b93a455-d860-6078-d3c6-ba9544537a26}" showlabel="false" userspacer="true">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+          <cell id="{e6525e32-92c4-7da1-c28a-2252c5ed774e}" showlabel="true" locklevel="0">
+            <labels>
+              <label description="Created On" languagecode="1033" />
+            </labels>
+            <control id="footer_createdon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="true" />
+          </cell>
+          <cell id="{bb646aed-3e33-c9de-1e14-60b6e807a30a}" showlabel="true" locklevel="0">
+            <labels>
+              <label description="Created By" languagecode="1033" />
+            </labels>
+            <control id="footer_createdby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdby" disabled="true" />
+          </cell>
+        </row>
+        <row>
+          <cell id="{769013c1-b316-2825-e6b5-d39b1795b34a}" showlabel="false">
+            <labels>
+              <label description="" languagecode="1033" />
+            </labels>
+          </cell>
+          <cell id="{8bbd0a1e-7cb0-59db-8de4-12910dcbd36b}" showlabel="true" locklevel="0">
+            <labels>
+              <label description="Modified On" languagecode="1033" />
+            </labels>
+            <control id="footer_modifiedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="true" />
+          </cell>
+          <cell id="{b8e2c616-dcb4-e049-9100-69adbe156b7c}" showlabel="true" locklevel="0">
+            <labels>
+              <label description="Modified By" languagecode="1033" />
+            </labels>
+            <control id="footer_modifiedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedby" disabled="true" />
+          </cell>
+        </row>
+      </rows>
+    </footer>
+    <Navigation>
+      <NavBar></NavBar>
+      <NavBarAreas>
+        <NavBarArea Id="Info">
+          <Titles>
+            <Title LCID="1033" Text="Common" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Sales">
+          <Titles>
+            <Title LCID="1033" Text="Sales" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Service">
+          <Titles>
+            <Title LCID="1033" Text="Service" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="Marketing">
+          <Titles>
+            <Title LCID="1033" Text="Marketing" />
+          </Titles>
+        </NavBarArea>
+        <NavBarArea Id="ProcessCenter">
+          <Titles>
+            <Title LCID="1033" Text="Process Sessions" />
+          </Titles>
+        </NavBarArea>
+      </NavBarAreas>
+    </Navigation>
+  </form>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <LocalizedNames>
+    <LocalizedName description="Information" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="A form for this entity." languagecode="1033" />
+  </Descriptions>
+</systemform>

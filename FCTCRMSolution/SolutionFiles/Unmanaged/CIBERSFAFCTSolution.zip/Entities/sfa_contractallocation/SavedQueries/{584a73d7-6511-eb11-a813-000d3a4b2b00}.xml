@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedquery>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <isquickfindquery>0</isquickfindquery>
+  <isprivate>0</isprivate>
+  <isdefault>0</isdefault>
+  <savedqueryid>{584a73d7-6511-eb11-a813-000d3a4b2b00}</savedqueryid>
+  <layoutxml>
+    <grid name="resultset" jump="sfa_contractallocationnumber" select="1" preview="1" icon="1">
+      <row name="result" id="sfa_contractallocationid">
+        <cell name="sfa_contractallocationnumber" width="150" />
+        <cell name="sfa_enddate" width="100" />
+        <cell name="sfa_fundingstreamid" width="150" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="sfa_inflightstopnewstartsdate" width="200" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="sfa_stopnewstartsdate" width="150" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="sfa_inflightnewstartssuspendedreason" width="300" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+        <cell name="sfa_newstartssuspendedreason" width="200" imageproviderfunctionname="" imageproviderwebresource="$webresource:" />
+      </row>
+    </grid>
+  </layoutxml>
+  <querytype>0</querytype>
+  <fetchxml>
+    <fetch version="1.0" output-format="xml-platform" mapping="logical">
+      <entity name="sfa_contractallocation">
+        <attribute name="sfa_contractallocationnumber" />
+        <order attribute="sfa_contractallocationnumber" descending="false" />
+        <attribute name="sfa_stopnewstartsdate" />
+        <attribute name="sfa_inflightstopnewstartsdate" />
+        <attribute name="sfa_newstartssuspendedreason" />
+        <attribute name="sfa_inflightnewstartssuspendedreason" />
+        <attribute name="sfa_fundingstreamid" />
+        <attribute name="sfa_enddate" />
+        <attribute name="sfa_contractallocationid" />
+      </entity>
+    </fetch>
+  </fetchxml>
+  <IntroducedVersion>2.98.1.14</IntroducedVersion>
+  <LocalizedNames>
+    <LocalizedName description="Contract Allocations for Modifications" languagecode="1033" />
+  </LocalizedNames>
+</savedquery>
