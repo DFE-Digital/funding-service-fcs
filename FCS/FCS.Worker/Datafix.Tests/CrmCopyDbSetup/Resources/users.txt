@@ -1,6 +1,0 @@
-﻿IF DATABASE_PRINCIPAL_ID('fcs-integritychecker') IS NULL
-BEGIN
-    CREATE USER [fcs-integritychecker]
-    FOR LOGIN [fcs-integritychecker] 
-	WITH DEFAULT_SCHEMA=[dbo]
-END

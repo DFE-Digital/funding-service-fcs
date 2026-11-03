@@ -1,2 +1,0 @@
-﻿Feature: jbn3
-

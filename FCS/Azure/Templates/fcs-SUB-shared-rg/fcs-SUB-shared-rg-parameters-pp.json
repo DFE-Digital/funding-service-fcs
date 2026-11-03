@@ -1,9 +1,0 @@
-{
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "CertificatesToImport": {
-      "value": "[{\"name\": \"doat-web-operations-fcs-education-gov-uk\",\"certificate\": \"\"},{\"name\": \"doat-api-org-fcs-education-gov-uk\",\"certificate\": \"\"},{\"name\": \"doat-api-services-fcs-education-gov-uk\",\"certificate\": \"\"},{\"name\": \"oat-web-operations-fcs-education-gov-uk\",\"certificate\": \"\"},{\"name\": \"oat-api-org-fcs-education-gov-uk\",\"certificate\": \"\"},{\"name\": \"oat-api-services-fcs-education-gov-uk\",\"certificate\": \"\"},{\"name\": \"fcscpdsclient\",\"certificate\": \"\"}]"      
-    }
-  }
-}

@@ -1,1 +1,0 @@
-﻿#error Feature file already contains a scenario with name 'Capture the latest Mainstream contract number from CRM'
