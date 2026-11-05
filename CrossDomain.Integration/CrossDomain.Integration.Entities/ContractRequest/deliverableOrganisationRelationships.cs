@@ -9,6 +9,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.ContractRequest
     [XmlType(Namespace = "contractrequest")]
     [XmlRoot(Namespace = "contractrequest", IsNullable = true)]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class deliverableOrganisationRelationships
     {
         public deliverableOrganisationRelationships()

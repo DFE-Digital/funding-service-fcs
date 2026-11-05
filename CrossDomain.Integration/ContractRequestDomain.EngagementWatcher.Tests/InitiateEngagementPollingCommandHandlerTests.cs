@@ -1,6 +1,7 @@
-﻿namespace ContractRequestDomain.EngagementWatcher.Tests
+namespace ContractRequestDomain.EngagementWatcher.Tests
 {
     using System.Collections.Generic;
+    using SFA.FCT.CrossDomain.Integration.Common.Storage;
     using EngagementWatcher.Services;
     using Handlers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -51,6 +52,7 @@
 
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
+                .Register(Component.For<IAzureTableStore>().Instance(Mock.Of<IAzureTableStore>()).Named("AzureTableStoreMock").IsDefault())
                 .Register(Component.For<InitiateEngagementPollingCommandHandler>());
             container.BeginScope();
 

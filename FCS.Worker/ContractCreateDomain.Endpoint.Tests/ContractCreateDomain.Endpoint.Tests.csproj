@@ -219,7 +219,9 @@
     <Compile Include="CreateContract\ContractCreateValidationTests.cs" />
     <Compile Include="CreateContract\NewContractSagaTests.cs" />
     <Compile Include="Infrastructure\ActionRetrier.cs" />
+    <Compile Include="Infrastructure\ContractOperationRulesTests.cs" />
     <Compile Include="Infrastructure\ContractValidationLookupDataCreatorTests.cs" />
+    <Compile Include="Infrastructure\ContractValidationLookupDataCreatorLookupTests.cs" />
     <Compile Include="Infrastructure\Extensions\DbSetExtensions.cs" />
     <Compile Include="Infrastructure\ProcessedMessageRepositoryTests.cs" />
     <Compile Include="Infrastructure\SagaDataStorageTests.cs" />
@@ -243,6 +245,7 @@
     <Compile Include="Services\Repositories\FundingTypeFundingPeriodRepositoryTests.cs" />
     <Compile Include="Services\SiblingApprovedContractServiceTests.cs" />
     <Compile Include="Services\SiblingContractCheckServiceTests.cs" />
+    <Compile Include="UpdateContract\UpdateContractFromFundingHandlerBehaviourTests.cs" />
     <Compile Include="UpdateContract\UpdateContractFromFundingHandlerTests.cs" />
     <Compile Include="UpdateContract\UpdateDraftContractSagaTests.cs" />
     <Compile Include="XrmService\AmendContractHandlerTests.cs" />

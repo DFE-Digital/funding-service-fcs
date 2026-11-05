@@ -1,5 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.Tests.XrmService
 {
+    using Microsoft.Xrm.Sdk;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Endpoint.Infrastructure;
@@ -48,6 +49,7 @@
             // arrange
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
+                .Register(Component.For<IOrganizationService>().Instance(Mock.Of<IOrganizationService>()).Named("OrganizationServiceMock").IsDefault())
                 .Register(Component.For<UpdateContractHandler>());
 
             container.BeginScope();

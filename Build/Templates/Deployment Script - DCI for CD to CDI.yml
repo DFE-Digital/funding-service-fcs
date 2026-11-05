@@ -407,6 +407,7 @@ jobs:
       testFiltercriteria: 'TestCategory=IntegrationTest'
       pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\CrossDomain.Integration'
       codeCoverageEnabled: true
+      runSettingsFile: '$(System.DefaultWorkingDirectory)\CrossDomain.Integration\CodeCoverage.runsettings'
       platform: '$(BuildSolutionPlatform)'
       configuration: '$(BuildConfiguration)'
       rerunFailedTests: true

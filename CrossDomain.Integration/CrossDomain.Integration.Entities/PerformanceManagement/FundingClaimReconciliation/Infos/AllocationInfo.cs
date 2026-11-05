@@ -2,6 +2,7 @@
 {
     using System;
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AllocationInfo
     {
         public AllocationInfo()

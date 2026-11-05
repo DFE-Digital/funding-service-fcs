@@ -2,6 +2,7 @@
 {
     using System;
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class TerminationAllocation
     {
         public TerminationAllocation(string allocationNumber, string fundingStreamPeriodCode, DateTime? terminationDate)

@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagement.Calculation.Repositories
 {
+    using System;
     using Dtos;
     using SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore;
@@ -14,9 +15,21 @@
 
     public class DeliverablePaymentRepository : IDeliverablePaymentRepository
     {
+        private readonly IPaymentSchedulePolicyContextFactory _contextFactory;
+
+        public DeliverablePaymentRepository()
+            : this(new PaymentSchedulePolicyContextFactory())
+        {
+        }
+
+        public DeliverablePaymentRepository(IPaymentSchedulePolicyContextFactory contextFactory)
+        {
+            _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
+        }
+
         public IReadOnlyCollection<DeliverablePeriodPaymentInfo> GetDeliverablePeriodPaymentInfos(string allocationNumber, int versionNumber, ConnectionInfo connectionInfo)
         {
-            using (var context = new PaymentSchedulePolicyContext(connectionInfo))
+            using (var context = _contextFactory.Create(connectionInfo))
             {
                 return context.DeliverablePayments
                     .Where(dp => dp.AllocationNumber == allocationNumber && dp.VersionNumber == versionNumber)
@@ -54,7 +67,7 @@
 
         public void AddOrUpdateDeliverablePaymentsWithActualValues(ContractAllocationActualsType contractAllocationActualsType, ConnectionInfo connectionInfo)
         {
-            using (var context = new PaymentSchedulePolicyContext(connectionInfo))
+            using (var context = _contextFactory.Create(connectionInfo))
             {
                 var allocationNumber = contractAllocationActualsType.ContractAllocationNumber;
                 var versionNumber = contractAllocationActualsType.ContractReference.ContractVersionNumber;
@@ -94,7 +107,7 @@
         public void AddOrUpdateDeliverablePaymentsWithCalculatedValues(string allocationNumber, int versionNumber, AllocationDeliverable allocationDeliverable,
             ConnectionInfo connectionInfo)
         {
-            using (var context = new PaymentSchedulePolicyContext(connectionInfo))
+            using (var context = _contextFactory.Create(connectionInfo))
             {
                 var deliverablePayments = context.DeliverablePayments
                 .Where(dp => dp.AllocationNumber == allocationNumber && dp.VersionNumber == versionNumber).ToList();
@@ -137,7 +150,7 @@
         public IReadOnlyCollection<DeliverablePeriodActualAndPaymentInfo> GetDeliverablePeriodActualsAndPaymentValues(string allocationNumber, int versionNumber,
             ConnectionInfo connectionInfo)
         {
-            using (var context = new PaymentSchedulePolicyContext(connectionInfo))
+            using (var context = _contextFactory.Create(connectionInfo))
             {
                 return context.DeliverablePayments
                     .AsNoTracking()
@@ -157,7 +170,7 @@
 
         public void PersistPaymentScheduleAndActuals(Allocation paymentSchedule, ConnectionInfo connectionInfo)
         {
-            using (var context = new PaymentSchedulePolicyContext(connectionInfo))
+            using (var context = _contextFactory.Create(connectionInfo))
             {
                 var allocationNumber = paymentSchedule.AllocationNumber;
                 var versionNumber = paymentSchedule.VersionNumber;

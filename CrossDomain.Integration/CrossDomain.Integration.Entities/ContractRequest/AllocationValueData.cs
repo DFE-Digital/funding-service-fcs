@@ -4,6 +4,7 @@
     using System.Collections.Generic;
 
     [Serializable]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AllocationValueData
     {
         public AllocationValueData()

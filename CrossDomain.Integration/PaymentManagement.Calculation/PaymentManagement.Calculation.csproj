@@ -154,6 +154,8 @@
     <Compile Include="IFcrPaymentValuesCalculationService.cs" />
     <Compile Include="Repositories\AllocationQueryRepository.cs" />
     <Compile Include="Repositories\DeliverablePaymentRepository.cs" />
+    <Compile Include="Repositories\IPaymentSchedulePolicyContextFactory.cs" />
+    <Compile Include="Repositories\PaymentSchedulePolicyContextFactory.cs" />
     <Compile Include="Repositories\IAllocationQueryRepository.cs" />
     <Compile Include="Repositories\IDeliverablePaymentRepository.cs" />
     <Compile Include="Repositories\IOrganisationDetailsRepository.cs" />

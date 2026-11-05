@@ -42,8 +42,10 @@
             {
                 dictionary[key] = value;
             }
-
-            dictionary.Add(key, value);
+            else
+            {
+                dictionary.Add(key, value);
+            }
         }
 
         public static void AddValueToExistingValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value, Func<TValue, TValue, TValue> addValues)

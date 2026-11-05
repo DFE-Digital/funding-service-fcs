@@ -1,4 +1,4 @@
-﻿namespace SFA.FCT.PaymentManagementDomain.BusinessLogic.Test.UnitTests
+namespace SFA.FCT.PaymentManagementDomain.BusinessLogic.Test.UnitTests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -33,14 +33,14 @@
         {
             return
                 TestResource.FromJson<List<contractDeliverableType>>(
-                    "SFA.FCT.PaymentManagementDomain.BusinessLogic.Test", "Resources.AllocationDeliveryCommencedDeliverables.json");
+                    "SFA.FCT.PaymentManagementDomain.BusinessLogic.Tests", "Resources.AllocationDeliveryCommencedDeliverables.json");
         }
 
         private List<AllocationDeliverable> GetAllocationDeliverables()
         {
             return
                 TestResource.FromJson<List<AllocationDeliverable>>(
-                    "SFA.FCT.PaymentManagementDomain.BusinessLogic.Test", "Resources.PaymentScheduleDeliverables.json");
+                    "SFA.FCT.PaymentManagementDomain.BusinessLogic.Tests", "Resources.PaymentScheduleDeliverables.json");
         }
     }
 }

@@ -3,6 +3,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Organisation
     {
         public Organisation()

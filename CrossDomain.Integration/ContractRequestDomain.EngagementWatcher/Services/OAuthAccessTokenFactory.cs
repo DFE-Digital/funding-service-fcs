@@ -14,6 +14,17 @@
         private const string Tenant = "fcsazuresfabisgov.onmicrosoft.com";
 
         private readonly MemoryCache _objectCache = MemoryCache.Default;
+        private readonly Func<string, string, string, string> _requestAccessToken;
+
+        public OAuthAccessTokenFactory()
+            : this(RequestAccessToken)
+        {
+        }
+
+        public OAuthAccessTokenFactory(Func<string, string, string, string> requestAccessToken)
+        {
+            _requestAccessToken = requestAccessToken ?? throw new ArgumentNullException(nameof(requestAccessToken));
+        }
 
         public void ClearCache()
         {
@@ -30,12 +41,12 @@
             return (existingLazyAccessToken ?? newLazyAccessToken).Value;
         }
 
-        private static string RequestAccessTokenWithRetry(string clientId, string appKey, string resourceId)
+        private string RequestAccessTokenWithRetry(string clientId, string appKey, string resourceId)
         {
             return Policy
                 .Handle<Exception>(_ => true)
                 .WaitAndRetry(3, _ => TimeSpan.FromSeconds(3))
-                .Execute(() => RequestAccessToken(clientId, appKey, resourceId));
+                .Execute(() => _requestAccessToken(clientId, appKey, resourceId));
         }
 
         private static string RequestAccessToken(string clientId, string appKey, string resourceId)

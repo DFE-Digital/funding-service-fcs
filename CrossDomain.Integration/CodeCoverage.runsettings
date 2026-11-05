@@ -9,7 +9,11 @@
             <!-- Match assembly file paths: -->
             <ModulePaths>
               <Exclude>
-                <ModulePath>nservicebus.*.dll$</ModulePath>
+                <ModulePath>.*nservicebus.*\.dll$</ModulePath>
+                <ModulePath>.*fluentassertions.*\.dll$</ModulePath>
+                <ModulePath>.*messagepack.*\.dll$</ModulePath>
+                <ModulePath>.*[\\/]polly\.dll$</ModulePath>
+                <ModulePath>.*[\\/]testapicore\.dll$</ModulePath>
                 <ModulePath>.*gallio.dll$</ModulePath>
                 <ModulePath>.*mbunit.dll$</ModulePath>
                 <ModulePath>.*tests.dll$</ModulePath>
@@ -18,6 +22,7 @@
                 <ModulePath>fluentassertions.dll$</ModulePath>
                 <ModulePath>fluentassertions.*.dll$</ModulePath>
                 <ModulePath>nservicebusacceptancetestingadditions.dll</ModulePath>
+	            <ModulePath>.*UnitTests\.Common\.dll$</ModulePath>
               </Exclude>
             </ModulePaths>
 
@@ -48,7 +53,8 @@
             <!-- Match the path of the source files in which each method is defined: -->
             <Sources>
               <Exclude>
-                <Source>.*\\.Designer\\.cs$</Source>
+                <Source>.*[\\/][^\\/]*Tests[\\/].*</Source>
+                <Source>.*\.Designer\.cs$</Source>
                 <Source>.*\\Web References\\.*</Source>
                 <Source>.*\\Migrations\\.*</Source>
                 <Source>.*\\atlmfc\\.*</Source>

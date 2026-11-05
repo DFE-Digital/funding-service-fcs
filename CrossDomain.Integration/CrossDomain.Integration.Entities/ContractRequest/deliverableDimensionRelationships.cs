@@ -9,6 +9,7 @@
     [XmlType(Namespace = "contractrequest")]
     [XmlRoot(Namespace = "contractrequest", IsNullable = true)]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class deliverableDimensionRelationships
     {
         public deliverableDimensionRelationships()

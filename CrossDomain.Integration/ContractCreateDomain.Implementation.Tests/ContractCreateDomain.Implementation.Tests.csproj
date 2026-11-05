@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -286,6 +286,17 @@
     <Compile Include="Unit\ContractNumberMethodsTests.cs" />
     <Compile Include="Unit\CrmOptionSetTypeExtensionsTests.cs" />
     <Compile Include="Unit\EnduringCacheManagerTests.cs" />
+    <Compile Include="Unit\SmallTypesTests.cs" />
+    <Compile Include="Unit\LookupManagerUnitTests.cs" />
+    <Compile Include="Unit\FakeXrmService.cs" />
+    <Compile Include="Unit\FakeCrm.cs" />
+    <Compile Include="Unit\ContractsManagerQueryUnitTests.cs" />
+    <Compile Include="Unit\NumberPrefixRepositoryUnitTests.cs" />
+    <Compile Include="Unit\PreviousContractRepositoryUnitTests.cs" />
+    <Compile Include="Unit\ContractsManagerPersistenceUnitTests.cs" />
+    <Compile Include="Unit\ContractValidationLookupDataCreatorUnitTests.cs" />
+    <Compile Include="Unit\XrmNumberRequestManagerUnitTests.cs" />
+    <Compile Include="Unit\FundingStreamConfigServiceHelperTests.cs" />
     <Compile Include="Unit\LookupCacheCriteriaTests.cs" />
     <Compile Include="Unit\BatchCacheManagerTests.cs" />
     <Compile Include="Unit\LookupManagerTest.cs" />

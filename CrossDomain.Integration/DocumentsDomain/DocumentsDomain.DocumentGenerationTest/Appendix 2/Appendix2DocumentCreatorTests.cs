@@ -159,7 +159,7 @@
                 IDictionary<string, DocumentGenerationRequest> requests = creator.SupplyDocumentGenerationRequest(contract.parentContractNumber, contract, templateContainer);
 
                 // assert
-                List<MergeFieldType> firstRequestMergeFields = requests["2001-TEST TRAINING COLLEGE-001-YNLP-20180101-00"].MergeData.MergeFields;
+                List<MergeFieldType> firstRequestMergeFields = requests["2001-TEST TRAINING COLLEGE-001-YNLP-20180101-01"].MergeData.MergeFields;
                 Assert.AreEqual("Apr 2017", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H1")?.Value);
                 Assert.AreEqual("May 2017", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H2")?.Value);
                 Assert.AreEqual("Jun 2017", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H3")?.Value);
@@ -173,7 +173,7 @@
                 Assert.AreEqual("Feb 2018", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H11")?.Value);
                 Assert.AreEqual("Mar 2018", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H12")?.Value);
 
-                List<MergeFieldType> secondRequestMergeFields = requests["2001-TEST TRAINING COLLEGE-001-YNLP-20180101-12"].MergeData.MergeFields;
+                List<MergeFieldType> secondRequestMergeFields = requests["2001-TEST TRAINING COLLEGE-001-YNLP-20180101-02"].MergeData.MergeFields;
                 Assert.AreEqual("Apr 2018", secondRequestMergeFields.SingleOrDefault(mf => mf.Name == "H1")?.Value);
                 Assert.AreEqual("May 2018", secondRequestMergeFields.SingleOrDefault(mf => mf.Name == "H2")?.Value);
                 Assert.AreEqual("Jun 2018", secondRequestMergeFields.SingleOrDefault(mf => mf.Name == "H3")?.Value);
@@ -378,6 +378,53 @@
             Assert.AreEqual("A2_MAIN{0}", template1920.TemplateName, "Unexpected template name returned for APPS1920");
             Assert.AreEqual("A2_MAIN{0}", template2021.TemplateName, "Unexpected template name returned for APPS2021");
             Assert.AreEqual("A2_MAIN{0}", template2122.TemplateName, "Unexpected template name returned for APPS2122");
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void EdskTotalValueCalculator_ShouldSumValuesAcrossFiscalPeriods()
+        {
+            var allocation = new contractAllocationsContractAllocation
+            {
+                period = new period { period1 = "1819" },
+                fundingStreamPeriodCode = "OTHER",
+                contractDeliverables = new List<contractDeliverablesTypeContractDeliverable>
+                {
+                    new contractDeliverablesTypeContractDeliverable
+                    {
+                        deliverable = new deliverableType { deliverableCode = 1 },
+                        contractDeliverablePeriods = new List<contractDeliverablePeriodsTypeContractDeliverablePeriod>
+                        {
+                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2018, period = 8, plannedValue = 10 },
+                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2018, period = 4, plannedValue = 20 },
+                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2019, period = 2, plannedValue = 30 },
+                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2019, period = 4, plannedValue = 40 },
+                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2019, period = 8, plannedValue = 50 }
+                        }
+                    }
+                }
+            };
+
+            decimal total = EdskTotalValueCalculator.GetAllocationTotal(allocation);
+
+            Assert.AreEqual(150m, total);
+        }
+
+        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(ApplicationException))]
+        public void EdskTotalValueCalculator_ShouldThrowWhenStartYearIsInvalid()
+        {
+            EdskTotalValueCalculator.GetAllocationTotal(new contractAllocationsContractAllocation
+            {
+                period = new period { period1 = "ABCD" }
+            });
+        }
+
+        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(ApplicationException))]
+        public void EdskTotalValueCalculator_ShouldThrowWhenEndYearIsInvalid()
+        {
+            EdskTotalValueCalculator.GetAllocationTotal(new contractAllocationsContractAllocation
+            {
+                period = new period { period1 = "18AB" }
+            });
         }
 
         private contract GetRichContract(int deliverableCode = 2)
@@ -622,7 +669,7 @@
             var creator = (T)Activator.CreateInstance(typeof(T), new object[] { null, null, null });
             Assert.AreEqual(getIsHeaderDocumentRequired.Invoke(creator, new object[0]), value);
         }
-
+        
         private static class FspFactory
         {
             public static DataStore.Models.FundingStreamPeriod GetDefaultFsp()

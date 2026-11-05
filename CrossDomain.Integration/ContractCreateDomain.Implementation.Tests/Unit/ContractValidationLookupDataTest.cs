@@ -561,5 +561,56 @@
             Assert.IsNotNull(lookupData.ProfileFundingStreamPeriodDeliverables, "ProfileFundingStreamPeriodDeliverables should not be null");
             Assert.AreEqual(1, lookupData.ProfileFundingStreamPeriodDeliverables.Count, "ProfileFundingStreamPeriodDeliverables has not been populated");
         }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void ContractValidationLookupDataCreator_NullContract_ShouldReturnReferenceLookupData()
+        {
+            var lookupManager = new Mock<ILookupManager>();
+            lookupManager
+                .Setup(manager => manager.GetColumnValuesForEntity<string>(It.IsAny<CrmLookupType>(), It.IsAny<string>()))
+                .Returns(new List<string>());
+            lookupManager
+                .Setup(manager => manager.GetColumnValuesForEntity<string>(
+                    It.IsAny<CrmLookupType>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<List<string>>()))
+                .Returns(new List<string>());
+            lookupManager
+                .Setup(manager => manager.GetUnitOfProcurementReferenceData())
+                .Returns(new List<UnitOfProcurement>());
+
+            var policyConfigRepository = new Mock<IPolicyConfigRepository>();
+            policyConfigRepository
+                .Setup(repository => repository.GetAllContractTypes())
+                .Returns(new List<string>());
+            policyConfigRepository
+                .Setup(repository => repository.GetAllRegionTypes())
+                .Returns(new List<string>());
+
+            var legalDeliverableRepository = new Mock<IFundingStreamPeriodLegalDeliverableRepository>();
+            legalDeliverableRepository
+                .Setup(repository => repository.GetAllProfileLegalFspDeliverables())
+                .Returns(new List<FundingStreamPeriodLegalDeliverable>());
+
+            var creator = new SFA.FCT.ContractCreateDomain.Implementation.Persistence.ContractValidationLookupDataCreator(
+                policyConfigRepository.Object,
+                Mock.Of<IFundingStreamConfigService>(),
+                Mock.Of<IFundingTypePeriodFundingStreamPeriodQueryRepository>(),
+                Mock.Of<ILogger>(),
+                lookupManager.Object,
+                legalDeliverableRepository.Object);
+
+            var lookupData = creator.CreateLookupDataAndSetContractPresence(null);
+
+            Assert.AreEqual(0, lookupData.PresenceCheckItems.Count);
+            Assert.IsNotNull(lookupData.ContractTypes);
+            Assert.IsNotNull(lookupData.LocalEnterprisePartnerships);
+            Assert.IsNotNull(lookupData.UnitsOfProcurement);
+            Assert.IsNotNull(lookupData.InvestmentPriorities);
+            Assert.IsNotNull(lookupData.RegionTypes);
+            Assert.IsNotNull(lookupData.SpecificationTitles);
+            Assert.IsNotNull(lookupData.ProfileFundingStreamPeriodDeliverables);
+        }
     }
 }

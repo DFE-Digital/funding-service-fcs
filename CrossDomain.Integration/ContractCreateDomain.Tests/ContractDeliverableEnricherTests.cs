@@ -216,6 +216,76 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
+        public void Enrich_WhenContractAndAllocationHaveNoEndDate_CreatesSinglePeriodForEmptyMandatoryDeliverables()
+        {
+            var masterContract = new CorporateContract.ExtendedContractType
+            {
+                contracts = new List<CorporateContract.ExtendedContractType>()
+            };
+            var contract = new CorporateContract.ExtendedContractType
+            {
+                startDate = new DateTime(2014, 7, 1),
+                endDate = null,
+                contractAllocations = new List<CorporateContract.ExtendedContractAllocation>()
+            };
+            var allocation = new CorporateContract.ExtendedContractAllocation
+            {
+                startDate = DateTime.MinValue,
+                endDate = DateTime.MinValue,
+                fundingStreamPeriodCode = "16-18APPS1516",
+                period = new CorporateContract.period()
+            };
+            contract.contractAllocations.Add(allocation);
+            masterContract.contracts.Add(contract);
+
+            _fscServiceMock = new Mock<IFundingStreamConfigService>();
+            _fscServiceMock.Setup(m => m.GetFullDeliverableStructure(It.IsAny<string>())).Returns(GetFSC1618APPS());
+
+            new ContractDeliverableEnricher(_fscServiceMock.Object).Enrich(masterContract);
+
+            var deliverables = allocation.FlattenDeliverables(allocation.contractDeliverables);
+            Assert.IsTrue(deliverables.Count > 0);
+            Assert.IsTrue(
+                deliverables.Any(d => d.contractDeliverablePeriods.Count == 1
+                                      && d.contractDeliverablePeriods[0].period == 7
+                                      && d.contractDeliverablePeriods[0].year == 2014),
+                "Open-ended allocations should get a single start-month period.");
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void Enrich_BaseContractType_EnrichesAllocationsWithMandatoryDeliverables()
+        {
+            // The enricher caches structures per code in MemoryCache.Default, so a code unique to this test guarantees a cache miss.
+            var uniqueCode = "BASE-TYPE-ENRICH-TEST";
+            var masterContract = new CorporateContract.contractType
+            {
+                contracts = new List<CorporateContract.contractType>()
+            };
+            var contract = new CorporateContract.contractType
+            {
+                startDate = new DateTime(2014, 7, 1),
+                endDate = new DateTime(2015, 6, 1)
+            };
+            var allocation = new CorporateContract.contractAllocationsContractAllocation
+            {
+                startDate = DateTime.MinValue,
+                endDate = DateTime.MinValue,
+                fundingStreamPeriodCode = uniqueCode,
+                period = new CorporateContract.period()
+            };
+            contract.contractAllocations.Add(allocation);
+            masterContract.contracts.Add(contract);
+
+            _fscServiceMock = new Mock<IFundingStreamConfigService>();
+            _fscServiceMock.Setup(m => m.GetFullDeliverableStructure(uniqueCode)).Returns(GetFSC1618APPS());
+
+            new ContractDeliverableEnricher(_fscServiceMock.Object).Enrich(masterContract);
+
+            Assert.IsTrue(allocation.contractDeliverables.Count > 0);
+            _fscServiceMock.Verify(m => m.GetFullDeliverableStructure(uniqueCode), Times.Once());
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
         public void ContractDeliverableEnricher_ShouldEnrichForVolumeDeliverable()
         {
             // Arrange

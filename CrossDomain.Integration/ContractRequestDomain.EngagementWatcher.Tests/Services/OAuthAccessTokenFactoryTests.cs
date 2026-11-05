@@ -1,11 +1,57 @@
 ﻿namespace ContractRequestDomain.EngagementWatcher.Tests.Services
 {
+    using System;
     using EngagementWatcher.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class OAuthAccessTokenFactoryTests
     {
+        [TestMethod, TestCategory("UnitTest")]
+        public void GetAccessToken_CachesTokenUntilCacheIsCleared()
+        {
+            var requestCount = 0;
+            var service = new OAuthAccessTokenFactory((clientId, appKey, resourceId) =>
+            {
+                requestCount++;
+                return "token-" + requestCount;
+            });
+
+            service.ClearCache();
+            try
+            {
+                var firstToken = service.GetAccessToken("client", "secret", "resource");
+                var cachedToken = service.GetAccessToken("client", "secret", "resource");
+
+                Assert.AreEqual("token-1", firstToken);
+                Assert.AreEqual(firstToken, cachedToken);
+                Assert.AreEqual(1, requestCount);
+
+                service.ClearCache();
+                var refreshedToken = service.GetAccessToken("client", "secret", "resource");
+
+                Assert.AreEqual("token-2", refreshedToken);
+                Assert.AreEqual(2, requestCount);
+            }
+            finally
+            {
+                service.ClearCache();
+            }
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void Constructor_WhenTokenRequesterIsNull_ThrowsArgumentNullException()
+        {
+            try
+            {
+                new OAuthAccessTokenFactory(null);
+                Assert.Fail("Expected ArgumentNullException.");
+            }
+            catch (ArgumentNullException)
+            {
+            }
+        }
+
         [TestMethod, TestCategory("TechnicalExploration")]
         public void OAuthAccessTokenFactory_ShouldReturnAccessToken()
         {

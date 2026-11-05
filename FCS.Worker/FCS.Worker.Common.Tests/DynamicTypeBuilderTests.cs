@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
@@ -131,6 +132,47 @@
             Assert.AreEqual(testConcreteType.TimesMessageDeferred, asBaseType.TimesMessageDeferred);
         }
 
+        [TestMethod, TestCategory("UnitTest")]
+        public void DynamicTypeBuilder_ShouldBuildCommandFromObjectInstance()
+        {
+            var dynamicCommand = DynamicTypeBuilder.BuildCommandFrom<object>(new object());
+
+            Assert.IsNotNull(dynamicCommand);
+            Assert.IsTrue(dynamicCommand is ICommand);
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void DynamicTypeBuilder_ShouldImplementInterfaceTypeWithInheritedPropertiesOnce()
+        {
+            var compile = typeof(DynamicTypeBuilder).GetMethod("CompileResultType", BindingFlags.NonPublic | BindingFlags.Static);
+
+            var type = (Type)compile.Invoke(null, new object[] { typeof(IChildContract) });
+            var instance = Activator.CreateInstance(type);
+
+            Assert.IsTrue(instance is IChildContract);
+            Assert.IsTrue(instance is ICommand);
+            Assert.AreEqual(1, type.GetProperties().Count(p => p.Name == nameof(IParentContract.Shared)));
+
+            var child = (IChildContract)instance;
+            child.Shared = "shared";
+            child.ChildOnly = 7;
+            child.TimesMessageDeferred = 2;
+            Assert.AreEqual("shared", child.Shared);
+            Assert.AreEqual(7, child.ChildOnly);
+            Assert.AreEqual(2, child.TimesMessageDeferred);
+        }
+
+        public interface IParentContract : IDeferrableEvent
+        {
+            string Shared { get; set; }
+        }
+
+        public interface IChildContract : IParentContract
+        {
+            new string Shared { get; set; }
+
+            int ChildOnly { get; set; }
+        }
         public interface ITestEvent : IDeferrableEvent
         {
             string StringProp { get; set; }

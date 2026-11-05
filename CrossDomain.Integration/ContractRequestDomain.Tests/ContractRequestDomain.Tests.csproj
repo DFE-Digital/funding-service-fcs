@@ -274,9 +274,23 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BulkUpload\BulkUploadHandlerCompletionTests.cs" />
+    <Compile Include="BulkUpload\BulkUploadHandlerStartAndTimeoutTests.cs" />
     <Compile Include="BulkUpload\BulkUploadHandlerTests.cs" />
+    <Compile Include="BulkUpload\MarkFileAsProcessedResourceManagerTests.cs" />
+    <Compile Include="BulkUpload\ContractRequestCommandInfoFactoryTests.cs" />
+    <Compile Include="ExcelLocationTests.cs" />
+    <Compile Include="ContractBulkUploadTests.cs" />
+    <Compile Include="SagaContractRequestResultTests.cs" />
+    <Compile Include="ConfigurationHelperTests.cs" />
+    <Compile Include="FileValidationFscEnrichmentTests.cs" />
+    <Compile Include="FileWatcherEndpointConfigTests.cs" />
+    <Compile Include="ContainerResolutionTests.cs" />
+    <Compile Include="FilePollOperationTests.cs" />
     <Compile Include="BulkUpload\BulkUploadHandlerTechnicalExplorationTests.cs" />
     <Compile Include="BulkUpload\ContractRequestCommandCreatorTests.cs" />
+    <Compile Include="BulkUpload\ContractRequestMutatorTests.cs" />
+    <Compile Include="BulkUpload\DasRequestTransformerTests.cs" />
     <Compile Include="BulkUpload\Extensions\ContractRequestArrayExtensionsTests.cs" />
     <Compile Include="BulkUpload\FundingAllocationRelease\FundingAllocationReleasedHandlerTests.cs" />
     <Compile Include="BulkUpload\FundingAllocationRelease\FundingAllocationReleaseInProgressHandlerTests.cs" />
@@ -312,6 +326,7 @@
     <Compile Include="FileLevelValidationTests\UnitTests\TenderAwardRefMustBeUniqueAmongstFilesEsfAllocationsTests.cs" />
     <Compile Include="FileLevelValidationTests\UnitTests\DeliveryOrgPresentThenAllMustBeSpecifiedRuleTests.cs" />
     <Compile Include="FileLevelValidationTests\UnitTests\ValidateFundingTypePeriodIsNotClosedTests.cs" />
+    <Compile Include="FileLevelValidationTests\UnitTests\FileLevelValidationBranchesTests.cs" />
     <Compile Include="FileValidationIntegrationTests.cs" />
     <Compile Include="ExcelFileReaderTests.cs" />
     <Compile Include="GenerateResultsReportTests.cs" />

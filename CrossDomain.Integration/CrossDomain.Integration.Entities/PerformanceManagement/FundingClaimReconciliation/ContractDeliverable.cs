@@ -1,5 +1,6 @@
 ﻿namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.FundingClaimReconciliation
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ContractDeliverable
     {
         public ContractDeliverable()

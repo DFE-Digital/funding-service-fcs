@@ -1,5 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.Tests.CreateContract
 {
+    using Microsoft.Xrm.Sdk;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -50,6 +51,7 @@
             // arrange
             IWindsorContainer container = new WindsorContainer()
                 .Install(new ContractCreateDomain.Endpoint.WindsorInstallerForSagas(new LoggerFactory()))
+                .Register(Component.For<IOrganizationService>().Instance(Mock.Of<IOrganizationService>()).Named("OrganizationServiceMock").IsDefault())
                 .Register(Component.For<NewContractSaga>());
 
             container.BeginScope();            

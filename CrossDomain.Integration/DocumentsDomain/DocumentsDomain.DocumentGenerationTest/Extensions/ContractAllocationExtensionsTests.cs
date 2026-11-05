@@ -4,6 +4,8 @@
     using System.Linq;
     using CrossDomain.Integration.Entities.CorporateContract;
     using CrossDomain.Integration.Messages.Commands;
+    using DataStore.Models;
+    using DocumentDefiner.DocumentConfiguration;
     using DocumentDefiner.DocumentPartCreators.Extensions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using UnitTests.Common;
@@ -11,6 +13,60 @@
     [TestClass]
     public class ContractAllocationExtensionsTests
     {
+        [TestMethod, TestCategory("UnitTest")]
+        public void FspDeliverableExtensions_ShouldMapDeliverableConfiguration()
+        {
+            var deliverable = new FSPDeliverable(
+                deliverableCode: 12,
+                fundingStreamPeriodCode: "FSP1",
+                allowProfile: true,
+                displayOnFundingAgreement: true,
+                mandatoryOnFundingAgreement: false,
+                displayOrderOnFundingAgreement: 4,
+                allowCustomDescription: true,
+                shouldDisplayValue: false,
+                shouldDisplayVolumeAndUnitCost: true,
+                displayNameOnSummaryOfFunding: "Summary",
+                displayNameOnFundingAgreement: "Funding agreement",
+                displayOnSummaryOfFunding: true);
+
+            DeliverableConfiguration configuration = deliverable.ToDeliverableConfiguration();
+
+            Assert.AreEqual(12, configuration.DeliverableCode);
+            Assert.IsTrue(configuration.IncludeOnFundingAgreement);
+            Assert.IsFalse(configuration.IsMandatoryOnFundingAgreement);
+            Assert.AreEqual(4, configuration.DisplayOrder);
+            Assert.IsTrue(configuration.AllowCustomDescription);
+            Assert.AreEqual("Funding agreement", configuration.DisplayName);
+            CollectionAssert.AreEqual(new[] { 12 }, configuration.DisplayValueIsAggregate);
+            Assert.IsTrue(configuration.ShouldDisplayUnitCost);
+            Assert.IsTrue(configuration.ShouldDisplayVolume);
+            Assert.IsFalse(configuration.ShouldDisplayValue);
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void FspDeliverableExtensions_ShouldCreateAggregateConfigurationFromProfileDeliverables()
+        {
+            var deliverables = new[]
+            {
+                new FSPDeliverable(3, "FSP1", true, true, true, 2, true, true, true, "Summary 3", "Deliverable 3", true),
+                new FSPDeliverable(8, "FSP1", true, true, true, 7, true, true, true, "Summary 8", "Deliverable 8", true)
+            };
+
+            DeliverableConfiguration configuration = deliverables.ToAggregateDeliverableConfiguration();
+
+            Assert.AreEqual(0, configuration.DeliverableCode);
+            Assert.IsTrue(configuration.IncludeOnFundingAgreement);
+            Assert.IsTrue(configuration.IsMandatoryOnFundingAgreement);
+            Assert.AreEqual(8, configuration.DisplayOrder);
+            Assert.IsFalse(configuration.AllowCustomDescription);
+            Assert.AreEqual("^bTotal Funding¶", configuration.DisplayName);
+            CollectionAssert.AreEqual(new[] { 3, 8 }, configuration.DisplayValueIsAggregate);
+            Assert.IsFalse(configuration.ShouldDisplayUnitCost);
+            Assert.IsFalse(configuration.ShouldDisplayVolume);
+            Assert.IsTrue(configuration.ShouldDisplayValue);
+        }
+
         [TestMethod, TestCategory("UnitTest")]
         public void ContractAllocationExtensions_ShouldGetAllocationValue()
         {

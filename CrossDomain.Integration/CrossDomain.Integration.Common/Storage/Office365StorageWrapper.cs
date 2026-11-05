@@ -4,6 +4,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Globalization;
     using System.Linq;
     using Exceptions;
     using Framework.Logging.Interfaces;
@@ -18,9 +19,17 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
     public class Office365StorageWrapper : IOffice365Adapter
     {
         private const int ServerFileNotFoundExceptionErrorCode = -2147024894; // kept for compatibility with logs
+        private readonly Func<HttpClient> _httpClientFactory;
 
         public Office365StorageWrapper()
+            : this(AuthenticationHelper.EnsureClient)
         {
+        }
+
+        internal Office365StorageWrapper(Func<HttpClient> httpClientFactory)
+        {
+            if (httpClientFactory == null) throw new ArgumentNullException(nameof(httpClientFactory));
+            _httpClientFactory = httpClientFactory;
             Logger = new LoggerNullObject();
         }
 
@@ -34,7 +43,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
         {
             try
             {
-                using (var http = AuthenticationHelper.EnsureClient())
+                using (var http = _httpClientFactory())
                 {
                     var ids = ResolveIds(http, listName);
                     var items = ListChildren(http, ids.DriveId, null, select: "id,name,file", filter: null);
@@ -51,7 +60,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
         public IList<string> GetFilenamesByFileNameStartText(string libraryName, string fileNameStartText)
         {
             var fileNames = new List<string>();
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {
@@ -75,7 +84,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
         public Dictionary<string, byte[]> GetFilesByFileNameStartText(string libraryName, string fileNameStartText)
         {
             var dict = new Dictionary<string, byte[]>();
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {
@@ -101,7 +110,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public int GetFileVersionCount(string fileName, string listName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, listName);
                 var versions = GetItemVersions(http, ids.DriveId, new[] { fileName });
@@ -111,18 +120,18 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public DateTime GetFileTimestamp(string fileName, string listName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, listName);
                 var meta = GetItemMetadata(http, ids.DriveId, new[] { fileName }, select: "lastModifiedDateTime");
                 var tsStr = (string)meta["lastModifiedDateTime"];
-                return DateTime.Parse(tsStr).ToUniversalTime();
+                return DateTime.Parse(tsStr, CultureInfo.InvariantCulture).ToUniversalTime();
             }
         }
 
         public bool DoesFileExist(string listName, string folderName, string fileName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, listName);
                 return ItemExistsByPath(http, ids.DriveId, new[] { folderName, fileName });
@@ -131,7 +140,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public bool DoesFileExist(string listName, string fileName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, listName);
                 return ItemExistsByPath(http, ids.DriveId, new[] { fileName });
@@ -140,7 +149,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public bool DoesFolderExist(string listName, string folderName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, listName);
                 var j = GetItemMetadata(http, ids.DriveId, new[] { folderName }, select: "id,folder");
@@ -151,7 +160,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
         public bool DoesLibraryExist(string libraryName)
         {
             // In original CSOM, this tested whether a *library* exists by title.
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var siteId = ResolveSiteId(http);
                 var drive = FindDriveByName(http, siteId, libraryName);
@@ -161,7 +170,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public byte[] GetFileContents(string fileName, string listName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {
@@ -178,7 +187,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public byte[] GetFileContents(string listName, string folderName, string fileName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {
@@ -195,7 +204,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void MoveFile(string originalFileName, string sourceListName, string targetListName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var src = ResolveIds(http, sourceListName);
                 var dst = ResolveIds(http, targetListName);
@@ -209,7 +218,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void MoveFileWithRename(string originalFileName, string sourceListName, string targetListName, string newFileName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var src = ResolveIds(http, sourceListName);
                 var dst = ResolveIds(http, targetListName);
@@ -223,7 +232,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void UploadFile(string fileName, byte[] content, string targetListName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, targetListName);
                 UploadByPath(http, ids.DriveId, new[] { fileName }, content);
@@ -232,7 +241,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void UpsertFile(string fileName, byte[] content, string targetListName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, targetListName);
                 UploadByPath(http, ids.DriveId, new[] { fileName }, content, overwrite: true);
@@ -241,7 +250,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void UploadFileToFolderWithOverwrite(string rootFolder, string childFolder, byte[] content, string fileName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, rootFolder);
                 EnsureFolderPath(http, ids.DriveId, childFolder);
@@ -251,7 +260,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void UploadFileToFolderWithOverwrite(string rootFolder, string childFolder, string childOfChildFolder, byte[] content, string fileName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, rootFolder);
                 EnsureFolderPath(http, ids.DriveId, childFolder, childOfChildFolder);
@@ -261,7 +270,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void UploadFilesToFolderWithOverwrite(string rootFolder, string childFolder, IReadOnlyCollection<Office365FileInfo> files)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, rootFolder);
                 EnsureFolderPath(http, ids.DriveId, childFolder);
@@ -275,7 +284,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void UploadFileWithOverwrite(string fileName, byte[] content, string targetListName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, targetListName);
                 UploadByPath(http, ids.DriveId, new[] { fileName }, content, overwrite: true);
@@ -285,7 +294,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void UploadFile(string fileName, byte[] content, string listName, string folderName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, listName);
                 EnsureFolderPath(http, ids.DriveId, folderName);
@@ -295,7 +304,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void DeleteFile(string fileName, string listName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, listName);
                 DeleteByPath(http, ids.DriveId, new[] { fileName });
@@ -304,7 +313,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void DeleteFile(string fileName, string listName, string folderName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {
@@ -324,7 +333,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
         {
             var cutoff = DateTime.UtcNow.Date.AddDays(-offsetFromToday);
 
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 var ids = ResolveIds(http, listName);
 
@@ -369,7 +378,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void RenameFile(string sourceFileName, string targetFileName, string listName, string folderName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {
@@ -395,7 +404,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void CreateLibrary(string libraryName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {
@@ -449,7 +458,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void CreateFolder(string listName, string folderName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {
@@ -467,7 +476,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 
         public void CreateFolder(string rootListName, string listName, string folderName)
         {
-            using (var http = AuthenticationHelper.EnsureClient())
+            using (var http = _httpClientFactory())
             {
                 try
                 {

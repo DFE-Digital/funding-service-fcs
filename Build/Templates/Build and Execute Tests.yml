@@ -80,6 +80,7 @@ steps:
     testFiltercriteria: 'TestCategory=IntegrationTest'
     pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\CrossDomain.Integration'
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
@@ -96,6 +97,7 @@ steps:
     testFiltercriteria: 'TestCategory=IntegrationTestNightlyBuild'
     pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\FCT.Console'
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
@@ -113,6 +115,7 @@ steps:
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\FCS.Worker'
     runInParallel: false
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     testRunTitle: 'Clean up Tests'
@@ -129,6 +132,7 @@ steps:
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
     runInParallel: false
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
@@ -147,6 +151,7 @@ steps:
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
     runInParallel: false
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
@@ -165,6 +170,7 @@ steps:
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
     runInParallel: false
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
@@ -183,6 +189,7 @@ steps:
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
     runInParallel: false
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
@@ -201,6 +208,7 @@ steps:
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
     runInParallel: false
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
@@ -219,6 +227,7 @@ steps:
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\FCS.Worker'
     runInParallel: false
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     testRunTitle: 'Xrm Configuration Tests'
@@ -235,6 +244,7 @@ steps:
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
     runInParallel: false
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
@@ -367,6 +377,7 @@ steps:
     testFiltercriteria: 'TestCategory=UnitTest'
     pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\CrossDomain.Integration'
     codeCoverageEnabled: true
+    runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true

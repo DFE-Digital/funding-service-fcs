@@ -25,7 +25,7 @@
     "@angular/platform-browser": "^18.2.13",
     "@angular/platform-browser-dynamic": "^18.2.13",
     "@angular/router": "^18.2.13",
-    "@ng-bootstrap/ng-bootstrap": "^14.1.0",
+    "@ng-bootstrap/ng-bootstrap": "^17.0.1",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^4.4.1",
     "core-js": "^2.4.1",
@@ -53,7 +53,7 @@
     "@types/minimatch": "^5.1.2",
     "@types/node": "^12.11.1",
     "@types/q": "^1.5.8",
-    "jasmine-core": "~3.6.0",
+    "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.4",
     "karma-chrome-launcher": "~3.1.0",
@@ -64,5 +64,11 @@
     "ts-node": "~3.2.0",
     "tslib": "^2.8.1",
     "typescript": "5.4.5"
+  },
+  "overrides": {
+    "shell-quote": "^1.9.0",
+  "piscina": "^4.9.4",
+  "proxy-addr": "^2.0.8",
+  "websocket-driver": "^0.7.5"
   }
 }

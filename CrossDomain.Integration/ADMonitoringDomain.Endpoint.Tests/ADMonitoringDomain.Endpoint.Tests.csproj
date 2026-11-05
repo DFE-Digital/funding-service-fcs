@@ -335,9 +335,13 @@
     <Compile Include="Unit\EventExtensions\IAllocationDeliveryCommencedEventExtensionsTests.cs" />
     <Compile Include="Unit\EventExtensions\IPaymentAggregatedEventExtensionsTests.cs" />
     <Compile Include="Unit\ContractAllocationApprovedHandlerTests.cs" />
+    <Compile Include="Unit\ContractAllocationApprovedHandlerPublishTests.cs" />
     <Compile Include="Unit\EventExtensions\IPaymentScheduleEventExtensionsTests.cs" />
     <Compile Include="Unit\IocTests.cs" />
     <Compile Include="Unit\RulesEngineTests.cs" />
+    <Compile Include="Unit\SerializeToTypeExtensionsTests.cs" />
+    <Compile Include="Unit\AtomItemMapperTests.cs" />
+    <Compile Include="Unit\AllocationDeliveryPerformanceMapperMergeTests.cs" />
     <Compile Include="Unit\AllocationDeliveryPerformanceMapperTests.cs" />
   </ItemGroup>
   <ItemGroup>

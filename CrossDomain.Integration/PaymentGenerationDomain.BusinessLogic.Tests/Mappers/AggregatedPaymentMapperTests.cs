@@ -6,10 +6,23 @@
     using Integration.DataStore.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class AggregatedPaymentMapperTests
     {
+        [TestMethod, TestCategory("UnitTest")]
+        public void MapDbEntitiesToAggregatedPaymentCorporateSchema_ReturnsEmptyListWhenNoAggregationsExist()
+        {
+            var mapper = new AggregatedPaymentMapper();
+
+            var allocations = mapper.MapDbEntitiesToAggregatedPaymentCorporateSchema(
+                new List<SubnominalAggregation>(),
+                ConnectionInfo.CreateDefault());
+
+            Assert.AreEqual(0, allocations.Count);
+        }
+
         [TestMethod, TestCategory("UnitTest")]
         public void MapAggregatedPaymentCorporateSchemaEntityToDbEntities_ShouldMapPaymentAggregationSchema_To_SubnominalAggregationDbEntities()
         {

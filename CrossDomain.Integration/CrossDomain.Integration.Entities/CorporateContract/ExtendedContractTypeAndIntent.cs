@@ -3,6 +3,7 @@
     using System;
 
     [Serializable]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ExtendedContractTypeAndIntent
     {
         public ExtendedContractTypeAndIntent(ExtendedContractType contract, ContractIntent intent)

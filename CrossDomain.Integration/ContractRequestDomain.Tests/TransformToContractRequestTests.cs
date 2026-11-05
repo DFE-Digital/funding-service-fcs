@@ -190,6 +190,70 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
+        public void TransformToContractRequest_MapsFundingConfigurationAndCorrelatesErrors()
+        {
+            var contractRow = _transformInputDataLoadResults.GetSheet("Contract").row[0];
+            var allocationRows = _transformInputDataLoadResults.GetSheet("Contract Allocation").row;
+            var deliverableRows = _transformInputDataLoadResults.GetSheet("Deliverable").row;
+            var contractCorrelationId = Guid.NewGuid();
+            var allocationCorrelationId = Guid.NewGuid();
+            var deliverableCorrelationId = Guid.NewGuid();
+            contractRow.id = contractCorrelationId.ToString();
+            allocationRows.ToList().ForEach(row => row.id = allocationCorrelationId.ToString());
+            deliverableRows.ToList().ForEach(row => row.id = deliverableCorrelationId.ToString());
+
+            var fundingConfiguration = new SFA.FCT.CrossDomain.Integration.Entities.ExcelUpload.FundingConfigurationDataType
+            {
+                FundingTypeCode = "24+LOANS",
+                FundingStreamCode = allocationRows[0].GetCellValue("FundingStreamCode"),
+                FundingStreamId = "stream-id",
+                FundingStreamName = "Stream name",
+                FundingStreamCodeId = "stream-code-id",
+                FundingStreamPeriodCode = "stream-period",
+                Period = "1516",
+                PeriodTypeCode = "AY",
+                PeriodTypeName = "Academic Year"
+            };
+            _transformInputDataLoadResults.ReferenceData = new dataLoadResultsReferenceData
+            {
+                FundingConfiguration = new FundingConfigurationType
+                {
+                    FundingConfigurationList = new[] { fundingConfiguration }
+                }
+            };
+            _transformInputDataLoadResults.error = new[]
+            {
+                new errorInfo { correlationId = contractCorrelationId.ToString(), Value = "Contract error" },
+                new errorInfo { correlationId = allocationCorrelationId.ToString(), Value = "Allocation error" },
+                new errorInfo { correlationId = deliverableCorrelationId.ToString(), Value = "Deliverable error" },
+                new errorInfo { correlationId = Guid.NewGuid().ToString(), Value = "Unmatched error" }
+            };
+            var results = _transformer.Transform(_transformInputDataLoadResults);
+            var result = results.Single(contractRequest =>
+                contractRequest.contract.correlationId == contractCorrelationId.ToString());
+            var allocation = results.SelectMany(contractRequest => contractRequest.contract.contracts)
+                .SelectMany(contract => contract.contractAllocations)
+                .First(item => item.correlationId == allocationCorrelationId.ToString());
+            var deliverable = allocation.contractDeliverables
+                .First(item => item.correlationId == deliverableCorrelationId.ToString());
+
+            Assert.AreEqual("stream-period", result.FundingConfiguration[0].FundingStreamPeriodCode);
+            Assert.AreEqual("stream-period", allocation.fundingStreamPeriodCode);
+            var errors = results.SelectMany(contractRequest => contractRequest.errorInfo).ToList();
+            Assert.AreEqual(3, errors.Count);
+            Assert.IsTrue(errors.Any(error =>
+                error.correlationId == contractCorrelationId.ToString() &&
+                error.level == errorInfoTypeLevel.MasterContract));
+            Assert.IsTrue(errors.Any(error =>
+                error.correlationId == allocationCorrelationId.ToString() &&
+                error.level == errorInfoTypeLevel.Allocation));
+            Assert.IsTrue(errors.Any(error =>
+                error.correlationId == deliverableCorrelationId.ToString() &&
+                error.level == errorInfoTypeLevel.Deliverable));
+            Assert.IsNotNull(deliverable);
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
         public void TransformToContractRequest_UnitCostIsNull_ShouldReturnNullUnitCost()
         {
             // arrange

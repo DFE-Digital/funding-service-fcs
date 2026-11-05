@@ -3,11 +3,13 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Xml.Serialization;
 
     [Serializable]
     [XmlType(AnonymousType = true, Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = false)]
+    [ExcludeFromCodeCoverage]
     public class FundingClaim
     {
         public FundingClaim()
@@ -26,6 +28,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class FundingClaimAllAttrsCT
     {
         public FundingClaimAllAttrsCT()
@@ -48,6 +51,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class FundingClaimPKeyAttrsCT
     {
         public FundingClaimPKeyAttrsCT()
@@ -75,6 +79,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class ContractorAllAttrsCT
     {
         public ContractorAllAttrsCT()
@@ -93,6 +98,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class ContractorPKeyAttrsCT
     {
         [XmlElement(Order = 0)]
@@ -102,6 +108,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class DeliverableLineNonPKeyAttrsCT
     {
         [XmlElement(IsNullable = true, Order = 0)]
@@ -123,6 +130,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class DeliverableLinePKeyAttrsCT
     {
         [XmlElement(Order = 0)]
@@ -132,6 +140,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class DeliverableLineAllAttrsCT
     {
         public DeliverableLineAllAttrsCT()
@@ -150,6 +159,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class ContractAllocationNonPKeyAttrsCT
     {
         [XmlElement(Order = 0)]
@@ -162,6 +172,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class ContractAllocationPKeyAttrsCT
     {
 
@@ -172,6 +183,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class ContractAllocationAllAttrsCT
     {
         public ContractAllocationAllAttrsCT()
@@ -194,6 +206,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class FundingClaimNonPKeyAttrsCT
     {
         [XmlElement(Order = 0)]
@@ -206,6 +219,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class PeriodTypePKeyAttrsCT
     {
         [XmlElement(Order = 0)]
@@ -234,6 +248,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class PeriodPKeyAttrsCT
     {
         public PeriodPKeyAttrsCT()
@@ -251,6 +266,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = true)]
+    [ExcludeFromCodeCoverage]
     public class ContractorNonPKeyAttrsCT
     {
         [XmlElement(Order = 0)]
@@ -274,6 +290,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(AnonymousType = true, Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = false)]
+    [ExcludeFromCodeCoverage]
     public class ContractAllocation
     {
         public ContractAllocation()
@@ -288,6 +305,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     [Serializable]
     [XmlType(AnonymousType = true, Namespace = "urn:sfa:schemas:fundingclaim")]
     [XmlRoot(Namespace = "urn:sfa:schemas:fundingclaim", IsNullable = false)]
+    [ExcludeFromCodeCoverage]
     public class DeliverableLine
     {
         public DeliverableLine()

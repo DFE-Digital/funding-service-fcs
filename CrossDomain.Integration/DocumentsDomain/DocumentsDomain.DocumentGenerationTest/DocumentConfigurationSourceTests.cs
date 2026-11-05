@@ -13,6 +13,7 @@
     using Moq;
     using Newtonsoft.Json;
     using UnitTests.Common;
+    using FSPDeliverable = DataStore.Models.FSPDeliverable;
     using FundingStreamPeriod = DataStore.Models.FundingStreamPeriod;
 
     [TestClass]
@@ -328,6 +329,109 @@
             Assert.AreEqual(allocation.description, displayNameReturned);
         }
 
+        [TestMethod, TestCategory("UnitTest")]
+        public void DocumentConfigurationSource_ShouldUseConfiguredNamesAndFundingAgreementTemplates()
+        {
+            const string fspCode = "UNIT-TEST-CONFIGURATION-SOURCE";
+            var fundingStreamPeriod = new FundingStreamPeriod(
+                fspCode,
+                "Configured summary name",
+                3,
+                shouldGenerateFundingAgreement: true,
+                shouldUseContractAllocationDescription: false,
+                template: "configured-template",
+                extraPagesTemplate: "configured-extra-pages",
+                fspGroupCode: string.Empty,
+                fundingAgreementDisplayName: "Configured agreement title");
+            var fundingStreamPeriodRepository = new Mock<IFundingStreamPeriodRepository>();
+            fundingStreamPeriodRepository
+                .Setup(repository => repository.GetByKey(fspCode))
+                .Returns(fundingStreamPeriod);
+            var source = new DocumentConfigurationSource(
+                fundingStreamPeriodRepository.Object,
+                Mock.Of<IFspDeliverableRepository>(),
+                Mock.Of<IFundingTypeFundingPeriodRepository>());
+            var allocation = new contractAllocationsContractAllocation
+            {
+                fundingStreamPeriodCode = fspCode,
+                description = "Allocation description"
+            };
+
+            Assert.AreEqual("Configured summary name", source.GetAllocationName(allocation));
+            Assert.AreEqual("Configured agreement title", source.GetFundingAgreementTitleFromAllocation(allocation));
+            Assert.IsTrue(source.IsFundingAgreementRequiredForAllocation(allocation));
+
+            var configuredTemplate = source.GetFundingAgreementTemplateNamesForAllocation("OTHER", fspCode, "MAIN");
+            Assert.AreEqual("configured-template", configuredTemplate.TemplateName);
+            Assert.AreEqual("configured-extra-pages", configuredTemplate.ExtraPagesTemplate);
+
+            var appsMainTemplate = source.GetFundingAgreementTemplateNamesForAllocation("APPS", fspCode, "MAIN");
+            Assert.AreEqual("A2_MAIN{0}", appsMainTemplate.TemplateName);
+            Assert.AreEqual(string.Empty, appsMainTemplate.ExtraPagesTemplate);
+            fundingStreamPeriodRepository.Verify(repository => repository.GetByKey(fspCode), Times.Once);
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void DocumentConfigurationSource_ShouldMapSummaryDeliverableSettings()
+        {
+            const string fspCode = "UNIT-TEST-SUMMARY-DELIVERABLE";
+            var fspDeliverable = new FSPDeliverable(
+                17, fspCode, true, true, false, 5, true, true, false,
+                "Summary deliverable", "Funding agreement deliverable", true);
+            var fspDeliverableRepository = new Mock<IFspDeliverableRepository>();
+            fspDeliverableRepository
+                .Setup(repository => repository.GetFspDeliverable(fspCode, 17))
+                .Returns(fspDeliverable);
+            var source = new DocumentConfigurationSource(
+                Mock.Of<IFundingStreamPeriodRepository>(),
+                fspDeliverableRepository.Object,
+                Mock.Of<IFundingTypeFundingPeriodRepository>());
+            var allocation = new contractAllocationsContractAllocation { fundingStreamPeriodCode = fspCode };
+            var deliverable = new contractDeliverablesTypeContractDeliverable
+            {
+                deliverable = new deliverableType { deliverableCode = 17 }
+            };
+
+            Assert.IsTrue(source.ShouldDisplayDeliverableOnSummaryOfFunding(fspCode, 17));
+            Assert.IsTrue(source.ShouldDisplayDeliverableOnSummaryOfFunding(allocation, deliverable));
+            Assert.AreEqual("Summary deliverable", source.GetDeliverableNameForSummaryOfFunding(fspCode, 17));
+            Assert.AreEqual("Summary deliverable", source.GetDeliverableNameForSummaryOfFunding(allocation, 17));
+            fspDeliverableRepository.Verify(repository => repository.GetFspDeliverable(fspCode, 17), Times.Once);
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void DocumentConfigurationSource_ShouldBuildProfileAndSingleDeliverableConfigurations()
+        {
+            const string fspCode = "UNIT-TEST-DELIVERABLE-CONFIGURATION";
+            var profileDeliverable = new FSPDeliverable(
+                7, fspCode, true, true, true, 5, false, true, false,
+                "Summary 7", "Deliverable 7", true);
+            var nonProfileDeliverable = new FSPDeliverable(
+                8, fspCode, false, true, true, 12, false, true, false,
+                "Summary 8", "Deliverable 8", true);
+            var fspDeliverableRepository = new Mock<IFspDeliverableRepository>();
+            fspDeliverableRepository
+                .Setup(repository => repository.GetFspDeliverablesForFundingStreamPeriod(fspCode))
+                .Returns(new[] { profileDeliverable, nonProfileDeliverable });
+            fspDeliverableRepository
+                .Setup(repository => repository.GetFspDeliverable(fspCode, 7))
+                .Returns(profileDeliverable);
+            var source = new DocumentConfigurationSource(
+                Mock.Of<IFundingStreamPeriodRepository>(),
+                fspDeliverableRepository.Object,
+                Mock.Of<IFundingTypeFundingPeriodRepository>());
+            var allocation = new contractAllocationsContractAllocation { fundingStreamPeriodCode = fspCode };
+
+            var aggregateConfiguration = source.GetDeliverableConfigurationForFundingAgreement(allocation, 0);
+            CollectionAssert.AreEqual(new[] { 7 }, aggregateConfiguration.DisplayValueIsAggregate);
+            Assert.AreEqual(6, aggregateConfiguration.DisplayOrder);
+
+            var deliverableConfiguration = source.GetDeliverableConfigurationForFundingAgreement(allocation, 7);
+            Assert.AreEqual(7, deliverableConfiguration.DeliverableCode);
+            Assert.AreEqual("Deliverable 7", deliverableConfiguration.DisplayName);
+            fspDeliverableRepository.Verify(repository => repository.GetFspDeliverablesForFundingStreamPeriod(fspCode), Times.Once);
+        }
+
         [TestMethod, TestCategory("IntegrationTest")]
         public void TestLoadFromFileWithAggregates()
         {
@@ -491,5 +595,3 @@
 }
     
     
-
-

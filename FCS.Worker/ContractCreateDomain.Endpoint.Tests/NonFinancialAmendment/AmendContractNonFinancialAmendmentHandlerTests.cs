@@ -1,5 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.Tests.NonFinancialAmendment
 {
+    using Microsoft.Xrm.Sdk;
     using System.Linq;
     using Castle.MicroKernel.Lifestyle;
     using Castle.MicroKernel.Registration;
@@ -29,6 +30,7 @@
         {
             // arrange
             IWindsorContainer container = new WindsorContainer().Install(new WindsorInstaller(new LoggerFactory()));
+            container.Register(Component.For<IOrganizationService>().Instance(Mock.Of<IOrganizationService>()).Named("OrganizationServiceMock").IsDefault());
             container.Register(Component.For<AmendContractNonFinancialAmendmentHandler>());
             container.BeginScope();
 

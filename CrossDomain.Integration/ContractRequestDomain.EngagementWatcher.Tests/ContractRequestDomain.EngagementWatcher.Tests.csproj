@@ -210,10 +210,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Handlers\DasCheckConnectivityHandlerTests.cs" />
+    <Compile Include="Handlers\DasContractRequestEventHandlerTests.cs" />
+    <Compile Include="Handlers\RetryNotFoundProviderEngagementsCommandHandlerTests.cs" />
     <Compile Include="InitiateEngagementPollingCommandHandlerTests.cs" />
+    <Compile Include="EndpointConfigTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DasAgreementEntity.cs" />
     <Compile Include="Services\DasEventsApiAdapterTestImplTests.cs" />
+    <Compile Include="Services\OAuthAccessTokenFactoryContainerTests.cs" />
     <Compile Include="Services\DasMissingEventsTests.cs" />
     <Compile Include="Services\DasRequestServiceTests.cs" />
     <Compile Include="Services\DasEventsApiAdapterConnectivityTests.cs" />

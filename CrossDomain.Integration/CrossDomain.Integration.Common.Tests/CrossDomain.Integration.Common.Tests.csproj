@@ -176,6 +176,9 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NServiceBus.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NServiceBus.5.2.8\lib\net45\NServiceBus.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -235,10 +238,12 @@
     <Compile Include="Unit\Reporting\ReportingServicesClientTests.cs" />
     <Compile Include="Unit\SerializationHelperTests.cs" />
     <Compile Include="Unit\StorageObjectSerializerTests.cs" />
+    <Compile Include="Unit\Storage\Office365StorageWrapperUnitTests.cs" />
     <Compile Include="Unit\Storage\Office365Helpers\GraphSharePointHelperTests.cs" />
     <Compile Include="Unit\PagedStorageSeedRunnerTests.cs" />
     <Compile Include="Unit\DateTimeExtensionsTests.cs" />
     <Compile Include="Unit\TrustedDataCollectionTests.cs" />
+    <Compile Include="Unit\TransportMessageCompressionMutatorTests.cs" />
     <Compile Include="Unit\ZipHelperTests.cs" />
     <Compile Include="Validation\ValidationHelperTests.cs" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.Tests.UpdateContract
 {
+    using Microsoft.Xrm.Sdk;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
@@ -26,6 +27,7 @@
             // arrange
             IWindsorContainer container = new WindsorContainer()
                 .Install(new ContractCreateDomain.Endpoint.WindsorInstallerForSagas(new LoggerFactory()))
+                .Register(Component.For<IOrganizationService>().Instance(Mock.Of<IOrganizationService>()).Named("OrganizationServiceMock").IsDefault())
                 .Register(Component.For<UpdateContractFromFundingHandler>());
 
             container.BeginScope();

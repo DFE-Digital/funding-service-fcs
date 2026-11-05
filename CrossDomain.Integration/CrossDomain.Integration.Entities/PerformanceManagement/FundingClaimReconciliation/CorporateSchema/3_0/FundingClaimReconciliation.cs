@@ -3,11 +3,13 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Xml.Serialization;
 
     [Serializable]
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
     [XmlRoot("FCReconciliation", Namespace = "urn:sfa:schemas:FCReconciliation", IsNullable = false)]
+    [ExcludeFromCodeCoverage]
     public class FCReconciliation
     {
         public FCReconciliation()
@@ -23,6 +25,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class FCReconciliationAllAttrsCT
     {
         public FCReconciliationAllAttrsCT()
@@ -37,6 +40,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class FCReconciliationPKeyAttrsCT
     {
         public FCReconciliationPKeyAttrsCT()
@@ -59,6 +63,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractorAllAttrsCT
     {
         public ContractorAllAttrsCT()
@@ -73,24 +78,28 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractorPKeyAttrsCT
     {
         public string OrganisationIdentifier { get; set; }
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class FundingTypeNonPKeyAttrsCT
     {
         public string FundingTypeName { get; set; }
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class FundingTypePKeyAttrsCT
     {
         public string FundingTypeCode { get; set; }
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class FundingTypeAllAttrsCT
     {
         public FundingTypeAllAttrsCT()
@@ -105,6 +114,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractAllAttrsCT
     {
         public ContractAllAttrsCT()
@@ -125,6 +135,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractAllocationDNAttrsCT
     {
         public ContractAllocationDNAttrsCT()
@@ -136,6 +147,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class DeliverableAllAttrsCT
     {
         public int DeliverableCode { get; set; }
@@ -144,6 +156,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractAllocationNonPKeyAttrsCT
     {
         public ContractAllocationNonPKeyAttrsCT()
@@ -167,6 +180,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class AmountAttrsCT
     {
         public decimal? PlannedValue { get; set; }
@@ -187,6 +201,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(AnonymousType = true, Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractDeliverablesAllAttrsCTContractDeliverable
     {
         public ContractDeliverablesAllAttrsCTContractDeliverable()
@@ -201,12 +216,14 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractAllocationPKeyAttrsCT
     {
         public string ContractAllocationNumber { get; set; }
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractAllocationAllAttrsCT
     {
         public ContractAllocationAllAttrsCT()
@@ -224,6 +241,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class FCReconciliationNonPKeyAttrsCT
     {
         public FCReconciliationNonPKeyAttrsCT()
@@ -251,18 +269,21 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class AllocationGroupNonPKeyAttrsCT
     {
         public string AllocationGroupName { get; set; }
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class AllocationGroupPKeyAttrsCT
     {
         public string AllocationGroupCode { get; set; }
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class AllocationGroupAllAttrsCT
     {
         public AllocationGroupAllAttrsCT()
@@ -277,18 +298,21 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ClaimTypeNonPKeyAttrsCT
     {
         public string ClaimTypeName { get; set; }
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ClaimTypePKeyAttrsCT
     {
         public string ClaimTypeCode { get; set; }
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ClaimTypeAllAttrsCT
     {
         public ClaimTypeAllAttrsCT()
@@ -303,6 +327,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class PeriodTypeNonPKeyAttrsCT
     {
         public PeriodTypeNameST PeriodTypeName { get; set; }
@@ -328,6 +353,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class PeriodTypePKeyAttrsCT
     {
         public PeriodTypeCodeST PeriodTypeCode { get; set; }
@@ -345,6 +371,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class PeriodAllAttrsCT
     {
         public PeriodAllAttrsCT()
@@ -361,6 +388,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
     
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ContractorNonPKeyAttrsCT
     {
         public int UKPRN { get; set; }
@@ -369,6 +397,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.Funding
     }
 
     [XmlType(Namespace = "urn:sfa:schemas:FCReconciliation")]
+    [ExcludeFromCodeCoverage]
     public class ClaimAdjustmentAttrsCT
     {
         public decimal ClaimAdjustmentValue { get; set; }

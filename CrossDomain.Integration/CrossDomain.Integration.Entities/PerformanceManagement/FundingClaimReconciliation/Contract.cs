@@ -2,6 +2,7 @@
 {
     using System;
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Contract
     {
         public Contract()

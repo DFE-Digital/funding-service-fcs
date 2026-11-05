@@ -39,6 +39,20 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
+        public void ShouldAggregateContractTypeValuesOntoContractAndAllocations()
+        {
+            var masterContract = new CorporateContract.contractType
+            {
+                contracts = new List<CorporateContract.contractType> { CreateSubContractType() }
+            };
+
+            new ContractValueAggregator().Aggregate(masterContract);
+
+            Assert.AreEqual(100, masterContract.contracts[0].contractAllocations[0].maximumContractValue);
+            Assert.AreEqual(300, masterContract.contracts[0].contractValue);
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
         public void ShouldUpdateValueVarianceOnContract()
         {
             const int testUkprn = 111;
@@ -87,6 +101,64 @@
             // assert
             Assert.IsTrue(extendedCorpContract.contracts[0].ValueVariation == 7);
             Assert.IsTrue(extendedCorpContract.contracts[0].contractAllocations[0].ValueVariation == 1);
+        }
+
+        [TestMethod, TestCategory("UnitTest")]
+        public void ShouldMatchAllocationValueVarianceByAllocationNumberWhenNumbersAreAvailable()
+        {
+            var extendedContract = new CorporateContract.ExtendedContractType
+            {
+                contracts = new List<CorporateContract.ExtendedContractType>
+                {
+                    new CorporateContract.ExtendedContractType
+                    {
+                        contractNumber = "CONTRACT-1",
+                        contractAllocations = new List<CorporateContract.ExtendedContractAllocation>
+                        {
+                            new CorporateContract.ExtendedContractAllocation
+                            {
+                                contractAllocationNumber = "ALLOCATION-2",
+                                maximumContractValue = 25
+                            },
+                            new CorporateContract.ExtendedContractAllocation
+                            {
+                                contractAllocationNumber = "ALLOCATION-1",
+                                maximumContractValue = 15
+                            }
+                        },
+                        contractValue = 40
+                    }
+                }
+            };
+            var existingContract = new ContractRequest.contractType
+            {
+                contracts = new List<ContractRequest.contractType>
+                {
+                    new ContractRequest.contractType
+                    {
+                        contractNumber = "CONTRACT-1",
+                        contractAllocations = new List<ContractRequest.contractAllocation>
+                        {
+                            new ContractRequest.contractAllocation
+                            {
+                                contractAllocationNumber = "ALLOCATION-1",
+                                maximumContractValue = 10
+                            },
+                            new ContractRequest.contractAllocation
+                            {
+                                contractAllocationNumber = "ALLOCATION-2",
+                                maximumContractValue = 20
+                            }
+                        }
+                    }
+                }
+            };
+
+            new ContractValueAggregator().UpdateValueVariance(extendedContract, existingContract);
+
+            Assert.AreEqual(10, extendedContract.contracts[0].ValueVariation);
+            Assert.AreEqual(5, extendedContract.contracts[0].contractAllocations[0].ValueVariation);
+            Assert.AreEqual(5, extendedContract.contracts[0].contractAllocations[1].ValueVariation);
         }
 
         private decimal GetDeliverablePeriodValue(CorporateContract.contractDeliverablePeriodsTypeContractDeliverablePeriod deliverablePeriod)

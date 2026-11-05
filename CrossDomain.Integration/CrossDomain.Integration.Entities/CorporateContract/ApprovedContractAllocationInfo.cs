@@ -4,6 +4,7 @@
     using System.Collections.Generic;
 
     [Serializable]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ApprovedContractAllocationInfo
     {
         public string ContractAllocationNumber { get; set; }

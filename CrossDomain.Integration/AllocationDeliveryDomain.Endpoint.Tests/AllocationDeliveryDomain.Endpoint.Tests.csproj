@@ -339,6 +339,7 @@
   <ItemGroup>
     <Compile Include="Common\AzureRepositoryTests.cs" />
     <Compile Include="Common\IntegrationTestBase.cs" />
+    <Compile Include="DataStore\AllocationDeliveryDataStoreUnitTests.cs" />
     <Compile Include="DataStore\Repositories\ProcessedMessagesRepositoryTests.cs" />
     <Compile Include="EfHelper.cs" />
     <Compile Include="Integration\HeldFspCollectionConfigRepositoryTechnicalExplorationTests.cs" />
@@ -399,11 +400,16 @@
     <Compile Include="Unit\AllocationDeliverablePeriodTransformerTests.cs" />
     <Compile Include="Unit\CheckForMonthEndCompletionCommandHandlerTests.cs" />
     <Compile Include="Unit\ReportedActualsRoutingCommandHandlerTests.cs" />
+    <Compile Include="Unit\ReportedActualsHandlerFlowTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AllocationDeliveryDomain\AllocationDelivery.DataStore\AllocationDelivery.DataStore.csproj">
       <Project>{8a292823-6450-4e0a-a897-c13665dea59c}</Project>
       <Name>AllocationDelivery.DataStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FCS.Worker\FCS.Worker.Entities\FCS.Worker.Common.csproj">
+      <Project>{5a495916-854c-4b20-b7fc-b696ea94ff61}</Project>
+      <Name>FCS.Worker.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\AllocationDeliveryDomain\AllocationDelivery.Messages\AllocationDelivery.Messages.csproj">
       <Project>{b82d5630-01be-4e06-8b72-7cbe77453e06}</Project>

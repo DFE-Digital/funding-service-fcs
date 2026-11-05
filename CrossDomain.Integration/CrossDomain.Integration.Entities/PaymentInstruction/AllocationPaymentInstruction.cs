@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AllocationPaymentInstruction
     {
         public AllocationPaymentInstruction()

@@ -25,11 +25,21 @@
 
         private readonly ILogger _logger;
         private readonly IContractBulkUploadFileLevelValidation validator;
+        private readonly Func<string, string, string, string, FundingConfigurationType> _getReferenceData;
 
         public FileValidationFscEnrichment(ILogger logger, IContractBulkUploadFileLevelValidation validator)
+            : this(logger, validator, null)
+        {
+        }
+
+        public FileValidationFscEnrichment(
+            ILogger logger,
+            IContractBulkUploadFileLevelValidation validator,
+            Func<string, string, string, string, FundingConfigurationType> getReferenceData)
         {
             _logger = logger;
             this.validator = validator;
+            _getReferenceData = getReferenceData ?? GetReferenceData;
         }
 
         public void Enrich(dataLoadResults dataLoadResults)
@@ -62,7 +72,7 @@
 
                     if (cacheData == null || !cacheData.Any(c => c.Period == period && c.PeriodType == periodTypeCode && c.FundingType == fundingTypeCode))
                     {
-                        referenceData = GetReferenceData(dataLoadResults.batchId, period, periodTypeCode, fundingTypeCode);
+                        referenceData = _getReferenceData(dataLoadResults.batchId, period, periodTypeCode, fundingTypeCode);
 
                         // Cache new reference data. 
                         if (cacheData == null)
