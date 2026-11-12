@@ -8,6 +8,7 @@ namespace SFA.FCT.Xrm.TestFramework
     using System.Xml;
     using System.Web;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework.Legacy;
 
     /// -----------------------------------------------------------------
     ///   Namespace:      Ciber.Xrm.Tests.MetaData
@@ -178,7 +179,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 fieldMatch = from f in this.fields where f.displayName == fieldName select f;
             }
 
-            Assert.IsTrue(fieldMatch.Any(), "The Form " + this.FormName + " does not include a control for the field: " + fieldName);
+            ClassicAssert.IsTrue(fieldMatch.Any(), "The Form " + this.FormName + " does not include a control for the field: " + fieldName);
             return fieldMatch.First();
         }
 
@@ -190,7 +191,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 tabMatch = this.tabs.Where(n => n.DisplayName == tabName);
             }
 
-            Assert.IsTrue(tabMatch.Any(), "The Form " + this.FormName + " does not include a tab named: " + tabName);
+            ClassicAssert.IsTrue(tabMatch.Any(), "The Form " + this.FormName + " does not include a tab named: " + tabName);
             return tabMatch.First();
         }
 

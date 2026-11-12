@@ -12,7 +12,9 @@
     using CrossDomain.Integration.Messages.Commands;
     using DocumentGeneration;
     using DocumentGenerationEndpoint.DocumentMoveEndpoint;
-    using Framework.Logging.Interfaces;
+    // using Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
+    using Framework.Logging.NullObjects;    
     using Common.Exceptions;
     using CrossDomain.Integration.Entities.ContractApproval;
     using CrossDomain.Integration.Messages.Messages;
@@ -47,7 +49,7 @@
                 hierarchyType = hierarchyType.CONTRACT
             };
 
-            var masterContract = new contract
+            var masterContract = new Contract
             {
                 hierarchyType = hierarchyType.MASTERCONTRACT,
                 contracts = new List<contractType>
@@ -56,9 +58,9 @@
                 }
             };
 
-            _documentMoverMock.Setup(x => x.IsContractDocumentAlreadyPublished(It.IsAny<contract>())).Returns(false);
+            _documentMoverMock.Setup(x => x.IsContractDocumentAlreadyPublished(It.IsAny<Contract>())).Returns(false);
 
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object, null)
             {
                 Date = dateMock.Object
             };
@@ -73,7 +75,7 @@
                 ContractApprovalType = ContractApprovalType.Electronic
             }, context).Wait();
 
-            _documentMoverMock.Verify(x => x.MoveContractDocumentToPublishLocation(It.IsAny<contract>()), Times.Once, $"{nameof(IDocumentMover)} was not called");
+            _documentMoverMock.Verify(x => x.MoveContractDocumentToPublishLocation(It.IsAny<Contract>()), Times.Once, $"{nameof(IDocumentMover)} was not called");
 
             List<DocumentMoveResponse> responses =
                 context.RepliedMessages
@@ -104,7 +106,7 @@
                 hierarchyType = hierarchyType.CONTRACT
             };
 
-            var masterContract = new contract
+            var masterContract = new Contract
             {
                 hierarchyType = hierarchyType.MASTERCONTRACT,
                 contracts = new List<contractType>
@@ -113,9 +115,9 @@
                 }
             };
 
-            _documentMoverMock.Setup(x => x.IsContractDocumentAlreadyPublished(It.IsAny<contract>())).Returns(true);
+            _documentMoverMock.Setup(x => x.IsContractDocumentAlreadyPublished(It.IsAny<Contract>())).Returns(true);
 
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object, null)
             {
                 Date = dateMock.Object
             };
@@ -131,7 +133,7 @@
             }, context).Wait();
 
             // assert
-            _documentMoverMock.Verify(x => x.MoveContractDocumentToPublishLocation(It.IsAny<contract>()), Times.Never, $"{nameof(IDocumentMover)} was called");
+            _documentMoverMock.Verify(x => x.MoveContractDocumentToPublishLocation(It.IsAny<Contract>()), Times.Never, $"{nameof(IDocumentMover)} was called");
 
             List<DocumentMoveResponse> responses =
                 context.RepliedMessages
@@ -150,12 +152,12 @@
         public void DocumentMoveHandler_LogsAndThrowsErrorWhenNoContractInMessageAndDoesNotPerformMoveDocumentOrPublishEvent()
         {
             // arrange
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object, null)
             {
                 Logger = _logger.Object
             };
 
-            var masterContract = new contract
+            var masterContract = new Contract
             {
                 contracts = new List<contractType>()
             };
@@ -179,7 +181,7 @@
                 Assert.IsTrue(e is ArgumentNullException);
                 _logger.Verify(x => x.LogError(It.IsAny<int>(), e, e.Message), Times.Once, "Error was not logged");
 
-                _documentMoverMock.Verify(x => x.MoveContractDocumentToPublishLocation(It.IsAny<contract>()), Times.Never, $"{nameof(IDocumentMover)} was called");
+                _documentMoverMock.Verify(x => x.MoveContractDocumentToPublishLocation(It.IsAny<Contract>()), Times.Never, $"{nameof(IDocumentMover)} was called");
 
                 Assert.AreEqual(0,
                     context.PublishedMessages
@@ -198,12 +200,12 @@
         public void DocumentMoveHandler_CatchesDocumentMoveException_AndPublishesFailureEvent()
         {
             // arrange
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object, null)
             {
                 Logger = _logger.Object
             };
 
-            var masterContract = new contract
+            var masterContract = new Contract
             {
                 hierarchyType = hierarchyType.MASTERCONTRACT,
                 contracts = new List<contractType>
@@ -219,7 +221,7 @@
             const string reason = "Merged document does not exist.";
 
             _documentMoverMock
-                .Setup(x => x.MoveContractDocumentToPublishLocation(It.IsAny<contract>()))
+                .Setup(x => x.MoveContractDocumentToPublishLocation(It.IsAny<Contract>()))
                 .Throws(new DocumentMoveException(reason));
 
             var context = new TestableMessageHandlerContext();
@@ -251,7 +253,7 @@
         public void DocumentMoveHandler_ShouldRejectDocumentMergeCommand_WhenContractNumberToBeMergedNotSet()
         {
             // Arrange
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object, null)
             {
                 Logger = _logger.Object
             };
@@ -282,7 +284,7 @@
         public void DocumentMoveHandler_ShouldRejectDocumentMergeCommand_WhenContractNumberToBeMergedDoesNotMatchAChildContract()
         {
             // Arrange
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object,null)
             {
                 Logger = _logger.Object
             };
@@ -313,7 +315,7 @@
         public void DocumentMoveHandler_ShouldRejectDocumentMergeCommand_WhenContractNumberToBeMergedIndicatesChildContractThatWithHierarchyTypeNotSetToContract()
         {
             // Arrange
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object, null)
             {
                 Logger = _logger.Object
             };
@@ -323,7 +325,7 @@
                 CorporateContract = CreateTestContract(),
                 ContractApprovalType = ContractApprovalType.Electronic
             };
-            command.CorporateContract.contracts.Add(new contract { contractNumber = "CONTRACT4", hierarchyType = hierarchyType.MASTERCONTRACT });
+            command.CorporateContract.contracts.Add(new Contract { contractNumber = "CONTRACT4", hierarchyType = hierarchyType.MASTERCONTRACT });
             command.ContractNumberToBeMoved = "CONTRACT4";
 
             bool expectedExceptionThrown = false;
@@ -345,7 +347,7 @@
         public void DocumentMoveHandler_ShouldRejectDocumentMergeCommand_WhenContractNumberToBeMergedIndicatesMultipleChildContracts()
         {
             // Arrange
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object, null)
             {
                 Logger = _logger.Object
             };
@@ -355,7 +357,7 @@
                 CorporateContract = CreateTestContract(),
                 ContractApprovalType = ContractApprovalType.Electronic
             };
-            command.CorporateContract.contracts.Add(new contract { contractNumber = "CONTRACT1", hierarchyType = hierarchyType.CONTRACT });
+            command.CorporateContract.contracts.Add(new Contract { contractNumber = "CONTRACT1", hierarchyType = hierarchyType.CONTRACT });
             command.ContractNumberToBeMoved = "CONTRACT1";
 
             bool expectedExceptionThrown = false;
@@ -377,7 +379,7 @@
         public void DocumentMoveHandler_ShouldRejectDocumentMergeCommand_WhenCorporateContractIsNotMasterContract()
         {
             // Arrange
-            var handler = new DocumentMoveHandler(_documentMoverMock.Object)
+            var handler = new DocumentMoveHandler(_documentMoverMock.Object, null)
             {
                 Logger = _logger.Object
             };
@@ -404,25 +406,25 @@
             Assert.IsTrue(expectedExceptionThrown);
         }
 
-        public contract CreateTestContract()
+        public Contract CreateTestContract()
         {
-            var contract = new contract
+            var contract = new Contract
             {
                 hierarchyType = hierarchyType.MASTERCONTRACT,
                 contractNumber = "MASTER_CONTRACT",
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         contractNumber = "CONTRACT1",
                         hierarchyType = hierarchyType.CONTRACT
                     },
-                    new contract
+                    new Contract
                     {
                         contractNumber = "CONTRACT2",
                         hierarchyType = hierarchyType.CONTRACT
                     },
-                    new contract
+                    new Contract
                     {
                         contractNumber = "CONTRACT3",
                         hierarchyType = hierarchyType.CONTRACT

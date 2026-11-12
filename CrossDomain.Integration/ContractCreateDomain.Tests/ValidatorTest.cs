@@ -12,76 +12,109 @@
     [TestClass]
     public class ValidatorTest
     {
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void Validate_WhenContractRequestContainsISAChildContract_RaiseException()
         {
-            // Arrange            
+            // Arrange
             var testContractRequest = CreateEmptyContractRequest();
             testContractRequest.contract.contracts.AddRange(
                 new List<contractType>
                 {
-                    new contractType
-                    {
-                        contractNumber = "contract1",
-                        hierarchyType = hierarchyType.CONTRACT
-                    },
-                }
-            );
+            new contractType
+            {
+                contractNumber = "contract1",
+                hierarchyType = hierarchyType.CONTRACT
+            },
+                });
+
             testContractRequest.contract.hierarchyType = hierarchyType.CONTRACT;
 
             var mockedRule = new Mock<IRule<contractRequestType>>();
             var mockedRuleset = new List<IRule<contractRequestType>>
-            {
-                mockedRule.Object
-            };
+    {
+        mockedRule.Object
+    };
 
             var validatorUnderTest = new Validator();
 
-            // Act
-            validatorUnderTest.Validate(testContractRequest, mockedRuleset);
+            try
+            {
+                // Act
+                validatorUnderTest.Validate(testContractRequest, mockedRuleset);
 
-            // Assert
+                Assert.Fail("Expected InvalidOperationException was not thrown.");
+            }
+            catch (InvalidOperationException)
+            {
+                // expected
+            }
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void Validate_WhenContractRequestContainsNoMasterContracts_RaiseException()
         {
-            // Arrange            
-            var testContractRequest = new contractRequestType();
-            testContractRequest.contract = null;
+            // Arrange
+            var testContractRequest = new contractRequestType
+            {
+                contract = null
+            };
 
             var mockedRule = new Mock<IRule<contractRequestType>>();
             var mockedRuleset = new List<IRule<contractRequestType>>
-            {
-                mockedRule.Object
-            };
+    {
+        mockedRule.Object
+    };
 
             var validatorUnderTest = new Validator();
 
-            // Act
-            validatorUnderTest.Validate(testContractRequest, mockedRuleset);
+            try
+            {
+                // Act
+                validatorUnderTest.Validate(testContractRequest, mockedRuleset);
 
-            // Assert
+                Assert.Fail("Expected InvalidOperationException was not thrown.");
+            }
+            catch (InvalidOperationException)
+            {
+                // expected
+            }
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void Validate_WhenContractRequestContainsNoChildContracts_RaiseException()
         {
-            // Arrange            
+            // Arrange
             var testContractRequest = CreateEmptyContractRequest();
+
             var mockedRule = new Mock<IRule<contractRequestType>>();
             var mockedRuleset = new List<IRule<contractRequestType>>
-            {
-                mockedRule.Object
-            };
+    {
+        mockedRule.Object
+    };
 
             var validatorUnderTest = new Validator();
 
-            // Act
-            validatorUnderTest.Validate(testContractRequest, mockedRuleset);
+            try
+            {
+                // Act
+                validatorUnderTest.Validate(testContractRequest, mockedRuleset);
 
-            // Assert
-        }        
+                Assert.Fail("Expected InvalidOperationException was not thrown.");
+            }
+            catch (InvalidOperationException)
+            {
+                // expected
+            }
+        }
+
 
         [TestMethod, TestCategory("UnitTest")]
         public void Validator_Validate_ShouldNotRaiseExceptionWhenContractRequestContainsMultipleChildContracts()

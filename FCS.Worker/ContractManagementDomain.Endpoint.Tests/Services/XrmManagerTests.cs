@@ -509,7 +509,7 @@
             const string batchId = "XX";
             const string correlationId = "ZZZ";
             const string ukprn = "10000673";
-            contract masterContract = GetCorpContract();
+            Contract masterContract = GetCorpContract();
 
             // pre-cleanup
             GetContractsForUkprn(ukprn)

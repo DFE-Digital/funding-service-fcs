@@ -1,17 +1,17 @@
 ﻿namespace AllocationDeliveryDomain.Endpoint.ActualsPull.Adapters
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using Azure;
     using Extensions;
-    using Microsoft.WindowsAzure.Storage.Table;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
     using SFA.FCT.AllocationDeliveryDomain.Common.Storage;
     using SFA.FCT.CrossDomain.Integration.Common.PagedStorage;
     using SFA.FCT.CrossDomain.Integration.Common.Storage;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ClosedCollection = AllocationDelivery.Messages.DTOs.ClosedCollection;
-
+    using Azure.Data.Tables;
     public class DcStubAdapter : IDcAdapter
     {
         private readonly IAzureTableStore _azureTableStore;
@@ -70,9 +70,22 @@
             return Task.FromResult((IReadOnlyCollection<SummarisedActual>) reportedActuals.Select(ra => ra.ToSummarisedActual()).ToList());
         }
 
-        private class ReportedActualGroup : TableEntity
-        {
+        private class ReportedActualGroup : ITableEntity
+        {           
+
+            public string PartitionKey { get; set; }
+
+            public string RowKey { get; set; }
+
             public int RowCount { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag { get; set; }
+
+            public int PageCount { get; set; }
+
+
         }
     }
 }

@@ -29,7 +29,7 @@
 
         private static IOrganizationService _organizationService;
 
-        private contract _masterContract;
+        private Contract _masterContract;
 
         public IntegrationTestBase()
         {
@@ -64,7 +64,7 @@
             Container.BeginScope();
         }
 
-        protected contract GetCorpContract()
+        protected Contract GetCorpContract()
         {
             if (_masterContract == null)
             {
@@ -72,8 +72,8 @@
                 {
                     var document = XDocument.Load(resource.Stream);
 
-                    XmlSerializer serializer = new XmlSerializer(typeof(contract));
-                    _masterContract = (contract)serializer.Deserialize(document.Root.CreateReader());
+                    XmlSerializer serializer = new XmlSerializer(typeof(Contract));
+                    _masterContract = (Contract)serializer.Deserialize(document.Root.CreateReader());
                 }
             }
 
@@ -88,13 +88,19 @@
 
             return _masterContract;
         }
-
-        protected ExtendedContract TransformCorpContractToExtendedCorpContract(contract corpContract)
+        protected ExtendedContract TransformCorpContractToExtendedCorpContract(
+            Contract corpContract)
         {
-            Mapper.CreateMap<contract, ExtendedContract>();
-            Mapper.CreateMap<contractType, ExtendedContractType>();
-            Mapper.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
-            return Mapper.Map<contract, ExtendedContract>(corpContract);
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Contract, ExtendedContract>();
+                cfg.CreateMap<contractType, ExtendedContractType>();
+                cfg.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            },null);
+
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<ExtendedContract>(corpContract);
         }
 
         protected void RemoveMasterAndChildContracts(Guid masterContractGuid)

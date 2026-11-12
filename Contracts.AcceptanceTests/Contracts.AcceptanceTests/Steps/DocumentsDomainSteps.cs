@@ -11,6 +11,7 @@
     using Extensions;
     using MoreLinq;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class DocumentsDomainSteps
@@ -31,7 +32,7 @@
         {
             var archivedDocuments = ArchivedDocumentRepository.GetArchivedDocumentsThatHaveFilenamePrefix(fileNamePrefix);
 
-            Assert.AreEqual(expectedRowCount, archivedDocuments.Count,
+            ClassicAssert.AreEqual(expectedRowCount, archivedDocuments.Count,
                 $"Unexpected number of control table rows present with filename prefix '{fileNamePrefix}'");
 
             string containerName = $"fcs-document-archive{AzureBlobStorageHelper.GetEnvironmentSuffix()}";
@@ -41,7 +42,7 @@
                 .FirstOrDefault(archivedDocument => 
                     AzureStorageWrapper.DoesBlockBlobExist(new FctFile(fileContainer: containerName, filename: archivedDocument.Key.ToString())) == false);
 
-            Assert.IsNull(missingArchivedDocument, $"The document '{missingArchivedDocument?.FileName}' is missing in document archive (blob storage)");
+            ClassicAssert.IsNull(missingArchivedDocument, $"The document '{missingArchivedDocument?.FileName}' is missing in document archive (blob storage)");
         }
 
         [Given(@"Sharepoint file '(.*)' in '(.*)' is copied to '(.*)' as '(.*)'")]

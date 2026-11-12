@@ -89,7 +89,7 @@
             {
                 string masterContractNumber = _crmContractRepository.GetMasterContractNumber(message.ContractNumber, message.VersionNumber, message.SubVersionNumber);
 
-                contract corporateContract = _contractsManager.GetCorporateContractForSpecificVersion(message.ContractNumber, message.VersionNumber, message.SubVersionNumber);
+                Contract corporateContract = _contractsManager.GetCorporateContractForSpecificVersion(message.ContractNumber, message.VersionNumber, message.SubVersionNumber);
 
                 DateTime closureDate = _dateProvider.GetDate(connectionInfo);
 
@@ -136,7 +136,7 @@
             _logger.LogInformation(ContractManagementLoggingEvents.ApproveContractClosureCommandCompleted, $"ApproveContractClosureCommand handler completed - {message}");
         }
 
-        private static void SetContractStatuses(contract corporateMasterContract)
+        private static void SetContractStatuses(Contract corporateMasterContract)
         {
             corporateMasterContract.contracts.ForEach(c =>
             {
@@ -145,7 +145,7 @@
             });
         }
         
-        private static void SetEmptyContractEndDates(contract corporateMasterContract, DateTime closureDate)
+        private static void SetEmptyContractEndDates(Contract corporateMasterContract, DateTime closureDate)
         {
             corporateMasterContract.contracts
                 .Where(c => !c.endDate.HasValue)

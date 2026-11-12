@@ -67,7 +67,7 @@
             extendedCorpContract.contracts[0].contractValue = 10;
             extendedCorpContract.contracts[0].contractNumber = contractNumber;
             // give the contracts matching ukprns
-            contractRequestContract.contracts.ForEach(c => c.contractor = new ContractRequest.contractor
+            contractRequestContract.contracts.ForEach(c => c.contractor = new ContractRequest.Contractor
             {
                 ukprn = testUkprn + i++
                 
@@ -75,7 +75,7 @@
             contractRequestContract.contracts[0].contractNumber = contractNumber;
 
             i = 0;
-            extendedCorpContract.contracts.ForEach(c => c.contractor = new CorporateContract.contractor
+            extendedCorpContract.contracts.ForEach(c => c.contractor = new CorporateContract.Contractor
             {
                 ukprn = testUkprn + i++
             });

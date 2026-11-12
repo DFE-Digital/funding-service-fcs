@@ -1,41 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F44F23D3-7440-4F6A-9475-A238778D872D}</ProjectGuid>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContractManagementDomain.Termination.Xrm</RootNamespace>
-    <AssemblyName>ContractManagementDomain.Termination.Xrm</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <!--<UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>-->
+    <Configurations>AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PP-OAT;PS;PUB;Release</Configurations>
+    <AssemblyTitle>ContractManagementDomain.Termination.Xrm</AssemblyTitle>
+    <Product>ContractManagementDomain.Termination.Xrm</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
     <OutputPath>bin\AT\</OutputPath>
@@ -71,138 +49,48 @@
     <OutputPath>bin\PS\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntiXSSLibrary, Version=4.2.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\AntiXSSLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Windsor.4.1.1\lib\net45\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.12\lib\net462\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.ServiceBus.5.0.2\lib\net46\Microsoft.ServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.0.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client.CodeGeneration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.CodeGeneration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal.Files, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.Files.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.12\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Deployment.9.0.2.12\lib\net462\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="MoreLinq, Version=2.10.21623.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\morelinq.2.10.0\lib\net40\MoreLinq.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.7.1.4\lib\net452\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.ObjectBuilder.CastleWindsor, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.CastleWindsor.7.0.0\lib\net452\NServiceBus.ObjectBuilder.CastleWindsor.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
+    
     <Reference Include="System.Data.Services" />
     <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Design" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.4.403061554\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Runtime.Serialization" />
+    
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web" />
+    
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.DirectoryServices" Version="10.0.7" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.7" />
+    <PackageReference Include="System.Runtime.Caching" Version="10.0.7" />
+    <PackageReference Include="Castle.Core" Version="4.2.0" />
+    <PackageReference Include="Castle.Windsor" Version="4.1.1" />
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.42" />
+    <PackageReference Include="Microsoft.CrmSdk.Deployment" Version="9.0.2.34" />
+    <PackageReference Include="Microsoft.CrmSdk.Extensions" Version="7.1.0.1" />
+    <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
+    <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+    <PackageReference Include="morelinq" Version="4.4.0" />
+    <PackageReference Include="NServiceBus" Version="9.2.7" />
+    <PackageReference Include="NServiceBus.CastleWindsor" Version="7.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
+	  <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="5.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContractTerminatedHandler.cs" />
-    <Compile Include="ContractTerminationCancelledHandler.cs" />
-    <Compile Include="ContractTerminationFailedHandler.cs" />
-    <Compile Include="EndpointConfig.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CrmContractRepository.cs" />
-    <Compile Include="Repositories\ICrmContractRepository.cs" />
-    <Compile Include="WindsorInstaller.cs" />
+    <ProjectReference Include="..\..\ContractManagementDomain\ContractManagementService.Common\ContractManagementService.Common.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
+    <ProjectReference Include="..\FCS.Worker.Entities\FCS.Worker.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ContractManagementDomain\ContractManagementService.Common\ContractManagementService.Common.csproj">
-      <Project>{CD312A9F-BB0D-4F77-8FE0-49175B964CFE}</Project>
-      <Name>ContractManagementService.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
-      <Project>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</Project>
-      <Name>CrossDomain.Integration.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj">
-      <Project>{D68560C9-7FCC-41E6-B48D-3CD237D97926}</Project>
-      <Name>CrossDomain.Integration.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj">
-      <Project>{9D36A2BE-95D8-49B7-BE54-9F063738CB5B}</Project>
-      <Name>CrossDomain.Integration.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
-      <Project>{B93F0ED2-8AF4-46C4-AE47-DAA3483FD8F3}</Project>
-      <Name>Framework.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FCS.Worker.Entities\FCS.Worker.Common.csproj">
-      <Project>{5A495916-854C-4B20-B7FC-B696EA94FF61}</Project>
-      <Name>FCS.Worker.Common</Name>
-    </ProjectReference>
+    <PackageReference Include="NServiceBus" Version="7.1.4" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

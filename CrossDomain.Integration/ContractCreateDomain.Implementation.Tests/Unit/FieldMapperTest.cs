@@ -35,7 +35,7 @@
         {
             Assert.AreEqual(
                 "AY1718",
-                CrmFieldMapper.GetPrimaryKeyFieldValue(new CorporateContract.period
+                CrmFieldMapper.GetPrimaryKeyFieldValue(new CorporateContract.Period
                 {
                     period1 = "1718",
                     periodType = new CorporateContract.periodTypeType
@@ -43,7 +43,7 @@
                         periodTypeCode = CorporateContract.periodTypeCodeType.AY
                     }
                 }));
-            Assert.AreEqual("12345678", CrmFieldMapper.GetPrimaryKeyFieldValue(new CorporateContract.contractor { ukprn = 12345678 }));
+            Assert.AreEqual("12345678", CrmFieldMapper.GetPrimaryKeyFieldValue(new CorporateContract.Contractor { ukprn = 12345678 }));
             Assert.AreEqual("AGE", CrmFieldMapper.GetPrimaryKeyFieldValue(new CorporateContract.fundingType { fundingTypeCode = "AGE" }));
             Assert.AreEqual("AEB", CrmFieldMapper.GetPrimaryKeyFieldValue(new CorporateContract.fundingStream { fundingStreamCode = "AEB" }));
             Assert.AreEqual("Approved", CrmFieldMapper.GetPrimaryKeyFieldValue(new CorporateContract.contractStatusType { status = "Approved" }));
@@ -69,7 +69,7 @@
             var emptyKey = CrmFieldMapper.GetPeriodPk(null);
             Assert.AreEqual(0, emptyKey.KeyFields.Count);
 
-            var key = CrmFieldMapper.GetPeriodPk(new CorporateContract.period
+            var key = CrmFieldMapper.GetPeriodPk(new CorporateContract.Period
             {
                 period1 = "1718",
                 periodType = new CorporateContract.periodTypeType
@@ -93,7 +93,7 @@
         {
             var key = CrmFieldMapper.GetFundingStreamPeriodPk(new CorporateContract.contractAllocationsContractAllocation
             {
-                period = new CorporateContract.period
+                period = new CorporateContract.Period
                 {
                     period1 = "1718",
                     periodType = new CorporateContract.periodTypeType

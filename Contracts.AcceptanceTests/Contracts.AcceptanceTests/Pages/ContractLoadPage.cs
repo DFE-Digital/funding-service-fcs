@@ -121,9 +121,10 @@
             WaitTillPdfFileGeneratedInAzureInterval = 360;
             if (string.IsNullOrWhiteSpace(UseAzureStorageBulkUpload))
             {
-                UseAzureStorageBulkUpload = ConfigurationManager.AppSettings["UseAzureStorageBulkUpload"];
-                DropFolder = UseAzureStorageBulkUpload == "true" ? ConfigurationManager.AppSettings["BulkUploadFolder"] : ConfigurationManager.AppSettings["Office365BulkUploadFolder"];
-                OutputFolder = UseAzureStorageBulkUpload == "true" ? ConfigurationManager.AppSettings["BulkUploadOutputFolder"] : ConfigurationManager.AppSettings["Office365BulkUploadOutputFolder"];
+                var configuration = TestConfiguration.Configuration;
+                UseAzureStorageBulkUpload = configuration["AzureStorage:UseForBulkUpload"];
+                DropFolder = UseAzureStorageBulkUpload == "true" ? configuration["BulkUpload:InputFolder"] : configuration["Office365BulkUpload:InputFolder"];
+                OutputFolder = UseAzureStorageBulkUpload == "true" ? configuration["BulkUpload:OutputFolder"] : configuration["Office365BulkUpload:OutputFolder"];
             }
 
             _crmOrganizationService = CrmConnectionFactory.GetConnection();
@@ -465,7 +466,21 @@
             else
             {
                 var offwrapper = GetDataStoreInstance();
-                var data = offwrapper.GetFilesByFileNameStartText(OutputFolder, _copiedFilePath).Single(file => file.Key.Contains(SummaryFileExtensionName)).Value;
+                var matchingReports = offwrapper.GetFilesByFileNameStartText(OutputFolder, _copiedFilePath)
+                    .Where(file => file.Key.Contains(SummaryFileExtensionName))
+                    .ToList();
+
+                if (matchingReports.Count == 0)
+                {
+                    return false;
+                }
+
+                if (matchingReports.Count > 1)
+                {
+                    throw new InvalidOperationException($"Multiple syntax reports found for '{_copiedFilePath}' in '{OutputFolder}'.");
+                }
+
+                var data = matchingReports[0].Value;
                 var fileContents = Encoding.UTF8.GetString(data, 0, data.Length);
 
                 return fileContents.IndexOf(errormessage, StringComparison.InvariantCultureIgnoreCase) >= 0;
@@ -912,7 +927,7 @@
         {
             return new FctFile
             {
-                FileContainer = ConfigurationManager.AppSettings["DocumentGeneration.TargetContainer"],
+            FileContainer = TestConfiguration.Configuration["DocumentGeneration:TargetContainer"],
                 Filename = GenerateFilename()
             };
         }

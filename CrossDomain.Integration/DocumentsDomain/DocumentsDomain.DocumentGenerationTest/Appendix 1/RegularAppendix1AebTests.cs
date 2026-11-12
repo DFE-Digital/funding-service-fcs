@@ -31,7 +31,7 @@
         public void RegularAppendix1_IsDocumentPartRequired_ShouldReturnFalseForAeb()
         {
             // arrange
-            contractType corpContract = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb.json");
+            contractType corpContract = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb.json");
             RegularAppendix1 aebAppendix1 = new RegularAppendix1(null, null, null, null);
 
             // act
@@ -41,16 +41,21 @@
             Assert.IsFalse(isDocumentPartRequired);
         }
 
+
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof (ApplicationException))]
         public void RegularAppendix1_RequiredHeaderDocumentName_ShouldThrowApplicationException()
         {
-            // arrange
-            RegularAppendix1 aebAppendix1 = new RegularAppendix1(null, null, null, null);
+            // Arrange
+            var aebAppendix1 = new RegularAppendix1(null, null, null, null);
 
-            // act, assert
-            string requiredHeaderDocumentName = aebAppendix1.RequiredHeaderDocumentName;
+            // Act & Assert
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+                // Accessing the property should throw
+                var _ = aebAppendix1.RequiredHeaderDocumentName;
+            });
         }
+
 
         [TestMethod, TestCategory("UnitTest")]
         public void RegularAppendix1_IsHeaderDocumentRequired_ShouldReturnFalse()
@@ -69,7 +74,7 @@
         public void RegularAppendix1_SupplyDocumentGenerationRequest_ShouldReturnExpectedDocumentGenerationRequest()
         {
             // arrange
-            contractType corpContract = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb.json");
+            contractType corpContract = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb.json");
             int expectedNumberRepeatingSections =
                 corpContract.contractAllocations.SelectMany(ca => ca.contractDeliverables.Select(cd => cd.deliverable.deliverableName))
                 .Distinct()
@@ -165,7 +170,7 @@
         public void RegularAppendix1_SupplyDocumentGenerationRequest_AEBC1819_ShouldReturnExpectedDocumentGenerationRequest()
         {
             // arrange
-            contractType corpContract = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json");
+            contractType corpContract = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json");
 
             int expectedNumberRepeatingSections =
                 corpContract.contractAllocations.SelectMany(ca => ca.contractDeliverables.Select(cd => cd.deliverable.deliverableName))

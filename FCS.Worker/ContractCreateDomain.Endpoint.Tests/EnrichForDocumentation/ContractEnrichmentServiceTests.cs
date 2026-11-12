@@ -29,7 +29,7 @@
                 Mock.Of<ILogger>(),
                 siblingApprovedContractServiceMock.Object,
                 Mock.Of<IRelatedAllocationEnricher>());
-            contract contract = new contract();
+            Contract contract = new Contract();
             organisation org = new organisation
             {
                 organisationNames = new List<organisationNamesOrganisationName>
@@ -73,7 +73,7 @@
                 Mock.Of<ILogger>(),
                 siblingApprovedContractServiceMock.Object,
                 Mock.Of<IRelatedAllocationEnricher>());
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contractAllocations = new List<contractAllocationsContractAllocation>
                 {

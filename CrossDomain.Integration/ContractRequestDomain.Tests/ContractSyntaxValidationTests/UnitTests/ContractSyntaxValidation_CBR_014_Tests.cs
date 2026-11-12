@@ -1,5 +1,6 @@
 ﻿namespace ContractRequestDomain.Tests.ContractSyntaxValidationTests.UnitTests
 {
+    extern alias RequestDomainDS;
     using System.Collections.Generic;
     using System.Linq;
     using Castle.MicroKernel.Lifestyle;
@@ -11,8 +12,8 @@
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Interfaces;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
     using SFA.FCT.ContractRequestDomain.Common;
-    using SFA.FCT.ContractRequestDomain.DataStore;
-    using SFA.FCT.ContractRequestDomain.DataStore.Repositories;
+    using RequestDomainDS::SFA.FCT.ContractRequestDomain.DataStore;
+    using RequestDomainDS::SFA.FCT.ContractRequestDomain.DataStore.Repositories;
     using SFA.FCT.CrossDomain.Integration.Entities.ExcelUpload;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;

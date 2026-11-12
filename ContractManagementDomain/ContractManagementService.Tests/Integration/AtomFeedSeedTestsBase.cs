@@ -36,7 +36,7 @@ namespace SFA.FCT.ContractManagementService.Test.Integration
             get { return ConfigurationManager.AppSettings["ContractManagementServiceUrl"]; }
         }
 
-        public async Task ShouldRunSeedAndDataOnFeedShouldContainSomeSeedData<T>(int totalExpectedRows, IPagedStorageSeed<contract> seed)
+        public async Task ShouldRunSeedAndDataOnFeedShouldContainSomeSeedData<T>(int totalExpectedRows, IPagedStorageSeed<Contract> seed)
         {
             var runner = new AtomFeedSeedRunner(
                 Container.GetService<ILogger>(),

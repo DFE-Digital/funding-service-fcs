@@ -38,7 +38,7 @@
                 {
                     fundingTypeCode = "MAIN"
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 87654321,
                     legalName = "CONTRACTING ORG"
@@ -48,7 +48,7 @@
                     new contractAllocationsContractAllocation
                     {
                         DeliveryOrganisation = "12345678",
-                        DeliveryOrganisationDetail = new contractor
+                        DeliveryOrganisationDetail = new Contractor
                         {
                             ukprn = 12345678,
                             legalName = "DELIVERY ORG 1"
@@ -76,7 +76,7 @@
                 {
                     fundingTypeCode = "LOANS"
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 87654321,
                     legalName = "CONTRACTING ORG"
@@ -86,7 +86,7 @@
                     new contractAllocationsContractAllocation
                     {
                         DeliveryOrganisation = "12345678",
-                        DeliveryOrganisationDetail = new contractor
+                        DeliveryOrganisationDetail = new Contractor
                         {
                             ukprn = 12345678,
                             legalName = "DELIVERY ORG 1"
@@ -114,7 +114,7 @@
                 {
                     fundingTypeCode = "AEB"
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 87654321,
                     legalName = "CONTRACTING ORG"
@@ -124,7 +124,7 @@
                     new contractAllocationsContractAllocation
                     {
                         DeliveryOrganisation = "12345678",
-                        DeliveryOrganisationDetail = new contractor
+                        DeliveryOrganisationDetail = new Contractor
                         {
                             ukprn = 12345678,
                             legalName = "DELIVERY ORG 1"
@@ -152,7 +152,7 @@
                 {
                     fundingTypeCode = "MAIN"
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 87654321,
                     legalName = "CONTRACTING ORG"
@@ -184,7 +184,7 @@
                 {
                     fundingTypeCode = "MAIN"
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 87654321,
                     legalName = "CONTRACTING ORG"
@@ -194,7 +194,7 @@
                     new contractAllocationsContractAllocation
                     {
                         DeliveryOrganisation = "87654321",
-                        DeliveryOrganisationDetail = new contractor
+                        DeliveryOrganisationDetail = new Contractor
                         {
                             ukprn = 87654321,
                             legalName = "CONTRACTING ORG"
@@ -297,7 +297,7 @@
             // arrange
             contractType contract = new contractType
             {
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 12345678,
                     organisationIdentifier = "ORG0000001",
@@ -308,7 +308,7 @@
                 {
                     fundingTypeCode = "MAIN"
                 },
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType
                     {
@@ -327,7 +327,7 @@
                     {
                         contractAllocationNumber = "AEC-124",
                         DeliveryOrganisation = "87654321",
-                        DeliveryOrganisationDetail = new contractor()
+                        DeliveryOrganisationDetail = new Contractor()
                         {
                             ukprn = 87654321,
                             organisationIdentifier = "ORG0000002",

@@ -1,8 +1,8 @@
 ﻿namespace Datafix.Tests.Automation.Releases.R92
 {
+    using Azure.Messaging.ServiceBus.Administration;
     using System.Configuration;
-    using Microsoft.ServiceBus;
-
+    
     public class RemoveRedundantQueueR92 : IApplyDataFix
     {
         public string Release => "R92";
@@ -15,12 +15,16 @@
 
         public void ApplyDataFix()
         {
-            GetAsbNamespaceManager().DeleteQueue("allocationdeliverydomain.endpoint");
+            GetAsbNamespaceManager().DeleteQueueAsync("allocationdeliverydomain.endpoint");
         }
 
-        private static NamespaceManager GetAsbNamespaceManager()
+        private static ServiceBusAdministrationClient GetAsbNamespaceManager()
         {
-            return NamespaceManager.CreateFromConnectionString(ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString);
+            var connectionString = ConfigurationManager
+                .ConnectionStrings["NServiceBus/Transport"]
+                .ConnectionString;
+
+            return new ServiceBusAdministrationClient(connectionString);
         }
     }
 }

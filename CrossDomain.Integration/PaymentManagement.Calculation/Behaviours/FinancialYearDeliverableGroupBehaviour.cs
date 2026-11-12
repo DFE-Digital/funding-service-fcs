@@ -155,28 +155,36 @@
             IReadOnlyCollection<CalculationDeliverableInput> deliverables)
         {
             return deliverables.Where(d => d.FundingStreamPeriodCappingGroupId.HasValue)
-                .GroupBy(d => d.FundingStreamPeriodCappingGroupId).SelectMany(
-                    fspCappingGroup =>
-                    {
-                        var plannedValuesForFinancialYear = fspCappingGroup.Where(d => d.AllowProfile)
-                            .SelectMany(d => d.DeliverablePeriods)
-                            .GroupBy(dp => new Period(dp.Period).GetTaxYear())
-                            .ToDictionary(grp => grp.Key, grp => grp.Sum(dp => dp.PlannedValue));
+                .GroupBy(d => d.FundingStreamPeriodCappingGroupId)
+                .SelectMany(fspCappingGroup =>
+                {
+                    var plannedValuesForFinancialYear = fspCappingGroup
+                        .Where(d => d.AllowProfile)
+                        .SelectMany(d => d.DeliverablePeriods)
+                        .GroupBy(dp => new Period(dp.Period).GetTaxYear())
+                        .ToDictionary(
+                            grp => grp.Key,
+                            grp => grp.Sum(dp => dp.PlannedValue));
 
-                        return fspCappingGroup.SelectMany(d => d.DeliverablePeriods)
-                            .GroupBy(dp => new Period(dp.Period).GetTaxYear())
-                            .Select(grp =>
-                            {
-                                return new CappingGroupFinancialYearInfo(
-                                    fundingStreamPeriodCappingGroupId: fspCappingGroup.Key.Value,
-                                    deliverablePeriodsForFinancialYear: grp.ToList(),
-                                    financialYear: grp.Key,
-                                    plannedValueForGroupYear:
-                                    plannedValuesForFinancialYear.GetValueOrDefault(grp.Key) ?? 0);
-                            }).ToList();
+                    return fspCappingGroup
+                        .SelectMany(d => d.DeliverablePeriods)
+                        .GroupBy(dp => new Period(dp.Period).GetTaxYear())
+                        .Select(grp =>
+                        {
+                            return new CappingGroupFinancialYearInfo(
+                                fundingStreamPeriodCappingGroupId: fspCappingGroup.Key.Value,
+                                deliverablePeriodsForFinancialYear: grp.ToList(),
+                                financialYear: grp.Key,
+                                plannedValueForGroupYear:
+                                   DictionaryExtensions
+                                        .GetValueOrDefault(plannedValuesForFinancialYear, grp.Key) ?? 0
+                            );
+                        })
+                        .ToList();
 
-                    }).ToLookup(
-                    cappingGrpFinancialPeriod => cappingGrpFinancialPeriod.FundingStreamPeriodCappingGroupId);
+                })
+                .ToLookup(c => c.FundingStreamPeriodCappingGroupId);
         }
+
     }
 }

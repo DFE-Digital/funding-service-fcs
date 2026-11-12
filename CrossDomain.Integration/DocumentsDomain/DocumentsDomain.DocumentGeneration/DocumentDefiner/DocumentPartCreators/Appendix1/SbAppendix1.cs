@@ -1,19 +1,20 @@
 ﻿namespace SFA.FCT.DocumentsDomain.DocumentGeneration.DocumentDefiner.DocumentPartCreators.Appendix1
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using Aspose.Words.Replacing;
     using Aspose.Words.Tables;
+    using Common;
     using Common.Models;
     using ContractManagement.DataStore.Repositories;
     using CrossDomain.Integration.Entities.CorporateContract;
-    using DocumentConfiguration;
-    using Integration;
-    using Common;
     using DataStore.Models;
     using DataStore.Repositories;
+    using DocumentConfiguration;
     using Dtos;
+    using Integration;
     using Optional;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class SbAppendix1 : DocumentPartCreator
     {
@@ -80,13 +81,20 @@
 
             if (row.FirstCell.GetText().Contains(OfWhichNewStartsText))
             {
-                row.FirstCell.Range.Replace(Constants.IndentTextMarker, fourSpaces, true, false);
+                var options = new FindReplaceOptions
+                {
+                    MatchCase = true,           
+                    FindWholeWordsOnly = false  
+                };
+
+                row.FirstCell.Range.Replace(Constants.IndentTextMarker, fourSpaces, options);
             }
             else
             {
                 DocumentGenerationRequest.CleanupIndentMarkers(row);
             }
         }
+
 
         private string GetTemplateFilenameFromPolicyConfig(contractType contract, string templateContainer)
         {

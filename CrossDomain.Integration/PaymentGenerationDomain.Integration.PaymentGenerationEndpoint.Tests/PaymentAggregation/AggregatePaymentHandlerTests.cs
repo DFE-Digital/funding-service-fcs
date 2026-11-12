@@ -1,5 +1,7 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGeneration.PaymentAggregation
 {
+
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,14 +14,14 @@
     using NServiceBus;
     using PaymentGenerationEndpoint.AggregatePaymentEndpoint;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
     using SFA.FCT.Framework.Logging.NullObjects;
-    using Allocation = SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation;
+    using Allocation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation;
     using SubnominalAggregation = DataStore.Model.SubnominalAggregation;
     using DataStore.Repositories;
     using NServiceBus.Testing;
     using PaymentGenerationEndpoint.Infrastructure;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class AggregatePaymentHandlerTests
@@ -137,10 +139,13 @@
 
             var newPayments = _paymentDbContext.SubnominalAggregations.Where(a => a.Ukprn == Ukprn);
 
+           
             // Assert
             Assert.AreEqual(1, newPayments.Count(), "Incorrect Number of Payments in Database");
-            Assert.AreEqual(newPayments.First().AllocationNumber, AllocationNumber, "Incorrect AllocationNumber");
-            Assert.AreEqual(newPayments.First().AggregatedValue, 60.50m, "Incorrect AggregatedValue");
+            Assert.AreEqual(AllocationNumber,newPayments.First().AllocationNumber, "Incorrect AllocationNumber");
+            Assert.AreEqual(60.50m,newPayments.First().AggregatedValue, "Incorrect AggregatedValue");
+
+
             DeleteSubnominalAggregationsForUkprn(Ukprn);
             DeleteFundingStreamPeiod(fspCode);
             DeleteFundingStream(fspCode);
@@ -151,7 +156,7 @@
         {
             // Arrange
             var aggregatedPayments = _paymentDbContext.SubnominalAggregations.Any(a => a.Ukprn == Ukprn);
-            Assert.IsFalse(aggregatedPayments, "A Subnominal Aggregation already exists for Ukprn {0}", Ukprn);
+            Assert.IsFalse(aggregatedPayments, $"A Subnominal Aggregation already exists for Ukprn {Ukprn}" );
             const int version = 2;
             const string fspCode = "Test FSP2";
             const string subnominalCode = "2303000";
@@ -261,7 +266,7 @@
                 var newPayments = context.SubnominalAggregations.Where(a => a.Ukprn == Ukprn);
 
                 // Assert
-                Assert.AreEqual(newPayments.Count(), 1, "Incorrect Number of Payments in Database");
+                Assert.AreEqual(1,newPayments.Count(),"Incorrect Number of Payments in Database");
                 Assert.AreEqual(AllocationNumber, newPayments.First().AllocationNumber, "Incorrect AllocationNumber");
                 Assert.AreEqual(60.50m, newPayments.First().AggregatedValue,
                     "Incorrect AggregatedValue. The value was not updated to 60.50");

@@ -47,7 +47,7 @@
             var container = new WindsorContainer();
             container.Kernel.ComponentModelCreated += model =>
             {
-                if (model.LifestyleType == LifestyleType.PerWebRequest)
+                if (model.LifestyleType == LifestyleType.Scoped)
                 {
                     model.LifestyleType = LifestyleType.Scoped;
                 }

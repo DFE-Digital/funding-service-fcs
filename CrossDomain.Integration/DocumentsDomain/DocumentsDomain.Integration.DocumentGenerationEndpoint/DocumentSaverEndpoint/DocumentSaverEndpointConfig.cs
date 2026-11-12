@@ -1,12 +1,13 @@
-﻿namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentSaverEndpoint
+﻿
+namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentSaverEndpoint
 {
+    using FCS.Worker.Common;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
+    using NServiceBus;
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
-    using FCS.Worker.Common;
-    using Framework.Logging.Interfaces;
     using IoC;
-    using NServiceBus;
 
     public class DocumentSaverEndpointConfig : IEndpointConfig
     {
@@ -20,20 +21,22 @@
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            var logger = loggerFactory.CreateLogger<DocumentSaverEndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
-
+            // ✅ Conventions only
             configuration.Conventions()
                 .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => null != t.Namespace && t.Namespace.EndsWith("Events"))
-                .DefiningMessagesAs(t => null != t.Namespace && t.Namespace.EndsWith("Messages"));
+                .DefiningEventsAs(t => t.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstallerForDocumentSaver(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+
+                services.AddDocumentSaverServices(loggerFactory);
             });
 
             return configuration;

@@ -15,6 +15,7 @@
     using Infrastructure.Services;
     using Microsoft.Xrm.Sdk;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
 
     public class ContractManagementPageObject
     {
@@ -71,7 +72,7 @@
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
                     AzureAuthenticator.GetAuthenticationResult());
 
-                string url = ConfigurationManager.AppSettings["ContractManagementServiceUrl"] + endPointUrl;
+                string url = TestConfiguration.Configuration["ContractManagement:ServiceUrl"] + endPointUrl;
 
                 ContractInformation contractInformation = new ContractInformation
                 {
@@ -81,7 +82,7 @@
                 };
 
                 HttpResponseMessage response = client.PostAsJsonAsync(url, contractInformation).Result as HttpResponseMessage;
-                Assert.AreEqual(HttpStatusCode.Accepted, response.StatusCode,
+                ClassicAssert.AreEqual(HttpStatusCode.Accepted, response.StatusCode,
                     $"On successfully initiating {endPointUrl} the response should be 'Accepted'. The status returned is {response.StatusCode}");
             }
         }

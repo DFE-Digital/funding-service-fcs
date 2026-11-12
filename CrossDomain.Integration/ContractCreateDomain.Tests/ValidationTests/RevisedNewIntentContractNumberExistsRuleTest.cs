@@ -23,7 +23,7 @@
             // Arrange
             var contract = Contract.contract.contracts.First();
 
-            contract.CRMIntent = intent.RevisedNew;
+            contract.CRMIntent = Intent.RevisedNew;
             contract.IsWithdrawnContractWithContractNumberPresentInCrm = true;
 
             // Act & Assert
@@ -36,7 +36,7 @@
             // Arrange
             var contract = Contract.contract.contracts.First();
 
-            contract.CRMIntent = intent.RevisedNew;
+            contract.CRMIntent = Intent.RevisedNew;
             contract.IsWithdrawnContractWithContractNumberPresentInCrm = false;
 
             // Act

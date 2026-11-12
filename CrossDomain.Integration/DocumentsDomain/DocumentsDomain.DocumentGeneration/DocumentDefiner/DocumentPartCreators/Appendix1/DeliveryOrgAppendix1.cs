@@ -75,7 +75,7 @@
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 
-        private string GetOrderString(contractAllocationsContractAllocation allocation, contractor contractingProvider)
+        private string GetOrderString(contractAllocationsContractAllocation allocation, Contractor contractingProvider)
         {
             return string.Format(
                 OrderFormatString,
@@ -205,7 +205,7 @@
             );
         }
 
-        private bool AllocationIsForNonContractingDeliveryOrg(contractAllocationsContractAllocation allocation, contractor contractingProvider)
+        private bool AllocationIsForNonContractingDeliveryOrg(contractAllocationsContractAllocation allocation, Contractor contractingProvider)
         {
             return allocation.HasDeliveryOrganisation()
                 && allocation.DeliveryOrganisation != contractingProvider.ukprn.ToString();

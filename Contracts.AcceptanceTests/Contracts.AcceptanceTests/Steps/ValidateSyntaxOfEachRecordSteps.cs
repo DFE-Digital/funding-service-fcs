@@ -18,6 +18,7 @@
     using Xrm.TestFramework;
     using Xrm.TestFramework.Utils;
     using ActionRetrier = Utilities.ActionRetrier;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class ValidateSyntaxOfEachRecordSteps  
@@ -87,15 +88,15 @@
 
             if (hasPassed)
             {
-                Assert.Pass($"FCSPERFTEST|{title}|{started}|{completed}|Pass||FCSPERFTEST");
+                ClassicAssert.Pass($"FCSPERFTEST|{title}|{started}|{completed}|Pass||FCSPERFTEST");
             }
             else
             {
-                Assert.Fail($"FCSPERFTEST|{title}|{started}|{completed}|Fail|{testError.Message}|FCSPERFTEST");
+                ClassicAssert.Fail($"FCSPERFTEST|{title}|{started}|{completed}|Fail|{testError.Message}|FCSPERFTEST");
             }
 
             // No possible null ref exception on testError.Message - if maxTimeExceeded test has error
-            //Assert.Fail($"FCSPERFTEST|{title}|{started}|{DateTime.Now}|Fail|{testError?.Message}|FCSPERFTEST");
+            //ClassicAssert.Fail($"FCSPERFTEST|{title}|{started}|{DateTime.Now}|Fail|{testError?.Message}|FCSPERFTEST");
         }
 
         [Given(@"there are no files prefixed '(.*)' in the Sharepoint '(.*)' folder")]
@@ -124,7 +125,7 @@
 
 
 
-            Assert.IsTrue(File.Exists(_contractLoadStep.InputFilePath), "Input file does not exist");
+            ClassicAssert.IsTrue(File.Exists(_contractLoadStep.InputFilePath), "Input file does not exist");
         }
 
         [Given(@"an excel spreadsheet '(.*)' exists in '(.*)' containing '(.*)' contracts")]
@@ -137,7 +138,7 @@
 
             _contractLoadStep.NumberOfContractsToCreate = p2;
 
-            Assert.IsTrue(File.Exists(_contractLoadStep.InputFilePath), "Input file does not exist");
+            ClassicAssert.IsTrue(File.Exists(_contractLoadStep.InputFilePath), "Input file does not exist");
         }
 
         [Given(@"the contracts are all in approved state")]
@@ -153,7 +154,7 @@
         public void UKPRNGivenFieldContainsOnTheTabOfTheExcelSpreadsheet(string p0, string p1, string p2)
         {
             string excelValue = ExcelHelper.GetCellValue(_contractLoadStep.InputFilePath, p2, p0);
-            Assert.AreEqual(p1, excelValue);
+           ClassicAssert.That(excelValue, Is.EqualTo(p1));
             if (!string.IsNullOrEmpty(p1))
             {
                 _contractLoadStep.Ukprns.Add(p1.ToString());
@@ -166,11 +167,11 @@
             string excelValue = ExcelHelper.GetCellValue(_contractLoadStep.InputFilePath, p2, p0);
             if (excelValue == null)
             {
-                Assert.IsTrue(string.IsNullOrEmpty(p1));    
+                ClassicAssert.IsTrue(string.IsNullOrEmpty(p1));    
             }
             else
             {
-                Assert.AreEqual(p1, excelValue);
+               ClassicAssert.That(excelValue, Is.EqualTo(p1));
             }
         }
         
@@ -214,7 +215,7 @@
                 folderName: folderName,
                 doesFileNameMatch: fileName => true);
 
-            Assert.IsTrue(areCorrectNumberOfFilesInFolder, $"Did not find expected {expectedFileCount} files prefixed {fileNamePrefix} in folder {folderName}.");
+            ClassicAssert.IsTrue(areCorrectNumberOfFilesInFolder, $"Did not find expected {expectedFileCount} files prefixed {fileNamePrefix} in folder {folderName}.");
         }
 
         [Then(@"there is '(.*)' file prefixed '(.*)' in the Sharepoint '(.*)' folder and marked as Rejected")]
@@ -227,7 +228,7 @@
                 folderName: folderName,
                 doesFileNameMatch: fileName => fileName.Contains("Rejected"));
 
-            Assert.IsTrue(areCorrectNumberOfFilesInFolder, $"Did not find expected {expectedFileCount} files prefixed {fileNamePrefix} in folder {folderName} and marked as Rejected.");
+            ClassicAssert.IsTrue(areCorrectNumberOfFilesInFolder, $"Did not find expected {expectedFileCount} files prefixed {fileNamePrefix} in folder {folderName} and marked as Rejected.");
         }
 
         [Then(@"there is '(.*)' file prefixed '(.*)' in the Sharepoint '(.*)' folder and suffixed '(.*)'")]
@@ -240,7 +241,7 @@
                 folderName: folderName,
                 doesFileNameMatch: fileName => fileName.EndsWith(fileNameSuffix));
 
-            Assert.IsTrue(areCorrectNumberOfFilesInFolder, $"Did not find expected {expectedFileCount} files prefixed {fileNamePrefix} in folder {folderName} and suffixed {fileNameSuffix}.");
+            ClassicAssert.IsTrue(areCorrectNumberOfFilesInFolder, $"Did not find expected {expectedFileCount} files prefixed {fileNamePrefix} in folder {folderName} and suffixed {fileNameSuffix}.");
         }
 
         [Then(@"there is '(.*)' file prefixed '(.*)' in the Sharepoint '(.*)' folder and suffixed '(.*)' and marked as Rejected")]
@@ -253,7 +254,7 @@
                 folderName: folderName,
                 doesFileNameMatch: fileName => fileName.EndsWith(fileNameSuffix) && fileName.Contains("Rejected"));
 
-            Assert.IsTrue(areCorrectNumberOfFilesInFolder, $"Did not find expected {expectedFileCount} files prefixed {fileNamePrefix} in folder {folderName} and suffixed {fileNameSuffix} and marked as Rejected.");
+            ClassicAssert.IsTrue(areCorrectNumberOfFilesInFolder, $"Did not find expected {expectedFileCount} files prefixed {fileNamePrefix} in folder {folderName} and suffixed {fileNameSuffix} and marked as Rejected.");
         }
 
         [Then(@"a new contract has been created in Crm for Valid records")]
@@ -262,7 +263,7 @@
            // _contractLoadStep.StartPolling(delegate { });
           //  _contractLoadStep.WaitTillFileLoaded();
 
-         //   Assert.IsTrue(_contractLoadStep.IsDataInCrm, "Contract is not loaded in CRM");
+         //   ClassicAssert.IsTrue(_contractLoadStep.IsDataInCrm, "Contract is not loaded in CRM");
         }
 
         [Then(@"a syntax report showing file success should exist in the Sharepoint Reports folder")]
@@ -271,28 +272,30 @@
         public void WhenThereIsASyntaxValidationSuccessReport()
         {
             _contractLoadStep.WaitTillFileLevelErrorFileGenerated();
-            Assert.IsTrue(_contractLoadStep.CheckFileLevelReport("Success"), "Success message not detected in the Syntax Report");
+            ClassicAssert.IsTrue(_contractLoadStep.FileLevelErrorFileGenerated, "Syntax validation report was not generated within the configured timeout.");
+            ClassicAssert.IsTrue(_contractLoadStep.CheckFileLevelReport("Success"), "Success message not detected in the Syntax Report");
         }
 
         [Then(@"a syntax report showing file failure should exist in the Sharepoint Reports folder")]
         public void ThenASyntaxReportShowingAFailureShouldExistInTheSharepointReportsFolder()
         {
             _contractLoadStep.WaitTillFileLevelErrorFileGenerated();
-            Assert.IsTrue(_contractLoadStep.CheckFileLevelReport("Failed"), "Failure message not detected in the Syntax Report");
+            ClassicAssert.IsTrue(_contractLoadStep.FileLevelErrorFileGenerated, "Syntax validation report was not generated within the configured timeout.");
+            ClassicAssert.IsTrue(_contractLoadStep.CheckFileLevelReport("Failed"), "Failure message not detected in the Syntax Report");
         }
 
         [Then(@"I should see a file for syntax validation report")]
         public void ThenIShouldSeeAFileForSyntaxValidationReport()
         {
             _contractLoadStep.WaitTillFileLevelErrorFileGenerated();
-            Assert.IsTrue(_contractLoadStep.FileLevelErrorFileGenerated, "Syntax validation report not Generated");
+            ClassicAssert.IsTrue(_contractLoadStep.FileLevelErrorFileGenerated, "Syntax validation report not Generated");
         }
 
         [Then(@"the syntax report includes the phrase '(.*)'")]
         [Then(@"syntax validation report contains '(.*)'")]
         public void ThenSyntaxValidationReportContainsAmendment(string p0)
         {
-            Assert.IsTrue(_contractLoadStep.CheckFileLevelReport(p0), "Error Message not returned");
+            ClassicAssert.IsTrue(_contractLoadStep.CheckFileLevelReport(p0), "Error Message not returned");
         }
 
         [Then(@"a results report should exist in the Sharepoint Reports folder")]
@@ -300,7 +303,7 @@
         public void ThenAResultsReportExcelSpreadsheetIsGeneratedInTheStorage()
         {
             _contractLoadStep.WaitTillResultsReportFileGenerated();
-            Assert.IsTrue(_contractLoadStep.ResultsReportFileGenerated, "Result Report file does not exist.");
+            ClassicAssert.IsTrue(_contractLoadStep.ResultsReportFileGenerated, "Result Report file does not exist.");
         }
 
         [Then(@"a results report excel spreadsheet is generated in storage in less than (.*) seconds")]
@@ -315,7 +318,7 @@
         [Then(@"results report is generated in (.*) seconds")]
         public void ThenResultsReportIsGeneratedInSeconds(int p0)
         {
-          Assert.IsTrue(_contractLoadStep.isTheReportGeneratedInTime(p0), "Timed part of test exceeded time allowed: "); 
+          ClassicAssert.IsTrue(_contractLoadStep.isTheReportGeneratedInTime(p0), "Timed part of test exceeded time allowed: "); 
 
            //ScenarioContext.Current.Pending();
         }
@@ -327,7 +330,7 @@
             // need to get the results report excel file from blob and read cell values
             string results = _contractLoadStep.GetCellValueFromResultsReport(workbookTab, cellIdentifier);
 
-            Assert.IsTrue(results.Replace(" ", string.Empty).Contains(expectedText.Replace(" ", string.Empty)), "Test expected \n<" + expectedText + "> but found \n<" + results + "> \nStarted on " + _contractLoadStep.DateStarted + " Finished on " + DateTime.Now);
+            ClassicAssert.IsTrue(results.Replace(" ", string.Empty).Contains(expectedText.Replace(" ", string.Empty)), "Test expected \n<" + expectedText + "> but found \n<" + results + "> \nStarted on " + _contractLoadStep.DateStarted + " Finished on " + DateTime.Now);
         }
 
         [Then(@"'(.*)' is displayed in Row '(.*)' of the '(.*)' Column on the '(.*)' tab of the result report")]
@@ -341,7 +344,7 @@
         {
             string results = _contractLoadStep.GetCellValueByColumnNameFromResultsReport(p3, p1, p2);
 
-            Assert.IsTrue(results.Replace(" ", string.Empty).Contains(p0.Replace(" ", string.Empty)), "Expected Response is not available: " + p0 + "; Actually: " + results + "\nStarted on " + _contractLoadStep.DateStarted + " Finished on " + DateTime.Now);
+            ClassicAssert.IsTrue(results.Replace(" ", string.Empty).Contains(p0.Replace(" ", string.Empty)), "Expected Response is not available: " + p0 + "; Actually: " + results + "\nStarted on " + _contractLoadStep.DateStarted + " Finished on " + DateTime.Now);
         }
 
         [Then(@"field '(.*)' Contract is not created in CRM")]
@@ -356,7 +359,7 @@
         {
             var count = _contractLoadStep.GetCountOfContractsInCrmForUkPrns(new List<object>() { p0 });
 
-            Assert.IsTrue(count == 0, "Contract is loaded in CRM");
+            ClassicAssert.IsTrue(count == 0, "Contract is loaded in CRM");
         }
 
         [Then(@"the contract data is now removed")]
@@ -375,7 +378,7 @@
         [Then(@"all contracts have been successful")]
         public void ThenAllContractsHaveBeenSuccessful()
         {
-            Assert.IsTrue(_contractLoadStep.HaveAllContractsOnSpreadsheetBeenLoadedSuccessfully(), "We have some failing contracts");
+            ClassicAssert.IsTrue(_contractLoadStep.HaveAllContractsOnSpreadsheetBeenLoadedSuccessfully(), "We have some failing contracts");
         }
 
         [Then(@"the draft contract header on the latest version of the contract is as follows")]
@@ -398,7 +401,7 @@
                     ContractValue = decimal.Parse(row["ContractValue"])
                 });
             }
-            Assert.IsTrue(_contractLoadStep.ContractHeadersMatch(simpleContractHeaders), "Contract headers do not match");
+            ClassicAssert.IsTrue(_contractLoadStep.ContractHeadersMatch(simpleContractHeaders), "Contract headers do not match");
         }
 
         [Then(@"the draft contract allocations on the latest version of the contract are as follows")]
@@ -442,29 +445,84 @@
 
                 if (allocationsinCrm == null || allocationsinCrm.Count < 1)
                 {
-                    Assert.Fail($"No matching allocations found in CRM for contract {simpleAllocation.ContractNumber}");
+                    ClassicAssert.Fail($"No matching allocations found in CRM for contract {simpleAllocation.ContractNumber}");
                 }
 
                 Entity allocation = allocationsinCrm.FirstOrDefault(m => m.GetAttributeValue("sfa_contractallocationnumber").ToString() == simpleAllocation.AllocationNumber);
                 if (allocation == null)
                 {
-                    Assert.Fail($"No matching allocations found in for allocation {simpleAllocation.AllocationNumber}");
+                    ClassicAssert.Fail($"No matching allocations found in for allocation {simpleAllocation.AllocationNumber}");
                 }
 
-                Assert.AreEqual(simpleAllocation.ActivityDescription, (allocation.GetAttributeValue("sfa_projectdescription") ?? string.Empty).ToString(), $"ActivityDescription not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.AgreementNumber, (allocation.GetAttributeValue("sfa_agreementnumber") ?? string.Empty).ToString(), $"AgreementNumber not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.AllocationDescription, (allocation.GetAttributeValue("sfa_description") ?? string.Empty).ToString(), $"AllocationDescription not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.AllocationEndDate, DateTime.Parse(allocation.GetAttributeValue("sfa_enddate").ToString()).Date, $"AllocationEndDate not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.AllocationStartDate, DateTime.Parse(allocation.GetAttributeValue("sfa_startdate").ToString()).Date, $"AllocationStartDate not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.AllocationValue, allocation.GetAttributeValue<decimal>("sfa_maximumcontractvalue"), $"AllocationValue not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.FundingStreamCode, new AcceptanceTestUtils().GetFundingStreamCodeFromAllocation(allocation), $"FundingStreamCode not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.InvestmentPriority, (allocation.GetAttributeValue("sfa_priority") ?? string.Empty).ToString(), $"InvestmentPriority not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.LEPCode, (allocation.GetAttributeValue("sfa_lepcode") ?? string.Empty).ToString(), $"LEPCode not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.LEPName, (allocation.GetAttributeValue("sfa_lepname") ?? string.Empty).ToString(), $"LEPName not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.LotReference, (allocation.GetAttributeValue("sfa_lotreference") ?? string.Empty).ToString(), $"LotReference not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.RegionType, (allocation.GetAttributeValue("sfa_regiontype") ?? string.Empty).ToString(), $"RegionType not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.TenderSpecificationReference, (allocation.GetAttributeValue("sfa_ittreference") ?? string.Empty).ToString(), $"TenderSpecificationReference not as expected for allocation {simpleAllocation.AllocationNumber}");
-                Assert.AreEqual(simpleAllocation.TenderAwardReference, (allocation.GetAttributeValue("sfa_awardreference") ?? string.Empty).ToString(), $"TenderAwardReference not as expected for allocation {simpleAllocation.AllocationNumber}");
+                ClassicAssert.That(
+                   (allocation.GetAttributeValue("sfa_projectdescription") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.ActivityDescription),
+                    $"ActivityDescription not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_agreementnumber") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.AgreementNumber),
+                    $"AgreementNumber not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_description") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.AllocationDescription),
+                    $"AllocationDescription not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    DateTime.Parse(allocation.GetAttributeValue("sfa_enddate").ToString()).Date,
+                    Is.EqualTo(simpleAllocation.AllocationEndDate),
+                    $"AllocationEndDate not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    DateTime.Parse(allocation.GetAttributeValue("sfa_startdate").ToString()).Date,
+                    Is.EqualTo(simpleAllocation.AllocationStartDate),
+                    $"AllocationStartDate not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    allocation.GetAttributeValue<decimal>("sfa_maximumcontractvalue"),
+                    Is.EqualTo(simpleAllocation.AllocationValue),
+                    $"AllocationValue not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    new AcceptanceTestUtils().GetFundingStreamCodeFromAllocation(allocation),
+                    Is.EqualTo(simpleAllocation.FundingStreamCode),
+                    $"FundingStreamCode not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_priority") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.InvestmentPriority),
+                    $"InvestmentPriority not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_lepcode") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.LEPCode),
+                    $"LEPCode not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_lepname") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.LEPName),
+                    $"LEPName not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_lotreference") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.LotReference),
+                    $"LotReference not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_regiontype") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.RegionType),
+                    $"RegionType not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_ittreference") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.TenderSpecificationReference),
+                    $"TenderSpecificationReference not as expected for allocation {simpleAllocation.AllocationNumber}");
+
+                ClassicAssert.That(
+                    (allocation.GetAttributeValue("sfa_awardreference") ?? string.Empty).ToString(),
+                    Is.EqualTo(simpleAllocation.TenderAwardReference),
+                    $"TenderAwardReference not as expected for allocation {simpleAllocation.AllocationNumber}");
             }
         }
 
@@ -499,8 +557,8 @@
                 simpleContractDeliverables.Add(simpleContractDeliverable);
             }
 
-            Assert.IsTrue(_contractLoadStep.ContractDeliverableMatch(simpleContractDeliverables), "One or more Contract Deliverables not as expected");
-            Assert.IsTrue(_contractLoadStep.ContractDeliverablePeriodsMatch(simpleContractDeliverables), "Contract deliverable periods do not match");
+            ClassicAssert.IsTrue(_contractLoadStep.ContractDeliverableMatch(simpleContractDeliverables), "One or more Contract Deliverables not as expected");
+            ClassicAssert.IsTrue(_contractLoadStep.ContractDeliverablePeriodsMatch(simpleContractDeliverables), "Contract deliverable periods do not match");
 
         }
 
@@ -534,7 +592,7 @@
                 simpleContractDeliverables.Add(simpleContractDeliverable);
             }
 
-            Assert.IsTrue(_contractLoadStep.ContractDeliverablePeriodsVolumesMatch(simpleContractDeliverables), "Contract deliverable period volumes do not match");
+            ClassicAssert.IsTrue(_contractLoadStep.ContractDeliverablePeriodsVolumesMatch(simpleContractDeliverables), "Contract deliverable period volumes do not match");
         }
 
         [Then(@"the total time taken is less than (.*) seconds")]
@@ -542,7 +600,7 @@
         {
             var diffTimeSpan = DateTime.Now - _contractLoadStep.DateStarted;
             _contractLoadStep.TestDuration = diffTimeSpan;
-            Assert.IsTrue(diffTimeSpan.TotalSeconds <= p0, "Timed part of test exceeded time allowed: " + diffTimeSpan.TotalSeconds);
+            ClassicAssert.IsTrue(diffTimeSpan.TotalSeconds <= p0, "Timed part of test exceeded time allowed: " + diffTimeSpan.TotalSeconds);
             Console.WriteLine($"Total time taken: {diffTimeSpan.TotalSeconds} seconds");
         }
 

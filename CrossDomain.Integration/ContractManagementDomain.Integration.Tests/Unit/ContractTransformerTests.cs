@@ -10,14 +10,14 @@
     using SFA.FCT.ContractManagementService.Common;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract;
     using SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
-    using contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract;
+    using contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract;
     using contractAllocationsContractAllocation = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractAllocationsContractAllocation;
     using contractDeliverablesTypeContractDeliverable = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractDeliverablesTypeContractDeliverable;
-    using contractor = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractor;
+    using contractor = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contractor;
     using contractStatusType = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractStatusType;
     using contractType = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType;
     using CorporateSchema = SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema;
-    using period = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.period;
+    using period = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Period;
     using periodTypeCodeType = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeCodeType;
     using periodTypeNameType = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeNameType;
     using periodTypeType = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeType;
@@ -136,7 +136,7 @@
                                 LEPCode = LEPCode,
                                 LEPName = LEPName,
                                 tenderSpecificationReference = tenderSpecificationReference,
-                                //lotReference = lotReference,
+                                lotReference = lotReference,
                                 tenderAwardReference = tenderAwardReference,
                                 ActivityDescription = ActivityDescription,
                                 InvestmentPriority = InvestmentPriority,
@@ -444,7 +444,7 @@
             Enum.GetValues(typeof(periodTypeCodeType)).Cast<periodTypeCodeType>().ForEach(periodTypeCode =>
             {
                 // act
-                CorporateSchema.Contract.contract corporateContract =
+                CorporateSchema.Contract.Contract corporateContract =
                     new ContractTransformer().TransformToCorporateSchemaContract(new contract
                     {
                         contracts = new List<contractType>

@@ -65,7 +65,7 @@
         private static List<string> GetIntentTypes()
         {
             List<string> listOfIntents = new List<string>();
-            intent[] values = (intent[])Enum.GetValues(typeof(intent));
+                intent[] values = (intent[])Enum.GetValues(typeof(intent));
 
             foreach (var value in values)
             {
@@ -122,5 +122,24 @@
         public List<string> ValidValues { get; set; }
 
         public string OverrideErrorMessage { get; set; }
+    }
+
+    // Add this enum definition if it does not exist elsewhere.
+    public enum intent
+    {
+        [System.Xml.Serialization.XmlEnum("Delete Draft")]
+        DeleteDraft,
+        [System.Xml.Serialization.XmlEnum("Amendment")]
+        Amendment,
+        [System.Xml.Serialization.XmlEnum("Update Draft Amendment")]
+        UpdateDraftAmendment,
+        [System.Xml.Serialization.XmlEnum("New")]
+        New,
+        [System.Xml.Serialization.XmlEnum("NewAmendment")]
+        NewAmendment,
+        [System.Xml.Serialization.XmlEnum("Update Draft")]
+        UpdateDraft,
+        [System.Xml.Serialization.XmlEnum("Revised New")]
+        RevisedNew
     }
 }

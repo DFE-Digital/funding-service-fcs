@@ -16,7 +16,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsRequiredForAGE()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10000976_EMPAGE1_v1);
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10000976_EMPAGE1_v1);
             AGEAppendix1 classUnderTest = new AGEAppendix1(null, null, null);
             Assert.IsTrue(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -24,7 +24,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsNotRequiredForOtherForAGEAppendix1()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10000976_EMPAGE1_v1.Replace("<ctr:fundingType><ctr:fundingTypeCode>AGE</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10000976_EMPAGE1_v1.Replace("<ctr:fundingType><ctr:fundingTypeCode>AGE</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
             AGEAppendix1 classUnderTest = new AGEAppendix1(null, null, null);
             Assert.IsFalse(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -35,12 +35,34 @@
             Assert.IsFalse(new AGEAppendix1(null, null, null).IsHeaderDocumentRequired);
         }
 
+        //[TestMethod, TestCategory("UnitTest")]
+        //[ExpectedException(typeof(ApplicationException))]
+        //public void TestThatRequiredHeaderDocumentNameThrowsExceptionForAgeAppendix1()
+        //{
+        //    string headerName = new AGEAppendix1(null, DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(), DocumentConfigurationSourceTests.GetMockFpQueryRepository(new List<MockQueryRepositorySetup>())).RequiredHeaderDocumentName;
+        //}
+
+
+
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(ApplicationException))]
-        public void TestThatRequiredHeaderDocumentNameThrowsExceptionForAgeAppendix1()
+        public void RequiredHeaderDocumentName_ShouldThrow_ApplicationException_For_AGEAppendix1()
         {
-            string headerName = new AGEAppendix1(null, DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(), DocumentConfigurationSourceTests.GetMockFpQueryRepository(new List<MockQueryRepositorySetup>())).RequiredHeaderDocumentName;
+            // Arrange
+
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+                var sut = new AGEAppendix1(
+                    null,
+                    DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(),
+                    DocumentConfigurationSourceTests.GetMockFpQueryRepository(new List<MockQueryRepositorySetup>())
+                );
+
+                // Property access triggers the exception
+                _ = sut.RequiredHeaderDocumentName;
+            });
         }
+
+
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void TestSupplyDocumentGenerationRequestSuccessForAgeAppendix1()
@@ -51,7 +73,7 @@
         [TestMethod, TestCategory("IntegrationTest")]
         public void TestSupplyDocumentGenerationWithNullAllocationCollection()
         {
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 contracts = new List<contractType>
                 {
@@ -62,7 +84,7 @@
                             fundingTypeCode = "AGE",
                             fundingTypeName = "AGE"
                         },
-                        period = new period()
+                        period = new Period()
                         {
                             periodType = new periodTypeType() { periodTypeCode = periodTypeCodeType.FY, periodTypeName = periodTypeNameType.FINANCIALYEAR },
                             period1 = "1516"
@@ -80,7 +102,7 @@
         [TestMethod, TestCategory("IntegrationTest")]
         public void TestSupplyDocumentGenerationWithEmptyAllocationCollection()
         {
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 contracts = new List<contractType>
                 {
@@ -92,7 +114,7 @@
                             fundingTypeCode = "AGE",
                             fundingTypeName = "AGE"
                         },
-                        period = new period()
+                        period = new Period()
                         {
                             periodType = new periodTypeType() { periodTypeCode = periodTypeCodeType.FY, periodTypeName = periodTypeNameType.FINANCIALYEAR },
                             period1 = "1516"

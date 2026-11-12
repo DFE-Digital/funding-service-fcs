@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic.Tests.Services
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -12,8 +13,8 @@
     using PaymentGenerationDomain.Integration.DataStore.Repositories;
     using SFA.FCT.AllocationDeliveryDomain.Common.BusinessLogic.Repository;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.Framework.Logging.Interfaces;
 
     [TestClass]

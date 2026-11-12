@@ -4,7 +4,7 @@
 namespace OrganisationDomain.Web
 {
     using System.Configuration;
-    using System.IdentityModel.Tokens;
+    using Microsoft.IdentityModel.Tokens;
     using Microsoft.Owin.Security.ActiveDirectory;
     using Owin;
 

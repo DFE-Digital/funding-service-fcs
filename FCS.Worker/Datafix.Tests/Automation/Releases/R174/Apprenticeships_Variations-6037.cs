@@ -32,7 +32,7 @@ namespace Datafix.Tests.Automation.Releases.R174
             AmendContracts(levyContractToUpdate, endpoint);
         }
 
-        private static void AmendContracts(ContractInformation levyContractToUpdate, IEndpointInstance endpoint)
+        private static void AmendContracts(ContractInformation levyContractToUpdate, EndpointBuilder endpoint)
         {
             endpoint.Send("ContractManagementDomain.LevyAmendmentEndpoint", new AmendLevyContractCommand
             {

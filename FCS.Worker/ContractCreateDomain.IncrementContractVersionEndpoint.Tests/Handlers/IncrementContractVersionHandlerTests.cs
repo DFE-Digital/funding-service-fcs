@@ -50,7 +50,7 @@
 
             var contractRequestTransformerMock = new Mock<IContractRequestTransformer>();
             contractRequestTransformerMock.Setup(
-                t => t.TransformToCorpContract(It.IsAny<ExtendedContractType>())).Returns(new contract { contractNumber = childContractNumber });
+                t => t.TransformToCorpContract(It.IsAny<ExtendedContractType>())).Returns(new Contract { contractNumber = childContractNumber });
 
             Mock<ICreatedContractRepository> createdContractRepositoryMock = new Mock<ICreatedContractRepository>();
             createdContractRepositoryMock
@@ -159,7 +159,7 @@
             Mock<IContractRequestTransformer> contractRequestTransformerMock = new Mock<IContractRequestTransformer>();
             contractRequestTransformerMock
                 .Setup(m => m.TransformToCorpContract(It.IsAny<ExtendedContractType>()))
-                .Returns(new contract());
+                .Returns(new Contract());
 
             Mock<ILevyContractAllocationService> levyContractAllocationServiceMock = new Mock<ILevyContractAllocationService>();
 
@@ -215,7 +215,7 @@
             Mock<IContractRequestTransformer> contractRequestTransformerMock = new Mock<IContractRequestTransformer>();
             contractRequestTransformerMock
                 .Setup(m => m.TransformToCorpContract(It.IsAny<ExtendedContractType>()))
-                .Returns(new contract());
+                .Returns(new Contract());
 
             Mock<ILevyContractAllocationService> levyContractAllocationServiceMock = new Mock<ILevyContractAllocationService>();
 
@@ -264,7 +264,6 @@
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<IncrementContractVersionHandler>())
                 .Register(Component.For<IContractManagementDbContext>().ImplementedBy<ContractManagementDbContext>().LifestyleScoped().IsDefault());
-            container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 

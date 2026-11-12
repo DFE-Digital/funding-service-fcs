@@ -1,51 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6107E310-9CA8-4C69-8921-C60250537064}</ProjectGuid>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WorkerRole</RootNamespace>
-    <AssemblyName>WorkerRole</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <RoleType>Worker</RoleType>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <Configurations>AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PP-OAT;PS;PUB;Release</Configurations>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!--<StartupObject>WorkerRole.Program</StartupObject>-->
+    <AutoUnifyAssemblyReferences>false</AutoUnifyAssemblyReferences>
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet>true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets>$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+    <AssemblyTitle>WorkerRole</AssemblyTitle>
+    <Product>WorkerRole</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\DCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
     <OutputPath>bin\CI\</OutputPath>
@@ -67,8 +46,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
     <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
     <OutputPath>bin\DebugCI\</OutputPath>
@@ -82,306 +59,123 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
     <OutputPath>bin\DEV\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>WorkerRole.Program</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Iesi.Collections.4.0.2\lib\net40\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=1.2.1.210, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.1.2.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=1.2.0.5639, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.ApplicationInsights.1.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.TraceListener, Version=1.2.1.210, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.ApplicationInsights.TraceListener.1.2.1\lib\net45\Microsoft.ApplicationInsights.TraceListener.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.ServiceBus.5.0.2\lib\net46\Microsoft.ServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.1.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="MoreLinq, Version=2.10.21623.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\morelinq.2.10.0\lib\net40\MoreLinq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Azure.Transports.WindowsAzureServiceBus, Version=9.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.Azure.Transports.WindowsAzureServiceBus.9.0.0\lib\net46\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.7.1.4\lib\net452\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Newtonsoft.Json, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.Newtonsoft.Json.2.1.0\lib\net452\NServiceBus.Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.NHibernate, Version=8.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.NHibernate.8.0.0\lib\net452\NServiceBus.NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Persistence.Sql, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.Persistence.Sql.4.3.0\lib\net452\NServiceBus.Persistence.Sql.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SqlClient, Version=4.2.0.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SqlClient.4.4.3\lib\net461\System.Data.SqlClient.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.4.403061554\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="EntityFramework" Version="6.5.2" />
+    <PackageReference Include="Iesi.Collections" Version="4.1.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="3.1.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.PerfCounterCollector" Version="2.23.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.TraceListener" Version="2.23.0" />
+    <PackageReference Include="Microsoft.Azure.KeyVault.Core" Version="3.0.5" />
+    <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Data.Edm" Version="5.8.5" />
+    <PackageReference Include="Microsoft.Data.OData" Version="5.8.5" />
+    <PackageReference Include="Microsoft.Data.Services.Client" Version="5.8.5" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.3.0" />
+    <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+    <PackageReference Include="morelinq" Version="4.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="NHibernate" Version="5.6.1" />
+    <PackageReference Include="NServiceBus" Version="9.2.11" />
+
+	  <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="5.1.2" />
+
+	  <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="4.1.0" />
+	  <PackageReference Include="NServiceBus.NHibernate" Version="10.1.2" />
+	  <PackageReference Include="NServiceBus.Persistence.Sql" Version="8.3.0" />
+    <PackageReference Include="SlowCheetah" Version="2.5.48" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
+    <PackageReference Include="System.Spatial" Version="5.8.5" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.11" />
+    <PackageReference Include="CoreWCF.Primitives" Version="1.9.0" />
+    <PackageReference Include="CoreWCF.ConfigurationManager" Version="1.9.0" />
+    <PackageReference Include="CoreWCF.Http" Version="1.9.0" />
+    <PackageReference Include="CoreWCF.WebHttp" Version="1.9.0" />
+    <PackageReference Include="CoreWCF.NetTcp" Version="1.9.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="CloudServiceRoleEntryPoint.cs" />
-    <Compile Include="CustomErrorHandlingBehavior.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Repositories\AzureStorageRepository.cs" />
-    <Compile Include="Repositories\LargeMessageStorageService.cs" />
-    <Compile Include="HostConfig.cs" />
-    <Compile Include="NsbLoggerFactory.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransportMessageCompressionMutator.cs" />
-    <Compile Include="WorkerRole.cs" />
-    <Compile Include="ByteArrayExtensions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.AT.config">
+    <None Update="app.AT.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.CI.config">
+    <None Update="app.CI.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.config">
-      <TransformOnBuild>true</TransformOnBuild>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="app.DAT.config">
+    <None Update="app.DAT.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.DCI.config">
+    <None Update="app.DCI.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.DMO.config">
+    <None Update="app.DMO.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.MO.config">
+    <None Update="app.MO.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.DOAT.config">
+    <None Update="app.DOAT.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.OAT.config">
+    <None Update="app.OAT.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.PP-OAT.config">
+    <None Update="app.PP-OAT.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.Release.config">
+    <None Update="app.Release.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="ApplicationInsights.config" />
-    <None Include="packages.config">
+    <None Update="Properties\SlowCheetah\SlowCheetah.Transforms.targets">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\webjob-publish-settings.json" />
-    <None Include="Settings.job">
+    <None Update="Settings.job">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CrossDomain.Integration\OrganisationDomain.Integration.CpdsEndpoint\OrganisationDomain.Integration.CpdsEndpoint.csproj">
-      <Project>{5a04eaac-6ee7-4acc-b257-2afae73a1f43}</Project>
-      <Name>OrganisationDomain.Integration.CpdsEndpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\OrganisationDomain.Integration.DataStoreEndpoint\OrganisationDomain.Integration.DataStoreEndpoint.csproj">
-      <Project>{15b01dd8-40ed-46c6-9eaf-69d898cb5f7e}</Project>
-      <Name>OrganisationDomain.Integration.DataStoreEndpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\OrganisationDomain.Integration.MainEndpoint\OrganisationDomain.Integration.MainEndpoint.csproj">
-      <Project>{9f859d0b-ca77-4373-b06b-145e4195a8ef}</Project>
-      <Name>OrganisationDomain.Integration.MainEndpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
-      <Project>{b93f0ed2-8af4-46c4-ae47-daa3483fd8f3}</Project>
-      <Name>Framework.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AllocationActualsVerified\PaymentManagementDomain.AllocationActualsVerified.csproj">
-      <Project>{825a01bc-587b-4951-8c75-56d995a280a9}</Project>
-      <Name>PaymentManagementDomain.AllocationActualsVerified</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AllocationDeliveryDomain.Endpoint\AllocationDeliveryDomain.Endpoint.csproj">
-      <Project>{1b3967b1-d385-4448-9ac7-c348b8acc55f}</Project>
-      <Name>AllocationDeliveryDomain.Endpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractCreateDomain.Endpoint\ContractCreateDomain.Endpoint.csproj">
-      <Project>{c3762a14-12f8-43fb-8329-53b457c3f8b1}</Project>
-      <Name>ContractCreateDomain.Endpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractCreateDomain.IncrementContractVersionEndpoint\ContractCreateDomain.IncrementContractVersionEndpoint.csproj">
-      <Project>{ea709326-6e06-4c0b-8426-6f580fac8022}</Project>
-      <Name>ContractCreateDomain.IncrementContractVersionEndpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractManagementDomain.Endpoint.Xrm\ContractManagementDomain.Endpoint.Xrm.csproj">
-      <Project>{f0a73511-5cc1-4043-8bed-73b374c02fee}</Project>
-      <Name>ContractManagementDomain.Endpoint.Xrm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractManagementDomain.Endpoint\ContractManagementDomain.Endpoint.csproj">
-      <Project>{8fcafd5a-f8bb-4817-8394-117d144781a6}</Project>
-      <Name>ContractManagementDomain.Endpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractManagementDomain.Termination.Xrm\ContractManagementDomain.Termination.Xrm.csproj">
-      <Project>{f44f23d3-7440-4f6a-9475-a238778d872d}</Project>
-      <Name>ContractManagementDomain.Termination.Xrm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractManagementDomain.Termination\ContractManagementDomain.Termination.csproj">
-      <Project>{e9548975-d235-494b-b6e9-b1e083d5a218}</Project>
-      <Name>ContractManagementDomain.Termination</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractRequest.Cfs.AllocationCreated\ContractRequest.Cfs.AllocationCreated.csproj">
-      <Project>{511a6196-ea35-49e4-9df4-8bd6aafec6dc}</Project>
-      <Name>ContractRequest.Cfs.AllocationCreated</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DocumentsDomain.Endpoint\DocumentsDomain.Endpoint.csproj">
-      <Project>{86b7425e-f888-4813-a501-bd34da08262c}</Project>
-      <Name>DocumentsDomain.Endpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FCS.Worker.Entities\FCS.Worker.Common.csproj">
-      <Project>{5a495916-854c-4b20-b7fc-b696ea94ff61}</Project>
-      <Name>FCS.Worker.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OrganisationDomain.Endpoint\OrganisationDomain.Endpoint.csproj">
-      <Project>{857baed7-e7d1-4526-a054-d431c7403cd9}</Project>
-      <Name>OrganisationDomain.Endpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PaymentGenerationDomain.Endpoint\PaymentGenerationDomain.Endpoint.csproj">
-      <Project>{00c3fee7-4854-4756-8b46-7b689ec7407c}</Project>
-      <Name>PaymentGenerationDomain.Endpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PaymentManagementDomain.PaymentSchedule.Xrm\PaymentManagementDomain.PaymentSchedule.csproj">
-      <Project>{7bed4319-bc59-4e5b-b253-258ab4e16a80}</Project>
-      <Name>PaymentManagementDomain.PaymentSchedule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PerformanceManagementDomain.XrmEndpoint\PerformanceManagementDomain.XrmEndpoint.csproj">
-      <Project>{e550ac1f-486a-453f-8662-d932dcc2e010}</Project>
-      <Name>PerformanceManagementDomain.XrmEndpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PerformanceManagementDomain\PerformanceManagementDomain.csproj">
-      <Project>{479fe6d4-66a9-443f-8b7b-fc3656c190b2}</Project>
-      <Name>PerformanceManagementDomain</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\CrossDomain.Integration\OrganisationDomain.Integration.CpdsEndpoint\OrganisationDomain.Integration.CpdsEndpoint.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\OrganisationDomain.Integration.DataStoreEndpoint\OrganisationDomain.Integration.DataStoreEndpoint.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\OrganisationDomain.Integration.MainEndpoint\OrganisationDomain.Integration.MainEndpoint.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
+    <ProjectReference Include="..\AllocationActualsVerified\PaymentManagementDomain.AllocationActualsVerified.csproj" />
+    <ProjectReference Include="..\AllocationDeliveryDomain.Endpoint\AllocationDeliveryDomain.Endpoint.csproj" />
+    <ProjectReference Include="..\ContractCreateDomain.Endpoint\ContractCreateDomain.Endpoint.csproj" />
+    <ProjectReference Include="..\ContractCreateDomain.IncrementContractVersionEndpoint\ContractCreateDomain.IncrementContractVersionEndpoint.csproj" />
+    <ProjectReference Include="..\ContractManagementDomain.Endpoint.Xrm\ContractManagementDomain.Endpoint.Xrm.csproj" />
+    <ProjectReference Include="..\ContractManagementDomain.Endpoint\ContractManagementDomain.Endpoint.csproj" />
+    <ProjectReference Include="..\ContractManagementDomain.Termination.Xrm\ContractManagementDomain.Termination.Xrm.csproj" />
+    <ProjectReference Include="..\ContractManagementDomain.Termination\ContractManagementDomain.Termination.csproj" />
+    <ProjectReference Include="..\ContractRequest.Cfs.AllocationCreated\ContractRequest.Cfs.AllocationCreated.csproj" />
+    <ProjectReference Include="..\DocumentsDomain.Endpoint\DocumentsDomain.Endpoint.csproj" />
+    <ProjectReference Include="..\FCS.Worker.Entities\FCS.Worker.Common.csproj" />
+    <ProjectReference Include="..\OrganisationDomain.Endpoint\OrganisationDomain.Endpoint.csproj" />
+    <ProjectReference Include="..\PaymentGenerationDomain.Endpoint\PaymentGenerationDomain.Endpoint.csproj" />
+    <ProjectReference Include="..\PaymentManagementDomain.PaymentSchedule.Xrm\PaymentManagementDomain.PaymentSchedule.csproj" />
+    <ProjectReference Include="..\PerformanceManagementDomain.XrmEndpoint\PerformanceManagementDomain.XrmEndpoint.csproj" />
+    <ProjectReference Include="..\PerformanceManagementDomain\PerformanceManagementDomain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <PropertyGroup>
-    <!-- Setting AutoUnifyAssemblyReferences to false will allow the ResolveAssemblyReferences task to 
-    create warnings when detecting version missmatches among references.
-    -->
-    <AutoUnifyAssemblyReferences>false</AutoUnifyAssemblyReferences>
-  </PropertyGroup>
-  <PropertyGroup Label="SlowCheetah">
-    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
-    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
-    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
-    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
-  </PropertyGroup>
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
-  <Import Project="..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets" Condition="Exists('..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets')" />
-  <Import Project="..\..\packages\NServiceBus.Persistence.Sql.4.3.0\build\NServiceBus.Persistence.Sql.targets" Condition="Exists('..\..\packages\NServiceBus.Persistence.Sql.4.3.0\build\NServiceBus.Persistence.Sql.targets')" />
-  <Import Project="..\..\packages\Microsoft.Web.WebJobs.Publish.2.0.0\build\Microsoft.Web.WebJobs.Publish.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebJobs.Publish.2.0.0\build\Microsoft.Web.WebJobs.Publish.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebJobs.Publish.2.0.0\build\Microsoft.Web.WebJobs.Publish.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebJobs.Publish.2.0.0\build\Microsoft.Web.WebJobs.Publish.targets'))" />
-  </Target>
+  
 </Project>

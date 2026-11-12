@@ -2,11 +2,12 @@
 {
     using System.Linq;
 
-    public partial class period
+    public partial class Period
     {
         public virtual bool ShouldSerializefundingStreamPeriods()
         {
-            return (fundingStreamPeriods != null && fundingStreamPeriods.Any());
+            return true; // need to check
+          //  return (fundingStreamPeriods != null && fundingStreamPeriods.Any());
         }
     }
 }

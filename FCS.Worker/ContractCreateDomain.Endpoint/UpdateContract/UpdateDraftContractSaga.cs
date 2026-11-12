@@ -1,7 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.UpdateContract
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    using AutoMapper;
     using ContractManagement.DataStore.Model;
     using ContractManagement.DataStore.Repositories;
     using ContractManagement.DataStore.Services;
@@ -18,8 +17,10 @@
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using IContractValidationLookupDataCreator = Infrastructure.IContractValidationLookupDataCreator;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using contractType = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractType;
+    using IContractValidationLookupDataCreator = Infrastructure.IContractValidationLookupDataCreator;
     using IFundingTypeFundingPeriodQueryRepository = Infrastructure.IFundingTypeFundingPeriodQueryRepository;
     using IFundingTypePeriodService = Infrastructure.IFundingTypePeriodService;
     using IProcessedMessageRepository = Infrastructure.IProcessedMessageRepository;
@@ -33,6 +34,7 @@
         private readonly ILogger _logger;
         private readonly ISagaDataStorage _sagaDataStorage;
         private readonly IFundingTypeFundingPeriodContractTypeQueryRepository _fundingTypeFundingPeriodContractTypeQueryRepository;
+        private readonly IMapper _mapper;
 
         public UpdateDraftContractSaga(
             ILogger logger,
@@ -56,7 +58,8 @@
             ICheckForContractChangeService checkForContractChangeService,
             ISiblingApprovedContractService siblingApprovedContractService,
             IRelatedAllocationEnricher relatedAllocationEnricher,
-            ILastApprovedContractCreationDateService lastApprovedContractCreationDate)
+            ILastApprovedContractCreationDateService lastApprovedContractCreationDate,
+            IMapper mapper)
         {
             _modifyContractSaga = new ModifyContractSaga(
                 logger,
@@ -84,6 +87,7 @@
             _sagaDataStorage = sagaDataStorage;
             _fundingTypeFundingPeriodContractTypeQueryRepository = fundingTypeFundingPeriodContractTypeQueryRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         private int AmendRequestCommandReceivedEventLoggingId => SFA.FCT.ContractCreateDomain.BusinessLogic.ContractCreateDomainEventLoggingId.UpdatedDraftContract;
@@ -123,7 +127,7 @@
             IReadOnlyCollection<FundingTypeFundingPeriodContractTypeDto> GetFundingTypeFundingPeriodContractTypes()
             {
                 IReadOnlyCollection<FundingTypeFundingPeriodContractType> fundingTypeFundingPeriodContractTypes = _fundingTypeFundingPeriodContractTypeQueryRepository.GetFundingTypeFundingPeriodContractTypes(connectionInfo);
-                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes);
+                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes,_mapper);
             }
 
             return _contractOperationRules.GetUpdateDraftContractFirstLevelRules(

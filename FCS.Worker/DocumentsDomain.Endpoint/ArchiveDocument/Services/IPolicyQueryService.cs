@@ -6,6 +6,6 @@
 
     public interface IPolicyQueryService
     {
-        Task<bool> ShouldGenerateDocumentationForContract(contract corporateContract, ConnectionInfo connectionInfo);
+        Task<bool> ShouldGenerateDocumentationForContract(Contract corporateContract, ConnectionInfo connectionInfo);
     }
 }

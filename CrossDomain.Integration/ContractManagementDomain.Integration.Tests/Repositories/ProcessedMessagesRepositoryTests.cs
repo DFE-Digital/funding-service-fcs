@@ -51,18 +51,22 @@
             }
         }
 
-        [ExpectedException(typeof (DbEntityValidationException))]
         [TestMethod, TestCategory("IntegrationTest")]
         public void ProcessedMessagesRepository_Add_WhenFailingForOtherReasonThanDuplicateKey_ShouldRethrowException()
         {
             // Arrange
             string overLengthGuid = $"{MessageId}e";
             DeleteProcessedMessagesFromRepository(overLengthGuid);
-            ProcessedMessageRepository repository = new ProcessedMessageRepository(new ContractManagementDbContext());
 
-            // Act
-            repository.Add(overLengthGuid);
+            var repository = new ProcessedMessageRepository(new ContractManagementDbContext());
+
+            // Act & Assert
+            Assert.ThrowsExactly<DbEntityValidationException>(() =>
+            {
+                repository.Add(overLengthGuid);
+            });
         }
+
 
         private static void DeleteProcessedMessagesFromRepository(string messageId)
         {

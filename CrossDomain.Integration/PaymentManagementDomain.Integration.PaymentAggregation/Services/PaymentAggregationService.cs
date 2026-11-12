@@ -1,17 +1,18 @@
 ﻿namespace SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.Services
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using BusinessLogic;
     using BusinessLogic.Services;
     using Common;
-    using CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using Framework.Logging.Interfaces;
     using PolicyCache.DataStore.Model;
     using PolicyCache.DataStore.Repositories;
-    using paymentAggregation = CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using paymentSchedule = CrossDomain.Integration.Entities.PaymentSchedule;
+    using paymentAggregation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using paymentSchedule = Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
 
     public class PaymentAggregationService : IPaymentAggregationService
     {

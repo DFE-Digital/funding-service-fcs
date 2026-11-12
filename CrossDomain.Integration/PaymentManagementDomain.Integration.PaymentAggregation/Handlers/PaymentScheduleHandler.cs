@@ -1,7 +1,9 @@
 ﻿namespace SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.Handlers
 {
+    extern alias Entities;
+
     using Common;
-    using CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
     using CrossDomain.Integration.Events;
     using Framework.Logging.Interfaces;
     using NServiceBus;
@@ -9,7 +11,7 @@
     using PolicyCache.DataStore.Repositories;
     using Services;
     using System.Threading.Tasks;
-    using CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using Infrastructure;
 
     public class PaymentScheduleHandler : IHandleMessages<PaymentScheduleEvent>

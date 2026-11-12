@@ -1,41 +1,42 @@
 ﻿namespace SFA.FCT.ContractCreateDomain.Implementation.Tests.IntegrationTests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Xml.Linq;
-    using System.Xml.Serialization;
     using AutoMapper;
     using Castle.MicroKernel.Lifestyle;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Microsoft.Xrm.Sdk;
-    using Microsoft.Xrm.Sdk.Query;
-    using Newtonsoft.Json;
     using Contract.XrmAdapterService.Tests.Utils;
     using ContractManagement.DataStore;
     using ContractManagement.DataStore.Repositories;
-    using Persistence;
     using CrossDomain.Integration.Entities.ContractRequest;
     using CrossDomain.Integration.Entities.Data;
     using CrossDomain.Integration.Entities.Xrm;
     using CrossDomain.Integration.Entities.Xrm.OptionSets;
     using Framework.Logging;
     using Framework.Logging.Interfaces;
+    using Microsoft.Xrm.Sdk;
+    using Microsoft.Xrm.Sdk.Query;
     using MoreLinq;
+    using Newtonsoft.Json;
+    using Persistence;
     using Services;
+    using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Xml.Linq;
+    using System.Xml.Serialization;
     using UnitTests.Common;
     using CorporateContract = CrossDomain.Integration.Entities.CorporateContract;
     using CrmConnectionFactory = SFA.FCS.Worker.Common.Crm.CrmConnectionFactory;
 
     public class IntegrationTestBase
     {
-        private CorporateContract.contract _masterContract;
+        private CorporateContract.Contract? _masterContract;
 
-        protected IWindsorContainer Container { get; private set; }
+        protected IWindsorContainer? Container { get; private set; }
 
-        private static IOrganizationService _organizationService;
+        private static IOrganizationService? _organizationService;
 
         public static IOrganizationService CrmOrganizationService
         {
@@ -50,7 +51,7 @@
             }
         }
 
-        protected CorporateContract.contract GetCorpContract()
+        protected CorporateContract.Contract GetCorpContract()
         {
             if (_masterContract == null)
             {
@@ -58,8 +59,8 @@
                 {
                     var document = XDocument.Load(resource.Stream);
 
-                    XmlSerializer serializer = new XmlSerializer(typeof(CorporateContract.contract));
-                    _masterContract = (CorporateContract.contract)serializer.Deserialize(document.Root.CreateReader());
+                    XmlSerializer serializer = new XmlSerializer(typeof(CorporateContract.Contract));
+                    _masterContract = (CorporateContract.Contract?)serializer.Deserialize(document.Root.CreateReader());
                 }
             }
 
@@ -75,14 +76,14 @@
             return _masterContract;
         }
 
-        protected CorporateContract.contract GetCorpContractForWithdraw()
+        protected CorporateContract.Contract? GetCorpContractForWithdraw()
         {
             using (var resource = new TestResource("ContractCreateDomain.Implementation.Tests", @"Resources.masterContract.xml"))
             {
                 var document = XDocument.Load(resource.Stream);
 
-                XmlSerializer serializer = new XmlSerializer(typeof(CorporateContract.contract));
-                return (CorporateContract.contract)serializer.Deserialize(document.Root.CreateReader());
+                XmlSerializer serializer = new XmlSerializer(typeof(CorporateContract.Contract));
+                return (CorporateContract.Contract?)serializer.Deserialize(document.Root.CreateReader());
             }
         }
 
@@ -91,12 +92,21 @@
             return TransformCorpContractToExtendedCorpContract(GetCorpContract());
         }
 
-        protected CorporateContract.ExtendedContract TransformCorpContractToExtendedCorpContract(CorporateContract.contract corpContract)
+        protected static ExtendedContract TransformCorpContractToExtendedCorpContract(
+            Contract corpContract)
         {
-            Mapper.CreateMap<CorporateContract.contract, CorporateContract.ExtendedContract>();
-            Mapper.CreateMap<CorporateContract.contractType, CorporateContract.ExtendedContractType>();
-            Mapper.CreateMap<CorporateContract.contractAllocationsContractAllocation, CorporateContract.ExtendedContractAllocation>();
-            return Mapper.Map<CorporateContract.contract, CorporateContract.ExtendedContract>(corpContract);
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Contract, ExtendedContract>();
+                cfg.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractType, ExtendedContractType>();
+                cfg.CreateMap<
+                    contractAllocationsContractAllocation,
+                    ExtendedContractAllocation>();
+            },null);
+
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<ExtendedContract>(corpContract);
         }
 
         protected contractRequestType GetContractRequest()

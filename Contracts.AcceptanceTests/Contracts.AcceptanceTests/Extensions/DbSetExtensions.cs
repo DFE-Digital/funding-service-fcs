@@ -14,4 +14,4 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Extensions
             entitiesToDelete.ForEach(e => dbset.Remove(e));
         }
     }
-}
+}   

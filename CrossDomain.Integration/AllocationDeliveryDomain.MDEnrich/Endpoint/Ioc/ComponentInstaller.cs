@@ -5,7 +5,7 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.DataStore;
-    using Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
     using Infrastructure;
     using SFA.FCT.AllocationDeliveryDomain.Common.BusinessLogic.Repository;
     

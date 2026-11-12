@@ -1,13 +1,15 @@
 ﻿namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Castle.Windsor;
     using Common.Commands;
     using DocumentGeneration.IoC;
     using FCS.Worker.Common;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
-    using Framework.Logging.Interfaces;
+    using SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.IoC;
+    using System.Collections.Generic;
+    using System.Linq;
     using WindsorInstallerForDocumentGenerator = IoC.WindsorInstallerForDocumentGenerator;
 
     public class DocumentGenerationEndpointConfig : IEndpointConfig
@@ -27,7 +29,7 @@
         {
             EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            ILogger logger = loggerFactory.CreateLogger<DocumentGenerationEndpointConfig>();
 
             logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
 
@@ -36,10 +38,13 @@
                 .DefiningEventsAs(t => null != t.Namespace && t.Namespace.EndsWith("Events"))
                 .DefiningMessagesAs(t => null != t.Namespace && t.Namespace.EndsWith("Messages"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstallerForDocumentGenerator(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+
+                services.AddDocumentGeneratorServices(loggerFactory);
             });
+
 
             return configuration;
         }

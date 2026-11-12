@@ -1,7 +1,8 @@
 ﻿namespace ADMonitoringDomain.Endpoint.BusinessLogic
 {
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    extern alias Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface IAtomItemCreator
     {

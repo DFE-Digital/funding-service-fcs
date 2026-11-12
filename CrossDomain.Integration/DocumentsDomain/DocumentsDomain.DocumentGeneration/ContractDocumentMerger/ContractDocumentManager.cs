@@ -38,7 +38,7 @@
             Logger = new LoggerNullObject();
         }
 
-        public void MergeContractDocuments(contract contractDocument)
+        public void MergeContractDocuments(Contract contractDocument)
         {
             Validate(contractDocument);
 

@@ -12,6 +12,7 @@
     using Implementation.Mappers;
     using SFA.FCT.Framework.Logging.Interfaces;
     using ILoggerFactory = SFA.FCT.Framework.Logging.Interfaces.ILoggerFactory;
+    using OrganisationDomain.Implementation.ExternalServices.Helper;
 
     [ExcludeFromCodeCoverage]
     public class ComponentInstaller : IWindsorInstaller
@@ -27,7 +28,8 @@
         {
             container.Register(Component.For<ILogger>().Instance(_loggerFactory.CreateLogger("OrganisationDomainDataStoreEndpoint")),
                 GetCpdsOrganisationRetriever(),
-                Component.For<GatewayServiceContract>().ImplementedBy<GatewayServiceContractClient>().LifeStyle.Transient,
+                //Component.For<GatewayServiceContract>().ImplementedBy<GatewayServiceContractClient>().LifeStyle.Transient,
+                Component.For<GatewayServiceContract>().UsingFactoryMethod(() => GatewayServiceClientFactory.Create()).LifestyleTransient(),
                 Component.For<Func<GatewayServiceContract>>().Instance(container.Resolve<GatewayServiceContract>),
                 Component.For<ICpdsMapper>().ImplementedBy<CpdsMapper>().LifestyleSingleton(),
                 Component.For<ICpdsXmlValidator>().ImplementedBy<CpdsXmlValidator>().LifestyleSingleton(),

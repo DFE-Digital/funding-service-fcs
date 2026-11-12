@@ -1,8 +1,9 @@
 ﻿namespace SFA.FCT.PaymentManagementDomain.PaymentAggregation.Tests.Unit
 {
+    extern alias Entities;
     using BusinessLogic.DTOs;
-    using CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using CrossDomain.Integration.Entities.Xrm;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Xrm.Sdk;
 

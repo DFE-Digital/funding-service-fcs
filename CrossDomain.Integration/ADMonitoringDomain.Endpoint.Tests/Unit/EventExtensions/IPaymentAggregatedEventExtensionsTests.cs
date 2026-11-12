@@ -1,14 +1,16 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SFA.FCT.CrossDomain.Integration.Events;
-using Moq;
-using SFA.FCT.CrossDomain.Integration.Common;
-using ADMonitoringDomain.Endpoint.BusinessLogic.EventExtensions;
-using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-using System.Globalization;
-
-namespace ADMonitoringDomain.Endpoint.Tests.Unit.EventExtensions
+﻿namespace ADMonitoringDomain.Endpoint.Tests.Unit.EventExtensions
 {
+    extern alias Entities;
+
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using SFA.FCT.CrossDomain.Integration.Events;
+    using Moq;
+    using SFA.FCT.CrossDomain.Integration.Common;
+    using ADMonitoringDomain.Endpoint.BusinessLogic.EventExtensions;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using System.Globalization;
+
     [TestClass]
     public class IPaymentAggregatedEventExtensionsTests
     {

@@ -35,7 +35,7 @@
         {
             try
             {
-                CorporateContract.contract corporateContract = GetCorpContract();
+                CorporateContract.Contract corporateContract = GetCorpContract();
                 DeleteContractsWithContractNumber(corporateContract.contracts.Single().contractNumber);
                 DeleteContractsWithContractNumber(corporateContract.contractNumber);
             }
@@ -247,10 +247,10 @@
         {
             // arrange
             var master = GetContractRequest();
-            master.contract.CRMIntent = ContractRequest.intent.Amendment;
+            master.contract.CRMIntent = ContractRequest.Intent.Amendment;
             master.contract.contractNumber = "MLDC-T1";
             var contract = master.contract.contracts.First();
-            contract.CRMIntent = ContractRequest.intent.Amendment;
+            contract.CRMIntent = ContractRequest.Intent.Amendment;
             contract.contractNumber = "LDC-T1";
 
             RemoveContractsFromCrm(contract.contractNumber);
@@ -298,10 +298,10 @@
         {
             // arrange
             var master = GetContractRequest();
-            master.contract.CRMIntent = ContractRequest.intent.Amendment;
+            master.contract.CRMIntent = ContractRequest.Intent.Amendment;
             master.contract.contractNumber = "MLDC-T2";
             var contract = master.contract.contracts.First();
-            contract.CRMIntent = ContractRequest.intent.Amendment;
+            contract.CRMIntent = ContractRequest.Intent.Amendment;
             contract.contractNumber = "LDC-T1";
 
             RemoveContractsFromCrm(contract.contractNumber);
@@ -349,10 +349,10 @@
         {
             // arrange
             var master = GetContractRequest();
-            master.contract.CRMIntent = ContractRequest.intent.Amendment;
+            master.contract.CRMIntent = ContractRequest.Intent.Amendment;
             master.contract.contractNumber = "MLDC-T2";
             var contract = master.contract.contracts.First();
-            contract.CRMIntent = ContractRequest.intent.Amendment;
+            contract.CRMIntent = ContractRequest.Intent.Amendment;
             contract.contractNumber = "LDC-T1";
 
             RemoveContractsFromCrm(contract.contractNumber);
@@ -400,10 +400,10 @@
         {
             // arrange
             var master = GetContractRequest();
-            master.contract.CRMIntent = ContractRequest.intent.Amendment;
+            master.contract.CRMIntent = ContractRequest.Intent.Amendment;
             master.contract.contractNumber = "MLDC-T1";
             var contract = master.contract.contracts.First();
-            contract.CRMIntent = ContractRequest.intent.Amendment;
+            contract.CRMIntent = ContractRequest.Intent.Amendment;
             contract.contractNumber = "LDC-T1";
 
             RemoveContractsFromCrm(contract.contractNumber);
@@ -451,10 +451,10 @@
         {
             // arrange
             var master = GetContractRequest();
-            master.contract.CRMIntent = ContractRequest.intent.Amendment;
+            master.contract.CRMIntent = ContractRequest.Intent.Amendment;
             master.contract.contractNumber = "MLDC-T1";
             var contract = master.contract.contracts.First();
-            contract.CRMIntent = ContractRequest.intent.Amendment;
+            contract.CRMIntent = ContractRequest.Intent.Amendment;
             contract.contractNumber = "LDC-T1";
 
             RemoveContractsFromCrm(contract.contractNumber);
@@ -546,7 +546,7 @@
             ContractRequest.contractType revisedNewContractType = contractsManager.GetLatestContract(
                 masterContract.contractNumber, masterContract.contracts.Select(c => c.contractNumber));
             revisedNewContractType.contracts[0].PreviousVersionId = revisedNewContractType.contracts[0].Id;
-            revisedNewContractType.CRMIntent = ContractRequest.intent.RevisedNew;
+            revisedNewContractType.CRMIntent = ContractRequest.Intent.RevisedNew;
 
             ContractRequest.contractRequestType revisedNewContractRequestType = new ContractRequest.contractRequestType
             {
@@ -620,7 +620,7 @@
             ContractRequest.contractType newLevyContractType = new ContractRequest.contractType()
             {
                 fundingTypeCode = "LEVY",
-                contractor = new ContractRequest.contractor
+                contractor = new ContractRequest.Contractor
                 {
                     ukprn = masterContract.contracts[0].contractor.ukprn
                 },
@@ -629,7 +629,7 @@
                     new ContractRequest.contractType
                     {
                         fundingTypeCode = "LEVY",
-                        contractor = new ContractRequest.contractor
+                        contractor = new ContractRequest.Contractor
                         {
                             ukprn = masterContract.contracts[0].contractor.ukprn
                         },
@@ -653,7 +653,7 @@
         }
 
         public ContractRequest.contractRequestType CreateContractRequest(
-            string masterContractNumber, string contractNumber, ContractRequest.intent intent, int ukprn)
+            string masterContractNumber, string contractNumber, ContractRequest.Intent intent, int ukprn)
         {
             ContractRequest.contractRequestType contractRequestType = GetContractRequest();
             contractRequestType.contract.contractNumber = masterContractNumber;

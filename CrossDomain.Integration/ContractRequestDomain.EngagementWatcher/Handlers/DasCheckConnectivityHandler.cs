@@ -1,4 +1,4 @@
-﻿namespace ContractRequestDomain.EngagementWatcher.Handlers
+﻿namespace SFA.FCT.ContractRequestDomain.EngagementWatcher.Handlers
 {
     using NServiceBus;
     using Services;

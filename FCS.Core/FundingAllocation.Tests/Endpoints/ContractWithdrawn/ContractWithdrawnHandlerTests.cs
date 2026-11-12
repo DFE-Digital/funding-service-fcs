@@ -75,7 +75,7 @@
 
             var contractWithdrawnEvent = new ContractWithdrawnEvent()
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                    contracts = new List<contractType>
                    {

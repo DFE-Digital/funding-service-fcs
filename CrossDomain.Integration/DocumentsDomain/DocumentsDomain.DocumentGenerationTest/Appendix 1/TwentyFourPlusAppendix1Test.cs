@@ -35,7 +35,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsRequiredFor24Plus()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10023139_24LOANS6_2);
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10023139_24LOANS6_2);
             LoansAppendix1 classUnderTest = new LoansAppendix1(null, null, null, null);
             Assert.IsTrue(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -43,7 +43,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsNotRequiredForOtherFor24Plus()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10023139_24LOANS6_2.Replace("<ctr:fundingType><ctr:fundingTypeCode>24+LOANS</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10023139_24LOANS6_2.Replace("<ctr:fundingType><ctr:fundingTypeCode>24+LOANS</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
             LoansAppendix1 classUnderTest = new LoansAppendix1(null, null, null, null);
             Assert.IsFalse(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -56,11 +56,22 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(ApplicationException))]
         public void TestThatRequiredHeaderDocumentNameThrowsExceptionForTwentyFourPlusAppendix1()
         {
-            string headerName = new LoansAppendix1(null, DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(), null, null).RequiredHeaderDocumentName;
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+                var sut = new LoansAppendix1(
+                    null,
+                    DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(),
+                    null,
+                    null
+                );
+
+                // Accessing the property triggers the expected ApplicationException
+                var _ = sut.RequiredHeaderDocumentName;
+            });
         }
+
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void TestGetDocumentPartFor10002009()

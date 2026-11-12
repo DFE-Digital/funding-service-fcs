@@ -33,6 +33,7 @@
     using PaymentTimetable = Infrastructure.DTO.PaymentGeneration.PaymentTimetable;
     using Newtonsoft.Json;
     using PaymentGenerationDomain.Common.Commands;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class PaymentGenerationSteps
@@ -154,7 +155,7 @@
             _endTime = DateTime.Now;
             var timeSpan = _endTime - _startTime;     
 
-            Assert.IsTrue(timeSpan <= TimeSpan.FromSeconds(timeLimit));
+            ClassicAssert.IsTrue(timeSpan <= TimeSpan.FromSeconds(timeLimit));
         }
 
         [Then(@"there is an entry in the Payment Timetable")]
@@ -177,7 +178,7 @@
                 
                 if (!checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime())
                 {
-                    Assert.Fail($"Status is not set correctly for funding stream {tim["Funding Stream Period Code"]} and calendar period {tim["Calendar Year/Period"]}");
+                    ClassicAssert.Fail($"Status is not set correctly for funding stream {tim["Funding Stream Period Code"]} and calendar period {tim["Calendar Year/Period"]}");
                 }
             }
         }
@@ -191,7 +192,7 @@
                 maxNumChecks: 30,
                 waitIntervalSeconds: 3);
 
-            Assert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(),
+            ClassicAssert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(),
                 $"File {paymentInstructionFile} was not created");
         }
 
@@ -229,7 +230,7 @@
                 
             }
 
-            Assert.IsTrue(isFilePresent,
+            ClassicAssert.IsTrue(isFilePresent,
                 $"File {paymentFileName} was not created");
         }
         
@@ -237,7 +238,7 @@
         [Then(@"the following data exists in the payment file")]
         public void ThenTheFollowingDataExistsInThePaymentFile(Table table)
         {
-            Assert.IsNotNull(_paymentInstruction, "The _paymentInstruction must be set before we can call this method");
+            ClassicAssert.IsNotNull(_paymentInstruction, "The _paymentInstruction must be set before we can call this method");
 
             var expectedTransInstruction = new PaymentInstruction
             {
@@ -279,13 +280,13 @@
 
             var mismatches = _paymentGeneration.ComparePayGenObjects(expectedTransInstruction, actualTransInstruction).ToList();
 
-            Assert.IsTrue(!mismatches.Any(), mismatches.WriteMismatches());
+            ClassicAssert.IsTrue(!mismatches.Any(), mismatches.WriteMismatches());
         }
 
         [Then(@"the following data exists in the Summary file")]
         public void ThenTheFollowingDataExistsInTheSummaryFile(Table table)
         {
-            Assert.IsNotNull(_summaryInstruction, "This must be set in a previous step");
+            ClassicAssert.IsNotNull(_summaryInstruction, "This must be set in a previous step");
             var expectedTransInstruction = new SummaryInstruction
             {
                 Lines = new List<SummaryInstructionLine>()
@@ -308,7 +309,7 @@
 
             var mismatches = _paymentGeneration.ComparePayGenObjects(expectedTransInstruction, actualSummaryInstruction).ToList();
 
-            Assert.IsTrue(!mismatches.Any(), mismatches.WriteMismatches());
+            ClassicAssert.IsTrue(!mismatches.Any(), mismatches.WriteMismatches());
         }
 
         [Then(@"there is an entry in the Payment History Table")]
@@ -338,7 +339,7 @@
 
                 if (tries == 0)
                 {
-                    Assert.Fail("Status is not set correctly.");
+                    ClassicAssert.Fail("Status is not set correctly.");
                 }
             }
         }
@@ -371,8 +372,8 @@
 
                 bool isStatusCorrect = resultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(isStatusCorrect, $"Status has not been updated for fsp: {fsp}, period: {period}");
-                Assert.AreEqual(row["LinkCodeSuffix"], paymentTimetable.LinkCodeSuffix, $"Link Code Suffix has not been updated for fsp: {fsp}, period: {period}.");
+                ClassicAssert.IsTrue(isStatusCorrect, $"Status has not been updated for fsp: {fsp}, period: {period}");
+                ClassicAssert.AreEqual(row["LinkCodeSuffix"], paymentTimetable.LinkCodeSuffix, $"Link Code Suffix has not been updated for fsp: {fsp}, period: {period}.");
             });
         }
 
@@ -459,11 +460,11 @@
 
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsNotNull(paymentBatchFeedRow, $"Feed did not contain a record for {key}");
+            ClassicAssert.IsNotNull(paymentBatchFeedRow, $"Feed did not contain a record for {key}");
 
             PaymentPeriod feedPaymentPeriod = paymentBatchFeedRow.GetPaymentBatchXml().DeserializeXml<PaymentPeriod>();
 
-            AssertPaymentPeriodsAreEqual(expectedFeedData, feedPaymentPeriod);
+            ClassicAssertPaymentPeriodsAreEqual(expectedFeedData, feedPaymentPeriod);
         }
 
         [Then(@"the Payment feed xml for FundingStreamPeriod '(.*)' PaymentPeriod '(.*)' CensusEndDate '(.*)' and LinkCodeSuffix '(.*)' is decrypted and saved to '(.*)' as '(.*)'")]
@@ -486,7 +487,7 @@
 
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsNotNull(paymentBatchFeedRow, $"Feed did not contain a record for {key}");
+            ClassicAssert.IsNotNull(paymentBatchFeedRow, $"Feed did not contain a record for {key}");
 
             string xml = paymentBatchFeedRow.GetPaymentBatchXml();
 
@@ -515,11 +516,11 @@
 
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsNotNull(paymentBatchFeedRow, $"Feed did not contain a record for {key}");
-            Assert.AreEqual(0, paymentBatchFeedRow.PaymentLineCount, "PaymentLineCount is not zero");
+            ClassicAssert.IsNotNull(paymentBatchFeedRow, $"Feed did not contain a record for {key}");
+            ClassicAssert.AreEqual(0, paymentBatchFeedRow.PaymentLineCount, "PaymentLineCount is not zero");
 
             PaymentPeriod feedPaymentPeriod = paymentBatchFeedRow.GetPaymentBatchXml().DeserializeXml<PaymentPeriod>();
-            Assert.AreEqual(0, feedPaymentPeriod.PaymentDetails.Count, "There is unexpected payment data - PaymentDetails is not empty");
+            ClassicAssert.AreEqual(0, feedPaymentPeriod.PaymentDetails.Count, "There is unexpected payment data - PaymentDetails is not empty");
         }
 
         [Given(@"there is no data in the Payment feed for FundingStreamPeriod '(.*)' PaymentPeriod '(.*)' CensusEndDate '(.*)' and LinkCodeSuffix '(.*)'")]
@@ -556,7 +557,7 @@
             CheckResultPoller poller = new CheckResultPoller(checkResult: () =>
             {
                  IEnumerable<SyndicationItem> feedItems = AtomFeedReader.EnumerateItems(
-                    $"{ConfigurationManager.AppSettings["ContractManagementServiceUrl"]}/api/AllocationDelivery/payment-requests/notifications/",
+                    $"{TestConfiguration.Configuration["ContractManagement:ServiceUrl"]}/api/AllocationDelivery/payment-requests/notifications/",
                     AzureAuthenticator.GetAuthenticationConfig(),
                     "application/vnd.sfa.funding-policy.deliverable.setting.v1+atom+xml");
 
@@ -572,7 +573,7 @@
             }, maxNumChecks: 15, waitIntervalSeconds: 2);
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsNotNull(_paymentAtomFeedItemUnderTest, "Payment atom feed item not found");
+            ClassicAssert.IsNotNull(_paymentAtomFeedItemUnderTest, "Payment atom feed item not found");
         }
 
         [Given(@"the Payment feed item TITLE is as follows")]
@@ -580,10 +581,10 @@
         [Then(@"the Payment feed item TITLE is as follows")]
         public void ThenThePaymentFeedItemTitleIsAsFollows(Table table)
         {
-            Assert.IsNotNull(_paymentAtomFeedItemUnderTest, $"{_paymentAtomFeedItemUnderTest} variable not set");
+            ClassicAssert.IsNotNull(_paymentAtomFeedItemUnderTest, $"{_paymentAtomFeedItemUnderTest} variable not set");
 
             string expectedTitle = table.Rows.Single()["Title"];
-            Assert.AreEqual(expectedTitle, _paymentAtomFeedItemUnderTest.Title.Text, "Payment atom feed title was not correct");
+            ClassicAssert.AreEqual(expectedTitle, _paymentAtomFeedItemUnderTest.Title.Text, "Payment atom feed title was not correct");
         }
 
         [Given(@"the Payment feed item SUMMARY is as follows")]
@@ -591,7 +592,7 @@
         [Then(@"the Payment feed item SUMMARY is as follows")]
         public void ThenThePaymentFeedItemSummaryIsAsFollows(Table table)
         {
-            Assert.IsNotNull(_paymentAtomFeedItemUnderTest, $"_paymentAtomFeedItemUnderTest variable not set");
+            ClassicAssert.IsNotNull(_paymentAtomFeedItemUnderTest, $"_paymentAtomFeedItemUnderTest variable not set");
 
             var expectedSummary = table.Rows.Select(r => new Summary(fundingStreamPeriod: r["FundingStreamPeriod"],
                 paymentPeriod: r["PaymentPeriod"], censusEndDate: r.ParseDateAndTime("CensusEndDate"),
@@ -599,11 +600,11 @@
 
             Summary summary = JsonConvert.DeserializeObject<Summary>(_paymentAtomFeedItemUnderTest.Summary.Text);
 
-            Assert.AreEqual(expectedSummary.FundingStreamPeriod, summary.FundingStreamPeriod, "The FundingStreamPeriod on the summary was not correct");
-            Assert.AreEqual(expectedSummary.CensusEndDate, summary.CensusEndDate, "The CensusEndDate on the summary was not correct");
-            Assert.AreEqual(expectedSummary.PaymentLineCount, summary.PaymentLineCount, "The PaymentLineCount on the summary was not correct");
-            Assert.AreEqual(expectedSummary.PaymentPeriod, summary.PaymentPeriod, "The PaymentPeriod on the summary was not correct");
-            Assert.AreEqual(expectedSummary.TotalValue, summary.TotalValue, "The TotalValue on the summary was not correct");
+            ClassicAssert.AreEqual(expectedSummary.FundingStreamPeriod, summary.FundingStreamPeriod, "The FundingStreamPeriod on the summary was not correct");
+            ClassicAssert.AreEqual(expectedSummary.CensusEndDate, summary.CensusEndDate, "The CensusEndDate on the summary was not correct");
+            ClassicAssert.AreEqual(expectedSummary.PaymentLineCount, summary.PaymentLineCount, "The PaymentLineCount on the summary was not correct");
+            ClassicAssert.AreEqual(expectedSummary.PaymentPeriod, summary.PaymentPeriod, "The PaymentPeriod on the summary was not correct");
+            ClassicAssert.AreEqual(expectedSummary.TotalValue, summary.TotalValue, "The TotalValue on the summary was not correct");
         }
 
         [Given(@"the Payment feed item PaymentDetails are as follows")]
@@ -611,7 +612,7 @@
         [Then(@"the Payment feed item PaymentDetails are as follows")]
         public void ThenThePaymentFeedItemPaymentDetailsAreAsFollows(TransformedTable table)
         {
-            Assert.IsNotNull(_paymentAtomFeedItemUnderTest, $"_paymentAtomFeedItemUnderTest variable not set");
+            ClassicAssert.IsNotNull(_paymentAtomFeedItemUnderTest, $"_paymentAtomFeedItemUnderTest variable not set");
 
             var expectedPaymentDetails = table.Rows.Select(r => new PaymentDetail
             {
@@ -673,35 +674,36 @@
                     && pd.PaymentType == expectedPaymentDetail.PaymentType
                     && pd.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifier == expectedAltOrgId);
 
-                Assert.IsNotNull(paymentDetail, $"The Subnominal with code {expectedPaymentDetail.SubnominalCode} and payment type {expectedPaymentDetail.PaymentType} for organisation {expectedAltOrgId} is not present");
+                ClassicAssert.IsNotNull(paymentDetail, $"The Subnominal with code {expectedPaymentDetail.SubnominalCode} and payment type {expectedPaymentDetail.PaymentType} for organisation {expectedAltOrgId} is not present");
 
-                Assert.AreEqual(expectedPaymentDetail.Allocation.VersionNumber, paymentDetail.Allocation.VersionNumber, $"The version number of the Allocation {expectedPaymentDetail.Allocation.AllocationNumber} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Organisation.OrganisationId, paymentDetail.Organisation.OrganisationId, $"The OrgId for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifier, paymentDetail.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifier, $"The AlternateOrgId for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifierName, paymentDetail.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifierName, $"The AlternateOrgIdName for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Organisation.OrganisationStatusRelationships[0].OrganisationStatusScheme, paymentDetail.Organisation.OrganisationStatusRelationships[0].OrganisationStatusScheme, $"The OrganisationStatusScheme for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Organisation.OrganisationStatusRelationships[0].OrganisationStatus, paymentDetail.Organisation.OrganisationStatusRelationships[0].OrganisationStatus, $"The OrganisationStatus for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.VersionNumber, paymentDetail.Allocation.VersionNumber, $"The version number of the Allocation {expectedPaymentDetail.Allocation.AllocationNumber} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Organisation.OrganisationId, paymentDetail.Organisation.OrganisationId, $"The OrgId for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifier, paymentDetail.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifier, $"The AlternateOrgId for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifierName, paymentDetail.Organisation.AlternateOrganisationIdentifiers[0].AlternateOrganisationIdentifierName, $"The AlternateOrgIdName for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Organisation.OrganisationStatusRelationships[0].OrganisationStatusScheme, paymentDetail.Organisation.OrganisationStatusRelationships[0].OrganisationStatusScheme, $"The OrganisationStatusScheme for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Organisation.OrganisationStatusRelationships[0].OrganisationStatus, paymentDetail.Organisation.OrganisationStatusRelationships[0].OrganisationStatus, $"The OrganisationStatus for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
                 Func<PaymentDetail, string> getTenderSpecReference = e =>
                     paymentDetail.Allocation.ProcurementAttrs.TenderSpecReference;
+                ClassicAssert.Equals(getTenderSpecReference(expectedPaymentDetail), getTenderSpecReference(paymentDetail));
 
-                Assert.AreEqual(getTenderSpecReference(expectedPaymentDetail), getTenderSpecReference(paymentDetail), $"The TenderSpecReference for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.TenderSpecTitle, paymentDetail.Allocation.ProcurementAttrs.TenderSpecTitle, $"The TenderSpecTitle for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LotReference, paymentDetail.Allocation.ProcurementAttrs.LotReference, $"The LotReference for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LotSpecificationTitle, paymentDetail.Allocation.ProcurementAttrs.LotSpecificationTitle, $"The LotSpecificationTitle for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.AwardReference, paymentDetail.Allocation.ProcurementAttrs.AwardReference, $"The AwardReference for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.ActivityDescription, paymentDetail.Allocation.ProcurementAttrs.ActivityDescription, $"The ActivityDescription for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.InvestmentPriority, paymentDetail.Allocation.ProcurementAttrs.InvestmentPriority, $"The InvestmentPriority for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LEPCode, paymentDetail.Allocation.ProcurementAttrs.LEPCode, $"The LEPCode for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LEPName, paymentDetail.Allocation.ProcurementAttrs.LEPName, $"The LEPName for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.RegionType, paymentDetail.Allocation.ProcurementAttrs.RegionType, $"The RegionType for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.AgreementNumber, paymentDetail.Allocation.ProcurementAttrs.AgreementNumber, $"The AgreementNumber for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LearningRatePremium, paymentDetail.Allocation.ProcurementAttrs.LearningRatePremium, $"The LearningRatePremium for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.SubnominalCode, paymentDetail.SubnominalCode, $"The SubnominalCode for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.SubnominalDescription, paymentDetail.SubnominalDescription, $"The SubnominalDescription for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
-                Assert.AreEqual(expectedPaymentDetail.AggregatedValue, paymentDetail.AggregatedValue, $"The AggregatedValue for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(getTenderSpecReference(expectedPaymentDetail), getTenderSpecReference(paymentDetail), $"The TenderSpecReference for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.TenderSpecTitle, paymentDetail.Allocation.ProcurementAttrs.TenderSpecTitle, $"The TenderSpecTitle for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LotReference, paymentDetail.Allocation.ProcurementAttrs.LotReference, $"The LotReference for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LotSpecificationTitle, paymentDetail.Allocation.ProcurementAttrs.LotSpecificationTitle, $"The LotSpecificationTitle for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.AwardReference, paymentDetail.Allocation.ProcurementAttrs.AwardReference, $"The AwardReference for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.ActivityDescription, paymentDetail.Allocation.ProcurementAttrs.ActivityDescription, $"The ActivityDescription for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.InvestmentPriority, paymentDetail.Allocation.ProcurementAttrs.InvestmentPriority, $"The InvestmentPriority for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LEPCode, paymentDetail.Allocation.ProcurementAttrs.LEPCode, $"The LEPCode for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LEPName, paymentDetail.Allocation.ProcurementAttrs.LEPName, $"The LEPName for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.RegionType, paymentDetail.Allocation.ProcurementAttrs.RegionType, $"The RegionType for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.AgreementNumber, paymentDetail.Allocation.ProcurementAttrs.AgreementNumber, $"The AgreementNumber for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.Allocation.ProcurementAttrs.LearningRatePremium, paymentDetail.Allocation.ProcurementAttrs.LearningRatePremium, $"The LearningRatePremium for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.SubnominalCode, paymentDetail.SubnominalCode, $"The SubnominalCode for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.SubnominalDescription, paymentDetail.SubnominalDescription, $"The SubnominalDescription for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
+                ClassicAssert.AreEqual(expectedPaymentDetail.AggregatedValue, paymentDetail.AggregatedValue, $"The AggregatedValue for Subnominal {expectedPaymentDetail.SubnominalCode} is not correct");
             });
 
-            Assert.IsNotNull(paymentPeriod, "paymentPeriod variable not set");
+            ClassicAssert.IsNotNull(paymentPeriod, "paymentPeriod variable not set");
         }
 
         [Then(@"the Payment feed item PaymentPeriod details are as follows")]
@@ -721,14 +723,14 @@
 
             PaymentPeriod paymentPeriod = _paymentAtomFeedItemUnderTest.GetContent<PaymentPeriod>();
 
-            Assert.AreEqual(expectedPaymentPeriod.Agency, paymentPeriod.Agency, "The Agency is not correct");
-            Assert.AreEqual(expectedPaymentPeriod.FundingStreamShortCode, paymentPeriod.FundingStreamShortCode, "The FundingStreamShortCode is not correct");
-            Assert.AreEqual(expectedPaymentPeriod.FundingStreamPeriodStartDate, paymentPeriod.FundingStreamPeriodStartDate, "The FundingStreamPeriodStartDate is not correct");
-            Assert.AreEqual(expectedPaymentPeriod.FundingStreamPeriodEndDate, paymentPeriod.FundingStreamPeriodEndDate, "The FundingStreamPeriodEndDate is not correct");
-            Assert.AreEqual(expectedPaymentPeriod.CensusEndDate, paymentPeriod.CensusEndDate, "The CensusEndDate is not correct");
-            Assert.AreEqual(expectedPaymentPeriod.DueDate, paymentPeriod.DueDate, "The DueDate is not correct");
-            Assert.AreEqual(expectedPaymentPeriod.FinancialPaymentFinancialYear, paymentPeriod.FinancialPaymentFinancialYear, "The FinancialPaymentFinancialYear is not correct");
-            Assert.AreEqual(expectedPaymentPeriod.FinancialPaymentFinancialMonth, paymentPeriod.FinancialPaymentFinancialMonth, "The FinancialPaymentFinancialMonth is not correct");
+            ClassicAssert.AreEqual(expectedPaymentPeriod.Agency, paymentPeriod.Agency, "The Agency is not correct");
+            ClassicAssert.AreEqual(expectedPaymentPeriod.FundingStreamShortCode, paymentPeriod.FundingStreamShortCode, "The FundingStreamShortCode is not correct");
+            ClassicAssert.AreEqual(expectedPaymentPeriod.FundingStreamPeriodStartDate, paymentPeriod.FundingStreamPeriodStartDate, "The FundingStreamPeriodStartDate is not correct");
+            ClassicAssert.AreEqual(expectedPaymentPeriod.FundingStreamPeriodEndDate, paymentPeriod.FundingStreamPeriodEndDate, "The FundingStreamPeriodEndDate is not correct");
+            ClassicAssert.AreEqual(expectedPaymentPeriod.CensusEndDate, paymentPeriod.CensusEndDate, "The CensusEndDate is not correct");
+            ClassicAssert.AreEqual(expectedPaymentPeriod.DueDate, paymentPeriod.DueDate, "The DueDate is not correct");
+            ClassicAssert.AreEqual(expectedPaymentPeriod.FinancialPaymentFinancialYear, paymentPeriod.FinancialPaymentFinancialYear, "The FinancialPaymentFinancialYear is not correct");
+            ClassicAssert.AreEqual(expectedPaymentPeriod.FinancialPaymentFinancialMonth, paymentPeriod.FinancialPaymentFinancialMonth, "The FinancialPaymentFinancialMonth is not correct");
         }
         
         [Given(@"the subnominal codes on the following PaaS SubnominalAggregation rows have been amended")]
@@ -830,16 +832,16 @@
             MessageSendingBus.Send(destinationEndpointName:"Operations.PaymentSummary", message: new CreatePaymentSummaryReportCommand());
         }
 
-        private static void AssertPaymentPeriodsAreEqual(PaymentPeriod expected, PaymentPeriod actual)
+        private static void ClassicAssertPaymentPeriodsAreEqual(PaymentPeriod expected, PaymentPeriod actual)
         {
             // top level: 
-            Assert.AreEqual(expected.FundingStreamShortCode, actual.FundingStreamShortCode, "Funding Stream Short Code did not match");
-            Assert.AreEqual(expected.FinancialPaymentFinancialYear, actual.FinancialPaymentFinancialYear, "Financial Year did not match");
-            Assert.AreEqual(expected.FinancialPaymentFinancialMonth, actual.FinancialPaymentFinancialMonth, "Financial Month did not match");
-            Assert.AreEqual(expected.CensusEndDate, actual.CensusEndDate, "Census End Date did not match");
-            Assert.AreEqual(expected.DueDate, actual.DueDate, "Due Date did not match");
-            Assert.AreEqual(expected.FundingStreamPeriodStartDate, actual.FundingStreamPeriodStartDate, "FSP Start Date did not match");
-            Assert.AreEqual(expected.FundingStreamPeriodEndDate, actual.FundingStreamPeriodEndDate, "FSP End Date did not match");
+            ClassicAssert.AreEqual(expected.FundingStreamShortCode, actual.FundingStreamShortCode, "Funding Stream Short Code did not match");
+            ClassicAssert.AreEqual(expected.FinancialPaymentFinancialYear, actual.FinancialPaymentFinancialYear, "Financial Year did not match");
+            ClassicAssert.AreEqual(expected.FinancialPaymentFinancialMonth, actual.FinancialPaymentFinancialMonth, "Financial Month did not match");
+            ClassicAssert.AreEqual(expected.CensusEndDate, actual.CensusEndDate, "Census End Date did not match");
+            ClassicAssert.AreEqual(expected.DueDate, actual.DueDate, "Due Date did not match");
+            ClassicAssert.AreEqual(expected.FundingStreamPeriodStartDate, actual.FundingStreamPeriodStartDate, "FSP Start Date did not match");
+            ClassicAssert.AreEqual(expected.FundingStreamPeriodEndDate, actual.FundingStreamPeriodEndDate, "FSP End Date did not match");
 
             expected.PaymentDetails.ForEach(e =>
             {
@@ -849,7 +851,7 @@
                             OrganisationIdentifierAlternateOrganisationIdentifierName.UKPROVIDERREFERENCENUMBER)
                         .AlternateOrganisationIdentifier;
 
-                Assert.IsTrue(null != actual.PaymentDetails.SingleOrDefault(a => 
+                ClassicAssert.IsTrue(null != actual.PaymentDetails.SingleOrDefault(a => 
                                   e.Allocation.AllocationNumber == a.Allocation.AllocationNumber
                                && e.Allocation.ProcurementAttrs?.AgreementNumber == a.Allocation.ProcurementAttrs?.AgreementNumber
                                && e.Allocation.ProcurementAttrs?.LEPCode == a.Allocation.ProcurementAttrs?.LEPCode

@@ -19,11 +19,25 @@
         public void ApplyDataFix()
         {
             var commands = GetDocumentGenerationCommands("Datafix.Tests", "Resources.R112a.docGenCommands.json");
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<DocumentGenerationCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<DocumentGenerationCommand>();
             SendOptions sendOptions = new SendOptions();
             sendOptions.RouteReplyTo("ContractCreateDomain.IncrementContractVersion");
             sendOptions.SetDestination("DocumentsDomain.GenerateDocument");
-            var sendTasks = commands.Select(c => endpoint.Send(message:c, options:sendOptions));
+            //var sendTasks = commands.Select(c => endpoint.Send(message:c, options:sendOptions));
+
+            //var sendTasks = commands.Select(c =>
+            //{
+            //    var options = new SendOptions();
+            //    return endpoint.Send(c, options);
+            //});
+
+            var destination = "DocumentsDomain.GenerateDocument";
+
+            var sendTasks = commands.Select(c =>
+            {
+                return endpoint.Send(destination, c);
+            });
+
 
             Task.WhenAll(sendTasks).Wait();
         }

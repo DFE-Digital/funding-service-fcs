@@ -1,5 +1,4 @@
-﻿using Microsoft.WindowsAzure.ServiceRuntime;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,32 +6,32 @@ using System.Threading.Tasks;
 
 namespace WorkerRole
 {
-    class CloudServiceRoleEntryPoint : RoleEntryPoint
-    {
-        WorkerRole _worker = null;
+    //class CloudServiceRoleEntryPoint : RoleEntryPoint
+    //{
+    //    WorkerRole _worker = null;
 
-        public CloudServiceRoleEntryPoint()
-        {
-            _worker = new WorkerRole();
-        }
-        public override void Run()
-        {
-            _worker.Run();
-        }
+    //    public CloudServiceRoleEntryPoint()
+    //    {
+    //        _worker = new WorkerRole();
+    //    }
+    //    public override void Run()
+    //    {
+    //        _worker.Run();
+    //    }
 
-        public override bool OnStart()
-        {
-            _worker.OnStart();
+    //    public override bool OnStart()
+    //    {
+    //        _worker.OnStart();
 
-            bool result = base.OnStart();
-            return result;
-        }
+    //        bool result = base.OnStart();
+    //        return result;
+    //    }
 
-        public override void OnStop()
-        {
-            _worker.OnStop();
+    //    public override void OnStop()
+    //    {
+    //        _worker.OnStop();
 
-            base.OnStop();
-        }
-    }
+    //        base.OnStop();
+    //    }
+    //}
 }

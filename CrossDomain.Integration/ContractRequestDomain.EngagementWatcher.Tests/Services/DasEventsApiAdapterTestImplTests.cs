@@ -1,14 +1,15 @@
 ﻿namespace ContractRequestDomain.EngagementWatcher.Tests.Services
 {
+    extern alias Common;
     using System.Collections.Generic;
     using System.Linq;
     using ContractManagement.DataStore.Model;
-    using Dtos;
-    using EngagementWatcher.Services;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Dtos;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Newtonsoft.Json;
-    using SFA.FCT.CrossDomain.Integration.Common.PagedStorage;
-    using SFA.FCT.CrossDomain.Integration.Common.Storage;
+    using Common::SFA.FCT.CrossDomain.Integration.Common.PagedStorage;
+    using Common::SFA.FCT.CrossDomain.Integration.Common.Storage;
 
     [TestClass]
     public class DasEventsApiAdapterTestImplTests

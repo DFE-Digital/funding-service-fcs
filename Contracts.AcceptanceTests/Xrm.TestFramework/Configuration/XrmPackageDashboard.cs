@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Xml;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework.Legacy;
 
     /// <summary>
     /// Class used for handling configuration of a Dynamics CRM Dashboard
@@ -78,7 +79,7 @@
 
         public XrmPackageDashboard IsSystemDefault(bool isDefault)
         {
-            Assert.AreEqual(isDefault, _isSystemDefault, "Default status of the dashboard is incorrect");
+            ClassicAssert.AreEqual(isDefault, _isSystemDefault, "Default status of the dashboard is incorrect");
             return this;
         }
 
@@ -86,8 +87,8 @@
         {
             var gridMatch = _items.Where(i => i.Type == XrmDashboardItemType.View && i.ViewId == viewId);
 
-            Assert.IsTrue(gridMatch.Any(), "The view {0} is not on the dashboard", viewId);
-            Assert.AreEqual(gridMatch.First().QuickFindEnabled, quickFindEnabled,
+            ClassicAssert.IsTrue(gridMatch.Any(), "The view {0} is not on the dashboard", viewId);
+            ClassicAssert.AreEqual(gridMatch.First().QuickFindEnabled, quickFindEnabled,
                 "The QuickView status of the Dashboard Item was incorrect");
             return this;
         }

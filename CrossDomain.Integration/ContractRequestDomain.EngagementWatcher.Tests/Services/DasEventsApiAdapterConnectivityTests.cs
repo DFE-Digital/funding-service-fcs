@@ -1,6 +1,6 @@
 ﻿namespace ContractRequestDomain.EngagementWatcher.Tests.Services
 {
-    using EngagementWatcher.Services;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using System.Configuration;

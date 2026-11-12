@@ -1,15 +1,16 @@
 ﻿namespace ContractCreateDomain.Endpoint.Tests.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.IO;
-    using System.Reflection;
+    using AutoMapper;
     using ContractCreateDomain.Endpoint.Services;
     using FluentAssertions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
     using Newtonsoft.Json;
+    using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
 
     [TestClass]
     public class ContractTypeTransformerTests
@@ -35,7 +36,7 @@
             const string town = "town";
             const string contractorStatus = "Locked Restructure";
 
-            var transformer = new ContractTypeTransformer();
+            var transformer = CreateTransformer();
 
             var contractType = new contractType
             {
@@ -44,7 +45,7 @@
                     new contractAllocationsContractAllocation
                     {
                         DeliveryOrganisation = deliveryOrganisationName,
-                        DeliveryOrganisationDetail = new contractor
+                        DeliveryOrganisationDetail = new Contractor
                         {
                             ukprn = ukprn,
                             legalName = legalName,
@@ -140,7 +141,7 @@
             const string contractorStatus = "Locked Restructure";
             DateTime startDate = DateTime.UtcNow;
 
-            var transformer = new ContractTypeTransformer();
+            var transformer = CreateTransformer();
 
             var contractType = new contractType
             {
@@ -153,7 +154,7 @@
                             new contractAllocationsContractAllocation
                             {
                                 DeliveryOrganisation = deliveryOrganisationName,
-                                DeliveryOrganisationDetail = new contractor
+                                DeliveryOrganisationDetail = new Contractor
                                 {
                                     ukprn = ukprn,
                                     legalName = legalName,
@@ -236,10 +237,10 @@
 
             Assert.IsNotNull(corpContract);
 
-            var transformer = new ContractTypeTransformer();
+            var transformer = CreateTransformer();
 
             // act
-            contract schemaContract = transformer.TransformContractTypeToContract(corpContract);
+            Contract schemaContract = transformer.TransformContractTypeToContract(corpContract);
 
             // assert
             schemaContract.contracts.First().contractAllocations.ForEach(schemaAllocation =>
@@ -282,7 +283,7 @@
 
             Assert.IsNotNull(corpContract);
 
-            var transformer = new ContractTypeTransformer();
+            var transformer = CreateTransformer();
 
             // act
             ExtendedContractType schemaContract = transformer.TransformContractTypeToExtendedContractType(corpContract);
@@ -325,7 +326,7 @@
         {
             // arrange
             contractType corpContract = GetCorporateContractFromFile("corporate_contracts_withAEBC1819.json").contracts.Single();
-            ContractTypeTransformer transformer = new ContractTypeTransformer();
+            ContractTypeTransformer transformer = CreateTransformer();
 
             // act
             var contractRequest = transformer.TransformCorpContractToContractRequest(corpContract);
@@ -362,7 +363,7 @@
             using (var stream = Assembly.GetCallingAssembly().GetManifestResourceStream($"ContractCreateDomain.Endpoint.Tests.Resources.{fileName}"))
             using (var streamReader = new StreamReader(stream))
             {
-                return JsonConvert.DeserializeObject<contract>(streamReader.ReadToEnd());
+                return JsonConvert.DeserializeObject<Contract>(streamReader.ReadToEnd());
             }
         }
 
@@ -381,6 +382,19 @@
             }
 
             return flattenedList;
+        }    
+
+    
+        private static ContractTypeTransformer CreateTransformer()
+        {
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddMaps(typeof(ContractTypeTransformer).Assembly);
+            },null);
+
+            return new ContractTypeTransformer(
+                mapperConfig.CreateMapper());
         }
+
     }
 }

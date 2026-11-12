@@ -33,8 +33,8 @@
                 // arrange
                 IApprovedContractAtomItemRepository repository = new ApprovedContractAtomItemRepository();
                 ConnectionInfo connectionInfo = new ConnectionInfo(null, context.Database.Connection);
-                AtomFeedItem item1 = AtomFeedItem.CreateAtomFeedItem(new contract(), businessKey, AtomItemType.ApprovedContract, xml => true);
-                AtomFeedItem item2 = AtomFeedItem.CreateAtomFeedItem(new contract(), businessKey, AtomItemType.ApprovedContract, xml => true);
+                AtomFeedItem item1 = AtomFeedItem.CreateAtomFeedItem(new Contract(), businessKey, AtomItemType.ApprovedContract, xml => true);
+                AtomFeedItem item2 = AtomFeedItem.CreateAtomFeedItem(new Contract(), businessKey, AtomItemType.ApprovedContract, xml => true);
 
                 bool threwExpectedException = false;
 
@@ -71,8 +71,8 @@
                 // arrange
                 IApprovedContractAtomItemRepository repository = new ApprovedContractAtomItemRepository();
                 ConnectionInfo connectionInfo = new ConnectionInfo(null, context.Database.Connection);
-                AtomFeedItem item1 = AtomFeedItem.CreateAtomFeedItem(new contract(), businessKey, AtomItemType.ContractTerminationInitiated, xml => true);
-                AtomFeedItem item2 = AtomFeedItem.CreateAtomFeedItem(new contract(), businessKey, AtomItemType.ContractTerminationInitiated, xml => true);
+                AtomFeedItem item1 = AtomFeedItem.CreateAtomFeedItem(new Contract(), businessKey, AtomItemType.ContractTerminationInitiated, xml => true);
+                AtomFeedItem item2 = AtomFeedItem.CreateAtomFeedItem(new Contract(), businessKey, AtomItemType.ContractTerminationInitiated, xml => true);
 
                 // act
                 repository.Add(item1, connectionInfo).Wait();
@@ -98,7 +98,7 @@
                     // arrange
                     IApprovedContractAtomItemRepository repository = new ApprovedContractAtomItemRepository();
                     ConnectionInfo connectionInfo = new ConnectionInfo(null, context.Database.Connection);
-                    AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new contract(), businessKey, AtomItemType.ApprovedContract, xml => true);
+                    AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new Contract(), businessKey, AtomItemType.ApprovedContract, xml => true);
 
                     // act
                     repository.Add(item, connectionInfo).Wait();
@@ -138,7 +138,7 @@
                 IApprovedContractAtomItemRepository repository = new ApprovedContractAtomItemRepository();
                 ConnectionInfo connectionInfo = new ConnectionInfo(null, context.Database.Connection);
 
-                AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new contract(), businessKey, AtomItemType.ApprovedContract, feedItemId, xml => true);
+                AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new Contract(), businessKey, AtomItemType.ApprovedContract, feedItemId, xml => true);
 
                 repository.Add(item, connectionInfo).Wait();
             }

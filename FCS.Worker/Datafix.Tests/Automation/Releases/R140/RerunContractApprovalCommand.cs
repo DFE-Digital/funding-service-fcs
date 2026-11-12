@@ -45,7 +45,7 @@ namespace Datafix.Tests.Automation.Releases.R140
                 }
             };
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<InitiateContractApprovalCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<InitiateContractApprovalCommand>();
 
             var sendTasks = approvalCommands.Select(c => endpoint.Send("ContractManagementDomain.InitiateContractApproval", c)).ToArray();
             Task.WaitAll(sendTasks);

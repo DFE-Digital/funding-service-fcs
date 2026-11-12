@@ -1,6 +1,7 @@
 ﻿namespace ContractRequestDomain.Tests.BulkUpload
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using SFA.FCT.ContractRequestDomain.Common;
     using SFA.FCT.ContractRequestDomain.Integration.BulkUpload;
     using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;

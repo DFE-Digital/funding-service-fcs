@@ -1,9 +1,10 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated.Repositories
 {
+    extern alias IntegrationEntities;
     using System.Collections.Concurrent;
     using System.Linq;
     using Microsoft.Xrm.Sdk;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
 
     public class FundingStreamPeriodRepository : IFundingStreamPeriodRepository
     {

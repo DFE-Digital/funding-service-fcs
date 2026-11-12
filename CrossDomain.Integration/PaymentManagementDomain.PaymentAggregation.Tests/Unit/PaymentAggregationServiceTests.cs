@@ -1,18 +1,19 @@
 ﻿namespace SFA.FCT.PaymentManagementDomain.PaymentAggregation.Tests.Unit
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using BusinessLogic;
     using BusinessLogic.Services;
-    using CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using Framework.Logging.Interfaces;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using PaymentManagementDomain.Integration.PaymentAggregation.Services;
     using PolicyCache.DataStore.Model;
     using PolicyCache.DataStore.Repositories;
-    using paymentSchedule = CrossDomain.Integration.Entities.PaymentSchedule;
-    using paymentAggregation = CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using paymentSchedule = Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using paymentAggregation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
 
     [TestClass]
     public class PaymentAggregationServiceTests
@@ -173,114 +174,110 @@
             Assert.AreEqual(10, result.AllocationPeriods[0].Aggregations[0].AggregatedValue);
         }
 
+
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(Exception), "Unable to translate OrgIdentifierName")]
         public void PaymentAggregationService_ShouldThrowExceptionWhenGivenInvalidOrganisationData()
         {
             // arrange
-            paymentSchedule.Allocation allocation = new paymentSchedule.Allocation
+            var allocation = new paymentSchedule.Allocation
             {
                 Organisation = new paymentSchedule.Organisation
                 {
                     OrganisationIdentifiers = new List<paymentSchedule.OrganisationIdentifier>
-                    {
-                        new paymentSchedule.OrganisationIdentifier
-                        {
-                            OrganisationIdentifierName = paymentSchedule.OrganisationIdentifierOrganisationIdentifierName.SECTORLEADBODY
-                        }
-                    }
+            {
+                new paymentSchedule.OrganisationIdentifier
+                {
+                    OrganisationIdentifierName = paymentSchedule
+                        .OrganisationIdentifierOrganisationIdentifierName
+                        .SECTORLEADBODY
+                }
+            }
                 },
                 AllocationDeliverables = new List<paymentSchedule.AllocationDeliverable>
+        {
+            new paymentSchedule.AllocationDeliverable
+            {
+                DeliverableCode = 2,
+                ScheduledPayments = new List<paymentSchedule.ScheduledPayment>
                 {
-                    new paymentSchedule.AllocationDeliverable
-                    {
-                        DeliverableCode = 2,
-                        ScheduledPayments = new List<paymentSchedule.ScheduledPayment>
-                        {
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "08", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "09", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "10", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "11", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "12", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "01", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "02", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "03", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "04", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "05", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "06", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "07", PeriodTypeCode = "AY"},
-                        }
-                    },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "08", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "09", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "10", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "11", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "12", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "01", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "02", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "03", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "04", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "05", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "06", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "07", PeriodTypeCode = "AY" },
                 }
+            },
+        }
             };
 
-            // act 
-            _paymentAggregationService.CalculateAggregatedPayments(allocation, ConnectionInfo.CreateDefault());
+            // act & assert
+            var ex = Assert.ThrowsExactly<System.Exception>(() =>
+                _paymentAggregationService.CalculateAggregatedPayments(allocation, ConnectionInfo.CreateDefault())
+            );
+
+            // optional: assert message content for extra confidence
+            Assert.Contains("Unable to translate OrgIdentifierName", ex.Message);
         }
 
+
+
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(Exception), "Invalid periodTypeCode supplied")]
         public void PaymentAggregationService_ShouldThrowExceptionWhenGivenInvalidPeriodTypeCodeInPaymentSchedule()
         {
             // arrange
-            paymentSchedule.Allocation allocation = new paymentSchedule.Allocation
+            var allocation = new paymentSchedule.Allocation
             {
                 Organisation = new paymentSchedule.Organisation
                 {
                     OrganisationIdentifiers = new List<paymentSchedule.OrganisationIdentifier>
-                    {
-                        new paymentSchedule.OrganisationIdentifier
-                        {
-                            OrganisationIdentifierName = paymentSchedule.OrganisationIdentifierOrganisationIdentifierName.UKPRN
-                        }
-                    }
+            {
+                new paymentSchedule.OrganisationIdentifier
+                {
+                    OrganisationIdentifierName = paymentSchedule
+                        .OrganisationIdentifierOrganisationIdentifierName
+                        .UKPRN
+                }
+            }
                 },
                 AllocationDeliverables = new List<paymentSchedule.AllocationDeliverable>
+        {
+            new paymentSchedule.AllocationDeliverable
+            {
+                DeliverableCode = 2,
+                ScheduledPayments = new List<paymentSchedule.ScheduledPayment>
                 {
-                    new paymentSchedule.AllocationDeliverable
-                    {
-                        DeliverableCode = 2,
-                        ScheduledPayments = new List<paymentSchedule.ScheduledPayment>
-                        {
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "08", PeriodTypeCode = "AP"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "09", PeriodTypeCode = "AY"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "10", PeriodTypeCode = "CM"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "11", PeriodTypeCode = "CQ"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "12", PeriodTypeCode = "CY"},
-                            new paymentSchedule.ScheduledPayment
-                            {
-                                ProfilePaymentAmount = 10,
-                                Period = "01",
-                                PeriodTypeCode = "EOF"
-                            },
-                            new paymentSchedule.ScheduledPayment
-                            {
-                                ProfilePaymentAmount = 10,
-                                Period = "02",
-                                PeriodTypeCode = "EOP"
-                            },
-                            new paymentSchedule.ScheduledPayment
-                            {
-                                ProfilePaymentAmount = 10,
-                                Period = "03",
-                                PeriodTypeCode = "ESF"
-                            },
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "04", PeriodTypeCode = "FP"},
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "05", PeriodTypeCode = "FY"},
-                            new paymentSchedule.ScheduledPayment
-                            {
-                                ProfilePaymentAmount = 10,
-                                Period = "06",
-                                PeriodTypeCode = "Broken"
-                            },
-                            new paymentSchedule.ScheduledPayment {ProfilePaymentAmount = 10, Period = "07", PeriodTypeCode = "AY"},
-                        }
-                    }
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "08", PeriodTypeCode = "AP" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "09", PeriodTypeCode = "AY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "10", PeriodTypeCode = "CM" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "11", PeriodTypeCode = "CQ" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "12", PeriodTypeCode = "CY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "01", PeriodTypeCode = "EOF" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "02", PeriodTypeCode = "EOP" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "03", PeriodTypeCode = "ESF" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "04", PeriodTypeCode = "FP" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "05", PeriodTypeCode = "FY" },
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "06", PeriodTypeCode = "Broken" }, // invalid
+                    new paymentSchedule.ScheduledPayment { ProfilePaymentAmount = 10, Period = "07", PeriodTypeCode = "AY" },
                 }
+            }
+        }
             };
 
-            // act 
-            _paymentAggregationService.CalculateAggregatedPayments(allocation, ConnectionInfo.CreateDefault());
+            // act & assert
+            var ex = Assert.ThrowsExactly<System.Exception>(() =>
+                _paymentAggregationService.CalculateAggregatedPayments(allocation, ConnectionInfo.CreateDefault())
+            );
+
+            // optional: assert message
+            Assert.Contains("Invalid periodTypeCode supplied", ex.Message);
         }
+
     }
 }

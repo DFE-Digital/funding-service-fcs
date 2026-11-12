@@ -56,7 +56,6 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<ContractNotificationPublishedToProviderHandler>().LifestyleScoped());
-            container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 
@@ -68,7 +67,7 @@
         public void ContractNotificationPublishedToProviderHandler_GetCorporateContractReturnsNotification_SendsMessageOnBus()
         {
             // arrange
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
             corpContract.contracts[0].amendmentType = "Notification";
 
             _contractsManagerMock
@@ -98,7 +97,7 @@
             _monthEndHistoryRepository
                 .Setup(m => m.IsMonthEndInProgress(It.IsAny<ConnectionInfo>()))
                 .Returns(true);
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 2);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 2);
             corpContract.contracts[0].amendmentType = "Notification";
 
             _contractsManagerMock
@@ -123,14 +122,14 @@
             Assert.AreEqual(1, _messageHandlerContext.SentMessages.Select(sm => sm.Message).OfType<ContractNotificationPublishedToProviderEvent>().Count());
         }
 
-        private static contract ReturnPopulatedCorporateContract(string masterContractNumber, string contractNumber, string contractStatus, string contractParentStatus, int version)
+        private static Contract ReturnPopulatedCorporateContract(string masterContractNumber, string contractNumber, string contractStatus, string contractParentStatus, int version)
         {
-            return new contract
+            return new Contract
             {
                 contractNumber = masterContractNumber,
                 contracts =
                 {
-                    new contract
+                    new Contract
                     {
                         contractNumber = contractNumber,
                         contractStatus = new contractStatusType

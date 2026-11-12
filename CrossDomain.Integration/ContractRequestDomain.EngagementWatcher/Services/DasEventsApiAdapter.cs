@@ -1,4 +1,4 @@
-﻿namespace ContractRequestDomain.EngagementWatcher.Services
+﻿namespace SFA.FCT.ContractRequestDomain.EngagementWatcher.Services
 {
     using System;
     using System.Net;
@@ -18,7 +18,6 @@
         private readonly string _resourceId;
         private readonly string _clientId;
         private readonly string _appKey;
-        private readonly string _subscriptionKey;
         private readonly IOAuthAccessTokenFactory _oAuthAccessTokenFactory;
 
         public DasEventsApiAdapter(IOAuthAccessTokenFactory oAuthAccessTokenFactory)
@@ -31,7 +30,6 @@
             _resourceId = ConfigurationManager.AppSettings["DasEngagements.ResourceId"];
             _clientId = ConfigurationManager.AppSettings["DasEngagements.ClientId"];
             _appKey = ConfigurationManager.AppSettings["DasEngagements.SecretKey"];
-            _subscriptionKey = ConfigurationManager.AppSettings["DasEngagements.SubscriptionKey"];
         }
 
         public IReadOnlyCollection<EngagementEvent> GetEngagementEventsAfterId(long fromEventId, int pageSize)
@@ -63,14 +61,9 @@
         {
             using (var httpClient = new HttpClient())
             {
-                //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetBearerToken());
-
-                // Add headers here
-                httpClient.DefaultRequestHeaders.Add("X-Version", "1");
-                httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _subscriptionKey);
-
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetBearerToken());
                 var response = httpClient.GetAsync(url).Result;
-               
+
                 response.EnsureSuccessStatusCode();
 
                 return response.Content.ReadAsStringAsync().Result;
@@ -84,7 +77,7 @@
 
         private string GetEventsUrl(long sinceEventId, int pageSize)
         {
-            return $"{_baseAddress}aparregister/providers/status-events?sinceEventId={sinceEventId}&pageSize={pageSize}&pageNumber=1";
+            return $"{_baseAddress}api/v1/Organisation/engagements?sinceEventId={sinceEventId}&pageSize={pageSize}&pageNumber=1";
         }
     }
 }

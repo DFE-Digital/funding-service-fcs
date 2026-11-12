@@ -1,18 +1,16 @@
 namespace ContractManagement.DataStore
 {
-    using Migrations;
+    using System.Data.Entity;
     using Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
-    using System;
+    using System.Data.Entity.ModelConfiguration.Conventions;
+    using Migrations;
     using System.Data;
     using System.Data.Common;
-    using System.Data.Entity;
-    using System.Data.Entity.ModelConfiguration.Conventions;
     using System.Threading.Tasks;
+    using SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class ContractManagementDbContext : DbContext, IContractManagementDbContext
     {
-
         public static string KeyVaultValue { get; set; }
 
         public ContractManagementDbContext() : base(GetConnectionString())

@@ -17,20 +17,81 @@ steps:
     versionSpec: 6.0.0
   condition: and(succeeded(), eq(variables['FunctionAppDeployment'],'Y'), or(eq(variables['RunAcceptanceTests'], 'Y'), eq(variables['RunIntegrationTests'], 'Y'), eq(variables['RunIntegrationTestsNightlyBuild'], 'Y'), eq(variables['RunCleanUpTests'], 'Y'), eq(variables['RunCRMConfigTests'], 'Y'), eq(variables['BuildAcceptanceTests'], 'Y')))
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore for Contracts.AcceptanceTests'
+# - task: NuGetCommand@2
+#   displayName: 'NuGet restore for Contracts.AcceptanceTests'
+#   inputs:
+#     restoreSolution: 'Contracts.AcceptanceTests\Contracts.AcceptanceTests.sln'
+#     restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+#   condition: and(succeeded(), or(eq(variables['RunAcceptanceTests'], 'Y'), eq(variables['BuildAcceptanceTests'], 'Y')))
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet packages for Contracts.AcceptanceTests'
   inputs:
-    restoreSolution: 'Contracts.AcceptanceTests\Contracts.AcceptanceTests.sln'
-    restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+    command: 'restore'
+    projects: 'Contracts.AcceptanceTests\Contracts.AcceptanceTests.sln'
+    feedsToUse: 'select'
+    includeNuGetOrg: true
   condition: and(succeeded(), or(eq(variables['RunAcceptanceTests'], 'Y'), eq(variables['BuildAcceptanceTests'], 'Y')))
 
-- task: VSBuild@1
+- task: PowerShell@2
+  displayName: 'Diagnose Contracts.AcceptanceTests project XML and MSBuild'
+  inputs:
+    targetType: inline
+    script: |
+      $project = Get-ChildItem -Path "$(Build.SourcesDirectory)\Contracts.AcceptanceTests" -Recurse -Filter 'Contracts.AcceptanceTests.csproj' | Select-Object -First 1
+      if ($null -eq $project) {
+          throw 'Contracts.AcceptanceTests.csproj was not found under $(Build.SourcesDirectory)\Contracts.AcceptanceTests'
+      }
+
+      Write-Host "Project path: $($project.FullName)"
+      Get-Content -LiteralPath $project.FullName -TotalCount 5
+
+      $msbuildPath = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+      if (-not (Test-Path $msbuildPath)) {
+          throw "Visual Studio 2022 MSBuild was not found at $msbuildPath"
+      }
+
+      Write-Host "MSBuild path: $msbuildPath"
+      & $msbuildPath -version
+  condition: and(succeeded(), or(eq(variables['RunAcceptanceTests'], 'Y'), eq(variables['BuildAcceptanceTests'], 'Y')))
+
+- task: PowerShell@2
   displayName: 'Build solution Contracts.AcceptanceTests.sln'
   inputs:
-    solution: 'Contracts.AcceptanceTests\Contracts.AcceptanceTests.sln'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
+    targetType: inline
+    script: |
+      $msbuildPath = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+      $solutionPath = Join-Path '$(Build.SourcesDirectory)' 'Contracts.AcceptanceTests\Contracts.AcceptanceTests.sln'
+      $msbuildArgs = @(
+          $solutionPath,
+          '/nologo',
+          '/nr:false',
+          '/p:Platform=$(BuildSolutionPlatform)',
+          '/p:Configuration=$(BuildConfiguration)'
+      )
+
+      & $msbuildPath @msbuildArgs
+      if ($LASTEXITCODE -ne 0) {
+          throw "MSBuild failed with exit code $LASTEXITCODE"
+      }
   condition: and(succeeded(), or(eq(variables['RunAcceptanceTests'], 'Y'), eq(variables['BuildAcceptanceTests'], 'Y')))
+
+- powershell: |
+    $msbuildPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe"
+
+    Write-Host "Checking Visual Studio MSBuild:"
+    Write-Host $msbuildPath
+
+    if (-not (Test-Path $msbuildPath)) {
+        Write-Error "MSBuild.exe was not found at $msbuildPath"
+        exit 1
+    }
+
+    & $msbuildPath -version
+
+    $msbuildDirectory = Split-Path $msbuildPath
+    Write-Host "##vso[task.prependpath]$msbuildDirectory"
+  displayName: 'Configure Visual Studio MSBuild'
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore for **/*.B.sln'
@@ -39,29 +100,71 @@ steps:
     restoreDirectory: '${{ parameters.BuildRoot }}/packages'
   condition: and(succeeded(), or(eq(variables['RunIntegrationTests'], 'Y'), eq(variables['RunIntegrationTestsNightlyBuild'], 'Y'), eq(variables['RunCleanUpTests'], 'Y'), eq(variables['RunCRMConfigTests'], 'Y')))
 
-- task: VSBuild@1
+- task: PowerShell@2
   displayName: 'Build all solutions with tests (*.B.sln)'
   inputs:
-    solution: '**\*.B.sln'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
+    targetType: inline
+    script: |
+      $msbuildPath = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+      $solutions = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.B.sln'
+      if (-not $solutions) {
+          throw 'No .B.sln files were found under $(Build.SourcesDirectory)'
+      }
+
+      foreach ($solution in $solutions) {
+          Write-Host "Building solution: $($solution.FullName)"
+          $msbuildArgs = @(
+              $solution.FullName,
+              '/nologo',
+              '/nr:false',
+              '/p:Platform=$(BuildSolutionPlatform)',
+              '/p:Configuration=$(BuildConfiguration)'
+          )
+
+          & $msbuildPath @msbuildArgs
+          if ($LASTEXITCODE -ne 0) {
+              throw "MSBuild failed for $($solution.FullName) with exit code $LASTEXITCODE"
+          }
+      }
   condition: and(succeeded(), or(eq(variables['RunIntegrationTestsNightlyBuild'], 'Y'), eq(variables['RunCleanUpTests'], 'Y'), eq(variables['RunCRMConfigTests'], 'Y')))
 
-- task: VSBuild@1
+- task: DotNetCoreCLI@2
+  displayName: 'Restore OrganisationDomain .NET 8'
+  inputs:
+    command: 'restore'
+    projects: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.B.sln'
+    feedsToUse: 'select'
+    includeNuGetOrg: true
+  condition: and(succeeded(), eq(variables['BC_OrgDomain'], 'Y'), eq(variables['RunIntegrationTests'],'Y'))
+
+- task: PowerShell@2
   displayName: 'Build OrganisationDomain with tests'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.B.sln'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
+    targetType: inline
+    script: |
+      $msbuildPath = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+      $solutionPath = Join-Path '$(Build.SourcesDirectory)' 'OrganisationDomain\OrganisationDomain.B.sln'
+      $msbuildArgs = @(
+          $solutionPath,
+          '/nologo',
+          '/nr:false',
+          '/p:Platform=$(BuildSolutionPlatform)',
+          '/p:Configuration=$(BuildConfiguration)'
+      )
+
+      & $msbuildPath @msbuildArgs
+      if ($LASTEXITCODE -ne 0) {
+          throw "MSBuild failed with exit code $LASTEXITCODE"
+      }
   condition: and(succeeded(), eq(variables['BC_OrgDomain'], 'Y'), eq(variables['RunIntegrationTests'],'Y'))
-  
+
 - task: DotNetCoreCLI@2
   displayName: 'Test: .NET Core Tests'
   inputs:
-   command: test
-   projects: '**/*Tests/FundingAllocation.Tests.csproj'
-   arguments: '--configuration $(BuildConfiguration) --filter TestCategory=UnitTest|TestCategory=IntegrationTest --collect "Code Coverage"'
-  condition: and(succeeded(), eq(variables['RunCoreTests'], 'Y')) 
+    command: test
+    projects: '**/*Tests/FundingAllocation.Tests.csproj'
+    arguments: '--configuration $(BuildConfiguration) --filter TestCategory=UnitTest|TestCategory=IntegrationTest --collect "Code Coverage"'
+  condition: and(succeeded(), eq(variables['RunCoreTests'], 'Y'))
 
 - task: DotNetCoreCLI@2
   displayName: 'Test: FctServices .NET Core Tests'
@@ -70,14 +173,20 @@ steps:
     projects: '${{ parameters.BuildRoot }}/FCTServices/FCTServices.sln'
     arguments: '--configuration $(BuildConfiguration) --filter TestCategory=UnitTest|TestCategory=IntegrationTest --collect "Code Coverage"'
   condition: and(succeeded(), eq(variables['RunIntegrationTests'], 'Y'), eq(variables['BC_FCTServices'], 'Y'))
-    
+
+- task: VisualStudioTestPlatformInstaller@1
+  inputs:
+    packageFeedSelector: 'nugetOrg'
+    versionSelector: 'latestStable'
+
 - task: VSTest@2
   displayName: 'Test: Integration Tests'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\$(BuildConfiguration)\**Tests.dll
-     !**\obj\**
-    testFiltercriteria: 'TestCategory=IntegrationTest&TestCategory!=ExternalDependency'
+      **\$(BuildConfiguration)\**Tests.dll
+      !**\obj\**
+    testFiltercriteria: 'TestCategory=IntegrationTest'
     pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\CrossDomain.Integration'
     codeCoverageEnabled: true
     runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
@@ -85,15 +194,18 @@ steps:
     configuration: '$(BuildConfiguration)'
     rerunFailedTests: true
     testRunTitle: 'Integration Tests'
+  env:
+    FSC_DAT_APP_KEY: $(idaAppKeyFundingStreamConfig)
   continueOnError: false
   condition: and(succeeded(), eq(variables['RunIntegrationTests'], 'Y'))
 
 - task: VSTest@2
   displayName: 'Test: Integration Tests Nightly Build'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\$(BuildConfiguration)\**Tests.dll
-     !**\obj\**
+      **\$(BuildConfiguration)\**Tests.dll
+      !**\obj\**
     testFiltercriteria: 'TestCategory=IntegrationTestNightlyBuild'
     pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\FCT.Console'
     codeCoverageEnabled: true
@@ -105,13 +217,30 @@ steps:
   continueOnError: true
   condition: and(succeeded(), eq(variables['RunIntegrationTestsNightlyBuild'], 'Y'))
 
+  #Murali Debug Start
+
+- task: PowerShell@2
+  displayName: 'Verify TeamSiteTests config'
+  inputs:
+    targetType: inline
+    script: |
+      Get-ChildItem "$(Build.SourcesDirectory)" -Recurse -Filter TeamSiteTests.dll.config
+
+      Get-ChildItem "$(Build.SourcesDirectory)" -Recurse -Filter TeamSiteTests.dll.config |
+      ForEach-Object {
+          Write-Host "Found:" $_.FullName
+          Get-Content $_.FullName
+      }
+#Murali Debug end
+
 - task: VSTest@2
   displayName: 'Test: Clean up Tests'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\$(BuildConfiguration)\**TeamSiteTests.dll
-     !**\obj\**
-     !Build/drop/**
+      **\bin\$(BuildConfiguration)\net8.0\**TeamSiteTests.dll
+      !**\obj\**
+      !Build/drop/**
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\FCS.Worker'
     runInParallel: false
     codeCoverageEnabled: true
@@ -122,14 +251,31 @@ steps:
   continueOnError: true
   condition: and(succeeded(), eq(variables['RunCleanUpTests'], 'Y'))
 
+- powershell: |
+    $adapterPath = "$(Build.SourcesDirectory)\TestAdapters"
+
+    New-Item -ItemType Directory -Force -Path $adapterPath | Out-Null
+
+    nuget install NUnitTestAdapter `
+      -Version 2.3.0 `
+      -OutputDirectory $adapterPath `
+      -NonInteractive
+
+    Write-Host "Installed NUnit adapter:"
+    Get-ChildItem $adapterPath -Recurse -Filter "*.TestAdapter.dll" |
+        Select-Object FullName
+  displayName: 'Install NUnit Test Adapter 2.3.0'
+
 - task: VSTest@2
   displayName: 'Test: Contracts Acceptance Tests (except Long2Run)'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\bin\$(BuildConfiguration)\Contracts.AcceptanceTests.dll
-     !Build/drop/*
+      **\bin\$(BuildConfiguration)\net8.0\Contracts.AcceptanceTests.dll
+      !**\obj\**
+      !Build/drop/**
     testFiltercriteria: (TestCategory=AcceptanceTest&TestCategory=Complete&TestCategory!=Long2Run)
-    pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\TestAdapters\NUnitTestAdapter.2.3.0\build'
     runInParallel: false
     codeCoverageEnabled: true
     runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
@@ -138,17 +284,21 @@ steps:
     rerunFailedTests: true
     rerunMaxAttempts: 1
     testRunTitle: 'Contracts Acceptance Tests (except Long2Run)'
+  env:
+    fcsPaaSDBConnectionstring: $(fcsPaaSDBConnectionstring)
   continueOnError: true
   condition: and(succeeded(), eq(variables['RunAcceptanceTests'], 'Y'))
 
 - task: VSTest@2
   displayName: 'Test: Contracts Acceptance Tests (only Long2Run A100 - A399)'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\bin\$(BuildConfiguration)\Contracts.AcceptanceTests.dll
-     !Build/drop/*
-    testFiltercriteria: (TestCategory=AcceptanceTest&TestCategory=Complete&TestCategory=Long2Run123)
-    pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
+      **\bin\$(BuildConfiguration)\net8.0\Contracts.AcceptanceTests.dll
+      !**\obj\**
+      !Build/drop/**
+    testFiltercriteria: (TestCategory=AcceptanceTest&TestCategory=Complete&TestCategory!=Long2Run123)
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\TestAdapters\NUnitTestAdapter.2.3.0\build'
     runInParallel: false
     codeCoverageEnabled: true
     runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
@@ -157,17 +307,21 @@ steps:
     rerunFailedTests: true
     rerunMaxAttempts: 1
     testRunTitle: 'Test: Contracts Acceptance Tests (only Long2Run A100 - A399)'
+  env:
+    fcsPaaSDBConnectionstring: $(fcsPaaSDBConnectionstring)
   continueOnError: true
   condition: and(succeeded(), eq(variables['RunAcceptanceTests'], 'Y'))
 
 - task: VSTest@2
   displayName: 'Test: Contracts Acceptance Tests (only Long2Run A400 - A599)'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\bin\$(BuildConfiguration)\Contracts.AcceptanceTests.dll
-     !Build/drop/*
-    testFiltercriteria: (TestCategory=AcceptanceTest&TestCategory=Complete&TestCategory=Long2Run45)
-    pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
+      **\bin\$(BuildConfiguration)\net8.0\Contracts.AcceptanceTests.dll
+      !**\obj\**
+      !Build/drop/**
+    testFiltercriteria: (TestCategory=AcceptanceTest&TestCategory=Complete&TestCategory!=Long2Run45)
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\TestAdapters\NUnitTestAdapter.2.3.0\build'
     runInParallel: false
     codeCoverageEnabled: true
     runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
@@ -176,17 +330,21 @@ steps:
     rerunFailedTests: true
     rerunMaxAttempts: 1
     testRunTitle: 'Test: Contracts Acceptance Tests (only Long2Run A400 - A599)'
+  env:
+    fcsPaaSDBConnectionstring: $(fcsPaaSDBConnectionstring)
   continueOnError: true
   condition: and(succeeded(), eq(variables['RunAcceptanceTests'], 'Y'))
 
 - task: VSTest@2
   displayName: 'Test: Contracts Acceptance Tests (only Long2Run A600 - A799)'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\bin\$(BuildConfiguration)\Contracts.AcceptanceTests.dll
-     !Build/drop/*
+      **\bin\$(BuildConfiguration)\net8.0\Contracts.AcceptanceTests.dll
+      !**\obj\**
+      !Build/drop/**
     testFiltercriteria: (TestCategory=AcceptanceTest&TestCategory=Complete&TestCategory=Long2Run67)
-    pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\TestAdapters\NUnitTestAdapter.2.3.0\build'
     runInParallel: false
     codeCoverageEnabled: true
     runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
@@ -195,17 +353,21 @@ steps:
     rerunFailedTests: true
     rerunMaxAttempts: 1
     testRunTitle: 'Test: Contracts Acceptance Tests (only Long2Run A600 - A799)'
+  env:
+    fcsPaaSDBConnectionstring: $(fcsPaaSDBConnectionstring)
   continueOnError: true
   condition: and(succeeded(), eq(variables['RunAcceptanceTests'], 'Y'))
 
 - task: VSTest@2
   displayName: 'Test: Contracts Acceptance Tests (only Long2Run A800 - A999 and A0XX)'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\bin\$(BuildConfiguration)\Contracts.AcceptanceTests.dll
-     !Build/drop/*
+      **\bin\$(BuildConfiguration)\net8.0\Contracts.AcceptanceTests.dll
+      !**\obj\**
+      !Build/drop/**
     testFiltercriteria: (TestCategory=AcceptanceTest&TestCategory=Complete&TestCategory=Long2Run890)
-    pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\TestAdapters\NUnitTestAdapter.2.3.0\build'
     runInParallel: false
     codeCoverageEnabled: true
     runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
@@ -214,15 +376,19 @@ steps:
     rerunFailedTests: true
     rerunMaxAttempts: 1
     testRunTitle: 'Test: Contracts Acceptance Tests (only Long2Run A800 - A999 and A0XX)'
+  env:
+    fcsPaaSDBConnectionstring: $(fcsPaaSDBConnectionstring)
   continueOnError: true
   condition: and(succeeded(), eq(variables['RunAcceptanceTests'], 'Y'))
 
 - task: VSTest@2
   displayName: 'Test: Xrm Configuration Tests'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\bin\$(BuildConfiguration)\Xrm.Configuration.Tests.dll
-     !Build/drop/**
+      **\bin\$(BuildConfiguration)\net8.0\Xrm.Configuration.Tests.dll
+      !**\obj\**
+      !Build/drop/**
     testFiltercriteria: 'TestCategory=CRMConfiguration'
     pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\FCS.Worker'
     runInParallel: false
@@ -237,11 +403,13 @@ steps:
 - task: VSTest@2
   displayName: 'Test: Contracts Acceptance Tests - CFS only'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\bin\$(BuildConfiguration)\Contracts.AcceptanceTests.dll
-     !Build/drop/*
+      **\bin\$(BuildConfiguration)\net8.0\Contracts.AcceptanceTests.dll
+      !**\obj\**
+      !Build/drop/**
     testFiltercriteria: (TestCategory=AcceptanceTest&TestCategory=Complete&TestCategory=CFS)
-    pathtoCustomTestAdapters: '${{ parameters.BuildRoot }}\packages\NUnitTestAdapter.1.2'
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\TestAdapters\NUnitTestAdapter.2.3.0\build'
     runInParallel: false
     codeCoverageEnabled: true
     runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'
@@ -250,6 +418,8 @@ steps:
     rerunFailedTests: true
     rerunMaxAttempts: 1
     testRunTitle: 'Test: Contracts Acceptance Tests - CFS only'
+  env:
+    fcsPaaSDBConnectionstring: $(fcsPaaSDBConnectionstring)
   continueOnError: true
   condition: and(succeeded(), eq(variables['CFS_Tests'], 'Y'))
 
@@ -259,10 +429,7 @@ steps:
   inputs:
     targetType: filePath
     filePath: ${{ parameters.BuildRoot }}/Build/Scripts/Build-UnpackBuildControlFile.ps1
-    arguments:
-      -configuration  $(Release.EnvironmentName)
-      -buildRoot "${{ parameters.BuildRoot }}"
-      -BCOverride '$(BC_Override)'
+    arguments: -configuration  $(Release.EnvironmentName) -buildRoot "${{ parameters.BuildRoot }}" -BCOverride '$(BC_Override)'
   continueOnError: false
 
 - task: DotNetCoreCLI@2
@@ -343,37 +510,50 @@ steps:
     arguments: '--configuration $(BuildConfiguration) --filter TestCategory=UnitTest --collect "Code Coverage"'
   condition: and(succeeded(), and(eq(variables['BC_OperationsWorker'], 'Y'), eq(variables['RunUnitTests'], 'Y')))
 
-- task: VSBuild@1
+- task: PowerShell@2
   displayName: 'Build Operations - CDA Framework code'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/FCT.Operations/Fct.Operations.Cda.Tests/FCT.Operations.Cda.Tests.csproj'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+    targetType: inline
+    script: |
+      $msbuildPath = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+      $projectPath = Join-Path '$(Build.SourcesDirectory)' 'FCT.Operations\Fct.Operations.Cda.Tests\FCT.Operations.Cda.Tests.csproj'
+      $msbuildArgs = @($projectPath, '/nologo', '/nr:false', '/p:Platform=$(BuildPlatform)', '/p:Configuration=$(BuildConfiguration)')
+      & $msbuildPath @msbuildArgs
+      if ($LASTEXITCODE -ne 0) { throw "MSBuild failed with exit code $LASTEXITCODE" }
   condition: and(succeeded(), and(eq(variables['BC_OperationsWorker'], 'Y'), eq(variables['RunUnitTests'], 'Y')))
 
-- task: VSBuild@1
+- task: PowerShell@2
   displayName: 'Build Operations - Integrity Framework code'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/FCT.Operations/FCT.Operations.Integrity.Tests/FCT.Operations.Integrity.Tests.csproj'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+    targetType: inline
+    script: |
+      $msbuildPath = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+      $projectPath = Join-Path '$(Build.SourcesDirectory)' 'FCT.Operations\FCT.Operations.Integrity.Tests\FCT.Operations.Integrity.Tests.csproj'
+      $msbuildArgs = @($projectPath, '/nologo', '/nr:false', '/p:Platform=$(BuildPlatform)', '/p:Configuration=$(BuildConfiguration)')
+      & $msbuildPath @msbuildArgs
+      if ($LASTEXITCODE -ne 0) { throw "MSBuild failed with exit code $LASTEXITCODE" }
   condition: and(succeeded(), and(eq(variables['BC_OperationsWorker'], 'Y'), eq(variables['RunUnitTests'], 'Y')))
 
-- task: VSBuild@1
+- task: PowerShell@2
   displayName: 'Build Operations - Maintenance Framework code'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/FCT.Operations/FCT.Operations.Maintenance.Endpoint.Tests/FCT.Operations.Maintenance.Endpoint.Tests.csproj'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+    targetType: inline
+    script: |
+      $msbuildPath = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe'
+      $projectPath = Join-Path '$(Build.SourcesDirectory)' 'FCT.Operations\FCT.Operations.Maintenance.Endpoint.Tests\FCT.Operations.Maintenance.Endpoint.Tests.csproj'
+      $msbuildArgs = @($projectPath, '/nologo', '/nr:false', '/p:Platform=$(BuildPlatform)', '/p:Configuration=$(BuildConfiguration)')
+      & $msbuildPath @msbuildArgs
+      if ($LASTEXITCODE -ne 0) { throw "MSBuild failed with exit code $LASTEXITCODE" }
   condition: and(succeeded(), and(eq(variables['BC_OperationsWorker'], 'Y'), eq(variables['RunUnitTests'], 'Y')))
 
 - task: VSTest@2
   displayName: 'Test: Framework Unit Tests for Operations'
   inputs:
+    vsTestVersion: 'toolsInstaller'
     testAssemblyVer2: |
-     **\FCT.Operations\Fct.Operations.Cda.Tests\bin\$(BuildConfiguration)\**Tests.dll
-     **\FCT.Operations\FCT.Operations.Integrity.Tests\bin\$(BuildConfiguration)\**Tests.dll
-     !**\obj\**
+      **\FCT.Operations\Fct.Operations.Cda.Tests\bin\$(BuildConfiguration)\**Tests.dll
+      **\FCT.Operations\FCT.Operations.Integrity.Tests\bin\$(BuildConfiguration)\**Tests.dll
+      !**\obj\**
     testFiltercriteria: 'TestCategory=UnitTest'
     pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\CrossDomain.Integration'
     codeCoverageEnabled: true

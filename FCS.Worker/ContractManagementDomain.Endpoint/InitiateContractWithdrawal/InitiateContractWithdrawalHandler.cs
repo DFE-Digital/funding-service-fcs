@@ -15,7 +15,7 @@
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore.Services;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract;
+    using Contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract;
     using contractType = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType;
 
     public class InitiateContractWithdrawalHandler : IHandleMessages<InitiateContractWithdrawalCommand>
@@ -78,7 +78,7 @@
             {
                 RaiseExceptionOnError(!ValidateMessageParameters(masterContractNumber, contractNumber, versionNumber, out string errorMessage), errorMessage);
 
-                contract masterContract = _contractsManager.GetCorporateContractForSpecificVersion(contractNumber, masterContractNumber, versionNumber);
+                Contract masterContract = _contractsManager.GetCorporateContractForSpecificVersion(contractNumber, masterContractNumber, versionNumber);
 
                 RaiseExceptionOnError(!ContractValidator.ValidateMasterAndChildContracts(masterContract, out errorMessage), errorMessage);
 

@@ -1,9 +1,12 @@
 ﻿namespace SFA.FCT.AllocationDeliveryDomain.Common.Storage
 {
-    using System;
-    using Microsoft.WindowsAzure.Storage.Table;
+    using Azure;
+    //using Microsoft.WindowsAzure.Storage.Table;
 
-    public class ClosedCollectionHistory : TableEntity, IAzureEntity
+    using Azure.Data.Tables;
+    using System;
+
+    public class ClosedCollectionHistory : ITableEntity, IAzureEntity
     {
         public const string StoragePartitionKey = "PK";
 
@@ -25,5 +28,10 @@
         {
             get { return CollectionType; }
         }
+
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
     }
 }

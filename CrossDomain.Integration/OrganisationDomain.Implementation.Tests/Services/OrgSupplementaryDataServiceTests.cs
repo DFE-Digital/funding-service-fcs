@@ -13,10 +13,11 @@
     using Moq;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;
+    //using UkrlpProviderQueryWS;
     using UnitTests.Common;
 
     [TestClass]
-       public class OrgSupplementaryDataServiceTests
+    public class OrgSupplementaryDataServiceTests
     {
         //[TestMethod, TestCategory("IntegrationTest")]
         //public void ProviderQueryServiceV5_ShouldConnectToService()
@@ -84,7 +85,7 @@
         //    IOrgSupplementaryDataService supplementaryDataService =
         //        GetContainer().Resolve<IOrgSupplementaryDataService>();
 
-        //    OrgSupplementaryDataServiceResult result = supplementaryDataService.GetDataForUkprn(10069927);
+        //    OrgSupplementaryDataServiceResult result = supplementaryDataService.GetDataForUkprn(10000937);
 
         //    Assert.AreEqual(true, result.IsSuccessful, "The call has not been successful");
         //    Assert.AreEqual("02154580", result.CompanyRegNumber, "The CompanyRegNumber is not correct");
@@ -143,7 +144,7 @@
         //    // arrange
         //    IWindsorContainer container = GetContainer();
         //    OrgSupplementaryDataService orgSupplementaryDataService = new OrgSupplementaryDataService(
-        //       // container.Resolve<ProviderQueryServiceV5>(),
+        //        container.Resolve<ProviderQueryServiceV5>(),
         //        Mock.Of<ILogger>());
 
         //    // act

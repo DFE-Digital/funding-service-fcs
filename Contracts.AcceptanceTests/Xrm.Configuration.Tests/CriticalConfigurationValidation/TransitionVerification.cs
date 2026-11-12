@@ -1,16 +1,20 @@
-﻿using System;
-using System.Text;
+﻿using CoreTechs.Common;
+using Microsoft.PowerPlatform.Dataverse.Client;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Microsoft.Xrm.Client;
+//using Microsoft.Xrm.Client.Services;
+using Microsoft.Xrm.Sdk;
+//using Microsoft.Test.ObjectComparison;
+using Microsoft.Xrm.Sdk.Query;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Xrm.Client;
-using Microsoft.Xrm.Client.Services;
-using Microsoft.Xrm.Sdk;
+using System.Text;
 using System.Xml.Linq;
-using Microsoft.Test.ObjectComparison;
-using Microsoft.Xrm.Sdk.Query;
+using NUnit.Framework.Legacy;
 
 
 namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
@@ -29,7 +33,8 @@ namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
     {
         public XDocument ConfigData;
         private readonly string _baseDirectoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        private OrganizationService _service;
+        //private OrganizationService _service;
+        private IOrganizationService _service;
 
 
 
@@ -37,9 +42,15 @@ namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
         [TestCategory("CRMConfiguration_onhold")]
         public void TransitionVerificationSettings()
         {
-            CrmConnection connection = new CrmConnection("CrmConnectionString");
-            _service = new OrganizationService(connection);
-            
+
+            //CrmConnection connection = new CrmConnection("CrmConnectionString");
+            //_service = new OrganizationService(connection);
+
+
+            string connectionString = ConfigurationManager.ConnectionStrings["CrmConnectionString"].ConnectionString;
+            var serviceClient = new ServiceClient(connectionString);
+            _service = serviceClient;
+
             string configDataFile = Path.Combine(_baseDirectoryName, @"ConfigData\Transition.xml");
             ConfigData = XDocument.Load(configDataFile);
 
@@ -84,16 +95,40 @@ namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
 
 
 
-                using (var context = new CrmOrganizationServiceContext(service))
+                //using (var context = new CrmOrganizationServiceContext(service))
+                //{
+                //    var TransitionCollection = context.CreateQuery("sfa_transition") 
+                //        .Where(c => c.GetAttributeValue<OptionSetValue>("statecode").Value == 0)
+                //        .OrderBy(x=>x["sfa_name"])
+                //        .ToList();
+
+                //    List<TransitionObject> ActualObjects =  CreateactualTranistionOjbect(TransitionCollection);
+
+                var query = new QueryExpression("sfa_transition")
                 {
-                    var TransitionCollection = context.CreateQuery("sfa_transition") 
-                        .Where(c => c.GetAttributeValue<OptionSetValue>("statecode").Value == 0)
-                        .OrderBy(x=>x["sfa_name"])
-                        .ToList();
+                    ColumnSet = new ColumnSet(true)
+                };
 
-                    List<TransitionObject> ActualObjects =  CreateactualTranistionOjbect(TransitionCollection);
+                query.Criteria.AddCondition(
+                    "statecode",
+                    ConditionOperator.Equal,
+                    0);
 
-                    Assert.AreEqual(ExpectedObjects.Count(), ActualObjects.Count, string.Format("Expected Transition number : {0} is different to actual transition number : {1}.", ExpectedObjects.Count().ToString(), ActualObjects.Count.ToString()));
+                query.AddOrder(
+                    "sfa_name",
+                    OrderType.Ascending);
+
+                var transitionCollection =
+                    service.RetrieveMultiple(query)
+                           .Entities
+                           .ToList();
+
+
+                List<TransitionObject> ActualObjects =
+                    CreateactualTranistionOjbect(transitionCollection);
+
+
+                ClassicAssert.AreEqual(ExpectedObjects.Count(), ActualObjects.Count, string.Format("Expected Transition number : {0} is different to actual transition number : {1}.", ExpectedObjects.Count().ToString(), ActualObjects.Count.ToString()));
                     StringBuilder result = new StringBuilder();
 
                     foreach (var aTrans in ActualObjects)
@@ -104,7 +139,7 @@ namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
 
                         var transitionName = aTrans.Name;
 
-                        Assert.IsTrue(eTrans != null,
+                        ClassicAssert.IsTrue(eTrans != null,
                             string.Format("Transition : {0} cannot be found in verification template.", transitionName));
 
                         
@@ -127,29 +162,29 @@ namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
                     }
 
                     //IEnumerable<ObjectComparisonMismatch> mismatches = CompareTransitionReportObjects(ExpectedObjects, ActualObjects);
-                    Assert.IsTrue(result.Length==0, result.ToString());
+                    ClassicAssert.IsTrue(result.Length==0, result.ToString());
 
-                }
+                //}
             }
         }
 
-        public string WriteMismatches(IEnumerable<ObjectComparisonMismatch> mismatches)
-        {
+        //public string WriteMismatches(IEnumerable<ObjectComparisonMismatch> mismatches)
+        //{
 
-            StringBuilder sb = new StringBuilder();
-            foreach (var mismatch in mismatches)
-            {
-                sb.AppendLine(string.Format(
-                    "Expected {0} value: {1}, Actual {2} value: {3}, Mismatch Type: {4}",
-                    mismatch.LeftObjectNode != null ? mismatch.LeftObjectNode.Name : null,
-                    mismatch.LeftObjectNode != null ? mismatch.LeftObjectNode.ObjectValue : null,
-                    mismatch.RightObjectNode != null ? mismatch.RightObjectNode.Name : null,
-                    mismatch.RightObjectNode != null ? mismatch.RightObjectNode.ObjectValue : null,
-                    mismatch.MismatchType));
-            }
+        //    StringBuilder sb = new StringBuilder();
+        //    foreach (var mismatch in mismatches)
+        //    {
+        //        sb.AppendLine(string.Format(
+        //            "Expected {0} value: {1}, Actual {2} value: {3}, Mismatch Type: {4}",
+        //            mismatch.LeftObjectNode != null ? mismatch.LeftObjectNode.Name : null,
+        //            mismatch.LeftObjectNode != null ? mismatch.LeftObjectNode.ObjectValue : null,
+        //            mismatch.RightObjectNode != null ? mismatch.RightObjectNode.Name : null,
+        //            mismatch.RightObjectNode != null ? mismatch.RightObjectNode.ObjectValue : null,
+        //            mismatch.MismatchType));
+        //    }
 
-            return sb.ToString();
-        }
+        //    return sb.ToString();
+        //}
 
         public List<TransitionObject> CreateactualTranistionOjbect(IEnumerable<Entity> source)
         {
@@ -162,11 +197,14 @@ namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
                     Name = trans.GetAttributeValue<string>("sfa_name") ?? "",
                     ManagersTeam =  trans.GetAttributeValue<EntityReference>("sfa_managersteam") !=null? trans.GetAttributeValue<EntityReference>("sfa_managersteam").Name : "",
                     Owner = trans.GetAttributeValue<EntityReference>("owningteam") !=null ? GetFieldName("team", trans.GetAttributeValue<EntityReference>("owningteam").Id,"name"): GetFieldName("systemuser", trans.GetAttributeValue<EntityReference>("owninguser").Id,"name"),
-                    ActionOnExistingTask = trans.GetAttributeValue<OptionSetValue>("sfa_actionontask") != null ? trans.GetFormattedAttributeValue("sfa_actionontask") : "",
-                    FromAction  = trans.GetAttributeValue<EntityReference>("sfa_fromaction") != null ? trans.GetAttributeValue<EntityReference>("sfa_fromaction").Name : "",
+                    //ActionOnExistingTask = trans.GetAttributeValue<OptionSetValue>("sfa_actionontask") != null ? trans.GetFormattedAttributeValue("sfa_actionontask") : "",
+                    ActionOnExistingTask = trans.FormattedValues.Contains("sfa_actionontask")? trans.FormattedValues["sfa_actionontask"]: "",
+                    FromAction = trans.GetAttributeValue<EntityReference>("sfa_fromaction") != null ? trans.GetAttributeValue<EntityReference>("sfa_fromaction").Name : "",
                     NextAction = trans.GetAttributeValue<EntityReference>("sfa_nextaction") != null ? trans.GetAttributeValue<EntityReference>("sfa_nextaction").Name : "",
-                    FromState =  trans.GetAttributeValue<OptionSetValue>("sfa_fromstate") != null ? trans.GetFormattedAttributeValue("sfa_fromstate") : "",
-                    ToState = trans.GetAttributeValue<OptionSetValue>("sfa_tostate") != null ? trans.GetFormattedAttributeValue("sfa_tostate") : "",
+                    //FromState =  trans.GetAttributeValue<OptionSetValue>("sfa_fromstate") != null ? trans.GetFormattedAttributeValue("sfa_fromstate") : "",
+                    FromState = trans.FormattedValues.Contains("sfa_fromstate") ? trans.FormattedValues["sfa_fromstate"] : "",
+                    //ToState = trans.GetAttributeValue<OptionSetValue>("sfa_tostate") != null ? trans.GetFormattedAttributeValue("sfa_tostate") : "",
+                    ToState = trans.FormattedValues.Contains("sfa_tostate") ? trans.FormattedValues["sfa_tostate"] : "",
                     ServiceIntent = trans.GetAttributeValue<string>("sfa_serviceintent") ?? "",
                     APICallRequired = trans.GetAttributeValue<Boolean>("sfa_callapi") == true ? "True" : "False",
                     RequiresANotification = trans.GetAttributeValue<Boolean>("sfa_requiresanotification") == true ? "True" : "False",
@@ -174,8 +212,10 @@ namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
                     RequiresCreationOfTask = trans.GetAttributeValue<Boolean>("sfa_createtask") == true ? "True" : "False",
                     Subject = trans.GetAttributeValue<string>("sfa_subject")  ?? "",
                     TaskDescription = trans.GetAttributeValue<string>("sfa_taskdescription") ?? "",
-                    DefaultAssignTo = trans.GetAttributeValue<OptionSetValue>("sfa_defaultassignto") != null ? trans.GetFormattedAttributeValue("sfa_defaultassignto") : "",
-                    NotificationType = trans.GetAttributeValue<OptionSetValue>("sfa_notificationtype") != null ? trans.GetFormattedAttributeValue("sfa_notificationtype") : "",
+                    //DefaultAssignTo = trans.GetAttributeValue<OptionSetValue>("sfa_defaultassignto") != null ? trans.GetFormattedAttributeValue("sfa_defaultassignto") : "",
+                    DefaultAssignTo = trans.FormattedValues.Contains("sfa_defaultassignto") ? trans.FormattedValues["sfa_defaultassignto"] : "",
+                    //NotificationType = trans.GetAttributeValue<OptionSetValue>("sfa_notificationtype") != null ? trans.GetFormattedAttributeValue("sfa_notificationtype") : "",
+                    NotificationType = trans.FormattedValues.Contains("sfa_notificationtype") ? trans.FormattedValues["sfa_notificationtype"] : "",
                     NotificationDescription = trans.GetAttributeValue<string>("sfa_notificationdescription") ??  "",
                     NotificationSubject = trans.GetAttributeValue<string>("sfa_notificationsubject") ?? ""
 
@@ -200,19 +240,19 @@ namespace SFA.FCT.Xrm.Configuration.Tests.CriticalConfigurationValidation
 
         }
 
-        public IEnumerable<ObjectComparisonMismatch> CompareTransitionReportObjects(object expectedTransitionObject, object actualTransitionObject)
-        {
-            IEnumerable<ObjectComparisonMismatch> mismatches = new List<ObjectComparisonMismatch>();
-            var factory = new PublicPropertyObjectGraphFactory();
-            var comparer = new ObjectGraphComparer();
+        //public IEnumerable<ObjectComparisonMismatch> CompareTransitionReportObjects(object expectedTransitionObject, object actualTransitionObject)
+        //{
+        //    IEnumerable<ObjectComparisonMismatch> mismatches = new List<ObjectComparisonMismatch>();
+        //    var factory = new PublicPropertyObjectGraphFactory();
+        //    var comparer = new ObjectGraphComparer();
 
-            var expectedGraph = factory.CreateObjectGraph(expectedTransitionObject);
-            var actualGraph = factory.CreateObjectGraph(actualTransitionObject);
+        //    var expectedGraph = factory.CreateObjectGraph(expectedTransitionObject);
+        //    var actualGraph = factory.CreateObjectGraph(actualTransitionObject);
 
-            comparer.Compare(expectedGraph, actualGraph, out mismatches);
+        //    comparer.Compare(expectedGraph, actualGraph, out mismatches);
 
-            return mismatches;
-        }
+        //    return mismatches;
+        //}
 
 
     }

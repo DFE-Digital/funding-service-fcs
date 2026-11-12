@@ -8,6 +8,7 @@ namespace SFA.FCT.Xrm.TestFramework
     using System.Linq;
     using System.Xml;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework.Legacy;
 
     // Using statements for Assertions
 
@@ -81,25 +82,25 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmPackageWorkflow IsSynchronousProcess()
         {
-            Assert.IsTrue(this.SynchronousWorkflow, "The Workflow : " + this.WorkflowName + " is not Synchronous");
+            ClassicAssert.IsTrue(this.SynchronousWorkflow, "The Workflow : " + this.WorkflowName + " is not Synchronous");
             return this;
         }
 
         public XrmPackageWorkflow IsBackgroundProcess()
         {
-            Assert.IsFalse(this.SynchronousWorkflow, "The Workflow : " + this.WorkflowName + " is not a Background Process");
+            ClassicAssert.IsFalse(this.SynchronousWorkflow, "The Workflow : " + this.WorkflowName + " is not a Background Process");
             return this;
         }
 
         public XrmPackageWorkflow IsPrimaryEntity(string primiaryentityname)
         {
-            Assert.AreEqual(this.PrimaryEntity.ToLower(), primiaryentityname.ToLower(), "The Workflow : " + this.WorkflowName + " Primary Entity is not " + this.PrimaryEntity );
+            ClassicAssert.AreEqual(this.PrimaryEntity.ToLower(), primiaryentityname.ToLower(), "The Workflow : " + this.WorkflowName + " Primary Entity is not " + this.PrimaryEntity );
             return this;
         }
 
         public XrmPackageWorkflow TriggerOnUpdateAttributeListContain(List<string> triggerAttributes)
         {
-            Assert.IsTrue( this.TriggerOnUpdateAttributeList.TrueForAll(triggerAttributes.Contains) &&
+            ClassicAssert.IsTrue( this.TriggerOnUpdateAttributeList.TrueForAll(triggerAttributes.Contains) &&
                           triggerAttributes.TrueForAll(this.TriggerOnUpdateAttributeList.Contains),
                           "The workflow : " + this.WorkflowName + " TriggerOnUpdateAttributeList does not match as expected :"  + String.Join(",", triggerAttributes));
             return this;
@@ -108,7 +109,7 @@ namespace SFA.FCT.Xrm.TestFramework
         public XrmPackageWorkflow ProcessRunAs(WorkflowRunAs runas)
         {
             var result = (this.RunAs) ? "The uesr who made changes to the record" : "The owner of the workflow";
-            Assert.AreEqual( Convert.ToInt32(this.RunAs), (int)runas, "The Workflow : " + this.WorkflowName + " is not configured run as " + result );
+            ClassicAssert.AreEqual( Convert.ToInt32(this.RunAs), (int)runas, "The Workflow : " + this.WorkflowName + " is not configured run as " + result );
             return this;
         }
 

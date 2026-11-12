@@ -1,53 +1,55 @@
 ﻿namespace FCT.Console.Config.AzureStorage
 {
+    using System;
     using System.Configuration;
     using System.Diagnostics.Contracts;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Blob;
+    using Azure.Storage.Blobs;
+    using Azure.Storage.Blobs.Specialized;
 
     public static class AzureStorageWrapper
     {
-        public static CloudBlockBlob GetBlockBlob(FctFile file)
+        private static BlobContainerClient GetContainer(string containerName)
+        {
+            var connectionString =
+                ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString;
+
+            var containerClient = new BlobContainerClient(connectionString, containerName);
+
+            return containerClient;
+        }
+
+        public static BlobClient GetBlockBlob(FctFile file)
         {
             Contract.Requires(file != null);
 
-            CloudBlobContainer container = GetContainer(file.FileContainer);
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(file.Filename);
-
-            return blockBlob;
+            var container = GetContainer(file.FileContainer);
+            return container.GetBlobClient(file.Filename);
         }
 
         public static void PutBlockBlob(FctFile file, byte[] contents)
         {
             Contract.Requires(file != null);
 
-            CloudBlockBlob blockBlob = GetBlockBlob(file);
+            var blob = GetBlockBlob(file);
 
-            blockBlob.UploadFromByteArray(contents, 0, contents.Length);
+            using var stream = new System.IO.MemoryStream(contents);
+            blob.Upload(stream, overwrite: true);
         }
 
         public static void DeleteBlockBlob(FctFile file)
         {
             Contract.Requires(file != null);
 
-            CloudBlockBlob fileBlob = GetBlockBlob(file);
-            fileBlob.DeleteIfExists();
+            var blob = GetBlockBlob(file);
+            blob.DeleteIfExists();
         }
 
         public static bool DoesBlockBlobExist(FctFile file)
         {
             Contract.Requires(file != null);
 
-            return GetBlockBlob(file).Exists();
-        }
-
-        private static CloudBlobContainer GetContainer(string containerName)
-        {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference(containerName);
-
-            return container;
+            var blob = GetBlockBlob(file);
+            return blob.Exists();
         }
     }
 }

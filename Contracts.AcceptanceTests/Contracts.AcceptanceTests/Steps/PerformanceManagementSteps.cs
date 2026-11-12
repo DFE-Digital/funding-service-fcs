@@ -37,6 +37,7 @@
     using PMEFModel = PerformanceManagementDomain.DataStore.Models.Allocation;
     using sfa_contract = CrossDomain.Integration.Entities.Xrm.sfa_contract;
     using sfa_fundingclaimreconciliation = CrossDomain.Integration.Entities.Xrm.sfa_fundingclaimreconciliation;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class PerformanceManagementSteps
@@ -104,7 +105,7 @@
                 _fundingClaimReconciliations.Add(new FundingClaimReconciliation
                 {
                     AllocationGroup = new AllocationGroup { AllocationGroupCode = allocationGroupCode },
-                    Period = new Period { PeriodTypeCode = DtoFundingClaimReconciliation.PeriodTypeCode.AY, PeriodYear = row["FundingPeriod"] },
+                    Period = new DtoFundingClaimReconciliation.Period { PeriodTypeCode = DtoFundingClaimReconciliation.PeriodTypeCode.AY, PeriodYear = row["FundingPeriod"] },
                     Amounts = new AmountSummary
                     {
                         PlannedValue = Convert.ToDecimal(row["PlannedValue"]),
@@ -120,7 +121,7 @@
                     Status = (ReconciliationStatus)Enum.Parse(typeof(ReconciliationStatus), row["Status"]),
                     ClaimVersionNumber = int.Parse(row["ClaimVersionNumber"]),
                     ContractAllocations = new List<ContractAllocation>(),
-                    Contractor = new Contractor { UKPRN = int.Parse(ukprn) },
+                    Contractor = new DtoFundingClaimReconciliation.Contractor { UKPRN = int.Parse(ukprn) },
                     StatusLastUpdatedDate = DateTime.UtcNow
                 });
             });
@@ -156,7 +157,7 @@
                         ProposedReconciliationValue = Convert.ToDecimal(row["ProposedReconciliationValue"]),
                         ReconciliationValue = Convert.ToDecimal(row["ReconciliationValue"])
                     },
-                    Contract = new Contract
+                    Contract = new DtoFundingClaimReconciliation.Contract
                     {
                         ContractNumber = row["ContractNumber"],
                         ContractVersionNumber = int.Parse(row["ContractVersionNumber"]),
@@ -210,14 +211,14 @@
 
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(crmFundingclaimreconciliation, "Funding claim does not exist in CRM");
-                Assert.AreEqual(expectedFcr.sfa_PlannedValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_PlannedValue.GetValueOrDefault(), $"Planned value not as expected for allocationGroupCode {allocationGroupCode}");
-                Assert.AreEqual(expectedFcr.sfa_ClaimedValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_ClaimedValue.GetValueOrDefault(), $"Claimed value not as expected for allocationGroupCode {allocationGroupCode}");
-                Assert.AreEqual(expectedFcr.sfa_CappedClaimedValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_CappedClaimedValue.GetValueOrDefault(), $"Capped claimed value not as expected for allocationGroupCode {allocationGroupCode}");
-                Assert.AreEqual(expectedFcr.sfa_ProposedReconciliationValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_ProposedReconciliationValue.GetValueOrDefault(), $"Proposed reconciliation value not as expected for allocationGroupCode {allocationGroupCode}");
-                Assert.AreEqual(expectedFcr.sfa_ReconciliationValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_ReconciliationValue.GetValueOrDefault(), $"Reconciliation value not as expected for allocationGroupCode {allocationGroupCode}");
-                Assert.AreEqual(expectedFcr.sfa_claimadjustmentvalue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_claimadjustmentvalue.GetValueOrDefault(), $"Claim adjustment value not as expected for allocationGroupCode {allocationGroupCode}");
-                Assert.AreEqual(expectedFcr.sfa_adjustedcappedclaimedvalue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_adjustedcappedclaimedvalue.GetValueOrDefault(), $"Adjusted capped claimed value not as expected for allocationGroupCode {allocationGroupCode}");
+                ClassicAssert.IsNotNull(crmFundingclaimreconciliation, "Funding claim does not exist in CRM");
+                ClassicAssert.AreEqual(expectedFcr.sfa_PlannedValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_PlannedValue.GetValueOrDefault(), $"Planned value not as expected for allocationGroupCode {allocationGroupCode}");
+                ClassicAssert.AreEqual(expectedFcr.sfa_ClaimedValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_ClaimedValue.GetValueOrDefault(), $"Claimed value not as expected for allocationGroupCode {allocationGroupCode}");
+                ClassicAssert.AreEqual(expectedFcr.sfa_CappedClaimedValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_CappedClaimedValue.GetValueOrDefault(), $"Capped claimed value not as expected for allocationGroupCode {allocationGroupCode}");
+                ClassicAssert.AreEqual(expectedFcr.sfa_ProposedReconciliationValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_ProposedReconciliationValue.GetValueOrDefault(), $"Proposed reconciliation value not as expected for allocationGroupCode {allocationGroupCode}");
+                ClassicAssert.AreEqual(expectedFcr.sfa_ReconciliationValue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_ReconciliationValue.GetValueOrDefault(), $"Reconciliation value not as expected for allocationGroupCode {allocationGroupCode}");
+                ClassicAssert.AreEqual(expectedFcr.sfa_claimadjustmentvalue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_claimadjustmentvalue.GetValueOrDefault(), $"Claim adjustment value not as expected for allocationGroupCode {allocationGroupCode}");
+                ClassicAssert.AreEqual(expectedFcr.sfa_adjustedcappedclaimedvalue.GetValueOrDefault(), crmFundingclaimreconciliation.sfa_adjustedcappedclaimedvalue.GetValueOrDefault(), $"Adjusted capped claimed value not as expected for allocationGroupCode {allocationGroupCode}");
             }
         }
 
@@ -255,15 +256,15 @@
 
                 sfa_fcrallocation crnFcra = _performanceManagementPageObject.RetrieveFundingClaimReconciliationAllocationFromCrm(fundingPeriod, fundingClaimType, allocationGroupCode, allocationRef, expectedFcra);
 
-                Assert.IsNotNull(crnFcra, $"Funding Claim Reconciliation Allocation record not found in CRM. Alloc: {allocationRef}");
-                Assert.AreEqual(expectedFcra.sfa_PlannedValue.GetValueOrDefault(), crnFcra.sfa_PlannedValue.GetValueOrDefault(), $"Planned value incorrect for allocation: {allocationRef}.");
-                Assert.AreEqual(expectedFcra.sfa_ClaimedValue.GetValueOrDefault(), crnFcra.sfa_ClaimedValue.GetValueOrDefault(), $"Claimed value incorrect for allocation: {allocationRef}.");
-                Assert.AreEqual(expectedFcra.sfa_CappedClaimedValue.GetValueOrDefault(), crnFcra.sfa_CappedClaimedValue.GetValueOrDefault(), $"Capped claimed value incorrect for allocation: {allocationRef}.");
-                Assert.AreEqual(expectedFcra.sfa_ProposedReconciliationValue.GetValueOrDefault(), crnFcra.sfa_ProposedReconciliationValue.GetValueOrDefault(), $"Proposed reconciliation value incorrect for allocation: {allocationRef}.");
-                Assert.AreEqual(expectedFcra.sfa_ReconciliationValue.GetValueOrDefault(), crnFcra.sfa_ReconciliationValue.GetValueOrDefault(), $"Reconciliation value incorrect for allocation: {allocationRef}.");
-                Assert.AreEqual(expectedFcra.sfa_claimadjustmentvalue.GetValueOrDefault(), crnFcra.sfa_claimadjustmentvalue.GetValueOrDefault(), $"Claim adjustment value incorrect for allocation: {allocationRef}");
-                Assert.AreEqual(expectedFcra.sfa_adjustedcappedclaimedvalue.GetValueOrDefault(), crnFcra.sfa_adjustedcappedclaimedvalue.GetValueOrDefault(), $"Adjusted capped claimed value incorrect for allocation: {allocationRef}");
-                Assert.AreEqual(expectedFcra.sfa_claimadjustmentreason, crnFcra.sfa_claimadjustmentreason, $"Adjusted claim adjustment reason incorrect for allocation: {allocationRef}");
+                ClassicAssert.IsNotNull(crnFcra, $"Funding Claim Reconciliation Allocation record not found in CRM. Alloc: {allocationRef}");
+                ClassicAssert.AreEqual(expectedFcra.sfa_PlannedValue.GetValueOrDefault(), crnFcra.sfa_PlannedValue.GetValueOrDefault(), $"Planned value incorrect for allocation: {allocationRef}.");
+                ClassicAssert.AreEqual(expectedFcra.sfa_ClaimedValue.GetValueOrDefault(), crnFcra.sfa_ClaimedValue.GetValueOrDefault(), $"Claimed value incorrect for allocation: {allocationRef}.");
+                ClassicAssert.AreEqual(expectedFcra.sfa_CappedClaimedValue.GetValueOrDefault(), crnFcra.sfa_CappedClaimedValue.GetValueOrDefault(), $"Capped claimed value incorrect for allocation: {allocationRef}.");
+                ClassicAssert.AreEqual(expectedFcra.sfa_ProposedReconciliationValue.GetValueOrDefault(), crnFcra.sfa_ProposedReconciliationValue.GetValueOrDefault(), $"Proposed reconciliation value incorrect for allocation: {allocationRef}.");
+                ClassicAssert.AreEqual(expectedFcra.sfa_ReconciliationValue.GetValueOrDefault(), crnFcra.sfa_ReconciliationValue.GetValueOrDefault(), $"Reconciliation value incorrect for allocation: {allocationRef}.");
+                ClassicAssert.AreEqual(expectedFcra.sfa_claimadjustmentvalue.GetValueOrDefault(), crnFcra.sfa_claimadjustmentvalue.GetValueOrDefault(), $"Claim adjustment value incorrect for allocation: {allocationRef}");
+                ClassicAssert.AreEqual(expectedFcra.sfa_adjustedcappedclaimedvalue.GetValueOrDefault(), crnFcra.sfa_adjustedcappedclaimedvalue.GetValueOrDefault(), $"Adjusted capped claimed value incorrect for allocation: {allocationRef}");
+                ClassicAssert.AreEqual(expectedFcra.sfa_claimadjustmentreason, crnFcra.sfa_claimadjustmentreason, $"Adjusted claim adjustment reason incorrect for allocation: {allocationRef}");
             }
         }
 
@@ -282,8 +283,8 @@
                 var deliverable = _performanceManagementPageObject.GetFundingClaimReconciliationAllocationDeliverable(fundingPeriod,
                     fundingClaimType, allocationRef, deliverableCode);
 
-                Assert.AreEqual(plannedValue, deliverable.sfa_PlannedValue);
-                Assert.AreEqual(claimedValue, deliverable.sfa_ClaimedValue);
+                ClassicAssert.AreEqual(plannedValue, deliverable.sfa_PlannedValue);
+                ClassicAssert.AreEqual(claimedValue, deliverable.sfa_ClaimedValue);
             }
         }
 
@@ -544,14 +545,14 @@
 
                 Debug.WriteLine($"Testing allocations {allocationString} UKPRN: {r["UKPRN"]}, FundingPeriod: {r["FundingPeriod"]}, ClaimTypeName: {r["ClaimTypeName"]}, AllocationGroupCode: {r["AllocationGroupCode"]}.");
 
-                Assert.AreEqual(expectedPlannedValue, reconciliationAmountSummary.PlannedValue, "PlannedValue mismatch");
-                Assert.AreEqual(expectedClaimedValue, reconciliationAmountSummary.ClaimedValue, "ClaimedValue mismatch");
-                Assert.AreEqual(expectedCappedClaimedValue, reconciliationAmountSummary.CappedClaimedValue, "CappedClaimedValue mismatch");
-                Assert.AreEqual(expectedProposedReconciliationValue, reconciliationAmountSummary.ProposedReconciliationValue, "ProposedReconciliationValue mismatch");
+                ClassicAssert.AreEqual(expectedPlannedValue, reconciliationAmountSummary.PlannedValue, "PlannedValue mismatch");
+                ClassicAssert.AreEqual(expectedClaimedValue, reconciliationAmountSummary.ClaimedValue, "ClaimedValue mismatch");
+                ClassicAssert.AreEqual(expectedCappedClaimedValue, reconciliationAmountSummary.CappedClaimedValue, "CappedClaimedValue mismatch");
+                ClassicAssert.AreEqual(expectedProposedReconciliationValue, reconciliationAmountSummary.ProposedReconciliationValue, "ProposedReconciliationValue mismatch");
 
 
                 // Do we need see values on reconciliation or just proposed reconciliation.
-                Assert.AreEqual(expectedReconciliationValue, reconciliationAmountSummary.ReconciliationValue.GetValueOrDefault(), "ReconciliationValue mismatch");
+                ClassicAssert.AreEqual(expectedReconciliationValue, reconciliationAmountSummary.ReconciliationValue.GetValueOrDefault(), "ReconciliationValue mismatch");
 
                 Debug.WriteLine($"UKPRN: {r["UKPRN"]}, FundingPeriod: {r["FundingPeriod"]}, ClaimTypeName: {r["ClaimTypeName"]}, AllocationGroupCode: {r["AllocationGroupCode"]} success.");
             }
@@ -576,13 +577,13 @@
                 decimal expectedProposedReconciliationValue = Convert.ToDecimal(r["ProposedReconciliationValue"]);
                 decimal expectedReconciliationValue = Convert.ToDecimal(r["ReconciliationValue"]);
 
-                Assert.AreEqual(expectedPlannedValue, allocationAmountSummary.PlannedValue, "PlannedValue mismatch");
-                Assert.AreEqual(expectedClaimedValue, allocationAmountSummary.ClaimedValue, "ClaimedValue mismatch");
-                Assert.AreEqual(expectedCappedClaimedValue, allocationAmountSummary.CappedClaimedValue, "CappedClaimedValue mismatch");
-                Assert.AreEqual(expectedProposedReconciliationValue, allocationAmountSummary.ProposedReconciliationValue, "ProposedReconciliationValue mismatch");
+                ClassicAssert.AreEqual(expectedPlannedValue, allocationAmountSummary.PlannedValue, "PlannedValue mismatch");
+                ClassicAssert.AreEqual(expectedClaimedValue, allocationAmountSummary.ClaimedValue, "ClaimedValue mismatch");
+                ClassicAssert.AreEqual(expectedCappedClaimedValue, allocationAmountSummary.CappedClaimedValue, "CappedClaimedValue mismatch");
+                ClassicAssert.AreEqual(expectedProposedReconciliationValue, allocationAmountSummary.ProposedReconciliationValue, "ProposedReconciliationValue mismatch");
 
                 // Do we need see values on reconciliation or just proposed reconciliation.
-                Assert.AreEqual(expectedReconciliationValue, allocationAmountSummary.ReconciliationValue.GetValueOrDefault(), "ReconciliationValue mismatch");
+                ClassicAssert.AreEqual(expectedReconciliationValue, allocationAmountSummary.ReconciliationValue.GetValueOrDefault(), "ReconciliationValue mismatch");
 
                 Debug.WriteLine($"Allocation {r["AllocationRef"]} success.");
             }
@@ -608,7 +609,7 @@
             bool areAllFundingClaimReconciliationsInExpectedStatus =
                 _performanceManagementPageObject.AreAllGivenFundingClaimReconciliationsInGivenStatus(fundingClaimReconciliationNaturalKeys, expectedStatus);
 
-            Assert.IsTrue(areAllFundingClaimReconciliationsInExpectedStatus, $"Not all Funding Claim Reconciliations were set to '{expectedStatus}'");
+            ClassicAssert.IsTrue(areAllFundingClaimReconciliationsInExpectedStatus, $"Not all Funding Claim Reconciliations were set to '{expectedStatus}'");
         }
 
         [Then(@"the following funding claim reconciliations will have a status '(.*)' and a sub status '(.*)'")]
@@ -639,7 +640,7 @@
                 waitIntervalSeconds: 5);
 
                 bool isPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
-                Assert.IsTrue(isPresent, $"We have not found Funding Claim Reconciliation {key} - with status '{expectedStatus}' and subStatus '{expectedSubStatus}'");
+                ClassicAssert.IsTrue(isPresent, $"We have not found Funding Claim Reconciliation {key} - with status '{expectedStatus}' and subStatus '{expectedSubStatus}'");
             });
         }
 
@@ -659,7 +660,7 @@
             bool areAllFundingClaimReconciliationsValidOnTheFeed =
                _performanceManagementPageObject.AreAllFundingClaimReconciliationsValidOnTheFeed(performanceManagementAtomFeedItemBusinessKeys);
 
-            Assert.IsTrue(areAllFundingClaimReconciliationsValidOnTheFeed, "Not all Funding Claim Reconciliations are valid on the feed");
+            ClassicAssert.IsTrue(areAllFundingClaimReconciliationsValidOnTheFeed, "Not all Funding Claim Reconciliations are valid on the feed");
         }
 
         [Then(@"the PerformanceManagement\.AtomFeed does not contain events with ItemType '(.*)' for the following claims")]
@@ -677,7 +678,7 @@
             bool areAllFundingClaimReconciliationsNotOnTheFeed =
                _performanceManagementPageObject.AreAllFundingClaimReconciliationsNotOnTheFeed(performanceManagementAtomFeedItemBusinessKeys);
 
-            Assert.IsTrue(areAllFundingClaimReconciliationsNotOnTheFeed, "There are one or more Funding Claim Reconciliations on the feed that should not be");
+            ClassicAssert.IsTrue(areAllFundingClaimReconciliationsNotOnTheFeed, "There are one or more Funding Claim Reconciliations on the feed that should not be");
         }
 
         [When(@"the reconciliation values on the CRM funding claim allocations are amended as follows")]
@@ -723,7 +724,7 @@
         [Then(@"the override date is before the Publication Close Date for Claim Reconciliation Code '(.*)' and Allocation Group Code '(.*)'")]
         public void ThenTheOverrideDateIsBeforeThePublicationCloseDateForClaimReconciliationCodeAndAllocationGroupCode(string claimReconciliationCode, string allocationGroupCode)
         {
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 _performanceManagementPageObject
                     .IsOverrideDateBeforePublicationCloseDateForClaimReconciliationAndAllocGroup
                     (claimReconciliationCode, allocationGroupCode),
@@ -733,7 +734,7 @@
         [Then(@"the override date is after the Publication Close Date for Claim Reconciliation Code '(.*)' and Allocation Group Code '(.*)'")]
         public void ThenTheOverrideDateIsAfterThePublicationCloseDateForClaimReconciliationCodeAndAllocationGroupCode(string claimReconciliationCode, string allocationGroupCode)
         {
-            Assert.IsFalse(
+            ClassicAssert.IsFalse(
                 _performanceManagementPageObject
                     .IsOverrideDateBeforePublicationCloseDateForClaimReconciliationAndAllocGroup
                     (claimReconciliationCode, allocationGroupCode),
@@ -846,14 +847,14 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
                 
-                Assert.IsNotNull(allocation, $"Allocation {allocationNumber} not found in PerformanceManagement.ContractAllocation table");
-                Assert.AreEqual(ukprn, allocation.Contractor.UKPRN, $"Incorrect UKPRN for Allocation {allocationNumber}");
-                Assert.AreEqual(contractNumber, allocation.Contract.ContractNumber, $"Incorrect ContractNumber for Allocation {allocationNumber}");
-                Assert.AreEqual(versionNumber, allocation.Contract.VersionNumber, $"Incorrect VersionNumber for Allocation {allocationNumber}");
+                ClassicAssert.IsNotNull(allocation, $"Allocation {allocationNumber} not found in PerformanceManagement.ContractAllocation table");
+                ClassicAssert.AreEqual(ukprn, allocation.Contractor.UKPRN, $"Incorrect UKPRN for Allocation {allocationNumber}");
+                ClassicAssert.AreEqual(contractNumber, allocation.Contract.ContractNumber, $"Incorrect ContractNumber for Allocation {allocationNumber}");
+                ClassicAssert.AreEqual(versionNumber, allocation.Contract.VersionNumber, $"Incorrect VersionNumber for Allocation {allocationNumber}");
 
                 ContractAllocationDeliverable deliverable = allocation.ContractAllocationDeliverables.SingleOrDefault(d => d.DeliverableCode == deliverableCode);
-                Assert.IsNotNull(deliverable, $"Deliverable {deliverableCode} not found for Allocation {allocationNumber} not found in PerformanceManagement.ContractAllocationDeliverable table");
-                Assert.AreEqual(plannedValue, deliverable.PlannedValue, $"Incorrect PlannedValue for Deliverable {deliverableCode}, Allocation {allocationNumber}");
+                ClassicAssert.IsNotNull(deliverable, $"Deliverable {deliverableCode} not found for Allocation {allocationNumber} not found in PerformanceManagement.ContractAllocationDeliverable table");
+                ClassicAssert.AreEqual(plannedValue, deliverable.PlannedValue, $"Incorrect PlannedValue for Deliverable {deliverableCode}, Allocation {allocationNumber}");
             });
         }
 
@@ -879,50 +880,50 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(atomFeedItem, $"No matching atom feed item for {atomFeedItemDescription}");
-                Assert.AreEqual(itemType, (int)atomFeedItem.ItemType, $"Atom feed item not of type {itemType} for {atomFeedItemDescription}");
+                ClassicAssert.IsNotNull(atomFeedItem, $"No matching atom feed item for {atomFeedItemDescription}");
+                ClassicAssert.AreEqual(itemType, (int)atomFeedItem.ItemType, $"Atom feed item not of type {itemType} for {atomFeedItemDescription}");
 
                 FCReconciliation corporateFcr = atomFeedItem.AtomFeedItemXml.DeserializeXml<FCReconciliation>();
                 ContractAllocationAllAttrsCT corporateAllocation = corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.ContractAllocation.SingleOrDefault(a => a.ContractAllocationPKeyAttrs.ContractAllocationNumber == row["AllocationNumber"]);
 
-                Assert.IsNotNull(corporateAllocation, $"Allocation Number {row["AllocationNumber"]} not found in atom feed item {atomFeedItemDescription}");
+                ClassicAssert.IsNotNull(corporateAllocation, $"Allocation Number {row["AllocationNumber"]} not found in atom feed item {atomFeedItemDescription}");
 
-                Assert.AreEqual(
+                ClassicAssert.AreEqual(
                     decimal.Parse(row["PlannedValue"]),
                     corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.AmountAttrs.PlannedValue,
                     $"PlannedValue not correct for atom feed item {atomFeedItemDescription}");
 
-                Assert.AreEqual(
+                ClassicAssert.AreEqual(
                     decimal.Parse(row["ClaimedValue"]),
                     corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.AmountAttrs.ClaimedValue,
                     $"ClaimedValue not correct for atom feed item {atomFeedItemDescription}");
 
-                Assert.AreEqual(
+                ClassicAssert.AreEqual(
                     decimal.Parse(row["ProposedReconciliationValue"]),
                     corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.AmountAttrs.ProposedReconciliationValue,
                     $"ProposedReconciliationValue not correct for atom feed item {atomFeedItemDescription}");
 
-                Assert.AreEqual(
+                ClassicAssert.AreEqual(
                     decimal.Parse(row["FinalReconciliationValue"]),
                     corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.AmountAttrs.ReconciliationValue,
                     $"FinalReconciliationValue not correct for atom feed item {atomFeedItemDescription}");
 
-                Assert.AreEqual(
+                ClassicAssert.AreEqual(
                     decimal.Parse(row["CappedClaimedValue"]),
                     corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.AmountAttrs.CappedClaimedValue,
                     $"CappedClaimedValue not correct for atom feed item {atomFeedItemDescription}");
 
-                Assert.AreEqual(
+                ClassicAssert.AreEqual(
                     row.ParseNullableDecimal("ClaimAdjustment"),
                     corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.AmountAttrs.ClaimAdjustments?.ClaimAdjustmentValue,
                     $"ClaimAdjustmentValue not correct for atom feed item {atomFeedItemDescription}");
 
-                Assert.AreEqual(
+                ClassicAssert.AreEqual(
                     row.ParseNullableString("ClaimAdjustmentReason"),
                     corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.AmountAttrs.ClaimAdjustments?.ClaimAdjustmentReason,
                     $"ClaimAdjustmentReason not correct for atom feed item {atomFeedItemDescription}");
 
-                Assert.AreEqual(
+                ClassicAssert.AreEqual(
                     row.ParseNullableDecimal("AdjustedCappedClaimValue"),
                     corporateFcr.FCReconciliationAllAttrs.FCReconciliationNonPKeyAttrs.AmountAttrs.AdjustedCappedClaimedValue,
                     $"AdjustedCappedClaimedValue not correct for atom feed item {atomFeedItemDescription}");
@@ -955,7 +956,7 @@
 
             bool foundExpectedNumberOfRowsInStorage = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(foundExpectedNumberOfRowsInStorage,
+            ClassicAssert.IsTrue(foundExpectedNumberOfRowsInStorage,
                 $"Did not find expected {expectedRowCount} funding claim(s) in storage");
         }
 
@@ -1013,7 +1014,7 @@
             {
                 contractNumber = c.MasterContractNumber,
                 hierarchyType = hierarchyType.MASTERCONTRACT,
-                contractor = new contractor
+                contractor = new CrossDomain.Integration.Entities.CorporateContract.Contractor
                 {
                     ukprn = c.Ukprn,
                     organisationIdentifier = c.OrgId,
@@ -1032,7 +1033,7 @@
                         contractNumber = c.ContractNumber,
                         startDate = startDate,
                         endDate = endDate,
-                        contractor = new contractor
+                        contractor = new CrossDomain.Integration.Entities.CorporateContract.Contractor
                         {
                             ukprn = c.Ukprn,
                             organisationIdentifier = c.OrgId,
@@ -1047,7 +1048,7 @@
                         amendmentType = "New",
                         hierarchyType = hierarchyType.CONTRACT,
                         contractVersionNumber = 1,
-                        period = new period()
+                        period = new CrossDomain.Integration.Entities.CorporateContract.Period()
                         {
                             period1 = period,
                             fundingStreamPeriods = new List<fundingStreamPeriodsFundingStreamPeriod>()
@@ -1075,7 +1076,7 @@
                                 {
                                     fundingStreamCode = "AEBC"
                                 },
-                                period = new period()
+                                period = new CrossDomain.Integration.Entities.CorporateContract.Period()
                                 {
                                     period1 = period,
                                     fundingStreamPeriods = new List<fundingStreamPeriodsFundingStreamPeriod>()
@@ -1214,7 +1215,7 @@
                     }
                     catch (Exception e)
                     {
-                        Assert.Fail($"Contract cannot be delete: {c}: Exception: {e.Message}");
+                        ClassicAssert.Fail($"Contract cannot be delete: {c}: Exception: {e.Message}");
                     }
                 });
 
@@ -1225,7 +1226,7 @@
                 }
                 catch (Exception e)
                 {
-                    Assert.Fail($"Contract cannot be delete: {masterGrp.First().MasterContractNumber}: Exception: {e.Message}");
+                    ClassicAssert.Fail($"Contract cannot be delete: {masterGrp.First().MasterContractNumber}: Exception: {e.Message}");
                 }
             });
 
@@ -1336,7 +1337,7 @@
                 }
                 catch (Exception e)
                 {
-                    Assert.Fail($"Cannot delete or {c.OrgId}");
+                    ClassicAssert.Fail($"Cannot delete or {c.OrgId}");
                 }
             });
         }

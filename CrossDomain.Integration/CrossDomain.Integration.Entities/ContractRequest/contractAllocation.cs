@@ -95,7 +95,7 @@
         public bool crmNotPresent { get; set; }
 
         [XmlAttribute]
-        public intent CRMIntent { get; set; }
+        public Intent CRMIntent { get; set; }
 
         [XmlAttribute]
         public string amendmentReason { get; set; }
@@ -107,7 +107,7 @@
         public string DeliveryOrganisation { get; set; }
 
         [XmlIgnore]
-        public contractor DeliveryOrganisationDetail { get; set; } = new contractor();
+        public Contractor DeliveryOrganisationDetail { get; set; } = new Contractor();
 
         [XmlIgnore]
         public DateTime? TerminationDate { get; set; }

@@ -30,7 +30,7 @@
             masterContract.contracts
                           .ForEach(c =>
                                    {
-                                       if (contract.CRMIntent == intent.UpdateDraft &&
+                                       if (contract.CRMIntent == Intent.UpdateDraft &&
                                            string.IsNullOrWhiteSpace(contract.contractNumber))
                                        {
                                            failures.Add(contract.correlationId);

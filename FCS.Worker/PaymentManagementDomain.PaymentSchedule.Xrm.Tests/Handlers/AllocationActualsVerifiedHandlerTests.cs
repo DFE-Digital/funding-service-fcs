@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.Handlers
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Security.Cryptography;
@@ -13,8 +14,8 @@
     using NServiceBus;
     using PaymentManagementDomain.AllocationActualsVerified;
     using PaymentManagementDomain.AllocationActualsVerified.Repositories;
-    using SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;
@@ -175,7 +176,6 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<IHandleMessages<AllocationActualsVerified>>().ImplementedBy<AllocationActualsVerifiedHandler>());
-            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 

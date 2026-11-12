@@ -22,7 +22,7 @@
         public void ShouldCreateErrorMessageWhenRevisedNewContractHasNonNullAmendment()
         {
             Contract.contract.amendmentType = amendmentType.Variation;
-            Contract.contract.CRMIntent = intent.RevisedNew;
+            Contract.contract.CRMIntent = Intent.RevisedNew;
 
             Assert.IsTrue(_validator.GetFailuresForItem(Contract).Any());
         }
@@ -31,7 +31,7 @@
         public void ShouldNotCreateErrorMessageWhenRevisedNewContractHasNullAmendment()
         {
             Contract.contract.amendmentType = amendmentType.None;
-            Contract.contract.CRMIntent = intent.RevisedNew;
+            Contract.contract.CRMIntent = Intent.RevisedNew;
 
             Assert.IsFalse(_validator.GetFailuresForItem(Contract).Any());
         }

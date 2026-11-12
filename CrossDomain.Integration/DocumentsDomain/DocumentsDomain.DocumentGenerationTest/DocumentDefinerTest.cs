@@ -158,12 +158,12 @@
         [TestMethod, TestCategory("UnitTest")]
         public void DocGen_DocumentDefiner_GetsTargetFile()
         {
-            var contract = new contract()
+            var contract = new Contract()
             {
                 contractNumber = "Main-1234",
                 hierarchyType = hierarchyType.CONTRACT,
                 contractVersionNumber = 1,
-                contractor = new contractor()
+                contractor = new Contractor()
                 {
                     ukprn = 78238
                 }

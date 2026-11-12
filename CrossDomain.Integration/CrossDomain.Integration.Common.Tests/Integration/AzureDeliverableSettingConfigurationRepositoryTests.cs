@@ -1,11 +1,12 @@
-﻿namespace CrossDomain.Integration.Common.Tests.Integration
+﻿
+namespace CrossDomain.Integration.Common.Tests.Integration
 {
     using System;
     using System.Configuration;
     using System.Linq;
+    using Azure;
+    using Azure.Data.Tables;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
     using SFA.FCT.CrossDomain.Integration.Common.PagedStorage;
     using SFA.FCT.CrossDomain.Integration.Common.PagedStorage.Entities;
     using SFA.FCT.CrossDomain.Integration.Common.PagedStorage.Repositories;
@@ -17,8 +18,11 @@
     public class AzureDeliverableSettingConfigurationRepositoryTests
     {
         private string _tableName;
-        private CloudTableClient _tableClient;
-        private CloudTable _table;
+
+        // Updated types to the new SDK but kept field names the same:
+        private TableServiceClient _tableClient; // was CloudTableClient
+        private TableClient _table;               // was CloudTable
+
         private IPagedStorageRepository<DeliverableSettingConfiguration> _repository;
         private StorageObjectSerializer _storageObjectSerializer;
 
@@ -26,14 +30,23 @@
         public void TestInitialize()
         {
             _tableName = "TESTDELIVSETTING" + Guid.NewGuid().ToString("N").Substring(0, 4);
-            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
-            _tableClient = storageAccount.CreateCloudTableClient();
-            _table = _tableClient.GetTableReference(_tableName);
+
+            var connectionString = ConfigurationManager
+                .ConnectionStrings["StorageConnectionString"]
+                .ConnectionString;
+
+            // New SDK clients
+            _tableClient = new TableServiceClient(connectionString);
+            _table = _tableClient.GetTableClient(_tableName);
             _table.CreateIfNotExists();
 
             _storageObjectSerializer = new StorageObjectSerializer();
+
             _repository = new AzureDeliverableSettingConfigurationRepository(
-                new EnvironmentContext(), new AzureTableStore(), _storageObjectSerializer, new Logger(null))
+                new EnvironmentContext(),
+                new AzureTableStore(),                 // ensure this uses Azure.Data.Tables under the hood
+                _storageObjectSerializer,
+                new Logger(null))
             {
                 TableName = _tableName
             };
@@ -42,8 +55,14 @@
         [TestCleanup]
         public void TestCleanup()
         {
+            // Delete the main test table
             _table.Delete();
-            var correlationTable = _tableClient.GetTableReference(AzureDeliverableSettingConfigurationRepository.FormatCorrelationTableName(_tableName));
+
+            // Delete the correlation table using the new SDK
+            var correlationTableName = AzureDeliverableSettingConfigurationRepository
+                .FormatCorrelationTableName(_tableName);
+
+            var correlationTable = _tableClient.GetTableClient(correlationTableName);
             correlationTable.Delete();
         }
 
@@ -78,22 +97,29 @@
                 settingName,
                 settingValue);
         }
-        
+
         private void AssertEntityIsPresentInPartition(
             string partitionKey, string fundingStreamPeriodCode, int deliverableCode, string settingName, string settingValue)
         {
-            var query = new TableQuery<PagedStorageEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, partitionKey));
-            var rows = _table.ExecuteQuery(query);
+            // New SDK: build a filter and query strongly-typed entities
+            // This safely parameterizes the literal value
+            string filter = TableClient.CreateQueryFilter($"PartitionKey eq {partitionKey}");
 
-            Assert.IsNotNull(rows.SingleOrDefault(r =>
+            // Query<T> returns a pageable collection
+            var rows = _table.Query<PagedStorageEntity>(filter);
+
+            var match = rows.SingleOrDefault(r =>
             {
-                var setting = _storageObjectSerializer.Deserialize<DeliverableSettingConfiguration>(r.ContentBytes);
-                return
-                    setting.FundingStreamPeriodCode.Equals(fundingStreamPeriodCode)
+                var setting = _storageObjectSerializer
+                    .Deserialize<DeliverableSettingConfiguration>(r.ContentBytes);
+
+                return setting.FundingStreamPeriodCode.Equals(fundingStreamPeriodCode)
                     && setting.DeliverableCode.Equals(deliverableCode)
                     && setting.SettingValue.Setting.SettingName.Equals(settingName)
                     && setting.SettingValue.Value.Equals(settingValue);
-            }), "Entity was not present in storage");
+            });
+
+            Assert.IsNotNull(match, "Entity was not present in storage");
         }
     }
 }

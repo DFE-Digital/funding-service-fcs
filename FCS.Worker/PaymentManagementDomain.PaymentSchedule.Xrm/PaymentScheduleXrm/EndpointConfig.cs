@@ -1,18 +1,15 @@
-﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm
+﻿
+namespace PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.MicroKernel.Registration;
-    using Castle.Windsor;
-    using Microsoft.Xrm.Sdk;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCS.Worker.Common.Crm;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
-    using SFA.FCT.Framework.Logging;
-    using SFA.FCT.Framework.Logging.Interfaces;
-    using SFA.FCT.PaymentManagementDomain.PaymentSchedule.Xrm.Integration.IoC;
+    using SFA.FCT.CrossDomain.Integration.Common;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -22,40 +19,53 @@
             nameof(IDeferrableEvent)
         };
 
-        public string EndpointName => "Xrm.ReceiveQueueForPaymentSchedule";
+        public string EndpointName =>
+            "Xrm.ReceiveQueueForPaymentSchedule";
 
-        public string NameOfAssembly => "PaymentManagementDomain.PaymentSchedule.dll";
+        public string NameOfAssembly =>
+            "PaymentManagementDomain.PaymentSchedule.dll";
 
         public IReadOnlyCollection<Subscription> Subscriptions =>
             new List<Subscription>
             {
-                new Subscription("PaymentManagementDomain.PaymentSchedule", typeof(PaymentScheduleEvent))                
+                new Subscription(
+                    "PaymentManagementDomain.PaymentSchedule",
+                    typeof(PaymentScheduleEvent))
             };
 
-        public IReadOnlyCollection<CommandRoute> Routes => 
-        new List<CommandRoute>
-        {
-            new CommandRoute("Xrm.DeliverableAggregation", typeof(AggregateDeliverablesCommand))
-        };
-
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
-        {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
-
-            var logger = new Logger(new System.Diagnostics.TraceSource("WorkerRole"));
-
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
-            configuration.Conventions()
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(t.Name.EndsWith))
-                .DefiningCommandsAs(t => (t.Namespace != null && t.Namespace.EndsWith("Commands")) || t.GetInterfaces().Contains(typeof(ICommand)));
-
-            var container = new WindsorContainer();
-            container.Install(new WindsorInstaller(loggerFactory));
-            
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            new List<CommandRoute>
             {
-                customizations.ExistingContainer(container);
+                new CommandRoute(
+                    "Xrm.DeliverableAggregation",
+                    typeof(AggregateDeliverablesCommand))
+            };
+
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
+        {
+            var configuration = new EndpointConfiguration(EndpointName);
+
+            // ✅ Logging (FIXED from TraceSource)
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
+
+            // ✅ Conventions (FIXED + PRESERVED)
+            configuration.Conventions()
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)))
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    t.GetInterfaces().Contains(typeof(ICommand)));
+
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
+            {
+                services.AddSingleton(loggerFactory);
+                services.AddPaymentScheduleXrmServices();
             });
 
             return configuration;

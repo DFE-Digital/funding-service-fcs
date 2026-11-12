@@ -1,5 +1,6 @@
 ﻿namespace ADMonitoringDomain.Endpoint
 {
+    extern alias Entities;
     using System.Collections.Generic;
     using BusinessLogic;
     using NServiceBus;
@@ -11,7 +12,7 @@
     using SFA.FCT.Framework.Logging.Interfaces;
     using System.Threading.Tasks;
     using Infrastructure;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class ContractAllocationsAtomFeedGenerationHandler :
         IHandleMessages<PaymentAggregatedEvent>,

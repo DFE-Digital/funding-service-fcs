@@ -154,7 +154,7 @@
                 .ToList();
         }
 
-        public contractor GetOrganisation(string contractAllocationNumber)
+        public Contractor GetOrganisation(string contractAllocationNumber)
         {
             contractAllocationsContractAllocation alloc = contractAllocations.Single(ca => ca.contractAllocationNumber == contractAllocationNumber);
 

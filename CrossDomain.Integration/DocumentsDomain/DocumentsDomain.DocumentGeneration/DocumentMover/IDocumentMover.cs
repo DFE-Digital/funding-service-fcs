@@ -4,8 +4,8 @@
 
     public interface IDocumentMover
     {
-        void MoveContractDocumentToPublishLocation(contract masterContract);
+        void MoveContractDocumentToPublishLocation(Contract masterContract);
 
-        bool IsContractDocumentAlreadyPublished(contract masterContract);
+        bool IsContractDocumentAlreadyPublished(Contract masterContract);
     }
 }

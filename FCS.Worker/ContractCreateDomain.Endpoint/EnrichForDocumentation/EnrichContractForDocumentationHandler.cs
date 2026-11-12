@@ -44,7 +44,7 @@
         }
 
         private async Task SendToDocGen(
-            contract corporateContract,
+            Contract corporateContract,
             string masterContractNumber,
             string replyToEndpointName,
             IMessageHandlerContext context)

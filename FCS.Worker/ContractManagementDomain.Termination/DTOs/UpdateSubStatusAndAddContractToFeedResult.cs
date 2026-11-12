@@ -5,7 +5,7 @@
 
     public class UpdateSubStatusAndAddContractToFeedResult
     {
-        public UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult atomItemCreationResult, contract corporateContract)
+        public UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult atomItemCreationResult, Contract corporateContract)
         {
             AtomItemCreationResult = atomItemCreationResult;
             CorporateContract = corporateContract;
@@ -13,6 +13,6 @@
 
         public AtomItemCreationResult AtomItemCreationResult { get; }
 
-        public contract CorporateContract { get; }
+        public Contract CorporateContract { get; }
     }
 }

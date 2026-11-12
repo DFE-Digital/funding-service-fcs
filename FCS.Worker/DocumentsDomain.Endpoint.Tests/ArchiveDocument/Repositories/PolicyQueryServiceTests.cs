@@ -22,7 +22,7 @@
 
             ContractApprovedEvent contractApprovedEvent = TestResource.FromJson<ContractApprovedEvent>(
                 "DocumentsDomain.Endpoint.Tests.Resources", "ContractApprovedEvent_AEB-CL1819.json");
-            contract masterContract = contractApprovedEvent.CorporateContract;
+            Contract masterContract = contractApprovedEvent.CorporateContract;
 
             // act
             bool shouldGenerateDocumentationForContract = service.ShouldGenerateDocumentationForContract(masterContract, connectionInfo).Result;
@@ -40,7 +40,7 @@
 
             ContractApprovedEvent contractApprovedEvent = TestResource.FromJson<ContractApprovedEvent>(
                 "DocumentsDomain.Endpoint.Tests.Resources", "ContractApprovedEvent_EOF1417.json");
-            contract masterContract = contractApprovedEvent.CorporateContract;
+            Contract masterContract = contractApprovedEvent.CorporateContract;
 
             // act
             bool shouldGenerateDocumentationForContract = service.ShouldGenerateDocumentationForContract(masterContract, connectionInfo).Result;

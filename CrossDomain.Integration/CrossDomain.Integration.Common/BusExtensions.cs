@@ -1,86 +1,97 @@
-﻿namespace SFA.FCT.CrossDomain.Integration.Common
-{
-    using NServiceBus;
-    using NServiceBus.Unicast;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using NServiceBus;
 
+namespace SFA.FCT.CrossDomain.Integration.Common
+{
     public static class BusExtensions
     {
         private const string FctReplyToAddress = "FCTHeaders.ReplyToAddress";
 
-        public static void Send(this IBus bus, object message, string replyTo)
+        public static async Task SendWithReplyToAsync(this IMessageHandlerContext context, object message, string replyTo)
         {
-            // push the replyTo address onto the stack allowing for nesting replyTo handlers
-            string replyToAddress = string.Empty;
+            var headers = context.MessageHeaders;
+            var replyToStack = string.Empty;
 
-            if (bus.CurrentMessageContext != null &&
-                bus.CurrentMessageContext.Headers != null &&
-                bus.CurrentMessageContext.Headers.TryGetValue(FctReplyToAddress, out replyToAddress) &&
-                !string.IsNullOrEmpty(replyToAddress))
+            if (headers != null && headers.TryGetValue(FctReplyToAddress, out var existingReplyTo) && !string.IsNullOrEmpty(existingReplyTo))
             {
-                replyToAddress += ";";
+                replyToStack = existingReplyTo + ";";
             }
 
-            replyToAddress += replyTo;
+            replyToStack += replyTo;
 
-            bus.SetMessageHeader(message, FctReplyToAddress, replyToAddress);
-            
-            bus.SetMessageHeader(message, FctReplyToAddress, replyTo);
-            bus.Send(message);
+            var sendOptions = new SendOptions();
+            sendOptions.SetHeader(FctReplyToAddress, replyToStack);
+
+            await context.Send(message, sendOptions);
         }
 
-        public static void ForwardForReply(this IBus bus, object message)
+        public static async Task ForwardForReplyAsync(this IMessageHandlerContext context, object message)
         {
-            // this sets the return address on the outbound message to being the originating caller rather than this handler
-            ((UnicastBus)bus).PropagateReturnAddressOnSend = true;
+            var headers = context.MessageHeaders;
+            var sendOptions = new SendOptions();
 
-            // forward the Saga headers if they exixt so that the reply in the following handler will find the originating saga
-            string sagaId;
-            if (bus.CurrentMessageContext.Headers.TryGetValue(Headers.OriginatingSagaId, out sagaId))
+            if (headers.TryGetValue(Headers.OriginatingSagaId, out var sagaId))
             {
-                bus.SetMessageHeader(message, Headers.OriginatingSagaId, sagaId);
+                sendOptions.SetHeader(Headers.OriginatingSagaId, sagaId);
             }
 
-            string sagaType;
-            if (bus.CurrentMessageContext.Headers.TryGetValue(Headers.OriginatingSagaType, out sagaType))
+            if (headers.TryGetValue(Headers.OriginatingSagaType, out var sagaType))
             {
-                bus.SetMessageHeader(message, Headers.OriginatingSagaType, sagaType);
+                sendOptions.SetHeader(Headers.OriginatingSagaType, sagaType);
             }
 
-            string replyToAddress;
-            if (bus.CurrentMessageContext.Headers.TryGetValue(FctReplyToAddress, out replyToAddress) && !string.IsNullOrEmpty(replyToAddress))
+            if (headers.TryGetValue(FctReplyToAddress, out var replyToAddress) && !string.IsNullOrEmpty(replyToAddress))
             {
-                bus.SetMessageHeader(message, FctReplyToAddress, replyToAddress);
+                sendOptions.SetHeader(FctReplyToAddress, replyToAddress);
             }
 
-            bus.Send(message);
+            await context.Send(message, sendOptions);
         }
 
-        public static void ReplyAsRequested(this IBus bus, object message)
+        public static async Task ReplyAsRequestedAsync(this IMessageHandlerContext context, object message)
         {
-            bus.CurrentMessageContext.Headers[Headers.CorrelationId] = bus.CurrentMessageContext.Headers[Headers.RelatedTo];
+            var headers = context.MessageHeaders;
 
-            // pop the most recent replyTo address from the stack
-            string replyToAddress;
-            if (bus.CurrentMessageContext.Headers.TryGetValue(FctReplyToAddress, out replyToAddress) && !string.IsNullOrEmpty(replyToAddress))
+            if (headers.TryGetValue(Headers.RelatedTo, out var relatedTo))
             {
-                var thisReplyTo = replyToAddress;
-                var lastSeperatorIndex = replyToAddress.LastIndexOf(';');
-
-                if (lastSeperatorIndex != -1)
+                // Cannot assign to headers[Headers.CorrelationId] because headers is IReadOnlyDictionary.
+                // Instead, set the CorrelationId header on the ReplyOptions.
+                if (headers.TryGetValue(FctReplyToAddress, out var replyToAddress) && !string.IsNullOrEmpty(replyToAddress))
                 {
-                    thisReplyTo = replyToAddress.Substring(lastSeperatorIndex + 1);
+                    var thisReplyTo = replyToAddress;
+                    var lastSeparatorIndex = replyToAddress.LastIndexOf(';');
 
-                    replyToAddress = replyToAddress.Substring(0, lastSeperatorIndex);
-                    bus.SetMessageHeader(message, FctReplyToAddress, replyToAddress);
+                    if (lastSeparatorIndex != -1)
+                    {
+                        thisReplyTo = replyToAddress.Substring(lastSeparatorIndex + 1);
+                        replyToAddress = replyToAddress.Substring(0, lastSeparatorIndex);
+
+                        var replyOptions = new ReplyOptions();
+                        replyOptions.SetHeader(FctReplyToAddress, replyToAddress);
+                        replyOptions.SetHeader(Headers.ReplyToAddress, thisReplyTo);
+                        replyOptions.SetHeader(Headers.CorrelationId, relatedTo);
+
+                        await context.Reply(message, replyOptions);
+                        return;
+                    }
+
+                    var fallbackOptions = new ReplyOptions();
+                    fallbackOptions.SetHeader(Headers.ReplyToAddress, thisReplyTo);
+                    fallbackOptions.SetHeader(Headers.CorrelationId, relatedTo);
+
+                    await context.Reply(message, fallbackOptions);
+                    return;
                 }
 
-                bus.CurrentMessageContext.Headers[Headers.ReplyToAddress] = thisReplyTo;
+                var defaultOptions = new ReplyOptions();
+                defaultOptions.SetHeader(Headers.CorrelationId, relatedTo);
+
+                await context.Reply(message, defaultOptions);
+                return;
             }
 
-            // the reply is important as there is behaviour that relies upon the message's SaveOptions in NServiceBus being a ReplyOptions instance
-            // and then it turns the OriginatingSagaId/Type into SagaId/SagaType headers 
-            // look at NServiceBus/Sagas/PopulateAutoCorrelationHeadersForRepliesBehavior and SagaPersistenceBehavior classes to see how these are handled
-            bus.Reply(message);          
+            await context.Reply(message);
         }
     }
 }

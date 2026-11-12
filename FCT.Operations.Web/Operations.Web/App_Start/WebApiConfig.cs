@@ -26,7 +26,7 @@
 
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
             jsonSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings = jsonSerializerSettings;
+            config.Formatters.JsonFormatter.SerializerSettings = jsonSerializerSettings;
             System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
             config.Routes.MapHttpRoute(

@@ -1,4 +1,4 @@
-﻿namespace ContractRequestDomain.EngagementWatcher.Services
+﻿namespace SFA.FCT.ContractRequestDomain.EngagementWatcher.Services
 {
     public interface IOAuthAccessTokenFactory
     {

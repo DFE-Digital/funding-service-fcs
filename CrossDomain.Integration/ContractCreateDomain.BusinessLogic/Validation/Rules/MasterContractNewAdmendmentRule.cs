@@ -30,7 +30,7 @@
                 new FundingTypeFundingPeriodDto(fundingType: c.fundingTypeCode, fundingPeriod: fundingPeriod)).Any(dto => _isNewAmendmentAllowed(dto));
 
             List<string> errorList = new List<string>();
-            if (itemToValidate.contract.CRMIntent == intent.NewAmendment && isFundingTypeInfoAllowingNewAmendment && (string.IsNullOrEmpty(itemToValidate.contract.contractNumber) ||
+            if (itemToValidate.contract.CRMIntent == Intent.NewAmendment && isFundingTypeInfoAllowingNewAmendment && (string.IsNullOrEmpty(itemToValidate.contract.contractNumber) ||
                  !itemToValidate.contract.IsMasterContractWithMatchingMasterContractNumberPresentInCrm))
             {
                 errorList.Add(itemToValidate.contract.correlationId);

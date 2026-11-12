@@ -1,7 +1,8 @@
 ﻿using System;
 namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated.Services
 {
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    extern alias IntegrationEntities;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
     using SFA.FCT.PaymentManagementDomain.BusinessLogic.DTOs;
     using System.Collections.Generic;
 

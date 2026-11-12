@@ -34,7 +34,6 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<InitiateContractWithdrawalHandler>().LifestyleScoped());
-            container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 
@@ -46,7 +45,7 @@
         public void InitiateContractWithdrawalHandler_RequestSourceFcs_GetCorporateContractForSpecificVersion_SendsMessageOnBus()
         {
             // arrange
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
@@ -88,7 +87,7 @@
             const string contractNumber = "1";
             const int contractVersionNumber = 1;
 
-            contract corpContract = ReturnPopulatedCorporateContract(masterContractNumber, contractNumber, CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
+            Contract corpContract = ReturnPopulatedCorporateContract(masterContractNumber, contractNumber, CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
@@ -136,7 +135,7 @@
             const string contractNumber = "1";
             const int contractVersionNumber = 1;
 
-            contract corpContract = ReturnPopulatedCorporateContract(masterContractNumber, contractNumber, CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
+            Contract corpContract = ReturnPopulatedCorporateContract(masterContractNumber, contractNumber, CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
@@ -178,7 +177,7 @@
             // arrange
             DateTime testDate = new DateTime(2016, 1, 1);
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1",
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1",
                 CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
@@ -236,7 +235,7 @@
         public void InitiateContractWithdrawalHandler_RequestSourceFcs_SetsStatusAndUpdateCRMToOnBehalfOfProvider()
         {
             // arrange
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
@@ -283,7 +282,7 @@
         public void InitiateContractWithdrawalHandler_RequestSourceExternal_SetsStatusAutoWithdrawnAndEnsureCrmUpdatedToAutowithdrawn()
         {
             // arrange
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString());
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
@@ -335,12 +334,12 @@
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
                 .Setup(m => m.GetCorporateContractForSpecificVersion(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     hierarchyType = hierarchyType.MASTERCONTRACT,
                     contracts = new List<contractType>
                     {
-                        new contract
+                        new Contract
                         {
                             contractStatus = new contractStatusType
                             {
@@ -377,14 +376,14 @@
             Assert.AreEqual(true, publishedEvent.ShouldAddPayableNonLevyAllocationToPostWithdrawalAmendment);
         }
 
-        private static contract ReturnPopulatedCorporateContract(string masterContractNumber, string contractNumber, string contractParentStatus, string contractSubStatus = "Published To Provider")
+        private static Contract ReturnPopulatedCorporateContract(string masterContractNumber, string contractNumber, string contractParentStatus, string contractSubStatus = "Published To Provider")
         {
-            return new contract
+            return new Contract
             {
                 contractNumber = masterContractNumber,
                 contracts =
                     {
-                        new contract
+                        new Contract
                         {
                             contractNumber = contractNumber,
                             contractStatus = new contractStatusType

@@ -1,9 +1,10 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic
 {
+    extern alias Entities;
     using System.Collections.Generic;
     using System.Xml.Linq;
     using System.Xml.Schema;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
 
     public interface IPaymentGenerationXmlValidator
     {

@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.PaymentAggregated.Services
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -18,9 +19,9 @@
     using PaymentManagementDomain.PaymentSchedule.PaymentAggregated.Services;
     using PaymentSchedule.PaymentAggregated.Repositories;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;
@@ -35,7 +36,7 @@
         private const string FundingStreamPeriodCode = "24+ALLBC1516";
 
 
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("UnitTest")]
         public void PaymentAggregationXrmManager_ShouldResolveFromContainer()
         {
             IPaymentAggregationXrmManager paymentAggregationXrmManager =

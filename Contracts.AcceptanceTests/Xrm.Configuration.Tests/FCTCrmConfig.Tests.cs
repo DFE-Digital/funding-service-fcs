@@ -12,8 +12,12 @@
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
         {
-            CrmConfiguration = new XrmPackageConfiguration(Settings.Default.SolutionPackagePath);
-            
+            var path =XrmTestConfiguration.Configuration["XrmConfiguration:SolutionPackagePath"];
+
+            Console.WriteLine($"SolutionPackagePath={path}");
+            Console.WriteLine($"Exists={Directory.Exists(path)}");
+            CrmConfiguration =new XrmPackageConfiguration(XrmTestConfiguration.Configuration["XrmConfiguration:SolutionPackagePath"]);
+
         }
     }
 }

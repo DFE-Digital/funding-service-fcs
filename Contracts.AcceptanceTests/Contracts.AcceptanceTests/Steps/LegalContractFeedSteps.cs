@@ -14,6 +14,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class LegalContractFeedSteps
@@ -28,12 +29,12 @@
             bool RetrieveAndCompareLatestFeedItemForContract()
             {
                 IEnumerable<SyndicationItem> retrievedFeedItems = AtomFeedReader.EnumerateItems(
-                    $"{ConfigurationManager.AppSettings["ContractManagementServiceUrl"]}/api/contracts/notifications",
+                    $"{TestConfiguration.Configuration["ContractManagement:ServiceUrl"]}/api/contracts/notifications",
                     AzureAuthenticator.GetAuthenticationConfig(),
                     "application/vnd.sfa.contract.v1+atom+xml");
 
                 contractType feedContract = retrievedFeedItems
-                    .Select(feedItem => feedItem.GetContent<contract>().contracts.Single())
+                    .Select(feedItem => feedItem.GetContent<Contract>().contracts.Single())
                     .FirstOrDefault(contract => contract.contractNumber == contractNumber);
 
                 errors.Clear();
@@ -54,7 +55,7 @@
             CheckResultPoller poller = new CheckResultPoller(checkResult: RetrieveAndCompareLatestFeedItemForContract, maxNumChecks: 10, waitIntervalSeconds: 3);
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsFalse(errors.Any(),
+            ClassicAssert.IsFalse(errors.Any(),
                 $"Mismatch between All Contract Atom Feed and CRM for Contract: {contractNumber}, Version: {versionNumber}. Mismatches: {Environment.NewLine + string.Join(Environment.NewLine, errors)}");
         }
 

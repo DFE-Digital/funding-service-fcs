@@ -7,7 +7,7 @@
 
     public static class AzureServiceBusService
     {
-        private static readonly string ConnectionString = ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
+        private static readonly string ConnectionString = TestConfiguration.Configuration["ConnectionStrings:NServiceBusTransport"];
 
         public static long GetTotalTopicMessageCount(IReadOnlyCollection<string> topicsToIgnore)
         {

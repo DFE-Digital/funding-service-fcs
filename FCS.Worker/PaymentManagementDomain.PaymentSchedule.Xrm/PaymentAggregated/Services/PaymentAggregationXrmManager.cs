@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated.Services
 {
+    extern alias IntegrationEntities;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -9,9 +10,9 @@
     using Microsoft.Xrm.Sdk.Messages;
     using Repositories;
     using SFA.FCT.CrossDomain.Integration.Common.Extensions;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.BusinessLogic.DTOs;
 

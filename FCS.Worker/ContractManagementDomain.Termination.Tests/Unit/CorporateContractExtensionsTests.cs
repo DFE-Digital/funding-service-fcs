@@ -15,11 +15,11 @@
         public void CorporateContractExtensions_RemoveTerminationInformation_ShouldRemoveTerminationInformation()
         {
             // arrange
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         TerminationDate = DateTime.Now,
                         TerminationReason = "Some reason",
@@ -49,18 +49,19 @@
         public void CorporateContractExtensions_SetContractSubStatus_ShouldSetContractSubStatus()
         {
             // arrange
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         contractStatus = new contractStatusType
                         {
                             status = "Approved"
                         }
                     },
-                    new contract
+                    new Contract
+
                     {
                         contractStatus = new contractStatusType
                         {
@@ -88,11 +89,11 @@
             DateTime alreadySetDateTime = new DateTime(2018, 1, 1);
             DateTime dateTimeToSet = new DateTime(2017, 2, 1);
 
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
                 {
-                    new contract()
+                    new Contract()
                     {
                         endDate = alreadySetDateTime,
                         contractAllocations = new List<contractAllocationsContractAllocation>
@@ -101,7 +102,7 @@
                             new contractAllocationsContractAllocation()
                         }
                     },
-                    new contract()
+                    new Contract()
                     {
                         contractAllocations = new List<contractAllocationsContractAllocation>()
                         {
@@ -134,11 +135,11 @@
         public void CorporateContractExtensions_ClearAllocationModificationValues_ShouldClearModificationValuesFromAllocations()
         {
             // arrange
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract   
             {
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         contractAllocations = new List<contractAllocationsContractAllocation>
                         {
@@ -158,7 +159,7 @@
                             }
                         }
                     },
-                    new contract
+                    new Contract
                     {
                         contractAllocations = new List<contractAllocationsContractAllocation>
                         {
@@ -187,10 +188,10 @@
             // assert
             corporateContract.contracts.ForEach(c => c.contractAllocations.ForEach(ca =>
             {
-                _ = ca.StopNewStartsDate.Should().BeNull("Allocation StopNewStartsDate should be cleared");
-                _ = ca.NewStartsSuspendedReason.Should().BeNull("Allocation NewStartsSuspendedReason should be cleared");
-                _ = ca.InflightStopNewStartsDate.Should().BeNull("Allocation InflightStopNewStartsDate should be cleared");
-                _ = ca.InflightNewStartsSuspendedReason.Should().BeNull("Allocation InflightNewStartsSuspendedReason should be cleared");
+                ca.StopNewStartsDate.Should().BeNull("Allocation StopNewStartsDate should be cleared");
+                ca.NewStartsSuspendedReason.Should().BeNull("Allocation NewStartsSuspendedReason should be cleared");
+                ca.InflightStopNewStartsDate.Should().BeNull("Allocation InflightStopNewStartsDate should be cleared");
+                ca.InflightNewStartsSuspendedReason.Should().BeNull("Allocation InflightNewStartsSuspendedReason should be cleared");
             }));
         }
     }

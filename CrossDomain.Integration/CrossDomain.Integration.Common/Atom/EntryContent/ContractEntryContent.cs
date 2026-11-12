@@ -6,12 +6,12 @@
 
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter")]
     [XmlRoot(Namespace = "urn:sfa:schemas:contract", IsNullable = false)]
-    public class ContractEntryContent : IEntryContent<contract>
+    public class ContractEntryContent : IEntryContent<Contract>
     {
         // ReSharper disable once InconsistentNaming
-        public contract contract { get; set; }
+        public Contract contract { get; set; }
 
-        public void SetRootProperty(contract value)
+        public void SetRootProperty(Contract value)
         {
             contract = value;
         }

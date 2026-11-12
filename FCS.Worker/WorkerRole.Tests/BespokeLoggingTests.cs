@@ -15,7 +15,7 @@
     public class BespokeLoggingTests
     {
         [TestMethod, TestCategory("TechnicalExploration")]
-        public void LogEntryTests_ShouldBeAbleToReadLogEntry()
+        public async Task LogEntryTests_ShouldBeAbleToReadLogEntry()
         {
             var logEntry = LogEntry.Create("Test log entry", 11, "5461ec5829c246a5b3a999f25b2fba68", 
                 "WorkerRole_IN_0", "WorkerRole", LogLevel.Information);
@@ -24,7 +24,7 @@
 
             var azureTable = AzureTableStore.GetTable("WADLogsTable", azureStorageConnectionString);
 
-            AzureTableStore.CreateRow(azureTable, logEntry);
+            await AzureTableStore.CreateRowAsync(azureTable, logEntry);
         }
 
         [TestMethod, TestCategory("TechnicalExploration")]
@@ -132,10 +132,15 @@
         {
             ConcurrentQueue<LogEntry> logEntries = new ConcurrentQueue<LogEntry>();
             QueueReader reader = new QueueReader(logEntries);
-            
-            BespokeLogWriter logWriter = new BespokeLogWriter(new CloudLogQueue(logEntries, cloudEnvironment), LogLevel.Verbose);
 
-            var azureStorageConnectionString = ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString;
+            BespokeLogWriter logWriter =
+                new BespokeLogWriter(
+                    new CloudLogQueue(logEntries, cloudEnvironment),
+                    LogLevel.Verbose);
+
+            var azureStorageConnectionString =
+                ConfigurationManager.ConnectionStrings["StorageConnectionString"]
+                    .ConnectionString;
 
             var azureTable = AzureTableStore.GetTable(
                 tableName: "WADLogsTable",
@@ -143,10 +148,11 @@
 
             reader.StartDequeuingAndProcessing(logEntry =>
             {
-                AzureTableStore.CreateRow(azureTable, logEntry);
+                AzureTableStore.CreateRowAsync(azureTable, logEntry).Wait();
             });
 
             return logWriter;
         }
+
     }
 }

@@ -32,9 +32,9 @@
 
         private static Stream GetCorporateSchemaXsdFile()
         {
-            const string corpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.09.xsd";
+            const string corpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.08.xsd";
 
-            return typeof(SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract).Assembly.GetManifestResourceStream(corpContractSchemaResourceName);
+            return typeof(SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract).Assembly.GetManifestResourceStream(corpContractSchemaResourceName);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic.Mappers
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -8,7 +9,7 @@
     using System.Xml.Serialization;
     using Integration.DataStore.Model;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
     using PaymentGenerationDomain.Integration.DataStore.Dtos;
 
     public class PaymentCorpSchemaMapper : IPaymentCorpSchemaMapper

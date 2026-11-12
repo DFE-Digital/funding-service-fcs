@@ -1,13 +1,14 @@
-﻿namespace ContractCreateDomain.Endpoint.XrmService
+﻿
+namespace ContractCreateDomain.Endpoint.XrmService
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.ContractCreateDomain.Common.Messages.Events;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -18,26 +19,38 @@
         };
 
         public string NameOfAssembly => "ContractCreateDomain.Endpoint.dll";
+
         public string EndpointName => "ContractCreateDomain.XrmService";
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
-        public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>();
+
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
+
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            new List<CommandRoute>();
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions (preserve custom events)
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith("Messages"))
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddXrmServiceServices();
             });
 
             return configuration;

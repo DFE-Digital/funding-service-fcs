@@ -581,9 +581,9 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
             return entity;
         }
 
-        private static CorporateContract.period NewPeriod(string name, CorporateContract.periodTypeCodeType type)
+        private static CorporateContract.Period NewPeriod(string name, CorporateContract.periodTypeCodeType type)
         {
-            return new CorporateContract.period
+            return new CorporateContract.Period
             {
                 period1 = name,
                 periodType = new CorporateContract.periodTypeType { periodTypeCode = type }

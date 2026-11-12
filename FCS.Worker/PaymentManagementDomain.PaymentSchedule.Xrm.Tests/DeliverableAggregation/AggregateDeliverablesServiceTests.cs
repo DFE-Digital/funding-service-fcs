@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.DeliverableAggregation
 {
+    extern alias Entity;
     using System.Collections.Generic;
     using System.Linq;
     using Castle.MicroKernel.Lifestyle;
@@ -9,7 +10,7 @@
     using Moq;
     using NServiceBus;
     using PaymentManagementDomain.PaymentSchedule.DeliverableAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Dtos;
@@ -369,7 +370,6 @@
         public void AggregateDeliverablesHandler_ShouldResolve()
         {
             var container = new WindsorContainer().Install(new WindsorInstaller(new LoggerFactory()));
-            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
             container.Register(Component.For<IHandleMessages<AggregateDeliverablesCommand>>()
                 .ImplementedBy<AggregateDeliverablesHandler>().LifestyleScoped());
 

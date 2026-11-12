@@ -27,7 +27,7 @@
             // arrange
             Mock<ITemplateRepository> templateRepository = new Mock<ITemplateRepository>();
             IDictionary<string, DocumentGenerationRequest> requests;
-            contract contract = GetCorporateContract("DocGenCommand_ALLF1819.json");
+            Contract contract = GetCorporateContract("DocGenCommand_ALLF1819.json");
 
             using (var paymentManagementPolicyContext = new PaymentManagementPolicyContext())
             using (var documentDomainDbContext = new DocumentsDomainDbContext())
@@ -57,7 +57,7 @@
             // arrange
             Mock<ITemplateRepository> templateRepository = new Mock<ITemplateRepository>();
             IDictionary<string, DocumentGenerationRequest> requests;
-            contract contract = GetCorporateContract("LoansDocGenCommand.json");
+            Contract contract = GetCorporateContract("LoansDocGenCommand.json");
 
             using (var paymentManagementPolicyContext = new PaymentManagementPolicyContext())
             using (var documentDomainDbContext = new DocumentsDomainDbContext())
@@ -84,13 +84,13 @@
             Assert.AreEqual("Advanced Learner Loans Bursary", allocationNameList[2], "The third allocation is wrong");
         }
 
-        private contract GetCorporateContract(string fileName)
+        private Contract GetCorporateContract(string fileName)
         {
             using (var resource = new TestResource("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests", $@"Resources.{fileName}"))
             {
                 return
-                    (contract)
-                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(contract));
+                    (Contract)
+                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(Contract));
             }
         }
     }

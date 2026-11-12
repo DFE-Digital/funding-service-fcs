@@ -43,7 +43,7 @@
 
             UpdateDocumentMergeStatusHandler handler = new UpdateDocumentMergeStatusHandler(loggerMock.Object, xrmDocumentManagerMock.Object);
 
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -89,7 +89,7 @@
             UpdateDocumentMergeStatusHandler handler = new UpdateDocumentMergeStatusHandler(loggerMock.Object, xrmDocumentManagerMock.Object);
 
             contractType contract = new contractType();
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -135,7 +135,7 @@
             UpdateDocumentMergeStatusHandler handler = new UpdateDocumentMergeStatusHandler(Mock.Of<ILogger>(), xrmDocumentManagerMock.Object);
 
             contractType contract = new contractType();
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {

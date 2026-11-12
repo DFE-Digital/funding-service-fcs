@@ -8,7 +8,7 @@
 
     public static class AzureAuthentication
     {
-       private static readonly string AadInstance = "https://login.microsoftonline.com/{0}";
+        private static readonly string AadInstance = "https://login.microsoftonline.com/{0}";
         private static readonly string Tenant = "fcsazuresfabisgov.onmicrosoft.com";
         private static readonly string ClientId = "";
         private static readonly string AppKey = "";
@@ -29,7 +29,7 @@
                 retry = false;
                 try
                 {
-                    authResult = authContext.AcquireToken(ResourceId, clientCredential);
+                    //authResult = authContext.AcquireToken(ResourceId, clientCredential);
                     return authResult;
                 }
                 catch (AdalException ex)

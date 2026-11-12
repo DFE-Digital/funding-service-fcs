@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic
 {
+    extern alias Entities;
     using System;
     using System.Linq;
     using Exceptions;
@@ -7,7 +8,7 @@
     using Common;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
 
     public class XrmAllocationManager : IXrmAllocationManager
     {

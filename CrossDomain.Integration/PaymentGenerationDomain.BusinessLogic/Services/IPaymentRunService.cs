@@ -1,10 +1,11 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic.Services
 {
+    extern alias Entities;
     using System;
     using System.Threading.Tasks;
     using PaymentGenerationDomain.Integration.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
-    using CorporateSchema = SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using CorporateSchema = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
 
     public interface IPaymentRunService
     {

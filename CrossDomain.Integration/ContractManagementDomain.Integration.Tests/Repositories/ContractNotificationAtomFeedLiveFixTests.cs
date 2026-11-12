@@ -12,7 +12,7 @@
     [TestClass]
     public class ContractNotificationAtomFeedLiveFixTests
     {
-        private const string DatabaseConnectionString = "";
+        private const string DatabaseConnectionString = "Data Source=gy2thhzgc4.database.windows.net;Initial Catalog=fct-database-oat;Persist Security Info=True;User ID=fctsa;Password=PPPassword@9";
         private const int ExpectedEsfAtomFeedItemCount = 125;
 
         /// <remarks>
@@ -38,7 +38,7 @@
                 esfAtomFeedItems
                     .ForEach(atomFeedItem =>
                     {
-                        CorporateSchema.contract masterContract = atomFeedItem.AtomFeedItemXml.DeserializeXml<CorporateSchema.contract>();
+                        CorporateSchema.Contract masterContract = atomFeedItem.AtomFeedItemXml.DeserializeXml<CorporateSchema.Contract>();
                         CorporateSchema.contractAllocationsContractAllocation esfAllocation = 
                             masterContract.contracts.Single().contractAllocations.Single(a => a.contractAllocationNumber.StartsWith("ESF-"));
 
@@ -73,7 +73,7 @@
                 esfAtomFeedItems
                     .ForEach(atomFeedItem =>
                     {
-                        CorporateSchema.contract masterContract = atomFeedItem.AtomFeedItemXml.DeserializeXml<CorporateSchema.contract>();
+                        CorporateSchema.Contract masterContract = atomFeedItem.AtomFeedItemXml.DeserializeXml<CorporateSchema.Contract>();
                         CorporateSchema.contractAllocationsContractAllocation esfAllocation =
                             masterContract.contracts.Single().contractAllocations.Single(a => a.contractAllocationNumber.StartsWith("ESF-"));
 

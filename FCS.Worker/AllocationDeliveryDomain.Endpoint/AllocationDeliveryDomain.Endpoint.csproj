@@ -1,111 +1,58 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1B3967B1-D385-4448-9AC7-C348B8ACC55F}</ProjectGuid>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AllocationDeliveryDomain.Endpoint</RootNamespace>
-    <AssemblyName>AllocationDeliveryDomain.Endpoint</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+   <!-- <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>-->
+    <Configurations>AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PP-OAT;PS;PUB;Release</Configurations>
+    <AssemblyTitle>AllocationDeliveryDomain.Endpoint</AssemblyTitle>
+    <Product>AllocationDeliveryDomain.Endpoint</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\AT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\CI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DOAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\MO\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\OAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
@@ -115,253 +62,70 @@
     <OutputPath>bin\DEV\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Windsor.4.1.1\lib\net45\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Iesi.Collections.4.0.2\lib\net461\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.ServiceBus.5.0.2\lib\net46\Microsoft.ServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MoreLinq, Version=2.10.21623.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\morelinq.2.10.0\lib\net40\MoreLinq.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.7.1.4\lib\net452\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.NHibernate, Version=8.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.NHibernate.8.0.0\lib\net452\NServiceBus.NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.ObjectBuilder.CastleWindsor, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.CastleWindsor.7.0.0\lib\net452\NServiceBus.ObjectBuilder.CastleWindsor.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Persistence.Sql, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.Persistence.Sql.4.3.0\lib\net452\NServiceBus.Persistence.Sql.dll</HintPath>
-    </Reference>
-    <Reference Include="Polly, Version=5.9.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Polly-Signed.5.9.0\lib\net45\Polly.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
+    
     <Reference Include="System.Data.Services" />
     <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.Data.SqlClient, Version=4.2.0.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SqlClient.4.4.3\lib\net461\System.Data.SqlClient.dll</HintPath>
-    </Reference>
     <Reference Include="System.Design" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.4.403061554\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Runtime.Serialization" />
+    
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web" />
+    
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ActualsPullComplete\EndpointConfig.cs" />
-    <Compile Include="ActualsPullComplete\WindsorInstaller.cs" />
-    <Compile Include="ActualsPull\Adapters\DcAdapter.cs" />
-    <Compile Include="ActualsPull\Adapters\DcStubAdapter.cs" />
-    <Compile Include="ActualsPull\Adapters\HttpService.cs" />
-    <Compile Include="ActualsPull\Adapters\IDcAdapter.cs" />
-    <Compile Include="ActualsPull\Adapters\DcAdapterExtensions.cs" />
-    <Compile Include="ActualsPull\Adapters\IHttpService.cs" />
-    <Compile Include="ActualsPull\Extensions\ReportedActualExtensions.cs" />
-    <Compile Include="ActualsPull\Extensions\StringExtensions.cs" />
-    <Compile Include="ActualsPull\Handlers\BeginDcActualsPullHandler.cs" />
-    <Compile Include="ActualsPull\EndpointConfig.cs" />
-    <Compile Include="ActualsPullComplete\CheckForCollectionReturnCompleteHandler.cs" />
-    <Compile Include="ActualsPull\Handlers\PullClosedCollectionPageHandler.cs" />
-    <Compile Include="Infrastructure\DbIntExtensions.cs" />
-    <Compile Include="Infrastructure\DbStringExtensions.cs" />
-    <Compile Include="Infrastructure\IOAuthAccessTokenFactory.cs" />
-    <Compile Include="Infrastructure\OAuthAccessTokenFactory.cs" />
-    <Compile Include="PaymentInstructionValidation\Repositories\IMultiSourceActualRepository.cs" />
-    <Compile Include="PaymentInstructionValidation\Repositories\MultiSourceActualRepository.cs" />
-    <Compile Include="PaymentInstructionValidation\Services\SummarisedActualTransformer.cs" />
-    <Compile Include="Repositories\ActualOrgFspGroupKeyResult.cs" />
-    <Compile Include="Repositories\ClosedCollectionRepository.cs" />
-    <Compile Include="Repositories\IClosedCollectionCompleteRepository.cs" />
-    <Compile Include="Repositories\IClosedCollectionRepository.cs" />
-    <Compile Include="Repositories\IMonthEndStartRepository.cs" />
-    <Compile Include="Repositories\ISummarisedActualsQueryRepository.cs" />
-    <Compile Include="Repositories\ISummarisedActualsRepository.cs" />
-    <Compile Include="Repositories\MonthEndHistoryRepository.cs" />
-    <Compile Include="Repositories\SummarisedActualsRepository.cs" />
-    <Compile Include="ActualsPull\WindsorInstaller.cs" />
-    <Compile Include="ContractTerminationEndpoint\ContractTerminatedHandler.cs" />
-    <Compile Include="ContractTerminationEndpoint\EndpointConfig.cs" />
-    <Compile Include="ContractTerminationEndpoint\WindsorInstaller.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\ContractTerminationCancelledHandler.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Extensions\AllocationDeliverablePeriodActualAuditExtensions.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Extensions\EnumerableExtensions.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Repositories\AllocationDeliverablePeriodActualAuditRepository.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Repositories\FundingStreamPeriodRepository.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Repositories\IAllocationDeliverablePeriodActualAuditRepository.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Repositories\IFundingStreamPeriodRepository.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Services\AllocationActualsMapper.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Services\IZeroiseActualsService.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\Services\ZeroiseActualsService.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\TerminationAllocationMapper.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\ContractPlacedUnderTerminationHandler.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\EndpointConfig.cs" />
-    <Compile Include="ContractUnderTerminationEndpoint\WindsorInstaller.cs" />
-    <Compile Include="Infrastructure\Extensions\DateProviderExtensions.cs" />
-    <Compile Include="Infrastructure\ISessionConnectionFactory.cs" />
-    <Compile Include="Infrastructure\SessionConnectionFactory.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReleaseHeldReportedActualsEndpoint\EndpointConfig.cs" />
-    <Compile Include="ReleaseHeldReportedActualsEndpoint\Handlers\ReleaseHeldReportedActualsHandler.cs" />
-    <Compile Include="ReleaseHeldReportedActualsEndpoint\WindsorInstaller.cs" />
-    <Compile Include="PaymentInstructionValidation\EndpointConfig.cs" />
-    <Compile Include="PaymentInstructionValidation\ReportedPaymentInstructionsLoadedCommandHandler.cs" />
-    <Compile Include="PaymentInstructionValidation\Repositories\IPaymentInstructionAuditRepository.cs" />
-    <Compile Include="PaymentInstructionValidation\Repositories\LazyCache.cs" />
-    <Compile Include="PaymentInstructionValidation\Repositories\PaymentInstructionAuditRepository.cs" />
-    <Compile Include="PaymentInstructionValidation\Repositories\SimpleAllocation.cs" />
-    <Compile Include="PaymentInstructionValidation\Services\IMonitoringDeliverablesForAllocationService.cs" />
-    <Compile Include="PaymentInstructionValidation\Services\IPaymentInstructionValidator.cs" />
-    <Compile Include="PaymentInstructionValidation\Services\IReportedPaymentEnricher.cs" />
-    <Compile Include="PaymentInstructionValidation\Services\MonitoringDeliverablesForAllocationService.cs" />
-    <Compile Include="PaymentInstructionValidation\Services\PaymentInstructionValidator.cs" />
-    <Compile Include="PaymentInstructionValidation\Services\ReportedPaymentEnricher.cs" />
-    <Compile Include="PaymentInstructionValidation\Services\ReportedPaymentInstructionTransformer.cs" />
-    <Compile Include="PaymentInstructionValidation\WindsorInstaller.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <PackageReference Include="AutoMapper" Version="16.1.1" />
+    <PackageReference Include="Castle.Core" Version="5.2.1" />
+    <PackageReference Include="Castle.Windsor" Version="6.0.0" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="EntityFramework" Version="6.5.2" />
+    <PackageReference Include="Iesi.Collections" Version="4.1.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Data.Edm" Version="5.8.5" />
+    <PackageReference Include="Microsoft.Data.OData" Version="5.8.5" />
+    <PackageReference Include="Microsoft.Data.Services.Client" Version="5.8.5" />
+    <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
+    <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+    <PackageReference Include="morelinq" Version="4.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="NHibernate" Version="5.6.0" />
+    <PackageReference Include="NServiceBus" Version="9.2.11" />
+    <PackageReference Include="NServiceBus.CastleWindsor" Version="7.2.0" />
+    <PackageReference Include="NServiceBus.NHibernate" Version="10.1.2" />
+    <PackageReference Include="NServiceBus.Persistence.Sql" Version="8.0.0" />
+    <PackageReference Include="Polly-Signed" Version="5.9.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.DirectoryServices" Version="10.0.7" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.7" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="10.0.7" />
+    <PackageReference Include="System.Spatial" Version="5.8.5" />
+	  <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="5.1.2" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AllocationDeliveryDomain\AllocationDelivery.Messages\AllocationDelivery.Messages.csproj">
-      <Project>{b82d5630-01be-4e06-8b72-7cbe77453e06}</Project>
-      <Name>AllocationDelivery.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\AllocationDeliveryDomain.Common\AllocationDeliveryDomain.Common.csproj">
-      <Project>{9b837a72-d62b-46e1-b2c6-6224879b2a30}</Project>
-      <Name>AllocationDeliveryDomain.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj">
-      <Project>{E766A4B6-88B4-4E18-A68B-761B65C7E015}</Project>
-      <Name>CrossDomain.Integration.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
-      <Project>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</Project>
-      <Name>CrossDomain.Integration.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj">
-      <Project>{D68560C9-7FCC-41E6-B48D-3CD237D97926}</Project>
-      <Name>CrossDomain.Integration.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj">
-      <Project>{9D36A2BE-95D8-49B7-BE54-9F063738CB5B}</Project>
-      <Name>CrossDomain.Integration.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.OverrideDate.DataStore\CrossDomain.Integration.OverrideDate.DataStore.csproj">
-      <Project>{87892186-A593-46DA-900F-6CEF458EFE20}</Project>
-      <Name>CrossDomain.Integration.OverrideDate.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
-      <Project>{B93F0ED2-8AF4-46C4-AE47-DAA3483FD8F3}</Project>
-      <Name>Framework.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FCS.Worker.Entities\FCS.Worker.Common.csproj">
-      <Project>{5A495916-854C-4B20-B7FC-B696EA94FF61}</Project>
-      <Name>FCS.Worker.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PaymentGenerationDomain.Endpoint\PaymentGenerationDomain.Endpoint.csproj">
-      <Project>{00C3FEE7-4854-4756-8B46-7B689EC7407C}</Project>
-      <Name>PaymentGenerationDomain.Endpoint</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\AllocationDeliveryDomain\AllocationDelivery.Messages\AllocationDelivery.Messages.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\AllocationDeliveryDomain.Common\AllocationDeliveryDomain.Common.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.OverrideDate.DataStore\CrossDomain.Integration.OverrideDate.DataStore.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
+    <ProjectReference Include="..\FCS.Worker.Entities\FCS.Worker.Common.csproj" />
+    <ProjectReference Include="..\PaymentGenerationDomain.Endpoint\PaymentGenerationDomain.Endpoint.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ActualsPull\Repositories\" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+    <PackageReference Include="NServiceBus" Version="7.1.4" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\NServiceBus.Persistence.Sql.4.3.0\build\NServiceBus.Persistence.Sql.targets" Condition="Exists('..\..\packages\NServiceBus.Persistence.Sql.4.3.0\build\NServiceBus.Persistence.Sql.targets')" />
 </Project>

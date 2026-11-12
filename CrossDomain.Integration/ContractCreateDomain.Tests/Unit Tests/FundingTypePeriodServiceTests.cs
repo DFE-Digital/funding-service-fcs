@@ -36,7 +36,7 @@
                         {
                             fundingTypeCode = "AB"
                         },
-                        period = new period
+                        period = new Period
                         {
                             period1 = "1516",
                             periodType = new periodTypeType

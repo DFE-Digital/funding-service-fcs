@@ -1,40 +1,55 @@
-﻿namespace PerformanceManagementDomain.PullFundingClaim
+﻿
+namespace PerformanceManagementDomain.PullFundingClaim
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PerformanceManagementDomain.Common.Commands;
 
     public class EndpointConfig : IEndpointConfig
     {
         public string NameOfAssembly => "PerformanceManagementDomain.dll";
 
-        public string EndpointName => "PerformanceManagementDomain.PullFundingClaim";
+        public string EndpointName =>
+            "PerformanceManagementDomain.PullFundingClaim";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToList();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToList();
 
         public IReadOnlyCollection<CommandRoute> Routes => new[]
         {
-            new CommandRoute("PerformanceManagementDomain.FundingClaimImport", typeof(ProcessFundingClaimsCommand)) 
+            new CommandRoute(
+                "PerformanceManagementDomain.FundingClaimImport",
+                typeof(ProcessFundingClaimsCommand))
         };
 
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddPullFundingClaimServices();
             });
 
             return configuration;

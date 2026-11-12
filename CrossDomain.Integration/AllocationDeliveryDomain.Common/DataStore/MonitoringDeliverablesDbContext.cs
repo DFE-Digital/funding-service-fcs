@@ -17,6 +17,15 @@
         {
         }
 
+        private static string GetConnectionString()
+        {
+            if (!string.IsNullOrWhiteSpace(KeyVaultValue))
+            {
+                return KeyVaultValue;
+            }
+            return "name=MonitoringDeliverablesDbContext";
+        }
+
         public MonitoringDeliverablesDbContext(IDbConnection connection)
         : base((DbConnection)connection, false)
         {
@@ -35,16 +44,6 @@
                 Database.UseTransaction(transaction);
             }
         }
-         
-        private static string GetConnectionString()
-        {
-            if (!string.IsNullOrWhiteSpace(KeyVaultValue))
-            {
-                return KeyVaultValue;
-            }
-            return "name=MonitoringDeliverablesDbContext";
-        }
-
 
 
         public virtual DbSet<FundingStreamPeriodDeliverable> FundingStreamPeriodDeliverables { get; set; }

@@ -1,394 +1,131 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F765F643-E621-499E-A6E2-BD89B5382311}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Operations.Web.Tests</RootNamespace>
-    <AssemblyName>Operations.Web.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DAT\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\DCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
-    <OutputPath>bin\CI\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
-    <OutputPath>bin\AT\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
-    <OutputPath>bin\MO\</OutputPath>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DOAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Label="SlowCheetah">
-    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
-    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
-    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
-    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="AntiXSSLibrary, Version=4.2.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\AntiXSSLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentAssertions.3.5.0\lib\net45\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentAssertions.3.5.0\lib\net45\FluentAssertions.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="LanguageExt.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LanguageExt.Core.3.4.15\lib\net461\LanguageExt.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.34\lib\net462\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=2.18.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.18.206251556\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms, Version=2.18.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.18.206251556\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.ServiceBus.4.0.0\lib\net45-full\Microsoft.ServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client.CodeGeneration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.CodeGeneration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal.Files, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.Files.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.34\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Deployment.9.0.2.34\lib\net462\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="MoreLinq, Version=1.1.18418.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\morelinq.1.1.1\lib\net35\MoreLinq.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.Services" />
-    <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <Choose>
-    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
-  <ItemGroup>
-    <Compile Include="CheckersTests\CfsNotificationFeedCheckAvailabilityTests.cs" />
-    <Compile Include="CheckersTests\CfsProviderApiCheckAvailabilityTests.cs" />
-    <Compile Include="CheckersTests\DctCheckAvailabilityTests.cs" />
-    <Compile Include="Controller\CfsImportInfoControllerTests.cs" />
-    <Compile Include="Controller\ContractAtomInfoControllerTests.cs" />
-    <Compile Include="Controller\ContractDataControllerTests.cs" />
-    <Compile Include="Controller\HttpConnectionFactory.cs" />
-    <Compile Include="Controller\DasEventsControllerTests.cs" />
-    <Compile Include="Controller\IntegrityCheckerControllerTests.cs" />
-    <Compile Include="Controller\MonthEndInfoControllerTests.cs" />
-    <Compile Include="Controller\OrganisationControllerTests.cs" />
-    <Compile Include="Controller\ParkedFundingAllocationsControllerTests.cs" />
-    <Compile Include="Controller\PaymentBFControllerTests.cs" />
-    <Compile Include="Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Infrastructure\NServiceBusSenderTests.cs" />
-    <Compile Include="Metrics\AzureLoggerQueryRepositoryTests.cs" />
-    <Compile Include="NotificationsCheckerServiceTests.cs" />
-    <Compile Include="AvailabilityCheckerServiceTests.cs" />
-    <Compile Include="CheckersTests\CrmCheckAvailabilityIntegrationTests.cs" />
-    <Compile Include="CheckersTests\DasCheckAvailabilityTests.cs" />
-    <Compile Include="CheckersTests\DedsCheckAvailabilityTests.cs" />
-    <Compile Include="CheckersTests\FeedReadCheckAvailabilityTests.cs" />
-    <Compile Include="CheckersTests\OrgServiceCheckAvailabilityIntegrationTests.cs" />
-    <Compile Include="CheckersTests\SharepointCheckAvailabilityTests.cs" />
-    <Compile Include="CheckersTests\UkrlpCheckAvailabilityTests.cs" />
-    <Compile Include="Controller\CheckerControllerTests.cs" />
-    <Compile Include="Controller\NotificationsControllerTests.cs" />
-    <Compile Include="Controller\SessionControllerTests.cs" />
-    <Compile Include="Helpers\HttpClientHelper.cs" />
-    <Compile Include="Notifiers\ErrorQueueNotifierTests.cs" />
-    <Compile Include="Notifiers\FailedIntegrityCheckNotifierTests.cs" />
-    <Compile Include="Notifiers\MonthEndActivityNotifierTests.cs" />
-    <Compile Include="Notifiers\RunningIntegrityCheckersNotifierTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CfsImportRepositoryTests.cs" />
-    <Compile Include="Repositories\AzureServiceBusQueueServiceRepositoryTests.cs" />
-    <Compile Include="Repositories\ClosedCollectionRepositoryTests.cs" />
-    <Compile Include="Repositories\ConnectivityRepositoryTests.cs" />
-    <Compile Include="Repositories\ContractAtomFeedQueryRepositoryTests.cs" />
-    <Compile Include="Repositories\MonthEndRepositoryTests.cs" />
-    <Compile Include="Repositories\EngagementEventRepositoryTests.cs" />
-    <Compile Include="Repositories\FundingTypeFundingPeriodRepositoryTechnicalExplorationTests.cs" />
-    <Compile Include="Repositories\FundingTypeFundingPeriodRepositoryTests.cs" />
-    <Compile Include="Repositories\OrganisationRepositoryTests.cs" />
-    <Compile Include="Repositories\ParkedFundingAllocationRepositoryTests.cs" />
-    <Compile Include="Repositories\PaymentBFItemQueryRepositoryTests.cs" />
-    <Compile Include="ServiceTests\DasRequestServiceTests.cs" />
-    <Compile Include="ServiceTests\DigiRelManagementServiceTests.cs" />
-    <Compile Include="ServiceTests\IntegrityCheckerServiceTests.cs" />
-    <Compile Include="ServiceTests\LevyContractServiceTechnicalExploration.cs" />
-    <Compile Include="ServiceTests\LevyContractServiceTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.AT.config">
-      <DependentUpon>app.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="app.CI.config">
-      <DependentUpon>app.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="app.config">
-      <TransformOnBuild>true</TransformOnBuild>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="app.DAT.config">
-      <DependentUpon>app.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="app.DCI.config">
-      <DependentUpon>app.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\Tests\Tests.Common\UnitTests.Common.csproj">
-      <Project>{6edbfbfc-a0a0-4650-a92e-b9a686c967fe}</Project>
-      <Name>UnitTests.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ContractManagementDomain\ContractManagementService.Common\ContractManagementService.Common.csproj">
-      <Project>{CD312A9F-BB0D-4F77-8FE0-49175B964CFE}</Project>
-      <Name>ContractManagementService.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj">
-      <Project>{e766a4b6-88b4-4e18-a68b-761b65c7e015}</Project>
-      <Name>CrossDomain.Integration.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
-      <Project>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</Project>
-      <Name>CrossDomain.Integration.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj">
-      <Project>{67193b3f-0405-4dbf-a77c-c1d9c9fa11ba}</Project>
-      <Name>ContractManagement.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
-      <Project>{B93F0ED2-8AF4-46C4-AE47-DAA3483FD8F3}</Project>
-      <Name>Framework.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Operations.DataStore\Operations.DataStore.csproj">
-      <Project>{4EF3E8C7-AA14-4E6E-9B69-A8A08309DE35}</Project>
-      <Name>Operations.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Operations.Web\Operations.Web.csproj">
-      <Project>{fc392ccf-922f-47ec-9c64-1510f3ce665b}</Project>
-      <Name>Operations.Web</Name>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\coretools\CrmSvcUtil.exe" />
-    <Content Include="bin\coretools\CrmSvcUtil.xml" />
-    <Content Include="bin\coretools\Microsoft.Xrm.Sdk.dll" />
-    <Content Include="bin\coretools\SolutionPackager.exe" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.dll" />
-    <Content Include="bin\tools\CrmSvcUtil.exe" />
-    <Content Include="bin\tools\CrmSvcUtil.xml" />
-    <Content Include="bin\tools\Microsoft.Crm.Sdk.Proxy.dll" />
-    <Content Include="bin\tools\Microsoft.Xrm.Client.dll" />
-    <Content Include="bin\tools\Microsoft.Xrm.Sdk.dll" />
-    <Content Include="bin\tools\WebsiteCopy.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\bin\" />
-    <Folder Include="bin\Debug\roslyn\" />
-  </ItemGroup>
-  <Choose>
-    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<OutputType>Library</OutputType>
+
+		<RootNamespace>Operations.Web.Tests</RootNamespace>
+		<AssemblyName>Operations.Web.Tests</AssemblyName>
+
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+		<Configurations>Debug;CI;AT;MO;DAT;DCI;DMO;DOAT</Configurations>
+
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='DAT'">
+		<OutputPath>bin\DAT\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='DCI'">
+		<OutputPath>bin\DCI\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='CI'">
+		<OutputPath>bin\CI\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='AT'">
+		<OutputPath>bin\AT\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='MO'">
+		<OutputPath>bin\MO\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='DMO'">
+		<OutputPath>bin\DMO\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='DOAT'">
+		<OutputPath>bin\DOAT\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+
+		<PackageReference Include="Castle.Core" Version="5.2.1" />
+
+		<PackageReference Include="Dapper" Version="2.1.66" />
+
+		<PackageReference Include="EntityFramework" Version="6.5.2" />
+
+		<PackageReference Include="FluentAssertions" Version="8.10.0" />
+
+		<PackageReference Include="LanguageExt.Core" Version="4.4.9" />
+
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.3" />
+
+		<PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.59" />
+
+		<PackageReference Include="Microsoft.CrmSdk.Deployment" Version="9.0.2.34" />
+
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+
+		<PackageReference Include="Microsoft.Identity.Client" Version="4.83.1" />
+
+		<PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.26705.12000" />
+
+		<PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+
+		<PackageReference Include="Moq" Version="4.20.72" />
+
+		<PackageReference Include="MoreLinq" Version="4.4.0" />
+
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+
+		<PackageReference Include="System.Buffers" Version="4.6.1" />
+
+		<PackageReference Include="System.Memory" Version="4.6.3" />
+
+		<PackageReference Include="System.Numerics.Vectors" Version="4.6.1" />
+
+		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
+
+		<PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
+
+		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
+
+		<PackageReference Include="Azure.Messaging.ServiceBus" Version="7.20.1" />
+
+		<PackageReference Include="MSTest.TestFramework" Version="4.1.0" />
+
+		<PackageReference Include="MSTest.TestAdapter" Version="4.1.0" />
+
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+
+	</ItemGroup>
+
+	<ItemGroup>
+
+		<ProjectReference Include="..\..\Common\Tests\Tests.Common\UnitTests.Common.csproj" />
+
+		<ProjectReference Include="..\..\ContractManagementDomain\ContractManagementService.Common\ContractManagementService.Common.csproj" />
+
+		<ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj" />
+
+		<ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj" />
+
+		<ProjectReference Include="..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj" />
+
+		<ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
+
+		<ProjectReference Include="..\Operations.DataStore\Operations.DataStore.csproj" />
+
+		<ProjectReference Include="..\Operations.Web\Operations.Web.csproj" />
+
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="app.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 </Project>

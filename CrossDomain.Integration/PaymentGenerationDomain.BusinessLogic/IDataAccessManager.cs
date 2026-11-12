@@ -1,12 +1,13 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Integration.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
     using PaymentGenerationDomain.Integration.DataStore.Dtos;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface IDataAccessManager
     {

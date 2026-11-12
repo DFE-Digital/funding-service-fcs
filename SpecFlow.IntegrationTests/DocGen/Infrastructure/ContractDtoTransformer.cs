@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using AutoMapper;
-    using contractor = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractor;
+    using contractor = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Contractor;
     using ContractRequest = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using CorpContract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
     using deliverableType = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.deliverableType;
@@ -13,10 +13,13 @@
     {
         public static CorpContract.ExtendedContractType TransformToCorpContractType(ContractRequest.contractRequestType contractRequestType)
         {
-            SetupMapper();
+           // SetupMapper();
 
             // the mapper will map all the fields except the period ones, they are not 121 and require a transform in code
-            var extendedContractType = Mapper.Map<ContractRequest.contractType, CorpContract.ExtendedContractType>(contractRequestType.contract);
+            //var extendedContractType = Mapper.Map<ContractRequest.contractType, CorpContract.ExtendedContractType>(contractRequestType.contract);
+
+            var mapper = SetupMapper();
+            var extendedContractType =mapper.Map<CorpContract.ExtendedContractType>(contractRequestType.contract);
 
             // we need to transform the periods
             extendedContractType.period = CreateCorpContractPeriod(contractRequestType.contract.period, string.Empty);
@@ -73,16 +76,28 @@
             return extendedContractType;
         }
 
-        public static CorpContract.contract TransformToCorpContract(CorpContract.ExtendedContractType extendedContractType)
-        {
-            Mapper.CreateMap<CorpContract.ExtendedContract, CorpContract.contract>();
-            Mapper.CreateMap<CorpContract.ExtendedContractType, CorpContract.contractType>();
-            Mapper.CreateMap<CorpContract.ExtendedContractAllocation, CorpContract.contractAllocationsContractAllocation>();
-            var contractType = Mapper.Map<CorpContract.ExtendedContractType, CorpContract.contractType>(extendedContractType);
+        //public static CorpContract.contract TransformToCorpContract(CorpContract.ExtendedContractType extendedContractType)
+        //{
+        //    Mapper.CreateMap<CorpContract.ExtendedContract, CorpContract.contract>();
+        //    Mapper.CreateMap<CorpContract.ExtendedContractType, CorpContract.contractType>();
+        //    Mapper.CreateMap<CorpContract.ExtendedContractAllocation, CorpContract.contractAllocationsContractAllocation>();
+        //    var contractType = Mapper.Map<CorpContract.ExtendedContractType, CorpContract.contractType>(extendedContractType);
 
-            // we now need to create corp contract derived class
-            Mapper.CreateMap<CorpContract.contractType, CorpContract.contract>();
-            return Mapper.Map<CorpContract.contractType, CorpContract.contract>(contractType);
+        //    // we now need to create corp contract derived class
+        //    Mapper.CreateMap<CorpContract.contractType, CorpContract.contract>();
+        //    return Mapper.Map<CorpContract.contractType, CorpContract.contract>(contractType);
+        //}
+
+        public static CorpContract.Contract TransformToCorpContract( CorpContract.ExtendedContractType extendedContractType)
+        {
+            var mapper = SetupMapper();
+
+            var contractType =
+                mapper.Map<CorpContract.contractType>(
+                    extendedContractType);
+
+            return mapper.Map<CorpContract.Contract>(
+                contractType);
         }
 
         private static CorpContract.fundingStream CreateFundingStream(
@@ -116,12 +131,12 @@
             }
         }
 
-        private static CorpContract.period CreateCorpContractPeriod(
+        private static CorpContract.Period CreateCorpContractPeriod(
             ContractRequest.periodType period, string fundingStreamPeriodCode)
         {
             if (period != null)
             {
-                return new CorpContract.period
+                return new CorpContract.Period
                 {
                     startDate = period.startDate,
                     endDate = period.endDate,
@@ -165,18 +180,85 @@
             return corpPeriodTypeType;
         }
 
-        private static void SetupMapper()
+        //private static void SetupMapper()
+        //{
+        //    Mapper.CreateMap<ContractRequest.contractType, CorpContract.ExtendedContractType>().ForMember(ct => ct.period, opt => opt.Ignore());
+        //    Mapper.CreateMap<ContractRequest.contractType, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType>().ForMember(ct => ct.period, opt => opt.Ignore());
+        //    Mapper.CreateMap<ContractRequest.contractAllocation, CorpContract.ExtendedContractAllocation>().ForMember(ct => ct.period, opt => opt.Ignore()).ForMember(dest => dest.reasonForAmendment, opt => opt.MapFrom(origin => origin.amendmentReason));
+        //    Mapper.CreateMap<ContractRequest.contractAllocation, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractAllocationsContractAllocation>().ForMember(ct => ct.period, opt => opt.Ignore()).ForMember(dest => dest.reasonForAmendment, opt => opt.MapFrom(origin => origin.amendmentReason));
+        //    Mapper.CreateMap<contractor, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractor>()
+        //        .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.organisationStatus));
+        //    Mapper.CreateMap<deliverableType, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.deliverableType>();
+        //    Mapper.CreateMap<ContractRequest.contractDeliverablePeriodType, CorpContract.contractDeliverablePeriodsTypeContractDeliverablePeriod>().ForMember(cdpt => cdpt.periodType, opt => opt.Ignore());
+        //    Mapper.CreateMap<ContractRequest.contractDeliverable, CorpContract.contractDeliverablesTypeContractDeliverable>();
+        //    Mapper.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType, CorpContract.contract>();
+        //}
+
+        private static IMapper SetupMapper()
         {
-            Mapper.CreateMap<ContractRequest.contractType, CorpContract.ExtendedContractType>().ForMember(ct => ct.period, opt => opt.Ignore());
-            Mapper.CreateMap<ContractRequest.contractType, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType>().ForMember(ct => ct.period, opt => opt.Ignore());
-            Mapper.CreateMap<ContractRequest.contractAllocation, CorpContract.ExtendedContractAllocation>().ForMember(ct => ct.period, opt => opt.Ignore()).ForMember(dest => dest.reasonForAmendment, opt => opt.MapFrom(origin => origin.amendmentReason));
-            Mapper.CreateMap<ContractRequest.contractAllocation, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractAllocationsContractAllocation>().ForMember(ct => ct.period, opt => opt.Ignore()).ForMember(dest => dest.reasonForAmendment, opt => opt.MapFrom(origin => origin.amendmentReason));
-            Mapper.CreateMap<contractor, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractor>()
-                .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.organisationStatus));
-            Mapper.CreateMap<deliverableType, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.deliverableType>();
-            Mapper.CreateMap<ContractRequest.contractDeliverablePeriodType, CorpContract.contractDeliverablePeriodsTypeContractDeliverablePeriod>().ForMember(cdpt => cdpt.periodType, opt => opt.Ignore());
-            Mapper.CreateMap<ContractRequest.contractDeliverable, CorpContract.contractDeliverablesTypeContractDeliverable>();
-            Mapper.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType, CorpContract.contract>();
+            var configurationExpression = new MapperConfigurationExpression();
+
+            configurationExpression.CreateMap<ContractRequest.contractType,
+                CorpContract.ExtendedContractType>()
+                .ForMember(ct => ct.period, opt => opt.Ignore());
+
+            configurationExpression.CreateMap<ContractRequest.contractType,
+                CorpContract.contractType>()
+                .ForMember(ct => ct.period, opt => opt.Ignore());
+
+            configurationExpression.CreateMap<ContractRequest.contractAllocation,
+                CorpContract.ExtendedContractAllocation>()
+                .ForMember(ct => ct.period, opt => opt.Ignore())
+                .ForMember(dest => dest.reasonForAmendment,
+                    opt => opt.MapFrom(src => src.amendmentReason));
+
+            configurationExpression.CreateMap<ContractRequest.contractAllocation,
+                CorpContract.contractAllocationsContractAllocation>()
+                .ForMember(ct => ct.period, opt => opt.Ignore())
+                .ForMember(dest => dest.reasonForAmendment,
+                    opt => opt.MapFrom(src => src.amendmentReason));
+
+            configurationExpression.CreateMap<contractor,
+                CorpContract.Contractor>()
+                .ForMember(dest => dest.Status,
+                    opt => opt.MapFrom(src => src.organisationStatus));
+
+            configurationExpression.CreateMap<deliverableType,
+                CorpContract.deliverableType>();
+
+            configurationExpression.CreateMap<
+                ContractRequest.contractDeliverablePeriodType,
+                CorpContract.contractDeliverablePeriodsTypeContractDeliverablePeriod>()
+                .ForMember(cdpt => cdpt.periodType,
+                    opt => opt.Ignore());
+
+            configurationExpression.CreateMap<
+                ContractRequest.contractDeliverable,
+                CorpContract.contractDeliverablesTypeContractDeliverable>();
+
+            configurationExpression.CreateMap<
+                CorpContract.contractType,
+                CorpContract.Contract>();
+
+            configurationExpression.CreateMap<
+                CorpContract.ExtendedContract,
+                CorpContract.Contract>();
+
+            configurationExpression.CreateMap<
+                CorpContract.ExtendedContractType,
+                CorpContract.contractType>();
+
+            configurationExpression.CreateMap<
+                CorpContract.ExtendedContractAllocation,
+                CorpContract.contractAllocationsContractAllocation>();
+
+            var config = new MapperConfiguration(
+                configurationExpression,
+                null);
+
+            return config.CreateMapper();
         }
+
+
     }
 }

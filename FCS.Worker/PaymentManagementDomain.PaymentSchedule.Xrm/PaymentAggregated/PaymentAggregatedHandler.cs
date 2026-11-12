@@ -1,12 +1,13 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated
 {
+    extern alias IntegrationEntities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using NServiceBus;
     using Services;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.BusinessLogic.DTOs;

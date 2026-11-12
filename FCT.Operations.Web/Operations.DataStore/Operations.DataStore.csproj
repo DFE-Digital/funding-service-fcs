@@ -1,41 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4EF3E8C7-AA14-4E6E-9B69-A8A08309DE35}</ProjectGuid>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Operations.DataStore</RootNamespace>
-    <AssemblyName>Operations.DataStore</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <Configurations>AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PS;Release</Configurations>
+    <AssemblyTitle>Operations.DataStore</AssemblyTitle>
+    <Product>Operations.DataStore</Product>
+    <Copyright>Copyright ©  2017</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
     <OutputPath>bin\OAT\</OutputPath>
@@ -48,16 +24,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\DAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
     <OutputPath>bin\DCI\</OutputPath>
-    <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
@@ -68,223 +39,142 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
     <OutputPath>bin\MO\</OutputPath>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.1.50.1\lib\net451\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Extensions\ByteArrayExtensions.cs" />
-    <Compile Include="Migrations\201710191431406_SessionTableCreate.cs" />
-    <Compile Include="Migrations\201710191431406_SessionTableCreate.Designer.cs">
+    <Compile Update="Migrations\201710191431406_SessionTableCreate.Designer.cs">
       <DependentUpon>201710191431406_SessionTableCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907051429280_CreateDataFixHistoryTable.cs" />
-    <Compile Include="Migrations\201907051429280_CreateDataFixHistoryTable.Designer.cs">
+    <Compile Update="Migrations\201907051429280_CreateDataFixHistoryTable.Designer.cs">
       <DependentUpon>201907051429280_CreateDataFixHistoryTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907081040019_DataFixHistoryAddUniqueIndex.cs" />
-    <Compile Include="Migrations\201907081040019_DataFixHistoryAddUniqueIndex.Designer.cs">
+    <Compile Update="Migrations\201907081040019_DataFixHistoryAddUniqueIndex.Designer.cs">
       <DependentUpon>201907081040019_DataFixHistoryAddUniqueIndex.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910281551041_CreateTableDuplicateContract.cs" />
-    <Compile Include="Migrations\201910281551041_CreateTableDuplicateContract.Designer.cs">
+    <Compile Update="Migrations\201910281551041_CreateTableDuplicateContract.Designer.cs">
       <DependentUpon>201910281551041_CreateTableDuplicateContract.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001131133002_AuditTableCreate.cs" />
-    <Compile Include="Migrations\202001131133002_AuditTableCreate.Designer.cs">
+    <Compile Update="Migrations\202001131133002_AuditTableCreate.Designer.cs">
       <DependentUpon>202001131133002_AuditTableCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001171357426_AuditTableCompositeKey.cs" />
-    <Compile Include="Migrations\202001171357426_AuditTableCompositeKey.Designer.cs">
+    <Compile Update="Migrations\202001171357426_AuditTableCompositeKey.Designer.cs">
       <DependentUpon>202001171357426_AuditTableCompositeKey.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004141513346_CreateTableDeployedConfigVersion.cs" />
-    <Compile Include="Migrations\202004141513346_CreateTableDeployedConfigVersion.Designer.cs">
+    <Compile Update="Migrations\202004141513346_CreateTableDeployedConfigVersion.Designer.cs">
       <DependentUpon>202004141513346_CreateTableDeployedConfigVersion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004220744073_CreateIndexOnAuditMessage.cs" />
-    <Compile Include="Migrations\202004220744073_CreateIndexOnAuditMessage.Designer.cs">
+    <Compile Update="Migrations\202004220744073_CreateIndexOnAuditMessage.Designer.cs">
       <DependentUpon>202004220744073_CreateIndexOnAuditMessage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202005290636016_DuplicateContractsAddColumns.cs" />
-    <Compile Include="Migrations\202005290636016_DuplicateContractsAddColumns.Designer.cs">
+    <Compile Update="Migrations\202005290636016_DuplicateContractsAddColumns.Designer.cs">
       <DependentUpon>202005290636016_DuplicateContractsAddColumns.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008041254339_ChangeTracking.cs" />
-    <Compile Include="Migrations\202008041254339_ChangeTracking.Designer.cs">
+    <Compile Update="Migrations\202008041254339_ChangeTracking.Designer.cs">
       <DependentUpon>202008041254339_ChangeTracking.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008060724359_CreateTableIntegrityChangeTracking.cs" />
-    <Compile Include="Migrations\202008060724359_CreateTableIntegrityChangeTracking.Designer.cs">
+    <Compile Update="Migrations\202008060724359_CreateTableIntegrityChangeTracking.Designer.cs">
       <DependentUpon>202008060724359_CreateTableIntegrityChangeTracking.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008131422215_TurnChangeTrackingOff.cs" />
-    <Compile Include="Migrations\202008131422215_TurnChangeTrackingOff.Designer.cs">
+    <Compile Update="Migrations\202008131422215_TurnChangeTrackingOff.Designer.cs">
       <DependentUpon>202008131422215_TurnChangeTrackingOff.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008201042363_TurnChangeTrackingOn.cs" />
-    <Compile Include="Migrations\202008201042363_TurnChangeTrackingOn.Designer.cs">
+    <Compile Update="Migrations\202008201042363_TurnChangeTrackingOn.Designer.cs">
       <DependentUpon>202008201042363_TurnChangeTrackingOn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008201206156_AddProcessedMessage.cs" />
-    <Compile Include="Migrations\202008201206156_AddProcessedMessage.Designer.cs">
+    <Compile Update="Migrations\202008201206156_AddProcessedMessage.Designer.cs">
       <DependentUpon>202008201206156_AddProcessedMessage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110011328479_CreateTableFundingReportProvider.cs" />
-    <Compile Include="Migrations\202110011328479_CreateTableFundingReportProvider.Designer.cs">
+    <Compile Update="Migrations\202110011328479_CreateTableFundingReportProvider.Designer.cs">
       <DependentUpon>202110011328479_CreateTableFundingReportProvider.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110040739158_AddPeriodColumnToFundingReportProvider.cs" />
-    <Compile Include="Migrations\202110040739158_AddPeriodColumnToFundingReportProvider.Designer.cs">
+    <Compile Update="Migrations\202110040739158_AddPeriodColumnToFundingReportProvider.Designer.cs">
       <DependentUpon>202110040739158_AddPeriodColumnToFundingReportProvider.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110040802472_AddFundingReportFSPTable.cs" />
-    <Compile Include="Migrations\202110040802472_AddFundingReportFSPTable.Designer.cs">
+    <Compile Update="Migrations\202110040802472_AddFundingReportFSPTable.Designer.cs">
       <DependentUpon>202110040802472_AddFundingReportFSPTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110041037235_ChangePkOnFundingReportFsp.cs" />
-    <Compile Include="Migrations\202110041037235_ChangePkOnFundingReportFsp.Designer.cs">
+    <Compile Update="Migrations\202110041037235_ChangePkOnFundingReportFsp.Designer.cs">
       <DependentUpon>202110041037235_ChangePkOnFundingReportFsp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110041338551_ChangeFundingReportProviderToIdentityOff.cs" />
-    <Compile Include="Migrations\202110041338551_ChangeFundingReportProviderToIdentityOff.Designer.cs">
+    <Compile Update="Migrations\202110041338551_ChangeFundingReportProviderToIdentityOff.Designer.cs">
       <DependentUpon>202110041338551_ChangeFundingReportProviderToIdentityOff.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110061007209_CreateFundingStreamPeriodTable.cs" />
-    <Compile Include="Migrations\202110061007209_CreateFundingStreamPeriodTable.Designer.cs">
+    <Compile Update="Migrations\202110061007209_CreateFundingStreamPeriodTable.Designer.cs">
       <DependentUpon>202110061007209_CreateFundingStreamPeriodTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\AuditMessage.cs" />
-    <Compile Include="Model\DataFixHistory.cs" />
-    <Compile Include="Model\DeployedConfigVersion.cs" />
-    <Compile Include="Model\DuplicateContract.cs" />
-    <Compile Include="Model\FundingReportFSP.cs" />
-    <Compile Include="Model\FundingReportProvider.cs" />
-    <Compile Include="Model\FundingStreamPeriod.cs" />
-    <Compile Include="Model\IntegrityCheckChangeTracking.cs" />
-    <Compile Include="Model\ProcessedMessage.cs" />
-    <Compile Include="Model\Session.cs" />
-    <Compile Include="OperationsDbContext.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\AuditMessageRepository.cs" />
-    <Compile Include="Repositories\DuplicateContractRepository.cs" />
-    <Compile Include="Repositories\ISessionRepository.cs" />
-    <Compile Include="Repositories\SessionRepository.cs" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Dapper" Version="1.50.1" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710191431406_SessionTableCreate.resx">
+    <EmbeddedResource Update="Migrations\201710191431406_SessionTableCreate.resx">
       <DependentUpon>201710191431406_SessionTableCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907051429280_CreateDataFixHistoryTable.resx">
+    <EmbeddedResource Update="Migrations\201907051429280_CreateDataFixHistoryTable.resx">
       <DependentUpon>201907051429280_CreateDataFixHistoryTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907081040019_DataFixHistoryAddUniqueIndex.resx">
+    <EmbeddedResource Update="Migrations\201907081040019_DataFixHistoryAddUniqueIndex.resx">
       <DependentUpon>201907081040019_DataFixHistoryAddUniqueIndex.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910281551041_CreateTableDuplicateContract.resx">
+    <EmbeddedResource Update="Migrations\201910281551041_CreateTableDuplicateContract.resx">
       <DependentUpon>201910281551041_CreateTableDuplicateContract.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001131133002_AuditTableCreate.resx">
+    <EmbeddedResource Update="Migrations\202001131133002_AuditTableCreate.resx">
       <DependentUpon>202001131133002_AuditTableCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001171357426_AuditTableCompositeKey.resx">
+    <EmbeddedResource Update="Migrations\202001171357426_AuditTableCompositeKey.resx">
       <DependentUpon>202001171357426_AuditTableCompositeKey.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004141513346_CreateTableDeployedConfigVersion.resx">
+    <EmbeddedResource Update="Migrations\202004141513346_CreateTableDeployedConfigVersion.resx">
       <DependentUpon>202004141513346_CreateTableDeployedConfigVersion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004220744073_CreateIndexOnAuditMessage.resx">
+    <EmbeddedResource Update="Migrations\202004220744073_CreateIndexOnAuditMessage.resx">
       <DependentUpon>202004220744073_CreateIndexOnAuditMessage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005290636016_DuplicateContractsAddColumns.resx">
+    <EmbeddedResource Update="Migrations\202005290636016_DuplicateContractsAddColumns.resx">
       <DependentUpon>202005290636016_DuplicateContractsAddColumns.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008041254339_ChangeTracking.resx">
+    <EmbeddedResource Update="Migrations\202008041254339_ChangeTracking.resx">
       <DependentUpon>202008041254339_ChangeTracking.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008060724359_CreateTableIntegrityChangeTracking.resx">
+    <EmbeddedResource Update="Migrations\202008060724359_CreateTableIntegrityChangeTracking.resx">
       <DependentUpon>202008060724359_CreateTableIntegrityChangeTracking.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008131422215_TurnChangeTrackingOff.resx">
+    <EmbeddedResource Update="Migrations\202008131422215_TurnChangeTrackingOff.resx">
       <DependentUpon>202008131422215_TurnChangeTrackingOff.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008201042363_TurnChangeTrackingOn.resx">
+    <EmbeddedResource Update="Migrations\202008201042363_TurnChangeTrackingOn.resx">
       <DependentUpon>202008201042363_TurnChangeTrackingOn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008201206156_AddProcessedMessage.resx">
+    <EmbeddedResource Update="Migrations\202008201206156_AddProcessedMessage.resx">
       <DependentUpon>202008201206156_AddProcessedMessage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110011328479_CreateTableFundingReportProvider.resx">
+    <EmbeddedResource Update="Migrations\202110011328479_CreateTableFundingReportProvider.resx">
       <DependentUpon>202110011328479_CreateTableFundingReportProvider.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110040739158_AddPeriodColumnToFundingReportProvider.resx">
+    <EmbeddedResource Update="Migrations\202110040739158_AddPeriodColumnToFundingReportProvider.resx">
       <DependentUpon>202110040739158_AddPeriodColumnToFundingReportProvider.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110040802472_AddFundingReportFSPTable.resx">
+    <EmbeddedResource Update="Migrations\202110040802472_AddFundingReportFSPTable.resx">
       <DependentUpon>202110040802472_AddFundingReportFSPTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110041037235_ChangePkOnFundingReportFsp.resx">
+    <EmbeddedResource Update="Migrations\202110041037235_ChangePkOnFundingReportFsp.resx">
       <DependentUpon>202110041037235_ChangePkOnFundingReportFsp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110041338551_ChangeFundingReportProviderToIdentityOff.resx">
+    <EmbeddedResource Update="Migrations\202110041338551_ChangeFundingReportProviderToIdentityOff.resx">
       <DependentUpon>202110041338551_ChangeFundingReportProviderToIdentityOff.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110061007209_CreateFundingStreamPeriodTable.resx">
+    <EmbeddedResource Update="Migrations\202110061007209_CreateFundingStreamPeriodTable.resx">
       <DependentUpon>202110061007209_CreateFundingStreamPeriodTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-  </Target>
-  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

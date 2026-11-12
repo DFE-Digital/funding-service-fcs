@@ -6,19 +6,19 @@
 
     public class ExtendedContractTypeTransformer : IExtendedContractTypeTransformer
     {
-        public contract TransformToCorpContract(ExtendedContractType extendedContractType)
+        public Contract TransformToCorpContract(ExtendedContractType extendedContractType)
         {
             var mapperConfiguration = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ExtendedContract, contract>();
+                cfg.CreateMap<ExtendedContract, Contract>();
                 cfg.CreateMap<ExtendedContractType, contractType>();
                 cfg.CreateMap<ExtendedContractAllocation, contractAllocationsContractAllocation>();
-                cfg.CreateMap<contractType, contract>();
+                cfg.CreateMap<contractType, Contract>();
             });
 
             var mapper = new Mapper(mapperConfiguration);
 
-            contract contract = mapper.Map<contract>(extendedContractType);
+            Contract contract = mapper.Map<Contract>(extendedContractType);
             contract.contractAllocations = extendedContractType.contractAllocations
                 .Select(ca => mapper.Map<contractAllocationsContractAllocation>(ca)).ToList();
 

@@ -1,17 +1,20 @@
-﻿namespace XrmTestModel
+﻿
+namespace XrmTestModel
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Microsoft.Xrm.Client;
-    using Microsoft.Xrm.Client.Services;
+
+    using Microsoft.PowerPlatform.Dataverse.Client;
     using Microsoft.Xrm.Sdk;
 
     public class XrmServiceFactory : IXrmServiceFactory
     {
         private const string CrmIntegration = "CRMIntegration";
-        private readonly IDictionary<string, IOrganizationService> _orgServiceDictionary = new Dictionary<string,IOrganizationService>();
 
-        public IXrmConnectionString XrmConnectionStrings { get; set; }
+        private readonly IDictionary<string, IOrganizationService> _orgServiceDictionary =
+            new Dictionary<string, IOrganizationService>();
+
+        public IXrmConnectionString ?XrmConnectionStrings { get; set; }
 
         public IOrganizationService Create()
         {
@@ -20,9 +23,7 @@
                 return _orgServiceDictionary[CrmIntegration];
             }
 
-            var orgSvc = CreateOrganizationService(CrmIntegration);
-
-            return orgSvc;
+            return CreateOrganizationService(CrmIntegration);
         }
 
         public IOrganizationService Create(string userName)
@@ -32,20 +33,22 @@
                 return _orgServiceDictionary[userName];
             }
 
-            var orgSvc = CreateOrganizationService(userName);
-
-            return orgSvc;
+            return CreateOrganizationService(userName);
         }
 
         private IOrganizationService CreateOrganizationService(string userName)
         {
-            var orgSvc =
-                new OrganizationService(
-                    CrmConnection.Parse(
-                        XrmConnectionStrings.ConnectionStringDictionary.Single(c => c.Key == userName).Value));
+            string connectionString =
+                XrmConnectionStrings.ConnectionStringDictionary
+                    .Single(c => c.Key == userName)
+                    .Value;
 
-            _orgServiceDictionary.Add(userName, orgSvc);
-            return orgSvc;
+            ServiceClient serviceClient =
+                new ServiceClient(connectionString);
+
+            _orgServiceDictionary.Add(userName, serviceClient);
+
+            return serviceClient;
         }
     }
 }

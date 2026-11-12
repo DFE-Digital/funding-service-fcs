@@ -21,6 +21,7 @@
     using TechTalk.SpecFlow;
     using Utilities;
     using sfa_contract = CrossDomain.Integration.Entities.Xrm.sfa_contract;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class ContractManagementSteps
@@ -109,7 +110,7 @@
                 string expectedActionName = row["Action"];
                 string actualActionName = contractActionNames.SingleOrDefault(s => s == expectedActionName);
 
-                Assert.IsNull(actualActionName, $"Expected action: {expectedActionName} is present in CRM.");
+                ClassicAssert.IsNull(actualActionName, $"Expected action: {expectedActionName} is present in CRM.");
             }
         }
 
@@ -188,7 +189,7 @@
                 versionNumber,
                 subVersionNumber);
 
-            Assert.AreEqual(expectedAmendmentInProgressIndicator, isAmendmentInProgress, "Amendment in progress indicator was not as expected");
+            ClassicAssert.AreEqual(expectedAmendmentInProgressIndicator, isAmendmentInProgress, "Amendment in progress indicator was not as expected");
         }
 
         [Given(@"the following deliverables have been removed from all versions of the contract in CRM and PaaS")]
@@ -218,7 +219,7 @@
                 CheckResultPoller poller = new CheckResultPoller(checkResult: () =>
                 {
                     IEnumerable<SyndicationItem> retrievedFeedItems = AtomFeedReader.EnumerateItems(
-                        $"{ConfigurationManager.AppSettings["ContractManagementServiceUrl"]}/api/contracts/notifications/{urlSuffix}",
+                        $"{TestConfiguration.Configuration["ContractManagement:ServiceUrl"]}/api/contracts/notifications/{urlSuffix}",
                         AzureAuthenticator.GetAuthenticationConfig(),
                         "application/vnd.sfa.contract.v1+atom+xml");
 
@@ -226,7 +227,7 @@
                         .Where(feedItem => feedItem.Categories.Single().Name == atomFeedItemCategory)
                         .Any(feedItem =>
                         {
-                            contractType contract = feedItem.GetContent<contract>().contracts.Single();
+                            contractType contract = feedItem.GetContent<Contract>().contracts.Single();
                             contractAllocationsContractAllocation allocation =
                                 contract.contractAllocations.SingleOrDefault(a => a.contractAllocationNumber == row["AllocationRef"]);
 
@@ -246,7 +247,7 @@
 
                 bool foundExpectedItem = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(foundExpectedItem, $"Expected item not found on {atomFeedFilter} Contract Atom Feed item for Category: {atomFeedItemCategory}, Expected Values: {row.ToHeaderAndValueString()}");
+                ClassicAssert.IsTrue(foundExpectedItem, $"Expected item not found on {atomFeedFilter} Contract Atom Feed item for Category: {atomFeedItemCategory}, Expected Values: {row.ToHeaderAndValueString()}");
             });
         }
 
@@ -260,13 +261,13 @@
                 CheckResultPoller poller = new CheckResultPoller(checkResult: () =>
                 {
                     IEnumerable<SyndicationItem> retrievedFeedItems = AtomFeedReader.EnumerateItems(
-                        $"{ConfigurationManager.AppSettings["ContractManagementServiceUrl"]}/api/contracts/notifications/{urlSuffix}",
+                        $"{TestConfiguration.Configuration["ContractManagement:ServiceUrl"]}/api/contracts/notifications/{urlSuffix}",
                         AzureAuthenticator.GetAuthenticationConfig(),
                         "application/vnd.sfa.contract.v1+atom+xml");
 
                     return retrievedFeedItems.Any(feedItem =>
                     {
-                        contractType contentContract = feedItem.GetContent<contract>().contracts.Single();
+                        contractType contentContract = feedItem.GetContent<Contract>().contracts.Single();
 
                         return
                             feedItem.Categories.Single().Name == row["CategoryTerm"] &&
@@ -282,7 +283,7 @@
 
                 bool foundExpectedItem = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(foundExpectedItem, $"Expected item not found on {atomFeedFilter} Contract Atom Feed item for {row.ToHeaderAndValueString()}");
+                ClassicAssert.IsTrue(foundExpectedItem, $"Expected item not found on {atomFeedFilter} Contract Atom Feed item for {row.ToHeaderAndValueString()}");
             });
         }
 
@@ -306,7 +307,7 @@
                 maxNumChecks: 10,
                 waitIntervalSeconds: 3);
 
-            Assert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(),
+            ClassicAssert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(),
                 "Did not get the expected number of matching Atom Feed Items in time");
         }
 
@@ -318,7 +319,7 @@
                 ContractAtomFeedItemRepository.GetLatestFeedItemByContractNumberVersionNumberAndItemType(
                     contractNumber, version, (AtomItemType) atomItemType);
 
-            Assert.IsTrue(XmlSchemaValidator.IsContractManagementAtomFeedItemValidXml(latestFeedItem.GetAtomFeedItemXml()),
+            ClassicAssert.IsTrue(XmlSchemaValidator.IsContractManagementAtomFeedItemValidXml(latestFeedItem.GetAtomFeedItemXml()),
                 $"Latest atom item XML for contract {contractNumber} v{version} item type {atomItemType} did not conform to the corporate contract schema");
         }
 
@@ -334,7 +335,7 @@
                 CheckResultPoller poller = new CheckResultPoller(checkResult: () =>
                 {
                     IEnumerable<SyndicationItem> retrievedFeedItems = AtomFeedReader.EnumerateItems(
-                        $"{ConfigurationManager.AppSettings["ContractManagementServiceUrl"]}/api/contracts/notifications/{urlSuffix}",
+                        $"{TestConfiguration.Configuration["ContractManagement:ServiceUrl"]}/api/contracts/notifications/{urlSuffix}",
                         AzureAuthenticator.GetAuthenticationConfig(),
                         "application/vnd.sfa.contract.v1+atom+xml");
 
@@ -342,7 +343,7 @@
                         .Where(feedItem => feedItem.Categories.Single().Name == eventType)
                         .FirstOrDefault(feedItem =>
                         {
-                            contractType contract = feedItem.GetContent<contract>().contracts.Single();
+                            contractType contract = feedItem.GetContent<Contract>().contracts.Single();
                             contractAllocationsContractAllocation allocation =
                                 contract.contractAllocations.SingleOrDefault(a => a.contractAllocationNumber == row["AllocationRef"]);
 
@@ -362,7 +363,7 @@
 
                 bool foundExpectedItem = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(foundExpectedItem, $"Expected item not found on {feed} Contract Atom Feed item for Category: {eventType}, Expected Values: {row.ToHeaderAndValueString()}");
+                ClassicAssert.IsTrue(foundExpectedItem, $"Expected item not found on {feed} Contract Atom Feed item for Category: {eventType}, Expected Values: {row.ToHeaderAndValueString()}");
             });
         }
 
@@ -431,7 +432,7 @@
 
                 bool isContractPresent = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(isContractPresent, $"Cannot find contract: {c}");
+                ClassicAssert.IsTrue(isContractPresent, $"Cannot find contract: {c}");
 
                 CreatedContractRepository.UpdateCreatedContractCreatedDate(c.ContractNumber, c.Version, c.SubVersion, c.DateCreated);
             });
@@ -505,14 +506,14 @@
                 CheckResultPoller poller = new CheckResultPoller(checkResult: () =>
                 {
                     IEnumerable<SyndicationItem> retrievedFeedItems = AtomFeedReader.EnumerateItems(
-                        $"{ConfigurationManager.AppSettings["ContractManagementServiceUrl"]}/api/contracts/notifications/{urlSuffix}",
+                        $"{TestConfiguration.Configuration["ContractManagement:ServiceUrl"]}/api/contracts/notifications/{urlSuffix}",
                         AzureAuthenticator.GetAuthenticationConfig(),
                         "application/vnd.sfa.contract.v1+atom+xml");
 
                     latestMatchingFeedItem = retrievedFeedItems
                         .FirstOrDefault(feedItem =>
                         {
-                            contractType contract = feedItem.GetContent<contract>().contracts.Single();
+                            contractType contract = feedItem.GetContent<Contract>().contracts.Single();
                             var matchingAllocation = contract.contractAllocations.SingleOrDefault(a =>
                                 a.contractAllocationNumber == expectedAllocation.Key.AllocationNumber);
 
@@ -547,9 +548,9 @@
                 }, maxNumChecks: 10, waitIntervalSeconds: 3);
 
                 bool foundExpectedItem = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
-                Assert.IsTrue(foundExpectedItem, $"Item not found on APPROVEDCONTRACT Contract Atom Feed: {currentDeliverableBeingChecked}");
+                ClassicAssert.IsTrue(foundExpectedItem, $"Item not found on APPROVEDCONTRACT Contract Atom Feed: {currentDeliverableBeingChecked}");
             });
-            Assert.AreEqual(expectedNumberOfDeliverables, deliverablesFound.Count, "Wrong number of deliverables found");
+            ClassicAssert.AreEqual(expectedNumberOfDeliverables, deliverablesFound.Count, "Wrong number of deliverables found");
         }
 
         [Then(@"the following Contracts exist in CRM")]
@@ -580,42 +581,42 @@
 
                 bool isContractPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(isContractPresent, $"{c} is not present in CRM");
+                ClassicAssert.IsTrue(isContractPresent, $"{c} is not present in CRM");
 
-                Assert.AreEqual(c.FundingType, GetTextNameForGuid(fundingTypesDictionary, crmContract.sfa_FundingType.Id, id => CrmFundingTypeRepository.FindById(id).sfa_name), $"The funding type is not correct - {c} ");
-                Assert.AreEqual(c.ContractValue, crmContract.sfa_ContractValue.Value, $"The contract value is not correct - {c} ");
-                Assert.AreEqual(c.Status, crmContract.sfa_ContractStatusEnum.ToString(), $"The contract status is not correct - {c} ");
+                ClassicAssert.AreEqual(c.FundingType, GetTextNameForGuid(fundingTypesDictionary, crmContract.sfa_FundingType.Id, id => CrmFundingTypeRepository.FindById(id).sfa_name), $"The funding type is not correct - {c} ");
+                ClassicAssert.AreEqual(c.ContractValue, crmContract.sfa_ContractValue.Value, $"The contract value is not correct - {c} ");
+                ClassicAssert.AreEqual(c.Status, crmContract.sfa_ContractStatusEnum.ToString(), $"The contract status is not correct - {c} ");
                 if (c.SubStatus != "?")
                 {
-                    Assert.AreEqual(c.SubStatus, GetTextNameForGuid(subStatusDictionary, crmContract.sfa_SubStatus.Id, CrmStatusRepository.GetStatusText), $"The contract status is not correct - {c} ");
+                    ClassicAssert.AreEqual(c.SubStatus, GetTextNameForGuid(subStatusDictionary, crmContract.sfa_SubStatus.Id, CrmStatusRepository.GetStatusText), $"The contract status is not correct - {c} ");
                 }
                 else
                 {
-                    Assert.AreEqual(null, crmContract.sfa_SubStatus, $"The contract status is not correct - {c} ");
+                    ClassicAssert.AreEqual(null, crmContract.sfa_SubStatus, $"The contract status is not correct - {c} ");
                 }
-                Assert.AreEqual(c.Version, crmContract.sfa_Version, $"The version is not correct - {c} ");
-                Assert.AreEqual(c.SubVersion, crmContract.sfa_SubVersion, $"The subVersion is not correct - {c} ");
-                Assert.AreEqual(c.StartDate, crmContract.sfa_StartDate.Value.Date, $"The startDate is not correct - {c} ");
-                Assert.AreEqual(c.EndDate, crmContract.sfa_EndDate.Value.Date, $"The endDate is not correct - {c} ");
-                Assert.AreEqual(c.LatestVersion, crmContract.sfa_LatestVersion, $"The latest version is not correct - {c} ");
-                Assert.AreEqual(c.LastApproved, crmContract.sfa_LastApprovedVersion, $"The last approved version is not correct - {c} ");
-                Assert.AreEqual(c.ContractType, GetTextNameForGuid(contractTypeDictionary, crmContract.sfa_ContractType.Id, CrmContractRepository.GetContractType), $"The contract type is not correct - {c} ");
+                ClassicAssert.AreEqual(c.Version, crmContract.sfa_Version, $"The version is not correct - {c} ");
+                ClassicAssert.AreEqual(c.SubVersion, crmContract.sfa_SubVersion, $"The subVersion is not correct - {c} ");
+                ClassicAssert.AreEqual(c.StartDate, crmContract.sfa_StartDate.Value.Date, $"The startDate is not correct - {c} ");
+                ClassicAssert.AreEqual(c.EndDate, crmContract.sfa_EndDate.Value.Date, $"The endDate is not correct - {c} ");
+                ClassicAssert.AreEqual(c.LatestVersion, crmContract.sfa_LatestVersion, $"The latest version is not correct - {c} ");
+                ClassicAssert.AreEqual(c.LastApproved, crmContract.sfa_LastApprovedVersion, $"The last approved version is not correct - {c} ");
+                ClassicAssert.AreEqual(c.ContractType, GetTextNameForGuid(contractTypeDictionary, crmContract.sfa_ContractType.Id, CrmContractRepository.GetContractType), $"The contract type is not correct - {c} ");
 
-                Assert.AreEqual(c.ContractDescription, crmContract.sfa_Description ?? "?", $"The description is not correct - {c} ");
+                ClassicAssert.AreEqual(c.ContractDescription, crmContract.sfa_Description ?? "?", $"The description is not correct - {c} ");
 
-                Assert.AreEqual(c.AmendmentType, crmContract.sfa_AmendmentTypeEnum?.ToString(), $"The amendment type is not correct - {c} ");
-                Assert.AreEqual(c.CurrentTask, GetNullableTextNameForGuid(currentTaskDictionary, crmContract.sfa_CurrentTask?.Id, CrmTaskRepository.GetTaskName), $"The currentTask is not correct - {c} ");
-                Assert.AreEqual(c.DocumentationRequired, crmContract.sfa_DocumentationRequired, $"The DocumentationRequired is not correct - {c} ");
+                ClassicAssert.AreEqual(c.AmendmentType, crmContract.sfa_AmendmentTypeEnum?.ToString(), $"The amendment type is not correct - {c} ");
+                ClassicAssert.AreEqual(c.CurrentTask, GetNullableTextNameForGuid(currentTaskDictionary, crmContract.sfa_CurrentTask?.Id, CrmTaskRepository.GetTaskName), $"The currentTask is not correct - {c} ");
+                ClassicAssert.AreEqual(c.DocumentationRequired, crmContract.sfa_DocumentationRequired, $"The DocumentationRequired is not correct - {c} ");
                 string parentContractNumber = crmContract.sfa_ParentContractId != null
                     ? CrmContractRepository.GetContract(crmContract.sfa_ParentContractId.Id).sfa_number
                     : null;
 
-                Assert.AreEqual(c.ParentContract, parentContractNumber, $"The parentContractNumber is not correct - {c} ");
-                Assert.AreEqual(c.Period, GetNullableTextNameForGuid(periodDictionary, crmContract.sfa_PeriodId?.Id, CrmPeriodRepository.GetPeriodText), $"The period is not correct - {c} ");
-                Assert.AreEqual(c.ProviderName, GetTextNameForGuid(providerDictionary, crmContract.sfa_ProviderName.Id, CrmOrganisationRepository.GetOrganisationName), $"The org name is not correct - {c} ");
-                Assert.AreEqual(c.State, crmContract.statecode.ToString(), $"The state is not correct - {c} ");
-                Assert.AreEqual(c.TaskOwner, GetTextNameForGuid(ownerDictionary, crmContract.OwnerId.Id, CrmUserRepository.GetUserName), $"The owner is not correct - {c}");
-                Assert.AreEqual(c.ValueVariation, crmContract.sfa_Variation, $"The value variation is not correct - {c}");
+                ClassicAssert.AreEqual(c.ParentContract, parentContractNumber, $"The parentContractNumber is not correct - {c} ");
+                ClassicAssert.AreEqual(c.Period, GetNullableTextNameForGuid(periodDictionary, crmContract.sfa_PeriodId?.Id, CrmPeriodRepository.GetPeriodText), $"The period is not correct - {c} ");
+                ClassicAssert.AreEqual(c.ProviderName, GetTextNameForGuid(providerDictionary, crmContract.sfa_ProviderName.Id, CrmOrganisationRepository.GetOrganisationName), $"The org name is not correct - {c} ");
+                ClassicAssert.AreEqual(c.State, crmContract.statecode.ToString(), $"The state is not correct - {c} ");
+                ClassicAssert.AreEqual(c.TaskOwner, GetTextNameForGuid(ownerDictionary, crmContract.OwnerId.Id, CrmUserRepository.GetUserName), $"The owner is not correct - {c}");
+                ClassicAssert.AreEqual(c.ValueVariation, crmContract.sfa_Variation, $"The value variation is not correct - {c}");
             });
         }
 
@@ -639,26 +640,26 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(contractAllocation, $"Contract Allocation not found for {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableString("ContractAllocationDescription"), contractAllocation.sfa_description,
+                ClassicAssert.IsNotNull(contractAllocation, $"Contract Allocation not found for {row.ToHeaderAndValueString()}");
+                ClassicAssert.AreEqual(row.ParseNullableString("ContractAllocationDescription"), contractAllocation.sfa_description,
                     $"Unexpected ContractAllocationDescription returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableDecimal("AllocationValue"), contractAllocation.sfa_maximumcontractvalue,
+                ClassicAssert.AreEqual(row.ParseNullableDecimal("AllocationValue"), contractAllocation.sfa_maximumcontractvalue,
                     $"Unexpected AllocationValue returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableString("DeliveryUKPRN"), contractAllocation.sfa_deliveryorganisationukprn,
+                ClassicAssert.AreEqual(row.ParseNullableString("DeliveryUKPRN"), contractAllocation.sfa_deliveryorganisationukprn,
                     $"Unexpected DeliveryUKPRN returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableString("DeliveryProvider"), contractAllocation.sfa_deliveryorganisationprovider?.Name,
+                ClassicAssert.AreEqual(row.ParseNullableString("DeliveryProvider"), contractAllocation.sfa_deliveryorganisationprovider?.Name,
                     $"Unexpected DeliveryProvider returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableDate("StartDate"), contractAllocation.sfa_startdate,
+                ClassicAssert.AreEqual(row.ParseNullableDate("StartDate"), contractAllocation.sfa_startdate,
                     $"Unexpected StartDate returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableDate("EndDate"), contractAllocation.sfa_enddate,
+                ClassicAssert.AreEqual(row.ParseNullableDate("EndDate"), contractAllocation.sfa_enddate,
                     $"Unexpected EndDate returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row["FundingStream"], contractAllocation.sfa_FundingStreamId.Name,
+                ClassicAssert.AreEqual(row["FundingStream"], contractAllocation.sfa_FundingStreamId.Name,
                     $"Unexpected FundingStream returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row["FundingStreamPeriod"], contractAllocation.sfa_FundingStreamPeriodId.Name,
+                ClassicAssert.AreEqual(row["FundingStreamPeriod"], contractAllocation.sfa_FundingStreamPeriodId.Name,
                     $"Unexpected FundingStreamPeriod returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseEnum<sfa_contractallocationhierarchytype>("HierarchyType"), contractAllocation.sfa_HierarchytypeEnum,
+                ClassicAssert.AreEqual(row.ParseEnum<sfa_contractallocationhierarchytype>("HierarchyType"), contractAllocation.sfa_HierarchytypeEnum,
                     $"Unexpected HierarchyType returned for Contract Allocation {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableDecimal("AllocationValueVariation"), contractAllocation.sfa_Variation,
+                ClassicAssert.AreEqual(row.ParseNullableDecimal("AllocationValueVariation"), contractAllocation.sfa_Variation,
                     $"Unexpected AllocationValueVariation returned for Contract Allocation: {row.ToHeaderAndValueString()}");
             });
         }
@@ -684,16 +685,16 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(contractDeliverable, $"Contract Deliverable not found for {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseInt("DisplayOrder"), contractDeliverable.sfa_DisplayOrder,
+                ClassicAssert.IsNotNull(contractDeliverable, $"Contract Deliverable not found for {row.ToHeaderAndValueString()}");
+                ClassicAssert.AreEqual(row.ParseInt("DisplayOrder"), contractDeliverable.sfa_DisplayOrder,
                     $"Unexpected DisplayOrder returned for Contract Deliverable {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableString("ParentDeliverableCode"), contractDeliverable.Referencingsfa_cdeliverable_sfa_cdeliverable?.sfa_DeliverableCode,
+                ClassicAssert.AreEqual(row.ParseNullableString("ParentDeliverableCode"), contractDeliverable.Referencingsfa_cdeliverable_sfa_cdeliverable?.sfa_DeliverableCode,
                     $"Unexpected ParentDeliverableCode returned for Contract Deliverable {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableDecimal("PlannedValue"), contractDeliverable.sfa_PlannedValue,
+                ClassicAssert.AreEqual(row.ParseNullableDecimal("PlannedValue"), contractDeliverable.sfa_PlannedValue,
                     $"Unexpected PlannedValue returned for Contract Deliverable {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableInt("PlannedVolume"), contractDeliverable.sfa_PlannedVolume,
+                ClassicAssert.AreEqual(row.ParseNullableInt("PlannedVolume"), contractDeliverable.sfa_PlannedVolume,
                     $"Unexpected PlannedVolume returned for Contract Deliverable {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableDecimal("UnitCost"), contractDeliverable.sfa_UnitCost,
+                ClassicAssert.AreEqual(row.ParseNullableDecimal("UnitCost"), contractDeliverable.sfa_UnitCost,
                     $"Unexpected UnitCost returned for Contract Deliverable {row.ToHeaderAndValueString()}");
             });
         }
@@ -721,16 +722,16 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(contractDeliverablePeriod, $"Contract Deliverable Period not found for {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row["PeriodType"], contractDeliverablePeriod.sfa_PeriodTypeId.Name,
+                ClassicAssert.IsNotNull(contractDeliverablePeriod, $"Contract Deliverable Period not found for {row.ToHeaderAndValueString()}");
+                ClassicAssert.AreEqual(row["PeriodType"], contractDeliverablePeriod.sfa_PeriodTypeId.Name,
                     $"Unexpected PeriodType returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row["PeriodName"], contractDeliverablePeriod.sfa_PeriodName,
+                ClassicAssert.AreEqual(row["PeriodName"], contractDeliverablePeriod.sfa_PeriodName,
                     $"Unexpected PeriodName returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableDecimal("PlannedValue"), contractDeliverablePeriod.sfa_PlannedValue,
+                ClassicAssert.AreEqual(row.ParseNullableDecimal("PlannedValue"), contractDeliverablePeriod.sfa_PlannedValue,
                     $"Unexpected PlannedValue returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableInt("PlannedVolume"), contractDeliverablePeriod.sfa_PlannedVolume,
+                ClassicAssert.AreEqual(row.ParseNullableInt("PlannedVolume"), contractDeliverablePeriod.sfa_PlannedVolume,
                     $"Unexpected PlannedVolume returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseBoolean("PaymentPosted"), contractDeliverablePeriod.sfa_PaymentPosted,
+                ClassicAssert.AreEqual(row.ParseBoolean("PaymentPosted"), contractDeliverablePeriod.sfa_PaymentPosted,
                     $"Unexpected PaymentPosted returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
             });
         }

@@ -1,12 +1,14 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGeneration.Repositories
 {
+
+    extern alias Entities;
     using System.Linq;
     using DataStore;
     using DataStore.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using PaymentGenerationEndpoint.AggregatePaymentEndpoint.DTOs;
     using PaymentGenerationEndpoint.AggregatePaymentEndpoint.Repositories;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class SubnominalAggregationRepositoryTests

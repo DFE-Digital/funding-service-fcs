@@ -33,7 +33,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsRequiredForMainstream()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10002815_MAIN2104_2);
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10002815_MAIN2104_2);
             RegularAppendix1 classUnderTest = new RegularAppendix1(null, null, null, null);
             Assert.IsTrue(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -41,7 +41,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsNotRequiredForOtherForRegularAppendix1()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10002815_MAIN2104_2.Replace("<ctr:fundingType><ctr:fundingTypeCode>MAIN</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10002815_MAIN2104_2.Replace("<ctr:fundingType><ctr:fundingTypeCode>MAIN</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
             RegularAppendix1 classUnderTest = new RegularAppendix1(null, null, null, null);
             Assert.IsFalse(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -53,10 +53,12 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(ApplicationException))]
         public void TestThatRequiredHeaderDocumentNameThrowsExceptionForRegularAppendix1()
         {
-            string headerName = new RegularAppendix1(null, DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(), DocumentConfigurationSourceTests.GetMockFpQueryRepository(new List<MockQueryRepositorySetup>()), null).RequiredHeaderDocumentName;
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+                string headerName = new RegularAppendix1(null, DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(), DocumentConfigurationSourceTests.GetMockFpQueryRepository(new List<MockQueryRepositorySetup>()), null).RequiredHeaderDocumentName;
+            });
         }
 
         [TestMethod, TestCategory("IntegrationTest")]

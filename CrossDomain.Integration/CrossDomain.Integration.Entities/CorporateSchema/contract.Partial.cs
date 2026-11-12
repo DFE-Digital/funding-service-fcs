@@ -6,7 +6,7 @@
     using System.Linq;
 
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "as per schema")]
-    public partial class contract
+    public partial class Contract
     {
         public override string ToString()
         {

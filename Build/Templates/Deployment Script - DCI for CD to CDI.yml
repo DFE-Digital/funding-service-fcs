@@ -318,23 +318,99 @@ jobs:
       folderPath: '$(Build.SourcesDirectory)\SpecFlow.IntegrationTests\'
       targetFiles: '**\*.config'
       fileType: xml
+  ##pranitha's debugging    
 
   - task: NuGetToolInstaller@1
-    displayName: 'Use NuGet 5.4.0'
+    displayName: 'Use NuGet 6.x'
     inputs:
-      versionSpec: 5.4.0
+      versionSpec: 6.x
 
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore FCT.Console'
-    inputs:
-      restoreSolution: FCT.Console/FCT.Console.B.sln
-      restoreDirectory: '$(Build.SourcesDirectory)\Packages'
+  
+  - task: NuGetAuthenticate@1
 
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore CrossDomain.Integration'
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNet Restore FCT.Console'
     inputs:
-      restoreSolution: CrossDomain.Integration/CrossDomain.Integration.B.sln
-      restoreDirectory: '$(Build.SourcesDirectory)\Packages'
+      command: 'restore'
+      projects: 'FCT.Console/FCT.Console.B.sln'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNet restore CrossDomain.Integration'
+    inputs:
+      command: 'restore'
+      projects: 'CrossDomain.Integration/CrossDomain.Integration.B.sln'    
+
+  - task: PowerShell@2
+    displayName: 'Verify CrossDomain restore'
+    inputs:
+      targetType: inline
+      script: |
+        $project = "$(Build.SourcesDirectory)\CrossDomain.Integration\ContractRequestDomain.Tests"
+
+        Write-Host "Checking: $project"
+
+        if (Test-Path "$project\obj\project.assets.json") {
+          Write-Host "SUCCESS: project.assets.json exists"
+          Write-Host "$project\obj\project.assets.json"
+        }
+        else {
+          Write-Error "FAILED: project.assets.json does NOT exist"
+        }   
+
+  - task: PowerShell@2
+    displayName: 'Check Assets Files After Restore'
+    inputs:
+      targetType: inline
+      script: |
+        Get-ChildItem "$(Build.SourcesDirectory)" -Recurse -Filter project.assets.json |
+        ForEach-Object {
+            Write-Host $_.FullName
+        }
+
+  - task: UseDotNet@2
+    displayName: 'Install .NET 8 SDK'
+    inputs:
+      packageType: sdk
+      version: '8.0.x'
+
+  - task: PowerShell@2
+    displayName: 'Verify project.assets.json'
+    inputs:
+      targetType: inline
+      script: |
+        $files = Get-ChildItem "$(Build.SourcesDirectory)\FCT.Console" -Recurse -Filter project.assets.json
+
+        if ($files) {
+            Write-Host "FOUND:"
+            $files | ForEach-Object {
+                Write-Host $_.FullName
+            }
+        }
+        else {
+            Write-Host "NO project.assets.json FILES FOUND"
+        }
+
+  - task: PowerShell@2
+    displayName: 'DotNet Info'
+    inputs:
+      targetType: inline
+      script: |
+        dotnet --info    
+   
+
+  # - task: NuGetCommand@2
+  #   displayName: 'NuGet restore FCT.Console'
+  #   inputs:
+  #     restoreSolution: FCT.Console/FCT.Console.B.sln
+  #     restoreDirectory: '$(Build.SourcesDirectory)\Packages'
+
+  # - task: NuGetCommand@2
+  #   displayName: 'NuGet restore CrossDomain.Integration'
+  #   inputs:
+  #     restoreSolution: CrossDomain.Integration/CrossDomain.Integration.B.sln
+  #     restoreDirectory: '$(Build.SourcesDirectory)\Packages'
+
+  ##pranitha's debugging
 
   - task: VSBuild@1
     displayName: 'Build FCT.Console solution'

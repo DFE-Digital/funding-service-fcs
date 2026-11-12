@@ -1,5 +1,6 @@
 ﻿namespace ContractRequestDomain.Tests
 {
+    extern alias CSICommon;
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
@@ -9,7 +10,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using SFA.FCT.CrossDomain.Integration.Common.Storage;
+    using CSICommon::SFA.FCT.CrossDomain.Integration.Common.Storage;
     using UnitTests.Common;
     
     [TestClass]

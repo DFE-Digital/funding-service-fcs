@@ -1,40 +1,61 @@
-﻿namespace ContractManagementDomain.Endpoint.ContractApproved
+﻿
+namespace ContractManagementDomain.Endpoint.ContractApproved
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "ContractManagementDomain.Endpoint.dll";
+        public string NameOfAssembly =>
+            "ContractManagementDomain.Endpoint.dll";
 
-        public string EndpointName => "ContractManagementDomain.ContractApproved";
+        public string EndpointName =>
+            "ContractManagementDomain.ContractApproved";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToArray();
-
-        public IReadOnlyCollection<CommandRoute> Routes => Enumerable.Empty<CommandRoute>().ToList();
-
-        private static readonly string[] EventsUsedInThisEndpoint = { nameof(ContractApprovedEvent) };
-
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
-        {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
-
-            var logger = loggerFactory.CreateDefaultLogger();
-
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
-            configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
-
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+        private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint =
+            new[]
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                nameof(ContractApprovedEvent)
+            };
+
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToArray();
+
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            Enumerable.Empty<CommandRoute>().ToList();
+
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
+        {
+            var configuration = new EndpointConfiguration(EndpointName);
+
+            // ✅ Logging (aligned)
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation(
+                "Started Endpoint {EndpointName} on FCS.Worker",
+                EndpointName);
+
+            // ✅ Conventions
+            configuration.Conventions()
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null &&
+                    t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
+
+            // ✅ Required
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ Clean DI
+            configuration.RegisterComponents(services =>
+            {
+                services.AddSingleton(loggerFactory);
+                services.AddContractApprovedServices();
             });
 
             return configuration;

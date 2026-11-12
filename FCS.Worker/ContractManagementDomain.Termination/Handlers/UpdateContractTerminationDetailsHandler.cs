@@ -66,12 +66,12 @@
                 $"Update Termination Details - END: UpdateContractTerminationDetailsCommand for {message} processed");
         }
 
-        private static void SetSubStatus(contract masterContract)
+        private static void SetSubStatus(Contract masterContract)
         {
             masterContract.SetChildContractsSubStatus(newStatus: "Under Termination");
         }
 
-        private List<TerminationAllocation> GetTerminationAllocationsThatHaveATerminationDate(contract corporateContract)
+        private List<TerminationAllocation> GetTerminationAllocationsThatHaveATerminationDate(Contract corporateContract)
         {
             return corporateContract.contracts.SelectMany(sc => sc.contractAllocations)
                 .Select(ca => new TerminationAllocation(ca.contractAllocationNumber, ca.fundingStreamPeriodCode, ca.FundingCessationDate))

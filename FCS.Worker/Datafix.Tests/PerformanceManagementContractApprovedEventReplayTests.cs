@@ -33,7 +33,7 @@
                  Assert.IsTrue(actualLastApprovedContractVersion <= c.Version, $"Last Approved Contract Version is not as expected:{c.ContractNumber}"); 
 
                 // arrange
-                IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<ContractApprovedEvent>();
+                var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<ContractApprovedEvent>();
 
                 ContractApprovedEvent message = FromJson<ContractApprovedEvent>(
                     "Datafix.Tests.Resources.R65c", c.FileName);

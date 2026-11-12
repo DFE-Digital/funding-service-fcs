@@ -47,12 +47,13 @@
 
         public RetrieveSummarisedActualsPageObject()
         {
-            _storageTableName = StorageTableNamePrefix + ConfigurationManager.AppSettings["StorageTableSuffix"];
-            _collectionGroupStorageTableName = CollectionGroupStorageTableNamePrefix + ConfigurationManager.AppSettings["StorageTableSuffix"];
-            _storageTableNameClient = StorageTableNamePrefixClient + ConfigurationManager.AppSettings["StorageTableSuffix"]; //change to client table name once handler works
-            _closedCollectionHistoryTableName = ClosedCollectionHistoryTableName + ConfigurationManager.AppSettings["StorageTableSuffix"];
-            _actualAllocationGroupEntityTableName = ActualAllocationGroupEntityTableName + ConfigurationManager.AppSettings["StorageTableSuffix"];
-            _actualsCollectionTypeSummaryTableName = ActualsCollectionTypeSummaryTableName + ConfigurationManager.AppSettings["StorageTableSuffix"];
+            var storageTableSuffix = TestConfiguration.Configuration["StorageTableSuffix"];
+            _storageTableName = StorageTableNamePrefix + storageTableSuffix;
+            _collectionGroupStorageTableName = CollectionGroupStorageTableNamePrefix + storageTableSuffix;
+            _storageTableNameClient = StorageTableNamePrefixClient + storageTableSuffix; //change to client table name once handler works
+            _closedCollectionHistoryTableName = ClosedCollectionHistoryTableName + storageTableSuffix;
+            _actualAllocationGroupEntityTableName = ActualAllocationGroupEntityTableName + storageTableSuffix;
+            _actualsCollectionTypeSummaryTableName = ActualsCollectionTypeSummaryTableName + storageTableSuffix;
             CreateStorageIfNotExists();
             SummarisedActuals = new List<SummarisedActual>();
         }

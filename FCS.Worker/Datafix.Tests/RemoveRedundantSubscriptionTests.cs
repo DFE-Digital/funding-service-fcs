@@ -1,8 +1,8 @@
 ﻿namespace Datafix.Tests
 { 
-    using System.Configuration;
     using Automation;
-    using Microsoft.ServiceBus;
+    using Azure.Messaging.ServiceBus.Administration;
+    using System.Configuration;
 
     public class RemoveRedundantSubscriptionTests : IApplyDataFix
     {
@@ -12,12 +12,16 @@
         public int Order => 1;
         public void ApplyDataFix()
         {
-            GetAsbNamespaceManager().DeleteSubscription("paymentmanagementdomain.paymentaggregation.events", "89e0d6eb-6967-6042-6fd1-254a88850d01");
+            GetAsbNamespaceManager().DeleteSubscriptionAsync("paymentmanagementdomain.paymentaggregation.events", "89e0d6eb-6967-6042-6fd1-254a88850d01");
         }
 
-        private static NamespaceManager GetAsbNamespaceManager()
+        private static ServiceBusAdministrationClient GetAsbNamespaceManager()
         {
-            return NamespaceManager.CreateFromConnectionString(ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString);
+            var connectionString = ConfigurationManager
+                .ConnectionStrings["NServiceBus/Transport"]
+                .ConnectionString;
+
+            return new ServiceBusAdministrationClient(connectionString);
         }
     }
 }

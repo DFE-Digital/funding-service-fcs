@@ -1,21 +1,23 @@
 ﻿namespace Datafix.Tests.ServiceTests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using AutoMapper;
+    using ContractManagement.DataStore.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Xrm.Sdk;
     using MoreLinq;
+    using Repositories;
     using SFA.FCT.ContractCreateDomain.Implementation;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence;
     using SFA.FCT.CrossDomain.Integration.Entities;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+//    using SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract;
     using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnitTests.Common;
     using CrmConnectionFactory = SFA.FCS.Worker.Common.Crm.CrmConnectionFactory;
-    using Repositories;
 
     [TestClass]
     public class CrmContractInformationRepositoryTests
@@ -122,16 +124,29 @@
             SetContractState(contractNumber, versionNumber, subVersionNumber, status, subStatus);
         }
 
+
         private static ExtendedContract GetCorporateContractFromResource()
         {
-            contract contract = TestResource.FromJson<contract>("Datafix.Tests.Resources", "LevyCorporateContract.json");
+            Contract contract = TestResource.FromJson<Contract>(
+                "Datafix.Tests.Resources",
+                "LevyCorporateContract.json");
 
-            Mapper.CreateMap<contract, ExtendedContract>();
-            Mapper.CreateMap<contractType, ExtendedContractType>();
-            Mapper.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
-            return Mapper.Map<contract, ExtendedContract>(contract);
+            var configExpression = new MapperConfigurationExpression();
+
+            configExpression.CreateMap<Contract, ExtendedContract>();
+            configExpression.CreateMap<ContractType, ExtendedContractType>();
+            configExpression.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractAllocationsContractAllocation, ExtendedContractAllocation>();
+
+            var config = new AutoMapper.MapperConfiguration(
+                configExpression,
+                null // ✅ loggerFactory (can be null)
+            );
+
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<ExtendedContract>(contract);
         }
-
+ 
         private static void SetContractState(string contractNumber, int versionNumber, int subVersionNumber, sfa_contractstatus status, string subStatusName)
         {
             var organizationService = CrmConnectionFactory.GetRetryOnErrorOrganizationService();

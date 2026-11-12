@@ -5,7 +5,7 @@
 
     public static class CorporateContractExtensions
     {
-        public static void RemoveTerminationInformation(this contract corporateContract)
+        public static void RemoveTerminationInformation(this Contract corporateContract)
         {
             corporateContract.contracts.ForEach(c =>
             {
@@ -19,12 +19,12 @@
             });
         }
 
-        public static void SetChildContractsSubStatus(this contract corporateContract, string newStatus)
+        public static void SetChildContractsSubStatus(this Contract corporateContract, string newStatus)
         {
             corporateContract.contracts.ForEach(c => c.contractStatus.status = newStatus);
         }
 
-        public static void SetChildContractsStatusAndSubStatus(this contract corporateContract, string newStatus, string newSubStatus)
+        public static void SetChildContractsStatusAndSubStatus(this Contract corporateContract, string newStatus, string newSubStatus)
         {
             corporateContract.contracts.ForEach(c =>
             {
@@ -33,7 +33,7 @@
             });
         }
 
-        public static void SetEndDatesIfEndDatesAreNull(this contract corporateContract, DateTime endDate)
+        public static void SetEndDatesIfEndDatesAreNull(this Contract corporateContract, DateTime endDate)
         {
             corporateContract.contracts.ForEach(c =>
             {
@@ -42,7 +42,7 @@
             });
         }
 
-        public static void ClearAllocationModificationValues(this contract corporateContract)
+        public static void ClearAllocationModificationValues(this Contract corporateContract)
         {
             corporateContract.contracts.ForEach(c => c.contractAllocations.ForEach(ca =>
             {

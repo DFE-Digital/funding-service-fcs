@@ -1,22 +1,44 @@
 ﻿namespace ADMonitoringDomain.Endpoint.BusinessLogic
 {
+    extern alias Entities;
     using AutoMapper;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Model;
     using System.Collections.Generic;
     using System.Linq;
-    using SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
+    using Microsoft.Extensions.Logging;
 
     public static class AtomItemMapper
     {
-        public static contractReferenceTYPE MapAllocations(Allocation allocations)
-        {
-            Mapper.CreateMap<Allocation, contractReferenceTYPE>()
-                .ForMember(dest => dest.contractNumber, opt => opt.MapFrom(src => src.ContractNumber))
-                .ForMember(dest => dest.contractVersionNumber, opt => opt.MapFrom(src => src.ContractVersionNumber));
+        private static readonly Lazy<IMapper> _mapper = new Lazy<IMapper>(() =>
+        {           
+            var expr = new MapperConfigurationExpression();
+            expr.AddProfile(new AutoProfile());
+            ILoggerFactory loggerFactory = null;
+            var config = new MapperConfiguration(expr, loggerFactory);
 
-            return Mapper.Map<Allocation, contractReferenceTYPE>(allocations);
+            return config.CreateMapper();
+        });
+
+
+        private static IMapper Mapper => _mapper.Value;
+
+        // === Your original methods, now static and using the mapper instance ===
+
+        public static contractReferenceTYPE MapAllocations(Allocation allocation)
+        {
+            // null-checks are optional but often helpful in shared utilities
+            if (allocation == null) return null;
+            return Mapper.Map<contractReferenceTYPE>(allocation);
         }
+
+        public static AllocationDeliveryPerformanceFundingStreamPeriod MapAllocationsForFspCode(Allocation allocation)
+        {
+            if (allocation == null) return null;
+            return Mapper.Map<AllocationDeliveryPerformanceFundingStreamPeriod>(allocation);
+        }
+
 
         public static organisationReferenceTYPE MapOrganisationIdentifiers(OrganisationIdentifer results)
         {
@@ -83,14 +105,6 @@
                         }).ToList()
                     }).ToList()
             };
-        }
-
-        public static AllocationDeliveryPerformanceFundingStreamPeriod MapAllocationsForFspCode(Allocation allocations)
-        {
-            Mapper.CreateMap<Allocation, AllocationDeliveryPerformanceFundingStreamPeriod>()
-                .ForMember(dest => dest.FundingStreamPeriodCode, opt => opt.MapFrom(src => src.FundingStreamPeriodCode));
-
-            return Mapper.Map<Allocation, AllocationDeliveryPerformanceFundingStreamPeriod>(allocations);
         }
 
         public static List<DeliverableTYPE> MapDeliverablesTypes(IEnumerable<DeliverablePeriodSummary> results)

@@ -16,6 +16,7 @@
     using State;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class EfaSteps
@@ -42,7 +43,7 @@
             FeatureVariables.Set("MasterContractNo", contractInCrm.MasterContractNumber);
 
             _state.Contract.AllocationNumberPrefixes.ForEach(allocPrefix => FeatureVariables.Set($"[AllocRef_{allocPrefix.Prefix}]", allocPrefix.AllocationNumber));
-            Assert.IsNotNull(contractInCrm, "There is no contract returned for this query");
+            ClassicAssert.IsNotNull(contractInCrm, "There is no contract returned for this query");
         }
 
         [Then(@"the pdf file which contains a upin and the following parameterized lines in order")]
@@ -64,7 +65,7 @@
         {
             ContractDto contractInCrm = CrmContractRepository.GetLatestContractInfoByProvider(ukprn.ToString(), period.ToString(), fundingType);
             _state.Contract = contractInCrm;
-            Assert.IsNotNull(contractInCrm, "There is no contract returned for this query");
+            ClassicAssert.IsNotNull(contractInCrm, "There is no contract returned for this query");
         }
    
         [Given(@"the SubnominalAggregations table contains the following data")]
@@ -92,7 +93,7 @@
                     {
                         EntityReference organisationEntityReference = CrmOrganisationRepository.GetOrganisationEntityReferenceByName(sa.ProviderName);
 
-                        Assert.IsNotNull(organisationEntityReference, $"The provider name {sa.ProviderName} does not exist in the Organisation (account) table");
+                        ClassicAssert.IsNotNull(organisationEntityReference, $"The provider name {sa.ProviderName} does not exist in the Organisation (account) table");
 
                         if (!subnominalsForAllocations.ContainsKey(sa.GetAllocationNumber()))
                         {
@@ -106,7 +107,7 @@
                         subnominalaggregationsForAllocation = subnominalsForAllocations[sa.GetAllocationNumber()];
 
                         int paymentTypeCode = CrmSubnominalAggregationRepository.GetPaymentTypeCode(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(sa.PaymentType.ToLower()));
-                        Assert.AreNotEqual(0, paymentTypeCode, $"The payment type {sa.PaymentType} is not supported");
+                        ClassicAssert.AreNotEqual(0, paymentTypeCode, $"The payment type {sa.PaymentType} is not supported");
                         matchedSubnominalaggregation = subnominalaggregationsForAllocation.FirstOrDefault(
                             s =>
                                 s.sfa_SubnominalAggregateKey == sa.SubnominalAggregationKey &&
@@ -121,7 +122,7 @@
 
                         if (matchedSubnominalaggregation?.sfa_provider != null)
                         {
-                            Assert.AreEqual(organisationEntityReference.Id, matchedSubnominalaggregation.sfa_provider.Id, $"The subnominal aggregation {sa} does not have the correct provider on it in CRM");
+                            ClassicAssert.AreEqual(organisationEntityReference.Id, matchedSubnominalaggregation.sfa_provider.Id, $"The subnominal aggregation {sa} does not have the correct provider on it in CRM");
                         }
 
                         return matchedSubnominalaggregation != null && matchedSubnominalaggregation.sfa_AggregatedValue.Value == sa.ExpectedValue;
@@ -132,7 +133,7 @@
                 bool haveFoundValue = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
                 string aggregatedValueStr = matchedSubnominalaggregation.sfa_AggregatedValue.HasValue ? matchedSubnominalaggregation.sfa_AggregatedValue.ToString() : "Null";
 
-                Assert.IsTrue(haveFoundValue, $"We have not found the expected subnominal aggregation value for {sa} - actual value - {aggregatedValueStr}");
+                ClassicAssert.IsTrue(haveFoundValue, $"We have not found the expected subnominal aggregation value for {sa} - actual value - {aggregatedValueStr}");
                 
             });
             
@@ -174,7 +175,7 @@
 
                 bool isPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(isPresent, $"The PaaS table SubnominalAggregation does not have a row with matching values for this {expectedSubnominal}");
+                ClassicAssert.IsTrue(isPresent, $"The PaaS table SubnominalAggregation does not have a row with matching values for this {expectedSubnominal}");
             });
         }
 
@@ -188,7 +189,7 @@
 
             _contractDocumentGenerationPageObject.RemovePdfFromCache();
 
-            Assert.IsTrue(_contractDocumentGenerationPageObject.DoesFileExist(location, fileName), $"output file not found {fileName} in {location}");
+            ClassicAssert.IsTrue(_contractDocumentGenerationPageObject.DoesFileExist(location, fileName), $"output file not found {fileName} in {location}");
         }
         
         private string GetAllocationNumber(string allocationTestString)

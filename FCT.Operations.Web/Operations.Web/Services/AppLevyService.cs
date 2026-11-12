@@ -1,5 +1,6 @@
 ﻿namespace Operations.Web.Services
 {
+    extern alias CMService;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -9,7 +10,7 @@
     using Operations.Web.Dtos;
     using Operations.Web.Infrastructure;
     using Operations.Web.Repositories;
-    using SFA.FCT.ContractManagementService.Common.Commands;
+    using CMService::SFA .FCT.ContractManagementService.Common.Commands;
     using SFA.FCT.CrossDomain.Integration.Entities;
     using SFA.FCT.Framework.Logging.Interfaces;
     using CrossDomainContractInformation = SFA.FCT.CrossDomain.Integration.Entities.ContractInformation;
@@ -199,7 +200,7 @@
                     _messageSender.Send(new AmendLevyContractCommand
                     {
                         ContractInformation = c,
-                        AmendmentType = SFA.FCT.ContractManagementService.Common.AmendmentType.Variation,
+                        AmendmentType = CMService::SFA.FCT.ContractManagementService.Common.AmendmentType.Variation,
                         AmendmentSource = AmendLevyContractCommand.LevyAmendmentSource.Single,
                         ShouldAddPayableNonLevyAllocation = false,
                         ShouldMergeAmendmentTemplate = true,
@@ -224,7 +225,7 @@
                     _messageSender.Send(new AmendLevyContractCommand
                     {
                         ContractInformation = c,
-                        AmendmentType = SFA.FCT.ContractManagementService.Common.AmendmentType.Variation,
+                        AmendmentType = CMService::SFA.FCT.ContractManagementService.Common.AmendmentType.Variation,
                         AmendmentSource = AmendLevyContractCommand.LevyAmendmentSource.Single,
                         ShouldAddPayableNonLevyAllocation = false,
                         ShouldMergeAmendmentTemplate = true,
