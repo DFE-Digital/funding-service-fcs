@@ -205,23 +205,30 @@
             Assert.IsFalse(isThereNoSubsequentDraftContracts);
         }
 
-        [TestMethod, TestCategory("IntegrationTest")]
-        [ExpectedException(typeof(ArgumentException))]
+
+        [TestMethod]
+        [TestCategory("IntegrationTest")]
         public void CrmContractRepository_IsThereNoSubsequentDraftContracts_WhenGivenContractInformationThatDoNotExist_ShouldThrowAnException()
         {
             // arrange
             const string bogusContractNo = "bogus-contract-number";
 
             var organizationService = CrmConnectionFactory.GetRetryOnErrorOrganizationService();
+
             using (var xrmContext = new XrmServiceContext(organizationService))
             {
-                RemoveContract(organizationService, xrmContext, bogusContractNo); // highly unlikely to exist
+                RemoveContract(organizationService, xrmContext, bogusContractNo);
             }
 
             var contractRepository = new CrmContractRepository(organizationService);
-            // act
-            contractRepository.IsThereNoSubsequentDraftContracts(bogusContractNo, 1, 0);
+
+            // ✅ act + assert
+            Assert.ThrowsException<ArgumentException>(() =>
+            {
+                contractRepository.IsThereNoSubsequentDraftContracts(bogusContractNo, 1, 0);
+            });
         }
+
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void CrmContractRepository_IsContractApprovedWithSubstatus_ShouldOnlyBeTrueWhenSubStatusMatchesAProvidedSubStatus()

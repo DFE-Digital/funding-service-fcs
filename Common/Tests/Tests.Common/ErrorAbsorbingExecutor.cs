@@ -1,7 +1,7 @@
 ﻿namespace UnitTests.Common
 {
     using System;
-    using System.ServiceModel;
+    using CoreWCF;
 
     public static class ErrorAbsorbingExecutor
     {

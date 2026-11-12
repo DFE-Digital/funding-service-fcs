@@ -7,7 +7,6 @@
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using Castle.Core.Internal;
     using Dtos;
 
     public class HttpUtility : IHttpUtility
@@ -27,10 +26,10 @@
 
         public void SetMediaTypeAcceptRequestHeaders(IReadOnlyCollection<MediaTypeWithQualityHeaderValue> mediaTypeToAcceptCollection)
         {
-            mediaTypeToAcceptCollection.ForEach(mci =>
+            foreach (var mci in mediaTypeToAcceptCollection)
             {
                 _client.DefaultRequestHeaders.Accept.Add(mci);
-            });
+            }
         }
 
         public async Task<HttpResult> Get(string url)

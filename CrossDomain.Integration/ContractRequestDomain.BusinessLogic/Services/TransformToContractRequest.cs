@@ -212,9 +212,9 @@
                     period = null,
                     startDate = row.GetCellDateTime("ContractStartDate"),
                     endDate = row.GetCellDateTime("ContractEndDate"),
-                    CRMIntent = row.GetCellEnum<intent>("CRMIntent", intent.New),
+                    CRMIntent = row.GetCellEnum<Intent>("CRMIntent", Intent.New),
                     amendmentType = row.GetCellEnum<amendmentType>("AmendmentType", amendmentType.None),
-                    contractor = new contractor()
+                        contractor = new Contractor()
                     {
                         ukprn = row.GetCellInt("UKPRN")
                     },
@@ -245,12 +245,12 @@
                 contractVersionNumber = 1,
                 startDate = row.GetCellDateTime("ContractStartDate"),
                 endDate = row.GetCellDateTime("ContractEndDate"),
-                CRMIntent = row.GetCellEnum<intent>("CRMIntent", intent.New),
+                CRMIntent = row.GetCellEnum<Intent>("CRMIntent", Intent.New),
                 amendmentType = row.GetCellEnum<amendmentType>("AmendmentType", amendmentType.None),
                 description = row.GetCellValue("ContractDescription"),
                 contractType1 = row.GetCellValue("ContractType"),
                 hierarchyType = hierarchyType.CONTRACT,
-                contractor = new contractor()
+                contractor = new Contractor()
                 {
                     ukprn = row.GetCellInt("UKPRN")
                 },
@@ -274,7 +274,7 @@
             contractAllocation allocation = new contractAllocation()
             {
                 correlationId = row.id,
-                CRMIntent = row.GetCellEnum<intent>("CRMIntent", intent.New),
+                CRMIntent = row.GetCellEnum<Intent>("CRMIntent", Intent.New),
                 period = new periodType()
                 {
                     periodType1 = new periodTypeType()
@@ -318,7 +318,7 @@
             contractDeliverable deliverable = new contractDeliverable()
             {
                 correlationId = row.id,
-                CRMIntent = row.GetCellEnum<intent>("CRMIntent", intent.New),
+                CRMIntent = row.GetCellEnum<Intent>("CRMIntent", Intent.New),
                 deliverable = new deliverableType()
                 {
                     fundingStreamCode = row.GetCellValue("FundingStreamCode"),

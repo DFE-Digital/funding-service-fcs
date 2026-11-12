@@ -5,7 +5,7 @@
 
     public class DocumentMoveCommand
     {
-        public contract CorporateContract { get; set; }
+        public Contract CorporateContract { get; set; }
 
         public string ContractNumberToBeMoved { get; set; }
 

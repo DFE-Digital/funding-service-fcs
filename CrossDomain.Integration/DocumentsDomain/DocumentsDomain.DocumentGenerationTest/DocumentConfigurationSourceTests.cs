@@ -514,7 +514,7 @@
         {
             return new contractAllocationsContractAllocation()
             {
-                period = new period()
+                period = new Period()
                 {
                     periodType = new periodTypeType()
                     {

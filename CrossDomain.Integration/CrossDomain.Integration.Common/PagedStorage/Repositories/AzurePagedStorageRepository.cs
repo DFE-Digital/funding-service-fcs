@@ -6,9 +6,11 @@
     using Entities;
     using Exceptions;
     using Framework.Logging.Interfaces;
-    using Microsoft.WindowsAzure.Storage;
+    //using Microsoft.WindowsAzure.Storage;
     using MoreLinq;
     using Storage;
+    using Azure;
+    using Azure.Data.Tables;
 
     public abstract class AzurePagedStorageRepository<T>
     {
@@ -76,7 +78,7 @@
             {
                 return GetEntitiesForPartition(LatestPagePartitionKey);
             }
-            catch (StorageException)
+            catch (RequestFailedException)
             {
                 _logger.LogWarning("There is an issue with the storage (the table may not have been created)");
                 return new StoragePage<T>();
@@ -90,19 +92,24 @@
                 throw new InvalidOperationException("Repository not empty, cannot reseed.");
             }
 
-            List<PagedStorageCorrelationEntity> pagedStorageCorrelationEntities = new List<PagedStorageCorrelationEntity>();
-            List<PagedStorageEntity> pagedStorageEntities = new List<PagedStorageEntity>();
+           // List<PagedStorageCorrelationEntity> pagedStorageCorrelationEntities = new List<PagedStorageCorrelationEntity>();
+           // List<PagedStorageEntity> pagedStorageEntities = new List<PagedStorageEntity>();
+            var pagedStorageCorrelationEntities = new List<PagedStorageCorrelationEntity>();
+            var pagedStorageEntities = new List<PagedStorageEntity>();
 
             for (int i = 0; i < entities.Count; i++)
             {
-                T entity = entities[i];
+                var entity = entities[i];
                 int rowNumber = i + 1;
                 string correlationId = Guid.NewGuid().ToString();
 
                 pagedStorageCorrelationEntities.Add(new PagedStorageCorrelationEntity
                 {
-                    PartitionKey = CorrelationPartitionKey,
-                    RowKey = AzureStorageKeyEncoder.Encode(correlationId)
+                    PartitionKey = correlationId,
+                    RowKey = AzureStorageKeyEncoder.Encode(correlationId),
+                    Timestamp = DateTimeOffset.UtcNow,
+                    ETag = ETag.All,
+                    CorrelationId = correlationId
                 });
 
                 int pageNumber = CalculateReseedingPageNumber(rowNumber);
@@ -112,6 +119,8 @@
                 {
                     PartitionKey = partitionKey,
                     RowKey = AzureStorageKeyEncoder.Encode(correlationId),
+                    Timestamp = DateTimeOffset.UtcNow,
+                    ETag = ETag.All,
                     ContentBytes = _storageObjectSerializer.Serialize(entity),
                     PageNumberOnceCommitted = pageNumber
                 });
@@ -236,19 +245,16 @@
             try
             {
                 _azureTableStore.CreateRow(_tableName, storageEntity);
-            }
-            catch (StorageException storageException)
+            }            
+            catch (RequestFailedException ex)
             {
-                Exception exceptionToThrow = storageException;
-
-                switch (storageException.RequestInformation.HttpStatusCode)
+                switch (ex.Status)
                 {
-                    case 409:
-                        exceptionToThrow = new DuplicateKeyStorageException(storageException);
-                        break;
+                    case 409: // Conflict
+                        throw new DuplicateKeyStorageException(ex);
+                    default:
+                        throw;
                 }
-
-                throw exceptionToThrow;
             }
         }
 
@@ -280,19 +286,21 @@
 
                 _azureTableStore.CreateRow(FormatCorrelationTableName(_tableName), correlationEntity);
             }
-            catch (StorageException storageException)
-            {
-                Exception exceptionToThrow = storageException;
 
-                switch (storageException.RequestInformation.HttpStatusCode)
+            catch (RequestFailedException ex)
+            {
+                Exception exceptionToThrow = ex;
+
+                switch (ex.Status)
                 {
-                    case 409:
-                        exceptionToThrow = new DuplicateKeyStorageException(storageException);
+                    case 409: // Conflict (duplicate key)
+                        exceptionToThrow = new DuplicateKeyStorageException(ex);
                         break;
                 }
 
                 throw exceptionToThrow;
             }
+
         }
     }
 }

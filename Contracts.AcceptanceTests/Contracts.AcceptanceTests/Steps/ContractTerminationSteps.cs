@@ -12,6 +12,7 @@
     using MoreLinq;
     using Utilities;
     using TechTalk.SpecFlow;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class ContractTerminationSteps
@@ -63,7 +64,7 @@
         [When(@"with the following allocation termination options")]
         public void WhenWithTheFollowingAllocationTerminationOptions(TransformedTable table)
         {
-            Assert.IsNotNull(_contractTerminationRequest, $"{nameof(_contractTerminationRequest)} variable not set");
+            ClassicAssert.IsNotNull(_contractTerminationRequest, $"{nameof(_contractTerminationRequest)} variable not set");
 
             _contractTerminationRequest.Allocations.AddRange(table.Rows.Select(row => new ContractTerminationRequest.AllocationTerminationRequest
             {
@@ -80,7 +81,7 @@
         [When(@"the user forwards the termination request for manager approval via UI")]
         public void WhenTheUserForwardsTheTerminationRequestForManagerApproval()
         {
-            Assert.IsNotNull(_contractTerminationRequest, $"{nameof(_contractTerminationRequest)} variable not set");
+            ClassicAssert.IsNotNull(_contractTerminationRequest, $"{nameof(_contractTerminationRequest)} variable not set");
 
             using (CrmWebDriver driver = CrmWebDriver.Create(_contractTerminationRequest.User))
             {
@@ -98,7 +99,7 @@
         [When(@"the user forwards the termination request for manager approval via SDK")]
         public void WhenTheUserForwardsTheTerminationRequestForManagerApprovalViaSdk()
         {
-            Assert.IsNotNull(_contractTerminationRequest, $"{nameof(_contractTerminationRequest)} variable not set");
+            ClassicAssert.IsNotNull(_contractTerminationRequest, $"{nameof(_contractTerminationRequest)} variable not set");
 
             Guid contractId = CrmContractRepository.GetContractId(
                 _contractTerminationRequest.ContractNumber, _contractTerminationRequest.Version, _contractTerminationRequest.SubVersion);
@@ -110,7 +111,7 @@
         [When(@"the user forwards the initiate termination request for manager approval via SDK")]
         public void WhenTheUserForwardsTheInitiateTerminationRequestForManagerApprovalViaSdk()
         {
-            Assert.IsNotNull(_contractTerminationRequest, $"{nameof(_contractTerminationRequest)} variable not set");
+            ClassicAssert.IsNotNull(_contractTerminationRequest, $"{nameof(_contractTerminationRequest)} variable not set");
 
             Guid contractId = CrmContractRepository.GetContractId(
                 _contractTerminationRequest.ContractNumber, _contractTerminationRequest.Version, _contractTerminationRequest.SubVersion);
@@ -202,7 +203,7 @@
         [When(@"with the following updated allocation termination options")]
         public void WhenWithTheFollowingUpdatedAllocationTerminationOptions(TransformedTable table)
         {
-            Assert.IsNotNull(_updateContractTerminationRequest, $"{nameof(_updateContractTerminationRequest)} variable not set");
+            ClassicAssert.IsNotNull(_updateContractTerminationRequest, $"{nameof(_updateContractTerminationRequest)} variable not set");
 
             _updateContractTerminationRequest.Allocations.AddRange(table.Rows.Select(row => new UpdateContractTerminationRequest.UpdateAllocationTerminationRequest
             {
@@ -217,7 +218,7 @@
         [When(@"the user completes the termination amendment request via UI")]
         public void WhenTheUserCompletesTheTerminationAmendmentRequest()
         {
-            Assert.IsNotNull(_updateContractTerminationRequest, $"{nameof(_updateContractTerminationRequest)} variable not set");
+            ClassicAssert.IsNotNull(_updateContractTerminationRequest, $"{nameof(_updateContractTerminationRequest)} variable not set");
 
             using (CrmWebDriver driver = CrmWebDriver.Create(_updateContractTerminationRequest.User))
             {
@@ -235,7 +236,7 @@
         [When(@"the user completes the termination amendment request via SDK")]
         public void WhenTheUserCompletesTheTerminationAmendmentRequestViaSdk()
         {
-            Assert.IsNotNull(_updateContractTerminationRequest, $"{nameof(_updateContractTerminationRequest)} variable not set");
+            ClassicAssert.IsNotNull(_updateContractTerminationRequest, $"{nameof(_updateContractTerminationRequest)} variable not set");
 
             CrmContractRepository.UpdateTerminationValuesAsUser(_updateContractTerminationRequest);
         }
@@ -261,7 +262,7 @@
         [When(@"the user forwards the initiate modification request for manager approval via SDK")]
         public void WhenTheUserForwardsTheInitiateModificationRequestForManagerApprovalViaSdk()
         {
-            Assert.IsNotNull(_modifyContractRequest, $"{nameof(_modifyContractRequest)} variable not set");
+            ClassicAssert.IsNotNull(_modifyContractRequest, $"{nameof(_modifyContractRequest)} variable not set");
 
             CrmContractRepository.ModifyContractValuesAsUser(_modifyContractRequest);
         }
@@ -269,7 +270,7 @@
         [When(@"the user issues an update modification request via SDK")]
         public void WhenTheUserIssuesAnUpdateModificationRequestViaSdk()
         {
-            Assert.IsNotNull(_modifyContractRequest, $"{nameof(_modifyContractRequest)} variable not set");
+            ClassicAssert.IsNotNull(_modifyContractRequest, $"{nameof(_modifyContractRequest)} variable not set");
 
             CrmContractRepository.UpdateModificationValuesAsUser(_modifyContractRequest);
         }
@@ -283,13 +284,13 @@
         [Then(@"the contract termination has failed with the following validation errors")]
         public void ThenTheContractTerminationHasFailedWithTheFollowingValidationErrors(Table table)
         {
-            Assert.IsNotNull(_validationErrors, $"{nameof(_validationErrors)} variable not set");
+            ClassicAssert.IsNotNull(_validationErrors, $"{nameof(_validationErrors)} variable not set");
 
             table.Rows.ForEach(row =>
             {
                 string expectedError = row["ValidationError"];
 
-                Assert.IsTrue(_validationErrors.Contains(expectedError), $"Expected validation error: \"[{expectedError}]\". Actual validation errors: \"[{_validationErrors}]\".");
+                ClassicAssert.IsTrue(_validationErrors.Contains(expectedError), $"Expected validation error: \"[{expectedError}]\". Actual validation errors: \"[{_validationErrors}]\".");
             });
         }
 
@@ -415,7 +416,7 @@
 
                 bool success = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(success, string.Join(Environment.NewLine, errors));
+                ClassicAssert.IsTrue(success, string.Join(Environment.NewLine, errors));
             });
         }
 
@@ -509,7 +510,7 @@
 
                 bool success = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(success, string.Join(Environment.NewLine, errors));
+                ClassicAssert.IsTrue(success, string.Join(Environment.NewLine, errors));
             });
         }
 

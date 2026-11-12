@@ -37,7 +37,7 @@
 
             return failures;
         }
-        private bool IsOrgStatusInactive(contractor contractor)
+        private bool IsOrgStatusInactive(Contractor contractor)
         {
             bool response = true;
 

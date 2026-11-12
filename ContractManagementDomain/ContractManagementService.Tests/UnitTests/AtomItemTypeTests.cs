@@ -17,7 +17,7 @@
             // arrange
             IEnumerable<AtomItemType> atomItemTypes = Enum.GetValues(typeof(AtomItemType)).Cast<AtomItemType>();
             AllContractAtomFeedSyndicationItemCreator syndicationItemCreator = new AllContractAtomFeedSyndicationItemCreator("");
-            var contract = new contract
+            var contract = new Contract
             {
                 contracts = new List<contractType>
                 {

@@ -262,24 +262,24 @@
             lookupData.PresenceCheckItems.Add(CreatePresenceCheckItemForMasterContractWithMasterContractNumber(contract.contract, present => contract.contract.IsMasterContractWithMatchingMasterContractNumberPresentInCrm = present));
         }
 
-        private bool IsIntentRequiringExistingContractNumberLookup(ContractRequest.intent intent)
+        private bool IsIntentRequiringExistingContractNumberLookup(ContractRequest.Intent intent)
         {
-            return intent == ContractRequest.intent.Amendment || intent == ContractRequest.intent.UpdateDraftAmendment || intent == ContractRequest.intent.RevisedNew;
+            return intent == ContractRequest.Intent.Amendment || intent == ContractRequest.Intent.UpdateDraftAmendment || intent == ContractRequest.Intent.RevisedNew;
         }
 
-        private bool IsIntentRequiringExistingMasterContractNumberLookup(ContractRequest.intent intent)
+        private bool IsIntentRequiringExistingMasterContractNumberLookup(ContractRequest.Intent intent)
         {
-            return intent == ContractRequest.intent.NewAmendment;
+            return intent == ContractRequest.Intent.NewAmendment;
         }
 
-        private bool IsIntentRequiringFtpFspLookup(ContractRequest.intent intent)
+        private bool IsIntentRequiringFtpFspLookup(ContractRequest.Intent intent)
         {
-            return intent == ContractRequest.intent.NewAmendment
-                   || intent == ContractRequest.intent.New
-                   || intent == ContractRequest.intent.RevisedNew
-                   || intent == ContractRequest.intent.UpdateDraft
-                   || intent == ContractRequest.intent.Amendment
-                   || intent == ContractRequest.intent.UpdateDraftAmendment;
+            return intent == ContractRequest.Intent.NewAmendment
+                   || intent == ContractRequest.Intent.New
+                   || intent == ContractRequest.Intent.RevisedNew
+                   || intent == ContractRequest.Intent.UpdateDraft
+                   || intent == ContractRequest.Intent.Amendment
+                   || intent == ContractRequest.Intent.UpdateDraftAmendment;
         }
 
         private FSCDeliverableStructureDefinitionResponse FscDeliverableStructureData(string fundingStreamPeriodCode)

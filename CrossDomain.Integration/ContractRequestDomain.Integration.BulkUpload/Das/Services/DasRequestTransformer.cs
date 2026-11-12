@@ -12,8 +12,7 @@
         private const string PeriodTypeName = "";
         private const decimal MaximumContractValue = 0.0m;
         private const string FundingStreamPeriodCode = "LEVY1799";
-        private const intent NewIntent = intent.New;
-        private const string ContractType = "Provider Agreement";
+            private const string ContractType = "Provider Agreement";
         private const int AmendmentType = 0;
         private const int VersionNumber = 1;
 
@@ -59,7 +58,7 @@
                 },
                 contractAllocations = new List<contractAllocation> { allocation },
                 contractVersionNumber = VersionNumber,
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = request.Ukprn
                 },
@@ -77,13 +76,13 @@
                 fundingTypeCode = request.FundingType,
                 contractAllocations = new List<contractAllocation>(),
                 contractVersionNumber = VersionNumber,
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = request.Ukprn
                 },
                 hierarchyType = 0,
                 startDate = request.StartDate.ToUniversalTime(),
-                CRMIntent = NewIntent,
+                CRMIntent = 0, // or the appropriate value/type for your context
                 amendmentType = AmendmentType,
                 correlationId = contract.correlationId,
                 period = null

@@ -4,6 +4,6 @@
 
     public interface ICorporateContractValidator
     {
-        string Validate(contract masterContract);
+        string Validate(Contract masterContract);
     }
 }

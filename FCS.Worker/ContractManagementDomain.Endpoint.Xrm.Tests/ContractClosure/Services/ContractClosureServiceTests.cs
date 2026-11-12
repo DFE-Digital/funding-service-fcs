@@ -245,15 +245,23 @@
                 }
             };
         }
-
         private static ExtendedContract GetCorporateContractFromResource()
         {
-            Mapper.CreateMap<contract, ExtendedContract>();
-            Mapper.CreateMap<contractType, ExtendedContractType>();
-            Mapper.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Contract, ExtendedContract>();
+                cfg.CreateMap<contractType, ExtendedContractType>();
+                cfg.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            },null);
 
-            contract contract = TestResource.FromXml<contract>("ContractManagementDomain.Endpoint.Xrm.Tests.Resources", "masterContract.xml");
-            return Mapper.Map<contract, ExtendedContract>(contract);
+            var mapper = configuration.CreateMapper();
+
+            Contract contract = TestResource.FromXml<Contract>(
+                "ContractManagementDomain.Endpoint.Xrm.Tests.Resources",
+                "masterContract.xml");
+
+            return mapper.Map<ExtendedContract>(contract);
         }
+
     }
 }

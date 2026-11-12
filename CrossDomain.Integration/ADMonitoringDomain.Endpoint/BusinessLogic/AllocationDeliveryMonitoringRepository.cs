@@ -1,10 +1,11 @@
 ﻿namespace ADMonitoringDomain.Endpoint.BusinessLogic
 {
+    extern alias Entities;
     using System.Data.SqlClient;
     using SFA.FCT.CrossDomain.Integration.Common.Extensions;
     using SFA.FCT.AllocationDelivery.DataStore;
     using SFA.FCT.AllocationDelivery.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
     using System;
@@ -12,7 +13,7 @@
     using DataStore;
     using DataStore.Model;
     using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class AllocationDeliveryMonitoringRepository : IAllocationDeliveryMonitoringRepository
     {

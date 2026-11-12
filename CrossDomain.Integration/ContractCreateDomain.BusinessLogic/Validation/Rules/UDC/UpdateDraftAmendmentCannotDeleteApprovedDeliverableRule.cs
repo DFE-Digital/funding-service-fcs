@@ -35,7 +35,7 @@
                     {
                         failures.AddRange(
                             a.contractDeliverables
-                            .Where(d => d.CRMIntent == intent.DeleteDraftAmendment || d.CRMIntent == intent.DeleteDraft)
+                            .Where(d => d.CRMIntent == Intent.DeleteDraftAmendment || d.CRMIntent == Intent.DeleteDraft)
                             .Where(d => approvedAllocation.DeliverableCodes.Any(dc => dc == d.deliverable.deliverableCode))
                             .Select(d => d.correlationId));
                     }

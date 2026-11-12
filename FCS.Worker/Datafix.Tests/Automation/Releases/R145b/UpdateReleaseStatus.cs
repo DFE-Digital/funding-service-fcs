@@ -29,7 +29,7 @@ namespace Datafix.Tests.Automation.Releases.R145b
             try
             {
                 // Set Release group to Released in PAAS and CRM
-                IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<ReleaseGroupSetToReleasedCommand>();
+                var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<ReleaseGroupSetToReleasedCommand>();
 
                 endpoint.Send("FundingAllocation.ReleaseGroupSetToReleased", new ReleaseGroupSetToReleasedCommand("RG100450")).Wait();
 

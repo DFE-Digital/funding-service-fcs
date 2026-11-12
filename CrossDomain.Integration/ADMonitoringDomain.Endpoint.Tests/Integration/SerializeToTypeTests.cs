@@ -1,12 +1,13 @@
 ﻿namespace ADMonitoringDomain.Endpoint.Tests.Integration
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using DataStore;
     using DataStore.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;    
-    using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
     using SFA.FCT.CrossDomain.Integration.Events;
 
     [TestClass]

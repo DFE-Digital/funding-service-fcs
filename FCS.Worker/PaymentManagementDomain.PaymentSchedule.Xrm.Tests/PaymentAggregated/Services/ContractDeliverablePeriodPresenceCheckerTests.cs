@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.PaymentAggregated.Services
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -8,9 +9,9 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.ContractCreateDomain.Implementation;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using SFA.FCT.PaymentManagementDomain.BusinessLogic.DTOs;
     using SFA.FCT.PaymentManagementDomain.BusinessLogic.Repositories;
     using SFA.FCT.PaymentManagementDomain.BusinessLogic.Services;
@@ -228,13 +229,21 @@
 
         private static ExtendedContract GetMasterContractFromResource()
         {
-            contract corporateContract = TestResource.FromXml<contract>("PaymentManagementDomain.PaymentSchedule.Xrm.Tests.Resources", "masterContract.xml");
+            Contract corporateContract =
+                TestResource.FromXml<Contract>(
+                    "PaymentManagementDomain.PaymentSchedule.Xrm.Tests.Resources",
+                    "masterContract.xml");
 
-            Mapper.CreateMap<contract, ExtendedContract>();
-            Mapper.CreateMap<contractType, ExtendedContractType>();
-            Mapper.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Contract, ExtendedContract>();
+                cfg.CreateMap<contractType, ExtendedContractType>();
+                cfg.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            },null);
 
-            return Mapper.Map<contract, ExtendedContract>(corporateContract);
+            IMapper mapper = config.CreateMapper();
+
+            return mapper.Map<ExtendedContract>(corporateContract);
         }
 
         private static void CreateContract(ExtendedContractType masterContract)

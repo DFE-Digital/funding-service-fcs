@@ -27,7 +27,7 @@
             var paymentAggregatedEvents = GetPaymentAggregatedEventsFromJson(
                 "Datafix.Tests", "Resources.R94e.PaymentAggregatedEventsEsf56.json");
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentAggregatedEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentAggregatedEvent>();
 
             paymentAggregatedEvents.ToList().ForEach(paymentAggregatedEvent =>
             {

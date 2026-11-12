@@ -1,12 +1,14 @@
 ﻿namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Repositories
 {
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
+    using Azure;
+    using Azure.Data.Tables;
     using CrossDomain.Integration.Common.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
+    //using Microsoft.WindowsAzure.Storage.Table;
     using MoreLinq;
     using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public static class CfsStubRepository
     {
@@ -15,21 +17,21 @@
 
         static CfsStubRepository()
         {
-            EnvironmentSuffixedTableName = $"{UnsuffixedTableName}{ConfigurationManager.AppSettings["StorageTableSuffix"]}";
+            EnvironmentSuffixedTableName = $"{UnsuffixedTableName}{TestConfiguration.Configuration["StorageTableSuffix"]}";
 
-            AzureTableStore azureTableStore = new AzureTableStore();
+            AzureTableStore azureTableStore = new AzureTableStore(StorageConnectionStringProvider.Get());
             azureTableStore.CreateTableIfNotExists(EnvironmentSuffixedTableName);
         }
 
         public static void RemoveAll()
         {
-            AzureTableStore azureTableStore = new AzureTableStore();
+            AzureTableStore azureTableStore = new AzureTableStore(StorageConnectionStringProvider.Get());
             azureTableStore.DeleteAllRows<CfsStubEntity>(EnvironmentSuffixedTableName);
         }
 
         public static void AddRange(IEnumerable<DTO.Cfs.FundingAllocation> allocations)
         {
-            AzureTableStore azureTableStore = new AzureTableStore();
+            AzureTableStore azureTableStore = new AzureTableStore(StorageConnectionStringProvider.Get());
 
             allocations
                 .Select((a, i) =>
@@ -40,9 +42,16 @@
                 .ForEach(se => azureTableStore.CreateRow(EnvironmentSuffixedTableName, se));
         }
 
-        private class CfsStubEntity : TableEntity
+        private class CfsStubEntity : ITableEntity
         {
             public string SerializedAllocation { get; set; }
+            public string PartitionKey { get; set; }
+
+            public string RowKey { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag { get; set; }
 
             public static CfsStubEntity Create(DTO.Cfs.FundingAllocation allocation)
             {

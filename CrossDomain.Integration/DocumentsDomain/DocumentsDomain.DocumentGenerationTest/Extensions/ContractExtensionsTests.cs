@@ -20,9 +20,9 @@
         public void ContractExtensions_ShouldGetProviderName()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     legalName = "Xx"
                 }
@@ -39,9 +39,9 @@
         public void ContractExtensions_GetSharedMasterContractTableInfos_ShouldCorrectNumberOfSharedContracts()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
-                period = new period
+                period = new Period
                 {
                     period1 = "2016"
                 },
@@ -81,9 +81,9 @@
             const string fsp2 = "some other";
             const string allocationNumber1 = "1";
             const string allocationNumber2 = "2";
-            contract contract = new contract
+            Contract contract = new Contract
             {
-                period = new period
+                period = new Period
                 {
                     period1 = "2016"
                 },
@@ -137,7 +137,7 @@
         public void ContractExtensions_GetSharedMasterContractTableInfos_ShouldGetOfWhichDeliverableLines()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 SharedMasterApprovedContracts = new List<ApprovedContractInfo>
                 {
@@ -224,7 +224,7 @@
         public void ContractExtensions_GetSharedMasterContractsTotal_ShouldReturnCorrectValue_WhenThereAreOtherContracts()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 SharedMasterApprovedContracts = new List<ApprovedContractInfo>
                 {
@@ -262,7 +262,7 @@
         public void ContractExtensions_GetSharedMasterContractsTotal_ShouldReturnCorrectValue_WhenThereAreNoOtherContracts()
         {
             // arrange
-            contract contract = new contract();
+            Contract contract = new Contract();
           
             // act
             decimal total = contract.GetSharedMasterContractsTotal();
@@ -275,9 +275,9 @@
         public void ContractExtensions_GetAebFinancialEnvelopePeriod1_ShouldReturnNovForAY1718()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType
                     {
@@ -298,9 +298,9 @@
         public void ContractExtensions_GetAebFinancialEnvelopePeriod1_ShouldReturnAugForAY1819()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType
                     {
@@ -321,9 +321,9 @@
         public void ContractExtensions_GetAebFinancialPeriod_ShouldReturnAugForAY1819()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType
                     {
@@ -344,9 +344,9 @@
         public void ContractExtensions_GetAebFinancialPeriod_ShouldReturnNovForAY1819()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType
                     {

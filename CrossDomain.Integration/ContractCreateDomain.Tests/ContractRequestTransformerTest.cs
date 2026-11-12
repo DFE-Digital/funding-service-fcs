@@ -137,7 +137,7 @@
             ContractRequestTransformer transformer = new ContractRequestTransformer();
 
             // act
-            contract corpContract = transformer.TransformToCorpContract(extendedContract);
+            Contract corpContract = transformer.TransformToCorpContract(extendedContract);
 
             // assert
             Assert.IsTrue(corpContract.contracts.Count == extendedContract.contracts.Count);
@@ -251,7 +251,7 @@
                             new ExtendedContractAllocation
                             {
                                 DeliveryOrganisation = deliveryOrganisationName,
-                                DeliveryOrganisationDetail = new contractor
+                                DeliveryOrganisationDetail = new Contractor
                                 {
                                     ukprn = ukprn,
                                     legalName = legalName,
@@ -277,8 +277,8 @@
             };
 
             // act
-            contract transformed = transformer.TransformToCorpContract(contract);
-            contractor orgContractor = transformed.contracts[0].contractAllocations[0].DeliveryOrganisationDetail;
+            Contract transformed = transformer.TransformToCorpContract(contract);
+            Contractor orgContractor = transformed.contracts[0].contractAllocations[0].DeliveryOrganisationDetail;
 
             // assert
             Assert.AreEqual(deliveryOrganisationName, transformed.contracts[0].contractAllocations[0].DeliveryOrganisation);
@@ -396,9 +396,9 @@
             }
         }
 
-        private ContractRequest.contractor GetDeliveryOrganisationDetail(string deliveryOrgUkprn)
+        private ContractRequest.Contractor GetDeliveryOrganisationDetail(string deliveryOrgUkprn)
         {
-            return new ContractRequest.contractor
+            return new ContractRequest.Contractor
             {
                 ukprn = int.Parse(deliveryOrgUkprn),
                 Upin = "DELORG",
@@ -410,7 +410,7 @@
             };
         }
 
-        private static void AssertContractorsAreEqual(ContractRequest.contractor expected, contractor actual)
+        private static void AssertContractorsAreEqual(ContractRequest.Contractor expected,Contractor actual)
         {
             if (expected != null)
             {

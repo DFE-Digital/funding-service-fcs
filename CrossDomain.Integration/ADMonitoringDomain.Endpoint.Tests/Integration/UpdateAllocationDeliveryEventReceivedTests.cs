@@ -1,5 +1,6 @@
 namespace ADMonitoringDomain.Endpoint.Tests.Integration
 {
+    extern alias Entities;
     using System.Data.Entity;
     using System.Linq;
     using BusinessLogic;
@@ -16,13 +17,13 @@ namespace ADMonitoringDomain.Endpoint.Tests.Integration
     using SFA.FCT.CrossDomain.Integration.Common;
     using SFA.FCT.CrossDomain.Integration.Common.SchemaValidator;
     using SFA.FCT.CrossDomain.Integration.Common.Serializers;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore;
     using SFA.FCT.Framework.Logging.NullObjects;
     using PaymentGenerationDomain.Integration.DataStore.Repositories;
     using ADMonitoringDomain.Endpoint.Repositories;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class UpdateAllocationDeliveryEventReceivedTests

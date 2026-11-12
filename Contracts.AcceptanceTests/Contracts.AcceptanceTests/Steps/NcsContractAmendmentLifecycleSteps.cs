@@ -14,6 +14,7 @@
     using PaymentManagementDomain.PaymentSchedule.DataStore.Model;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding, Scope(Feature = "NCSContractAmendmentLifecycle 17531")]
     public class NcsContractAmendmentLifecycleSteps
@@ -40,7 +41,7 @@
         public void WhenIRetrieveTheLatestContractDetailsFromCRMForProviderForFundingTypeAndPeriod(int ukprn, string fundingType, int period)
         {
             sfa_contract contract = _contractRepositoryPageObject.RetrieveLatestContractDataAndSetState(ukprn.ToString(), fundingType, period.ToString());
-            Assert.IsTrue(contract != null, $"There is no contract in CRM for UKPRN {ukprn} with FundingType {fundingType} and period {period}");
+            ClassicAssert.IsTrue(contract != null, $"There is no contract in CRM for UKPRN {ukprn} with FundingType {fundingType} and period {period}");
         }
 
         [Then(@"the Allocation Delivery Monitoring Service atom feed contains the following Allocation Delivery Performance events")]
@@ -61,7 +62,7 @@
 
             bool allEventsFound = resultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(allEventsFound, "Not all expected allocation delivery performance events are in retrieved atom feed");
+            ClassicAssert.IsTrue(allEventsFound, "Not all expected allocation delivery performance events are in retrieved atom feed");
         }
 
         [Given(@"the following closed collections are available in DCFS")]
@@ -118,15 +119,15 @@
 
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.AreEqual(stepDeliverablePayment.PeriodTypeCode, paasDeliverablePayment.PeriodTypeCode, "PeriodTypeCode was not equal to expected value." + context);
-                Assert.AreEqual(stepDeliverablePayment.PlannedVolume, paasDeliverablePayment.PlannedVolume, "PlannedVolume was not equal to expected value." + context);
-                Assert.AreEqual(stepDeliverablePayment.PlannedValue, paasDeliverablePayment.PlannedValue, "PlannedValue was not equal to expected value." + context);
-                Assert.AreEqual(stepDeliverablePayment.ProfilePaymentAmount, paasDeliverablePayment.ProfilePaymentAmount, "ProfilePaymentAmount was not equal to expected value." + context);
-                Assert.AreEqual(stepDeliverablePayment.CappedPaymentAmount, paasDeliverablePayment.CappedPaymentAmount, "CappedPaymentAmount was not equal to expected value." + context);
-                Assert.AreEqual(stepDeliverablePayment.BalancingPaymentAmount, paasDeliverablePayment.BalancingPaymentAmount, "BalancingPaymentAmount was not equal to expected value." + context);
-                Assert.AreEqual(stepDeliverablePayment.ReconciliationPaymentAmount, paasDeliverablePayment.ReconciliationPaymentAmount, "ReconciliationPaymentAmount was not equal to expected value." + context);
-                Assert.AreEqual(stepDeliverablePayment.NetPaymentAmount, paasDeliverablePayment.NetPaymentAmount, "NetPaymentAmount was not equal to expected value." + context);
-                Assert.AreEqual(stepDeliverablePayment.ActualValue, paasDeliverablePayment.ActualValue, "ActualValue was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.PeriodTypeCode, paasDeliverablePayment.PeriodTypeCode, "PeriodTypeCode was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.PlannedVolume, paasDeliverablePayment.PlannedVolume, "PlannedVolume was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.PlannedValue, paasDeliverablePayment.PlannedValue, "PlannedValue was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.ProfilePaymentAmount, paasDeliverablePayment.ProfilePaymentAmount, "ProfilePaymentAmount was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.CappedPaymentAmount, paasDeliverablePayment.CappedPaymentAmount, "CappedPaymentAmount was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.BalancingPaymentAmount, paasDeliverablePayment.BalancingPaymentAmount, "BalancingPaymentAmount was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.ReconciliationPaymentAmount, paasDeliverablePayment.ReconciliationPaymentAmount, "ReconciliationPaymentAmount was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.NetPaymentAmount, paasDeliverablePayment.NetPaymentAmount, "NetPaymentAmount was not equal to expected value." + context);
+                ClassicAssert.AreEqual(stepDeliverablePayment.ActualValue, paasDeliverablePayment.ActualValue, "ActualValue was not equal to expected value." + context);
             }
         }
 

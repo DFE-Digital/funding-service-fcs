@@ -25,332 +25,540 @@
     [TestClass]
     public class ApproveContractTerminationInitiationHandlerTests
     {
-        [TestMethod, TestCategory("UnitTest")]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void ApproveContractTerminationInitiationHandler_ShouldOnlySetServiceResponseIfAtomItemCreationResultIsAddedOrAlreadyPresent()
         {
             // arrange
-            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock =
+                new Mock<ISessionConnectionFactory>();
+
+            sessionConnectionFactoryMock
+                .Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
-            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            _ = terminateContractFeedServiceMock.SetupSequence(m => m.UpdateContractAndAddToFeed(
-                    It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
-                    It.IsAny<Action<contract>>(), It.IsAny<string>(),
-                    It.IsAny<AtomItemType>()))
-                .Returns(new UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult.Added, new contract()))
-                .Returns(new UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult.AlreadyPresentWithSameFeedItemId, new contract()))
-                .Returns(new UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult.AlreadyPresent, new contract()));
+            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock =
+                new Mock<ITerminateContractFeedService>();
 
-            TestableMessageHandlerContext testableMessageHandlerContext = new TestableMessageHandlerContext();
+            terminateContractFeedServiceMock
+                .SetupSequence(m => m.UpdateContractAndAddToFeed(
+                    It.IsAny<ConnectionInfo>(),
+                    It.IsAny<ContractIdentifier>(),
+                    It.IsAny<Action<Contract>>(),
+                    It.IsAny<string>(),
+                    It.IsAny<AtomItemType>()))
+                .Returns(new UpdateSubStatusAndAddContractToFeedResult(
+                    AtomItemCreationResult.Added,
+                    new Contract()))
+                .Returns(new UpdateSubStatusAndAddContractToFeedResult(
+                    AtomItemCreationResult.AlreadyPresentWithSameFeedItemId,
+                    new Contract()))
+                .Returns(new UpdateSubStatusAndAddContractToFeedResult(
+                    AtomItemCreationResult.AlreadyPresent,
+                    new Contract()));
+
+            var sentMessages = new List<object>();
+            var publishedMessages = new List<object>();
+
+            var contextMock =
+                CreateContextMock(sentMessages, publishedMessages);
 
             var handler = new ApproveContractTerminationInitiationHandler(
                 Mock.Of<ILogger>(),
                 sessionConnectionFactoryMock.Object,
                 terminateContractFeedServiceMock.Object);
 
-            ApproveContractTerminationInitiationCommand command = new ApproveContractTerminationInitiationCommand
-            {
-                ContractNumber = "ABC-1223",
-                VersionNumber = 1,
-                SubVersionNumber = 0
-            }; 
+            ApproveContractTerminationInitiationCommand command =
+                new ApproveContractTerminationInitiationCommand
+                {
+                    ContractNumber = "ABC-1223",
+                    VersionNumber = 1,
+                    SubVersionNumber = 0
+                };
 
             // act
-            handler.Handle(command, testableMessageHandlerContext).Wait();
-            handler.Handle(command, testableMessageHandlerContext).Wait();
-            handler.Handle(command, testableMessageHandlerContext).Wait();
+            handler.Handle(command, contextMock.Object).Wait();
+            handler.Handle(command, contextMock.Object).Wait();
+            handler.Handle(command, contextMock.Object).Wait();
 
             // assert
-            Assert.AreEqual(4, testableMessageHandlerContext.SentMessages.Length, "The wrong number of messages were sent");
+            Assert.AreEqual(
+                4,
+                sentMessages.Count,
+                "The wrong number of messages were sent");
 
-            var sentMessages = testableMessageHandlerContext.SentMessages;
-
-            Assert.IsTrue(sentMessages[0].Message is SetContractTerminationToCompleteInCrmCommand,
+            Assert.IsTrue(
+                sentMessages[0] is SetContractTerminationToCompleteInCrmCommand,
                 "1st SetContractTerminationToCompleteInCrmCommand sent message was expected");
-            Assert.IsTrue(sentMessages[1].Message is ReleaseQueuedFundingAllocationsForContractsCommand,
+
+            Assert.IsTrue(
+                sentMessages[1] is ReleaseQueuedFundingAllocationsForContractsCommand,
                 "1st ReleaseQueuedFundingAllocationsForContractsCommand sent message was expected");
-            Assert.IsTrue(sentMessages[2].Message is SetContractTerminationToCompleteInCrmCommand,
+
+            Assert.IsTrue(
+                sentMessages[2] is SetContractTerminationToCompleteInCrmCommand,
                 "2nd SetContractTerminationToCompleteInCrmCommand sent message was expected");
-            Assert.IsTrue(sentMessages[3].Message is ReleaseQueuedFundingAllocationsForContractsCommand,
+
+            Assert.IsTrue(
+                sentMessages[3] is ReleaseQueuedFundingAllocationsForContractsCommand,
                 "2nd ReleaseQueuedFundingAllocationsForContractsCommand sent message was expected");
         }
 
-        [TestMethod, TestCategory("UnitTest")]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void ApproveContractTerminationInitiationHandler_ShouldPublishOneContractPlacedUnderTerminationForApproveInitiationEvent()
         {
             // arrange
-            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock =
+                new Mock<ISessionConnectionFactory>();
+
+            sessionConnectionFactoryMock
+                .Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
-            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
-                    It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
-                    It.IsAny<Action<contract>>(), It.IsAny<string>(),
+            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock =
+                new Mock<ITerminateContractFeedService>();
+
+            terminateContractFeedServiceMock
+                .Setup(m => m.UpdateContractAndAddToFeed(
+                    It.IsAny<ConnectionInfo>(),
+                    It.IsAny<ContractIdentifier>(),
+                    It.IsAny<Action<Contract>>(),
+                    It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
-                .Returns(new UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult.Added, new contract()));
+                .Returns(
+                    new UpdateSubStatusAndAddContractToFeedResult(
+                        AtomItemCreationResult.Added,
+                        new Contract()));
 
             var handler = new ApproveContractTerminationInitiationHandler(
                 Mock.Of<ILogger>(),
                 sessionConnectionFactoryMock.Object,
                 terminateContractFeedServiceMock.Object);
 
-            ApproveContractTerminationInitiationCommand command = new ApproveContractTerminationInitiationCommand
-            {
-                ContractNumber = "ABC-1223",
-                VersionNumber = 1,
-                SubVersionNumber = 0
-            };
+            ApproveContractTerminationInitiationCommand command =
+                new ApproveContractTerminationInitiationCommand
+                {
+                    ContractNumber = "ABC-1223",
+                    VersionNumber = 1,
+                    SubVersionNumber = 0
+                };
 
-            var testableContext = new TestableMessageHandlerContext();
+            var sentMessages = new List<object>();
+            var publishedMessages = new List<object>();
+
+            var contextMock =
+                CreateContextMock(sentMessages, publishedMessages);
 
             // act
-            handler.Handle(command, testableContext).Wait();
+            handler.Handle(command, contextMock.Object).Wait();
 
             // assert
-            Assert.AreEqual(1, testableContext.PublishedMessages.Length, "Incorrect number of published events");
+            Assert.AreEqual(
+                1,
+                publishedMessages.Count,
+                "Incorrect number of published events");
 
-            var publishedEvent = testableContext.PublishedMessages[0].Message;
-            Assert.IsInstanceOfType(publishedEvent, typeof(ContractPlacedUnderTerminationForApproveInitiationEvent), 
+            Assert.IsInstanceOfType(
+                publishedMessages[0],
+                typeof(ContractPlacedUnderTerminationForApproveInitiationEvent),
                 "ContractPlacedUnderTerminationForApproveInitiationEvent was not published");
         }
 
-        [TestMethod, TestCategory("UnitTest")]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void ApproveContractTerminationInitiationHandler_ShouldNotPublishContractPlacedUnderTerminationForApproveInitiationEvent()
         {
             // arrange
-            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock =
+                new Mock<ISessionConnectionFactory>();
+
+            sessionConnectionFactoryMock
+                .Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
-            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
-                    It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
-                    It.IsAny<Action<contract>>(), It.IsAny<string>(),
-                    It.IsAny<AtomItemType>()))
-                .Returns(new UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult.AlreadyPresentWithSameFeedItemId, corporateContract: null));
+            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock =
+                new Mock<ITerminateContractFeedService>();
 
-            // Act
+            terminateContractFeedServiceMock
+                .Setup(m => m.UpdateContractAndAddToFeed(
+                    It.IsAny<ConnectionInfo>(),
+                    It.IsAny<ContractIdentifier>(),
+                    It.IsAny<Action<Contract>>(),
+                    It.IsAny<string>(),
+                    It.IsAny<AtomItemType>()))
+                .Returns(
+                    new UpdateSubStatusAndAddContractToFeedResult(
+                        AtomItemCreationResult.AlreadyPresentWithSameFeedItemId,
+                        corporateContract: null));
+
             var handler = new ApproveContractTerminationInitiationHandler(
                 Mock.Of<ILogger>(),
                 sessionConnectionFactoryMock.Object,
                 terminateContractFeedServiceMock.Object);
 
-            ApproveContractTerminationInitiationCommand command = new ApproveContractTerminationInitiationCommand
-            {
-                ContractNumber = "ABC-1223",
-                VersionNumber = 1,
-                SubVersionNumber = 0
-            };
+            ApproveContractTerminationInitiationCommand command =
+                new ApproveContractTerminationInitiationCommand
+                {
+                    ContractNumber = "ABC-1223",
+                    VersionNumber = 1,
+                    SubVersionNumber = 0
+                };
 
-            var testableContext = new TestableMessageHandlerContext();
+            var sentMessages = new List<object>();
+            var publishedMessages = new List<object>();
+
+            var contextMock =
+                CreateContextMock(sentMessages, publishedMessages);
 
             // act
-            handler.Handle(command, testableContext).Wait();
+            handler.Handle(command, contextMock.Object).Wait();
 
             // assert
-            Assert.AreEqual(0, testableContext.PublishedMessages.Length, "No events should have been published");
+            Assert.AreEqual(
+                0,
+                publishedMessages.Count,
+                "No events should have been published");
         }
 
-        [TestMethod, TestCategory("UnitTest")]
+
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void ApproveContractTerminationInitiationHandler_ShouldPublishAnEventWithAllTerminationAllocationsWhenAllTerminatinoDatesHaveADate()
         {
             // arrange
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
+        {
+            new Contract
+            {
+                contractAllocations = new List<contractAllocationsContractAllocation>
                 {
-                    new contract
+                    new contractAllocationsContractAllocation
                     {
-                        contractAllocations = new List<contractAllocationsContractAllocation>
-                        {
-                            new contractAllocationsContractAllocation { FundingCessationDate = DateTime.Now.Date },
-                            new contractAllocationsContractAllocation { FundingCessationDate = DateTime.Now.Date },
-                            new contractAllocationsContractAllocation { FundingCessationDate = DateTime.Now.Date }
-                        }
+                        FundingCessationDate = DateTime.Now.Date
+                    },
+                    new contractAllocationsContractAllocation
+                    {
+                        FundingCessationDate = DateTime.Now.Date
+                    },
+                    new contractAllocationsContractAllocation
+                    {
+                        FundingCessationDate = DateTime.Now.Date
                     }
                 }
+            }
+        }
             };
 
-            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock =
+                new Mock<ISessionConnectionFactory>();
+
+            sessionConnectionFactoryMock
+                .Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
-            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
-                    It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
-                    It.IsAny<Action<contract>>(), It.IsAny<string>(),
-                    It.IsAny<AtomItemType>()))
-                .Returns(new UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult.Added, corporateContract));
+            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock =
+                new Mock<ITerminateContractFeedService>();
 
-            // Act
+            terminateContractFeedServiceMock
+                .Setup(m => m.UpdateContractAndAddToFeed(
+                    It.IsAny<ConnectionInfo>(),
+                    It.IsAny<ContractIdentifier>(),
+                    It.IsAny<Action<Contract>>(),
+                    It.IsAny<string>(),
+                    It.IsAny<AtomItemType>()))
+                .Returns(
+                    new UpdateSubStatusAndAddContractToFeedResult(
+                        AtomItemCreationResult.Added,
+                        corporateContract));
+
             var handler = new ApproveContractTerminationInitiationHandler(
                 Mock.Of<ILogger>(),
                 sessionConnectionFactoryMock.Object,
                 terminateContractFeedServiceMock.Object);
 
-            ApproveContractTerminationInitiationCommand command = new ApproveContractTerminationInitiationCommand
-            {
-                ContractNumber = "ABC-1223",
-                VersionNumber = 1,
-                SubVersionNumber = 0
-            };
+            ApproveContractTerminationInitiationCommand command =
+                new ApproveContractTerminationInitiationCommand
+                {
+                    ContractNumber = "ABC-1223",
+                    VersionNumber = 1,
+                    SubVersionNumber = 0
+                };
 
-            var testableContext = new TestableMessageHandlerContext();
+            var sentMessages = new List<object>();
+            var publishedMessages = new List<object>();
+
+            var contextMock =
+                CreateContextMock(sentMessages, publishedMessages);
 
             // act
-            handler.Handle(command, testableContext).Wait();
+            handler.Handle(command, contextMock.Object).Wait();
 
             // assert
-            Assert.AreEqual(1, testableContext.PublishedMessages.Length, "Incorrect number of published events");
+            Assert.AreEqual(
+                1,
+                publishedMessages.Count,
+                "Incorrect number of published events");
 
-            var publishedEvent = testableContext.PublishedMessages[0].Message;
-            Assert.IsInstanceOfType(publishedEvent, typeof(ContractPlacedUnderTerminationForApproveInitiationEvent),
+            Assert.IsInstanceOfType(
+                publishedMessages[0],
+                typeof(ContractPlacedUnderTerminationForApproveInitiationEvent),
                 "ContractPlacedUnderTerminationForApproveInitiationEvent was not published");
 
-            var contractPlacedUnderTerminationForApproveInitiationEvent = testableContext.PublishedMessages[0].Message 
-                as ContractPlacedUnderTerminationForApproveInitiationEvent;
-            Assert.AreEqual(3, contractPlacedUnderTerminationForApproveInitiationEvent.TerminationAllocations.Count, 
+            var contractPlacedUnderTerminationForApproveInitiationEvent =
+                (ContractPlacedUnderTerminationForApproveInitiationEvent)
+                    publishedMessages[0];
+
+            Assert.AreEqual(
+                3,
+                contractPlacedUnderTerminationForApproveInitiationEvent.TerminationAllocations.Count,
                 "Incorrect number of termination allocations in the raised event");
         }
 
-        [TestMethod, TestCategory("UnitTest")]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void ApproveContractTerminationInitiationHandler_ShouldPublishAnEventWithSomeTerminationAllocationsWhenOnlySomeTerminatinoDatesHaveADate()
         {
             // arrange
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
+        {
+            new Contract
+            {
+                contractAllocations = new List<contractAllocationsContractAllocation>
                 {
-                    new contract
+                    new contractAllocationsContractAllocation
                     {
-                        contractAllocations = new List<contractAllocationsContractAllocation>
-                        {
-                            new contractAllocationsContractAllocation { FundingCessationDate = DateTime.Now.Date },
-                            new contractAllocationsContractAllocation { FundingCessationDate = null },
-                            new contractAllocationsContractAllocation { FundingCessationDate = null }
-                        }
+                        FundingCessationDate = DateTime.Now.Date
+                    },
+                    new contractAllocationsContractAllocation
+                    {
+                        FundingCessationDate = null
+                    },
+                    new contractAllocationsContractAllocation
+                    {
+                        FundingCessationDate = null
                     }
                 }
+            }
+        }
             };
 
-            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock =
+                new Mock<ISessionConnectionFactory>();
+
+            sessionConnectionFactoryMock
+                .Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
-            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
-                    It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
-                    It.IsAny<Action<contract>>(), It.IsAny<string>(),
+            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock =
+                new Mock<ITerminateContractFeedService>();
+
+            terminateContractFeedServiceMock
+                .Setup(m => m.UpdateContractAndAddToFeed(
+                    It.IsAny<ConnectionInfo>(),
+                    It.IsAny<ContractIdentifier>(),
+                    It.IsAny<Action<Contract>>(),
+                    It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
-                .Returns(new UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult.Added, corporateContract));
+                .Returns(
+                    new UpdateSubStatusAndAddContractToFeedResult(
+                        AtomItemCreationResult.Added,
+                        corporateContract));
 
             var handler = new ApproveContractTerminationInitiationHandler(
                 Mock.Of<ILogger>(),
                 sessionConnectionFactoryMock.Object,
                 terminateContractFeedServiceMock.Object);
 
-            ApproveContractTerminationInitiationCommand command = new ApproveContractTerminationInitiationCommand
-            {
-                ContractNumber = "ABC-1223",
-                VersionNumber = 1,
-                SubVersionNumber = 0
-            };
+            ApproveContractTerminationInitiationCommand command =
+                new ApproveContractTerminationInitiationCommand
+                {
+                    ContractNumber = "ABC-1223",
+                    VersionNumber = 1,
+                    SubVersionNumber = 0
+                };
 
-            var testableContext = new TestableMessageHandlerContext();
+            var sentMessages = new List<object>();
+            var publishedMessages = new List<object>();
+
+            var contextMock =
+                CreateContextMock(sentMessages, publishedMessages);
 
             // act
-            handler.Handle(command, testableContext).Wait();
+            handler.Handle(command, contextMock.Object).Wait();
 
             // assert
-            Assert.AreEqual(1, testableContext.PublishedMessages.Length, "Incorrect number of published events");
+            Assert.AreEqual(
+                1,
+                publishedMessages.Count,
+                "Incorrect number of published events");
 
-            var publishedEvent = testableContext.PublishedMessages[0].Message;
-            Assert.IsInstanceOfType(publishedEvent, typeof(ContractPlacedUnderTerminationForApproveInitiationEvent),
+            Assert.IsInstanceOfType(
+                publishedMessages[0],
+                typeof(ContractPlacedUnderTerminationForApproveInitiationEvent),
                 "ContractPlacedUnderTerminationForApproveInitiationEvent was not published");
 
-            var contractPlacedUnderTerminationForApproveInitiationEvent = testableContext.PublishedMessages[0].Message 
-                as ContractPlacedUnderTerminationForApproveInitiationEvent;
-            Assert.AreEqual(1, contractPlacedUnderTerminationForApproveInitiationEvent.TerminationAllocations.Count, 
+            var contractPlacedUnderTerminationForApproveInitiationEvent =
+                (ContractPlacedUnderTerminationForApproveInitiationEvent)
+                    publishedMessages[0];
+
+            Assert.AreEqual(
+                1,
+                contractPlacedUnderTerminationForApproveInitiationEvent.TerminationAllocations.Count,
                 "Incorrect number of termination allocations in the raised event");
         }
 
-        [TestMethod, TestCategory("UnitTest")]
+
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void ApproveContractTerminationInitiationHandler_ShouldPublishAnEventWithWithNoTerminationAllocationsWhenAllTerminatinoDatesAreNull()
         {
             // arrange
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
+        {
+            new Contract
+            {
+                contractAllocations = new List<contractAllocationsContractAllocation>
                 {
-                    new contract
+                    new contractAllocationsContractAllocation
                     {
-                        contractAllocations = new List<contractAllocationsContractAllocation>
-                        {
-                            new contractAllocationsContractAllocation { FundingCessationDate = null },
-                            new contractAllocationsContractAllocation { FundingCessationDate = null },
-                            new contractAllocationsContractAllocation { FundingCessationDate = null }
-                        }
+                        FundingCessationDate = null
+                    },
+                    new contractAllocationsContractAllocation
+                    {
+                        FundingCessationDate = null
+                    },
+                    new contractAllocationsContractAllocation
+                    {
+                        FundingCessationDate = null
                     }
                 }
+            }
+        }
             };
 
-            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            Mock<ISessionConnectionFactory> sessionConnectionFactoryMock =
+                new Mock<ISessionConnectionFactory>();
+
+            sessionConnectionFactoryMock
+                .Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
-            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
-                    It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
-                    It.IsAny<Action<contract>>(), It.IsAny<string>(),
+            Mock<ITerminateContractFeedService> terminateContractFeedServiceMock =
+                new Mock<ITerminateContractFeedService>();
+
+            terminateContractFeedServiceMock
+                .Setup(m => m.UpdateContractAndAddToFeed(
+                    It.IsAny<ConnectionInfo>(),
+                    It.IsAny<ContractIdentifier>(),
+                    It.IsAny<Action<Contract>>(),
+                    It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
-                .Returns(new UpdateSubStatusAndAddContractToFeedResult(AtomItemCreationResult.Added, corporateContract));
+                .Returns(
+                    new UpdateSubStatusAndAddContractToFeedResult(
+                        AtomItemCreationResult.Added,
+                        corporateContract));
 
             var handler = new ApproveContractTerminationInitiationHandler(
                 Mock.Of<ILogger>(),
                 sessionConnectionFactoryMock.Object,
                 terminateContractFeedServiceMock.Object);
 
-            ApproveContractTerminationInitiationCommand command = new ApproveContractTerminationInitiationCommand
-            {
-                ContractNumber = "ABC-1223",
-                VersionNumber = 1,
-                SubVersionNumber = 0
-            };
+            ApproveContractTerminationInitiationCommand command =
+                new ApproveContractTerminationInitiationCommand
+                {
+                    ContractNumber = "ABC-1223",
+                    VersionNumber = 1,
+                    SubVersionNumber = 0
+                };
 
-            var testableContext = new TestableMessageHandlerContext();
+            var sentMessages = new List<object>();
+            var publishedMessages = new List<object>();
+
+            var contextMock =
+                CreateContextMock(sentMessages, publishedMessages);
 
             // act
-            handler.Handle(command, testableContext).Wait();
+            handler.Handle(command, contextMock.Object).Wait();
 
             // assert
-            Assert.AreEqual(1, testableContext.PublishedMessages.Length, "Incorrect number of published events");
+            Assert.AreEqual(
+                1,
+                publishedMessages.Count,
+                "Incorrect number of published events");
 
-            var publishedEvent = testableContext.PublishedMessages[0].Message;
-            Assert.IsInstanceOfType(publishedEvent, typeof(ContractPlacedUnderTerminationForApproveInitiationEvent),
+            Assert.IsInstanceOfType(
+                publishedMessages[0],
+                typeof(ContractPlacedUnderTerminationForApproveInitiationEvent),
                 "ContractPlacedUnderTerminationForApproveInitiationEvent was not published");
 
-            var contractPlacedUnderTerminationForApproveInitiationEvent = testableContext.PublishedMessages[0].Message 
-                as ContractPlacedUnderTerminationForApproveInitiationEvent;
-            Assert.AreEqual(0, contractPlacedUnderTerminationForApproveInitiationEvent.TerminationAllocations.Count, 
+            var contractPlacedUnderTerminationForApproveInitiationEvent =
+                (ContractPlacedUnderTerminationForApproveInitiationEvent)
+                    publishedMessages[0];
+
+            Assert.AreEqual(
+                0,
+                contractPlacedUnderTerminationForApproveInitiationEvent.TerminationAllocations.Count,
                 "Incorrect number of termination allocations in the raised event");
         }
+
 
         [TestMethod, TestCategory("UnitTest")]
         public void ApproveContractTerminationInitiationHandler_ShouldResolve()
         {
             var container = new WindsorContainer().Install(new WindsorInstaller(new LoggerFactory()));
-            _ = container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
-            _ = container.Register(Component.For<IHandleMessages<ApproveContractTerminationInitiationCommand>>()
+            container.Register(Component.For<IHandleMessages<ApproveContractTerminationInitiationCommand>>()
                 .ImplementedBy<ApproveContractTerminationInitiationHandler>().LifestyleScoped());
 
-            _ = container.BeginScope();
+            container.BeginScope();
 
             var handler = container.Resolve<IHandleMessages<ApproveContractTerminationInitiationCommand>>();
 
             Assert.IsNotNull(handler,
                 "Handler did not resolve");
         }
+
+
+        private static Mock<IMessageHandlerContext> CreateContextMock(
+            List<object> sentMessages,
+            List<object> publishedMessages)
+        {
+            var contextMock = new Mock<IMessageHandlerContext>();
+
+            contextMock
+                .Setup(x => x.Send(
+                    It.IsAny<object>(),
+                    It.IsAny<SendOptions>()))
+                .Callback<object, SendOptions>((message, options) =>
+                {
+                    sentMessages.Add(message);
+                })
+                .Returns(Task.CompletedTask);
+
+            contextMock
+                .Setup(x => x.Publish(
+                    It.IsAny<object>(),
+                    It.IsAny<PublishOptions>()))
+                .Callback<object, PublishOptions>((message, options) =>
+                {
+                    publishedMessages.Add(message);
+                })
+                .Returns(Task.CompletedTask);
+
+            return contextMock;
+        }
+
     }
 }

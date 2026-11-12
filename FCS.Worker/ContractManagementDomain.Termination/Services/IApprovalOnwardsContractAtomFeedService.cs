@@ -8,6 +8,6 @@
 
     public interface IApprovalOnwardsContractAtomFeedService
     {
-        AtomItemCreationResult AddContractToFeed(ConnectionInfo connectionInfo, contract corporateContract, Guid feedItemId, AtomItemType atomItemType);
+        AtomItemCreationResult AddContractToFeed(ConnectionInfo connectionInfo, Contract corporateContract, Guid feedItemId, AtomItemType atomItemType);
     }
 }

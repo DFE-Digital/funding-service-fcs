@@ -1,599 +1,131 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D5E17955-B6B4-4F37-9C81-8B236B3A6778}</ProjectGuid>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SFA.FCT.Xrm.TestFramework</RootNamespace>
-    <AssemblyName>Xrm.TestFramework</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Contracts.AcceptanceTests\</SolutionDir>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
+    <!--<UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>-->
+    <Configurations>AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PS;PUB;Public;Release</Configurations>
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet>true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets>$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+    <AssemblyTitle>Ciber.Xrm.Tests.Common</AssemblyTitle>
+    <Product>Ciber.Xrm.Tests.Common</Product>
+    <Copyright>Copyright ©  2014</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
     <OutputPath>bin\DebugCI\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
     <OutputPath>bin\CI\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
     <OutputPath>bin\AT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MO|AnyCPU' ">
     <OutputPath>bin\ModelOffice\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Public|AnyCPU'">
     <OutputPath>bin\Public\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
     <OutputPath>bin\OAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
     <OutputPath>bin\DEV\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PS|AnyCPU'">
     <OutputPath>bin\PS\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Label="SlowCheetah">
-    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
-    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
-    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
-    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\DAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
     <OutputPath>bin\DCI\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
     <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
     <OutputPath>bin\DOAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntiXSSLibrary, Version=4.2.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\AntiXSSLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.12\lib\net462\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus, Version=2.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\WindowsAzure.ServiceBus.2.6.7\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.LoadTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client.CodeGeneration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.CodeGeneration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal.Files, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.Files.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.12\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Deployment.9.0.2.12\lib\net462\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Polly, Version=5.9.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Polly-Signed.5.9.0\lib\net45\Polly.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
+	  <PackageReference Include="Microsoft.VisualStudio.SlowCheetah" Version="4.0.50">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="MSTest.TestFramework" Version="3.10.5" />
+	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.11" />
     <Reference Include="System.Data.Services" />
     <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Design" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Web" />
+    
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="OrganizationServiceFactory.cs" />
-    <Compile Include="Configuration\XrmPackageDashboard.cs" />
-    <Compile Include="Data\CrmOrganisationService.cs" />
-    <Compile Include="Common\ExportSolution.cs" />
-    <Compile Include="Services\CrmConnectionFactory.cs" />
-    <Compile Include="Services\RetryOnErrorOrganizationService.cs" />
-    <Compile Include="Steps\ViewMasterContractStep.cs" />
-    <Compile Include="Utils\AcceptanceTestUtils.cs" />
-    <Compile Include="Utils\ActionRetrier.cs" />
-    <Compile Include="Utils\ColumnValueCriteria.cs" />
-    <Compile Include="Utils\CrmLookupCriteria.cs" />
-    <Compile Include="Utils\CrmManager.cs" />
-    <Compile Include="Utils\FunctionRetrier.cs" />
-    <Compile Include="Utils\PeriodInfo.cs" />
-    <Compile Include="Utils\RelationshipDetail.cs" />
-    <Compile Include="Configuration\XrmFormControl.cs" />
-    <Compile Include="Configuration\XrmFormTab.cs" />
-    <Compile Include="Configuration\XrmPackageLookupParameter.cs" />
-    <Compile Include="Configuration\XrmPackageAttribute.cs" />
-    <Compile Include="Configuration\XrmPackageEntity.cs" />
-    <Compile Include="Configuration\XrmPackageForm.cs" />
-    <Compile Include="Configuration\XrmPackageRelationship.cs" />
-    <Compile Include="Configuration\XrmPackageRibbon.cs" />
-    <Compile Include="Configuration\XrmPackageWorkflow.cs" />
-    <Compile Include="Configuration\XrmPackageRole.cs" />
-    <Compile Include="Configuration\XrmPackageView.cs" />
-    <Compile Include="Data\XrmWebConnection.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Common\XrmMetaData.cs" />
-    <Compile Include="Configuration\XrmPackageConfiguration.cs" />
-    <Compile Include="Data\XrmWebEntity.cs" />
-    <Compile Include="Data\XrmWebUser.cs" />
-    <Compile Include="Common\XrmHelpers.cs" />
-    <Compile Include="Common\XrmXmlHelpers.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config">
-      <TransformOnBuild>true</TransformOnBuild>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Reports\1033\{6b7bf88d-ed4c-e711-9420-000d3ab03a58}\UKPRN_Detail.rdl" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Reports\1033\{da997867-ed4c-e711-9420-000d3ab03a58}\FetchXMLReport_Changes_Drill.rdl" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_AmendNotify16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_AmendVary16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Contract16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Contract24x24" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Contract32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_ContractClosure16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_ContractTermination16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_ContractTransitionHistory16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_ContractTransitionHistory32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_ContractType16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_ContractType32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_FundingType16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Fundingtype32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_help_data_protection" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_HoldFCR16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_HorizontalLine" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Notification16X16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Notification32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_payments16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_payments32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Process16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Process32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_PublishFCR16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_ReadyForRelease16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_ReleaseFCR16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Status16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Status32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_transition16x16" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_Transition32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_WebResourceSetting16x6" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_WebresourceSetting32x32" />
-    <None Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_\js\ExecuteWorkflow" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
-    <None Include="Settings.StyleCop" />
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.34" />
+    <PackageReference Include="Microsoft.CrmSdk.Deployment" Version="9.0.2.12" />
+    <PackageReference Include="Microsoft.CrmSdk.Extensions" Version="7.1.0.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
+    <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Polly-Signed" Version="5.9.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.9" />
+    <PackageReference Include="System.DirectoryServices" Version="10.0.9" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.9" />
+    <PackageReference Include="System.Runtime.Caching" Version="10.0.9" />
+    <PackageReference Include="WindowsAzure.ServiceBus" Version="4.1.11" />
+	<PackageReference Include="NUnit" Version="4.4.0" />
+
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\ContractTermination-3208CC95-F980-4C14-9531-E02D420E9910.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\ReleaseAllocationsforContracting-84980EB8-EF98-4CEB-A272-B274F8C69B4C.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\SupportingInformationforTermination-3384E907-2A07-462D-8714-DBCD315CED51.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\UpdateAllocationTerminationDetails-5DAC21EA-315F-46DF-8ECE-AA5BCEAAD4BA.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\UpdateSupportingInformationforTermination-B89447B3-21B7-4475-88D7-2E2E9EB5D5B8.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\GenerateContractNumber-5595FE94-3D38-4387-96F4-373BB9979FEE.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\SetContractAllocationReference-63FBB8DF-9007-4B95-8DE5-F2626C5A5478.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\SetDeliverableName-ACCBECDD-B68D-40AF-9396-DD0DB3C6AEFF.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\SetFundingStreamPeriodDeliverableName-3C171EB4-13E6-4CED-A7C5-D0D68D33CF67.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\setlatestcontract-4E57CB17-A976-4AAD-8CC1-54E9555D75AE.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\SetPeriodName-71F92E7B-0DB5-48F6-8E21-82DB9D288CA6.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01bContractImportOwnerAssigned-08ADB2D8-BAB1-4B77-A9D9-3561CD11AECF.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01ContractContractApprovalProcess-9A96DB84-D29C-48F0-91BA-5672324A44D2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01ContractRecordImported-8A50490F-F94B-475A-B3D2-C194BCC205C4.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01TaskOverride-5614627A-B453-4C71-A6C1-CB13CB75A424.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01TaskReassign-B65BF2D7-D869-4A19-9353-D758DD78AC35.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01TasksTaskCompletion-2BBCFE77-7F81-4A18-A9FD-4B60EEB070C4.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02-ContractProgressContract-E5B53B33-AC45-4B2E-BDEF-839E68AF94CB.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02aUpdatePreviousContracttoReplaced-D8DB7192-EA06-4DBD-B9C4-58EF50AA42C2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02bContractRequiresChangeOfOwnership-4583AC82-30D7-46D4-B148-E4027C268216.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02cContractRequiresCreationOfTask-20A3CE3E-F8DE-4405-B382-E9F1CCDBCF71.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02ContractProgressContract-E5B53B33-AC45-4B2E-BDEF-839E68AF94CB.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02dContractrequiresaNotification-508E7A99-3523-4539-8951-BF84E64B0FF1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02EWebApiCallRequired-BBC15530-8B12-4FF1-B1E0-371B1DB7CA84.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02TasksUpdatecontractontaskcompletion-A514AD11-FF17-402A-931A-BC2703D9177D.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF03ContractAllocateContract-719EA1A8-2CD9-46DC-9380-6618EFBE9C25.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF04aCaseloadPre-Reassign-098F544E-A7B9-4028-8FBD-0CBF7CF4CB8A.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF04CaseloadReassign-E2F07392-446A-467B-BD7D-A206F199B80F.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF05ContractRe-assignmentProcess-050294A9-B406-40F2-9D6F-B2DAC0905FFE.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF06SystemUserChangeofPrimaryRole-9EEF9BF2-4500-4C40-B82F-A33551D18FA8.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF07CreateNewDraftContract-F0D58DB1-C12D-45BA-995D-2D4E19C4A619.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF08UpdateExistingDraftContract-00E6C7A3-0FED-4C33-9DC1-6DAD8E1D52CF.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF09AmendContract-A2563D2A-D50D-E511-9404-000D3AB03A58.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF11CallContractManagementService-7DD69ACA-43F4-4D13-BEDF-E06F0EAC8124.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF12SetAllocationIdfromAllocationReference-6C9467D2-F0F2-48B0-8FBF-0B01D707FF38.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF14ContractStatusLastUpdatedDate-3B724D8F-5C18-4C0C-A96F-E54A95884C9D.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF15UpdateContractApprovalDate-C404E1C7-55E1-42B9-AF9E-8C11F7883CD5.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF16DocumentManagementServiceUpdate-6ADA4105-139D-4ED2-873D-E74C6D8269B0.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF17DocumentManagementAssignment-FE61B964-94FA-4235-BDF5-DA2170E6C439.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF18SetContractApprovalDate-9B89C806-9B54-49D2-9162-0D158DA9C295.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF19ContractValidateNextAction-6618F923-D48F-4472-A09B-FC1F386D1A86.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF20RemoveServiceResponseData-C3C45731-0382-4D75-8862-CF4B53EB1B2B.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF21CallPerformanceManagementService-B2C46804-79AF-4E86-BF32-E292F2BF66EB.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF22InitiatePublishForFundingClaimReconciliation-649C9B76-F848-4E04-B9B8-2271AFB25070.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF23SetDefaultNameforTaskActionEntity-B4723B61-99DD-4B8C-B2CD-23DCA2D2AE74.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF24ResetProblematicFCRtoDraftstatus-0DD274A2-BB4A-4AC4-8A5D-A1D052FD3B06.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF25PerformanceManagementServiceUpdate-85A051BE-CE4F-4F04-9842-8351A249A8C0.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF26SetFundingClaimReconciliationonHold-8FBB964F-5CC0-4760-AC01-4FAB52A42787.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF27ReleaseHeldFundingClaimReconciliation-0461C313-1510-4A0B-9927-AD1FA7060C6D.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF28ContractDeleteDraftContractVersion-109E053D-680F-4782-94D8-A0F5904C4EA8.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF29CallDeleteContractManagementService-A1D5B84A-EAFD-4DED-BCB2-17E7BF5A8EAF.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF2aContractActionOnExistingTask-3264717C-30F1-4C88-8A31-0CFD07E0C369.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF30ContractEndContractonClosure-8DE1347A-1C5B-4873-9578-1EB991B16262.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF31CallContractManagementServiceforClosure-2B85113A-F52F-4AE2-9AD4-42DD1B594468.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF31CallContractManagementServiceSB-2B85113A-F52F-4AE2-9AD4-42DD1B594468.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF32ContractNonFinancialVaryAmendment-312BE856-FF3E-47C6-967E-C7773DD7B6F7.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF33ContractNonFinancialNotifyAmendment-1A95F4F0-4A6D-4EC8-9AD4-602A012630CF.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF34AllocationActionProcess-B1840C09-6B53-4759-81A5-D78CEAB3A4EC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF35AllocationSetReadyforRelease-6907BE09-B3D1-4968-B331-32FD643A32A6.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF36CallAllocationManagementService-D35519FC-827F-4A37-B017-882E6005D68D.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF37AllocationServiceUpdate-50DF366F-52D9-4BC1-B92E-AF9304CAD7BF.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF38InitiateCalculationForFundingClaimReconciliati-4D2BEBEF-E3C6-4C0E-9364-1B18612AECCD.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{063e7659-05d9-4030-960d-10fe269a5a8b}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{0c111560-7103-e911-9434-000d3ab03a58}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{15e19ce1-819e-4789-a5aa-ea4fe1741568}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{1930de47-e370-464c-833f-8658ee763c4c}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{25b754f5-7563-df11-ae90-00155d2e3002}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{2701de60-8f2a-48a4-8262-4a35ca7441fa}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{2e3d0841-fa6d-df11-986c-00155d2e3002}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{45f88f83-0e67-443b-bd05-81d49719f6b1}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{47439fa1-e9a7-e511-940e-000d3ab03a58}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{4e76815a-1f63-df11-ae90-00155d2e3002}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{5d431800-1270-40e9-a90a-c970556cf0fe}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{603b1002-d094-442f-9fbc-31d9da9c930f}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{65e050d3-8b71-4b53-acb5-bb9af83bf384}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{6e00802f-8c73-df11-986c-00155d2e3002}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{7c6ffea5-24d9-e411-9400-000d3ab03a58}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{7e954199-4075-4e27-9052-cf76d35d2920}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{9b41db70-abcc-40ca-bb7f-8e6c7aa1c799}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{9de6d9a5-7863-df11-ae90-00155d2e3002}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{acb40ffe-a1e0-47d0-a472-799911009df6}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{add4c224-58a7-e711-9422-000d3ab03a58}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{b46aeb74-bf0c-44fb-8158-9575588d1b57}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{d1f511a8-1ead-e211-bb72-00155da9a201}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{e3f25b25-2260-e411-93f7-000d3ab03a58}.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Dashboards\{ee50a18b-3f88-df11-8d93-00155db1891a}.xml" />
     <Content Include="Legacy\CIBERSFAFCTSolution\Entities\Account\Entity.xml" />
     <Content Include="Legacy\CIBERSFAFCTSolution\Entities\Account\FormXml\main\{8448b78f-8f42-454e-8e2a-f8196b0419af}.xml" />
     <Content Include="Legacy\CIBERSFAFCTSolution\Entities\Account\FormXml\main\{b053a39a-041a-4356-acef-ddf00182762b}.xml" />
@@ -1355,76 +887,9 @@
     <Content Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_\tools\XrmServiceToolkit.js.data.xml" />
     <Content Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_\tools\XrmServiceToolkit.min.js" />
     <Content Include="Legacy\CIBERSFAFCTSolution\WebResources\sfa_\tools\XrmServiceToolkit.min.js.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\ContractTermination-3208CC95-F980-4C14-9531-E02D420E9910.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\ReleaseAllocationsforContracting-84980EB8-EF98-4CEB-A272-B274F8C69B4C.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\SupportingInformationforTermination-3384E907-2A07-462D-8714-DBCD315CED51.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\UpdateAllocationTerminationDetails-5DAC21EA-315F-46DF-8ECE-AA5BCEAAD4BA.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\1033\UpdateSupportingInformationforTermination-B89447B3-21B7-4475-88D7-2E2E9EB5D5B8.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\GenerateContractNumber-5595FE94-3D38-4387-96F4-373BB9979FEE.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\SetContractAllocationReference-63FBB8DF-9007-4B95-8DE5-F2626C5A5478.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\SetDeliverableName-ACCBECDD-B68D-40AF-9396-DD0DB3C6AEFF.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\SetFundingStreamPeriodDeliverableName-3C171EB4-13E6-4CED-A7C5-D0D68D33CF67.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\setlatestcontract-4E57CB17-A976-4AAD-8CC1-54E9555D75AE.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\SetPeriodName-71F92E7B-0DB5-48F6-8E21-82DB9D288CA6.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01bContractImportOwnerAssigned-08ADB2D8-BAB1-4B77-A9D9-3561CD11AECF.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01ContractContractApprovalProcess-9A96DB84-D29C-48F0-91BA-5672324A44D2.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01ContractRecordImported-8A50490F-F94B-475A-B3D2-C194BCC205C4.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01TaskOverride-5614627A-B453-4C71-A6C1-CB13CB75A424.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01TaskReassign-B65BF2D7-D869-4A19-9353-D758DD78AC35.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF01TasksTaskCompletion-2BBCFE77-7F81-4A18-A9FD-4B60EEB070C4.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02-ContractProgressContract-E5B53B33-AC45-4B2E-BDEF-839E68AF94CB.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02aUpdatePreviousContracttoReplaced-D8DB7192-EA06-4DBD-B9C4-58EF50AA42C2.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02bContractRequiresChangeOfOwnership-4583AC82-30D7-46D4-B148-E4027C268216.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02cContractRequiresCreationOfTask-20A3CE3E-F8DE-4405-B382-E9F1CCDBCF71.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02ContractProgressContract-E5B53B33-AC45-4B2E-BDEF-839E68AF94CB.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02dContractrequiresaNotification-508E7A99-3523-4539-8951-BF84E64B0FF1.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02EWebApiCallRequired-BBC15530-8B12-4FF1-B1E0-371B1DB7CA84.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF02TasksUpdatecontractontaskcompletion-A514AD11-FF17-402A-931A-BC2703D9177D.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF03ContractAllocateContract-719EA1A8-2CD9-46DC-9380-6618EFBE9C25.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF04aCaseloadPre-Reassign-098F544E-A7B9-4028-8FBD-0CBF7CF4CB8A.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF04CaseloadReassign-E2F07392-446A-467B-BD7D-A206F199B80F.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF05ContractRe-assignmentProcess-050294A9-B406-40F2-9D6F-B2DAC0905FFE.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF06SystemUserChangeofPrimaryRole-9EEF9BF2-4500-4C40-B82F-A33551D18FA8.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF07CreateNewDraftContract-F0D58DB1-C12D-45BA-995D-2D4E19C4A619.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF08UpdateExistingDraftContract-00E6C7A3-0FED-4C33-9DC1-6DAD8E1D52CF.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF09AmendContract-A2563D2A-D50D-E511-9404-000D3AB03A58.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF11CallContractManagementService-7DD69ACA-43F4-4D13-BEDF-E06F0EAC8124.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF12SetAllocationIdfromAllocationReference-6C9467D2-F0F2-48B0-8FBF-0B01D707FF38.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF14ContractStatusLastUpdatedDate-3B724D8F-5C18-4C0C-A96F-E54A95884C9D.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF15UpdateContractApprovalDate-C404E1C7-55E1-42B9-AF9E-8C11F7883CD5.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF16DocumentManagementServiceUpdate-6ADA4105-139D-4ED2-873D-E74C6D8269B0.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF17DocumentManagementAssignment-FE61B964-94FA-4235-BDF5-DA2170E6C439.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF18SetContractApprovalDate-9B89C806-9B54-49D2-9162-0D158DA9C295.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF19ContractValidateNextAction-6618F923-D48F-4472-A09B-FC1F386D1A86.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF20RemoveServiceResponseData-C3C45731-0382-4D75-8862-CF4B53EB1B2B.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF21CallPerformanceManagementService-B2C46804-79AF-4E86-BF32-E292F2BF66EB.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF22InitiatePublishForFundingClaimReconciliation-649C9B76-F848-4E04-B9B8-2271AFB25070.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF23SetDefaultNameforTaskActionEntity-B4723B61-99DD-4B8C-B2CD-23DCA2D2AE74.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF24ResetProblematicFCRtoDraftstatus-0DD274A2-BB4A-4AC4-8A5D-A1D052FD3B06.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF25PerformanceManagementServiceUpdate-85A051BE-CE4F-4F04-9842-8351A249A8C0.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF26SetFundingClaimReconciliationonHold-8FBB964F-5CC0-4760-AC01-4FAB52A42787.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF27ReleaseHeldFundingClaimReconciliation-0461C313-1510-4A0B-9927-AD1FA7060C6D.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF28ContractDeleteDraftContractVersion-109E053D-680F-4782-94D8-A0F5904C4EA8.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF29CallDeleteContractManagementService-A1D5B84A-EAFD-4DED-BCB2-17E7BF5A8EAF.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF2aContractActionOnExistingTask-3264717C-30F1-4C88-8A31-0CFD07E0C369.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF30ContractEndContractonClosure-8DE1347A-1C5B-4873-9578-1EB991B16262.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF31CallContractManagementServiceforClosure-2B85113A-F52F-4AE2-9AD4-42DD1B594468.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF31CallContractManagementServiceSB-2B85113A-F52F-4AE2-9AD4-42DD1B594468.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF32ContractNonFinancialVaryAmendment-312BE856-FF3E-47C6-967E-C7773DD7B6F7.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF33ContractNonFinancialNotifyAmendment-1A95F4F0-4A6D-4EC8-9AD4-602A012630CF.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF34AllocationActionProcess-B1840C09-6B53-4759-81A5-D78CEAB3A4EC.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF35AllocationSetReadyforRelease-6907BE09-B3D1-4968-B331-32FD643A32A6.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF36CallAllocationManagementService-D35519FC-827F-4A37-B017-882E6005D68D.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF37AllocationServiceUpdate-50DF366F-52D9-4BC1-B92E-AF9304CAD7BF.xaml.data.xml" />
-    <None Include="Legacy\CIBERSFAFCTSolution\Workflows\WF38InitiateCalculationForFundingClaimReconciliati-4D2BEBEF-E3C6-4C0E-9364-1B18612AECCD.xaml.data.xml" />
     <Content Include="Legacy\readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
-      <Project>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</Project>
-      <Name>CrossDomain.Integration.Entities</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
 </Project>

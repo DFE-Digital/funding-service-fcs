@@ -29,9 +29,9 @@
             _logger = logger;
         }
 
-        public AtomItemCreationResult AddClosedContract(contract corporateContract, Guid feedItemId, ConnectionInfo connectionInfo)
+        public AtomItemCreationResult AddClosedContract(Contract corporateContract, Guid feedItemId, ConnectionInfo connectionInfo)
         {
-            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract corporateSchema = _contractTransformer.TransformToCorporateSchemaContract(corporateContract);
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract corporateSchema = _contractTransformer.TransformToCorporateSchemaContract(corporateContract);
             try
             {
                 _approvalOnwardsContractRepository.Add(

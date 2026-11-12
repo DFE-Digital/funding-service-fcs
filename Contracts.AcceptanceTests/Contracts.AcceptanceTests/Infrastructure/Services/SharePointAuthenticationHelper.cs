@@ -1,9 +1,7 @@
-﻿
-using Microsoft.Identity.Client;
+﻿using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -13,19 +11,19 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services
     public static class SharePointAuthenticationHelper
     {
         private static readonly string Tenant =
-            ConfigurationManager.AppSettings["Sharepoint:Oauth:Tenant"];
+            TestConfiguration.Configuration["SharePoint:OAuth:Tenant"];
 
         private static readonly string ClientId =
-            ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientId"];
+            TestConfiguration.Configuration["SharePoint:OAuth:ClientId"];
 
         private static readonly string ClientSecret =
-            !string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientSecret"])
-                ? ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientSecret"]
+            !string.IsNullOrWhiteSpace(TestConfiguration.Configuration["SharePoint:OAuth:ClientSecret"])
+                ? TestConfiguration.Configuration["SharePoint:OAuth:ClientSecret"]
                 : Environment.GetEnvironmentVariable("SP_CLIENT_SECRET");
 
-        
+
         private static readonly string SiteUrl =
-            ConfigurationManager.AppSettings["ida:Resource"];
+            TestConfiguration.Configuration["AzureAd:Resource"];
 
         // --------------------------------------------------------------------
         //  LEGACY SIGNATURE to prevent breaking callers using GetClientContext()
@@ -118,7 +116,7 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services
 
             return found;
         }
-        
+
         public static void DeleteAndRecreateLibrary_Graph(string documentLibraryDisplayName)
         {
             ExecuteWithHttpClient(delegate (HttpClient http)
@@ -233,7 +231,7 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services
         {
             driveId = null;
             folderId = null;
-            
+
             var encoded = folderPath.Replace(" ", "%20");
             var url = "https://graph.microsoft.com/v1.0/sites/" + siteId + "/drive/root:/" + encoded;
 

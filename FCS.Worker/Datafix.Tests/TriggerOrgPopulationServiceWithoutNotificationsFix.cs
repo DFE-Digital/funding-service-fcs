@@ -25,7 +25,7 @@
         public void ShouldResetUkrlpSuccessFlagAndTriggerOrgSupplementaryDataPopulationServiceWithoutCreatingCrmNotifications()
         {
             // arrange
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<InitiateOrgSupplementaryDataPopulationCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<InitiateOrgSupplementaryDataPopulationCommand>();
 
             // set all Organisations to require UKRLP population
             string connectionString = ConfigurationManager.ConnectionStrings["organisationDomainDatabase"].ConnectionString;

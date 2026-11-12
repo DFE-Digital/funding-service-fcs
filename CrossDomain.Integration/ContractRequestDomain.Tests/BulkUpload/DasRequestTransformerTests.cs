@@ -23,7 +23,7 @@
             var contract = transformed.contract.contracts[0];
             var allocation = contract.contractAllocations[0];
 
-            Assert.AreEqual(intent.New, transformed.contract.CRMIntent);
+            Assert.AreEqual(Intent.New, transformed.contract.CRMIntent);
             Assert.AreEqual("LEVY", contract.fundingTypeCode);
             Assert.AreEqual(12345678, contract.contractor.ukprn);
             Assert.AreEqual(startDate.ToUniversalTime(), contract.startDate);

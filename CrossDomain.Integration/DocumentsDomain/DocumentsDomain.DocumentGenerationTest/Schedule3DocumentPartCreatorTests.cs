@@ -154,7 +154,7 @@
                         fundingTypeCode = "EDSK"
                     },
                     IsNewRevisedNewOrUpdateDraft = false,
-                    period = new period
+                    period = new Period
                     {
                         period1 = "2021"
                     },
@@ -184,7 +184,7 @@
                     fundingTypeCode = "EDSK"
                 },
                 IsNewRevisedNewOrUpdateDraft = false,
-                period = new period
+                period = new Period
                 {
                     period1 = "2021"
                 },
@@ -224,7 +224,7 @@
                 {
                     fundingTypeCode = "DADA",
                 },
-                period = new period
+                period = new Period
                 {
                     period1 = "2021"
                 },
@@ -252,7 +252,7 @@
                 {
                     fundingTypeCode = "DADA",
                 },
-                period = new period
+                period = new Period
                 {
                     period1 = "2021"
                 },
@@ -282,7 +282,7 @@
                 {
                     fundingTypeCode = "DADA",
                 },
-                period = new period
+                period = new Period
                 {
                     period1 = "2021"
                 },

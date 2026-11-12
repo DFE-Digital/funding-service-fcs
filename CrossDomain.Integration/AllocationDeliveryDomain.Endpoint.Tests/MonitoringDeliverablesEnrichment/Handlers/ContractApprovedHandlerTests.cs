@@ -257,7 +257,7 @@
 
             var message = new ContractApprovedEvent()
             {
-                CorporateContract = new contract()
+                CorporateContract = new Contract()
                 {
                     contractNumber = "MASTER_CONTRACT_NUMBER",
                     hierarchyType = hierarchyType.MASTERCONTRACT,
@@ -287,7 +287,7 @@
 
             var message = new ContractApprovedEvent()
             {
-                CorporateContract = new contract()
+                CorporateContract = new Contract()
                 {
                     contractNumber = "MASTER_CONTRACT_NUMBER",
                     hierarchyType = hierarchyType.MASTERCONTRACT,

@@ -1,5 +1,6 @@
 ﻿namespace ADMonitoringDomain.Endpoint.BusinessLogic
-{
+{ 
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -8,14 +9,14 @@
     using ContractManagement.DataStore.Model;
     using ContractManagement.DataStore.Repositories;
     using Logging;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.CrossDomain.Integration.Common.SchemaValidator;
     using SFA.FCT.CrossDomain.Integration.Common.Serializers;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class AllocationDeliveryPerformanceMapper : IAllocationDeliveryPerformanceMapper
     {

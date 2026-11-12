@@ -1,23 +1,27 @@
-﻿namespace Operations.Worker
+﻿
+namespace Operations.Worker
 {
+    using Audit;
+    using DataStore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using NServiceBus;
+    using NServiceBus.Configuration.AdvancedExtensibility;
+    using NServiceBus.MessageMutator;
+    using NServiceBus.Persistence.Sql;
+    using NServiceBus.Transport.AzureServiceBus;
+    using ServiceBus;
+    using SFA.FCS.Worker.Common;
+    using SFA.FCT.Framework.Logging.Interfaces;
+    using Slack;
+    using Storage;
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
+    using Microsoft.Data.SqlClient;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using DataStore;
-    using Microsoft.Extensions.Configuration;
-    using NServiceBus;
-    using NServiceBus.MessageMutator;
-    using NServiceBus.Persistence.Sql;
-    using Audit;
-    using ServiceBus;
-    using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging.Interfaces;
-    using Storage;
-    using Slack;
 
     public static class FctBootstrapper
     {
@@ -36,204 +40,191 @@
         {
             _logger = currentLogger;
             _slackMessageSender = new SlackMessageSender(appConfiguration);
-            Endpoints = await StartEndpoints(loggerFactory.CreateCoreLogger(), appConfiguration);
-            _logger.LogInformation("All endpoints have started");
 
-            var f = Convert.ToBoolean(appConfiguration["ShouldMoveAuditMessagesToTable"]);
+            Endpoints = await StartEndpoints(loggerFactory.CreateCoreLogger(), appConfiguration);
+
+            _logger.LogInformation("All endpoints have started");
 
             if (Convert.ToBoolean(appConfiguration["ShouldMoveAuditMessagesToTable"]))
             {
                 _logger.LogInformation("About to start listening for audit messages");
+
                 var configuration = new FcsConfiguration(appConfiguration);
+
                 try
                 {
-                    await QueueListener.BeginListening(m => FcsMessageProcessor.WriteAuditMessageToTable(m, configuration),
-                        "audit", _logger, configuration);
+                    await QueueListener.BeginListening(
+                        m => FcsMessageProcessor.WriteAuditMessageToTable(m, configuration),
+                        "audit",
+                        _logger,
+                        configuration);
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation(1,$"Begin Listening has failed: {e.Message}, {e.StackTrace}");
+                    _logger.LogInformation(1, $"Begin Listening has failed: {e.Message}, {e.StackTrace}");
                 }
-               
+
                 _logger.LogInformation("Audit Queue Listener started");
             }
         }
 
         public static async Task Stop()
         {
-            _logger.LogInformation("Stopping NServiceBus 6 endpoints");
+            _logger.LogInformation("Stopping NServiceBus endpoints");
 
             foreach (var endpoint in Endpoints)
             {
-                await endpoint.Stop()
-                    .ConfigureAwait(false);
+                await endpoint.Stop().ConfigureAwait(false);
             }
         }
 
-        private static async Task<IReadOnlyCollection<IEndpointInstance>> StartEndpoints(ILogger logger, IConfigurationRoot appConfiguration)
+        private static async Task<IReadOnlyCollection<IEndpointInstance>> StartEndpoints(
+            ILogger logger,
+            IConfigurationRoot appConfiguration)
         {
             _logger.LogInformation("Retrieving Endpoint Configurations");
+
             string endpointName = null;
-            FcsConfiguration configuration = new FcsConfiguration(appConfiguration);
+            var configuration = new FcsConfiguration(appConfiguration);
+
             try
             {
-                List<Type> endpointTypes =
-                    new List<Type>
-                    {
-                        typeof(FCT.Operations.FundingAllocationExtract.EndpointConfig),
-                        typeof(FCT.Operations.PaymentSummary.EndpointConfig),
-                        typeof(FCT.Operations.Cda.ReportGeneration.EndpointConfig),
-                        typeof(SFA.FCT.Operations.Integrity.EndpointConfig),
-                        typeof(SFA.FCT.Operations.Maintenance.Endpoint.EndpointConfig),
-                        typeof(FCT.Operations.Connectivity.EndpointConfig),
-                        typeof(FCT.Operations.FundingConfirmationReport.EndpointConfig)
-                        //todo: check this is the complete list
-                    };
+                var endpointTypes = new List<Type>
+                {
+                    typeof(FCT.Operations.FundingAllocationExtract.EndpointConfig),
+                    typeof(FCT.Operations.PaymentSummary.EndpointConfig),
+                    typeof(FCT.Operations.Cda.ReportGeneration.EndpointConfig),
+                    typeof(SFA.FCT.Operations.Integrity.EndpointConfig),
+                    typeof(SFA.FCT.Operations.Maintenance.Endpoint.EndpointConfig),
+                    typeof(FCT.Operations.Connectivity.EndpointConfig),
+                    typeof(FCT.Operations.FundingConfirmationReport.EndpointConfig)
+                };
 
                 _logger.LogInformation($"We have found: {endpointTypes.Count} endpoints");
 
-                List<EndpointConfiguration> endpointConfigurations = endpointTypes.Select(t =>
+                var endpointConfigurations = endpointTypes.Select(t =>
                 {
-                    IEndpointConfigWithFcsConfig endpoint = (IEndpointConfigWithFcsConfig)Activator.CreateInstance(t);
+                    var endpoint = (IEndpointConfigWithFcsConfig)Activator.CreateInstance(t);
 
                     endpointName = endpoint.EndpointName;
 
-                    _logger.LogInformation($"Getting configuration for endpoint: {endpoint.EndpointName} - Subscriptions: {endpoint.Subscriptions.Count}");
+                    _logger.LogInformation(
+                        $"Getting configuration for endpoint: {endpoint.EndpointName} - Subscriptions: {endpoint.Subscriptions.Count}");
 
                     return endpoint.GetBootstrapConfiguration(logger, configuration);
-                })
-                    .ToList();
+                }).ToList();
 
-                return await Task.WhenAll(endpointConfigurations.Select(Endpoint.Start).ToList());
+                // ✅ FIXED Select issue
+                return await Task.WhenAll(endpointConfigurations.Select(ec => Endpoint.Start(ec)));
             }
             catch (Exception e)
             {
-                ReflectionTypeLoadException reflectionException = e as ReflectionTypeLoadException;
-                _logger.LogInformation($"StartEndpoints has failed: {endpointName}, {e.Message} - {reflectionException?.LoaderExceptions?.FirstOrDefault()}");
-                _logger.LogInformation($"StartEndpoints stacktrace: {e.StackTrace}");
+                var reflectionException = e as ReflectionTypeLoadException;
+
+                _logger.LogInformation(
+                    $"StartEndpoints failed: {endpointName}, {e.Message} - {reflectionException?.LoaderExceptions?.FirstOrDefault()}");
+
+                _logger.LogInformation($"Stacktrace: {e.StackTrace}");
 
                 throw;
             }
         }
 
-        private static EndpointConfiguration GetBootstrapConfiguration(this IEndpointConfigWithFcsConfig endpoint,
-            ILogger logger, IFcsConfiguration appConfiguration)
+        private static EndpointConfiguration GetBootstrapConfiguration(
+            this IEndpointConfigWithFcsConfig endpoint,
+            ILogger logger,
+            IFcsConfiguration appConfiguration)
         {
-            EndpointConfiguration configuration = endpoint.GetEndpointConfiguration(logger, appConfiguration);
+            var configuration = endpoint.GetEndpointConfiguration(logger, appConfiguration);
 
+            // ✅ Persistence
             var persistence = configuration.UsePersistence<SqlPersistence, StorageType.Sagas>();
             configuration.UsePersistence<SqlPersistence, StorageType.Subscriptions>();
-            configuration.UsePersistence<SqlPersistence, StorageType.Timeouts>();
 
             persistence.SqlDialect<SqlDialect.MsSqlServer>();
 
             persistence.ConnectionBuilder(() =>
                 new SqlConnection(appConfiguration["ConnectionStrings:NServiceBus/Persistence"]));
 
+            // ✅ Assembly scanning
             var scanner = configuration.AssemblyScanner();
-
             var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            var referencedAssemblies = Assembly.LoadFrom(endpoint.NameOfAssembly).GetReferencedAssemblies()
-                .Select(a => $"{a.Name}.dll");
+            var referencedAssemblies =
+                Assembly.LoadFrom(endpoint.NameOfAssembly)
+                    .GetReferencedAssemblies()
+                    .Select(a => $"{a.Name}.dll");
 
             var assembliesToExclude = Directory.EnumerateFiles(baseDirectory, "*.dll")
                 .Select(Path.GetFileName)
-                .Where(
-                    fn => fn != endpoint.NameOfAssembly && !referencedAssemblies.Contains(fn) ||
-                          Nsb5Assemblies.Contains(fn))
+                .Where(fn =>
+                    (fn != endpoint.NameOfAssembly && !referencedAssemblies.Contains(fn))
+                    || Nsb5Assemblies.Contains(fn))
                 .ToArray();
 
             scanner.ExcludeAssemblies(assembliesToExclude);
 
-            var transport = configuration.UseTransport<AzureServiceBusTransport>(); // must use Forwarding topology in later Azure Service Bus transport
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-            transport.ConnectionString(appConfiguration["ConnectionStrings:NServiceBus/Transport"])
-                .TopicName($"{endpoint.EndpointName}.events");
+            // ✅ ✅ ✅ TRANSPORT (FINAL FIX)
+            var transport = new AzureServiceBusTransport(
+                appConfiguration["ConnectionStrings:NServiceBus/Transport"],
+                TopicTopology.Default);
 
-            /*
-            Subscriptions auto registered in later Azure Service Bus transport
-            
-            foreach (var subscription in endpoint.Subscriptions)
-            {
-                transport.RegisterPublisher(subscription.EventType, subscription.PublisherName);
-            }
-            */
+            configuration.UseTransport(transport);
 
-            /*
-            Lock duration is set automatically to the ASB max of 5 minutes in later Azure Service Bus transport
-            https://docs.particular.net/transports/upgrades/asb-10toasbs-1
-            
-            transport.Subscriptions().LockDuration(TimeSpan.FromMinutes(5));
-            transport.Queues().LockDuration(TimeSpan.FromMinutes(5));
-            */
+            // ✅ Routing
+
+            var routing = configuration.GetSettings()
+                .Get<TransportExtensions<AzureServiceBusTransport>>()
+                .Routing();
 
             foreach (var route in endpoint.Routes)
             {
-                transport.Routing().RouteToEndpoint(route.CommandType, route.Destination);
+                routing.RouteToEndpoint(route.CommandType, route.Destination);
             }
 
-            /*
-            Removed from later Azure Service Bus transport, if necessary a shortner for subscription names can be configured
-            https://docs.particular.net/transports/upgrades/asb-10toasbs-1
-            
-            transport.Sanitization().UseStrategy<ValidateAndHashIfNeeded>();
-            */
 
-            configuration.UseSerialization<NewtonsoftSerializer>();
+            // ✅ Serializer
+            configuration.UseSerialization<NewtonsoftJsonSerializer>();
 
             configuration.EnableInstallers();
-            configuration.RegisterMessageMutator(new TransportMessageCompressionMutator(_logger, new LargeMessageStorageService(((FcsConfiguration)appConfiguration).ConfigurationRoot)));
 
-            configuration.AuditProcessedMessagesTo(
-                auditQueue: "audit",
-                timeToBeReceived: TimeSpan.FromDays(7));
+            configuration.RegisterMessageMutator(
+                new TransportMessageCompressionMutator(
+                    _logger,
+                    new LargeMessageStorageService(((FcsConfiguration)appConfiguration).ConfigurationRoot)));
 
-            configuration.SendFailedMessagesTo(errorQueue: "error");
+            configuration.AuditProcessedMessagesTo("audit", TimeSpan.FromDays(7));
+            configuration.SendFailedMessagesTo("error");
 
-            SendErrorMessagesToSlackInNecessary(configuration, ((FcsConfiguration)appConfiguration).ConfigurationRoot);
-
-            var pipeline = configuration.Pipeline;
-            pipeline.Register(
-                behavior: new CustomErrorHandlingBehavior(_logger),
-                description: "Registered CustomErrorHandlingBehavior");
-
-            configuration.RegisterComponents(c =>
-            {
-                c.ConfigureComponent(b =>
+            // ✅ ✅ ✅ Recoverability FIX (latest API)
+            configuration.Recoverability()
+                .Failed(f => f.OnMessageSentToErrorQueue(async (context, token) =>
                 {
-                    var session = b.Build<ISqlStorageSession>();
+                    var headers = context.Headers;
 
-                    //var context = new OperationsDbContext(new DbContextOptionsBuilder<OperationsDbContext>()
-                    //    .UseSqlServer(session.Connection)
-                    //    .Options);
+                    var messageId = headers.TryGetValue("NServiceBus.MessageId", out var id) ? id : "unknown";
+                    var messageType = headers.TryGetValue("NServiceBus.EnclosedMessageTypes", out var type) ? type : "unknown";
 
-                    ////Use the same underlying ADO.NET transaction
-                    //context.Database.UseTransaction(session.Transaction);
+                    var message = $"MessageId: {messageId}, Type: {messageType}";
 
-                    ////Ensure context is flushed before the transaction is committed
-                    //session.OnSaveChanges(s => context.SaveChangesAsync());
+                    _slackMessageSender.SendMessage(message, _logger);
 
-                    //return context;
-                    // todo: sort this out later.
-                    return new OperationsDbContext();
-                }, DependencyLifecycle.InstancePerUnitOfWork);
+                    await Task.CompletedTask;
+                }));
+
+
+            // ✅ Pipeline
+            configuration.Pipeline.Register(
+                new CustomErrorHandlingBehavior(_logger),
+                "Registered CustomErrorHandlingBehavior");
+
+            // ✅ ✅ ✅ DI FIX (modern)
+            configuration.RegisterComponents(services =>
+            {
+                services.AddScoped<OperationsDbContext>();
             });
 
             return configuration;
-        }
-
-        private static void SendErrorMessagesToSlackInNecessary(EndpointConfiguration endpointConfiguration, IConfigurationRoot appConfiguration)
-        {
-            string shouldSendToSlack = appConfiguration["Slack:ShouldSend"];
-
-            if (shouldSendToSlack == "true")
-            {
-                endpointConfiguration.Notifications.Errors.MessageSentToErrorQueue += (o, m) =>
-                {
-                    _slackMessageSender.SendMessage(m, _logger);
-                };
-            }
         }
     }
 }

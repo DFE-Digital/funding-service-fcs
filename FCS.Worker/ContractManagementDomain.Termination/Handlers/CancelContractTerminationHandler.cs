@@ -53,7 +53,7 @@
 
             ConnectionInfo connectionInfo = _sessionConnectionFactory.GetConnection(context);
 
-            contract corporateContract = _corporateContractService.GetContract(
+            Contract corporateContract = _corporateContractService.GetContract(
                 connectionInfo: connectionInfo,
                 crmContractRepository: _crmContractRepository,
                 contractsManager: _contractsManager,

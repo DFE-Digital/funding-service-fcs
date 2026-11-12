@@ -2,7 +2,7 @@ parameters:
   BuildRoot: ''
   CRMDeploymentMode: ''
   ClassicSubscription: ''
-  ArtifactFeedName: ''  
+  ArtifactFeedName: ''
   ShouldBuild: ''
 
 steps:
@@ -12,19 +12,15 @@ steps:
   inputs:
     targetType: filePath
     filePath: ${{ parameters.BuildRoot }}/Build/Scripts/Build-UnpackBuildControlFile.ps1
-    arguments:
-      -configuration  $(Release.EnvironmentName)
-      -buildRoot "${{ parameters.BuildRoot }}"
-      -BCOverride '$(BC_Override)'
+    arguments: -configuration  $(Release.EnvironmentName) -buildRoot "${{ parameters.BuildRoot }}" -BCOverride '$(BC_Override)'
   continueOnError: false
 
-
 - template: 'Build Deployed Artefacts - FCSCore.yml'
-  parameters: 
-      ClassicSubscription: SFA-FCS-Dev
-      BuildRoot: $(Build.SourcesDirectory) 
-      ArtifactFeedName: $(ArtifactFeedName)   
-      ShouldBuild: $(ShouldBuild) 
+  parameters:
+    ClassicSubscription: SFA-FCS-Dev
+    BuildRoot: $(Build.SourcesDirectory)
+    ArtifactFeedName: $(ArtifactFeedName)
+    ShouldBuild: $(ShouldBuild)
 
 - task: CopyFiles@2
   displayName: 'Copy Build Scripts to ArtifactStagingDirectory'
@@ -45,6 +41,28 @@ steps:
   inputs:
     versionSpec: 6.0.0
   condition: and(succeeded(),  eq(variables['FunctionAppDeployment'],'Y'))
+
+- task: UseDotNet@2
+  displayName: 'Use .NET 8 SDK'
+  inputs:
+    packageType: sdk
+    version: '8.0.x'
+
+- powershell: |
+    $msbuildPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin"
+
+    Write-Host "Adding Visual Studio MSBuild to PATH:"
+    Write-Host $msbuildPath
+
+    $env:PATH = "$msbuildPath;$env:PATH"
+
+    Write-Host "MSBuild now resolves to:"
+    Get-Command msbuild -ErrorAction Stop | Select-Object Source
+
+    msbuild -version
+
+    Write-Host "##vso[task.prependpath]$msbuildPath"
+  displayName: 'Configure Visual Studio MSBuild'
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore for FCTCRMSolution'
@@ -89,21 +107,65 @@ steps:
     CleanTargetFolder: true
   condition: and(succeeded(),  ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CRM'], 'Y'))
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore for FCS.Worker'
+# - task: NuGetCommand@2
+#   displayName: 'NuGet restore for FCS.Worker'
+#   inputs:
+#     restoreSolution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.B.sln'
+#     restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+#  condition: and(succeeded(), or(eq(variables['BC_FCSWorker'],'Y'), eq(variables['BC_DataFixes'], 'Y'), eq(variables['BC_CrmCopyDbSetup'], 'Y'), eq(variables['BC_Subscriptions'], 'Y')))
+
+#- task: NuGetCommand@2
+#  displayName: 'Restore all packages.config'
+#  inputs:
+#    command: 'restore'
+#    restoreSolution: '**/*.sln'
+#    restoreDirectory: '$(Build.SourcesDirectory)/packages'
+
+
+# - task: NuGetCommand@2
+#   displayName: 'Restore legacy (packages.config only)'
+#   inputs:
+#     command: 'restore'
+#     restoreSolution: |
+#       $(Build.SourcesDirectory)/FCS.Worker/FCS.Worker.B.sln
+#       $(Build.SourcesDirectory)/FCT.Console/FCT.Console.B.sln
+#     restoreDirectory: '$(Build.SourcesDirectory)/packages'
+
+
+- task: UseDotNet@2
+  displayName: 'Use .NET 8 SDK'
   inputs:
-    restoreSolution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.B.sln'
-    restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+    packageType: sdk
+    version: '8.0.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore FCS.Worker'
+  inputs:
+    command: restore
+    projects: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.B.sln'
+    feedsToUse: select
+    includeNuGetOrg: true
   condition: and(succeeded(), or(eq(variables['BC_FCSWorker'],'Y'), eq(variables['BC_DataFixes'], 'Y'), eq(variables['BC_CrmCopyDbSetup'], 'Y'), eq(variables['BC_Subscriptions'], 'Y')))
 
 # by building the entire solution we can pick up the unit tests if necessary later on
+#- task: VSBuild@1
+#  displayName: 'Build: FCS.Worker solution for $(BuildConfiguration)'
+#  inputs:
+#    solution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.B.sln'
+#    platform: '$(BuildSolutionPlatform)'
+#    configuration: '$(BuildConfiguration)'
+#  condition: and(succeeded(), or(eq(variables['BC_FCSWorker'],'Y'), eq(variables['BC_DataFixes'], 'Y'), eq(variables['BC_CrmCopyDbSetup'], 'Y')))
+
+
+
 - task: VSBuild@1
-  displayName: 'Build: FCS.Worker solution for $(BuildConfiguration)'
+  displayName: 'Build: FCS.Worker solution'
+  condition: and(succeeded(), or(eq(variables['BC_FCSWorker'],'Y'), eq(variables['BC_DataFixes'], 'Y'), eq(variables['BC_CrmCopyDbSetup'], 'Y')))
   inputs:
     solution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.B.sln'
     platform: '$(BuildSolutionPlatform)'
     configuration: '$(BuildConfiguration)'
-  condition: and(succeeded(), or(eq(variables['BC_FCSWorker'],'Y'), eq(variables['BC_DataFixes'], 'Y'), eq(variables['BC_CrmCopyDbSetup'], 'Y')))
+    #msbuildArgs: '/p:BuildProjectReferences=false'
 
 - task: VSBuild@1
   displayName: 'Build: Datafix.Tests project for $(BuildConfiguration)'
@@ -139,46 +201,70 @@ steps:
     CleanTargetFolder: true
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_Subscriptions'], 'Y'))
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore for CrossDomain.Integration'
-  inputs:
-    restoreSolution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.B.sln'
-    restoreDirectory: '${{ parameters.BuildRoot }}/packages'
-  condition: and(succeeded(), or(eq(variables['BC_WebJobsHostSite'], 'Y'), eq(variables['BC_CrossDomainIntegration'], 'Y'), eq(variables['BC_Subscriptions'], 'Y')))
+#- task: NuGetCommand@2
+#  displayName: 'NuGet restore for CrossDomain.Integration'
+#  inputs:
+#    restoreSolution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.B.sln'
+#    restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+#  condition: and(succeeded(), or(eq(variables['BC_WebJobsHostSite'], 'Y'), eq(variables['BC_CrossDomainIntegration'], 'Y'), eq(variables['BC_Subscriptions'], 'Y')))
 
-- task: VSBuild@1
-  displayName: 'Build: CrossDomain.Integration solution for $(BuildConfiguration)'
-  inputs:
-    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.B.sln'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
-  condition: and(succeeded(), or(eq(variables['BC_WebJobsHostSite'], 'Y'), eq(variables['BC_CrossDomainIntegration'], 'Y')))
 
-- task: VSBuild@1
-  displayName: 'Publish: CrossDomain.Integration.Azure.Deploy for $(BuildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: 'Restore CrossDomain.Integration'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Azure.Deploy/CrossDomain.Integration.Azure.Deploy.ccproj'
-    msbuildArgs: '/t:Publish'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+    command: 'restore'
+    projects: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.B.sln'
 
-- task: CopyFiles@2
-  displayName: 'Copy CrossDomain.Integration.Azure.Deploy to ArtifactStagingDirectory for $(BuildConfiguration)'
-  inputs:
-    SourceFolder: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Azure.Deploy/bin/$(BuildConfiguration)/app.publish'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/CrossDomain.Integration.Azure.Deploy'
-    CleanTargetFolder: true
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+#- task: VSBuild@1
+#  displayName: 'Build: CrossDomain.Integration solution for $(BuildConfiguration)'
+#  inputs:
+#    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.B.sln'
+#    platform: '$(BuildSolutionPlatform)'
+#    configuration: '$(BuildConfiguration)'
+#  condition: and(succeeded(), or(eq(variables['BC_WebJobsHostSite'], 'Y'), eq(variables['BC_CrossDomainIntegration'], 'Y')))
 
-- task: VSBuild@1
-  displayName: 'Build: CrossDomain.Integration/XDomain.Worker project (for subscriptions) for $(BuildConfiguration)'
+
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build CrossDomain.Integration'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/XDomain.Worker/XDomain.Worker.csproj'
-    msbuildArgs: /m
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-  condition: and(succeeded(), eq(variables['BC_Subscriptions'], 'Y'))
+    command: 'build'
+    projects: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.B.sln'
+    arguments: '--configuration $(BuildConfiguration)'
+
+#- task: VSBuild@1
+#  displayName: 'Publish: CrossDomain.Integration.Azure.Deploy for $(BuildConfiguration)'
+#  inputs:
+#    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Azure.Deploy/CrossDomain.Integration.Azure.Deploy.ccproj'
+#    msbuildArgs: '/t:Publish'
+#    platform: '$(BuildPlatform)'
+#    configuration: '$(BuildConfiguration)'
+#  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+
+#- task: CopyFiles@2
+#  displayName: 'Copy CrossDomain.Integration.Azure.Deploy to ArtifactStagingDirectory for $(BuildConfiguration)'
+#  inputs:
+#    SourceFolder: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Azure.Deploy/bin/$(BuildConfiguration)/app.publish'
+#    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/CrossDomain.Integration.Azure.Deploy'
+#    CleanTargetFolder: true
+#  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+
+#- task: VSBuild@1
+#  displayName: 'Build: CrossDomain.Integration/XDomain.Worker project (for subscriptions) for $(BuildConfiguration)'
+#  inputs:
+#    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/XDomain.Worker/XDomain.Worker.csproj'
+#    msbuildArgs: /m
+#    platform: '$(BuildPlatform)'
+#    configuration: '$(BuildConfiguration)'
+#  condition: and(succeeded(), eq(variables['BC_Subscriptions'], 'Y'))
+
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build XDomain.Worker'
+  inputs:
+    command: 'build'
+    projects: '${{ parameters.BuildRoot }}/CrossDomain.Integration/XDomain.Worker/XDomain.Worker.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: CopyFiles@2
   displayName: 'Copy CrossDomain.Integration/XDomain.Worker (for subscriptions) to ArtifactStagingDirectory for $(BuildConfiguration)'
@@ -233,13 +319,21 @@ steps:
     restoreDirectory: '${{ parameters.BuildRoot }}/packages'
   condition: and(succeeded(), eq(variables['BC_OperationsWorker'], 'Y'))
 
+#- task: UseDotNet@2
+#  displayName: 'Use .NET Core sdk'
+#  inputs:
+#    packageType: sdk
+#    version: 6.x
+#    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+
 - task: UseDotNet@2
-  displayName: 'Use .NET Core sdk'
+  displayName: 'Install .NET 8 SDK'
   inputs:
-    packageType: sdk
-    version: 8.x
+    packageType: 'sdk'
+    version: '8.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
-    
+
 - task: DotNetCoreCLI@2
   displayName: 'Build Operations .Net Core Tests $(BuildConfiguration)'
   inputs:
@@ -282,24 +376,11 @@ steps:
     CleanTargetFolder: true
   condition: and(succeeded(),  ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_OperationsWorker'], 'Y'))
 
-## End Operations .Net Core
-
-# - task: VSBuild@1
-#   displayName: 'Build: FCT.Operations/Operations.Worker project (for subscriptions) for $(BuildConfiguration)'
-#   inputs:
-#     solution: '${{ parameters.BuildRoot }}/FCT.Operations/Operations.Worker/Operations.Worker.csproj'
-#     msbuildArgs: /m
-#     platform: '$(BuildPlatform)'
-#     configuration: '$(BuildConfiguration)'
-#   condition: and(succeeded(), eq(variables['BC_Subscriptions'], 'Y'))
-
-# - task: CopyFiles@2
-#   displayName: 'Copy FCT.Operations/Operations.Worker (for subscriptions) to ArtifactStagingDirectory for $(BuildConfiguration)'
-#   inputs:
-#     SourceFolder: '${{ parameters.BuildRoot }}/FCT.Operations/Operations.Worker/bin/$(BuildConfiguration)'
-#     TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/FCT.Operations/Operations.Worker'
-#     CleanTargetFolder: true
-#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_Subscriptions'], 'Y'))
+- task: NuGetCommand@2
+  displayName: 'Install EntityFramework 6.2.0'
+  inputs:
+    command: 'custom'
+    arguments: 'install EntityFramework -Version 6.2.0 -OutputDirectory $(Build.SourcesDirectory)/packages'
 
 - task: CopyFiles@2
   displayName: 'Copy EF Migrate to ArtifactStagingDirectory'
@@ -309,21 +390,33 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)/EntityFramework.Migrate'
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), or(eq(variables['BC_CrossDomainIntegration'], 'Y'), eq(variables['BC_OperationsWorker'], 'Y')))
 
-# http app service build section
-- task: NuGetCommand@2
-  displayName: 'NuGet restore for FCT.Operations.Web'
+- task: DotNetCoreCLI@2
+  displayName: 'Restore FCT.Operations.Web'
   inputs:
-    restoreSolution: '${{ parameters.BuildRoot }}/FCT.Operations.Web/FCT.Operations.Web.B.sln'
-    restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+    command: 'restore'
+    projects: '${{ parameters.BuildRoot }}/FCT.Operations.Web/FCT.Operations.Web.B.sln'
+    feedsToUse: select
+    includeNuGetOrg: true
   condition: and(succeeded(), eq(variables['BC_OperationsWeb'], 'Y'))
 
-- task: VSBuild@1
-  displayName: 'Build/Package: Operations.Web solution for $(BuildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: 'Publish: Operations.Web for $(BuildConfiguration)'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/FCT.Operations.Web/FCT.Operations.Web.B.sln'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
-    msbuildArgs: '/p:AutoParameterizationWebConfigConnectionStrings=false -target:Operations_Web:package'
+    command: 'publish'
+    publishWebProjects: false
+    projects: '${{ parameters.BuildRoot }}/FCT.Operations.Web/Operations.Web/Operations.Web.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output ${{ parameters.BuildRoot }}/FCT.Operations.Web/Operations.Web/bin/$(BuildConfiguration)/net8.0/publish'
+    zipAfterPublish: false
+  condition: and(succeeded(), eq(variables['BC_OperationsWeb'], 'Y'))
+
+- task: ArchiveFiles@2
+  displayName: 'Package Operations.Web for $(BuildConfiguration)'
+  inputs:
+    rootFolderOrFile: '${{ parameters.BuildRoot }}/FCT.Operations.Web/Operations.Web/bin/$(BuildConfiguration)/net8.0/publish'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '${{ parameters.BuildRoot }}/FCT.Operations.Web/Operations.Web/Operations.Web.zip'
+    replaceExistingArchive: true
   condition: and(succeeded(), eq(variables['BC_OperationsWeb'], 'Y'))
 
 # we need this further build to create the test assembly
@@ -339,33 +432,46 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Operations.Web package to ArtifactStagingDirectory for $(BuildConfiguration)'
   inputs:
-    SourceFolder: '${{ parameters.BuildRoot }}/FCT.Operations.Web/Operations.Web/obj/$(BuildConfiguration)/Package'
-    Contents: '*'
+    SourceFolder: '${{ parameters.BuildRoot }}/FCT.Operations.Web/Operations.Web'
+    Contents: 'Operations.Web.zip'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/Operations.Web'
     CleanTargetFolder: true
   condition: and(succeeded(), eq(variables['BC_OperationsWeb'], 'Y'))
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore for OrganisationDomain'
+- task: DotNetCoreCLI@2
+  displayName: 'Restore OrganisationDomain'
   inputs:
-    restoreSolution: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.B.sln'
-    restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+    command: 'restore'
+    projects: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.B.sln'
+    feedsToUse: 'select'
+    includeNuGetOrg: true
   condition: and(succeeded(), eq(variables['BC_OrgDomain'], 'Y'))
 
-- task: VSBuild@1
-  displayName: 'Build: OrganisationDomain solution for $(BuildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: 'Publish: OrganisationDomain for $(BuildConfiguration)'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.B.sln'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
-    msbuildArgs: '/p:AutoParameterizationWebConfigConnectionStrings=false -target:OrganisationDomain_Web:package'
+    command: 'publish'
+    publishWebProjects: false
+    projects: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.Web/OrganisationDomain.Web.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output ${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.Web/bin/$(BuildConfiguration)/net8.0/publish'
+    zipAfterPublish: false
+  condition: and(succeeded(), eq(variables['BC_OrgDomain'], 'Y'))
+
+- task: ArchiveFiles@2
+  displayName: 'Package OrganisationDomain for $(BuildConfiguration)'
+  inputs:
+    rootFolderOrFile: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.Web/bin/$(BuildConfiguration)/net8.0/publish'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.Web/OrganisationDomain.Web.zip'
+    replaceExistingArchive: true
   condition: and(succeeded(), eq(variables['BC_OrgDomain'], 'Y'))
 
 - task: CopyFiles@2
-  displayName: 'Copy OrganisationDomain to ArtifactStagingDirectory for $(BuildConfiguration)'
+  displayName: 'Copy OrganisationDomain package to ArtifactStagingDirectory for $(BuildConfiguration)'
   inputs:
-    SourceFolder: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.Web/obj/$(BuildConfiguration)/Package'
-    Contents: '*'
+    SourceFolder: '${{ parameters.BuildRoot }}/OrganisationDomain/OrganisationDomain.Web'
+    Contents: 'OrganisationDomain.Web.zip'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/OrganisationDomain'
     CleanTargetFolder: true
   condition: and(succeeded(), eq(variables['BC_OrgDomain'], 'Y'))
@@ -393,7 +499,7 @@ steps:
     restoreSolution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Entities/packages.config'
     restoreDirectory: '${{ parameters.BuildRoot }}/packages'
   condition: and(succeeded(), eq(variables['BC_FCTServices'], 'Y'))
-  
+
 - task: NuGetCommand@2
   displayName: 'NuGet restore for FCTServices - Framework CrossDomain.Integration.Messages'
   inputs:
@@ -496,38 +602,53 @@ steps:
 # end FCT Service Restore then build
 # end of http app service build section
 
-- task: VSBuild@1
-  displayName: 'Publish: FCS.Worker.Azure.Deploy for $(BuildConfiguration)'
-  inputs:
-    solution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.Azure.Deploy/FCS.Worker.Azure.Deploy.ccproj'
-    msbuildArgs: '/t:Publish'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
+#- task: VSBuild@1
+#  displayName: 'Publish: FCS.Worker.Azure.Deploy for $(BuildConfiguration)'
+#  inputs:
+#    solution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.Azure.Deploy/FCS.Worker.Azure.Deploy.ccproj'
+#    msbuildArgs: '/t:Publish'
+##    platform: '$(BuildPlatform)'
+#    configuration: '$(BuildConfiguration)'
+#  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
 
-- task: CopyFiles@2
-  displayName: 'Copy FCS.Worker.Azure.Deploy to ArtifactStagingDirectory for $(BuildConfiguration)'
-  inputs:
-    SourceFolder: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.Azure.Deploy/bin/$(BuildConfiguration)/app.publish'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/FCS.Worker.Azure.Deploy'
-    CleanTargetFolder: true
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
+#- task: CopyFiles@2
+#  displayName: 'Copy FCS.Worker.Azure.Deploy to ArtifactStagingDirectory for $(BuildConfiguration)'
+#  inputs:
+#    SourceFolder: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.Azure.Deploy/bin/$(BuildConfiguration)/app.publish'
+#    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/FCS.Worker.Azure.Deploy'
+#    CleanTargetFolder: true
+#  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore for FCT.Console'
+- task: DotNetCoreCLI@2
+  displayName: 'Restore FCT.Console PackageReference projects'
   inputs:
-    restoreSolution: '${{ parameters.BuildRoot }}/FCT.Console/FCT.Console.B.sln'
-    restoreDirectory: '${{ parameters.BuildRoot }}/packages'
-  condition: and(succeeded(), or(eq(variables['BC_Config'], 'Y'), eq(variables['BC_Subscriptions'], 'Y'), eq(variables['BC_DocumentTemplates'], 'Y'))) 
+    command: 'restore'
+    projects: '${{ parameters.BuildRoot }}/FCT.Console/FCT.Console.B.sln'
+  condition: and(succeeded(), or(eq(variables['BC_Config'], 'Y'), eq(variables['BC_Subscriptions'], 'Y'), eq(variables['BC_DocumentTemplates'], 'Y')))
 
-- task: VSBuild@1
-  displayName: 'Build FCT.Console solution for $(BuildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: 'Build FCT.Console'
   inputs:
-    solution: '${{ parameters.BuildRoot }}/FCT.Console/FCT.Console.B.sln'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
-    restoreNugetPackages: false
-  condition: and(succeeded(), or(eq(variables['BC_Config'], 'Y'), eq(variables['BC_Subscriptions'], 'Y'), eq(variables['BC_DocumentTemplates'], 'Y'))) 
+    command: 'build'
+    projects: '${{ parameters.BuildRoot }}/FCT.Console/FCT.Console.B.sln'
+    arguments: '--configuration $(BuildConfiguration)'
+  condition: and(succeeded(), or(eq(variables['BC_Config'], 'Y'), eq(variables['BC_Subscriptions'], 'Y'), eq(variables['BC_DocumentTemplates'], 'Y')))
+
+# - task: NuGetCommand@2
+#   displayName: 'NuGet restore for FCT.Console'
+#   inputs:
+#     restoreSolution: '${{ parameters.BuildRoot }}/FCT.Console/FCT.Console.B.sln'
+#     restoreDirectory: '${{ parameters.BuildRoot }}/packages'
+#   condition: and(succeeded(), or(eq(variables['BC_Config'], 'Y'), eq(variables['BC_Subscriptions'], 'Y'), eq(variables['BC_DocumentTemplates'], 'Y')))
+
+# - task: VSBuild@1
+#   displayName: 'Build FCT.Console solution for $(BuildConfiguration)'
+#   inputs:
+#     solution: '${{ parameters.BuildRoot }}/FCT.Console/FCT.Console.B.sln'
+#     platform: '$(BuildSolutionPlatform)'
+#     configuration: '$(BuildConfiguration)'
+#     restoreNugetPackages: false
+#   condition: and(succeeded(), or(eq(variables['BC_Config'], 'Y'), eq(variables['BC_Subscriptions'], 'Y'), eq(variables['BC_DocumentTemplates'], 'Y')))
 
 - task: CopyFiles@2
   displayName: 'Copy FCT.Console.Config to ArtifactStagingDirectory for $(BuildConfiguration)'
@@ -545,63 +666,64 @@ steps:
     CleanTargetFolder: true
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_Subscriptions'], 'Y'))
 
-- task: VSBuild@1
-  displayName: 'WebDeploy: CrossDomain.Integration.Azure.WebJobsHostSite copy for $(BuildConfiguration)'
-  inputs:
-    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Azure.WebJobsHostSite/CrossDomain.Integration.Azure.WebJobsHostSite.csproj'
-    msbuildArgs: '/t:package'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-  continueOnError: true
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_WebJobsHostSite'], 'Y'))
+#- task: VSBuild@1
+#  displayName: 'WebDeploy: CrossDomain.Integration.Azure.WebJobsHostSite copy for $(BuildConfiguration)'
+#  inputs:
+#    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Azure.WebJobsHostSite/CrossDomain.Integration.Azure.WebJobsHostSite.csproj'
+#    msbuildArgs: '/t:package'
+#    platform: '$(BuildPlatform)'
+#    configuration: '$(BuildConfiguration)'
+#  continueOnError: true
+#  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_WebJobsHostSite'], 'Y'))
 
-- task: CopyFiles@2
-  displayName: 'Copy CrossDomain.Integration.Azure.WebJobsHostSite to ArtifactStagingDirectory for $(BuildConfiguration)'
-  inputs:
-    SourceFolder: '${{ parameters.BuildRoot }}/CrossDomain.Integration\CrossDomain.Integration.Azure.WebJobsHostSite\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/CrossDomain.Integration.Azure.WebJobsHostSite'
-    CleanTargetFolder: true
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_WebJobsHostSite'], 'Y'))
+#- task: CopyFiles@2
+#  displayName: 'Copy CrossDomain.Integration.Azure.WebJobsHostSite to ArtifactStagingDirectory for $(BuildConfiguration)'
+#  inputs:
+#    SourceFolder: '${{ parameters.BuildRoot }}/CrossDomain.Integration\CrossDomain.Integration.Azure.WebJobsHostSite\obj\$(BuildConfiguration)\Package'
+#    Contents: '*'
+#    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/CrossDomain.Integration.Azure.WebJobsHostSite'
+#    CleanTargetFolder: true
+#  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_WebJobsHostSite'], 'Y'))
 
-## worker role app service build
-- task: VSBuild@1
-  displayName: 'Package: FCS.Worker.Azure.WebJobsHostSite copy for $(BuildConfiguration)'
-  inputs:
-    solution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.B.sln'
-    msbuildArgs: '-target:Azure\FCS_Worker_Azure_WebJobsHostSite:package'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
-  continueOnError: true
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
+# worker role app service build
+# - task: VSBuild@1
+#   displayName: 'Package: FCS.Worker.Azure.WebJobsHostSite copy for $(BuildConfiguration)'
+#   inputs:
+#     solution: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.B.sln'
+#     msbuildArgs: '-target:Azure\FCS_Worker_Azure_WebJobsHostSite:package'
+#     platform: '$(BuildSolutionPlatform)'
+#     configuration: '$(BuildConfiguration)'
+#   continueOnError: true
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
 
-- task: CopyFiles@2
-  displayName: 'Copy FCS.Worker.Azure.WebJobsHostSite to ArtifactStagingDirectory for $(BuildConfiguration)'
-  inputs:
-    SourceFolder: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.Azure.WebJobsHostSite/obj/$(BuildConfiguration)/Package'
-    Contents: '*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/FCS.Worker.Azure.WebJobsHostSite'
-    CleanTargetFolder: true
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
+# - task: CopyFiles@2
+#   displayName: 'Copy FCS.Worker.Azure.WebJobsHostSite to ArtifactStagingDirectory for $(BuildConfiguration)'
+#   inputs:
+#     SourceFolder: '${{ parameters.BuildRoot }}/FCS.Worker/FCS.Worker.Azure.WebJobsHostSite/obj/$(BuildConfiguration)/Package'
+#     Contents: '*'
+#     TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/FCS.Worker.Azure.WebJobsHostSite'
+#     CleanTargetFolder: true
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
 
-- task: VSBuild@1
-  displayName: 'Package: CrossDomain.Integration.Azure.WorkerSite copy for $(BuildConfiguration)'
-  inputs:
-    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.B.sln'
-    msbuildArgs: '-target:Azure\CrossDomain_Integration_Azure_WorkerSite:package'
-    platform: '$(BuildSolutionPlatform)'
-    configuration: '$(BuildConfiguration)'
-  continueOnError: true
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
 
-- task: CopyFiles@2
-  displayName: 'Copy CrossDomain.Integration.Azure.WorkerSite to ArtifactStagingDirectory for $(BuildConfiguration)'
-  inputs:
-    SourceFolder: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Azure.WorkerSite\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/CrossDomain.Integration.Azure.WorkerSite'
-    CleanTargetFolder: true
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+#- task: VSBuild@1
+#  displayName: 'Package: CrossDomain.Integration.Azure.WorkerSite copy for $(BuildConfiguration)'
+#  inputs:
+#    solution: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.B.sln'
+#    msbuildArgs: '-target:Azure\CrossDomain_Integration_Azure_WorkerSite:package'
+##    platform: '$(BuildSolutionPlatform)'
+#    configuration: '$(BuildConfiguration)'
+#  continueOnError: true
+#  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+
+#- task: CopyFiles@2
+#  displayName: 'Copy CrossDomain.Integration.Azure.WorkerSite to ArtifactStagingDirectory for $(BuildConfiguration)'
+#  inputs:
+#    SourceFolder: '${{ parameters.BuildRoot }}/CrossDomain.Integration/CrossDomain.Integration.Azure.WorkerSite\obj\$(BuildConfiguration)\Package'
+#    Contents: '*'
+#    TargetFolder: '$(Build.ArtifactStagingDirectory)/$(BuildConfiguration)/CrossDomain.Integration.Azure.WorkerSite'
+#    CleanTargetFolder: true
+#  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
 
 - task: SqlAzureDacpacDeployment@1
   displayName: 'SqlAzureDacpacDeployment - PaaS'

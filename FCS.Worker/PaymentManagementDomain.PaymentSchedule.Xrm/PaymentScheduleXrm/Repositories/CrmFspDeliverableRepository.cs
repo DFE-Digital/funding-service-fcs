@@ -1,7 +1,8 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm.Repositories
 {
+    extern alias IntegrationEntities;
     using System.Collections.Concurrent;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using System;
     using System.Collections.Generic;
     using System.Linq;

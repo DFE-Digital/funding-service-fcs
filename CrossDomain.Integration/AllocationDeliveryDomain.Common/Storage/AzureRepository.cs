@@ -1,14 +1,16 @@
-﻿namespace SFA.FCT.AllocationDeliveryDomain.Common.Storage
+﻿
+namespace SFA.FCT.AllocationDeliveryDomain.Common.Storage
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Azure.Data.Tables; // NEW SDK
     using CrossDomain.Integration.Common.PagedStorage;
     using CrossDomain.Integration.Common.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
 
-    public class AzureRepository<T> : IAzureRepository<T> where T : TableEntity, IAzureEntity, new()
+    public class AzureRepository<T> : IAzureRepository<T>
+        where T : class, ITableEntity, IAzureEntity, new()
     {
-        private readonly IAzureTableStore _azureTableStore;
+        private readonly IAzureTableStore _azureTableStore; 
         private readonly IEnvironmentContext _context;
         private string _tableName;
 
@@ -21,7 +23,7 @@
         public void AddRow(T entity)
         {
             UpdateKeys(entity);
-            _azureTableStore.CreateRow(GetTableName(), entity);
+            _azureTableStore.CreateRow(GetTableName(), entity); // expects ITableEntity
         }
 
         public void AddRows(IEnumerable<T> entities)
@@ -30,15 +32,9 @@
             {
                 UpdateKeys(entity);
             }
-
             _azureTableStore.CreateRows(GetTableName(), entities);
         }
 
-        /// <summary>
-        /// This will overwrite the record no matter what, avoiding optimistic concurrency.
-        /// Use this with caution
-        /// </summary>
-        /// <param name="entity">The entity we want to add or update</param>
         public void AddRowOrUpdate(T entity)
         {
             UpdateKeys(entity);
@@ -84,20 +80,18 @@
         {
             if (string.IsNullOrEmpty(_tableName))
             {
-                _tableName = new T().TableName + _context.StorageTableSuffix;
+                _tableName = new T().TableName + _context.StorageTableSuffix; // keep this in IAzureEntity
                 _azureTableStore.CreateTableIfNotExists(_tableName);
             }
-
             return _tableName;
         }
 
-        private void UpdateKeys(T entity)
+        private static void UpdateKeys(T entity)
         {
             if (string.IsNullOrEmpty(entity.PartitionKey))
             {
                 entity.PartitionKey = entity.EntityPartitionKey;
             }
-
             if (string.IsNullOrEmpty(entity.RowKey))
             {
                 entity.RowKey = entity.EntityRowKey;

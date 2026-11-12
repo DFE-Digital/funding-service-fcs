@@ -1,10 +1,11 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.Extensions
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using PaymentManagementDomain.PaymentSchedule.Xrm.Extensions;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.Xrm.Integration.Repositories;
 
     [TestClass]
@@ -14,7 +15,7 @@
         public void PaymentSchedule_AreAllDeliverablePeriodsPresent_ShouldReturnTrueWhenDeliverablePeriodssOnPaymentScheduleAreAllPresentInListAndAllAreWithinTheAllocationDateRangeBoundary()
         {
             // arrange
-            SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation paymentSchedule = new Allocation
+            Allocation paymentSchedule = new Allocation
             {
                 AllocationDeliverables = new List<AllocationDeliverable>
                 {
@@ -61,7 +62,7 @@
         public void PaymentSchedule_AreAllDeliverablePeriodsPresent_ShouldReturnTrueWhenDeliverablePeriodsOnPaymentScheduleAreAllPresentInListAndThereAreMoreInTheListOutsideTheAllocationDateRangeBoundary()
         {
             // arrange
-            SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation paymentSchedule = new Allocation
+            Allocation paymentSchedule = new Allocation
             {
                 AllocationDeliverables = new List<AllocationDeliverable>
                 {
@@ -110,7 +111,7 @@
         public void PaymentSchedule_AreAllDeliverablePeriodsPresent_ShouldReturnTrueWhenDeliverablePeriodsOnPaymentScheduleAreAllPresentInListAndThereAreMoreInThePaymentScheduleOutsideTheAllocationDateRangeBoundary()
         {
             // arrange
-            SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation paymentSchedule = new Allocation
+            Allocation paymentSchedule = new Allocation
             {
                 AllocationDeliverables = new List<AllocationDeliverable>
                 {
@@ -160,7 +161,7 @@
         public void PaymentSchedule_AreAllDeliverablePeriodsPresent_ShouldReturnFalseWhenDeliverablePeriodsOnPaymentScheduleAreNotAllPresentInListWithinTheDateRangeBoundary()
         {
             // arrange
-            SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation paymentSchedule = new Allocation
+            Allocation paymentSchedule = new Allocation
             {
                 AllocationDeliverables = new List<AllocationDeliverable>
                 {

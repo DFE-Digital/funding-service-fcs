@@ -1,14 +1,14 @@
-namespace SFA.FCT.AllocationDeliveryDomain.MDEnrich.Endpoint
+﻿namespace SFA.FCT.AllocationDeliveryDomain.MDEnrich.Endpoint
 {
+    using CrossDomain.Integration.Events;
+    using Microsoft.Extensions.Logging;
+    using Ioc;
+    using Microsoft.Extensions.DependencyInjection;
+    using NServiceBus;
+    using SFA.FCS.Worker.Common;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
-    using CrossDomain.Integration.Events;
-    using Framework.Logging.Interfaces;
-    using Ioc;
-    using NServiceBus;
-    using SFA.FCS.Worker.Common;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -22,7 +22,8 @@ namespace SFA.FCT.AllocationDeliveryDomain.MDEnrich.Endpoint
             new Subscription("ContractManagementDomain.ContractClosure", typeof(ContractClosedEvent))
         };
 
-        public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>();
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            new List<CommandRoute>();
 
         private IReadOnlyCollection<Type> TypesPublished = new List<Type>
         {
@@ -33,16 +34,27 @@ namespace SFA.FCT.AllocationDeliveryDomain.MDEnrich.Endpoint
         {
             var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CDI");
-
+            // ✅ Conventions only
             configuration.Conventions()
-                .DefiningEventsAs(t => Subscriptions.Select(s => s.EventType.Name).Any(e => t.Name.EndsWith(e)) || TypesPublished.Contains(t));
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    Subscriptions.Any(s => s.EventType.IsAssignableFrom(t)) ||
+                    TypesPublished.Contains(t));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ DI only
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new ComponentInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+
+                services.AddAllocationDeliveryServices(loggerFactory);
             });
 
             return configuration;

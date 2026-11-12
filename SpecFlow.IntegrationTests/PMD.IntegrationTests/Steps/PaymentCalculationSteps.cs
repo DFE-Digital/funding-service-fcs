@@ -1,15 +1,17 @@
 ﻿namespace PMD.IntegrationTests.Steps
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using Extensions;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    //using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
     using PageObjects;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Model;
     using TechTalk.SpecFlow;
-    using DeliveryAllocation = SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using DeliveryAllocation = Entity::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
 
     [Binding]
     public sealed class PaymentCalculationSteps
@@ -283,13 +285,13 @@
         [Then(@"the Capping Subnominal Amounts are calculated as follows")]
         public void ThenTheCappingSubnominalAmountsAreCalculatedAsFollows(Table table)
         {
-            paymentPageObject.CheckAggregations(SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.AggregationPaymentType.CAPPING, ConstructExpectedAmountsFromTable(table, "CappingSubnominal"));
+            paymentPageObject.CheckAggregations(Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.AggregationPaymentType.CAPPING, ConstructExpectedAmountsFromTable(table, "CappingSubnominal"));
         }
 
         [Then(@"the Reconciliation Subnominal Amounts are calculated as follows")]
         public void ThenTheReconciliationSubnominalAmountsAreCalculatedAsFollows(Table table)
         {
-            paymentPageObject.CheckAggregations(SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.AggregationPaymentType.RECONCILIATION, ConstructExpectedAmountsFromTable(table, "ReconciliationSubnominal"));
+            paymentPageObject.CheckAggregations(Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.AggregationPaymentType.RECONCILIATION, ConstructExpectedAmountsFromTable(table, "ReconciliationSubnominal"));
         }
 
         [Given(@"the previously calculated reconcillation amounts are as follows")]

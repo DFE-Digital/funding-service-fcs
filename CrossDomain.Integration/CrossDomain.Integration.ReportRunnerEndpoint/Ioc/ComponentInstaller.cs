@@ -12,7 +12,7 @@
     using SFA.FCT.CrossDomain.Integration.Common;
     using SFA.FCT.CrossDomain.Integration.Common.Reporting;
     using SFA.FCT.CrossDomain.Integration.Common.Storage;
-    using SFA.FCT.CrossDomain.Integration.Common.ReportExecution2005;
+    //using SFA.FCT.CrossDomain.Integration.Common.ReportExecution2005;
     using SFA.FCT.CrossDomain.Integration.OverrideDate;
     using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore;
 
@@ -28,8 +28,8 @@
         {
             container.Register(
                 Component.For<IReportRunner>().ImplementedBy<ReportRunner>().LifestyleTransient(),
-                Component.For<IReportingServicesClient>().ImplementedBy<ReportingServicesClient>().LifestyleTransient(),
-                Component.For<IReportExecutionService>().ImplementedBy<ReportExecutionService>().LifestyleTransient(),
+                //Component.For<IReportingServicesClient>().ImplementedBy<ReportingServicesClient>().LifestyleTransient(),
+                //Component.For<IReportExecutionService>().ImplementedBy<ReportExecutionService>().LifestyleTransient(),
                 Component.For<IOffice365Adapter>().ImplementedBy<Office365StorageWrapper>().LifestyleTransient(),
                 Component.For<IArchiveReportService>().ImplementedBy<ArchiveReportService>().LifestyleSingleton(),
                 Component.For<IContractManagementDbContext>().ImplementedBy<ContractManagementDbContext>().LifestyleScoped(),

@@ -9,17 +9,6 @@ Scenario: Capture the latest Mainstream contract number from CRM
 	When I query the lastest Mainstream contract from the CRM database
 	Then the latest Mainstream contract number is returned
 
-Scenario: Create a new Mainstream contract with a new contract number
-	Given that an excel spreadsheet exists with a UKPRN of 'UKPRN001'
-	And a Funding Type of 'Mainstream'
-	When I upload the spreadsheet into CRM
-	Then a new contract number is generated in Format: <MAIN>-<n>
-
-Scenario: Capture the latest Mainstream contract number from CRM
-	Given a Mainstrean contract exists with a contract number within CRM
-	When I query the lastest Mainstream contract from the CRM database
-	Then the latest Mainstream contract number is returned
-
 Scenario: Create a new Mainstream contract with a new contract number witn an existing UKPRN
 	Given that an excel spreadsheet exists with a UKPRN of 'UKPRN001'
 	And a Funding Type of 'Mainstream'

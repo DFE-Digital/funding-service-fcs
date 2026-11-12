@@ -25,7 +25,7 @@
         {
             _logger.LogInformation(LoggingId.DocumentGenerationCompleteReceived, $"Processing DocumentGenerationComplete: {message}");
 
-            contract corpChildContract = message.Contract;
+            Contract corpChildContract = message.Contract;
 
             string storageKey = _contractStorage.GetKey(corpChildContract.contractNumber, corpChildContract.contractVersionNumber, corpChildContract.contractSubVersionNumber);
 

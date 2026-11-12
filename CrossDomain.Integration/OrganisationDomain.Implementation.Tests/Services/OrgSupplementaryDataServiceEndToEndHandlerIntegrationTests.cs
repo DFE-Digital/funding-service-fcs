@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
     using Castle.MicroKernel.Lifestyle;
     using Castle.Windsor;
     using Implementation.Services;
@@ -29,31 +28,30 @@
         private PopulateSupplementaryDataForUkprnBatchCommandHandler _createPopulateSupplementaryDataForUkprnBatchCommandHandler;
 
         [TestInitialize]
-        public async Task TestInitialize()
+        public void TestInitialize()
         {
             _orgSupplementaryDataServiceMock = new Mock<IOrgSupplementaryDataService>();
 
-
             _orgSupplementaryDataServiceMock
-               .Setup(m => m.GetDataForUkprn(It.IsAny<int>()))
-               .Returns((int ukprn) => Task.FromResult(
-                   new OrgSupplementaryDataServiceResult(
-                       $"COMPANY-{ukprn}",
-                       $"CH-{ukprn}",
-                       true)
-                   {
-                       LegalAddress = new OrgSupplementaryDataServiceResult.Address
-                       {
-                           Line1 = $"LINE1-{ukprn}",
-                           Line2 = $"LINE2-{ukprn}",
-                           Line3 = $"LINE3-{ukprn}",
-                           Line4 = $"LINE4-{ukprn}",
-                           Town = $"TOWN-{ukprn}",
-                           County = $"COUNTY-{ukprn}",
-                           Postcode = $"PC-{ukprn}"
-                       }
-                   }));
-
+                .Setup(m => m.GetDataForUkprn(It.IsAny<int>()))
+                .Returns((int ukprn) =>
+                    Task.FromResult(
+                        new OrgSupplementaryDataServiceResult(
+                            $"COMPANY-{ukprn}",
+                            $"CH-{ukprn}",
+                            true)
+                        {
+                            LegalAddress = new OrgSupplementaryDataServiceResult.Address
+                            {
+                                Line1 = $"LINE1-{ukprn}",
+                                Line2 = $"LINE2-{ukprn}",
+                                Line3 = $"LINE3-{ukprn}",
+                                Line4 = $"LINE4-{ukprn}",
+                                Town = $"TOWN-{ukprn}",
+                                County = $"COUNTY-{ukprn}",
+                                Postcode = $"PC-{ukprn}"
+                            }
+                        }));
 
 
             _initiateOrgSupplementaryDataPopulationCommandHandler = CreateInitiateOrgSupplementaryDataPopulationCommandHandler();
@@ -105,7 +103,7 @@
             IWindsorContainer container = new WindsorContainer().Install(new ComponentInstaller(new LoggerFactory()));
             container.BeginScope();
 
-            return new InitiateOrgSupplementaryDataPopulationCommandHandler(container.Resolve<IOrganisationRepository>(), Mock.Of<ILogger>());
+            return new InitiateOrgSupplementaryDataPopulationCommandHandler(container.Resolve<IOrganisationRepository>(),  Mock.Of<ILogger>());
         }
 
         private PopulateSupplementaryDataForUkprnBatchCommandHandler CreatePopulateSupplementaryDataForUkprnBatchCommandHandler()
@@ -140,7 +138,7 @@
         {
             using (OrganisationDomainDbContext organisationDomainDbContext = new OrganisationDomainDbContext())
             {
-                ukprns.ForEach(ukprn =>
+                ukprns.ForEach(ukprn => 
                 {
                     organisationDomainDbContext.Organisations.Add(new Organisation
                     {

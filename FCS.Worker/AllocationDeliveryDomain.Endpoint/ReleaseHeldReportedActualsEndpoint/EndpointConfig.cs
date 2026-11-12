@@ -1,13 +1,14 @@
-﻿namespace AllocationDeliveryDomain.Endpoint.ReleaseHeldReportedActualsEndpoint
+﻿
+namespace AllocationDeliveryDomain.Endpoint.ReleaseHeldReportedActualsEndpoint
 {
     using System.Collections.Generic;
     using System.Linq;
-    using AllocationDelivery.Messages.Commands;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using AllocationDelivery.Messages.Commands;
+    using IoC;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -15,27 +16,38 @@
 
         public string NameOfAssembly => "AllocationDeliveryDomain.Endpoint.dll";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToList();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToList();
 
         public IReadOnlyCollection<CommandRoute> Routes => new[]
         {
-            new CommandRoute("AllocationDeliveryDomain.Validation", typeof(ReportedActualsLoadedCommand)),
+            new CommandRoute(
+                "AllocationDeliveryDomain.Validation",
+                typeof(ReportedActualsLoadedCommand)),
         };
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            Logger logger = new Logger(new System.Diagnostics.TraceSource("WorkerRole"));
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"));
+                .DefiningCommandsAs(t =>
+                    t.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    t.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ DI (replaces Windsor)
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddReleaseHeldActualsServices();
             });
 
             return configuration;

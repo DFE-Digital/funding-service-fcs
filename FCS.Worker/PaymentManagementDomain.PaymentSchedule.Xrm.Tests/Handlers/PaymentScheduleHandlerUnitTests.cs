@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.Handlers
 {
+    extern alias Entity;
     using System.Collections.Generic;
     using Castle.MicroKernel.Lifestyle;
     using Castle.MicroKernel.Registration;
@@ -8,7 +9,7 @@
     using Moq;
     using NServiceBus;
     using PaymentSchedule.PaymentScheduleXrm;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.Xrm.Integration.Services;
@@ -28,7 +29,6 @@
         private IWindsorContainer GetContainer()
         {
             IWindsorContainer container = new WindsorContainer().Install(new PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm.WindsorInstaller(new LoggerFactory()));
-            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
             container.Register(Component.For<PaymentScheduleEventHandler>());
             container.Register(Component.For<IMessageHandlerContext>().Instance(_messageHandlerContextMock.Object));
             container.BeginScope();

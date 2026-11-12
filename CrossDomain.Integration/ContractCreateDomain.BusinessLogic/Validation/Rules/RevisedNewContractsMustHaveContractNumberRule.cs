@@ -23,7 +23,7 @@
             allContractTypes.AddRange(itemToValidate
                 .GetSubContracts());
 
-            return allContractTypes.Where(c => c.CRMIntent == intent.RevisedNew && string.IsNullOrEmpty(c.contractNumber))
+            return allContractTypes.Where(c => c.CRMIntent == Intent.RevisedNew && string.IsNullOrEmpty(c.contractNumber))
                 .Select(a => a.correlationId);
         }
     }

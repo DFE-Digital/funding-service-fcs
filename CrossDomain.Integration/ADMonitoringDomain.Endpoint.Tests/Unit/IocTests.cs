@@ -4,7 +4,7 @@
     using Castle.MicroKernel.Lifestyle;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using SFA.FCT.Framework.Logging;
+    using Microsoft.Extensions.Logging;
     using Ioc;
 
     [TestClass]

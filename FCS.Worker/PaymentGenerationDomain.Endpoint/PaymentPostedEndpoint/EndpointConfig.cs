@@ -1,41 +1,56 @@
-﻿namespace PaymentGenerationDomain.Endpoint.PaymentPostedEndpoint
+﻿
+namespace PaymentGenerationDomain.Endpoint.PaymentPostedEndpoint
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string EndpointName => "PaymentGenerationDomain.PaymentPostedEndpoint";
-        
-        public string NameOfAssembly => "PaymentGenerationDomain.Endpoint.dll";
+        public string EndpointName =>
+            "PaymentGenerationDomain.PaymentPostedEndpoint";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>
-        {
-            new Subscription("PaymentGenerationDomain.ProcessPaymentComplete", typeof(PaymentPostedEvent))
-        };
+        public string NameOfAssembly =>
+            "PaymentGenerationDomain.Endpoint.dll";
 
-        public IReadOnlyCollection<CommandRoute> Routes => Enumerable.Empty<CommandRoute>().ToList();
-        
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
-        {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
-
-            Logger logger = new Logger(new System.Diagnostics.TraceSource("WorkerRole"));
-
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
-            configuration.Conventions()
-                .DefiningEventsAs(t => Subscriptions.Select(s => s.EventType.Name).Any(e => t.Name.EndsWith(e)));
-
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                new Subscription(
+                    "PaymentGenerationDomain.ProcessPaymentComplete",
+                    typeof(PaymentPostedEvent))
+            };
+
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            Enumerable.Empty<CommandRoute>().ToList();
+
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
+        {
+            var configuration = new EndpointConfiguration(EndpointName);
+
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
+
+            // ✅ Keep your custom event convention
+            configuration.Conventions()
+                .DefiningEventsAs(t =>
+                    Subscriptions
+                        .Select(s => s.EventType.Name)
+                        .Any(e => t.Name.EndsWith(e)));
+
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ MS DI (replaces Windsor)
+            configuration.RegisterComponents(services =>
+            {
+                services.AddSingleton(loggerFactory);
+                services.AddPaymentPostedServices();
             });
 
             return configuration;

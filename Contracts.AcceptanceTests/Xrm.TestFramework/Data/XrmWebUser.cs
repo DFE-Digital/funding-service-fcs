@@ -10,6 +10,7 @@ namespace SFA.FCT.Xrm.TestFramework
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
+    using NUnit.Framework.Legacy;
 
     /// -----------------------------------------------------------------
     ///   Namespace:      Ciber.Xrm.Tests.MetaData
@@ -71,7 +72,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
             if (securityPriv == XrmSecurityPriv.None)
             {
-                Assert.IsFalse(
+                ClassicAssert.IsFalse(
                     p.Any(),
                     "The privilege on the entity " + entityLogicalName + " for user " + this.systemUserFullName +
                     " for action " + securityAction.ToDescription() + " is not " +
@@ -79,14 +80,14 @@ namespace SFA.FCT.Xrm.TestFramework
             }
             else
             {
-                Assert.IsTrue(
+                ClassicAssert.IsTrue(
                     p.Any(),
                     "The privilege on the entity " + entityLogicalName + " for user " + this.systemUserFullName +
                     " for action " + securityAction.ToDescription() +
                     " is " + XrmSecurityPriv.None.ToDescription() + "; not " + securityPriv.ToDescription());
                 string privDepth = p.First().Depth.ToString();
 
-                Assert.IsTrue(
+                ClassicAssert.IsTrue(
                     privDepth == securityPriv.ToDescription(),
                     "The privilege on the entity " + entityLogicalName + " for user " + this.systemUserFullName + " for action " + securityAction.ToDescription() +
                     " is " + privDepth + "; not " + securityPriv.ToDescription());
@@ -101,7 +102,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
             var privMatch = this.allPrivs.Entities.AsEnumerable().Where(p => p.Attributes["name"].ToString() == privString);
 
-            Assert.IsTrue(privMatch.Any(), "The privilege does not exist within Dynamics CRM");
+            ClassicAssert.IsTrue(privMatch.Any(), "The privilege does not exist within Dynamics CRM");
 
             return (Guid)privMatch.First().Attributes["privilegeid"];
         }
@@ -119,7 +120,7 @@ namespace SFA.FCT.Xrm.TestFramework
             {
                 EntityCollection entityCollection = this.crmOrganisationService.RetrieveMultiple(query);
 
-                Assert.IsTrue(entityCollection != null && entityCollection.Entities.Count == 1, "The user does not exist within Dynamics CRM");
+                ClassicAssert.IsTrue(entityCollection != null && entityCollection.Entities.Count == 1, "The user does not exist within Dynamics CRM");
 
                 this.entity = entityCollection.Entities[0];
                 this.systemUserGuid = (Guid)entityCollection.Entities[0].Attributes["systemuserid"];
@@ -132,7 +133,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 Console.WriteLine("Message: {0}", ex.Detail.Message);
                 Console.WriteLine("Inner Fault: {0}", null == ex.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
 
-                Assert.Fail("Organization Service Fault " + ex.Detail.Message);
+                ClassicAssert.Fail("Organization Service Fault " + ex.Detail.Message);
             }
             catch (System.TimeoutException ex)
             {
@@ -141,7 +142,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 Console.WriteLine("Stack Trace: {0}", ex.StackTrace);
                 Console.WriteLine("Inner Fault: {0}", null == ex.InnerException.Message ? "No Inner Fault" : ex.InnerException.Message);
 
-                Assert.Fail("Timeout Exception " + ex.Message);
+                ClassicAssert.Fail("Timeout Exception " + ex.Message);
             }
             catch (System.Exception ex)
             {
@@ -163,7 +164,7 @@ namespace SFA.FCT.Xrm.TestFramework
                         Console.WriteLine("Trace: {0}", fe.Detail.TraceText);
                         Console.WriteLine("Inner Fault: {0}", null == fe.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
 
-                        Assert.Fail("OrganizatioServiceFault Exception: " + fe.Detail.Message);
+                        ClassicAssert.Fail("OrganizatioServiceFault Exception: " + fe.Detail.Message);
                     }
                 }
             }

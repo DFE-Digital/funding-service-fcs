@@ -30,7 +30,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -104,7 +104,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -195,7 +195,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -270,7 +270,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -322,7 +322,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -377,7 +377,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -432,7 +432,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -515,7 +515,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -606,7 +606,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -658,7 +658,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -710,7 +710,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -762,7 +762,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -814,7 +814,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },
@@ -865,7 +865,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 12345678
                     },

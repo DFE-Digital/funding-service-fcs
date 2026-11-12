@@ -1,11 +1,25 @@
 ﻿namespace SFA.FCT.Contracts.AcceptanceTests.Pages.DTO
 {
-    using System.Text;
     using AllocationDeliveryDomain.Common.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
+    using Azure;
+    // using Microsoft.WindowsAzure.Storage.Table;
+    using Azure.Data.Tables;
+    using System;
+    using System.Text;
 
-    public class ReportedActual : TableEntity, IAzureEntity
+
+
+    public class ReportedActual : ITableEntity, IAzureEntity
     {
+
+        public string PartitionKey { get; set; }
+
+        public string RowKey { get; set; }
+
+        public DateTimeOffset? Timestamp { get; set; }
+
+        public ETag ETag { get; set; }
+
         public virtual string TableName => "ReportedActual";
 
         public virtual string EntityPartitionKey

@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework.Legacy;
 
 namespace SFA.FCT.Xrm.TestFramework
 {
@@ -74,7 +75,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 fieldMatch = from f in this.fields where f.displayName == fieldName select f;
             }
 
-            Assert.IsTrue(fieldMatch.Count() > 0, "The Tab " + this.DisplayName + " does not include a control for the field: " + fieldName);
+            ClassicAssert.IsTrue(fieldMatch.Count() > 0, "The Tab " + this.DisplayName + " does not include a control for the field: " + fieldName);
             return (XrmPackageAttribute)fieldMatch.First();
         }
 
@@ -87,7 +88,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 fieldMatch = from f in this.fields where f.displayName == viewId select f;
             }
 
-            Assert.IsTrue(fieldMatch.Count() > 0, "The Tab " + this.DisplayName + " does not include a control for the field: " + viewId);
+            ClassicAssert.IsTrue(fieldMatch.Count() > 0, "The Tab " + this.DisplayName + " does not include a control for the field: " + viewId);
             return (XrmPackageAttribute)fieldMatch.First();
         }
 
@@ -95,7 +96,7 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var field = this.Field(fieldName);
           
-            Assert.IsTrue(field.QuickFormId == quickFormId, "The Tab " + this.DisplayName + " does not include a quick view form for the field: " + quickFormId);
+            ClassicAssert.IsTrue(field.QuickFormId == quickFormId, "The Tab " + this.DisplayName + " does not include a quick view form for the field: " + quickFormId);
             return (XrmPackageAttribute)field;
         }
 

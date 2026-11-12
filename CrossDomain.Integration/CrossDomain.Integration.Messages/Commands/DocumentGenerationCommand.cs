@@ -10,7 +10,7 @@
         public string CorrelationId { get; set; }
 
         [LogDetail]
-        public contract CorporateContract { get; set; }
+        public Contract CorporateContract { get; set; }
 
         [LogDetail]
         public string MasterContractNumber { get; set; }

@@ -7,6 +7,7 @@
     using CrossDomain.Integration.Entities.Xrm;
     using State;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class ContractDocumentationAppendiciesSteps
@@ -89,7 +90,7 @@
                 System.Threading.Tasks.Task.Delay(2000).Wait();
             }
 
-            Assert.IsFalse(found, $"pdf file '{fileName}' was found at {location}");
+            ClassicAssert.IsFalse(found, $"pdf file '{fileName}' was found at {location}");
         }
 
         [Given(@"all DocMerge files have been deleted for '(.*)' consecutive UKPRNs starting at '(.*)' and ContractNumbers starting at '(.*)'")]
@@ -172,12 +173,12 @@
         public void WhenIRetrieveTheLatestContractDetailsFromCRMForProviderForFundingTypeAndPeriod(int ukprn, string fundingType, int period)
         {
             sfa_contract contract = _contractRepositoryPageObject.RetrieveLatestContractDataAndSetState(ukprn.ToString(), fundingType, period.ToString());
-            Assert.IsTrue(contract != null, $"There is no contract in CRM for UKPRN {ukprn} with FundingType {fundingType} and period {period}");
+            ClassicAssert.IsTrue(contract != null, $"There is no contract in CRM for UKPRN {ukprn} with FundingType {fundingType} and period {period}");
         }
 
         private void ThenTheFileNamedExistsInTheLocation(string fileName, string location)
         {
-            Assert.IsTrue(_contractDocumentGeneration.DoesFileExist(location, fileName), $"output file not found {fileName} in {location}");
+            ClassicAssert.IsTrue(_contractDocumentGeneration.DoesFileExist(location, fileName), $"output file not found {fileName} in {location}");
         }
 
         [Given(@"a file for this contract exists in sharepoint location '(.*)'")]
@@ -225,7 +226,7 @@
                 System.Threading.Tasks.Task.Delay(2000).Wait();
             }
 
-            Assert.IsTrue(found, "output pdf file not found");
+            ClassicAssert.IsTrue(found, "output pdf file not found");
         }
     }
 }

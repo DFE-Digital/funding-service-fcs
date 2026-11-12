@@ -9,7 +9,7 @@ namespace ContractCreateDomain.Tests
     [TestClass]
     public class MasherMissingCrmRecordTests
     {
-        private static contractType Child(string number, intent crmIntent, params contractAllocation[] allocations)
+        private static contractType Child(string number, Intent crmIntent, params contractAllocation[] allocations)
         {
             return new contractType
             {
@@ -19,7 +19,7 @@ namespace ContractCreateDomain.Tests
             };
         }
 
-        private static contractAllocation Allocation(string number, intent crmIntent, params contractDeliverable[] deliverables)
+        private static contractAllocation Allocation(string number, Intent crmIntent, params contractDeliverable[] deliverables)
         {
             return new contractAllocation
             {
@@ -29,7 +29,7 @@ namespace ContractCreateDomain.Tests
             };
         }
 
-        private static contractDeliverable Deliverable(int code, intent crmIntent, params int[] periods)
+        private static contractDeliverable Deliverable(int code, Intent crmIntent, params int[] periods)
         {
             return new contractDeliverable
             {
@@ -49,8 +49,8 @@ namespace ContractCreateDomain.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void Mash_NewChildContract_IsAddedToCrmContract()
         {
-            var crm = Master(Child("C1", intent.UpdateDraft));
-            var import = Master(Child("C2", intent.New));
+            var crm = Master(Child("C1", Intent.UpdateDraft));
+            var import = Master(Child("C2", Intent.New));
 
             var result = new Masher().Mash(crm, import);
 
@@ -61,8 +61,8 @@ namespace ContractCreateDomain.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void Mash_DeleteDraftChildContractNotInCrm_AddsImportWithCrmNotPresent()
         {
-            var crm = Master(Child("C1", intent.UpdateDraft));
-            var import = Master(Child("C9", intent.DeleteDraft));
+            var crm = Master(Child("C1", Intent.UpdateDraft));
+            var import = Master(Child("C9", Intent.DeleteDraft));
 
             var result = new Masher().Mash(crm, import);
 
@@ -73,8 +73,8 @@ namespace ContractCreateDomain.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void Mash_DeleteDraftChildContractInCrm_RemovesIt()
         {
-            var crm = Master(Child("C1", intent.UpdateDraft), Child("C2", intent.UpdateDraft));
-            var import = Master(Child("C1", intent.DeleteDraft));
+            var crm = Master(Child("C1", Intent.UpdateDraft), Child("C2", Intent.UpdateDraft));
+            var import = Master(Child("C1", Intent.DeleteDraft));
 
             var result = new Masher().Mash(crm, import);
 
@@ -85,8 +85,8 @@ namespace ContractCreateDomain.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void Mash_DeleteDraftAllocationNotInCrm_AddsImportWithCrmNotPresent()
         {
-            var crm = Master(Child("C1", intent.UpdateDraft, Allocation("A1", intent.UpdateDraft)));
-            var import = Master(Child("C1", intent.UpdateDraft, Allocation("A9", intent.DeleteDraft)));
+            var crm = Master(Child("C1", Intent.UpdateDraft, Allocation("A1", Intent.UpdateDraft)));
+            var import = Master(Child("C1", Intent.UpdateDraft, Allocation("A9", Intent.DeleteDraft)));
 
             var result = new Masher().Mash(crm, import);
 
@@ -97,8 +97,8 @@ namespace ContractCreateDomain.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void Mash_DeleteDraftDeliverableNotInCrm_AddsImportWithCrmNotPresent()
         {
-            var crm = Master(Child("C1", intent.UpdateDraft, Allocation("A1", intent.UpdateDraft, Deliverable(1, intent.UpdateDraft))));
-            var import = Master(Child("C1", intent.UpdateDraft, Allocation("A1", intent.UpdateDraft, Deliverable(9, intent.DeleteDraft))));
+            var crm = Master(Child("C1", Intent.UpdateDraft, Allocation("A1", Intent.UpdateDraft, Deliverable(1, Intent.UpdateDraft))));
+            var import = Master(Child("C1", Intent.UpdateDraft, Allocation("A1", Intent.UpdateDraft, Deliverable(9, Intent.DeleteDraft))));
 
             var result = new Masher().Mash(crm, import);
 
@@ -110,8 +110,8 @@ namespace ContractCreateDomain.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void Mash_UpdatedDeliverableWithNewPeriod_AddsPeriodToCrmDeliverable()
         {
-            var crm = Master(Child("C1", intent.UpdateDraft, Allocation("A1", intent.UpdateDraft, Deliverable(1, intent.UpdateDraft, 1))));
-            var import = Master(Child("C1", intent.UpdateDraft, Allocation("A1", intent.UpdateDraft, Deliverable(1, intent.UpdateDraft, 1, 2))));
+            var crm = Master(Child("C1", Intent.UpdateDraft, Allocation("A1", Intent.UpdateDraft, Deliverable(1, Intent.UpdateDraft, 1))));
+            var import = Master(Child("C1", Intent.UpdateDraft, Allocation("A1", Intent.UpdateDraft, Deliverable(1, Intent.UpdateDraft, 1, 2))));
 
             var result = new Masher().Mash(crm, import);
 

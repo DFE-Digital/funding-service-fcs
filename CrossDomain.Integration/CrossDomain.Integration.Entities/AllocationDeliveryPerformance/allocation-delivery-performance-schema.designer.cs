@@ -59,7 +59,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities
             this.contractorField = new organisationReferenceTYPE();
             this.contractField = new contractReferenceTYPE();
             this.allocationOrganisationRelationshipsField = new allocationOrganisationRelationshipsTYPE();
-            this.schemaVersionField = ((decimal)(1.11m));
+            this.schemaVersionField = ((decimal)(1.10m));
         }
 
         [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
@@ -1018,8 +1018,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities
         SB,
         /// <remarks/>
         HTES,
-        HTES2,
-        CTEC
+        HTES2
 
 
     }

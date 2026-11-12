@@ -1,5 +1,6 @@
 ﻿namespace ContractRequestDomain.Tests.BulkUpload
 {
+    extern alias CSICommon;
     using System;
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,7 +9,7 @@
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Interfaces;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
     using SFA.FCT.ContractRequestDomain.Integration.BulkUpload;
-    using SFA.FCT.CrossDomain.Integration.Common.Storage;
+    using CSICommon::SFA.FCT.CrossDomain.Integration.Common.Storage;
     using SFA.FCT.CrossDomain.Integration.Entities.ExcelUpload;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;

@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using NSB;
+    using SFA.FCT.ContractCreateDomain.Implementation.Extensions;
 
     [ApiController]
     [Authorize]

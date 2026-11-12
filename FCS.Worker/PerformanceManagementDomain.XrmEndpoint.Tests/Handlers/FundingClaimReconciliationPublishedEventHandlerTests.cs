@@ -96,7 +96,6 @@
             // arrange
             using (IWindsorContainer container = new WindsorContainer().Install(new WindsorInstaller(new LoggerFactory())))
             {
-                container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
                 container.Register(Component.For<FundingClaimReconciliationPublishedEventHandler>());
                 container.BeginScope();
 

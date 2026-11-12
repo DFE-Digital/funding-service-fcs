@@ -25,7 +25,7 @@
 
         public static string GetEnvironmentSuffix()
         {
-            string environment = ConfigurationManager.AppSettings["StorageTableSuffix"].ToLower();
+            string environment =TestConfiguration.Configuration["StorageTableSuffix"].ToLower();
 
             if (!string.IsNullOrEmpty(environment))
             {

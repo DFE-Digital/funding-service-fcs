@@ -185,14 +185,14 @@
             // act
             IDictionary<string, DocumentGenerationRequest> documentGenerationRequests = creator.SupplyDocumentGenerationRequest(
                 "MASTER-123",
-                new contract
+                new Contract
                 {
                     startDate = new DateTime(2019, 08, 01),
-                    period = new period
+                    period = new Period
                     {
                         period1 = "1920"
                     },
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 1,
                         legalName = "CONTRACTING ORG"
@@ -203,7 +203,7 @@
                         {
                             contractAllocationNumber = "FSP2-1",
                             fundingStreamPeriodCode = "FSP2",
-                            DeliveryOrganisationDetail = new contractor // DeliveryOrganisationDetail appears to be populated for the contracting org when there are other delivery orgs present
+                            DeliveryOrganisationDetail = new Contractor // DeliveryOrganisationDetail appears to be populated for the contracting org when there are other delivery orgs present
                             {
                                 ukprn = 1,
                                 legalName = "CONTRACTING ORG"
@@ -213,7 +213,7 @@
                         {
                             contractAllocationNumber = "FSP2-2",
                             fundingStreamPeriodCode = "FSP2",
-                            DeliveryOrganisationDetail = new contractor
+                            DeliveryOrganisationDetail = new Contractor
                             {
                                 ukprn = 2,
                                 legalName = "XYZ DELIVERY ORG"
@@ -223,7 +223,7 @@
                         {
                             contractAllocationNumber = "FSP2-3",
                             fundingStreamPeriodCode = "FSP2",
-                            DeliveryOrganisationDetail = new contractor
+                            DeliveryOrganisationDetail = new Contractor
                             {
                                 ukprn = 3,
                                 legalName = "ABC DELIVERY ORG"
@@ -233,7 +233,7 @@
                         {
                             contractAllocationNumber = "FSP1-1",
                             fundingStreamPeriodCode = "FSP1",
-                            DeliveryOrganisationDetail = new contractor
+                            DeliveryOrganisationDetail = new Contractor
                             {
                                 ukprn = 1,
                                 legalName = "CONTRACTING ORG"
@@ -243,7 +243,7 @@
                         {
                             contractAllocationNumber = "FSP1-2",
                             fundingStreamPeriodCode = "FSP1",
-                            DeliveryOrganisationDetail = new contractor
+                            DeliveryOrganisationDetail = new Contractor
                             {
                                 ukprn = 2,
                                 legalName = "XYZ DELIVERY ORG"
@@ -253,7 +253,7 @@
                         {
                             contractAllocationNumber = "FSP1-3",
                             fundingStreamPeriodCode = "FSP1",
-                            DeliveryOrganisationDetail = new contractor
+                            DeliveryOrganisationDetail = new Contractor
                             {
                                 ukprn = 3,
                                 legalName = "ABC DELIVERY ORG"
@@ -286,7 +286,7 @@
                 .OfType<EdskSummaryOfFundingDocumentPartCreator>()
                 .Single();
 
-            contract contract = TestResource.FromJson<DocumentGenerationCommand>(
+            Contract contract = TestResource.FromJson<DocumentGenerationCommand>(
                 "SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources",
                 "DocGenCommandEdskWithAllocationsForContractingAndDeliveryOrgs.json").CorporateContract;
 

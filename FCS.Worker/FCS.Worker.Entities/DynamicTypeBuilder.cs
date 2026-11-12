@@ -65,10 +65,15 @@
 
         private static TypeBuilder GetTypeBuilder(string typeName)
         {
-            var an = new AssemblyName(DynamicAssemblyName);
 
-            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(an, AssemblyBuilderAccess.Run);
+            var assemblyName = new AssemblyName(DynamicAssemblyName);
+
+            AssemblyBuilder assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(
+                assemblyName,
+                AssemblyBuilderAccess.Run);
+
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule(DynamicAssemblyName);
+
 
             TypeBuilder tb = moduleBuilder.DefineType(typeName,
                     TypeAttributes.Public |

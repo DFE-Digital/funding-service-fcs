@@ -13,11 +13,13 @@
         private readonly Guid _previousContract = new Guid("38b11529-c143-4210-8b52-57756c1cbb98");
         private readonly Guid _newContract = new Guid("a183a973-41f2-43bb-8e7b-0f220b18682a");
 
-        [TestMethod, TestCategory("UnitTest")]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void WorkflowManager_GetWorkflowHistory_WhenContractIdIsEmptyReturnArgumentNullException()
         {
             // Arrange
-            var workflowManager = new XrmWorkflowManager()
+            var workflowManager = new XrmWorkflowManager
             {
                 OrganizationService = null
             };
@@ -27,8 +29,7 @@
                 // Act
                 workflowManager.GetWorkflowHistory(Guid.Empty);
 
-                // Assert
-                Assert.Fail("Exception was not thrown for null IOrganizationService");
+                Assert.Fail("Expected ArgumentNullException was not thrown.");
             }
             catch (ArgumentNullException ex)
             {
@@ -38,9 +39,11 @@
             catch (Exception ex)
             {
                 // Assert
-                Assert.Fail("Exception was raised but not of correct type, type returned was: {0}", ex.GetType());
+                Assert.Fail(
+                    $"Exception was raised but not of correct type, type returned was: {ex.GetType()}");
             }
         }
+
 
 
         [TestMethod, TestCategory("UnitTest")]

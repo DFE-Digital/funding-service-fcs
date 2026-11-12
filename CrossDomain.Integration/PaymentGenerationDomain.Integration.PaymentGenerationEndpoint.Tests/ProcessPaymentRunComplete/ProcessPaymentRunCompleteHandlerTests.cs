@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGeneration.ProcessPaymentRunComplete
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,8 +17,8 @@
     using PaymentGenerationEndpoint.Infrastructure;
     using PaymentGenerationEndpoint.ProcessPaymentRunCompleteEndpoint;
     using PaymentGenerationEndpoint.ProcessPaymentRunCompleteEndpoint.Ioc;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging;
@@ -181,29 +182,39 @@
                 "Handle_ProcessPaymentRunCompleteCommand didn't call Bus.Publish");
         }
 
+
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(Exception))]
         public void ProcessPaymentRunCompleteHandler_ShouldLogTheError_WhenErrorOccurs()
         {
-            var message = new ProcessPaymentRunCompleteCommand()
+            // Arrange
+            var message = new ProcessPaymentRunCompleteCommand
             {
                 FundingStreamShortCode = "AP16",
                 CensusEndDate = new DateTime(2015, 8, 1),
             };
+
             var testException = new Exception("Test Exception");
+
             var contextMock = new Mock<PaymentGenerationDbContext>();
             var datamanagerMock = new Mock<IDataAccessManager>();
-            datamanagerMock.Setup(x => x.GetFundingStreamPeriodCodeFromShortCode("AP16",
-                It.IsAny<DateTime>(),
-                It.IsAny<DateTime>(), It.IsAny<ConnectionInfo>()
-            )).Throws(testException);
+
+            datamanagerMock
+                .Setup(x => x.GetFundingStreamPeriodCodeFromShortCode(
+                    "AP16",
+                    It.IsAny<DateTime>(),
+                    It.IsAny<DateTime>(),
+                    It.IsAny<ConnectionInfo>()))
+                .Throws(testException);
 
             var loggerMock = new Mock<ILogger>();
 
             var outstandingPaymentsCheckerMock = new Mock<IOutstandingPaymentsChecker>();
-            outstandingPaymentsCheckerMock.Setup(m =>
-                m.HasOutstandingPaymentsForAllocation(It.IsAny<string>(), It.IsAny<string>(),
-                    It.IsAny<ConnectionInfo>())).Returns(true);
+            outstandingPaymentsCheckerMock
+                .Setup(m => m.HasOutstandingPaymentsForAllocation(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<ConnectionInfo>()))
+                .Returns(true);
 
             var handler = new ProcessPaymentRunCompleteHandler(
                 datamanagerMock.Object,
@@ -212,23 +223,29 @@
                 loggerMock.Object,
                 Mock.Of<ISessionConnectionFactory>());
 
-            try
+            // Act & Assert  
+            // Using MSTest v4: Assert.ThrowsExactly
+            var ex = Assert.ThrowsExactly<AggregateException>(() =>
             {
                 handler.Handle(message, new TestableMessageHandlerContext()).Wait();
-            }
-            catch (AggregateException ex)
-            {
-                loggerMock.Verify(x => x.LogError(
-                        PaymentGenerationDomainLoggingEventId.PaymentGenerationError,
-                        testException,
-                        It.IsAny<string>(),
-                        "AP16",
-                        It.IsAny<string>()),
-                    Times.Once(),
-                    "Handle_ProcessPaymentRunCompleteCommand didn't log the error");
-                throw ex.InnerException;
-            }
+            });
+
+            // The handler threw your test exception, wrapped inside AggregateException
+            Assert.IsNotNull(ex.InnerException);
+            Assert.AreEqual(testException, ex.InnerException);
+
+            // Verify logger was called
+            loggerMock.Verify(
+                x => x.LogError(
+                    PaymentGenerationDomainLoggingEventId.PaymentGenerationError,
+                    testException,
+                    It.IsAny<string>(),
+                    "AP16",
+                    It.IsAny<string>()),
+                Times.Once(),
+                "Handle_ProcessPaymentRunCompleteCommand didn't log the error");
         }
+
 
         [TestMethod, TestCategory("UnitTest")]
         public void ProcessPaymentRunCompleteHandler_ShouldPublishEventWithAllocationNumberAndHasOutstandingPayments()
@@ -276,7 +293,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void ProcessPaymentRunCompleteHandler_ShouldResolveAllDependenciesFromEndpointContainer()
         {
-            IWindsorContainer container  = new WindsorContainer().Install(new ProcessPaymentRunCompleteWindsorInstaller(new LoggerFactory()));
+            IWindsorContainer container  = new WindsorContainer().Install(new ProcessPaymentRunCompleteWindsorInstaller(new Microsoft.Extensions.Logging.LoggerFactory()));
             container.Register(Component.For<ProcessPaymentRunCompleteHandler>());
             container.BeginScope();
 

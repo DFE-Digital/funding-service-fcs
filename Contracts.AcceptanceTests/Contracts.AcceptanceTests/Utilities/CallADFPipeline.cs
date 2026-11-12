@@ -12,31 +12,31 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Utilities
 
         public string ApplicationId
         {
-            get { return ConfigurationManager.AppSettings["applicationId"]; }
+            get { return TestConfiguration.Configuration["Azure:ApplicationId"]; }
         }
         public string ClientSecret
         {
-            get { return ConfigurationManager.AppSettings["clientSecret"]; }
+            get { return TestConfiguration.Configuration["Azure:ClientSecret"]; }
         }
         public string SubscriptionId
         {
-            get { return ConfigurationManager.AppSettings["subscriptionId"]; }
+            get { return TestConfiguration.Configuration["Azure:SubscriptionId"]; }
         }
         public string TenantID
         {
-            get { return ConfigurationManager.AppSettings["tenantID"]; }
+            get { return TestConfiguration.Configuration["Azure:TenantId"]; }
         }
         public string ResourceGroupName
         {
-            get { return ConfigurationManager.AppSettings["ResourceGroupName"]; }
+            get { return TestConfiguration.Configuration["Azure:ResourceGroupName"]; }
         }
         public string FactoryName
         {
-            get { return ConfigurationManager.AppSettings["FactoryName"]; }
+            get { return TestConfiguration.Configuration["Azure:FactoryName"]; }
         }
         public string PipeLineName
         {
-            get { return ConfigurationManager.AppSettings["PipeLineName"]; }
+            get { return TestConfiguration.Configuration["Azure:PipelineName"]; }
         }
 
         public void create_adf_client()

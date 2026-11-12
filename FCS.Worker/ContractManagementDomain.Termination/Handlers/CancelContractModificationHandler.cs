@@ -59,7 +59,7 @@
                 $"Cancel Contract Modification - END: CancelContractModificationCommand processed for {message}");
         }
 
-        private static void SetSubStatusAndClearModificationValues(contract masterContract)
+        private static void SetSubStatusAndClearModificationValues(Contract masterContract)
         {
             masterContract.SetChildContractsSubStatus(newStatus: "Approved");
             masterContract.ClearAllocationModificationValues();

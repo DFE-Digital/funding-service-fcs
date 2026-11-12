@@ -41,7 +41,7 @@
             ContractReadyToPublishHandler handler = new ContractReadyToPublishHandler(Mock.Of<ILogger>(), xrmDocumentManagerMock.Object);
 
             contractType contract = new contractType();
-            contract masterContract = new contract
+                Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -68,7 +68,7 @@
             ContractReadyToPublishHandler handler = new ContractReadyToPublishHandler(Mock.Of<ILogger>(), xrmDocumentManagerMock.Object);
 
             contractType contract = new contractType();
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -100,7 +100,7 @@
                 amendmentType = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.amendmentType.Notification.ToString()
             };
 
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {

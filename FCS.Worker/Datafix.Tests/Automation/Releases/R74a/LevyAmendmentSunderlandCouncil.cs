@@ -21,7 +21,7 @@
             const string levyFundingType = "LEVY";
             const string levyFundingPeriod = "LEVY1799";
             const string ukprn = "10006407";
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
             CrmContractInformationRepository crmRepository = new CrmContractInformationRepository();
             IReadOnlyCollection<ContractInformation> allLevyContracts =
                 crmRepository.GetLatestContractInformationByFundingTypeAndFundingPeriod(levyFundingType, levyFundingPeriod);

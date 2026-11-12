@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using ContractManagement.DataStore.Model;
-    using ContractRequestDomain.EngagementWatcher.Services;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

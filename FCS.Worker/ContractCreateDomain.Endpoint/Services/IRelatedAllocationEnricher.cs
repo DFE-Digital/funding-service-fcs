@@ -6,7 +6,7 @@
 
     public interface IRelatedAllocationEnricher
     {
-        Task EnrichWithRelatedAllocationsWhenAppropriate(contract corpContract, ConnectionInfo connectionInfo);
+        Task EnrichWithRelatedAllocationsWhenAppropriate(Contract corpContract, ConnectionInfo connectionInfo);
         
         void EnrichWithRelatedAllocationsWhenAppropriate(ApprovedContractInfo contract);
     }

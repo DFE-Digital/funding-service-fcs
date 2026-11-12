@@ -1,43 +1,46 @@
 ﻿namespace OrganisationDomain.Web
 {
-    using System;
-    using System.Configuration;
+    using Microsoft.Extensions.Configuration;
     using NServiceBus;
     using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Common.MessageMutators;
+    using System;
+    using System.Threading.Tasks;
+    using NServiceBus.Transport.AzureServiceBus;
 
     public static class ServiceBus
     {
-        public static IBus Bus { get; set; }
+        public static IEndpointInstance Bus { get; private set; }
 
-        public static void Init()
+        public static async Task Init(IConfiguration configuration)
         {
-            var configuration = new BusConfiguration();
+            var endpointConfiguration =
+                new EndpointConfiguration(
+                    FctEndpoint.GenerateEndpointName("OrgService.Web"));
 
-            configuration.EndpointName(FctEndpoint.GenerateEndpointName("OrgService.Web"));
-            //// TODO: disable installers and replace transport for production
-            configuration.EnableInstallers();
+            endpointConfiguration.EnableInstallers();
 
-            configuration.UseTransport<AzureServiceBusTransport>();
+            var transport = new LearningTransport();
+            var routing = endpointConfiguration.UseTransport(transport);
+            endpointConfiguration.UsePersistence<LearningPersistence>();
 
-            configuration.UsePersistence<InMemoryPersistence>();
-            configuration.UseSerialization<JsonSerializer>();
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
 
-            configuration.Conventions()
-                .DefiningCommandsAs(t => null != t.Namespace && t.Namespace.StartsWith("OrganisationDomain.Integration.Messages.Commands"))
-                .DefiningMessagesAs(t => null != t.Namespace && t.Namespace.StartsWith("OrganisationDomain.Integration.Messages.Messages"))
-                .DefiningEventsAs(t => null != t.Namespace && t.Namespace.StartsWith("OrganisationDomain.Integration.Messages.Events"))
-                .DefiningTimeToBeReceivedAs(t => (null != t.Namespace && t.Namespace.StartsWith("OrganisationDomain.Integration.Messages.Messages.Expires") 
-                    ? TimeSpan.FromSeconds(double.Parse(ConfigurationManager.AppSettings["GetOrgAsyncWaitTimeInSeconds"])) 
-                    : TimeSpan.MaxValue));
-            configuration.CustomConfigurationSource(new CustomConfigurationSource());
+            endpointConfiguration.Conventions()
+                .DefiningCommandsAs(t =>
+                    t.Namespace != null &&
+                    t.Namespace.StartsWith(
+                        "OrganisationDomain.Integration.Messages.Commands"))
+                .DefiningMessagesAs(t =>
+                    t.Namespace != null &&
+                    t.Namespace.StartsWith(
+                        "OrganisationDomain.Integration.Messages.Messages"))
+                .DefiningEventsAs(t =>
+                    t.Namespace != null &&
+                    t.Namespace.StartsWith(
+                        "OrganisationDomain.Integration.Messages.Events"));
 
-            configuration.RegisterComponents(components =>
-            {
-                components.ConfigureComponent<TransportMessageCompressionMutator>(DependencyLifecycle.SingleInstance);
-            });
-
-            Bus = NServiceBus.Bus.Create(configuration).Start();
+            Bus = await Endpoint.Start(endpointConfiguration)
+                                .ConfigureAwait(false);
         }
     }
 }

@@ -1,17 +1,15 @@
-﻿
-namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
+﻿namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
 {
     using System;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using Polly;
-   
+
     public static class AuthenticationHelper
     {
-       public static HttpClient EnsureClient()
+        public static HttpClient EnsureClient()
         {
             string token = GetGraphAccessTokenWithRetry();
-
             var http = new HttpClient();
             http.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", token);

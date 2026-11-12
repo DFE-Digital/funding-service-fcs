@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.Handlers
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -8,8 +9,8 @@
     using Microsoft.Xrm.Sdk;
     using Moq;
     using NServiceBus;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.Xrm.Integration;
@@ -19,7 +20,7 @@
     using PaymentSchedule.PaymentScheduleXrm.Repositories;
     using PaymentSchedule.PaymentScheduleXrm.Services;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Repositories;
     using TestResource = Tests.TestResource;
 

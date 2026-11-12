@@ -1,15 +1,16 @@
 ﻿namespace OrganisationDomain.Integration.CpdsEndpoint.Ioc
 {
-    using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Implementation.BusinessLogic;
     using Implementation.Converters;
     using Implementation.Mappers;
+    using OrganisationDomain.Implementation.ExternalServices.Helper;
     using SFA.FCT.CrossDomain.Integration.Common.Storage;
     using SFA.FCT.Framework.Logging.Interfaces;
+    using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
     public class ComponentInstaller : IWindsorInstaller
@@ -28,7 +29,8 @@
                 Component.For<ICpdsProviderConverter>().ImplementedBy<CpdsProviderConverter>().LifestyleSingleton(),
                 GetCpdsOrganisationRetriever(),
                 Component.For<IAzureTableStore>().ImplementedBy<AzureTableStore>().LifestyleSingleton(),
-                Component.For<GatewayServiceContract>().ImplementedBy<GatewayServiceContractClient>().LifestyleTransient(),
+            // Component.For<GatewayServiceContract>().ImplementedBy<GatewayServiceContractClient>().LifestyleTransient(),
+                Component.For<GatewayServiceContract>().UsingFactoryMethod(() =>  GatewayServiceClientFactory.Create()).LifestyleTransient(),                        
                 Component.For<ICpdsMapper>().ImplementedBy<CpdsMapper>().LifestyleSingleton(),
                 Component.For<ICpdsXmlValidator>().ImplementedBy<CpdsXmlValidator>().LifestyleSingleton());
         }

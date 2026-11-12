@@ -266,30 +266,36 @@ public interface GatewayServiceContractChannel : GatewayServiceContract, IClient
 [GeneratedCode("System.ServiceModel", "4.0.0.0")]
 public partial class GatewayServiceContractClient : ClientBase<GatewayServiceContract>, GatewayServiceContract
 {
-    
-    public GatewayServiceContractClient()
+
+    public GatewayServiceContractClient(Binding binding, EndpointAddress remoteAddress)
+        : base(binding, remoteAddress)
     {
     }
-    
-    public GatewayServiceContractClient(string endpointConfigurationName) : 
-            base(endpointConfigurationName)
-    {
-    }
-    
-    public GatewayServiceContractClient(string endpointConfigurationName, string remoteAddress) : 
-            base(endpointConfigurationName, remoteAddress)
-    {
-    }
-    
-    public GatewayServiceContractClient(string endpointConfigurationName, EndpointAddress remoteAddress) : 
-            base(endpointConfigurationName, remoteAddress)
-    {
-    }
-    
-    public GatewayServiceContractClient(Binding binding, EndpointAddress remoteAddress) : 
-            base(binding, remoteAddress)
-    {
-    }
+
+
+    //public GatewayServiceContractClient()
+    //{
+    //}
+
+    //public GatewayServiceContractClient(string endpointConfigurationName) : 
+    //        base(endpointConfigurationName)
+    //{
+    //}
+
+    //public GatewayServiceContractClient(string endpointConfigurationName, string remoteAddress) : 
+    //        base(endpointConfigurationName, remoteAddress)
+    //{
+    //}
+
+    //public GatewayServiceContractClient(string endpointConfigurationName, EndpointAddress remoteAddress) : 
+    //        base(endpointConfigurationName, remoteAddress)
+    //{
+    //}
+
+    //public GatewayServiceContractClient(Binding binding, EndpointAddress remoteAddress) : 
+    //        base(binding, remoteAddress)
+    //{
+    //}
     
     public GProvByUKPRNResponse GetProvidersByUKPRN(GProvByUKPRINRequest request)
     {

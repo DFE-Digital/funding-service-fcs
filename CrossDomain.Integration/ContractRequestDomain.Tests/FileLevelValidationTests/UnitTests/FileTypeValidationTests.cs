@@ -1,9 +1,10 @@
 ﻿namespace ContractRequestDomain.Tests.FileLevelValidationTests.UnitTests
 {
+    extern alias RequestDomainDS;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
-    using SFA.FCT.ContractRequestDomain.DataStore.Repositories;
+    using RequestDomainDS::SFA.FCT.ContractRequestDomain.DataStore.Repositories;
     using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore.Services;
     using SFA.FCT.Framework.Logging.Interfaces;
 

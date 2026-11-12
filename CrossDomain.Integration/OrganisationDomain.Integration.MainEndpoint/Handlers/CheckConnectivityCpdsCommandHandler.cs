@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
-    using System.ServiceModel.Configuration;
+    using System.ServiceModel;
     using System.Threading.Tasks;
     using Common;
     using Implementation.BusinessLogic;
@@ -29,15 +29,16 @@
             _logger.LogInformation(OrganisationDomainEventLoggingId.CheckConnectivityCommandReceived, $"CheckConnectivityCommand message received: {_cpdsOrganisationRetriever}");
             
             var canConnectResult = CanConnectToCpds();
-            var client = ConfigurationManager.GetSection("system.serviceModel/client") as ClientSection;
-            var cpdsConfig = client.Endpoints.Cast<ChannelEndpointElement>()
-                .SingleOrDefault(endpoint => endpoint.Contract == "GatewayServiceContract");
+            //var client = ConfigurationManager.GetSection("system.serviceModel/client") as ClientSection;
+            //var cpdsConfig = client.Endpoints.Cast<ChannelEndpointElement>()
+            //    .SingleOrDefault(endpoint => endpoint.Contract == "GatewayServiceContract");
+            var cpdsUrl = ConfigurationManager.AppSettings["CPDS:EndpointUrl"];
 
             var result = new CheckConnectivityReply.Result(
                 service: "CPDS",
                 canConnect: canConnectResult.canConnect,
                 errorInfo: canConnectResult.errorInfo,
-                supplementaryInfo: cpdsConfig?.Address.AbsoluteUri);
+                supplementaryInfo: cpdsUrl);
 
             await context.Reply(new CheckConnectivityReply(new List<CheckConnectivityReply.Result>{result}));
 

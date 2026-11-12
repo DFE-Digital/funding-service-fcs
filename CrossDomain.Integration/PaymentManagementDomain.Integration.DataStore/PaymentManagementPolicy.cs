@@ -12,7 +12,6 @@
     /// </summary>
     public class PaymentManagementPolicyContext : DbContext, IPaymentManagementPolicyContext
     {
-
         public static string KeyVaultValue { get; set; }
         /// <summary>
         /// Parameterless Constructor for Payment Management Policy to set the initializer

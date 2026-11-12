@@ -1,15 +1,17 @@
-﻿namespace ContractRequestDomain.EngagementWatcher
+﻿namespace SFA.FCT.ContractRequestDomain.EngagementWatcher
 {
     using Castle.Windsor;
-    using NServiceBus;
-    using SFA.FCT.Framework.Logging.Interfaces;
-    using System.Collections.Generic;
-    using System.Linq;
     using IoC;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.ContractRequestDomain.Common.Commands;
-    using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.CrossDomain.Integration.Events;
+    using SFA.FCT.CrossDomain.Integration.Messages.Commands;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -32,23 +34,40 @@
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Correct logger usage
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CDI");
+            var connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnection");
 
-            configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith("Messages"))
-                .DefiningEventsAs(t => Subscriptions.Select(s => s.EventType.Name).Any(e => t.Name.EndsWith(e)));
-
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                throw new InvalidOperationException(
+                    "AzureServiceBusConnection environment variable is not set.");
+            }
+
+            // ✅ Conventions (fixed & standardised)
+            configuration.Conventions()
+                .DefiningCommandsAs(t =>
+                    (t.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    Subscriptions.Any(s => s.EventType.IsAssignableFrom(t)));
+
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ DI registration (reuses your extension)
+            configuration.RegisterComponents(services =>
+            {
+                services.AddSingleton(loggerFactory);
+
+                services.AddEngagementWatcherServices(loggerFactory);
             });
 
             return configuration;
         }
+
     }
 }

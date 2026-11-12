@@ -18,11 +18,11 @@
         {
             return new AzureAuthenticationConfig
             {
-                AadInstance = ConfigurationManager.AppSettings["ida:AADInstance_ContractPublish"],
-                Tenant = ConfigurationManager.AppSettings["ida:Tenant_ContractPublish"],
-                ClientId = ConfigurationManager.AppSettings["ida:ClientId_ContractPublish"],
-                AppKey = ConfigurationManager.AppSettings["ida:AppKey_ContractPublish"],
-                ResourceId = ConfigurationManager.AppSettings["ida:ResourceId_ContractPublish"]
+                AadInstance =TestConfiguration.Configuration["ida:AADInstance_ContractPublish"],
+                Tenant =TestConfiguration.Configuration["ida:Tenant_ContractPublish"],
+                ClientId =TestConfiguration.Configuration["ida:ClientId_ContractPublish"],
+                AppKey =TestConfiguration.Configuration["ida:AppKey_ContractPublish"],
+                ResourceId =TestConfiguration.Configuration["ida:ResourceId_ContractPublish"]
             };
         }
 
@@ -30,11 +30,11 @@
         {
             return GetAuthenticationResult(new AzureAuthenticationConfig
             {
-                AadInstance = ConfigurationManager.AppSettings["ida:AADInstance_ContractPublish"],
-                Tenant = ConfigurationManager.AppSettings["ida:Tenant_ContractPublish"],
-                ClientId = ConfigurationManager.AppSettings["ida:ClientId_ContractPublish"],
-                AppKey = ConfigurationManager.AppSettings["ida:AppKey_ContractPublish"],
-                ResourceId = ConfigurationManager.AppSettings["ida:ResourceId_ContractPublish"]
+                AadInstance =TestConfiguration.Configuration["ida:AADInstance_ContractPublish"],
+                Tenant =TestConfiguration.Configuration["ida:Tenant_ContractPublish"],
+                ClientId =TestConfiguration.Configuration["ida:ClientId_ContractPublish"],
+                AppKey =TestConfiguration.Configuration["ida:AppKey_ContractPublish"],
+                ResourceId =TestConfiguration.Configuration["ida:ResourceId_ContractPublish"]
             });
         }
 
@@ -78,11 +78,11 @@
 
         public static string GetAuthenticationResult(string appSettingsSuffix)
         {
-            string aadInstance = ConfigurationManager.AppSettings[$"ida:AADInstance_{appSettingsSuffix}"];
-            string tenant = ConfigurationManager.AppSettings[$"ida:Tenant_{appSettingsSuffix}"];
-            string clientId = ConfigurationManager.AppSettings[$"ida:ClientId_{appSettingsSuffix}"];
-            string appKey = ConfigurationManager.AppSettings[$"ida:AppKey_{appSettingsSuffix}"];
-            string resourceId = ConfigurationManager.AppSettings[$"ida:ResourceId_{appSettingsSuffix}"];
+            string aadInstance =TestConfiguration.Configuration[$"ida:AADInstance_{appSettingsSuffix}"];
+            string tenant =TestConfiguration.Configuration[$"ida:Tenant_{appSettingsSuffix}"];
+            string clientId =TestConfiguration.Configuration[$"ida:ClientId_{appSettingsSuffix}"];
+            string appKey =TestConfiguration.Configuration[$"ida:AppKey_{appSettingsSuffix}"];
+            string resourceId =TestConfiguration.Configuration[$"ida:ResourceId_{appSettingsSuffix}"];
 
             string authority = string.Format(aadInstance, tenant);
 

@@ -15,7 +15,7 @@
             _fundingStreamPeriodLegalDeliverableRepository = fundingStreamPeriodLegalDeliverableRepository;
         }
 
-        public void RemoveNonLegalDeliverablesFromContract(contract masterContract)
+        public void RemoveNonLegalDeliverablesFromContract(Contract masterContract)
         {
             masterContract.contracts.ForEach(c =>
             {
@@ -28,7 +28,7 @@
             });
         }
 
-        public void RemoveNonLegalDeliverablesFromContract(ConnectionInfo connectionInfo, contract masterContract)
+        public void RemoveNonLegalDeliverablesFromContract(ConnectionInfo connectionInfo, Contract masterContract)
         {
             masterContract.contracts.ForEach(c =>
             {

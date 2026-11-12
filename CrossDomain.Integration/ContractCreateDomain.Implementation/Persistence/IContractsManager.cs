@@ -16,13 +16,13 @@
             Action<ContractIdentity, string, Action> insertAllocationIfNotPresent = null,
             Func<ContractIdentity, Guid> getExistingContractId = null);
 
-        CorporateContract.contract GetCorporateContract(string contractNumber, string masterContractNumber);
+        CorporateContract.Contract GetCorporateContract(string contractNumber, string masterContractNumber);
 
-        CorporateContract.contract GetCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved);
+        CorporateContract.Contract GetCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved);
 
-        CorporateContract.contract GetCorporateContractForSpecificVersion(string contractNumber, string masterContractNumber, int versionNumber);
+        CorporateContract.Contract GetCorporateContractForSpecificVersion(string contractNumber, string masterContractNumber, int versionNumber);
 
-        SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetCorporateContractForSpecificVersion(
+        SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetCorporateContractForSpecificVersion(
             string contractNumber, int version, int subVersion);
 
         ContractRequestSchema.contractType GetLatestContract(string masterContractNumber, IEnumerable<string> childContractNumbers);

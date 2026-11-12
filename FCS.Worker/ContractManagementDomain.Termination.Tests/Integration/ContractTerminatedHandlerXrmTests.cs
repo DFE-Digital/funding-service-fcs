@@ -39,7 +39,7 @@
             };
 
             // act
-            _ = GetHandler().Handle(terminatedEvent, null);
+            GetHandler().Handle(terminatedEvent, null);
 
             // assert
             StatusInfo statusValues = GetContractStatus(contractId);
@@ -67,7 +67,7 @@
             };
 
             // act
-            _ = GetHandler().Handle(terminatedEvent, null);
+            GetHandler().Handle(terminatedEvent, null);
 
             // assert
             DateTime? contractEndDate = GetContractEndDate(contractId);
@@ -118,14 +118,14 @@
         private static ContractTerminatedHandler GetHandler()
         {
             IWindsorContainer container = new WindsorContainer()
-                .Install(new WindsorInstaller(new LoggerFactory()))
-                .Register(Component.For<ContractTerminatedHandler>()
-                    .ImplementedBy<ContractTerminatedHandler>());
-            _ = container.Register(Component.For<ILogger>().Instance(Mock.Of<ILogger>()).IsDefault());
+                .Install(new Xrm.WindsorInstaller(new LoggerFactory()))
+                .Register(Component.For<Xrm.ContractTerminatedHandler>()
+                    .ImplementedBy<Xrm.ContractTerminatedHandler>());
+            container.Register(Component.For<ILogger>().Instance(Mock.Of<ILogger>()).IsDefault());
 
-            _ = container.BeginScope();
+            container.BeginScope();
 
-            return container.Resolve<ContractTerminatedHandler>();
+            return container.Resolve<Xrm.ContractTerminatedHandler>();
         }
 
         private static void DeleteContract(string contractNumber)

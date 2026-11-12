@@ -5,7 +5,7 @@
 
     public static class ContractorExtensions
     {
-        public static Address GetAddress(this contractor contractor)
+        public static Address GetAddress(this Contractor contractor)
         {
             return new Address
             {

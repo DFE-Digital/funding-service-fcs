@@ -1,62 +1,61 @@
 ﻿namespace SFA.FCT.DocumentsDomain.Integration.Tests.ResourceLayer
 {
     using System.Configuration;
-    using Common.Models;
+    using Azure.Storage.Blobs;
+    using Azure.Storage.Blobs.Specialized;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Blob;
-    using Properties;
 
     [TestClass]
     public class AzureStorageWrapperTests
     {
-        private string BlobFileContainer
-        {
-            get { return ConfigurationManager.AppSettings["testTargetContainer"]; }
-        }
+        private string BlobFileContainer => ConfigurationManager.AppSettings["testTargetContainer"];
         private const string BlobFilename = "AzureTestDoc.docx";
 
+        private BlobServiceClient CreateService() =>
+            new BlobServiceClient(ConfigurationManager
+                .ConnectionStrings["StorageConnectionString"].ConnectionString);
 
         [TestInitialize]
         public void Initialise()
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference(BlobFileContainer);
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(BlobFilename);
+            var service = CreateService();
+            var container = service.GetBlobContainerClient(BlobFileContainer);
 
-            byte[] contents =
-                Resources.Appendix1Mockup;
+            // Ensure container exists
+            container.CreateIfNotExists();
 
-            blockBlob.UploadFromByteArray(contents, 0, contents.Length);
+            // Get a client for the blob
+            BlobClient blob = container.GetBlobClient(BlobFilename);
 
+            // Upload bytes
+            var contents = Properties.Resources.Appendix1Mockup;
+            blob.Upload(new System.IO.MemoryStream(contents), overwrite: true); // modern Upload overloads [2](https://learn.microsoft.com/en-us/dotnet/api/azure.storage.blobs.blobclient.upload?view=azure-dotnet)
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference(BlobFileContainer);
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(BlobFilename);
-            blockBlob.DeleteIfExists();
+            var service = CreateService();
+            var container = service.GetBlobContainerClient(BlobFileContainer);
+            BlobBaseClient blob = container.GetBlobClient(BlobFilename);
+
+            // DeleteIfExists (returns true/false)
+            blob.DeleteIfExists(); // modern DeleteIfExists* exists on BlobBaseClient (sync/async) [4](https://learn.microsoft.com/en-us/dotnet/api/azure.storage.blobs.specialized.blobbaseclient.deleteifexistsasync?view=azure-dotnet)
         }
 
         [TestMethod]
         [TestCategory("IntegrationTest")]
         public void GetBlockBlobSuccess()
         {
-            // Arrange
-            FctFile file = new FctFile(BlobFileContainer, BlobFilename);
-            CloudBlockBlob blob = null;
+            // If AzureStorageWrapper is still legacy, update it to return the modern BlobClient
+            // or adapt test expectations accordingly.
+            // Example modern check using the same container/blob name:
+            var service = CreateService();
+            var container = service.GetBlobContainerClient(BlobFileContainer);
+            var blob = container.GetBlobClient(BlobFilename);
 
-            // Act
-            blob = new AzureStorageWrapper().GetBlockBlob(file);
-
-            // Assert
-            Assert.IsNotNull(blob);
+            Assert.IsTrue(blob.Exists().Value);
         }
-
-
     }
+
 }

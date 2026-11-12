@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.Repositories
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -7,10 +8,10 @@
     using Microsoft.Xrm.Sdk;
     using PaymentManagementDomain.AllocationActualsVerified.Repositories;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
     
     [TestClass]
     public class AllocationActualsRepositoryTests
@@ -432,173 +433,8 @@
             return context.sfa_fundingstreamSet
                 .Single(fsp => fsp.sfa_fundingstreamcode == fundingStreamCode)
                 .ToEntityReference();
-        }
+        }       
 
-        private static Allocation CreatePaymentScheduleAllocation(string contractNumber, int contractVersionNumber, string allocationNumber, string fundingStreamPeriodCode)
-        {
-            var newAllocation = new Allocation
-            {
-                AllocationNumber = allocationNumber,
-                VersionNumber = contractVersionNumber,
-                ContractNumber = contractNumber,
-                ContractVersionNumber = contractVersionNumber,
-                FundingStreamPeriodCode = fundingStreamPeriodCode,
-                Organisation = new SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Organisation
-                {
-                    MainOrganisationIdentifier = "ordID",
-                    OrganisationIdentifiers = new List<OrganisationIdentifier>
-                    {
-                        new OrganisationIdentifier
-                        {
-                            OrganisationId = "altOrgID", OrganisationIdentifierName = OrganisationIdentifierOrganisationIdentifierName.UKPRN
-                        }
-                    }
-                },
-                AllocationDeliverables = new List<AllocationDeliverable>
-                {
-                    CreatePaymentScheduleDeliverableType(1),
-                    CreatePaymentScheduleDeliverableType(2),
-                    CreatePaymentScheduleDeliverableType(3),
-                    CreatePaymentScheduleDeliverableType(4)
-                }
-            };
-
-            return newAllocation;
-        }
-
-        private static AllocationDeliverable CreatePaymentScheduleDeliverableType(int deliverableCode)
-        {
-            return new AllocationDeliverable
-            {
-                DeliverableCode = deliverableCode,
-                ScheduledPayments = new List<ScheduledPayment>
-                {
-                    #region 'Create scheduled payments'
-                    new ScheduledPayment
-                    {
-                        ActualValue = 2323423.00m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201508",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 5000m,
-                        ReconciliationPaymentAmount = 5000m,
-                        CappedPaymentAmount = -10m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 2323423.00m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201509",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 10000m,
-                        ReconciliationPaymentAmount = 10000m,
-                        CappedPaymentAmount = -150m
-                    }
-                    ,
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201510",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201511",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201512",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201601",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201602",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201603",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201604",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201605",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201606",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    },
-                    new ScheduledPayment
-                    {
-                        ActualValue = 0m,
-                        ProfilePaymentAmount = 2323.00m,
-                        Period = "201607",
-                        BalancingPaymentAmount = 0m,
-                        NetPaymentAmount = 0m,
-                        ReconciliationPaymentAmount = 0m,
-                        CappedPaymentAmount = 0m
-                    }
-                    #endregion
-                }
-            };
-        }
 
         private static ContractAllocationActualsType CreateAllocationActuals(string contractNumber, int contractVersionNumber, string allocationNumber, string fundingStreamPeriodCode, List<ActualsSummaryType> actualsSummary)
         {

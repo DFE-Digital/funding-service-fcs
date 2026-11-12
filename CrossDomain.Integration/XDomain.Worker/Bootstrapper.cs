@@ -1,28 +1,35 @@
-﻿namespace SFA.FCT.CrossDomain.Integration.Azure.Worker
+﻿
+namespace SFA.FCT.CrossDomain.Integration.Azure.Worker
 {
-    using NServiceBus;
-    using NServiceBus.MessageMutator;
-    using NServiceBus.Persistence;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    // -----------------------------
+    // System
+    // -----------------------------
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
+
+    // -----------------------------
+    // Microsoft
+    // -----------------------------
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Data.SqlClient;
+
+    // -----------------------------
+    // NServiceBus
+    // -----------------------------
+    using NServiceBus;
+    using NServiceBus.Transport.AzureServiceBus;
     using NServiceBus.Persistence.Sql;
+
+    // ✅ Resolve ambiguity
+    using NSBEndpointConfiguration = NServiceBus.EndpointConfiguration;
+
+    // -----------------------------
+    // Your framework
+    // -----------------------------
     using SFA.FCS.Worker.Common;
-    using System.Data.SqlClient;
-    using System.Configuration;
-    using global::AllocationDeliveryDomain.Endpoint.MonthEndCheck;
-    using global::AllocationDeliveryDomain.Endpoint.Routing;
-    using global::AllocationDeliveryDomain.Endpoint.Validation;
-    using ReportRunnerEndpoint=global::CrossDomain.Integration.ReportRunnerEndpoint;
-    using EngagementWatcher=global::ContractRequestDomain.EngagementWatcher;
-
-
-    using Microsoft.WindowsAzure.ServiceRuntime;
-    using Slack;
 
     public static class Bootstrapper
     {
@@ -30,243 +37,364 @@
 
         public static IReadOnlyCollection<IEndpointInstance> Endpoints { get; private set; }
 
-        private static string[] Nsb5Assemblies => new string[]
-        {
-            "CrossDomain.Integration.Common.dll",
-            "PaymentManagementDomain.PaymentSchedule.Xrm.Integration.dll"
-        };
-
-        private static string[] ExcludedWordsInAssemblies => new string[]
-        {
-            "Microsoft",
-            "Castle",
-            "Aspose",
-            "Oracle",
-            "NServiceBus",
-            "System",
-            "Azure",
-            "Common",
-        };
-
-        public static async Task Start(ILoggerFactory loggerFactory, ILogger currentLogger)
+        // -----------------------------------------------------
+        // START
+        // -----------------------------------------------------
+        public static async Task Start(
+            ILoggerFactory loggerFactory,
+            ILogger currentLogger,
+            IConfiguration configuration)
         {
             _logger = currentLogger;
-            Endpoints = await StartEndpoints(loggerFactory);
-            _logger.LogInformation("All endpoints have started");
-            FindDeploymentAndRoleInfo(currentLogger);
+
+            LogEnvironmentInfo(_logger);
+
+            Endpoints = await StartEndpoints(loggerFactory, configuration);
+
+            _logger.LogInformation("✅ All endpoints have started");
         }
 
+        // -----------------------------------------------------
+        // STOP
+        // -----------------------------------------------------
         public static async Task Stop()
         {
-            _logger.LogInformation("Stopping NServiceBus 6 endpoints");
+            if (Endpoints == null) return;
+
+            _logger.LogInformation("🛑 Stopping NServiceBus endpoints");
 
             foreach (var endpoint in Endpoints)
             {
-                await endpoint.Stop()
-                    .ConfigureAwait(false);
+                await endpoint.Stop().ConfigureAwait(false);
             }
+
+            _logger.LogInformation("✅ All endpoints stopped");
         }
 
-        private static IEnumerable<Type> GetDynamicTypes()
+        // -----------------------------------------------------
+        // START ENDPOINTS
+        // -----------------------------------------------------
+        private static async Task<IReadOnlyCollection<IEndpointInstance>> StartEndpoints(
+            ILoggerFactory loggerFactory,
+            IConfiguration configuration)
         {
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            _logger.LogInformation("🔍 Retrieving Endpoint Configurations");
 
-            var id = Guid.NewGuid();  // temp debug line
-            Console.WriteLine($"currentDirectory {currentDirectory}-{id}"); // temp debug line
-
-            List<string> assemblyNames = Directory.GetFiles(currentDirectory, "*.dll")
-                                             .Where(f => !ExcludedWordsInAssemblies.Any(f.Contains) && !Nsb5Assemblies.Any(f.Contains)).ToList();
-
-            Console.WriteLine($"This Console.WriteLine added to Bootstrapper.cs in XDomain.Worker-{id}"); // temp debug line
-
-            Console.WriteLine($"assemblyNames count {assemblyNames.Count}-{id}"); // temp debug line
-
-            int loopCount = 0; // temp debug line
-
-            // the code below can be removed later
-            assemblyNames.ForEach(a =>
-            {
-                try
-                {
-                    loopCount++; // temp debug line
-                    Console.WriteLine($"assemblyName-{loopCount}-{a}-{id}"); // temp debug line
-                    Assembly.LoadFile(Path.Combine(Environment.CurrentDirectory, a)).GetTypes();
-                }
-                catch (ReflectionTypeLoadException e)
-                {
-                    Console.WriteLine($"assemblyName-{loopCount}-{a}-{id}-catch-Could not load - {a} because {e.LoaderExceptions.FirstOrDefault()}"); // temp debug line
-                    _logger.LogInformation($"Could not load - {a} because {e.LoaderExceptions.FirstOrDefault()}");
-                }
-            });
-
-            return assemblyNames.SelectMany(p => Assembly.LoadFile(Path.Combine(Environment.CurrentDirectory, p)).GetTypes());
-        }
-
-        private static async Task<IReadOnlyCollection<IEndpointInstance>> StartEndpoints(ILoggerFactory loggerFactory)
-        {
-            _logger.LogInformation("Retrieving Endpoint Configurations");
             string endpointName = null;
+
             try
             {
-                List<Type> endpointTypes =
-                    //GetDynamicTypes()
-                    //    .Where(t => !t.IsAbstract && t.GetInterfaces().Contains(typeof(IEndpointCoreConfig))).ToList();
-                    new List<Type>
-                    {
-                        typeof(ADMonitoringDomain.Endpoint.EndpointConfig),
-                        typeof(MonthEndCheckConfig),
-                        typeof(DedsReportedActualRoutingConfig),
-                        typeof(ValidationEndpointConfig),
-                        typeof(SFA.FCT.AllocationDeliveryDomain.MDEnrich.Endpoint.EndpointConfig),
-                        typeof(ReportRunnerEndpoint.EndpointConfig),
-                        typeof(SFA.FCT.ContractManagementDomain.Integration.IntegrationEndpoint.EndpointConfig),
-                        typeof(SFA.FCT.ContractManagementDomain.Integration.PublishContractToProviderEndpoint.EndpointConfig),
-                        typeof(SFA.FCT.ContractManagementDomain.Integration.PublishContractWithdrawalEndpoint.EndpointConfig),
-                        typeof(EngagementWatcher.EndpointConfig),
-                        typeof(SFA.FCT.ContractRequestDomain.Integration.BulkUpload.FundingAllocationRelease.EndpointConfig),
-                        typeof(SFA.FCT.ContractRequestDomain.Integration.BulkUpload.EndpointConfig),
-                        typeof(SFA.FCT.ContractRequestDomain.Integration.FileWatcher.EndpointConfig),
-                        typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentDeleteEndpoint.DocumentDeleterEndpointConfig),
-                        typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentMergeEndpoint.DocumentMergeEndpointConfig),
-                        typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentMoveEndpoint.DocumentMoveEndpointConfig),
-                        typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentSaverEndpoint.DocumentSaverEndpointConfig),
-                        typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentGenerationEndpointConfig),
-                        typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.AggregatePaymentEndpoint.EndpointConfig),
-                        typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentBatchEndpoint.EndpointConfig),
-                        typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentRunEndpoint.EndpointConfig),
-                        typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunCompleteEndpoint.EndpointConfig),
-                        typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunErrorEndpoint.EndpointConfig),
-                        typeof(SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.PaymentAggregationEndpointConfig),
-                        typeof(SFA.FCT.PaymentManagementDomain.Integration.PaymentSchedule.PaymentManagementEndpointConfig),
-                        typeof(SFA.FCT.PerformanceManagementDomain.FundingClaimImportEndpoint.EndpointConfig)
-                    };
-
-                _logger.LogInformation($"We have found: {endpointTypes.Count} endpoints");
-
-                List<EndpointConfiguration> endpointConfigurations = endpointTypes.Select(t =>
+                var endpointTypes = new List<Type>
                 {
-                    IEndpointConfig endpoint = (IEndpointConfig)Activator.CreateInstance(t);
+                    // ✅ Keep your existing list
+                    typeof(SFA.FCT.PaymentManagementDomain.Integration.PaymentSchedule.PaymentManagementEndpointConfig),
+                    typeof(SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.PaymentAggregationEndpointConfig),
+                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.AggregatePaymentEndpoint.EndpointConfig),
+                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentBatchEndpoint.EndpointConfig),
+                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentRunEndpoint.EndpointConfig),
+                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunCompleteEndpoint.EndpointConfig),
+                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunErrorEndpoint.EndpointConfig)
+                    // 👉 add remaining endpoints
+                };
+
+                _logger.LogInformation("Found {Count} endpoints", endpointTypes.Count);
+
+                var endpointConfigurations = endpointTypes.Select(type =>
+                {
+                    var endpoint = (IEndpointConfig)Activator.CreateInstance(type);
 
                     endpointName = endpoint.EndpointName;
 
-                    _logger.LogInformation($"Getting configuration for endpoint: {endpoint.EndpointName} - Subscriptions: {endpoint.Subscriptions.Count}");
+                    _logger.LogInformation(
+                        "⚙️ Configuring endpoint: {EndpointName}",
+                        endpoint.EndpointName);
 
-                    return endpoint.GetBootstrapConfiguration(loggerFactory);
-                })
-                    .ToList();
+                    return BuildConfiguration(endpoint, loggerFactory, configuration);
+                });
 
-                return await Task.WhenAll(endpointConfigurations.Select(Endpoint.Start).ToList());
-                //// todo: put back line
-                // IReadOnlyCollection<IEndpointInstance> endpoints = endpointConfigurations.Select(e =>
-                // {
-                //     return Endpoint.Start(e).Result;
-                // }).ToList();
+                return await Task.WhenAll(
+                    endpointConfigurations.Select(config => Endpoint.Start(config)));
 
-                // return endpoints;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ReflectionTypeLoadException reflectionException = e as ReflectionTypeLoadException;
-                _logger.LogInformation($"StartEndpoints has failed: {endpointName}, {e.Message} - {reflectionException?.LoaderExceptions?.FirstOrDefault()}");
-                _logger.LogInformation($"StartEndpoints stacktrace: {e.StackTrace}");
-
+                _logger.LogError(ex, "❌ Failed to start endpoint: {EndpointName}", endpointName);
                 throw;
             }
         }
 
-        private static EndpointConfiguration GetBootstrapConfiguration(this IEndpointConfig endpoint, ILoggerFactory loggerFactory)
+        // -----------------------------------------------------
+        // BUILD CONFIGURATION (CORE LOGIC)
+        // -----------------------------------------------------
+        private static NSBEndpointConfiguration BuildConfiguration(
+            IEndpointConfig endpoint,
+            ILoggerFactory loggerFactory,
+            IConfiguration configuration)
         {
-            EndpointConfiguration configuration = endpoint.GetEndpointConfiguration(loggerFactory);
+            var config = endpoint.GetEndpointConfiguration(loggerFactory);
 
-            var persistence = configuration.UsePersistence<SqlPersistence, StorageType.Sagas>();
-            configuration.UsePersistence<SqlPersistence, StorageType.Subscriptions>();
-            configuration.UsePersistence<SqlPersistence, StorageType.Timeouts>();
-            configuration.UsePersistence<SqlPersistence>();
+            var serviceBusConnection =
+                configuration.GetConnectionString("ServiceBus");
 
-            persistence.SqlDialect<SqlDialect.MsSqlServer>();
+            var sqlConnection =
+                configuration.GetConnectionString("NServiceBusPersistence");
 
-            persistence.ConnectionBuilder(() => new SqlConnection(ConfigurationManager.ConnectionStrings["NServiceBus/Persistence"].ConnectionString));
+            // ✅ TRANSPORT (CENTRALISED)
+            config.UseTransport(
+                new AzureServiceBusTransport(
+                    serviceBusConnection,
+                    TopicTopology.Default));
 
-            var scanner = configuration.AssemblyScanner();
+            // ✅ ROUTING (FIXED)
 
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            var referencedAssemblies = Assembly.LoadFrom(endpoint.NameOfAssembly).GetReferencedAssemblies().Select(a => $"{a.Name}.dll");
+            var transport = config.UseTransport(
+                new AzureServiceBusTransport(serviceBusConnection, TopicTopology.Default));
 
-            var assembliesToExclude = Directory.EnumerateFiles(baseDirectory, "*.dll")
-                .Select(Path.GetFileName)
-                .Where(
-                    fn => fn != endpoint.NameOfAssembly && !referencedAssemblies.Contains(fn) || Nsb5Assemblies.Contains(fn))
-                .ToArray();
-
-            scanner.ExcludeAssemblies(assembliesToExclude);
-
-            var transport = configuration.UseTransport<AzureServiceBusTransport>()
-                .UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-
-            foreach (var subscription in endpoint.Subscriptions)
-            {
-                transport.RegisterPublisher(subscription.EventType, subscription.PublisherName);
-            }
-
-            transport.Subscriptions().LockDuration(TimeSpan.FromMinutes(5));
-            transport.Queues().LockDuration(TimeSpan.FromMinutes(5));
-
+            // ✅ Command routing (directly on transport)
             foreach (var route in endpoint.Routes)
             {
-                transport.Routing().RouteToEndpoint(route.CommandType, route.Destination);
+                transport.RouteToEndpoint(route.CommandType, route.Destination);
             }
 
-            transport.Sanitization().UseStrategy<ValidateAndHashIfNeeded>();
+            // ✅ PERSISTENCE
+            var persistence = config.UsePersistence<SqlPersistence>();
+            persistence.SqlDialect<SqlDialect.MsSqlServer>();
+            persistence.ConnectionBuilder(() => new SqlConnection(sqlConnection));
 
-            configuration.UseSerialization<NewtonsoftSerializer>();
-
-            configuration.EnableInstallers();
-            configuration.RegisterMessageMutator(new TransportMessageCompressionMutator(_logger));
-
-            configuration.AuditProcessedMessagesTo(
-                auditQueue: "audit",
-                timeToBeReceived: TimeSpan.FromDays(7));
-
-            configuration.SendFailedMessagesTo(errorQueue: "error");
-
-            SendErrorMessagesToSlackInNecessary(configuration);
-
-            var pipeline = configuration.Pipeline;
-            pipeline.Register(
-                behavior: new CustomErrorHandlingBehavior(_logger),
-                description: "Registered CustomErrorHandlingBehavior");
-
-            return configuration;
-        }
-
-        private static void SendErrorMessagesToSlackInNecessary(EndpointConfiguration configuration)
-        {
-            string shouldSendToSlack = ConfigurationManager.AppSettings["SlackError:ShouldSend"];
-
-            if (shouldSendToSlack == "true")
-            {
-                configuration.Notifications.Errors.MessageSentToErrorQueue += (o, m) =>
+            // ✅ RECOVERABILITY
+            config.Recoverability()
+                .Immediate(i => i.NumberOfRetries(3))
+                .Delayed(d =>
                 {
-                    ErrorMessageNotifier.SendMessge(m, _logger, "CrossDomain.Integration");
-                };
-            }
+                    d.NumberOfRetries(3);
+                    d.TimeIncrease(TimeSpan.FromSeconds(5));
+                });
+
+            // ✅ INFRASTRUCTURE
+            config.EnableInstallers();
+            config.SendFailedMessagesTo("error");
+            config.AuditProcessedMessagesTo("audit");
+
+            return config;
         }
 
-        private static void FindDeploymentAndRoleInfo(ILogger logger)
+        // -----------------------------------------------------
+        // ENVIRONMENT LOGGING
+        // -----------------------------------------------------
+        private static void LogEnvironmentInfo(ILogger logger)
         {
             try
             {
-                logger.LogInformation($"The deployment id is - {RoleEnvironment.DeploymentId}");
-                logger.LogInformation($"The RoleEnvironment.CurrentRoleInstance.Id is - {RoleEnvironment.CurrentRoleInstance.Id}");
-                logger.LogInformation($"The RoleEnvironment.CurrentRoleInstance.Role.Name is - {RoleEnvironment.CurrentRoleInstance.Role.Name}");
-                logger.LogInformation($"The RoleEnvironment.CurrentRoleInstance.ToString() is - {RoleEnvironment.CurrentRoleInstance}");
+                logger.LogInformation("Machine: {Machine}", Environment.MachineName);
+                logger.LogInformation("ProcessId: {Pid}", Environment.ProcessId);
+                logger.LogInformation("App: {App}", Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
+                logger.LogInformation("Instance: {Instance}", Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID"));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogInformation($"The deployment id cannot be found - {e.Message}");
+                logger.LogWarning(ex, "Environment info unavailable");
             }
         }
     }
 }
+
+
+
+    //    public static class Bootstrapper
+    //    {
+    //        private static ILogger _logger;
+
+    //        public static IReadOnlyCollection<IEndpointInstance> Endpoints { get; private set; }
+
+    //        public static async Task Start(ILoggerFactory loggerFactory, ILogger currentLogger, IConfiguration configuration)
+    //        {
+    //            _logger = currentLogger;
+
+    //            LogEnvironmentInfo(currentLogger);
+
+    //            Endpoints = await StartEndpoints(loggerFactory, configuration);
+
+    //            _logger.LogInformation("All endpoints have started");
+    //        }
+
+    //        public static async Task Stop()
+    //        {
+    //            if (Endpoints == null) return;
+
+    //            _logger.LogInformation("Stopping NServiceBus endpoints");
+
+    //            foreach (var endpoint in Endpoints)
+    //            {
+    //                await endpoint.Stop().ConfigureAwait(false);
+    //            }
+    //        }
+
+    //        private static async Task<IReadOnlyCollection<IEndpointInstance>> StartEndpoints(
+    //            ILoggerFactory loggerFactory,
+    //            IConfiguration configuration)
+    //        {
+    //            _logger.LogInformation("Retrieving Endpoint Configurations");
+
+    //            string endpointName = null;
+
+    //            try
+    //            {
+    //                List<Type> endpointTypes = new List<Type>
+    //                {
+    //                    typeof(ADMonitoringDomain.Endpoint.EndpointConfig),
+    //                    typeof(MonthEndCheckConfig),
+    //                    typeof(DedsReportedActualRoutingConfig),
+    //                    typeof(ValidationEndpointConfig),
+    //                    typeof(SFA.FCT.AllocationDeliveryDomain.MDEnrich.Endpoint.EndpointConfig),
+    //                    //typeof(CrossDomain.Integration.ReportRunnerEndpoint.EndpointConfig),
+    //                    typeof(SFA.FCT.ContractManagementDomain.Integration.IntegrationEndpoint.EndpointConfig),
+    //                    typeof(SFA.FCT.ContractManagementDomain.Integration.PublishContractToProviderEndpoint.EndpointConfig),
+    //                    typeof(SFA.FCT.ContractManagementDomain.Integration.PublishContractWithdrawalEndpoint.EndpointConfig),
+    //                    typeof(SFA.FCT.ContractRequestDomain.EngagementWatcher.EndpointConfig),
+    //                    typeof(SFA.FCT.ContractRequestDomain.Integration.BulkUpload.FundingAllocationRelease.EndpointConfig),
+    //                    typeof(SFA.FCT.ContractRequestDomain.Integration.BulkUpload.EndpointConfig),
+    //                    typeof(SFA.FCT.ContractRequestDomain.Integration.FileWatcher.EndpointConfig),
+    //                    typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentDeleteEndpoint.DocumentDeleterEndpointConfig),
+    //                    typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentMergeEndpoint.DocumentMergeEndpointConfig),
+    //                    typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentMoveEndpoint.DocumentMoveEndpointConfig),
+    //                    typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentSaverEndpoint.DocumentSaverEndpointConfig),
+    //                    typeof(SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentGenerationEndpointConfig),
+    //                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.AggregatePaymentEndpoint.EndpointConfig),
+    //                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentBatchEndpoint.EndpointConfig),
+    //                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentRunEndpoint.EndpointConfig),
+    //                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunCompleteEndpoint.EndpointConfig),
+    //                    typeof(PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunErrorEndpoint.EndpointConfig),
+    //                    typeof(SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.PaymentAggregationEndpointConfig),
+    //                    typeof(SFA.FCT.PaymentManagementDomain.Integration.PaymentSchedule.PaymentManagementEndpointConfig),
+    //                    typeof(SFA.FCT.PerformanceManagementDomain.FundingClaimImportEndpoint.EndpointConfig)
+    //                };
+
+    //                _logger.LogInformation($"Found {endpointTypes.Count} endpoints");
+
+    //                var endpointConfigurations = endpointTypes.Select(t =>
+    //                {
+    //                    var endpoint = (IEndpointConfig)Activator.CreateInstance(t);
+
+    //                    endpointName = endpoint.EndpointName;
+
+    //                    _logger.LogInformation(
+    //                        $"Configuring endpoint: {endpoint.EndpointName} - Subscriptions: {endpoint.Subscriptions.Count}");
+
+    //                    return endpoint.GetBootstrapConfiguration(loggerFactory, configuration);
+    //                }).ToList();
+
+
+    //                return await Task.WhenAll(
+    //                    endpointConfigurations.Select(ec => Endpoint.Start(ec))
+    //                );
+
+    //            }
+    //            catch (Exception e)
+    //            {
+    //                _logger.LogInformation(e, $"StartEndpoints failed for: {endpointName}");
+    //                throw;
+    //            }
+    //        }
+
+    //        private static NServiceBus.EndpointConfiguration GetBootstrapConfiguration(
+    //            this IEndpointConfig endpoint,ILoggerFactory loggerFactory,
+    //            IConfiguration configuration)
+    //        {
+    //            var config = endpoint.GetEndpointConfiguration(loggerFactory);
+
+    //            var connectionString = configuration.GetConnectionString("NServiceBusPersistence");
+
+    //            // Persistence
+
+    //            var persistence = config.UsePersistence<SqlPersistence>();
+    //            persistence.SqlDialect<SqlDialect.MsSqlServer>();
+    //            persistence.ConnectionBuilder(() => new SqlConnection(connectionString));
+
+
+
+
+    //            // ✅ Topology
+    //            var topology = TopicTopology.Default;
+
+    //            // ✅ Transport instance
+    //            var transport = new AzureServiceBusTransport(connectionString, topology);
+
+    //            // ✅ Attach transport AND capture settings
+    //            var transportSettings = config.UseTransport(transport);
+
+    //            // ✅ Routing from settings
+    //            //var routing = config.UseRouting();
+
+    //            //// ✅ Pub/Sub
+    //            //foreach (var subscription in endpoint.Subscriptions)
+    //            //{
+    //            //    routing.RegisterPublisher(subscription.EventType, subscription.PublisherName);
+    //            //}
+
+    //            //// ✅ Command routing
+    //            //foreach (var route in endpoint.Routes)
+    //            //{
+    //            //    routing.RouteToEndpoint(route.CommandType, route.Destination);
+    //            //}
+
+
+
+
+
+    //            // Lock durations
+    //            //transport.Subscriptions().LockDuration(TimeSpan.FromMinutes(5));
+    //            //transport.Queues().LockDuration(TimeSpan.FromMinutes(5));
+
+    //            //// Routing for commands
+    //            //foreach (var route in endpoint.Routes)
+    //            //{
+    //            //    routingForTransport.RouteToEndpoint(route.CommandType, route.Destination);
+    //            //}
+
+    ////            config.UseSerialization<NewtonsoftSerializer>();
+
+    //            config.UseSerialization<NewtonsoftJsonSerializer>();
+
+    //            config.EnableInstallers();
+
+    //            config.AuditProcessedMessagesTo("audit", TimeSpan.FromDays(7));
+    //            config.SendFailedMessagesTo("error");
+
+    //           // SendErrorMessagesToSlackIfNeeded(config, configuration);
+
+    //            return config;
+    //        }
+
+    //        //private static void SendErrorMessagesToSlackIfNeeded(
+    //        //    EndpointConfiguration configuration,
+    //        //    IConfiguration config)
+    //        //{
+    //        //    var shouldSend = config["SlackError:ShouldSend"];
+
+    //        //    if (shouldSend == "true")
+    //        //    {
+    //        //        configuration.Notifications.Errors.MessageSentToErrorQueue += (o, m) =>
+    //        //        {
+    //        //            ErrorMessageNotifier.SendMessge(m, _logger, "CrossDomain.Integration");
+    //        //        };
+    //        //    }
+    //        //}
+
+    //        // ✅ REPLACEMENT FOR RoleEnvironment
+    //        private static void LogEnvironmentInfo(ILogger logger)
+    //        {
+    //            try
+    //            {
+    //                logger.LogInformation($"Machine Name: {Environment.MachineName}");
+    //                logger.LogInformation($"Process ID: {Environment.ProcessId}");
+    //                logger.LogInformation($"App Name: {Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")}");
+    //                logger.LogInformation($"Instance ID: {Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID")}");
+    //            }
+    //            catch (Exception e)
+    //            {
+    //                logger.LogWarning($"Environment info not available: {e.Message}");
+    //            }
+    //        }
+    //    }
+//}

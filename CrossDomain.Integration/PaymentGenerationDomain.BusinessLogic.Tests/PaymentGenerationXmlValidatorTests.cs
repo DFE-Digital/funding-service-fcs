@@ -1,10 +1,11 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic.Tests
 {
+    extern alias Entities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Xml.Linq;
     using Moq;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
 
     [TestClass]
     public class PaymentGenerationXmlValidatorTests

@@ -626,7 +626,6 @@
         {
             using (IWindsorContainer container = new WindsorContainer().Install(new WindsorInstaller(new LoggerFactory())))
             {
-                container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
                 container.Register(Component.For<AmendLevyContractHandler>());
                 container.BeginScope();
 

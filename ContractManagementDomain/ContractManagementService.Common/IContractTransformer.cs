@@ -5,6 +5,8 @@
 
     public interface IContractTransformer
     {
-        CorporateSchema.contract TransformToCorporateSchemaContract(CorporateContract.contract contract);
+        CorporateSchema.Contract TransformToCorporateSchemaContract(CorporateContract.Contract contract);
+        CorporateSchema.contractDeliverablesTypeContractDeliverable ToCorporateSchemaDeliverable(
+            CorporateContract.contractDeliverablesTypeContractDeliverable deliverable);
     }
 }

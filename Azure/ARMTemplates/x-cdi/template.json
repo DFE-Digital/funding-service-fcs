@@ -81,6 +81,7 @@
     },
     "deploymentUrlBase": {
       "type": "string",
+      "defaultValue": "https://raw.githubusercontent.com/SkillsFundingAgency/funding-platform-building-blocks/main/templates/",
       "metadata": {
         "description": "The root url which holds all of the linked templates used by this template, a parameter to ease testing."
       }
@@ -102,6 +103,106 @@
       "metadata": {
         "description": "App Service http logs diagnostic setting"
       }
+    },
+    "FscEnrichmentUrl": {
+      "type": "string"
+    },
+    "FileWatcherFileSearchInterval": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "OpaOutputContainer": {
+      "type": "string"
+    },
+    "BulkUpdateContractProcessingTimeoutMins": {
+      "type": "string",
+      "defaultValue": "10"
+    },
+    "BulkUpdateContractProcessingTimeoutMinimumMins": {
+      "type": "string",
+      "defaultValue": "60"
+    },
+    "BulkUpdateContractProcessingTimeoutPer100Mins": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "UpdateOrgSagaTimeoutInMinutes": {
+      "type": "string",
+      "defaultValue": "240"
+    },
+    "ContractOperationSagaTimeoutInMinutes": {
+      "type": "string",
+      "defaultValue": "60"
+    },
+    "FileWatcherDownloadBufferSize": {
+      "type": "string",
+      "defaultValue": "200000"
+    },
+    "SharepointOauthTenant": {
+      "type": "string"
+    },
+    "SharepointOauthPrinciple": {
+      "type": "string"
+    },
+    "UseAzureStorageForDocuments": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "UseAzureStorageBulkUpload": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "UseRealDate": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "UseRealUkrlpService": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "DocumentGenerationTemplateContainer": {
+      "type": "string"
+    },
+    "IdaResourceSharepoint": {
+      "type": "string"
+    },
+    "FileWatcherInputFolderO365": {
+      "type": "string",
+      "defaultValue": "Input"
+    },
+    "FileWatcherProcessingFolderO365": {
+      "type": "string",
+      "defaultValue": "Processing"
+    },
+    "FileWatcherProcessedFolderO365": {
+      "type": "string",
+      "defaultValue": "Processed"
+    },
+    "FileWatcherReportsFolderO365": {
+      "type": "string",
+      "defaultValue": "Reports"
+    },
+    "ReportDeliveryCdaO365Folder": {
+      "type": "string",
+      "defaultValue": "CDA Reports"
+    },
+    "StorageTableSuffix": {
+      "type": "string"
+    },
+    "FileWatcherProcessingTable": {
+      "type": "string"
+    },
+    "FileWatcherProcessedTable": {
+      "type": "string"
+    },
+    "BulkUpdateProcessingTable": {
+      "type": "string"
+    },
+    "BulkUpdateLocationMappingTable": {
+      "type": "string"
+    },
+    "DeploymentId": {
+      "type": "string"
     }
   },
   "variables": {
@@ -216,7 +317,135 @@
               },
               {
                 "name": "WEBSITE_LOAD_CERTIFICATES",
-                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcscpdscertthumbprint)')]"
+                "value": "[if(greater(length(parameters('certificatesToLoad')),0), parameters('certificatesToLoad'), '')]"
+              },
+              {
+                "name": "Sharepoint:Oauth:ClientSecret",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=SharepointOauthClientSecret)')]"
+              },
+              {
+                "name": "ReportDelivery.Username",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=ReportDeliveryUsername)')]"
+              },
+              {
+                "name": "Sharepoint:Oauth:ClientId",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=SharepointOauthClientId)')]"
+              },
+              {
+                "name": "ReportDelivery.Password",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=ReportDeliveryPassword)')]"
+              },
+              {
+                "name": "FscEnrichmentUrl",
+                "value": "[parameters('FscEnrichmentUrl')]"
+              },
+              {
+                "name": "FileWatcher.FileSearchInterval",
+                "value": "[parameters('FileWatcherFileSearchInterval')]"
+              },
+              {
+                "name": "Opa.OutputContainer",
+                "value": "[parameters('OpaOutputContainer')]"
+              },
+              {
+                "name": "BulkUpdate.ContractProcessingTimeoutMins",
+                "value": "[parameters('BulkUpdateContractProcessingTimeoutMins')]"
+              },
+              {
+                "name": "BulkUpdate.ContractProcessingTimeoutMinimumMins",
+                "value": "[parameters('BulkUpdateContractProcessingTimeoutMinimumMins')]"
+              },
+              {
+                "name": "BulkUpdate.ContractProcessingTimeoutPer100Mins",
+                "value": "[parameters('BulkUpdateContractProcessingTimeoutPer100Mins')]"
+              },
+              {
+                "name": "UpdateOrgSagaTimeoutInMinutes",
+                "value": "[parameters('UpdateOrgSagaTimeoutInMinutes')]"
+              },
+              {
+                "name": "ContractOperationSagaTimeoutInMinutes",
+                "value": "[parameters('ContractOperationSagaTimeoutInMinutes')]"
+              },
+              {
+                "name": "FileWatcher.DownloadBufferSize",
+                "value": "[parameters('FileWatcherDownloadBufferSize')]"
+              },
+              {
+                "name": "Sharepoint:Oauth:Tenant",
+                "value": "[parameters('SharepointOauthTenant')]"
+              },
+              {
+                "name": "Sharepoint:Oauth:Principle",
+                "value": "[parameters('SharepointOauthPrinciple')]"
+              },
+              {
+                "name": "UseAzureStorageForDocuments",
+                "value": "[parameters('UseAzureStorageForDocuments')]"
+              },
+              {
+                "name": "UseAzureStorageBulkUpload",
+                "value": "[parameters('UseAzureStorageBulkUpload')]"
+              },
+              {
+                "name": "UseRealDate",
+                "value": "[parameters('UseRealDate')]"
+              },
+              {
+                "name": "UseRealUkrlpService",
+                "value": "[parameters('UseRealUkrlpService')]"
+              },
+              {
+                "name": "DocumentGeneration.TemplateContainer",
+                "value": "[parameters('DocumentGenerationTemplateContainer')]"
+              },
+              {
+                "name": "ida:Resource",
+                "value": "[parameters('IdaResourceSharepoint')]"
+              },
+              {
+                "name": "FileWatcher.InputFolderO365",
+                "value": "[parameters('FileWatcherInputFolderO365')]"
+              },
+              {
+                "name": "FileWatcher.ProcessingFolderO365",
+                "value": "[parameters('FileWatcherProcessingFolderO365')]"
+              },
+              {
+                "name": "FileWatcher.ProcessedFolderO365",
+                "value": "[parameters('FileWatcherProcessedFolderO365')]"
+              },
+              {
+                "name": "FileWatcher.ReportsFolderO365",
+                "value": "[parameters('FileWatcherReportsFolderO365')]"
+              },
+              {
+                "name": "ReportDelivery.CdaO365Folder",
+                "value": "[parameters('ReportDeliveryCdaO365Folder')]"
+              },
+              {
+                "name": "StorageTableSuffix",
+                "value": "[parameters('StorageTableSuffix')]"
+              },
+              {
+                "name": "FileWatcher.ProcessingTable",
+                "value": "[parameters('FileWatcherProcessingTable')]"
+              },
+              {
+                "name": "FileWatcher.ProcessedTable",
+                "value": "[parameters('FileWatcherProcessedTable')]"
+              },
+              {
+                "name": "BulkUpdate.ProcessingTable",
+                "value": "[parameters('BulkUpdateProcessingTable')]"
+              },
+              {
+                "name": "BulkUpdate.LocationMappingTable",
+                "value": "[parameters('BulkUpdateLocationMappingTable')]"
+              },
+              {
+                "name": "BulkUpdate.DeploymentId",
+                "value": "[parameters('DeploymentId')]"
               }
             ]
           },
@@ -356,7 +585,9 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "name": "Deploy_cdi_appservice_Identity_To_EnvKeyVault",
-      "dependsOn": [ "Deploy_cdi_appservice" ],
+      "dependsOn": [
+        "Deploy_cdi_appservice"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -373,7 +604,9 @@
                 "tenantId": "[reference(concat('Deploy_cdi_appservice')).outputs.managedServiceIdentity.value.tenantId]",
                 "objectId": "[reference(concat('Deploy_cdi_appservice')).outputs.managedServiceIdentity.value.principalId]",
                 "permissions": {
-                  "secrets": [ "get" ]
+                  "secrets": [
+                    "get"
+                  ]
                 }
               }
             ]
@@ -385,7 +618,9 @@
       "type": "microsoft.insights/metricAlerts",
       "apiVersion": "2018-03-01",
       "name": "[variables('alertRules')[copyIndex()].AlertName]",
-      "dependsOn": [ "Deploy_cdi_appservice" ],
+      "dependsOn": [
+        "Deploy_cdi_appservice"
+      ],
       "location": "global",
       "tags": {
         "Environment": "[parameters('environmentTag')]",

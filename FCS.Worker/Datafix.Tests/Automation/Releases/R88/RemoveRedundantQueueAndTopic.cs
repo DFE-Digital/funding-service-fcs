@@ -1,7 +1,7 @@
 ﻿namespace Datafix.Tests.Automation.Releases.R88
 {
+    using Azure.Messaging.ServiceBus.Administration;
     using System.Configuration;
-    using Microsoft.ServiceBus;
 
     public class RemoveRedundantQueueAndTopic : IApplyDataFix
     {
@@ -15,14 +15,18 @@
 
         public void ApplyDataFix()
         {
-            GetAsbNamespaceManager().DeleteQueue("AllocationDeliveryDomain.Endpoint");
-            GetAsbNamespaceManager().DeleteQueue("allocationdeliverydomain.endpoint.retries");
-            GetAsbNamespaceManager().DeleteTopic("allocationdeliverydomain.endpoint.events");
+            GetAsbNamespaceManager().DeleteQueueAsync("AllocationDeliveryDomain.Endpoint");
+            GetAsbNamespaceManager().DeleteQueueAsync("allocationdeliverydomain.endpoint.retries");
+            GetAsbNamespaceManager().DeleteTopicAsync("allocationdeliverydomain.endpoint.events");
         }
 
-        private static NamespaceManager GetAsbNamespaceManager()
+        private static ServiceBusAdministrationClient GetAsbNamespaceManager()
         {
-            return NamespaceManager.CreateFromConnectionString(ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString);
+            var connectionString = ConfigurationManager
+                .ConnectionStrings["NServiceBus/Transport"]
+                .ConnectionString;
+
+            return new ServiceBusAdministrationClient(connectionString);
         }
     }
 }

@@ -13,7 +13,7 @@
     using SFA.FCT.CrossDomain.Integration.Messages.Messages;
     using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore.Services;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract;
+    using Contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract;
     using contractType = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType;
 
     public class DocumentMoveResponseHandler : IHandleMessages<DocumentMoveResponse>
@@ -48,7 +48,7 @@
             }
         }
 
-        private async Task PublishContractReadyToPublishEvent(contract masterContract, ContractApprovalType approvalType, IMessageHandlerContext context)
+        private async Task PublishContractReadyToPublishEvent(Contract masterContract, ContractApprovalType approvalType, IMessageHandlerContext context)
         {
             await context.Publish(new ContractReadyToPublishEvent
             {
@@ -76,7 +76,7 @@
             childContract.contractStatus.status = status;
         }
 
-        private static contractType GetChildContract(contract masterContract, string contractNumber)
+        private static contractType GetChildContract(Contract masterContract, string contractNumber)
         {
             return masterContract.contracts.SingleOrDefault(c => c.contractNumber == contractNumber);
         }

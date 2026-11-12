@@ -8,7 +8,7 @@
 
     public interface IContractEnrichmentService
     {
-        Task EnrichContractWithOrganisationData(contract corporateContract,
+        Task EnrichContractWithOrganisationData(Contract corporateContract,
             string masterContractNumber,
             ConnectionInfo connectionInfo,
             Func<int, organisation> getOrganisation);

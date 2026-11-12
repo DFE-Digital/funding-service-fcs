@@ -1,7 +1,9 @@
-﻿using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+﻿extern alias Entity;
+using Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
 using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +20,7 @@ namespace PMD.IntegrationTests.PageObjects
 
         public periodTypeNameType FundingStreamPeriodTypeName { get { return GetPeriodTypeName(FundingStreamPeriodType); } }
 
-        public SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeCodeType FundingStreamPeriodTypeCode
+        public periodTypeCodeType FundingStreamPeriodTypeCode
         {
             get
             {
@@ -28,24 +30,24 @@ namespace PMD.IntegrationTests.PageObjects
 
         public EsfAllocationData EsfData { get; set; }
 
-        private SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeCodeType GetPeriodTypeCode(string fundingStreamPeriodType)
+        private periodTypeCodeType GetPeriodTypeCode(string fundingStreamPeriodType)
         {
             switch (fundingStreamPeriodType)
             {
                 case "AY":
-                    return SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeCodeType.AY;
+                    return periodTypeCodeType.AY;
 
                 case "FY":
-                    return SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeCodeType.FY;
+                    return periodTypeCodeType.FY;
 
                 case "EOP":
-                    return SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeCodeType.EOP;
+                    return periodTypeCodeType.EOP;
 
                 default:
                     // would be better to fail fast here, but would doing this break any tests relying on receiving AY as a default?
                     //default:
                     //    throw new Exception("Unknown fundingStreamPeriodType in GetPeriodTypeCode");
-                    return SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeCodeType.AY;
+                    return periodTypeCodeType.AY;
 
             }
 

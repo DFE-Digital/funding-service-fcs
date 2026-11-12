@@ -1,8 +1,11 @@
 ﻿namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Repositories
 {
-    using System.Configuration;
+    //using Microsoft.WindowsAzure.Storage.Table;
+    using Azure;
+    using Azure.Data.Tables;
     using CrossDomain.Integration.Common.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Configuration;
 
     public static class UkrlpStubRepository
     {
@@ -59,8 +62,17 @@
             });
         }
 
-        private class UkrlpStubEntity : TableEntity
+        private class UkrlpStubEntity : ITableEntity
         {
+
+            public string PartitionKey { get; set; }
+
+            public string RowKey { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag { get; set; }
+
             public int Ukprn { get; set; }
 
             public string CompanyNumber { get; set; }

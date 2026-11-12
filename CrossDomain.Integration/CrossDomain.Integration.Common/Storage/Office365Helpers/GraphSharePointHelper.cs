@@ -1,5 +1,4 @@
-﻿
-namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
+﻿namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
 {
     using Newtonsoft.Json.Linq;
     using System;
@@ -10,7 +9,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
     using System.Text;
 
     public static class GraphSharePointHelper
-    {       
+    {
         private static void GetHostAndPath(out string host, out string sitePath)
         {
             string resource = ConfigurationManager.AppSettings["ida:Resource"];

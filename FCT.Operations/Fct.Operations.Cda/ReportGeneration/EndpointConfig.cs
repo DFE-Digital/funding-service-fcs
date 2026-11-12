@@ -1,9 +1,10 @@
-﻿namespace FCT.Operations.Cda.ReportGeneration
+﻿
+namespace FCT.Operations.Cda.ReportGeneration
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
@@ -15,45 +16,52 @@
 
         public string NameOfAssembly => "FCT.Operations.Cda.dll";
 
-        private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint = new List<string>
-        {
-        };
+        private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint =
+            new List<string>();
 
-        private static readonly IReadOnlyCollection<Type> CommandsUsedInThisEndpoint = new List<Type>
-        {
-            typeof(CreateReportFromCrmForGroupCommand),
-            typeof(RunReportsCommand),
-            typeof(RunReportsAndArchiveExistingCommand),
-            typeof(UploadReportToSharePointCommand)
-        };
+        private static readonly IReadOnlyCollection<Type> CommandsUsedInThisEndpoint =
+            new List<Type>
+            {
+                typeof(CreateReportFromCrmForGroupCommand),
+                typeof(RunReportsCommand),
+                typeof(RunReportsAndArchiveExistingCommand),
+                typeof(UploadReportToSharePointCommand)
+            };
 
         string IEndpointConfigWithFcsConfig.EndpointName => EndpointName;
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>
-        {
-            
-        };
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
-        public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>
-        {
-            new CommandRoute(EndpointName, typeof(CreateReportFromCrmForGroupCommand))
-        };
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            new List<CommandRoute>
+            {
+                new CommandRoute(EndpointName, typeof(CreateReportFromCrmForGroupCommand))
+            };
 
-        public EndpointConfiguration GetEndpointConfiguration(ILogger logger, IFcsConfiguration configurationRoot)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILogger logger,
+            IFcsConfiguration configurationRoot)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
             logger.LogInformation(1, $"Started Endpoint {EndpointName} on Ops.Worker");
 
+            // ✅ Conventions
             configuration.Conventions()
                 .DefiningCommandsAs(t => CommandsUsedInThisEndpoint.Contains(t))
                 .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ ✅ DI replacement (NO Windsor)
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(logger, configurationRoot)));
+                services.AddCdaReportGenerationServices(logger, configurationRoot);
             });
 
+            // ✅ IMPORTANT — keep original behaviour
             configuration.LimitMessageProcessingConcurrencyTo(1);
 
             return configuration;

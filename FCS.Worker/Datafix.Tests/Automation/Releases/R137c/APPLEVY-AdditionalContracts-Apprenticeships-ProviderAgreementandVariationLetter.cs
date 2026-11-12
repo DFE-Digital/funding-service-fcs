@@ -37,7 +37,7 @@ namespace Datafix.Tests.Automation.Releases.R137c
 
         }
 
-        private void AmendApprovedApproved(IEnumerable<ContractInformation> approvedApprovedContracts, IEndpointInstance endpoint)
+        private void AmendApprovedApproved(IEnumerable<ContractInformation> approvedApprovedContracts, EndpointBuilder endpoint)
         {
             var levyContractsForApprovedApproved = approvedApprovedContracts.Where(c => _approvedApprovedContracts.Contains(c.ContractNumber)).ToList();
 

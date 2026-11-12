@@ -139,7 +139,7 @@
             CreateContract(contract);
 
             contract.contracts.Single().contractNumber += newAmendmentSuffix;
-            contract.contracts.Single().period = new period { period1 = "1617" };
+            contract.contracts.Single().period = new Period { period1 = "1617" };
             contract.contracts.ForEach(c => c.contractAllocations.ForEach(a => a.contractAllocationNumber += newAmendmentSuffix));
             CreateNewAmendment(contract);
             TestableInvokeHandlerContext context = new TestableMessageHandlerContext();
@@ -324,13 +324,24 @@
 
         private static ExtendedContract GetCorporateContractFromResource()
         {
-            Mapper.CreateMap<contract, ExtendedContract>();
-            Mapper.CreateMap<contractType, ExtendedContractType>();
-            Mapper.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Contract, ExtendedContract>();
+                cfg.CreateMap<contractType, ExtendedContractType>();
+                cfg.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            }, null);
 
-            contract contract = TestResource.FromXml<contract>("ContractManagementDomain.Endpoint.Tests.Resources", "masterContract.xml");
-            return Mapper.Map<contract, ExtendedContract>(contract);
+            var mapper = config.CreateMapper();
+
+            Contract contract =
+                TestResource.FromXml<Contract>(
+                    "ContractManagementDomain.Endpoint.Tests.Resources",
+                    "masterContract.xml");
+
+            return mapper.Map<ExtendedContract>(contract);
         }
+
+
 
         private static CrmDeleteContractHandler CreateCrmDeleteContractHandler()
         {

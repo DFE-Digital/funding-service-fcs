@@ -1,13 +1,14 @@
-﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated
+﻿
+namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using NServiceBus;
+    using PaymentManagementDomain.PaymentSchedule.MissingDeliverablePeriod;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -16,31 +17,47 @@
             nameof(AllocationPaymentsChangedOnAggregationEvent)
         };
 
-        public string EndpointName => "Xrm.ReceiveForPaymentAggregation";
+        public string EndpointName =>
+            "Xrm.ReceiveForPaymentAggregation";
 
-        public string NameOfAssembly => "PaymentManagementDomain.PaymentSchedule.dll";
+        public string NameOfAssembly =>
+            "PaymentManagementDomain.PaymentSchedule.dll";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>
-        {
-            new Subscription("PaymentGenerationDomain.AggregatePayment", typeof(AllocationPaymentsChangedOnAggregationEvent))
-        };
-
-        public IReadOnlyCollection<CommandRoute> Routes => Enumerable.Empty<CommandRoute>().ToList();
-
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
-        {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
-
-            var logger = new Logger(new System.Diagnostics.TraceSource("WorkerRole"));
-
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
-            configuration.Conventions()
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(t.Name.EndsWith));
-
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                new Subscription(
+                    "PaymentGenerationDomain.AggregatePayment",
+                    typeof(AllocationPaymentsChangedOnAggregationEvent))
+            };
+
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            Enumerable.Empty<CommandRoute>().ToList();
+
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
+        {
+            var configuration = new EndpointConfiguration(EndpointName);
+
+            // ✅ Logging (FIXED)
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName} on FCS.Worker", EndpointName);
+
+            // ✅ Conventions (FIXED BUG HERE)
+            configuration.Conventions()
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)))
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Commands"));
+
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
+            {
+                services.AddSingleton(loggerFactory);
+                services.AddPaymentAggregatedServices();
             });
 
             return configuration;

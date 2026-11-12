@@ -23,7 +23,7 @@
             var contracts = Contract.contract.contracts.First();
 
             contracts.contractNumber = "ABC";
-            contracts.CRMIntent = intent.RevisedNew;
+            contracts.CRMIntent = Intent.RevisedNew;
 
             Assert.IsFalse(_validator.GetFailuresForItem(Contract).Any());
         }
@@ -34,7 +34,7 @@
             var contracts = Contract.contract.contracts.First();
 
             contracts.contractNumber = string.Empty;
-            contracts.CRMIntent = intent.RevisedNew;
+            contracts.CRMIntent = Intent.RevisedNew;
 
             IEnumerable<string> errors = _validator.GetFailuresForItem(Contract);
 
@@ -47,7 +47,7 @@
             var contracts = Contract.contract.contracts.First();
 
             contracts.contractNumber = string.Empty;
-            contracts.CRMIntent = intent.RevisedNew;
+            contracts.CRMIntent = Intent.RevisedNew;
 
             IEnumerable<string> errors = _validator.GetFailuresForItem(Contract);
 

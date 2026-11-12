@@ -30,7 +30,7 @@ namespace Datafix.Tests.Automation.Releases.R117a
             AmendContracts(levyContractsToUpdate, endpoint);
         }
 
-        private static void AmendContracts(List<ContractInformation> levyContractsToUpdate, IEndpointInstance endpoint)
+        private static void AmendContracts(List<ContractInformation> levyContractsToUpdate, EndpointBuilder endpoint)
         {
             levyContractsToUpdate.ForEach(c =>
             {

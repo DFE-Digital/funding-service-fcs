@@ -8,7 +8,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.ContractRequest
     [XmlType(Namespace = "contractrequest")]
     [XmlRoot(Namespace = "contractrequest", IsNullable = true)]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class contractor
+    public class Contractor
     {
         [XmlElement(Order = 0)]
         public string organisationIdentifier { get; set; }

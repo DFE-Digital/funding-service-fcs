@@ -1,8 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.CreateContract
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using AutoMapper;
     using ContractManagement.DataStore.Model;
     using ContractManagement.DataStore.Repositories;
     using Infrastructure;
@@ -14,11 +12,14 @@
     using SFA.FCT.ContractCreateDomain.BusinessLogic.Validation;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ContractCreateDomainEventLoggingId = Endpoint.ContractCreateDomainEventLoggingId;
+    using CR=SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using IContractOperationRules = Infrastructure.IContractOperationRules;
     using IContractValidationLookupDataCreator = Infrastructure.IContractValidationLookupDataCreator;
     using IFundingTypeFundingPeriodQueryRepository = Infrastructure.IFundingTypeFundingPeriodQueryRepository;
@@ -33,6 +34,7 @@
         private readonly IFundingTypeFundingPeriodQueryRepository _fundingTypeFundingPeriodQueryRepository;
         private readonly ISagaDataStorage _sagaDataStorage;
         private readonly IFundingTypeFundingPeriodContractTypeQueryRepository _fundingTypeFundingPeriodContractTypeQueryRepository;
+        private readonly IMapper _mapper;
 
         public RevisedNewContractSaga(IContractDeliverableEnricher contractDeliverableEnricher,
             IContractRequestTransformer contractRequestTransformer,
@@ -50,7 +52,8 @@
             ILookupManager crmLookupManager,
             IFundingTypeFundingPeriodContractTypeQueryRepository fundingTypeFundingPeriodContractTypeQueryRepository,
             ISiblingApprovedContractService siblingApprovedContractService,
-            IRelatedAllocationEnricher relatedAllocationEnricher)
+            IRelatedAllocationEnricher relatedAllocationEnricher,
+            IMapper mapper)
         {
             _crmLookupManager = crmLookupManager;
             _fundingTypeFundingPeriodContractTypeQueryRepository = fundingTypeFundingPeriodContractTypeQueryRepository;
@@ -58,7 +61,7 @@
             _fundingTypeFundingPeriodQueryRepository = fundingTypeFundingPeriodQueryRepository;
             _sagaDataStorage = sagaDataStorage;
             _logger = logger;
-
+            _mapper = mapper;
             _createContractSaga = new CreateContractSaga(
                 contractDeliverableEnricher,
                 contractRequestTransformer,
@@ -77,7 +80,7 @@
 
         public async Task Handle(RevisedNewContractRequestCommand message, IMessageHandlerContext context)
         {
-            contractType contract = message.ContractRequest.contract.contracts.First();
+            CR.contractType contract = message.ContractRequest.contract.contracts.First();
             contract.contractVersionNumber = GetContractVersionNumberForContract(contract.contractNumber);
 
             CreateContractSagaData data = new CreateContractSagaData
@@ -106,7 +109,7 @@
             return _crmLookupManager.GetLatestContractVersionNumberForContract(contractNumber) + 1 ?? 1;
         }
 
-        private IEnumerable<IRule<contractRequestType>> GetValidationRules(contractRequestType contractRequest, ContractValidationLookupData lookupData, ConnectionInfo connectionInfo)
+        private IEnumerable<IRule<CR.contractRequestType>> GetValidationRules(CR.contractRequestType contractRequest, ContractValidationLookupData lookupData, ConnectionInfo connectionInfo)
         {
             bool allowUseOfDeliveryOrgs = _fundingTypeFundingPeriodQueryRepository.Get(contractRequest.contract.fundingTypeCode,
                 contractRequest.GetFundingPeriod(), connectionInfo).AllowUseOfDeliveryOrgs;
@@ -114,7 +117,7 @@
             IReadOnlyCollection<FundingTypeFundingPeriodContractTypeDto> GetFundingTypeFundingPeriodContractTypes()
             {
                 IReadOnlyCollection<FundingTypeFundingPeriodContractType> fundingTypeFundingPeriodContractTypes = _fundingTypeFundingPeriodContractTypeQueryRepository.GetFundingTypeFundingPeriodContractTypes(connectionInfo);
-                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes);
+                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes,_mapper);
             }
 
             return _contractOperationRules.GetCreateContractRevisedNewRules(

@@ -9,6 +9,7 @@
     using NUnit.Framework;
     using Pages;
     using TechTalk.SpecFlow;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class PublishApprovedContractSteps
@@ -26,7 +27,7 @@
         [Then(@"the following contracts exist in the retrieved '(.*)' feed")]
         public void ThenTheFollowingContractsExistInTheRetrievedFeed(string targetFeed, Table table)
         {
-            Assert.IsTrue(validAtomFeeds.Contains(targetFeed), "Invalid target feed name.");
+            ClassicAssert.IsTrue(validAtomFeeds.Contains(targetFeed), "Invalid target feed name.");
 
             var contractsToCheck = GetContractsFromTable(table);
 
@@ -44,7 +45,7 @@
                 }
             }
 
-            Assert.IsTrue(allContractsFound, "Not all expected contracts are in retrieved feed");
+            ClassicAssert.IsTrue(allContractsFound, "Not all expected contracts are in retrieved feed");
         }
 
         [Then(@"the following contract allocation details are present in the retrieved feed")]
@@ -53,7 +54,7 @@
             foreach (var row in table.Rows)
             {
                 var allocation = this._pacPageObject.GetAllocation(row["Parent Contract"], row["ContractNumber"], int.Parse(row["Version"]), row["AllocationRef"]);
-                Assert.IsNotNull(allocation);
+                ClassicAssert.IsNotNull(allocation);
                 CheckValue(row, "AllocationDescription", allocation.description);
                 CheckValue(row, "LEPName", allocation.ProcurementAttrs.LEPName);
                 CheckValue(row, "LEPCode", allocation.ProcurementAttrs.LEPCode);
@@ -69,7 +70,7 @@
 
                 string learningRatePremium;
                 if (row.TryGetValue("LearningRatePremium", out learningRatePremium))
-                    Assert.AreEqual(decimal.Parse(learningRatePremium), allocation.ProcurementAttrs.LearningRatePremium, "LearningRatePremium is not expected value");
+                    ClassicAssert.AreEqual(decimal.Parse(learningRatePremium), allocation.ProcurementAttrs.LearningRatePremium, "LearningRatePremium is not expected value");
             }
         }
 
@@ -82,19 +83,19 @@
               allContractsFound = _pacPageObject.VerifyFeed(p0);
            }
 
-           Assert.IsTrue(allContractsFound, "Not all expected contracts are in retrieved feed");
+           ClassicAssert.IsTrue(allContractsFound, "Not all expected contracts are in retrieved feed");
         }
 
         private static void CheckValue(TableRow row, string expectedValueHeading, string actualValue)
         {
             string expectedValue;
             if (row.TryGetValue(expectedValueHeading, out expectedValue))
-                Assert.AreEqual(expectedValue, actualValue, expectedValueHeading + " is not expected value");
+                ClassicAssert.AreEqual(expectedValue, actualValue, expectedValueHeading + " is not expected value");
         }
 
-        private static IList<contract> GetContractsFromTable(Table table)
+        private static IList<Contract> GetContractsFromTable(Table table)
         {
-            var contracts = new List<contract>();
+            var contracts = new List<Contract>();
 
             var keys = new string[] { "Parent Contract", "Contract No", "Version" };
 
@@ -106,7 +107,7 @@
                 }
 
                 contracts.Add(
-                    new contract
+                    new Contract
                     {
                         contractNumber = row["Parent Contract"],
                         contracts = new List<contractType>

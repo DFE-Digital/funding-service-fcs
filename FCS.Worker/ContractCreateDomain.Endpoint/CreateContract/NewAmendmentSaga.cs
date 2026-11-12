@@ -1,7 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.CreateContract
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    using AutoMapper;
     using ContractManagement.DataStore.Dtos;
     using ContractManagement.DataStore.Model;
     using ContractManagement.DataStore.Repositories;
@@ -14,11 +13,13 @@
     using SFA.FCT.ContractCreateDomain.BusinessLogic.Validation;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using ContractCreateDomainEventLoggingId = Endpoint.ContractCreateDomainEventLoggingId;
+    using CR=SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using IContractOperationRules = Infrastructure.IContractOperationRules;
     using IContractValidationLookupDataCreator = Infrastructure.IContractValidationLookupDataCreator;
     using IFundingTypeFundingPeriodQueryRepository = Infrastructure.IFundingTypeFundingPeriodQueryRepository;
@@ -32,6 +33,7 @@
         private readonly IFundingTypeFundingPeriodQueryRepository _fundingTypeFundingPeriodQueryRepository;
         private readonly ISagaDataStorage _sagaDataStorage;
         private readonly IFundingTypeFundingPeriodContractTypeQueryRepository _fundingTypeFundingPeriodContractTypeQueryRepository;
+        private readonly IMapper _mapper;
 
         public NewAmendmentSaga(IContractDeliverableEnricher contractDeliverableEnricher,
             IContractRequestTransformer contractRequestTransformer,
@@ -48,13 +50,15 @@
             IContractValidationLookupDataCreator contractValidationLookupDataCreator,
             IFundingTypeFundingPeriodContractTypeQueryRepository fundingTypeFundingPeriodContractTypeQueryRepository,
             ISiblingApprovedContractService siblingApprovedContractService,
-            IRelatedAllocationEnricher relatedAllocationEnricher)
+            IRelatedAllocationEnricher relatedAllocationEnricher,
+            IMapper mapper)
         {
             _contractOperationRules = contractOperationRules;
             _fundingTypeFundingPeriodQueryRepository = fundingTypeFundingPeriodQueryRepository;
             _sagaDataStorage = sagaDataStorage;
             _fundingTypeFundingPeriodContractTypeQueryRepository = fundingTypeFundingPeriodContractTypeQueryRepository;
             _logger = logger;
+            _mapper= mapper;
 
             _createContractSaga = new CreateContractSaga(
                 contractDeliverableEnricher,
@@ -92,7 +96,7 @@
             }
         }
 
-        private IEnumerable<IRule<contractRequestType>> GetValidationRules(contractRequestType contractRequest, ContractValidationLookupData lookupData, ConnectionInfo connectionInfo)
+        private IEnumerable<IRule<CR.contractRequestType>> GetValidationRules(CR.contractRequestType contractRequest, ContractValidationLookupData lookupData, ConnectionInfo connectionInfo)
         {
             bool allowUseOfDeliveryOrgs = _fundingTypeFundingPeriodQueryRepository.Get(contractRequest.contract.fundingTypeCode,
                 contractRequest.GetFundingPeriod(), connectionInfo).AllowUseOfDeliveryOrgs;
@@ -100,7 +104,7 @@
             IReadOnlyCollection<FundingTypeFundingPeriodContractTypeDto> GetFundingTypeFundingPeriodContractType()
             {
                 IReadOnlyCollection<FundingTypeFundingPeriodContractType> fundingTypeFundingPeriodContractTypes = _fundingTypeFundingPeriodContractTypeQueryRepository.GetFundingTypeFundingPeriodContractTypes(connectionInfo);
-                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes);
+                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes,_mapper);
             }
 
             bool IsNewAmendmentAllowed(FundingTypeFundingPeriodDto fundingTypeFundingPeriod)

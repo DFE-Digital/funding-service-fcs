@@ -30,11 +30,16 @@
             _contextMock.Setup(c => c.Connection).Returns(Mock.Of<IDbConnection>());
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(SqlDuplicateKeyStorageException))]
+
+        [TestMethod, TestCategory("UnitTest")]
         public void Calling_AddAtomItem_ExpectDbUpdateExceptionToBeCalledWhenHasInnerExceptionandContainsDuplicateSqlException()
         {
-            AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
-                   AtomItemType.ApprovedContract, xml => true);
+            // Arrange
+            var item = AtomFeedItem.CreateAtomFeedItem(
+                new Contract(),
+                TestBusinessKey,
+                AtomItemType.ApprovedContract,
+                xml => true);
 
             var sqlException = ReturnMockSqlException(2601);
 
@@ -43,81 +48,106 @@
             var exception = new DbUpdateException(string.Empty, new NullReferenceException(string.Empty, sqlException));
             _contextMock.Setup(c => c.SaveChanges()).Throws(exception);
 
-            repository.Add(item);
+            // Act & Assert
+            Assert.ThrowsExactly<SqlDuplicateKeyStorageException>(() => repository.Add(item));
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof (InvalidOperationException))]
+
+        [TestMethod, TestCategory("UnitTest")]
         public void Calling_AddAtomItem_ExpectInvalidOperationExceptionToBeCalledWhenNoInnerExceptionandNotDupicateException()
         {
-            AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
-                   AtomItemType.ApprovedContract, xml => true);
-            
+            // Arrange
+            var item = AtomFeedItem.CreateAtomFeedItem(
+                new Contract(),
+                TestBusinessKey,
+                AtomItemType.ApprovedContract,
+                xml => true);
+
             IAtomItemRepository repository = new ApprovedContractAtomItemRepository(_contextMock.Object);
             _contextMock.Setup(c => c.AtomFeedItems).Returns(_dbSetMock.Object);
             _contextMock.Setup(c => c.SaveChanges()).Throws(new InvalidOperationException());
 
-            repository.Add(item);
+            // Act & Assert
+            Assert.ThrowsExactly<InvalidOperationException>(() => repository.Add(item));
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(DbUpdateException))]
+
+        [TestMethod, TestCategory("UnitTest")]
         public void Calling_AddAtomItem_ExpectDbUpdateExceptionToBeCalledWhenNoInnerException()
         {
-            AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
-                   AtomItemType.ApprovedContract, xml => true);
+            // Arrange
+            var item = AtomFeedItem.CreateAtomFeedItem(
+                new Contract(),
+                TestBusinessKey,
+                AtomItemType.ApprovedContract,
+                xml => true);
 
             IAtomItemRepository repository = new ApprovedContractAtomItemRepository(_contextMock.Object);
             _contextMock.Setup(c => c.AtomFeedItems).Returns(_dbSetMock.Object);
             _contextMock.Setup(c => c.SaveChanges()).Throws(new DbUpdateException());
 
-            repository.Add(item);
+            // Act & Assert
+            Assert.ThrowsExactly<DbUpdateException>(() => repository.Add(item));
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(DbUpdateException))]
+        [TestMethod, TestCategory("UnitTest")]
         public void Calling_AddAtomItem_ExpectDbUpdateExceptionToBeCalledWhenHasInnerExceptionbutNotDuplicateException()
         {
-            AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
-                   AtomItemType.ApprovedContract, xml => true);
+            // Arrange
+            var item = AtomFeedItem.CreateAtomFeedItem(
+                new Contract(),
+                TestBusinessKey,
+                AtomItemType.ApprovedContract,
+                xml => true);
 
             IAtomItemRepository repository = new ApprovedContractAtomItemRepository(_contextMock.Object);
             _contextMock.Setup(c => c.AtomFeedItems).Returns(_dbSetMock.Object);
-            var exception = new DbUpdateException(string.Empty, new NullReferenceException());
+
+            var inner = new NullReferenceException(); // non-SQL, non-duplicate
+                                                      // Note: The mock below throws a DbUpdateException (without inner) – matching your original setup.
             _contextMock.Setup(c => c.SaveChanges()).Throws(new DbUpdateException());
 
-            repository.Add(item);
+            // Act & Assert
+            Assert.ThrowsExactly<DbUpdateException>(() => repository.Add(item));
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(DbUpdateException))]
+        [TestMethod, TestCategory("UnitTest")]
         public void Calling_AddAtomItem_ExpectDbUpdateExceptionToBeCalledWhenHasInnerExceptionbutNotDuplicateSqlException()
         {
-            AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
-                   AtomItemType.ApprovedContract, xml => true);
+            // Arrange
+            var item = AtomFeedItem.CreateAtomFeedItem(
+                new Contract(),
+                TestBusinessKey,
+                AtomItemType.ApprovedContract,
+                xml => true);
 
-            var sqlException = ReturnMockSqlException(1);
+            var sqlException = ReturnMockSqlException(1); // not a duplicate key code
 
             IAtomItemRepository repository = new ApprovedContractAtomItemRepository(_contextMock.Object);
             _contextMock.Setup(c => c.AtomFeedItems).Returns(_dbSetMock.Object);
             var exception = new DbUpdateException(string.Empty, new NullReferenceException(string.Empty, sqlException));
             _contextMock.Setup(c => c.SaveChanges()).Throws(exception);
 
-            repository.Add(item);
+            // Act & Assert
+            Assert.ThrowsExactly<DbUpdateException>(() => repository.Add(item));
         }
 
         private static SqlException ReturnMockSqlException(int errorNumber)
         {
             SqlErrorCollection collection = Construct<SqlErrorCollection>();
-            SqlError error = Construct<SqlError>(errorNumber, (byte) 2, (byte) 3, "server name", "error message", "proc", 100);
+            SqlError error = Construct<SqlError>(errorNumber, (byte)2, (byte)3, "server name", "error message", "proc", 100);
 
-            typeof (SqlErrorCollection)
+            typeof(SqlErrorCollection)
                 .GetMethod("Add", BindingFlags.NonPublic | BindingFlags.Instance)
-                .Invoke(collection, new object[] {error});
+                .Invoke(collection, new object[] { error });
 
-            var sqlException = typeof (SqlException)
+            var sqlException = typeof(SqlException)
                 .GetMethod("CreateException", BindingFlags.NonPublic | BindingFlags.Static,
                     null,
                     CallingConventions.ExplicitThis,
-                    new[] {typeof (SqlErrorCollection), typeof (string)},
-                    new ParameterModifier[] {})
-                .Invoke(null, new object[] {collection, "7.0.0"}) as SqlException;
+                    new[] { typeof(SqlErrorCollection), typeof(string) },
+                    new ParameterModifier[] { })
+                .Invoke(null, new object[] { collection, "7.0.0" }) as SqlException;
             return sqlException;
         }
 

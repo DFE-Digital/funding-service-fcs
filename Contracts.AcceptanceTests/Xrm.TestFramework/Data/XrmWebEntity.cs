@@ -12,6 +12,7 @@ namespace SFA.FCT.Xrm.TestFramework
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
+    using NUnit.Framework.Legacy;
 
     /// -----------------------------------------------------------------
     /// Namespace:      Ciber.Xrm.Tests.MetaData
@@ -84,7 +85,7 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var entity = GetLatestRecordNoAssert(allColumns);
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 entity != null,
                 "The entity " + _entityLogicalName + " does not contain row with key of " + _primaryFieldName +
                 " with value " + _recordIdentitier);
@@ -94,8 +95,8 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity GetLatestRecordNoAssert(bool allColumns = true)
         {
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
-            Assert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
+            ClassicAssert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
+            ClassicAssert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
 
             if (_recordGuid == null)
             {
@@ -126,8 +127,8 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity SetRecord()
         {
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
-            Assert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
+            ClassicAssert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
+            ClassicAssert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
 
             var entity = new Entity(_entityLogicalName)
             {
@@ -142,7 +143,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity Update()
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             // Update the entity
             _crmOrganisationService.Update(_entity);
@@ -152,7 +153,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity UpdateStatus()
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             var setState = new SetStateRequest();
 
@@ -168,7 +169,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity Create()
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             // Update the entity
             _recordGuid = _crmOrganisationService.Create(_entity);
@@ -178,7 +179,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public void Delete()
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             _crmOrganisationService.Delete(_entity);
         }
@@ -202,8 +203,8 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var attribute = GetAttribute(fieldName);
 
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
-            Assert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
 
             // Update the postal code attribute.
             object crmValue = null;
@@ -211,7 +212,7 @@ namespace SFA.FCT.Xrm.TestFramework
             switch (attribute.dataType)
             {
                 case XrmDataType.DateTime:
-                    Assert.IsTrue(value is DateTime, "The Test Value " + value + " is not set DateTime");
+                    ClassicAssert.IsTrue(value is DateTime, "The Test Value " + value + " is not set DateTime");
                     crmValue = ((DateTime)value).ToUniversalTime();
                     break;
 
@@ -222,7 +223,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                     else
                     {
-                        Assert.Fail("Test Value is not a Decimal");
+                        ClassicAssert.Fail("Test Value is not a Decimal");
                     }
 
                     crmValue = decValue;
@@ -235,7 +236,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                     else
                     {
-                        Assert.Fail("Test Value is not a Microsoft.Xrm.Sdk.Money");
+                        ClassicAssert.Fail("Test Value is not a Microsoft.Xrm.Sdk.Money");
                     }
 
                     break;
@@ -263,7 +264,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                     else
                     {
-                        Assert.Fail("The Attribute " + fieldName + " is not set as 'TwoValues / bool");
+                        ClassicAssert.Fail("The Attribute " + fieldName + " is not set as 'TwoValues / bool");
                     }
 
                     break;
@@ -283,7 +284,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                     else
                     {
-                        Assert.Fail("Test Value is not an OptionSet");
+                        ClassicAssert.Fail("Test Value is not an OptionSet");
                     }
 
                     break;
@@ -313,7 +314,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity SetLookupField(XrmPackageEntity relatedEntity, string fieldName, XrmWebEntity value)
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             var relationship = relatedEntity.Relationship(_entity.LogicalName, fieldName);
 
@@ -341,7 +342,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 }
                 else
                 {
-                    Assert.Fail("The entity " + relatedEntity.DisplayName + " does not have link");
+                    ClassicAssert.Fail("The entity " + relatedEntity.DisplayName + " does not have link");
                 }
             }
             else
@@ -357,7 +358,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity SetOwner(XrmWebEntity value)
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             if (value != null)
             {
@@ -379,9 +380,9 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity IsNull(string fieldName)
         {
-            Assert.IsTrue(this._entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(this._entity != null, "The Entity has not been set");
             bool containsKey = this._entity.Attributes.ContainsKey(fieldName);
-            Assert.IsTrue(containsKey == false, fieldName + "was not null");
+            ClassicAssert.IsTrue(containsKey == false, fieldName + "was not null");
             return this;
         }
 
@@ -394,14 +395,14 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity FieldValue(XrmFieldValueComparison fieldValueComparison, string fieldName, object testValue)
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             var attribute = GetAttribute(fieldName);
             object field;
 
             if (attribute.dataType != XrmDataType.TwoOptions)
             {
-                Assert.IsTrue(_entity.Contains(attribute.LogicalName), "The Entity does not contain " + fieldName);
+                ClassicAssert.IsTrue(_entity.Contains(attribute.LogicalName), "The Entity does not contain " + fieldName);
                 field = _entity.Attributes[attribute.LogicalName];
             }
             else
@@ -414,14 +415,14 @@ namespace SFA.FCT.Xrm.TestFramework
             switch (attribute.dataType)
             {
                 case XrmDataType.DateTime:
-                    Assert.IsTrue(testValue is DateTime, "The Test Value " + testValue + " is not set DateTime");
+                    ClassicAssert.IsTrue(testValue is DateTime, "The Test Value " + testValue + " is not set DateTime");
 
                     var testValueDateTime = (DateTime)testValue;
 
                     testValueDateTime = testValueDateTime.TrimMilliseconds();
 
                     // TODO: This is a simplified solution to the DateTime issue with Dynamics CRM, it will not work if we want to assert on Date AND Time values
-                    Assert.IsTrue(
+                    ClassicAssert.IsTrue(
                         CompareDateTimeValues(((DateTime)field).AddHours(12).Date, fieldValueComparison, testValueDateTime.Date),
                         "The field " + fieldName + " is not " + fieldValueComparison.ToDescription() + " the value " + testValue + " actually " + field);
                     break;
@@ -429,13 +430,13 @@ namespace SFA.FCT.Xrm.TestFramework
                 case XrmDataType.Decimal:
                     if (decimal.TryParse(testValue.ToString(), out decTestValue))
                     {
-                        Assert.IsTrue(
+                        ClassicAssert.IsTrue(
                             CompareDecimalValues((decimal)field, fieldValueComparison, decTestValue),
                             "The field " + fieldName + " is not " + fieldValueComparison.ToDescription() + " the value " + testValue + " actually " + field);
                     }
                     else
                     {
-                        Assert.Fail("Test Value is not a Decimal");
+                        ClassicAssert.Fail("Test Value is not a Decimal");
                     }
 
                     break;
@@ -443,13 +444,13 @@ namespace SFA.FCT.Xrm.TestFramework
                 case XrmDataType.Money:
                     if (decimal.TryParse(testValue.ToString(), out decTestValue))
                     {
-                        Assert.IsTrue(
+                        ClassicAssert.IsTrue(
                             CompareDecimalValues(((Money)field).Value, fieldValueComparison, decTestValue),
                             "The field " + fieldName + " is not " + fieldValueComparison.ToDescription() + " the value " + decTestValue + " actually " + ((Money)field).Value);
                     }
                     else
                     {
-                        Assert.Fail("Test Value is not a Microsoft.Xrm.Sdk.Money");
+                        ClassicAssert.Fail("Test Value is not a Microsoft.Xrm.Sdk.Money");
                     }
 
                     break;
@@ -473,10 +474,10 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                     else
                     {
-                        Assert.Fail("Value {0} cannot be parsed to type bool", testValue);
+                        ClassicAssert.Fail($"Value {testValue} cannot be parsed to type bool");
                     }
 
-                    Assert.IsTrue(
+                    ClassicAssert.IsTrue(
                         CompareBoolValues((bool)field, fieldValueComparison, parsedBool),
                         "The field " + fieldName + " is not " + fieldValueComparison.ToDescription() + " the value " + parsedBool + " actually " + field);
 
@@ -484,7 +485,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 case XrmDataType.WholeNumber:
                     if (attribute.OptionSetValues != null && !int.TryParse(testValue.ToString(), out intTestValue))
                     {
-                        Assert.IsTrue(
+                        ClassicAssert.IsTrue(
                             CompareIntegerValues((int)field, fieldValueComparison, intTestValue),
                             "The field " + fieldName + " is not " + fieldValueComparison.ToDescription() + " the value " +
                             testValue);
@@ -503,14 +504,14 @@ namespace SFA.FCT.Xrm.TestFramework
 
                     if (field is OptionSetValue)
                     {
-                        Assert.IsTrue(
+                        ClassicAssert.IsTrue(
                             CompareIntegerValues(((OptionSetValue)field).Value, fieldValueComparison, intTestValue),
                             "The field " + fieldName + " is not " + fieldValueComparison.ToDescription() + " the value " +
                             testValue);
                     }
                     else
                     {
-                        Assert.Fail("Test Value is not an OptionSet");
+                        ClassicAssert.Fail("Test Value is not an OptionSet");
                     }
 
                     break;
@@ -518,7 +519,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 case XrmDataType.Owner:
                     if (field != null && field is EntityReference)
                     {
-                        Assert.IsTrue(
+                        ClassicAssert.IsTrue(
                             CompareTextValues(((EntityReference)field).Name, fieldValueComparison, testValue.ToString()),
                             "The field " + fieldName + " is not " + fieldValueComparison.ToDescription() + " the value " +
                             testValue);
@@ -529,7 +530,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 case XrmDataType.Text:
                 case XrmDataType.Memo:
                 default:
-                    Assert.IsTrue(
+                    ClassicAssert.IsTrue(
                         CompareTextValues((string)field, fieldValueComparison, (string)testValue),
                         "The field " + fieldName + " is not " + fieldValueComparison.ToDescription() + " the value " + testValue + " actually " + field);
                     break;
@@ -540,18 +541,18 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public Guid GetId()
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             return _entity.Id;
         }
 
         public object GetField(string fieldName)
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             var attribute = GetAttribute(fieldName);
 
-            Assert.IsTrue(_entity.Contains(attribute.LogicalName), "The Entity does not contain " + fieldName);
+            ClassicAssert.IsTrue(_entity.Contains(attribute.LogicalName), "The Entity does not contain " + fieldName);
 
             var field = _entity.Attributes[attribute.LogicalName];
 
@@ -593,11 +594,11 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public string GetLookupFieldName(XrmPackageEntity relatedEntity, string fieldName)
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             var relationship = relatedEntity.Relationship(_entity.LogicalName, fieldName);
 
-            Assert.IsTrue(_entity.Contains(relationship.LogicalName), "The Entity does not contain a relationship to : " + relatedEntity.DisplayName);
+            ClassicAssert.IsTrue(_entity.Contains(relationship.LogicalName), "The Entity does not contain a relationship to : " + relatedEntity.DisplayName);
 
             var field = _entity.Attributes[relationship.LogicalName];
             var stringField = string.Empty;
@@ -607,7 +608,7 @@ namespace SFA.FCT.Xrm.TestFramework
             }
             else
             {
-                Assert.Fail("The field " + fieldName + " is not on  " + relatedEntity.DisplayName);
+                ClassicAssert.Fail("The field " + fieldName + " is not on  " + relatedEntity.DisplayName);
             }
 
             return stringField;
@@ -615,22 +616,22 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity LookupFieldValueEquals(XrmPackageEntity relatedEntity, string fieldName, string testValue)
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             var relationship = relatedEntity.Relationship(_entity.LogicalName, fieldName);
 
             if (testValue == null || testValue == BlankValue)
             {
-                Assert.IsFalse(LookupFieldIsSet(relationship.LogicalName), "A value is specified for the field {0}", fieldName);
+                ClassicAssert.IsFalse(LookupFieldIsSet(relationship.LogicalName), "A value is specified for the field {0}", fieldName);
             }
             else
             {
-                Assert.IsTrue(LookupFieldIsSet(relationship.LogicalName), "The Entity does not have a value for {0} ", fieldName);
+                ClassicAssert.IsTrue(LookupFieldIsSet(relationship.LogicalName), "The Entity does not have a value for {0} ", fieldName);
 
                 if (_entity.Attributes[relationship.LogicalName] is EntityReference)
                 {
                     var testField = (EntityReference)_entity.Attributes[relationship.LogicalName];
-                    Assert.AreEqual(
+                    ClassicAssert.AreEqual(
                         testValue,
                         testField.Name,
                         "The field " + relatedEntity.DisplayName + " does not equal " + testValue + " actually " +
@@ -643,7 +644,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity OwnerEquals(string value)
         {
-            Assert.IsTrue(_entity != null, "The Entity has not been set");
+            ClassicAssert.IsTrue(_entity != null, "The Entity has not been set");
 
             if (value != null && _entity.Attributes.Contains("ownerid"))
             {
@@ -652,14 +653,14 @@ namespace SFA.FCT.Xrm.TestFramework
                 if (field is EntityReference)
                 {
                     var testField = (EntityReference)field;
-                    Assert.IsTrue(
+                    ClassicAssert.IsTrue(
                         testField.Name.Equals(value),
                         "The owner does not equal " + value + " actually " + testField.Name);
                 }
             }
             else
             {
-                Assert.Fail("The entity " + _entity.LogicalName + " is not owned by a user or team.");
+                ClassicAssert.Fail("The entity " + _entity.LogicalName + " is not owned by a user or team.");
             }
 
             return this;
@@ -667,8 +668,8 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity ReassignRecord(string newOwner)
         {
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
-            Assert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
+            ClassicAssert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
+            ClassicAssert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
 
             // Query to retrieve users.
             var querySystemUser = new QueryExpression
@@ -721,7 +722,7 @@ namespace SFA.FCT.Xrm.TestFramework
             }
             else
             {
-                Assert.Fail("The user or team " + newOwner + " does not exist in CRM ");
+                ClassicAssert.Fail("The user or team " + newOwner + " does not exist in CRM ");
             }
 
             return this;
@@ -731,8 +732,8 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public XrmWebEntity GetLatestRelatedRecord(XrmPackageEntity relatedEntityMetadata, [Optional, DefaultParameterValue("")] string relationshipName, [Optional] Dictionary<string, object> filterList)
         {
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
-            Assert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
+            ClassicAssert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
+            ClassicAssert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
 
             var relatedEntityName = relatedEntityMetadata.LogicalName;
 
@@ -757,7 +758,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
             var entityCollection = _crmOrganisationService.RetrieveMultiple(query);
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 entityCollection != null && entityCollection.Entities.Count > 0,
                 "The entity " + relatedEntityName + " does not contain rows related to " + _entityLogicalName + " with value " + _recordIdentitier);
 
@@ -777,8 +778,8 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public List<XrmWebEntity> GetRelatedRecords(XrmPackageEntity relatedEntityMetadata, [Optional, DefaultParameterValue("")] string relationshipName, [Optional] Dictionary<string, object> filterList)
         {
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
-            Assert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
+            ClassicAssert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
+            ClassicAssert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
 
             var relatedEntityName = relatedEntityMetadata.LogicalName;
 
@@ -807,7 +808,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
             var entityCollection = _crmOrganisationService.RetrieveMultiple(query);
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 entityCollection != null,
                 "The entity " + _entityLogicalName + " does not contain row with key of " + _primaryFieldName +
                 " with value " + _recordIdentitier);
@@ -836,8 +837,8 @@ namespace SFA.FCT.Xrm.TestFramework
 
         internal IList<XrmWebEntity> GetMatchingRecords()
         {
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
-            Assert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
+            ClassicAssert.IsTrue(!string.IsNullOrWhiteSpace(_entityLogicalName), "The Entity has not been set");
+            ClassicAssert.IsTrue(_crmOrganisationService != null, "The xrmWebConnection has not been set");
 
             var query = new QueryExpression(_entityLogicalName)
             {
@@ -909,7 +910,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     returnValue = valueDateTime > targetValueDate;
                     break;
                 case XrmFieldValueComparison.BeginsWith:
-                    Assert.Fail("BeginsWith is only valid for Text Comparisons");
+                    ClassicAssert.Fail("BeginsWith is only valid for Text Comparisons");
                     break;
                 default:
                     returnValue = valueDateTime.Equals(targetValueDate);
@@ -937,7 +938,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     returnValue = valueDecimal > targetValueDecimal;
                     break;
                 case XrmFieldValueComparison.BeginsWith:
-                    Assert.Fail("BeginsWith is only valid for Text Comparisons");
+                    ClassicAssert.Fail("BeginsWith is only valid for Text Comparisons");
                     break;
                 default:
                     returnValue = valueDecimal.Equals(targetValueDecimal);
@@ -965,7 +966,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     returnValue = intValue > intTargetValue;
                     break;
                 case XrmFieldValueComparison.BeginsWith:
-                    Assert.Fail("BeginsWith is only valid for Text Comparisons");
+                    ClassicAssert.Fail("BeginsWith is only valid for Text Comparisons");
                     break;
                 default:
                     returnValue = intValue.Equals(intTargetValue);
@@ -987,13 +988,13 @@ namespace SFA.FCT.Xrm.TestFramework
                     returnValue = boolValue != boolTargetValue;
                     break;
                 case XrmFieldValueComparison.LessThan:
-                    Assert.Fail("Cannot compare boolean fields with anything other than Equals To or Not Equals To");
+                    ClassicAssert.Fail("Cannot compare boolean fields with anything other than Equals To or Not Equals To");
                     break;
                 case XrmFieldValueComparison.GreaterThan:
-                    Assert.Fail("Cannot compare boolean fields with anything other than Equals To or Not Equals To");
+                    ClassicAssert.Fail("Cannot compare boolean fields with anything other than Equals To or Not Equals To");
                     break;
                 case XrmFieldValueComparison.BeginsWith:
-                    Assert.Fail("BeginsWith is only valid for Text Comparisons");
+                    ClassicAssert.Fail("BeginsWith is only valid for Text Comparisons");
                     break;
                 default:
                     returnValue = boolValue.Equals(boolTargetValue);
@@ -1015,13 +1016,13 @@ namespace SFA.FCT.Xrm.TestFramework
                     returnValue = boolValue != boolTargetValue;
                     break;
                 case XrmFieldValueComparison.LessThan:
-                    Assert.Fail("Cannot compare boolean fields with anything other than Equals To or Not Equals To");
+                    ClassicAssert.Fail("Cannot compare boolean fields with anything other than Equals To or Not Equals To");
                     break;
                 case XrmFieldValueComparison.GreaterThan:
-                    Assert.Fail("Cannot compare boolean fields with anything other than Equals To or Not Equals To");
+                    ClassicAssert.Fail("Cannot compare boolean fields with anything other than Equals To or Not Equals To");
                     break;
                 case XrmFieldValueComparison.BeginsWith:
-                    Assert.Fail("BeginsWith is only valid for Text Comparisons");
+                    ClassicAssert.Fail("BeginsWith is only valid for Text Comparisons");
                     break;
                 default:
                     return boolValue.Equals(boolTargetValue);
@@ -1045,10 +1046,10 @@ namespace SFA.FCT.Xrm.TestFramework
                     returnValue = adjustedStringValue != stringTargetValue;
                     break;
                 case XrmFieldValueComparison.LessThan:
-                    Assert.Fail("Cannot compare text fields with anything other than Equals To or Not Equals To");
+                    ClassicAssert.Fail("Cannot compare text fields with anything other than Equals To or Not Equals To");
                     break;
                 case XrmFieldValueComparison.GreaterThan:
-                    Assert.Fail("Cannot compare text fields with anything other than Equals To or Not Equals To");
+                    ClassicAssert.Fail("Cannot compare text fields with anything other than Equals To or Not Equals To");
                     break;
                 case XrmFieldValueComparison.BeginsWith:
                     returnValue = adjustedStringValue.StartsWith(stringTargetValue);

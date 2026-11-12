@@ -22,7 +22,7 @@
         {
             var contract = Contract.contract.contracts.First();
 
-            contract.CRMIntent = intent.RevisedNew;
+            contract.CRMIntent = Intent.RevisedNew;
             contract.IsNonWithdrawnOrSupersededDraftContractWithContractNumberPresentInCrm = false;
 
             Assert.IsFalse(_validator.GetFailuresForItem(Contract).Any());
@@ -33,7 +33,7 @@
         {
             var contract = Contract.contract.contracts.First();
 
-            contract.CRMIntent = intent.RevisedNew;
+            contract.CRMIntent = Intent.RevisedNew;
             contract.IsNonWithdrawnOrSupersededDraftContractWithContractNumberPresentInCrm = true;
 
             IEnumerable<string> errors = _validator.GetFailuresForItem(Contract);

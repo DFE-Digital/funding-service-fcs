@@ -133,7 +133,6 @@
 
             IWindsorContainer container =
                 new WindsorContainer().Install(new WindsorInstaller(factory));
-            container.Register(Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
             container.Register(
               Component.For<IPerformanceManagementDbContext>()
                   .ImplementedBy<PerformanceManagementDbContext>().IsDefault()

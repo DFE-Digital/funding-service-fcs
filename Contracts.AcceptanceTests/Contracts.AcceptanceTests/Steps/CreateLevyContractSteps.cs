@@ -24,6 +24,7 @@
     using Pages.DTO.Levy;
     using Utilities;
     using ContractRequest = CrossDomain.Integration.Entities.ContractRequest;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class CreateLevyContractSteps
@@ -49,7 +50,7 @@
             {
                 contract = new ContractRequest.contractType
                 {
-                    contractor = new ContractRequest.contractor
+                    contractor = new ContractRequest.Contractor
                     {
                         ukprn = int.Parse(row["UKPRN"]),
                         legalName = row["LegalName"],
@@ -59,7 +60,7 @@
                     {
                         new ContractRequest.contractType
                         {
-                            contractor = new ContractRequest.contractor
+                            contractor = new ContractRequest.Contractor
                             {
                                 ukprn = int.Parse(row["UKPRN"]),
                                 legalName = row["LegalName"],
@@ -68,7 +69,7 @@
                             contractType1 = row["ContractType"],
                             contractVersionNumber = 1,
                             correlationId = Guid.NewGuid().ToString("D"),
-                            CRMIntent = (ContractRequest.intent)Enum.Parse(typeof(ContractRequest.intent), row["CRMIntent"]),
+                            CRMIntent = (ContractRequest.Intent)Enum.Parse(typeof(ContractRequest.Intent), row["CRMIntent"]),
                             endDate = ParseDate(row["ContractEndDate"]),
                             fundingTypeCode = row["FundingType"],
                             hierarchyType = ContractRequest.hierarchyType.CONTRACT,
@@ -111,7 +112,7 @@
             _createLevyContractPageObject.SetStepBuiltContractRequestTypeAllocations(table.Rows.Select(row => new ContractRequest.contractAllocation
             {
                 correlationId = Guid.NewGuid().ToString("D"),
-                CRMIntent = (ContractRequest.intent)Enum.Parse(typeof(ContractRequest.intent), row["CRMIntent"]),
+                CRMIntent = (ContractRequest.Intent)Enum.Parse(typeof(ContractRequest.Intent), row["CRMIntent"]),
                 endDate = ParseDate(row["AllocationEndDate"]),
                 fundingStreamCode = row["FundingStreamCode"],
                 fundingStreamPeriodCode = row["FundingStreamPeriodCode"],
@@ -135,7 +136,7 @@
             {
                 contractDeliverablePeriods = ExtractDeliverablePeriodsFromTableRow(row),
                 correlationId = Guid.NewGuid().ToString("D"),
-                CRMIntent = (ContractRequest.intent)Enum.Parse(typeof(ContractRequest.intent), row["CRMIntent"]),
+                CRMIntent = (ContractRequest.Intent)Enum.Parse(typeof(ContractRequest.Intent), row["CRMIntent"]),
                 deliverable = new ContractRequest.deliverableType
                 {
                     deliverableCode = int.Parse(row["DeliverableCode"]),
@@ -159,7 +160,7 @@
             // we now poll until the contract is in CRM and store on the pageObject for future steps
             bool hasContractBeenCreated = _createLevyContractPageObject.PopulateCreatedContract(ukprn);
 
-            Assert.IsTrue(hasContractBeenCreated, "The contract has not been created");
+            ClassicAssert.IsTrue(hasContractBeenCreated, "The contract has not been created");
         }
 
         [When(@"a request is issued to amend the following Levy contract via Bulk")]
@@ -251,13 +252,13 @@
             }
 
             stopwatch.Stop();
-            Assert.AreEqual(contractCount, contractsForUkprn.Count);
+            ClassicAssert.AreEqual(contractCount, contractsForUkprn.Count);
         }
 
         [Then(@"there are no open tasks for the contract")]
         public void ThenThereAreNoOpenTasksForContract()
         {
-            Assert.IsFalse(_createLevyContractPageObject.DoesTaskExistForContract(_createLevyContractPageObject.CreatedContractGuid));
+            ClassicAssert.IsFalse(_createLevyContractPageObject.DoesTaskExistForContract(_createLevyContractPageObject.CreatedContractGuid));
         }
 
         [Then(@"the following workflow history entries are present on the latest version of the contract")]
@@ -272,14 +273,14 @@
 
                 if (matchingWorkflowItem != null)
                 {
-                    Assert.IsTrue(string.IsNullOrEmpty(matchingWorkflowItem.PreviousContractOwner),
+                    ClassicAssert.IsTrue(string.IsNullOrEmpty(matchingWorkflowItem.PreviousContractOwner),
                         $"There is a PreviousContractOwner for {actionName}");
-                    Assert.IsTrue(string.IsNullOrEmpty(matchingWorkflowItem.NewContractOwner),
+                    ClassicAssert.IsTrue(string.IsNullOrEmpty(matchingWorkflowItem.NewContractOwner),
                         $"There is a NewContractOwner for {actionName}");
                 }
                 else
                 {
-                    Assert.Fail($"This Action: {row["Action"]} is not present in CRM");
+                    ClassicAssert.Fail($"This Action: {row["Action"]} is not present in CRM");
                 }
             }
         }
@@ -293,7 +294,7 @@
             {
                 if (workflowItems.Any(wfi => wfi.Action == row["Action"]))
                 {
-                    Assert.Fail($"This Action: {row["Action"]} is present in CRM and it shouldn't be");
+                    ClassicAssert.Fail($"This Action: {row["Action"]} is present in CRM and it shouldn't be");
                 }
             }
         }
@@ -324,14 +325,14 @@
             foreach (TableRow row in table.Rows)
             {
                
-                Assert.AreEqual(row["SubStatus"], contractInfo.SubStatus, "CRM record Substatus value mismatch");
-                Assert.AreEqual(row["Status"], ((sfa_contractstatus)contractInfo.Contract.sfa_ContractStatus.Value).ToString(), "CRM record Status value mismatch");
-                Assert.AreEqual(row["LatestVersion"] == "Yes", contractInfo.Contract.sfa_LatestVersion, "CRM record Version mismatch");
-                Assert.AreEqual(row["LastApprovedVersion"] == "Yes", contractInfo.Contract.sfa_LastApprovedVersion, "CRM record Last Approved Version mismatch");
+                ClassicAssert.AreEqual(row["SubStatus"], contractInfo.SubStatus, "CRM record Substatus value mismatch");
+                ClassicAssert.AreEqual(row["Status"], ((sfa_contractstatus)contractInfo.Contract.sfa_ContractStatus.Value).ToString(), "CRM record Status value mismatch");
+                ClassicAssert.AreEqual(row["LatestVersion"] == "Yes", contractInfo.Contract.sfa_LatestVersion, "CRM record Version mismatch");
+                ClassicAssert.AreEqual(row["LastApprovedVersion"] == "Yes", contractInfo.Contract.sfa_LastApprovedVersion, "CRM record Last Approved Version mismatch");
                 if (row.ContainsKey("ContractVersionNumber"))
                 {
-                    Assert.IsNotNull(contractInfo.Contract.sfa_Version);
-                    Assert.AreEqual(row["ContractVersionNumber"], contractInfo.Contract.sfa_Version.Value.ToString(), "The contract version number is not correct");
+                    ClassicAssert.IsNotNull(contractInfo.Contract.sfa_Version);
+                    ClassicAssert.AreEqual(row["ContractVersionNumber"], contractInfo.Contract.sfa_Version.Value.ToString(), "The contract version number is not correct");
                 }
             }
         }
@@ -343,21 +344,21 @@
 
             ContractHeaderInfo contractHeaderInfo = _createLevyContractPageObject.GetLatestContractHeaderInfo();
 
-            Assert.AreEqual(
+            ClassicAssert.AreEqual(
                 ParseDate(row["ContractStartDate"]),
                 new DateTime(
                     contractHeaderInfo.ContractStartDate.GetValueOrDefault().Year, 
                     contractHeaderInfo.ContractStartDate.GetValueOrDefault().Month,
                     contractHeaderInfo.ContractStartDate.GetValueOrDefault().Day),
                 "Unexpected ContractStartDate retrieved from CRM");
-            Assert.IsNull(contractHeaderInfo.ContractEndDate, "ContractEndDate retrieved from CRM is not null");
-            Assert.AreEqual(decimal.Parse(row["ContractValue"]), contractHeaderInfo.ContractValue, "Unexpected ContractValue retrieved from CRM.");
-            Assert.AreEqual(row["FundingType"], contractHeaderInfo.FundingTypeCode, "Unexpected FundingTypeCode retrieved from CRM");
-            Assert.AreEqual(int.Parse(row["Period"]), contractHeaderInfo.Period, "Unexpected Period retrieved from CRM");
-            Assert.AreEqual(row["PeriodTypeCode"], contractHeaderInfo.PeriodTypeCode, "Unexpected PeriodType retrieved from CRM");
-            Assert.AreEqual(row["ContractType"], contractHeaderInfo.ContractType, "Unexpected ContractType retrieved from CRM");
-            Assert.AreEqual(int.Parse(row["UKPRN"]), contractHeaderInfo.Ukprn, "Unexpected UKPRN retrieved from CRM");
-            Assert.AreEqual(row["LegalName"], contractHeaderInfo.LegalName, "Unexpected LegalName retrieved from CRM");
+            ClassicAssert.IsNull(contractHeaderInfo.ContractEndDate, "ContractEndDate retrieved from CRM is not null");
+            ClassicAssert.AreEqual(decimal.Parse(row["ContractValue"]), contractHeaderInfo.ContractValue, "Unexpected ContractValue retrieved from CRM.");
+            ClassicAssert.AreEqual(row["FundingType"], contractHeaderInfo.FundingTypeCode, "Unexpected FundingTypeCode retrieved from CRM");
+            ClassicAssert.AreEqual(int.Parse(row["Period"]), contractHeaderInfo.Period, "Unexpected Period retrieved from CRM");
+            ClassicAssert.AreEqual(row["PeriodTypeCode"], contractHeaderInfo.PeriodTypeCode, "Unexpected PeriodType retrieved from CRM");
+            ClassicAssert.AreEqual(row["ContractType"], contractHeaderInfo.ContractType, "Unexpected ContractType retrieved from CRM");
+            ClassicAssert.AreEqual(int.Parse(row["UKPRN"]), contractHeaderInfo.Ukprn, "Unexpected UKPRN retrieved from CRM");
+            ClassicAssert.AreEqual(row["LegalName"], contractHeaderInfo.LegalName, "Unexpected LegalName retrieved from CRM");
         }
 
         [Then(@"the draft Levy contract allocations details for the new Levy contract are as follows")]
@@ -374,11 +375,11 @@
 
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.AreEqual(table.Rows.Count, contractAllocationInfos.Count, "Unexpected number of allocations retrieved from CRM.");
+            ClassicAssert.AreEqual(table.Rows.Count, contractAllocationInfos.Count, "Unexpected number of allocations retrieved from CRM.");
 
             table.Rows.ForEach(row =>
             {
-                Assert.IsTrue(contractAllocationInfos.Any(a =>
+                ClassicAssert.IsTrue(contractAllocationInfos.Any(a =>
                     a.AllocationStartDate == ParseDate(row["AllocationStartDate"]) &&
                     a.AllocationEndDate == null &&
                     a.FundingStreamCode == row["FundingStreamCode"] &&
@@ -405,7 +406,7 @@
 
             bool areDeliverablePeriodsPresent = deliverablePeriodsCheckResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
             var missing = rowContractDeliverablePeriodInfos.FirstOrDefault(r => crmContractDeliverablePeriodInfos.Contains(r));
-            Assert.IsTrue(areDeliverablePeriodsPresent, $"Not all the deliverable periods are present - {missing?.ToString()}");
+            ClassicAssert.IsTrue(areDeliverablePeriodsPresent, $"Not all the deliverable periods are present - {missing?.ToString()}");
 
             foreach (var row in rowContractDeliverablePeriodInfos)
             {
@@ -414,18 +415,18 @@
                 && crm.Year == row.Year
                 && crm.FundingStreamCode == row.FundingStreamCode);
                 if (crmRow == null)
-                    Assert.Fail($"No Matching CRM deliverable/period for FundingStreamCode:{row.FundingStreamCode} DeliverableCode:{row.DeliverableCode} Month:{row.Month} Year:{row.Year}");
+                    ClassicAssert.Fail($"No Matching CRM deliverable/period for FundingStreamCode:{row.FundingStreamCode} DeliverableCode:{row.DeliverableCode} Month:{row.Month} Year:{row.Year}");
 
-                Assert.AreEqual(row.DeliverableDescription, crmRow.DeliverableDescription, $"Deliverable Description does not match for FundingStreamCode:{row.FundingStreamCode} DeliverableCode:{row.DeliverableCode} Month:{row.Month} Year:{row.Year}");
-                Assert.AreEqual(row.DeliverablePlannedValue, crmRow.DeliverablePlannedValue, $"Deliverable Planned Value does not match for FundingStreamCode:{row.FundingStreamCode} DeliverableCode:{row.DeliverableCode} Month:{row.Month} Year:{row.Year}");
-                Assert.AreEqual(row.PlannedValue, crmRow.PlannedValue, $"Planned Value does not match for for FundingStreamCode:{row.FundingStreamCode} DeliverableCode:{row.DeliverableCode} Month:{row.Month} Year:{row.Year}");
+                ClassicAssert.AreEqual(row.DeliverableDescription, crmRow.DeliverableDescription, $"Deliverable Description does not match for FundingStreamCode:{row.FundingStreamCode} DeliverableCode:{row.DeliverableCode} Month:{row.Month} Year:{row.Year}");
+                ClassicAssert.AreEqual(row.DeliverablePlannedValue, crmRow.DeliverablePlannedValue, $"Deliverable Planned Value does not match for FundingStreamCode:{row.FundingStreamCode} DeliverableCode:{row.DeliverableCode} Month:{row.Month} Year:{row.Year}");
+                ClassicAssert.AreEqual(row.PlannedValue, crmRow.PlannedValue, $"Planned Value does not match for for FundingStreamCode:{row.FundingStreamCode} DeliverableCode:{row.DeliverableCode} Month:{row.Month} Year:{row.Year}");
             }
         }
 
         [Then(@"there is no contract owner assigned to the latest version of the contract")]
         public void ThereIsNoContractOwner()
         {
-            Assert.IsFalse(_createLevyContractPageObject.HasContractOwner, "There is a contract owner");
+            ClassicAssert.IsFalse(_createLevyContractPageObject.HasContractOwner, "There is a contract owner");
         }
 
         [Given(@"there is no caseload for provider with UKPRN '(.*)'")]
@@ -451,13 +452,13 @@
         [Then(@"a file named '(.*)' & '(.*)' & '(.*)' exists in sharepoint location '(.*)'")]
         public void ThenAFileNamedExistsInSharepointLocation(string ukPrn, TransformedString contractNumber, string fileVersion, string location)
         {
-            Assert.IsTrue(_createLevyContractPageObject.IsContractDocumentWithSpecifiedNamePresentInOffice365(ukPrn, contractNumber.Value, fileVersion, location), "File does not exist");
+            ClassicAssert.IsTrue(_createLevyContractPageObject.IsContractDocumentWithSpecifiedNamePresentInOffice365(ukPrn, contractNumber.Value, fileVersion, location), "File does not exist");
         }
 
         [Then(@"a file named '(.*)' & '(.*)' & '(.*)' does not exist in sharepoint location '(.*)'")]
         public void ThenAFileNamedDoesNotExistInSharepointLocation(string ukPrn, TransformedString contractNumber, string fileVersion, string location)
         {
-            Assert.IsTrue(_createLevyContractPageObject.IsContractDocumentWithSpecifiedNameNotPresentInOffice365(ukPrn, contractNumber.Value, fileVersion, location), "File exists in location");
+            ClassicAssert.IsTrue(_createLevyContractPageObject.IsContractDocumentWithSpecifiedNameNotPresentInOffice365(ukPrn, contractNumber.Value, fileVersion, location), "File exists in location");
         }
 
         [Then(@"the generated ts&cs document in sharepoint location '(.*)' contains the following lines in order")]
@@ -469,27 +470,27 @@
         [Then(@"the ContractManagement\.AtomFeedItem table contains one ItemType '(.*)' event for contract number '(.*)'")]
         public void ThenTheContractManagement_AtomFeedItemTableContainsOneItemTypeEventForContractNumber(int itemType, TransformedString contractNumber)
         {
-            Assert.IsTrue(_createLevyContractPageObject.IsOneItemTypePresentInContractManagementAtomFeedForContractNumber(itemType, contractNumber.Value),
+            ClassicAssert.IsTrue(_createLevyContractPageObject.IsOneItemTypePresentInContractManagementAtomFeedForContractNumber(itemType, contractNumber.Value),
                 "The expected entry for this contract was not found in the Contract Management Atom Feed");
         }
 
         [Then(@"the ContractManagement\.AtomFeedItem table contains one ItemType '(.*)' event for version '(.*)' of contract number '(.*)'")]
         public void ThenTheContractManagement_AtomFeedItemTableContainsOneItemTypeEventForVersionOfContractNumber(int itemType, int version, TransformedString contractNumber)
         {
-            Assert.IsTrue(_createLevyContractPageObject.IsOneItemTypePresentInContractManagementAtomFeedForContractNumberAndVersionNumber(itemType, version, contractNumber.Value),
+            ClassicAssert.IsTrue(_createLevyContractPageObject.IsOneItemTypePresentInContractManagementAtomFeedForContractNumberAndVersionNumber(itemType, version, contractNumber.Value),
                 $"There is not a single item present in the Contract Management Atom Feed for this Contract - {contractNumber}");
         }
 
         [Then(@"the ContractManagement\.AtomFeedItem table does not contain an ItemType '(.*)' event for version '(.*)' of contract number '(.*)'")]
         public void ThenTheContractManagement_AtomFeedItemTableDoesNotContainAnItemTypeEventForVersionOfContractNumber(int itemType, int version, TransformedString contractNumber)
         {
-            Assert.IsFalse(_createLevyContractPageObject.IsItemPresentInContractManagementAtomFeedForContractNumberAndVersion(itemType, version, contractNumber.Value));
+            ClassicAssert.IsFalse(_createLevyContractPageObject.IsItemPresentInContractManagementAtomFeedForContractNumberAndVersion(itemType, version, contractNumber.Value));
         }
 
         [Then(@"the ContractManagement\.AtomFeedItem table does not contain an ItemType '(.*)' event for version '(.*)' of actual contract number '(.*)'")]
         public void ThenTheContractManagement_AtomFeedItemTableDoesNotContainAnItemTypeEventForVersionOfActualContractNumber(int itemType, int version, TransformedString contractNumber)
         {
-            Assert.IsFalse(_createLevyContractPageObject.IsItemPresentInContractManagementAtomFeedForContractNumberAndVersion(itemType, version, contractNumber));
+            ClassicAssert.IsFalse(_createLevyContractPageObject.IsItemPresentInContractManagementAtomFeedForContractNumberAndVersion(itemType, version, contractNumber));
         }
 
         [Then(@"the ContractManagement\.AtomFeedItem table contains one ItemType '(.*)' event for version '(.*)' of actual contract number '(.*)'")]
@@ -500,25 +501,25 @@
                 maxNumChecks: 30,
                 waitIntervalSeconds: 3);
 
-            Assert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(), $"There are no items of type {itemType} in the Contract Management Atom Feed for Contract: {contractNumber}, Version: {version}");
+            ClassicAssert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(), $"There are no items of type {itemType} in the Contract Management Atom Feed for Contract: {contractNumber}, Version: {version}");
         }
 
         [Then(@"the ItemType '(.*)' event for contract number '(.*)' in the ContractManagement\.AtomFeedItem table conforms to the Corporate Contract Schema")]
         public void ThenTheItemTypeEventForContractNumberInTheContractManagement_AtomFeedItemTableConformsToTheCorporateContractSchema(int itemType, TransformedString contractNumber)
         {
-            Assert.IsTrue(_createLevyContractPageObject.IsContractManagementAtomFeedItemValidXml(itemType, contractNumber.Value), "Atom Feed Item XML does not conform to the corporate schema");
+            ClassicAssert.IsTrue(_createLevyContractPageObject.IsContractManagementAtomFeedItemValidXml(itemType, contractNumber.Value), "Atom Feed Item XML does not conform to the corporate schema");
         }
 
         [Then(@"the ItemType '(.*)' event for version '(.*)' of contract number '(.*)' in the ContractManagement.AtomFeedItem table conforms to the Corporate Contract Schema")]
         public void ThenTheItemTypeEventForVersionOfContractNumberInTheContractManagement_AtomFeedItemTableConformsToTheCorporateContractSchema(int itemType, int version, TransformedString contractNumber)
         {
-            Assert.IsTrue(_createLevyContractPageObject.IsContractManagementAtomFeedItemValidXml(itemType, version, contractNumber.Value), "Atom Feed Item XML does not conform to the corporate schema");
+            ClassicAssert.IsTrue(_createLevyContractPageObject.IsContractManagementAtomFeedItemValidXml(itemType, version, contractNumber.Value), "Atom Feed Item XML does not conform to the corporate schema");
         }
 
         [Then(@"the ItemType '(.*)' event for version '(.*)' of actual contract number '(.*)' in the ContractManagement\.AtomFeedItem table conforms to the Corporate Contract Schema")]
         public void ThenTheItemTypeEventForVersionOfActualContractNumberInTheContractManagement_AtomFeedItemTableConformsToTheCorporateContractSchema(int itemType, int version, TransformedString contractNumber)
         {
-            Assert.IsTrue(_createLevyContractPageObject.IsContractManagementAtomFeedItemValidXml(itemType, version, contractNumber.Value), "Atom Feed Item XML does not conform to the corporate schema");
+            ClassicAssert.IsTrue(_createLevyContractPageObject.IsContractManagementAtomFeedItemValidXml(itemType, version, contractNumber.Value), "Atom Feed Item XML does not conform to the corporate schema");
         }
 
         [Then(@"'(.*)' is the ContractAllocationNumber of the latest Levy contract held by UKPRN '(.*)'")]
@@ -579,15 +580,15 @@
                     waitIntervalSeconds:4);
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(actualDeliverablePayment, $"There is no deliverable payment row for: {deliverablePaymentThatMayNotMatched}");
-                Assert.AreEqual(actualDeliverablePayment.PeriodTypeCode, actualDeliverablePayment.PeriodTypeCode, $"PeriodTypeCode was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
+                ClassicAssert.IsNotNull(actualDeliverablePayment, $"There is no deliverable payment row for: {deliverablePaymentThatMayNotMatched}");
+                ClassicAssert.AreEqual(actualDeliverablePayment.PeriodTypeCode, actualDeliverablePayment.PeriodTypeCode, $"PeriodTypeCode was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
 
                 AssertAreEqualIfPresent(actualDeliverablePayment.PlannedValue.HasValue, deliverablePaymentThatMayNotMatched.PlannedValue, actualDeliverablePayment.PlannedValue, $"PlannedValue was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
                 AssertAreEqualIfPresent(actualDeliverablePayment.ProfilePaymentAmount.HasValue, deliverablePaymentThatMayNotMatched.ProfilePaymentAmount, actualDeliverablePayment.ProfilePaymentAmount, $"ProfilePaymentAmount was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
                 AssertAreEqualIfPresent(actualDeliverablePayment.CappedPaymentAmount.HasValue, deliverablePaymentThatMayNotMatched.CappedPaymentAmount, actualDeliverablePayment.CappedPaymentAmount, $"CappedPaymentAmount was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
                 AssertAreEqualIfPresent(actualDeliverablePayment.BalancingPaymentAmount.HasValue, deliverablePaymentThatMayNotMatched.BalancingPaymentAmount, actualDeliverablePayment.BalancingPaymentAmount, $"BalancingPaymentAmount was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
                 AssertAreEqualIfPresent(actualDeliverablePayment.ReconciliationPaymentAmount.HasValue, deliverablePaymentThatMayNotMatched.ReconciliationPaymentAmount, actualDeliverablePayment.ReconciliationPaymentAmount, $"ReconciliationPaymentAmount was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
-                Assert.AreEqual(actualDeliverablePayment.NetPaymentAmount, deliverablePaymentThatMayNotMatched.NetPaymentAmount, $"NetPaymentAmount was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
+                ClassicAssert.AreEqual(actualDeliverablePayment.NetPaymentAmount, deliverablePaymentThatMayNotMatched.NetPaymentAmount, $"NetPaymentAmount was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
                 AssertAreEqualIfPresent(actualDeliverablePayment.ActualValue.HasValue, deliverablePaymentThatMayNotMatched.ActualValue.GetValueOrDefault(), actualDeliverablePayment.ActualValue.GetValueOrDefault(), $"ActualValue was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
                 AssertAreEqualIfPresent(actualDeliverablePayment.ActualVolume.HasValue, deliverablePaymentThatMayNotMatched.ActualVolume.GetValueOrDefault(), actualDeliverablePayment.ActualVolume.GetValueOrDefault(), $"ActualVolume was not equal to expected value for: {deliverablePaymentThatMayNotMatched}");
             });
@@ -615,15 +616,15 @@
 
             //    checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            //    Assert.IsNotNull(paasDeliverablePayment, $"There is no deliverable payment row for: {stepDeliverablePayment}");
-            //    Assert.AreEqual(stepDeliverablePayment.PeriodTypeCode, paasDeliverablePayment.PeriodTypeCode, $"PeriodTypeCode was not equal to expected value for: {stepDeliverablePayment}");
+            //    ClassicAssert.IsNotNull(paasDeliverablePayment, $"There is no deliverable payment row for: {stepDeliverablePayment}");
+            //    ClassicAssert.AreEqual(stepDeliverablePayment.PeriodTypeCode, paasDeliverablePayment.PeriodTypeCode, $"PeriodTypeCode was not equal to expected value for: {stepDeliverablePayment}");
 
             //    AssertAreEqualIfPresent(stepDeliverablePayment.PlannedValue.HasValue, stepDeliverablePayment.PlannedValue, paasDeliverablePayment.PlannedValue, $"PlannedValue was not equal to expected value for: {stepDeliverablePayment}");
             //    AssertAreEqualIfPresent(stepDeliverablePayment.ProfilePaymentAmount.HasValue, stepDeliverablePayment.ProfilePaymentAmount, paasDeliverablePayment.ProfilePaymentAmount, $"ProfilePaymentAmount was not equal to expected value for: {stepDeliverablePayment}");
             //    AssertAreEqualIfPresent(stepDeliverablePayment.CappedPaymentAmount.HasValue, stepDeliverablePayment.CappedPaymentAmount, paasDeliverablePayment.CappedPaymentAmount, $"CappedPaymentAmount was not equal to expected value for: {stepDeliverablePayment}");
             //    AssertAreEqualIfPresent(stepDeliverablePayment.BalancingPaymentAmount.HasValue, stepDeliverablePayment.BalancingPaymentAmount, paasDeliverablePayment.BalancingPaymentAmount, $"BalancingPaymentAmount was not equal to expected value for: {stepDeliverablePayment}");
             //    AssertAreEqualIfPresent(stepDeliverablePayment.ReconciliationPaymentAmount.HasValue, stepDeliverablePayment.ReconciliationPaymentAmount, paasDeliverablePayment.ReconciliationPaymentAmount, $"ReconciliationPaymentAmount was not equal to expected value for: {stepDeliverablePayment}");
-            //    Assert.AreEqual(stepDeliverablePayment.NetPaymentAmount, paasDeliverablePayment.NetPaymentAmount, $"NetPaymentAmount was not equal to expected value for: {stepDeliverablePayment}");
+            //    ClassicAssert.AreEqual(stepDeliverablePayment.NetPaymentAmount, paasDeliverablePayment.NetPaymentAmount, $"NetPaymentAmount was not equal to expected value for: {stepDeliverablePayment}");
             //    AssertAreEqualIfPresent(stepDeliverablePayment.ActualValue.HasValue, stepDeliverablePayment.ActualValue.GetValueOrDefault(), paasDeliverablePayment.ActualValue.GetValueOrDefault(), $"ActualValue was not equal to expected value for: {stepDeliverablePayment}");
             //    AssertAreEqualIfPresent(stepDeliverablePayment.ActualVolume.HasValue, stepDeliverablePayment.ActualVolume.GetValueOrDefault(), paasDeliverablePayment.ActualVolume.GetValueOrDefault(), $"ActualVolume was not equal to expected value for: {stepDeliverablePayment}");
             //}
@@ -674,7 +675,7 @@
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 actualDeliverablePeriodsCount == numberOfDeliverableRecords,
                 $"The test expected to find {numberOfDeliverableRecords} records in CRM for contract {contractNumber} but instead found {actualDeliverablePeriodsCount}");
         }
@@ -739,9 +740,9 @@
 
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.AreEqual(periodsWithValues, subnominalAggregations.Count, $"Could not get {periodsWithValues} subnominal aggregations from CRM, Allocation:{row["AllocationRef"]}, ReconciliationSubnominal: {row["ReconciliationSubnominal"]}");
+                ClassicAssert.AreEqual(periodsWithValues, subnominalAggregations.Count, $"Could not get {periodsWithValues} subnominal aggregations from CRM, Allocation:{row["AllocationRef"]}, ReconciliationSubnominal: {row["ReconciliationSubnominal"]}");
                 CheckValuesResult checkValuesResult = CheckValuesReturnedFromCrm(row, subnominalAggregations, "RECONCILIATION");
-                Assert.IsTrue(checkValuesResult.AreAllValuesPresent, checkValuesResult.ErrorMsg);
+                ClassicAssert.IsTrue(checkValuesResult.AreAllValuesPresent, checkValuesResult.ErrorMsg);
             }
         }
 
@@ -750,7 +751,7 @@
         {
             int actualRecordCount = _createLevyContractPageObject.GetCountOfPaymentInstructionAuditRecordsForUkprn(ukprn, expectedNumberOfRows);
 
-            Assert.AreEqual(expectedNumberOfRows, actualRecordCount,
+            ClassicAssert.AreEqual(expectedNumberOfRows, actualRecordCount,
                 $"Number of records {actualRecordCount} in payment instruction audit table do not match the expected result {expectedNumberOfRows} for provider {ukprn} ");
         }
 
@@ -831,7 +832,7 @@
             // we now poll until the contract is in CRM and store on the pageObject for future steps
             bool hasContractBeenCreated = _createLevyContractPageObject.PopulateCreatedLevyContract(ukprn, status);
 
-            Assert.IsTrue(hasContractBeenCreated, "The contract has not been created");
+            ClassicAssert.IsTrue(hasContractBeenCreated, "The contract has not been created");
         }
 
         [Then(@"there is unprocessed PIMS-related event data in the Engagement Events table for '(.*)' UKPRNs prefixed '(.*)' and wait a maximum of '(.*)' minutes")]
@@ -840,7 +841,7 @@
             int providerNotFoundEventsCount =
                 _createLevyContractPageObject.GetProviderNotFoundEventsWithUkprnPrefix(ukprnPrefix, expectedNumberOfRecords, maxMinsToWait);
 
-            Assert.AreEqual(expectedNumberOfRecords, providerNotFoundEventsCount,
+            ClassicAssert.AreEqual(expectedNumberOfRecords, providerNotFoundEventsCount,
                 $"The wrong number of 'provider not found' events were found. Expected {expectedNumberOfRecords} Found {providerNotFoundEventsCount}");
         }
 
@@ -856,7 +857,7 @@
         {
             bool isEventNowInCrm =
                 _createLevyContractPageObject.TryToConfirmEngagementEventForProviderInCrm(ukprn.ToString());
-            Assert.IsTrue(isEventNowInCrm, $"The engagement event for provider {ukprn} is not in CRM");
+            ClassicAssert.IsTrue(isEventNowInCrm, $"The engagement event for provider {ukprn} is not in CRM");
         }
 
         [Given(@"there is no DAS Levy contract data in PaaS or CRM for any UKPRNs prefixed '(.*)'")]
@@ -875,7 +876,7 @@
 
             bool isProviderNotFoundEventPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.AreEqual(true, isProviderNotFoundEventPresent, $"There should be an Engagement Event with a state of Provider Not Found for UKPRN: {ukprn}");
+            ClassicAssert.AreEqual(true, isProviderNotFoundEventPresent, $"There should be an Engagement Event with a state of Provider Not Found for UKPRN: {ukprn}");
             
         }        
 
@@ -883,7 +884,7 @@
         public void ThenThereAreNoContractsInCRMForUKPRN(int ukprn)
         {
             int numContractsForUkrpn = _createLevyContractPageObject.GetCountOfChildContractsForUkprnInCrm(ukprn.ToString());
-            Assert.AreEqual(0, numContractsForUkrpn,  $"There are contracts in CRM for provider: {ukprn}");
+            ClassicAssert.AreEqual(0, numContractsForUkrpn,  $"There are contracts in CRM for provider: {ukprn}");
         }
 
         [Then(@"there is one contract in CRM for UKPRN '(.*)'")]
@@ -901,7 +902,7 @@
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
             
-            Assert.AreEqual(1, numContractsForUkrpn, $"There should only be one contract in CRM for UKPRN: {ukprn}");
+            ClassicAssert.AreEqual(1, numContractsForUkrpn, $"There should only be one contract in CRM for UKPRN: {ukprn}");
         }
 
         [Then(@"there is no unprocessed PIMS-related event data in the Engagement Events table for UKPRN '(.*)'")]
@@ -920,7 +921,7 @@
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.AreEqual(0, numProviderNotFoundEngagementEventsForUkrpn, $"There should not be be any ProviderNotFound Engagement Events for UKPRN: {ukprn}");
+            ClassicAssert.AreEqual(0, numProviderNotFoundEngagementEventsForUkrpn, $"There should not be be any ProviderNotFound Engagement Events for UKPRN: {ukprn}");
         }
 
         [Given(@"the Organisation stub contains a NOTFOUND entry for UKPRN '(.*)'")]
@@ -980,14 +981,14 @@
         public void ThenTheContractManagement_AtomFeedItemTableContainsItemTypeEventsWithAPrefixedBusinessKey(int expectedRowCount, int itemType, string businessKey)
         {
             int rowCount = _createLevyContractPageObject.GetNumberOfRowsFromAtomFeedItemForGivenItemTypeAndPrefixedBusinessKey(expectedRowCount, itemType, businessKey);
-            Assert.AreEqual(expectedRowCount, rowCount , $"The number of AtomFeedItems returned {rowCount} doesn't match the expected rowcount of {expectedRowCount}");
+            ClassicAssert.AreEqual(expectedRowCount, rowCount , $"The number of AtomFeedItems returned {rowCount} doesn't match the expected rowcount of {expectedRowCount}");
         }
 
         [Then(@"there are '(.*)' draft Levy contracts in CRM for UKPRNs prefixed '(.*)' and wait a maximum of '(.*)' minutes")]
         public void ThenThereAreDraftLevyContractsInCRMForUKPRNsPrefixed(int expectedContractCount, string ukprnPrefix, int maximumNumberOfMinutesToWait)
         {
             int actualContractCount = _createLevyContractPageObject.GetNumberOfContractsWithGivenUkprnPrefix(expectedContractCount, ukprnPrefix, maximumNumberOfMinutesToWait);
-            Assert.AreEqual(expectedContractCount, actualContractCount, $"The number of Contracts with the given UKPRN prefix of {ukprnPrefix} is {actualContractCount}. This does not match the expected number of {expectedContractCount}");
+            ClassicAssert.AreEqual(expectedContractCount, actualContractCount, $"The number of Contracts with the given UKPRN prefix of {ukprnPrefix} is {actualContractCount}. This does not match the expected number of {expectedContractCount}");
         }
 
         [Given(@"there is no Levy event data in the Engagement Events table for providers prefixed '(.*)'")]
@@ -1035,7 +1036,7 @@
             var paasPaymentInstructionAudits = _createLevyContractPageObject.GetPaymentInstructionAuditRecordsFromPaas(
                 ukPrn, table.RowCount);
 
-            Assert.AreEqual(table.RowCount, paasPaymentInstructionAudits.Count, $"Incorrect number of PAAS PaymentInstructionAudit records returned. Expected {table.RowCount} Found {paasPaymentInstructionAudits.Count}");
+            ClassicAssert.AreEqual(table.RowCount, paasPaymentInstructionAudits.Count, $"Incorrect number of PAAS PaymentInstructionAudit records returned. Expected {table.RowCount} Found {paasPaymentInstructionAudits.Count}");
 
             foreach (var specFlowTableRow in specFlowPaymentInstructionAudits)
             {
@@ -1047,14 +1048,14 @@
                                && row.DeliverableCode == specFlowTableRow.DeliverableCode
                                && row.FundingStreamPeriodCode == specFlowTableRow.FundingStreamPeriodCode
                                && row.OrganisationId == specFlowTableRow.OrganisationId);
-                Assert.IsNotNull(paasRecord, $"Unable to find record in paas PaymentInstructionAudit with ContractAllocationNumber {specFlowTableRow.ContractAllocationNumber} Period {specFlowTableRow.Period} CollectionReturnPeriod {specFlowTableRow.CollectionReturnPeriod} DeliverableCode {specFlowTableRow.DeliverableCode} FundingStreamPeriodCode {specFlowTableRow.FundingStreamPeriodCode} OrganisationId {specFlowTableRow.OrganisationId}");
-                Assert.AreEqual(specFlowTableRow.Ukprn, paasRecord.Ukprn, $"Ukprn {specFlowTableRow.Ukprn} not found");
-                Assert.AreEqual(specFlowTableRow.ContractNumber, paasRecord.ContractNumber,  $"Contract Number {specFlowTableRow.ContractNumber} not found");
-                Assert.AreEqual(specFlowTableRow.ContractVersion, paasRecord.ContractVersion,  $"Contract SubVersion {specFlowTableRow.ContractSubVersion} not found");
-                Assert.AreEqual(specFlowTableRow.AllocationStartDate.Date, paasRecord.AllocationStartDate.Date,  $"Allocation Start Date {specFlowTableRow.AllocationStartDate} not found");
-                Assert.AreEqual(specFlowTableRow.CollectionReturnCode, paasRecord.CollectionReturnCode,  $"Collection Return Code {specFlowTableRow.CollectionReturnCode} not found");
-                Assert.AreEqual(specFlowTableRow.CollectionType, paasRecord.CollectionType,  $"Collection Type {specFlowTableRow.CollectionType} not found");
-                Assert.AreEqual(specFlowTableRow.PaymentValue, paasRecord.PaymentValue,  $"PaymentValue {specFlowTableRow.PaymentValue} not found");
+                ClassicAssert.IsNotNull(paasRecord, $"Unable to find record in paas PaymentInstructionAudit with ContractAllocationNumber {specFlowTableRow.ContractAllocationNumber} Period {specFlowTableRow.Period} CollectionReturnPeriod {specFlowTableRow.CollectionReturnPeriod} DeliverableCode {specFlowTableRow.DeliverableCode} FundingStreamPeriodCode {specFlowTableRow.FundingStreamPeriodCode} OrganisationId {specFlowTableRow.OrganisationId}");
+                ClassicAssert.AreEqual(specFlowTableRow.Ukprn, paasRecord.Ukprn, $"Ukprn {specFlowTableRow.Ukprn} not found");
+                ClassicAssert.AreEqual(specFlowTableRow.ContractNumber, paasRecord.ContractNumber,  $"Contract Number {specFlowTableRow.ContractNumber} not found");
+                ClassicAssert.AreEqual(specFlowTableRow.ContractVersion, paasRecord.ContractVersion,  $"Contract SubVersion {specFlowTableRow.ContractSubVersion} not found");
+                ClassicAssert.AreEqual(specFlowTableRow.AllocationStartDate.Date, paasRecord.AllocationStartDate.Date,  $"Allocation Start Date {specFlowTableRow.AllocationStartDate} not found");
+                ClassicAssert.AreEqual(specFlowTableRow.CollectionReturnCode, paasRecord.CollectionReturnCode,  $"Collection Return Code {specFlowTableRow.CollectionReturnCode} not found");
+                ClassicAssert.AreEqual(specFlowTableRow.CollectionType, paasRecord.CollectionType,  $"Collection Type {specFlowTableRow.CollectionType} not found");
+                ClassicAssert.AreEqual(specFlowTableRow.PaymentValue, paasRecord.PaymentValue,  $"PaymentValue {specFlowTableRow.PaymentValue} not found");
             }
 
         }
@@ -1086,7 +1087,7 @@
                         maxNumChecks: 20,
                         waitIntervalSeconds: 3);
 
-                    Assert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(), $"Allocation {allocationRef} with start date {startDate.ToShortDateString()} was not found in CRM");
+                    ClassicAssert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(), $"Allocation {allocationRef} with start date {startDate.ToShortDateString()} was not found in CRM");
                 });
         }
         
@@ -1113,7 +1114,7 @@
                 .Select(r => r.ToString())
                 .ToList();
 
-            Assert.AreEqual(0, missingRows.Count, $"Report did not contain the following rows: {Environment.NewLine}{string.Join(Environment.NewLine, missingRows)}");
+            ClassicAssert.AreEqual(0, missingRows.Count, $"Report did not contain the following rows: {Environment.NewLine}{string.Join(Environment.NewLine, missingRows)}");
         }
 
         [Then(@"the RoATP Anomalies report does not contain a record for provider '(.*)'")]
@@ -1123,7 +1124,7 @@
                 OperationsApiClientService.GetLevyContractsThatCannotBeAmended().Result
                     .Any(r => r.Ukprn == ukprn);
 
-            Assert.IsFalse(reportContainsRowForUkprn, $"Report contained unexpected data for provider with UKPRN {ukprn}");
+            ClassicAssert.IsFalse(reportContainsRowForUkprn, $"Report contained unexpected data for provider with UKPRN {ukprn}");
         }
 
         [Given(@"the following event data in the DAS agreement stub is used to create a Levy contract with just a LEVY(.*) contract allocation")]
@@ -1175,7 +1176,7 @@
         {
             if (isExpectedValuePresent)
             {
-                Assert.AreEqual(expected, actual, message);
+                ClassicAssert.AreEqual(expected, actual, message);
             }
         }
 
@@ -1273,7 +1274,7 @@
             const string contractEndDateColumnName = "ContractEndDate";
             if (row.ContainsKey(contractEndDateColumnName))
             {
-                Assert.AreEqual("?", row[contractEndDateColumnName], "The Contract End Date must not be set for DAS");
+                ClassicAssert.AreEqual("?", row[contractEndDateColumnName], "The Contract End Date must not be set for DAS");
             }
 
             ContractRequest.DasRequest dasRequest = new ContractRequest.DasRequest
@@ -1293,7 +1294,7 @@
 
             bool hasContractBeenCreated = _createLevyContractPageObject.PopulateCreatedContract(dasRequest.Ukprn.ToString());
 
-            Assert.IsTrue(hasContractBeenCreated, "The contract has not been created");
+            ClassicAssert.IsTrue(hasContractBeenCreated, "The contract has not been created");
         }
 
         private static DateTime ParseDate(string date)
@@ -1387,7 +1388,7 @@
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.AreEqual(expectedNumberOfCdpItems, contractDeliverablePeriodInfos.Count, $"We have not found the correct number of row in contract deliverable periods contract: {_createLevyContractPageObject.CreatedContractNumber}");
+            ClassicAssert.AreEqual(expectedNumberOfCdpItems, contractDeliverablePeriodInfos.Count, $"We have not found the correct number of row in contract deliverable periods contract: {_createLevyContractPageObject.CreatedContractNumber}");
 
             foreach (TableRow balancingPaymentRow in cdpStepTable.Rows)
             {
@@ -1396,7 +1397,7 @@
 
                 if (!checkValuesResult.AreAllValuesPresent)
                 {
-                    Assert.Fail($"we have not got the right values from CRM for contract {_createLevyContractPageObject.CreatedContractNumber} - {checkValuesResult.ErrorMsg}");
+                    ClassicAssert.Fail($"we have not got the right values from CRM for contract {_createLevyContractPageObject.CreatedContractNumber} - {checkValuesResult.ErrorMsg}");
                 }
             }
         }

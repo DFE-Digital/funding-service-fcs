@@ -1,5 +1,4 @@
-﻿
-namespace SFA.FCT.ContractManagementDomain.Integration.Tests.Exploratory
+﻿namespace SFA.FCT.ContractManagementDomain.Integration.Tests.Exploratory
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Newtonsoft.Json.Linq;

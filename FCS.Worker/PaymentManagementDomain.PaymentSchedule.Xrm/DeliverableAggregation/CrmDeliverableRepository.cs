@@ -1,10 +1,11 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.DeliverableAggregation
 {
+    extern alias IntegrationEntities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Xrm.Sdk;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Dtos;
 
     public class CrmDeliverableRepository : ICrmDeliverableRepository

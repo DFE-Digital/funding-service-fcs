@@ -47,7 +47,7 @@
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference(containerName);
-            container.CreateIfNotExists();
+            container.CreateIfNotExistsAsync().GetAwaiter().GetResult();
 
             return container;
         }

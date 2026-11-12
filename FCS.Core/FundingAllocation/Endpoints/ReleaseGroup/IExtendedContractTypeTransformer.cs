@@ -4,6 +4,6 @@
 
     public interface IExtendedContractTypeTransformer
     {
-        contract TransformToCorpContract(ExtendedContractType extendedContractType);
+        Contract TransformToCorpContract(ExtendedContractType extendedContractType);
     }
 }

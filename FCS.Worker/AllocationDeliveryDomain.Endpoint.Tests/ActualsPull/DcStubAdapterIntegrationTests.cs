@@ -1,15 +1,15 @@
-﻿namespace AllocationDeliveryDomain.Endpoint.Tests.ActualsPull
+﻿
+namespace AllocationDeliveryDomain.Endpoint.Tests.ActualsPull
 {
-    using System;
-    using System.Linq;
-    using System.Configuration;
     using Endpoint.ActualsPull.Adapters;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Table;
-    using SFA.FCT.AllocationDeliveryDomain.Common.Storage;
     using SFA.FCT.CrossDomain.Integration.Common.PagedStorage;
     using SFA.FCT.CrossDomain.Integration.Common.Storage;
+    using System;
+    using System.Configuration;
+    using System.Linq;
 
     [TestClass]
     public class DcStubAdapterIntegrationTests
@@ -18,100 +18,129 @@
         public void DcStubAdapter_GetClosedCollectionsSince_ShouldGetCollectionWhenRepertedActualsAreEmpty()
         {
             // arrange
-            var reportedActualGroupStubDataTableName = $"ReportedActualGroupStub{new EnvironmentContext().StorageTableSuffix}";
-            var reportedActualTableName = $"ReportedActualStub{new EnvironmentContext().StorageTableSuffix}";
-            DeleteRowsFromTable(reportedActualGroupStubDataTableName);
-            DeleteRowsFromTable(reportedActualTableName);
-            CreateRow(reportedActualGroupStubDataTableName);
-            var dcDcStubAdapter = new DcStubAdapter(new AzureTableStore(), new EnvironmentContext());
+            var suffix = new EnvironmentContext().StorageTableSuffix;
+            var groupTable = $"ReportedActualGroupStub{suffix}";
+            var actualTable = $"ReportedActualStub{suffix}";
+
+            DeleteRowsFromTable(groupTable);
+            DeleteRowsFromTable(actualTable);
+
+            CreateRow(groupTable);
+
+            var adapter = new DcStubAdapter(new AzureTableStore(), new EnvironmentContext());
 
             // act
-            var closedCollections = dcDcStubAdapter.GetClosedCollectionsSince(new DateTime()).Result;
+            var result = adapter.GetClosedCollectionsSince(new DateTime()).Result;
 
             // assert
-            Assert.AreEqual(1, closedCollections.Count);
+            Assert.AreEqual(1, result.Count);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void DcStubAdapter_GetClosedCollectionsSince_ShouldNotDuplicateCollections()
         {
-            // arrange
-            var reportedActualGroupStubDataTableName = $"ReportedActualGroupStub{new EnvironmentContext().StorageTableSuffix}";
-            var reportedActualTableName = $"ReportedActualStub{new EnvironmentContext().StorageTableSuffix}";
-            DeleteRowsFromTable(reportedActualGroupStubDataTableName);
-            DeleteRowsFromTable(reportedActualTableName);
-            CreateRow(reportedActualGroupStubDataTableName);
-            CreateRowInReportedActualStub(reportedActualTableName);
+            var suffix = new EnvironmentContext().StorageTableSuffix;
+            var groupTable = $"ReportedActualGroupStub{suffix}";
+            var actualTable = $"ReportedActualStub{suffix}";
 
-            var dcDcStubAdapter = new DcStubAdapter(new AzureTableStore(), new EnvironmentContext());
+            DeleteRowsFromTable(groupTable);
+            DeleteRowsFromTable(actualTable);
 
-            // act
-            var closedCollections = dcDcStubAdapter.GetClosedCollectionsSince(new DateTime()).Result;
+            CreateRow(groupTable);
+            CreateRowInReportedActualStub(actualTable);
 
-            // assert
-            Assert.AreEqual(1, closedCollections.Count);
+            var adapter = new DcStubAdapter(new AzureTableStore(), new EnvironmentContext());
+
+            var result = adapter.GetClosedCollectionsSince(new DateTime()).Result;
+
+            Assert.AreEqual(1, result.Count);
         }
 
-        private static void CreateRow(string tablename)
-        {
-            var table = GetTable(tablename);
-            table.CreateIfNotExists();
-            TableBatchOperation batchOp = new TableBatchOperation();
+        // ✅ FIXED
 
-            batchOp.Add(TableOperation.Insert(new ReportedActualGroup
+        private static void CreateRow(string tableName)
+        {
+            var table = GetTable(tableName);
+
+            table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+
+            var batch = new TableBatchOperation();
+
+            batch.Add(TableOperation.Insert(new ReportedActualGroup
             {
                 PartitionKey = "APPS",
                 RowKey = "APPS25",
                 RowCount = 0
             }));
-            table.ExecuteBatch(batchOp);
+
+            table.ExecuteBatchAsync(batch).GetAwaiter().GetResult();
         }
 
-        private static void CreateRowInReportedActualStub(string tablename)
-        {
-            var table = GetTable(tablename);
-            table.CreateIfNotExists();
-            TableBatchOperation batchOp = new TableBatchOperation();
 
-            batchOp.Add(TableOperation.Insert(new ReportedActual
+        // ✅ FIXED (uses wrapper entity)
+
+        private static void CreateRowInReportedActualStub(string tableName)
+        {
+            var table = GetTable(tableName);
+
+            table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+
+            var batch = new TableBatchOperation();
+
+            batch.Add(TableOperation.Insert(new ReportedActualTableEntity
             {
                 PartitionKey = "123",
                 RowKey = "456",
                 CollectionType = "APPS",
                 CollectionReturnCode = "APPS25"
             }));
-            table.ExecuteBatch(batchOp);
+
+            table.ExecuteBatchAsync(batch).GetAwaiter().GetResult();
         }
+
 
         private static void DeleteRowsFromTable(string tableName)
         {
             var table = GetTable(tableName);
-            table.CreateIfNotExists();
+
+            table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
 
             var query = new TableQuery<ReportedActualGroup>();
-            var queryResult = table.ExecuteQuerySegmentedAsync(query, null).Result;
+            var result = table.ExecuteQuerySegmentedAsync(query, null).Result;
 
-            TableBatchOperation batchDeleteOperation = new TableBatchOperation();
+            var batch = new TableBatchOperation();
 
-            queryResult.ToList().ForEach(batchDeleteOperation.Delete);
+            result.Results.ForEach(e => batch.Delete(e));
 
-            if (batchDeleteOperation.Any())
+            if (batch.Any())
             {
-                table.ExecuteBatchAsync(batchDeleteOperation).Wait();
+                table.ExecuteBatchAsync(batch).GetAwaiter().GetResult();
             }
         }
 
+
+        // ✅ TEST ENTITY (existing)
         private class ReportedActualGroup : TableEntity
         {
             public int RowCount { get; set; }
         }
 
-        private static CloudTable GetTable(string tablename)
+        // ✅ ✅ ✅ IMPORTANT FIX – wrapper entity
+        private class ReportedActualTableEntity : TableEntity
         {
-            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
-            var tableClient = storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference(tablename);
-            return table;
+            public string CollectionType { get; set; }
+            public string CollectionReturnCode { get; set; }
+        }
+
+        private static CloudTable GetTable(string tableName)
+        {
+            var connectionString = ConfigurationManager
+                .ConnectionStrings["StorageConnectionString"]
+                .ConnectionString;
+
+            var account = CloudStorageAccount.Parse(connectionString);
+            var client = account.CreateCloudTableClient();
+            return client.GetTableReference(tableName);
         }
     }
 }

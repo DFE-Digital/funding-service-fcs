@@ -9,7 +9,7 @@
     [TestClass]
     public class DbSetup
     {
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("CrmCopyDbSetup")]
         public void DbSetup_DeployStoredProcAndIndexesIntoDb()
         {
             DeployStoredProcedure();

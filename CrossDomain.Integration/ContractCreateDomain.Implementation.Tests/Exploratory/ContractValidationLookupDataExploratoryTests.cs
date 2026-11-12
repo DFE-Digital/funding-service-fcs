@@ -16,7 +16,7 @@
 
             var contractRequest = GetContractRequest();
             var masterContract = contractRequest.contract;
-            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.Amendment;
+            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.Amendment;
 
             foreach (var subContract in masterContract.contracts)
             {
@@ -38,7 +38,7 @@
 
             var contractRequest = GetContractRequest();
             var masterContract = contractRequest.contract;
-            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.Amendment;
+            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.Amendment;
 
             foreach (var subContract in masterContract.contracts)
             {
@@ -62,7 +62,7 @@
 
             var contractRequest = GetContractRequest();
             var masterContract = contractRequest.contract;
-            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.Amendment;
+            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.Amendment;
 
             foreach (var subContract in masterContract.contracts)
             {
@@ -86,7 +86,7 @@
             var contractRequest = GetContractRequest();
             var masterContract = contractRequest.contract;
             masterContract.contractNumber = "SFA-2061";
-            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.NewAmendment;
+            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.NewAmendment;
             var subContract = contractRequest.contract.contracts.First();
 
             manager.CreateLookupDataAndSetContractPresence(contractRequest);
@@ -104,7 +104,7 @@
 
             var contractRequest = GetContractRequest();
             var masterContract = contractRequest.contract;
-            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.Amendment;
+            masterContract.CRMIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.Amendment;
             var subContract = contractRequest.contract.contracts.First();
             subContract.fundingTypeCode = "24+LOANS";
             subContract.contractNumber = "24Loans-2142";

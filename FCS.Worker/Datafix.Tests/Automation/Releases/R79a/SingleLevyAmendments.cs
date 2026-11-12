@@ -31,7 +31,7 @@
 
             bool IsUkprnToBeAmended(ContractInformation c) => ukprnsToBeAmended.Contains(c.Ukprn);
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
             CrmContractInformationRepository crmRepository = new CrmContractInformationRepository();
             IReadOnlyCollection<ContractInformation> allLevyContracts = 
                 crmRepository.GetLatestContractInformationByFundingTypeAndFundingPeriod(levyFundingType, levyFundingPeriod);

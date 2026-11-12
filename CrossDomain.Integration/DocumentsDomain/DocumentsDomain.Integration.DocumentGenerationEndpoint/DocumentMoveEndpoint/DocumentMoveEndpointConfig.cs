@@ -1,13 +1,14 @@
-﻿namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentMoveEndpoint
+﻿
+namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentMoveEndpoint
 {
-    using Castle.Windsor;
-    using Framework.Logging.Interfaces;
+    using Common.Commands;
+    using FCS.Worker.Common;
+    using Microsoft.Extensions.Logging;
+    using IoC;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using System.Collections.Generic;
     using System.Linq;
-    using Common.Commands;
-    using FCS.Worker.Common;
-    using IoC;
 
     public class DocumentMoveEndpointConfig : IEndpointConfig
     {
@@ -20,24 +21,29 @@
             new CommandRoute("DocumentsDomain.XrmHandler", typeof(UpdateContractPublishedToProviderFailedCommand))
         };
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToList();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToList();
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            var logger = loggerFactory.CreateLogger<DocumentMoveEndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
-
+            // ✅ Conventions only
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => null != t.Namespace && t.Namespace.EndsWith("Events"))
-                .DefiningMessagesAs(t => null != t.Namespace && t.Namespace.EndsWith("Messages"));
+                .DefiningCommandsAs(t =>
+                    t.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    t.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ DI only
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstallerForDocumentMove(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+
+                services.AddDocumentMoveServices(loggerFactory);
             });
 
             return configuration;

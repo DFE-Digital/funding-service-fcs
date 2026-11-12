@@ -22,7 +22,7 @@
                 "Resources.R71c.AllocationPaymentsChangedOnAggregationEvent_APPS_2371.json",
             };
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AllocationPaymentsChangedOnAggregationEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AllocationPaymentsChangedOnAggregationEvent>();
 
             resources.ForEach(r =>
             {

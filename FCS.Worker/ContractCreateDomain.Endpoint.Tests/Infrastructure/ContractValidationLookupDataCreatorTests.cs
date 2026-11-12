@@ -26,7 +26,7 @@
             {
                 contract = new contractType
                 {
-                    CRMIntent = intent.RevisedNew,
+                    CRMIntent = Intent.RevisedNew,
                     startDate = new DateTime(2019,8,1),
                     endDate = new DateTime(2020, 7, 31),
                     contracts = new List<contractType>
@@ -70,7 +70,7 @@
             {
                 contract = new contractType
                 {
-                    CRMIntent = intent.NewAmendment,
+                    CRMIntent = Intent.NewAmendment,
                     startDate = new DateTime(2019, 8, 1),
                     endDate = new DateTime(2020, 7, 31),
                     contracts = new List<contractType>
@@ -114,7 +114,7 @@
             {
                 contract = new contractType
                 {
-                    CRMIntent = intent.Amendment,
+                    CRMIntent = Intent.Amendment,
                     startDate = new DateTime(2019, 8, 1),
                     endDate = new DateTime(2020, 7, 31),
                     contracts = new List<contractType>
@@ -158,7 +158,7 @@
             {
                 contract = new contractType
                 {
-                    CRMIntent = intent.New,
+                    CRMIntent = Intent.New,
                     startDate = new DateTime(2019, 8, 1),
                     endDate = new DateTime(2020, 7, 31),
                     contracts = new List<contractType>

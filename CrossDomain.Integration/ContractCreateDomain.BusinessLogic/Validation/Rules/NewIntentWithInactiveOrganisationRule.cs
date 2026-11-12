@@ -23,11 +23,11 @@
         {
              return itemToValidate
                 .GetSubContracts()
-                .Where(c => c.CRMIntent == intent.New && IsOrgStatusInactive(c.contractor))
+                .Where(c => c.CRMIntent == Intent.New && IsOrgStatusInactive(c.contractor))
                 .Select(c => c.correlationId);
         }
 
-        private bool IsOrgStatusInactive(contractor contractor)
+        private bool IsOrgStatusInactive(Contractor contractor)
         {
             bool response = true;
 

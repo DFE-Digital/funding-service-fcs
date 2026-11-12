@@ -18,7 +18,7 @@
         {
             return itemToValidate
                 .GetSubContracts()
-                .Where(c => c.CRMIntent == intent.RevisedNew && !c.IsWithdrawnContractWithContractNumberPresentInCrm)
+                .Where(c => c.CRMIntent == Intent.RevisedNew && !c.IsWithdrawnContractWithContractNumberPresentInCrm)
                 .Select(a => a.correlationId);
         }
     }

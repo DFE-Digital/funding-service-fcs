@@ -15,6 +15,7 @@
     using Infrastructure.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class FundingStreamConfigSteps
@@ -25,15 +26,15 @@
         public void WhenFundingStreamDeliverableSettingsAreRetrievedViaAtomFeed()
         {
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            string feedHost = ConfigurationManager.AppSettings["FscAtomFeedHost"];
-            string feedUri = ConfigurationManager.AppSettings["FscAtomFeedDeliverableSettingConfigurationUrl"];
+            string feedHost = TestConfiguration.Configuration["Fsc:AtomFeedHost"];
+            string feedUri = TestConfiguration.Configuration["Fsc:DeliverableSettingConfigurationUrl"];
             AzureAuthenticationConfig authenticationConfig = new AzureAuthenticationConfig
             {
-                AadInstance = ConfigurationManager.AppSettings["ida:AADInstance_FundingStreamConfig"],
-                Tenant = ConfigurationManager.AppSettings["ida:Tenant_FundingStreamConfig"],
-                ClientId = ConfigurationManager.AppSettings["ida:ClientId_FundingStreamConfig"],
-                AppKey = ConfigurationManager.AppSettings["ida:AppKey_FundingStreamConfig"],
-                ResourceId = ConfigurationManager.AppSettings["ida:ResourceId_FundingStreamConfig"]
+                AadInstance = TestConfiguration.Configuration["FundingStreamConfig:AADInstance"],
+                Tenant = TestConfiguration.Configuration["FundingStreamConfig:Tenant"],
+                ClientId = TestConfiguration.Configuration["FundingStreamConfig:ClientId"],
+                AppKey = TestConfiguration.Configuration["FundingStreamConfig:AppKey"],
+                ResourceId = TestConfiguration.Configuration["FundingStreamConfig:ResourceId"]
             };
             const string atomMediaType = "application/vnd.sfa.funding-policy.deliverable.setting.v1+atom+xml";
 
@@ -53,8 +54,8 @@
             IReadOnlyCollection<FundingStreamPeriodDeliverableSettingInfo> crmDeliverableSettings =
                 CrmFundingStreamPeriodDeliverableRepository.GetAllFundingStreamPeriodDeliverableSettings();
 
-            Assert.AreEqual(crmDeliverableSettings.Count, _atomFeedDeliverableSettings.Count, "Setting counts differ between atom feed and CRM");
-            Assert.IsTrue(crmDeliverableSettings.All(ds => _atomFeedDeliverableSettings.Contains(ds)), "Settings differ between atom feed and CRM");
+            ClassicAssert.AreEqual(crmDeliverableSettings.Count, _atomFeedDeliverableSettings.Count, "Setting counts differ between atom feed and CRM");
+            ClassicAssert.IsTrue(crmDeliverableSettings.All(ds => _atomFeedDeliverableSettings.Contains(ds)), "Settings differ between atom feed and CRM");
         }
 
         private static string ExtractXmlFromAtomItem(SyndicationItem item)

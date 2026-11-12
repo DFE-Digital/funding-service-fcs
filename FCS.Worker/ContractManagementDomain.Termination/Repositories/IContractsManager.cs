@@ -4,10 +4,10 @@
 
     public interface IContractsManager
     {
-        SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetCorporateContract(string contractNumber,
+        SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetCorporateContract(string contractNumber,
             string masterContractNumber, bool lastApproved);
 
-        SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetCorporateContractForSpecificVersion(
+        SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetCorporateContractForSpecificVersion(
             ContractIdentifier contractIdentifier);
     }
 }

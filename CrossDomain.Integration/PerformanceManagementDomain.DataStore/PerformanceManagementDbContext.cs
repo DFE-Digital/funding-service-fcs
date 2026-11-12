@@ -3,7 +3,6 @@
     using CrossDomain.Integration.Entities.Data;
     using Models;
     using Models.Allocation;
-    using System;
     using System.Configuration;
     using System.Data;
     using System.Data.Common;
@@ -14,51 +13,21 @@
     public class PerformanceManagementDbContext : DbContext, IPerformanceManagementDbContext
     {
         public static string KeyVaultValue { get; set; }
-
-        // ✅ Used by DI (Web App)
+        public PerformanceManagementDbContext() : base(GetConnectionString())
+        {
+        }
         public PerformanceManagementDbContext(IDbConnection connection)
             : base((DbConnection)connection, contextOwnsConnection: false)
         {
         }
-
-        // ✅ Used ONLY by tests (fallback)
-        public PerformanceManagementDbContext()
-            : base(GetConnectionString())
-        {
-        }
-
         private static string GetConnectionString()
         {
-            try
+            if (!string.IsNullOrWhiteSpace(KeyVaultValue))
             {
-                var kvValue = System.Configuration.ConfigurationManager
-                    .ConnectionStrings["PerformanceManagementDbContext"]?.ConnectionString;
-
-                if (!string.IsNullOrWhiteSpace(kvValue))
-                {
-                    return kvValue;
-                }
-
-                // ✅ detect Azure environment
-                var isAzure = !string.IsNullOrEmpty(
-                    Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
-
-                if (isAzure)
-                {
-                    // ✅ CRITICAL: do NOT return "name=..."
-                    return "Server=(local);Database=DummyDb;Trusted_Connection=True;";
-                }
-
-                // ✅ local fallback
-                return "Server=(localdb)\\MSSQLLocalDB;Database=TestDb;Trusted_Connection=True;";
+                return KeyVaultValue;
             }
-            catch
-            {
-                return "Server=(local);Database=DummyDb;Trusted_Connection=True;";
-            }
+            return "name=ContractManagementDbContext";
         }
-
-
 
         public PerformanceManagementDbContext(IDbConnection connection, DbTransaction transaction)
             : base((DbConnection)connection, contextOwnsConnection: false)

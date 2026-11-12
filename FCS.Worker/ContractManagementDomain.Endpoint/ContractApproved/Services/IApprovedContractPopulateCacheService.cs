@@ -6,6 +6,6 @@
 
     public interface IApprovedContractPopulateCacheService
     {
-        Task UpdateApprovedContractCache(contract corporateContract, string masterContractNumber, ConnectionInfo connectionInfo);
+        Task UpdateApprovedContractCache(Contract corporateContract, string masterContractNumber, ConnectionInfo connectionInfo);
     }
 }
