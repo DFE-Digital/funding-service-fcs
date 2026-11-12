@@ -226,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfirmPublicationToProvider\ConfirmPublicationToProviderHandlerTests.cs" />
+    <Compile Include="ConfirmPublicationToProvider\ConfirmPublicationToProviderHandlerFlowTests.cs" />
     <Compile Include="ConfirmPublicationToProvider\DocumentMoveResponseHandlerTests.cs" />
     <Compile Include="ContractApproved\ContractTransformerTests.cs" />
     <Compile Include="ContractApproved\CorporateSchemaContractValidatorTests.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="InitiateContractApproval\ContractNotificationPublishedToProviderHandlerTests.cs" />
     <Compile Include="InitiateContractApproval\InitiateContractApprovalHandlerIntegrationTests.cs" />
     <Compile Include="InitiateContractApproval\InitiateContractApprovalHandlerUnitTests.cs" />
+    <Compile Include="InitiateContractApproval\InitiateContractApprovalHandlerLevyTests.cs" />
     <Compile Include="InitiateContractApproval\Repositories\CrmContractAllocationRepositoryTests.cs" />
     <Compile Include="InitiateContractApproval\Repositories\CrmContractDeliverablePeriodRepositoryTests.cs" />
     <Compile Include="InitiateContractApproval\Services\ContractCheckerServiceTests.cs" />

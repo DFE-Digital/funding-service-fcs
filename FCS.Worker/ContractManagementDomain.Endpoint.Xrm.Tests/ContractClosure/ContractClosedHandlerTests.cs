@@ -16,6 +16,7 @@
             IWindsorContainer container =
                 new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
+                .Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Moq.Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault())
                 .Register(Component.For<ContractClosedHandler>());
             container.BeginScope();
 

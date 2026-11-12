@@ -16,11 +16,12 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new Xrm.WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<Xrm.ContractTerminatedHandler>().ImplementedBy<Xrm.ContractTerminatedHandler>());
+            _ = container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Moq.Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
-            container.BeginScope();
+            _ = container.BeginScope();
 
             // act, assert
-            container.Resolve<Xrm.ContractTerminatedHandler>();
+            _ = container.Resolve<Xrm.ContractTerminatedHandler>();
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -30,11 +31,12 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new Xrm.WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<Xrm.ContractTerminationFailedHandler>().ImplementedBy<Xrm.ContractTerminationFailedHandler>());
+            _ = container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Moq.Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
-            container.BeginScope();
+            _ = container.BeginScope();
 
             // act, assert
-            container.Resolve<Xrm.ContractTerminationFailedHandler>();
+            _ = container.Resolve<Xrm.ContractTerminationFailedHandler>();
         }
     }
 }

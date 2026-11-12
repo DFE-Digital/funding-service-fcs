@@ -177,6 +177,7 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new PaymentManagementDomain.PaymentSchedule.PaymentAggregated.WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<PaymentAggregatedHandler>().ImplementedBy<PaymentAggregatedHandler>());
+            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 

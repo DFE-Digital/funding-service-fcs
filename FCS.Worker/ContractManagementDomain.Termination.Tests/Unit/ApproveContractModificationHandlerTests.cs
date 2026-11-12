@@ -17,11 +17,12 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<ApproveContractModificationHandler>().LifestyleScoped());
+            _ = container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Moq.Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
-            container.BeginScope();
+            _ = container.BeginScope();
 
             // act
-            container.Resolve<ApproveContractModificationHandler>();
+            _ = container.Resolve<ApproveContractModificationHandler>();
         }
     }
 }

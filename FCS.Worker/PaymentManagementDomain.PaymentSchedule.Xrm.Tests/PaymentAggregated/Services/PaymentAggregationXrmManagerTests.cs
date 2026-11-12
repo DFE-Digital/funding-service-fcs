@@ -35,7 +35,7 @@
         private const string FundingStreamPeriodCode = "24+ALLBC1516";
 
 
-        [TestMethod, TestCategory("UnitTest")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void PaymentAggregationXrmManager_ShouldResolveFromContainer()
         {
             IPaymentAggregationXrmManager paymentAggregationXrmManager =

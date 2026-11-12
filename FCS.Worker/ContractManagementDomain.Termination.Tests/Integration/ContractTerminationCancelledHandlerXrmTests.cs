@@ -43,7 +43,7 @@
             };
 
             // act
-            GetHandler().Handle(cancelledEvent, null);
+            _ = GetHandler().Handle(cancelledEvent, null);
 
             // assert
             string newStatus = GetContractSubStatus(contractId);
@@ -94,13 +94,13 @@
         private ContractTerminationCancelledHandler GetHandler()
         {
             IWindsorContainer container = new WindsorContainer()
-                .Install(new Xrm.WindsorInstaller(new LoggerFactory()))
-                .Register(Component.For<Xrm.ContractTerminationCancelledHandler>().ImplementedBy<Xrm.ContractTerminationCancelledHandler>());
-            container.Register(Component.For<ILogger>().Instance(Mock.Of<ILogger>()).IsDefault());
+                .Install(new WindsorInstaller(new LoggerFactory()))
+                .Register(Component.For<ContractTerminationCancelledHandler>().ImplementedBy<ContractTerminationCancelledHandler>());
+            _ = container.Register(Component.For<ILogger>().Instance(Mock.Of<ILogger>()).IsDefault());
 
-            container.BeginScope();
+            _ = container.BeginScope();
 
-            return container.Resolve<Xrm.ContractTerminationCancelledHandler>();
+            return container.Resolve<ContractTerminationCancelledHandler>();
         }
 
         private void DeleteContract(string contractNumber)

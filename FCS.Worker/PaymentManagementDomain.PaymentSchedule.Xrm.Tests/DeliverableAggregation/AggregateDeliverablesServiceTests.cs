@@ -369,6 +369,7 @@
         public void AggregateDeliverablesHandler_ShouldResolve()
         {
             var container = new WindsorContainer().Install(new WindsorInstaller(new LoggerFactory()));
+            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
             container.Register(Component.For<IHandleMessages<AggregateDeliverablesCommand>>()
                 .ImplementedBy<AggregateDeliverablesHandler>().LifestyleScoped());
 

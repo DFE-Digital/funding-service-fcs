@@ -17,20 +17,6 @@
     "serviceLineTag": {
       "type": "string"
     },
-    "certificateName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "the certificate Name"
-      }
-    },
-    "certificatesToLoad": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "the list of certificates to load"
-      }
-    },
     "customHostName": {
       "type": "string",
       "defaultValue": "",
@@ -246,9 +232,6 @@
           "customHostName": {
             "value": "[parameters('customHostName')]"
           },
-          "certificateThumbprint": {
-            "value": "[if(greater(length(parameters('certificateName')),0), reference(resourceId(variables('sharedRG'), 'Microsoft.Web/certificates', parameters('certificateName')), '2016-03-01').Thumbprint, 'placeholder')]"
-          },
           "appServiceAppSettings": {
             "value": [
               {
@@ -283,6 +266,11 @@
               },
               {
                 "name": "OperationsDbContext",
+                "connectionString": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcsPaaSDBConnectionstring)')]",
+                "type": "Custom"
+              },
+              {
+                "name": "PaymentGenDBContext",
                 "connectionString": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcsPaaSDBConnectionstring)')]",
                 "type": "Custom"
               },

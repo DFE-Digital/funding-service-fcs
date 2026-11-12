@@ -13,7 +13,7 @@
     [TestClass]
     public class SendRunReportCommandTests
     {
-        [TestMethod, TestCategory("ProductionSupport")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void SendRunReportCommandsForErroredCdaReports()
         {
             /*

@@ -217,7 +217,14 @@
     <Compile Include="ModifyContractSagaTests.cs" />
     <Compile Include="CreateContractSagaTests.cs" />
     <Compile Include="CreateContract\ContractCreateValidationTests.cs" />
+    <Compile Include="CreateContract\CreateSagaTestFixture.cs" />
+    <Compile Include="ModifyContractSagaFlowTests.cs" />
+    <Compile Include="XrmService\DeliverableMergerTests.cs" />
+    <Compile Include="ModifySagaTestFixture.cs" />
+    <Compile Include="UpdateDraftContractAmendment\UpdateDraftContractAmendmentSagaTests.cs" />
+    <Compile Include="CreateContract\NewAmendmentSagaTests.cs" />
     <Compile Include="CreateContract\NewContractSagaTests.cs" />
+    <Compile Include="CreateContract\RevisedNewContractSagaTests.cs" />
     <Compile Include="Infrastructure\ActionRetrier.cs" />
     <Compile Include="Infrastructure\ContractOperationRulesTests.cs" />
     <Compile Include="Infrastructure\ContractValidationLookupDataCreatorTests.cs" />

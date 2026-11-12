@@ -204,6 +204,7 @@
     <Compile Include="PullFundingClaim\FundingClaimsApiStubAdapterTests.cs" />
     <Compile Include="PullFundingClaim\Handlers\BeginFundingClaimPullHandlerTests.cs" />
     <Compile Include="PullFundingClaim\Handlers\BeginPullOfFundingClaimsForClosedCollectionHandlerTests.cs" />
+    <Compile Include="PullFundingClaim\Handlers\PullPageForPeriodClaimTypeHandlerFlowTests.cs" />
     <Compile Include="PullFundingClaim\Handlers\PullPageForPeriodClaimTypeHandlerTests.cs" />
     <Compile Include="PullFundingClaim\Handlers\UpdateExistingPeriodClaimTypeHandlerTests.cs" />
     <Compile Include="PullFundingClaim\Repositories\FundingClaimRepositoryTests.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="ReconciliationCalculationEndpoint\Handlers\ContractApprovedEventHandlerTests.cs" />
     <Compile Include="ReconciliationCalculationEndpoint\Handlers\ContractApprovedEventHandlerUnitTests.cs" />
     <Compile Include="ReconciliationCalculationEndpoint\Handlers\FundingClaimDebatchedEventHandlerTests.cs" />
+    <Compile Include="ReconciliationCalculationEndpoint\Handlers\RecalculateFundingClaimReconciliationCommandHandlerFlowTests.cs" />
     <Compile Include="ReconciliationCalculationEndpoint\Handlers\RecalculateFundingClaimReconciliationCommandHandlerTests.cs" />
     <Compile Include="ReconciliationCalculationEndpoint\Repositories\ClaimReconciliationAllocationGroupFspRepositoryTests.cs" />
     <Compile Include="ReconciliationCalculationEndpoint\Repositories\ClaimReconciliationAllocationGroupRepositoryTests.cs" />

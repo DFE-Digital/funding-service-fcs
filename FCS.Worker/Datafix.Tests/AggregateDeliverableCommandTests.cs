@@ -8,7 +8,7 @@
     [TestClass]
     public class AggregateDeliverableCommandTests
     {
-        [TestMethod, TestCategory("SmokeTest_R64a")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void SendAggregateDeliverablesCommandForPostActivityClosureAllocationToEnsureCrmConnectivityFromWorkerRole()
         {
             // arrange

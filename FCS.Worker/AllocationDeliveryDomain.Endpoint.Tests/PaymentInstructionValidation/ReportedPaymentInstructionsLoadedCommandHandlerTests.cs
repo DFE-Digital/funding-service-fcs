@@ -118,7 +118,8 @@
             // arrange
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
-                .Register(Component.For<ReportedPaymentInstructionsLoadedCommandHandler>().ImplementedBy<ReportedPaymentInstructionsLoadedCommandHandler>());
+                .Register(Component.For<ReportedPaymentInstructionsLoadedCommandHandler>().ImplementedBy<ReportedPaymentInstructionsLoadedCommandHandler>())
+                .Register(Component.For<SFA.FCT.CrossDomain.Integration.Common.Storage.IAzureTableStore>().Instance(Mock.Of<SFA.FCT.CrossDomain.Integration.Common.Storage.IAzureTableStore>()).IsDefault());
 
             container.BeginScope();
 

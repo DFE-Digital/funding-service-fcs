@@ -187,10 +187,10 @@
             // assert
             corporateContract.contracts.ForEach(c => c.contractAllocations.ForEach(ca =>
             {
-                ca.StopNewStartsDate.Should().BeNull("Allocation StopNewStartsDate should be cleared");
-                ca.NewStartsSuspendedReason.Should().BeNull("Allocation NewStartsSuspendedReason should be cleared");
-                ca.InflightStopNewStartsDate.Should().BeNull("Allocation InflightStopNewStartsDate should be cleared");
-                ca.InflightNewStartsSuspendedReason.Should().BeNull("Allocation InflightNewStartsSuspendedReason should be cleared");
+                _ = ca.StopNewStartsDate.Should().BeNull("Allocation StopNewStartsDate should be cleared");
+                _ = ca.NewStartsSuspendedReason.Should().BeNull("Allocation NewStartsSuspendedReason should be cleared");
+                _ = ca.InflightStopNewStartsDate.Should().BeNull("Allocation InflightStopNewStartsDate should be cleared");
+                _ = ca.InflightNewStartsSuspendedReason.Should().BeNull("Allocation InflightNewStartsSuspendedReason should be cleared");
             }));
         }
     }

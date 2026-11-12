@@ -19,7 +19,7 @@
     [TestClass]
     public class AmendAllLevyContractsDatafix
     {
-        [TestMethod, TestCategory("AmendAllLevyContracts")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void AmendAllLevyContracts()
         {
             const string levyFundingType = "LEVY";
@@ -80,7 +80,7 @@
             });
         }
 
-        [TestMethod, TestCategory("AmendAllLevyContracts")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void AmendAllLevyContractsOnList()
         {
             const string levyFundingType = "LEVY";
@@ -199,7 +199,7 @@
             }
         }
 
-        [TestMethod, TestCategory("AmendLevyContract")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void AmendSingleLevyContract()
         {
             IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();

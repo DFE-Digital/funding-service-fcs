@@ -16,11 +16,12 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new Xrm.WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<Xrm.ContractTerminationCancelledHandler>().ImplementedBy<Xrm.ContractTerminationCancelledHandler>());
+            _ = container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Moq.Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
-            container.BeginScope();
+            _ = container.BeginScope();
 
             // act, assert
-            container.Resolve<Xrm.ContractTerminationCancelledHandler>();
+            _ = container.Resolve<Xrm.ContractTerminationCancelledHandler>();
         }
     }
 }

@@ -5,7 +5,7 @@ Use `Run-UnitTestCodeCoverage.ps1` to run the unit tests of a single solution an
 ## Prerequisites
 
 - A solution (`.sln`) in the repository. Test projects are discovered from the solution: every project whose file name ends in `Test.csproj` or `Tests.csproj`.
-- Build the solution first, or pass `-Build` to have the script clean and build it with the Visual Studio MSBuild located through `vswhere`.
+- Build the test projects first, or pass `-Build` to have the script clean and build them with the Visual Studio MSBuild located through `vswhere`. Only the test projects (and their references) are built, so non-test projects such as Azure `.ccproj` packages are skipped.
 - Install the `dotnet-coverage` global tool if it is not already available:
 
   ```powershell
@@ -40,7 +40,7 @@ Parameters:
 | `-Solution` | Required. Path to the solution (absolute, or relative to the current directory). |
 | `-Configuration` | Build configuration of the test assemblies. Default `Debug`. |
 | `-OutputDirectory` | Where results are written. Default `<solution folder>\TestResults\UnitTestCoverage`. |
-| `-Build` | Clean and build the solution before testing. |
+| `-Build` | Clean and build the solution's test projects (and their references) before testing; non-test projects such as `.ccproj` are not built. |
 | `-Html` | Also generate an HTML report; its full path is printed at the end. |
 | `-TestFilter` | VSTest case filter. Default `TestCategory=UnitTest`. |
 | `-ExcludeInfrastructureTests` | Excludes integration tests and categories that need external infrastructure (SQL, storage, etc.). |

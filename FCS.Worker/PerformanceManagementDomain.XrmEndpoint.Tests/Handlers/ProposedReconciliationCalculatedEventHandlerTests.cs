@@ -23,6 +23,8 @@
             // arrange
             using (IWindsorContainer container = new WindsorContainer().Install(new WindsorInstaller(new LoggerFactory())))
             {
+                // Overrides the installer's CRM-backed registration so no Azure AD/CRM call is made.
+                container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
                 container.Register(Component.For<ProposedReconciliationCalculatedEventHandler>());
                 container.BeginScope();
 

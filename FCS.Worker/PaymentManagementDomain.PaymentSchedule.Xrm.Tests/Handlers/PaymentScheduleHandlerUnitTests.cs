@@ -28,6 +28,7 @@
         private IWindsorContainer GetContainer()
         {
             IWindsorContainer container = new WindsorContainer().Install(new PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm.WindsorInstaller(new LoggerFactory()));
+            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
             container.Register(Component.For<PaymentScheduleEventHandler>());
             container.Register(Component.For<IMessageHandlerContext>().Instance(_messageHandlerContextMock.Object));
             container.BeginScope();

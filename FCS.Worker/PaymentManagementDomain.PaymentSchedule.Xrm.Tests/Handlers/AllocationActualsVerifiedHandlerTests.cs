@@ -175,6 +175,7 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<IHandleMessages<AllocationActualsVerified>>().ImplementedBy<AllocationActualsVerifiedHandler>());
+            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 

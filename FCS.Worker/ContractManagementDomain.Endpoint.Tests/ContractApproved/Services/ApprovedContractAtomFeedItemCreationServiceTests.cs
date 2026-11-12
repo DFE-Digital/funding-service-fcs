@@ -363,7 +363,7 @@
             }
 
             IWindsorContainer container = new WindsorContainer()
-                .Install(new ContractManagementDomain.Endpoint.ContractApproved.WindsorInstaller(new LoggerFactory()))
+                .Install(new Endpoint.ContractApproved.WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<IContractManagementDbContext>().ImplementedBy<ContractManagementDbContext>().LifestyleScoped().IsDefault())
                 .Register(Component.For<ILogger>().Instance(Mock.Of<ILogger>()).LifestyleScoped().IsDefault());
             container.BeginScope();

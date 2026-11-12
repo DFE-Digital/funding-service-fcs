@@ -34,10 +34,11 @@
         private static TerminateContractHandler GetTerminateContractHandlerFromContainer()
         {
             IWindsorContainer container = new WindsorContainer()
-                .Install(new ContractManagementDomain.Termination.WindsorInstaller(new LoggerFactory()))
-                .Register(Component.For<ContractManagementDomain.Termination.Handlers.TerminateContractHandler>().ImplementedBy<TerminateContractHandler>());
+                .Install(new WindsorInstaller(new LoggerFactory()))
+                .Register(Component.For<TerminateContractHandler>().ImplementedBy<TerminateContractHandler>());
+            _ = container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
-            container.BeginScope();
+            _ = container.BeginScope();
 
             return container.Resolve<TerminateContractHandler>();
         }
@@ -58,11 +59,11 @@
                 currentDate: DateTime.Now);
 
             Mock<ITerminateContractInfoCreator> terminateContractInfoCreatorMock = new Mock<ITerminateContractInfoCreator>();
-            terminateContractInfoCreatorMock.Setup(tcic => tcic.CreateTerminateContractInfo(It.IsAny<ContractIdentifier>(), It.IsAny<ConnectionInfo>()))
+            _ = terminateContractInfoCreatorMock.Setup(tcic => tcic.CreateTerminateContractInfo(It.IsAny<ContractIdentifier>(), It.IsAny<ConnectionInfo>()))
                 .Returns(terminateContractInfo);
 
             Mock<ITerminateContractValidationService> terminateContractValidationServiceMock = new Mock<ITerminateContractValidationService>();
-            terminateContractValidationServiceMock.Setup(tcvs => tcvs.Validate(terminateContractInfo))
+            _ = terminateContractValidationServiceMock.Setup(tcvs => tcvs.Validate(terminateContractInfo))
                 .Returns(new Either<RejectionReason, TerminateContractInfo>(
                                 new RejectionReason(
                                     "Contract Termination Date must be in the past",
@@ -90,7 +91,7 @@
             TestableMessageHandlerContext testableMessageHandlerContext = new TestableMessageHandlerContext();
 
             // Act
-            handler.Handle(command, testableMessageHandlerContext);
+            _ = handler.Handle(command, testableMessageHandlerContext);
 
             // Assert
             Assert.AreEqual(1, testableMessageHandlerContext.PublishedMessages.Length, "The wrong number of messages were sent");

@@ -60,6 +60,8 @@ jobs:
     value: $(fcsPaaSDBConnectionstring)
   - name: PaymentGenerationDbContext
     value: $(fcsPaaSDBConnectionstring)
+  - name: PaymentGenDBContext
+    value: $(fcsPaaSDBConnectionstring)
   - name: PaymentManagementPolicyContext
     value: $(fcsPaaSDBConnectionstring)
   - name: PaymentSchedulePolicyContext
@@ -140,6 +142,18 @@ jobs:
     value: $(NServiceBusLicense)
   - name: ConnectionStrings.NServiceBus/License
     value: $(NServiceBusLicense) 
+  - name: UkrlpApi:Subscription
+    value: $(UkrlpApiSubscription)
+  - name: UkrlpApi:ClientId
+    value: $(UkrlpApiClientId)
+  - name: UkrlpApi:ClientSecret
+    value: $(UkrlpApiClientSecret)
+  - name: UkrlpApi:Scope
+    value: $(UkrlpApiScope)
+  - name: UkrlpApi:Tenant
+    value: $(UkrlpApiTenant)
+  - name: ConnectionStrings.OperationsDbContext
+    value: $(fcsPaaSDBConnectionstring)
 
   steps:
   - task: PowerShell@2
@@ -318,6 +332,15 @@ jobs:
     inputs:
       folderPath: '$(Build.SourcesDirectory)\SpecFlow.IntegrationTests\'
       targetFiles: '**\*.config'
+      fileType: xml
+
+  - task: FileTransform@1
+    displayName: 'FCT.Operations.Web Operations.Web.Tests and Operations.DataStore.Tests App.config - Update Key Vault Secrets'
+    inputs:
+      folderPath: '$(Build.SourcesDirectory)\FCT.Operations.Web\'
+      targetFiles: |
+        Operations.Web.Tests\**\*.config
+        Operations.DataStore.Tests\**\*.config
       fileType: xml
 
   - script: echo "name is $(EnvName)"

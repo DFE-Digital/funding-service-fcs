@@ -30,11 +30,11 @@
         {
             // arrange
             Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
             Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            terminateContractFeedServiceMock.SetupSequence(m => m.UpdateContractAndAddToFeed(
+            _ = terminateContractFeedServiceMock.SetupSequence(m => m.UpdateContractAndAddToFeed(
                     It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
                     It.IsAny<Action<contract>>(), It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
@@ -81,11 +81,11 @@
         {
             // arrange
             Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
             Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
+            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
                     It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
                     It.IsAny<Action<contract>>(), It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
@@ -121,11 +121,11 @@
         {
             // arrange
             Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
             Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
+            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
                     It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
                     It.IsAny<Action<contract>>(), It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
@@ -174,11 +174,11 @@
             };
 
             Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
             Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
+            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
                     It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
                     It.IsAny<Action<contract>>(), It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
@@ -236,11 +236,11 @@
             };
 
             Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
             Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
+            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
                     It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
                     It.IsAny<Action<contract>>(), It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
@@ -297,11 +297,11 @@
             };
 
             Mock<ISessionConnectionFactory> sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
-            sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
+            _ = sessionConnectionFactoryMock.Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
                 .Returns(ConnectionInfo.CreateDefault);
 
             Mock<ITerminateContractFeedService> terminateContractFeedServiceMock = new Mock<ITerminateContractFeedService>();
-            terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
+            _ = terminateContractFeedServiceMock.Setup(m => m.UpdateContractAndAddToFeed(
                     It.IsAny<ConnectionInfo>(), It.IsAny<ContractIdentifier>(),
                     It.IsAny<Action<contract>>(), It.IsAny<string>(),
                     It.IsAny<AtomItemType>()))
@@ -341,10 +341,11 @@
         public void ApproveContractTerminationInitiationHandler_ShouldResolve()
         {
             var container = new WindsorContainer().Install(new WindsorInstaller(new LoggerFactory()));
-            container.Register(Component.For<IHandleMessages<ApproveContractTerminationInitiationCommand>>()
+            _ = container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
+            _ = container.Register(Component.For<IHandleMessages<ApproveContractTerminationInitiationCommand>>()
                 .ImplementedBy<ApproveContractTerminationInitiationHandler>().LifestyleScoped());
 
-            container.BeginScope();
+            _ = container.BeginScope();
 
             var handler = container.Resolve<IHandleMessages<ApproveContractTerminationInitiationCommand>>();
 

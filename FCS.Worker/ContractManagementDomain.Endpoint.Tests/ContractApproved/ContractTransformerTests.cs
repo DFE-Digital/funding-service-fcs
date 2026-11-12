@@ -24,9 +24,9 @@
             Assert.IsNotNull(corpContract);
 
             ContractTransformer contractTransformer = new ContractTransformer();
-            
+
             // act
-            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
+            CorporateSchema.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
             
             // assert
             schemaContract.contracts.First().contractAllocations.ForEach(schemaAllocation =>
@@ -58,7 +58,7 @@
             ContractTransformer contractTransformer = new ContractTransformer();
 
             // act
-            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
+            CorporateSchema.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
             
             // assert
             schemaContract.contracts.First().contractAllocations.ForEach(schemaAllocation =>
@@ -140,7 +140,7 @@
             ContractTransformer contractTransformer = new ContractTransformer();
 
             // act
-            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
+            CorporateSchema.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
 
             // assert
             var terminationAllocationAttrs = schemaContract.contracts.First().contractAllocations
@@ -158,12 +158,12 @@
             }
         }
 
-        public List<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractDeliverablesTypeContractDeliverable> FlattenDeliverables(
-            List<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractDeliverablesTypeContractDeliverable> hierarchicalDeliverableList,
-            List<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractDeliverablesTypeContractDeliverable> flattenedList = null,
+        public List<CorporateSchema.contractDeliverablesTypeContractDeliverable> FlattenDeliverables(
+            List<CorporateSchema.contractDeliverablesTypeContractDeliverable> hierarchicalDeliverableList,
+            List<CorporateSchema.contractDeliverablesTypeContractDeliverable> flattenedList = null,
             int? parentDeliverablId = null)
         {
-            flattenedList = flattenedList ?? new List<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractDeliverablesTypeContractDeliverable>();
+            flattenedList = flattenedList ?? new List<CorporateSchema.contractDeliverablesTypeContractDeliverable>();
 
             foreach (var deliverable in hierarchicalDeliverableList)
             {

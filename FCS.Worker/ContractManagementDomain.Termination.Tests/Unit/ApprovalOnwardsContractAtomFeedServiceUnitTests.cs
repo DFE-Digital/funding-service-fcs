@@ -22,11 +22,11 @@
         {
             // Arrange
             var mockRepo = new Mock<IApprovalOnwardsContractAtomItemRepository>();
-            mockRepo.Setup(m => m.Add(It.IsAny<ConnectionInfo>(), It.IsAny<AtomFeedItem>())).Throws(new SqlDuplicateKeyStorageException(new Exception()));
-            mockRepo.Setup(m => m.GetIdentifierForBusinessKey(It.IsAny<ConnectionInfo>(), It.IsAny<string>(), It.IsAny<AtomItemType>())).Returns(Guid.NewGuid());
+            _ = mockRepo.Setup(m => m.Add(It.IsAny<ConnectionInfo>(), It.IsAny<AtomFeedItem>())).Throws(new SqlDuplicateKeyStorageException(new Exception()));
+            _ = mockRepo.Setup(m => m.GetIdentifierForBusinessKey(It.IsAny<ConnectionInfo>(), It.IsAny<string>(), It.IsAny<AtomItemType>())).Returns(Guid.NewGuid());
 
             Mock<IContractXmlValidator> contractXmlValidatorMock = new Mock<IContractXmlValidator>();
-            contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
+            _ = contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
             contract corpContract = new contract
             {
                 contracts = new List<contractType>
@@ -66,10 +66,10 @@
             Guid identifier = Guid.NewGuid();
 
             var mockRepo = new Mock<IApprovalOnwardsContractAtomItemRepository>();
-            mockRepo.Setup(m => m.Add(It.IsAny<ConnectionInfo>(), It.IsAny<AtomFeedItem>())).Throws(new SqlDuplicateKeyStorageException(new Exception()));
-            mockRepo.Setup(m => m.GetIdentifierForBusinessKey(It.IsAny<ConnectionInfo>(), It.IsAny<string>(), It.IsAny<AtomItemType>())).Returns(identifier);
+            _ = mockRepo.Setup(m => m.Add(It.IsAny<ConnectionInfo>(), It.IsAny<AtomFeedItem>())).Throws(new SqlDuplicateKeyStorageException(new Exception()));
+            _ = mockRepo.Setup(m => m.GetIdentifierForBusinessKey(It.IsAny<ConnectionInfo>(), It.IsAny<string>(), It.IsAny<AtomItemType>())).Returns(identifier);
             Mock<IContractXmlValidator> contractXmlValidatorMock = new Mock<IContractXmlValidator>();
-            contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
+            _ = contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
             contract corpContract = new contract
             {

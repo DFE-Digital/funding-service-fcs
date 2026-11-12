@@ -77,7 +77,7 @@ steps:
     testAssemblyVer2: |
      **\$(BuildConfiguration)\**Tests.dll
      !**\obj\**
-    testFiltercriteria: 'TestCategory=IntegrationTest'
+    testFiltercriteria: 'TestCategory=IntegrationTest&TestCategory!=ExternalDependency'
     pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\CrossDomain.Integration'
     codeCoverageEnabled: true
     runSettingsFile: '${{ parameters.BuildRoot }}\CrossDomain.Integration\CodeCoverage.runsettings'

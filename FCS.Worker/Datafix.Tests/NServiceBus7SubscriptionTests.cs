@@ -16,7 +16,7 @@
     [TestClass]
     public class NServiceBus7SubscriptionTests
     {
-        [TestMethod]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void ShouldFindAllNServiceBus7SubscriptionsArePresent()
         {
             string workerRoleBinPath = Directory.GetCurrentDirectory().Replace("Datafix.Tests", "WorkerRole");
@@ -62,7 +62,7 @@
             Assert.IsTrue(!fcsSubThatAreNotPresent.Any(), $"We have subscription name(s) missing from this endpoint : {fcsSubThatAreNotPresent.FirstOrDefault()?.PublisherEndpoint}");
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void ShouldCreateTopicesAndSubscriptionsThatAreMissing()
         {
             string workerRoleBinPath = Directory.GetCurrentDirectory().Replace("Datafix.Tests", "WorkerRole");
