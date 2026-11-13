@@ -1,10 +1,10 @@
 ﻿namespace SFA.FCT.CrossDomain.Integration.Common.Reporting
 {
     using System.Threading.Tasks;
-    using Messages.Commands;
+    //using Messages.Commands;
 
     public interface IReportRunner
     {
-        bool RunReport(RunReportCommand command);
+        //bool RunReport(RunReportCommand command);
     }
 }

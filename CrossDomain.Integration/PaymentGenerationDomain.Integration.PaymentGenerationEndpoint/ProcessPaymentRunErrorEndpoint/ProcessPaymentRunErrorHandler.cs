@@ -1,12 +1,13 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunErrorEndpoint
 {
+    extern alias Entities;
     using System;
     using System.Threading.Tasks;
     using NServiceBus;
     using BusinessLogic;
     using Common;
     using Infrastructure;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
 

@@ -29,7 +29,7 @@
             Logger = new LoggerNullObject();
         }
 
-        public void MoveContractDocumentToPublishLocation(contract masterContract)
+        public void MoveContractDocumentToPublishLocation(Contract masterContract)
         {
             Validate(masterContract); 
             var childContract = masterContract.contracts.First();
@@ -65,7 +65,7 @@
             }
         }
 
-        public bool IsContractDocumentAlreadyPublished(contract masterContract)
+        public bool IsContractDocumentAlreadyPublished(Contract masterContract)
         {
             bool result = false;
 

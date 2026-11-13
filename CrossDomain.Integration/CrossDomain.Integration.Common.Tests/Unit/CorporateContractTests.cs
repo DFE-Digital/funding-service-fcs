@@ -17,7 +17,7 @@
             // arrange
             IList<string> allocNumbers = new List<string> {"Alloc 1", "Alloc 2", "Alloc 3", "Alloc 4"};
 
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -66,7 +66,7 @@
         {
             // arrange
             const string contractNumber = "Some Number";
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
                 {

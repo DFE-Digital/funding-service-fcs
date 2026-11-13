@@ -38,7 +38,7 @@
             return deliverablePeriod.year == periodEndYear && deliverablePeriod.period >= 4 && deliverablePeriod.period <= 7;
         }
 
-        private static int GetStartYearFromPeriod(period period)
+        private static int GetStartYearFromPeriod(Period period)
         {
             string startYearString = period.period1.Substring(0, 2);
             int startYear;
@@ -51,7 +51,7 @@
             return startYear;
         }
 
-        private static int GetEndYearFromPeriod(period period)
+        private static int GetEndYearFromPeriod(Period period)
         {
             string endYearString = period.period1.Substring(2, 2);
             int endYear;

@@ -1,6 +1,5 @@
 ﻿namespace OrganisationDomain.Web.IoC
 {
-    using System.Web.Http.Controllers;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
@@ -20,15 +19,31 @@
             _loggerFactory = loggerFactory;
         }
 
-        public void Install(IWindsorContainer container, IConfigurationStore store)
+        public void Install(
+            IWindsorContainer container,
+            IConfigurationStore store)
         {
             container.Register(
-                Classes.FromThisAssembly().BasedOn<IHttpController>().LifestyleTransient(),
-                Component.For<ILocalOrganisationRetriever>().ImplementedBy<LocalOrganisationRetriever>().LifestylePerWebRequest(),
-                Component.For<IOrganisationRepository>().ImplementedBy<OrganisationRepository>().LifestylePerWebRequest(),
-                Component.For<ICpdsMapper>().ImplementedBy<CpdsMapper>().LifestyleSingleton(),
-                Component.For<IOrganisationDomainDbContext>().ImplementedBy<OrganisationDomainDbContext>().LifestylePerWebRequest(),
-                Component.For<ILogger>().Instance(_loggerFactory.CreateLogger("OrgWebRole")));
+
+                Component.For<ILocalOrganisationRetriever>()
+                    .ImplementedBy<LocalOrganisationRetriever>()
+                    .LifestyleScoped(),
+
+                Component.For<IOrganisationRepository>()
+                    .ImplementedBy<OrganisationRepository>()
+                    .LifestyleScoped(),
+
+                Component.For<ICpdsMapper>()
+                    .ImplementedBy<CpdsMapper>()
+                    .LifestyleSingleton(),
+
+                Component.For<IOrganisationDomainDbContext>()
+                    .ImplementedBy<OrganisationDomainDbContext>()
+                    .LifestyleScoped(),
+
+                Component.For<ILogger>()
+                    .Instance(_loggerFactory.CreateLogger("OrgWebRole"))
+            );
         }
     }
 }

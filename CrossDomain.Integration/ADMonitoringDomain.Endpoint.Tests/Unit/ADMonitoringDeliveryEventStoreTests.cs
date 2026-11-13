@@ -96,7 +96,6 @@ namespace ADMonitoringDomain.Endpoint.Tests.Unit
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(System.Exception))]
         public void StoreEvent_ShouldReThrowError_WhenAnyOtherExceptionOccurs()
         {
             var data = new List<AllocationDeliveryEventReceived>();

@@ -35,7 +35,7 @@
 
             var contract = new contractType
             {
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = contractingOrg
                 },
@@ -78,7 +78,7 @@
 
             var contract = new contractType
             {
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = contractingOrg,
                     legalName = $"{contractingOrg} Corp"

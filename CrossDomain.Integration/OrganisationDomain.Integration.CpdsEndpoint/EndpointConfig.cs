@@ -1,21 +1,25 @@
+﻿
 namespace OrganisationDomain.Integration.CpdsEndpoint
 {
-    using NServiceBus;
     using Ioc;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using Messages.Commands;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using NServiceBus;
+    using OrganisationDomain.Integration.CpdsEndpoint.IoC;
     using SFA.FCS.Worker.Common;
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
-    using Messages.Commands;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "OrganisationDomain.Integration.CpdsEndpoint.dll";
+        public string NameOfAssembly =>
+            "OrganisationDomain.Integration.CpdsEndpoint.dll";
 
         public string EndpointName => "OrgService.CPDS";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
         public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>
         {
@@ -23,21 +27,31 @@ namespace OrganisationDomain.Integration.CpdsEndpoint
             new CommandRoute("OrgService.Main", typeof(ProcessOrganisationDetails))
         };
 
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging FIXED
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName} on CrossDomain.Integration", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
-
+            // ✅ Conventions (preserved)
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => Subscriptions.Select(s => s.EventType.Name).Any(e => t.Name.EndsWith(e)));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    Subscriptions.Select(s => s.EventType.Name)
+                        .Any(e => t.Name.EndsWith(e)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new ComponentInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddCpdsEndpointServices();
             });
 
             return configuration;

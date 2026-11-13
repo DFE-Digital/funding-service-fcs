@@ -7,9 +7,10 @@ namespace SFA.FCT.Xrm.TestFramework
     using System.Linq;
     using System.Xml;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework.Legacy;
 
     // Using statements for Assertions
-    
+
     /// -----------------------------------------------------------------
     ///   Namespace:      Ciber.Xrm.Tests.MetaData
     ///   Class:          XrmPackageRibbon
@@ -92,9 +93,9 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var ribbonMatch = from b in this.buttonsEnabled where (b.Key == button.ToDescription()) select b;
 
-            Assert.IsTrue(ribbonMatch.Count() > 0, "The button: " + button.ToDescription() + " is not on the CRM ribbon");
+            ClassicAssert.IsTrue(ribbonMatch.Count() > 0, "The button: " + button.ToDescription() + " is not on the CRM ribbon");
 
-            Assert.IsTrue(ribbonMatch.First().Value == false, "The button: " + button.ToDescription() + " is not hidden");
+            ClassicAssert.IsTrue(ribbonMatch.First().Value == false, "The button: " + button.ToDescription() + " is not hidden");
 
             return this;
         }

@@ -121,7 +121,7 @@
                 int monthOffset = 0;
 
                 int fspDisplayOrder = DocumentConfigurationSource.GetFundingStreamPeriodDisplayOrder(contractAllocation);
-                int suffix = 1;
+
                 while (monthOffset < monthsInPeriod.Length)
                 {
                     // Only applicable for NonLevy 1718 - after this period has finished the non levy contracts will revert to 12 months and this change should be removed
@@ -144,17 +144,9 @@
 
                     bool isNonContractDeliveryOrganisation = contractAllocation.HasDeliveryOrganisation() &&
                                                              contractAllocation.DeliveryOrganisation != contract.contractor.ukprn.ToString();
-                    string orderString = string.Empty;
-                    if (contract.fundingType.fundingTypeCode == "NLA")
-                    {
-                        orderString = GetOrderFormatString(contract, contractAllocation, fspDisplayOrder, suffix, isNonContractDeliveryOrganisation);
-                        suffix++;
-                    }
-                    else
-                    {
-                        orderString = GetOrderFormatString(contract, contractAllocation, fspDisplayOrder, monthOffset, isNonContractDeliveryOrganisation);
-                    }
-                    
+
+                    string orderString = GetOrderFormatString(contract, contractAllocation, fspDisplayOrder, monthOffset, isNonContractDeliveryOrganisation);
+
                     if (IsContractEfa(contract))
                     {
                         mergeFields.AddRange(GetTotalMergeFields(contractAllocation));

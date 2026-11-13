@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.PaymentAggregated
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,8 +12,8 @@
     using NServiceBus.Testing;
     using PaymentSchedule.PaymentAggregated;
     using PaymentSchedule.PaymentAggregated.Services;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;
@@ -177,7 +178,6 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new PaymentManagementDomain.PaymentSchedule.PaymentAggregated.WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<PaymentAggregatedHandler>().ImplementedBy<PaymentAggregatedHandler>());
-            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 

@@ -1,15 +1,20 @@
-﻿namespace SFA.FCT.ContractManagementDomain.Integration.IntegrationEndpoint
+﻿
+namespace SFA.FCT.ContractManagementDomain.Integration.IntegrationEndpoint
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Castle.Windsor;
+    using ContractManagement.DataStore;
+    using ContractManagement.DataStore.Repositories;
     using ContractManagementService.Common.Commands;
     using CrossDomain.Integration.Events;
     using CrossDomain.Integration.Messages.Commands;
     using FCS.Worker.Common;
-    using Framework.Logging.Interfaces;
-    using IoC;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using NServiceBus;
+    using CrossDomain.Integration.Common.Storage;
+    using Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -37,21 +42,54 @@
             new CommandRoute("ContractManagementDomain.IssueNotification.Xrm", typeof(IssueCrmNotificationCommand))
         };
 
+
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CDI");
+            var connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnection");
 
-            configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
-
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                throw new InvalidOperationException(
+                    "AzureServiceBusConnection environment variable is not set.");
+            }
+
+            // ✅ Conventions (fixed)
+            configuration.Conventions()
+                .DefiningCommandsAs(t =>
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
+
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ INLINE Windsor replacement
+
+            configuration.RegisterComponents(services =>
+            {
+                // -----------------------------
+                // Logging (IMPORTANT: correct logger type)
+                // -----------------------------
+                services.AddSingleton(loggerFactory);
+
+                services.AddSingleton<ILogger>(
+                    _ => loggerFactory.CreateLogger<EndpointConfig>());
+
+                // -----------------------------
+                // Singleton
+                // -----------------------------
+                services.AddSingleton<IOffice365Adapter, Office365StorageWrapper>();
+                services.AddSingleton<ISessionConnectionFactory, SessionConnectionFactory>();
+
+                // -----------------------------
+                // Scoped (Windsor LifestyleScoped)
+                // -----------------------------
+                services.AddScoped<IApprovedContractAllocationRepository, ApprovedContractAllocationRepository>();
+                services.AddScoped<IContractManagementDbContext, ContractManagementDbContext>();
             });
 
             return configuration;

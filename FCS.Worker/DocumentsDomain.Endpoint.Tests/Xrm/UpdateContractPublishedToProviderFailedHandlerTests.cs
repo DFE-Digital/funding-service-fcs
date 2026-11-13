@@ -41,7 +41,7 @@
                 Mock.Of<ILogger>(), xrmDocumentManagerMock.Object);
 
             contractType contract = new contractType();
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -72,7 +72,7 @@
             UpdateContractPublishedToProviderFailedHandler handler = new UpdateContractPublishedToProviderFailedHandler(
                 loggerMock.Object, xrmDocumentManagerMock.Object);
 
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>()
             };
@@ -94,7 +94,7 @@
                 loggerMock.Verify(x => x.LogError(It.IsAny<int>(), e, e.Message), Times.Once, "Error was not logged");
             }
 
-            xrmDocumentManagerMock.Verify(x => x.UpdateContractPublishedToProviderFailed(It.IsAny<contract>(), It.IsAny<string>()), Times.Never, $"{nameof(IXrmDocumentManager)} was called");
+            xrmDocumentManagerMock.Verify(x => x.UpdateContractPublishedToProviderFailed(It.IsAny<Contract>(), It.IsAny<string>()), Times.Never, $"{nameof(IXrmDocumentManager)} was called");
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -108,7 +108,7 @@
                 loggerMock.Object, xrmDocumentManagerMock.Object);
 
             contractType contract = new contractType();
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -133,7 +133,7 @@
                 loggerMock.Verify(x => x.LogError(It.IsAny<int>(), e, e.Message), Times.Once, "Error was not logged");
             }
 
-            xrmDocumentManagerMock.Verify(x => x.UpdateContractPublishedToProviderFailed(It.IsAny<contract>(), It.IsAny<string>()), Times.Never, $"{nameof(IXrmDocumentManager)} was called");
+            xrmDocumentManagerMock.Verify(x => x.UpdateContractPublishedToProviderFailed(It.IsAny<Contract>(), It.IsAny<string>()), Times.Never, $"{nameof(IXrmDocumentManager)} was called");
         }
     }
 }

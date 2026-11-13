@@ -205,7 +205,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+    <PackageReference Include="NServiceBus" Version="7.1.4" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

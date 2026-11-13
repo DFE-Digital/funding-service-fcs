@@ -1,35 +1,50 @@
 ﻿namespace WorkerRole.Tests
 {
+    using Microsoft.Extensions.Configuration;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using NServiceBus;
+    using SFA.FCT.Framework.Logging.Bespoke;
     using SFA.FCT.Framework.Logging.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
-    using SFA.FCT.Framework.Logging.Bespoke;
 
     [TestClass]
     public class BootstrapperTests
     {
-        [TestMethod, TestCategory("TechnicalExploration")]
-        public void Bootstrapper_ShouldStartEndpoint()
+
+        [TestMethod]
+        [TestCategory("TechnicalExploration")]
+        public async Task Bootstrapper_ShouldStartEndpoint()
         {
+            IReadOnlyCollection<IEndpointInstance> endpoints = null;
+
             try
             {
-                // act
-                Mock<ILoggerFactory> loggerFactoryMock = new Mock<ILoggerFactory>();
-                loggerFactoryMock.Setup(lf => lf.CreateLogger(It.IsAny<string>())).Returns(Mock.Of<ILogger>());
-                Bootstrapper.Start(loggerFactoryMock.Object, Mock.Of<ILogger>()).Wait();
+                var configuration =
+                    new ConfigurationBuilder()
+                        .Build();
 
-                IReadOnlyCollection<IEndpointInstance> instances = Bootstrapper.Endpoints;
+                endpoints = await Bootstrapper.Start(
+                    configuration,
+                    Mock.Of<ILogger>());
 
-                // assert
-                Assert.IsTrue(instances.Any());
+                Assert.IsNotNull(endpoints);
+                Assert.IsTrue(endpoints.Any());
             }
             finally
             {
-                Bootstrapper.Stop().Wait();
+                if (endpoints != null)
+                {
+                    foreach (var endpoint in endpoints)
+                    {
+                        await endpoint.Stop(TimeSpan.FromSeconds(30));
+                    }
+                }
             }
+
+
         }
     }
 }
+    

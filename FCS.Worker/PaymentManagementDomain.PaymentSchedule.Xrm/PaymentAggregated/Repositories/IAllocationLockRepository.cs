@@ -1,6 +1,7 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated.Repositories
 {
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    extern alias IntegrationEntities;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface IAllocationLockRepository
     {

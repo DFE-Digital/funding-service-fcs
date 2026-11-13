@@ -31,9 +31,9 @@
         }
 
         public UpdateSubStatusAndAddContractToFeedResult UpdateContractAndAddToFeed(ConnectionInfo connectionInfo,
-            ContractIdentifier contractIdentifier, Action<contract> updateContract, string messageId, AtomItemType atomItemType)
+            ContractIdentifier contractIdentifier, Action<Contract> updateContract, string messageId, AtomItemType atomItemType)
         {
-            contract corporateContract = _corporateContractService.GetContract(
+            Contract corporateContract = _corporateContractService.GetContract(
                 connectionInfo: connectionInfo,
                 crmContractRepository: _crmContractRepository,
                 contractsManager: _contractsManager,

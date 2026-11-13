@@ -2,13 +2,14 @@
 {
     using System.Configuration;
     using System.Data.Entity.Validation;
-    using System.Data.SqlClient;
+    //using System.Data.SqlClient;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.AllocationDelivery.DataStore;
     using SFA.FCT.AllocationDelivery.DataStore.Model;
     using SFA.FCT.AllocationDelivery.DataStore.Repositories;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using UnitTests.Common;
+    using Microsoft.Data.SqlClient;
 
     [TestClass]
     public class ProcessedMessagesRepositoryTests
@@ -57,19 +58,29 @@
             }
         }
 
-        [ExpectedException(typeof(DbEntityValidationException))]
+
         [TestMethod, TestCategory("IntegrationTest")]
         public void ProcessedMessagesRepository_Add_WhenFailingForOtherReasonThanDuplicateKey_ShouldRethrowException()
         {
             // Arrange
             string overLengthGuid = $"{MessageId}e";
             DeleteProcessedMessagesFromRepository(overLengthGuid);
-            ProcessedMessageRepository repository = new ProcessedMessageRepository();
 
-            // Act
-            repository.Add(overLengthGuid,
-                ConnectionInfo.CreateFrom(new SqlConnection(ConfigurationManager.ConnectionStrings["AllocationDeliveryDbContext"].ConnectionString)));
+            var repository = new ProcessedMessageRepository();
+
+            var connection = ConnectionInfo.CreateFrom(
+                new SqlConnection(
+                    ConfigurationManager.ConnectionStrings["AllocationDeliveryDbContext"].ConnectionString
+                )
+            );
+
+            // Act & Assert
+            Assert.ThrowsExactly<DbEntityValidationException>(() =>
+            {
+                repository.Add(overLengthGuid, connection);
+            });
         }
+
 
         private static void DeleteProcessedMessagesFromRepository(string messageId)
         {

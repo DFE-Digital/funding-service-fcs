@@ -1,21 +1,34 @@
 ﻿namespace FCT.Console.Config.Transformers
 {
-    using System;
     using AutoMapper;
+    using FCT.Console.Config.ExcelTypes;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
+    using System;
 
-    internal class PaymentCappingLevelTypeResolver : ValueResolver<string, PaymentCappingLevelType?>
+    internal class PaymentCappingLevelTypeResolver
+        : IValueResolver<FundingStreamPeriodSheetType, PolicyFundingStreamPeriod, PaymentCappingLevelType?>
     {
-        protected override PaymentCappingLevelType? ResolveCore(string source)
+        public PaymentCappingLevelType? Resolve(
+            FundingStreamPeriodSheetType source,
+            PolicyFundingStreamPeriod destination,
+            PaymentCappingLevelType? destMember,
+            ResolutionContext context)
         {
-            if (!string.IsNullOrEmpty(source))
+            var sourceValue = source?.PaymentCappingLevel;
+
+            if (string.IsNullOrWhiteSpace(sourceValue))
             {
-                return
-                    (PaymentCappingLevelType)
-                        Enum.Parse(typeof(PaymentCappingLevelType), TransformSheetValue(source), ignoreCase: true);
+                return null;
             }
 
+            var transformed = TransformSheetValue(sourceValue);
+
+            if (Enum.TryParse<PaymentCappingLevelType>(transformed, true, out var result))
+            {
+                return result;
+            }
             return null;
+
         }
 
         private string TransformSheetValue(string source)
@@ -25,8 +38,9 @@
             {
                 source = "Group";
             }
-             
+
             return source;
         }
     }
+
 }

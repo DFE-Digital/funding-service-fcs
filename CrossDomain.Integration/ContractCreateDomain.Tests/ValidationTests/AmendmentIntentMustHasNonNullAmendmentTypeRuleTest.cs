@@ -11,7 +11,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void ShouldCreateErrorMessageForMasterContractWhenNewAmendmentIntentHasNoneAmendmentType()
         {
-            Contract.contract.CRMIntent = intent.Amendment;
+            Contract.contract.CRMIntent = Intent.Amendment;
             Contract.contract.amendmentType = amendmentType.None;
             var rule = new AmendmentIntentMustHasNonNullAmendmentTypeRule();
             Assert.IsTrue(rule.GetFailuresForItem(Contract).Any());
@@ -20,7 +20,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void ShouldNotCreateErrorMessageForMasterContractWhenNewAmendmentIntentHasNotificationAmendmentType()
         {
-            Contract.contract.CRMIntent = intent.Amendment;
+            Contract.contract.CRMIntent = Intent.Amendment;
             Contract.contract.amendmentType = amendmentType.Notification;
             var rule = new AmendmentIntentMustHasNonNullAmendmentTypeRule();
             Assert.IsFalse(rule.GetFailuresForItem(Contract).Any());
@@ -30,7 +30,7 @@
         public void ShouldCreateErrorMessageForContractWhenNewAmendmentIntentHasNoneAmendmentType()
         {
             var firstContract = Contract.contract.contracts.First();
-            firstContract.CRMIntent = intent.Amendment;
+            firstContract.CRMIntent = Intent.Amendment;
             firstContract.amendmentType = amendmentType.None;
             var rule = new AmendmentIntentMustHasNonNullAmendmentTypeRule();
             Assert.IsTrue(rule.GetFailuresForItem(Contract).Any());
@@ -40,7 +40,7 @@
         public void ShouldNotCreateErrorMessageForContractWhenNewAmendmentIntentHasNotificationAmendmentType()
         {
             var firstContract = Contract.contract.contracts.First();
-            firstContract.CRMIntent = intent.Amendment;
+            firstContract.CRMIntent = Intent.Amendment;
             firstContract.amendmentType = amendmentType.Notification;
             var rule = new AmendmentIntentMustHasNonNullAmendmentTypeRule();
             Assert.IsFalse(rule.GetFailuresForItem(Contract).Any());

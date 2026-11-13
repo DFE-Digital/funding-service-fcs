@@ -17,6 +17,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Utilities;
     using XmlSerializer = System.Xml.Serialization.XmlSerializer;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class PublishFeedSteps
@@ -40,7 +41,7 @@
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
                 string corpSchemaXml = ZipHelper.ToStringFromZippedBytes(feedItem.AtomFeedItemBytes);
-                contract contract = Deserialize(corpSchemaXml);
+                Contract contract = Deserialize(corpSchemaXml);
                 int numberOfDeliveryOrgsInGivenXml = GetNumberOfDeliveryOrgsInGivenXml(corpSchemaXml);
 
                 foreach (var allocationTestRow in groupedWithManyAllocationTestRows)
@@ -49,17 +50,17 @@
 
                     if (allocationTestRow.DeliveryOrganisationUkprn == null || allocationTestRow.DeliveryOrganisationProvider == null)
                     {
-                        Assert.AreEqual(0, numberOfDeliveryOrgsInGivenXml);
-                        Assert.IsNull(allocation.allocationOrganisationRelationships.Organisation,
+                        ClassicAssert.AreEqual(0, numberOfDeliveryOrgsInGivenXml);
+                        ClassicAssert.IsNull(allocation.allocationOrganisationRelationships.Organisation,
                             $"DeliveryOrganisation had a value when not expected - {contract.SerializeToXml()}");
                     }
                     else
                     {
-                        Assert.AreEqual(allocationTestRow.DeliveryOrganisationUkprn, allocation.allocationOrganisationRelationships.Organisation.ukprn.ToString(),
+                        ClassicAssert.AreEqual(allocationTestRow.DeliveryOrganisationUkprn, allocation.allocationOrganisationRelationships.Organisation.ukprn.ToString(),
                             $"Unexpected ukprn set in delivery org of allocation - {contract.SerializeToXml()}");
-                        Assert.AreEqual(allocationTestRow.DeliveryOrganisationProvider, allocation.allocationOrganisationRelationships.Organisation.legalName,
+                        ClassicAssert.AreEqual(allocationTestRow.DeliveryOrganisationProvider, allocation.allocationOrganisationRelationships.Organisation.legalName,
                             $"Unexpected ukprn set in delivery org of allocation - {contract.SerializeToXml()}");
-                        Assert.AreEqual(allocationTestRow.AllocationRef, allocation.allocationOrganisationRelationships.contractAllocationNumber,
+                        ClassicAssert.AreEqual(allocationTestRow.AllocationRef, allocation.allocationOrganisationRelationships.contractAllocationNumber,
                             $"Unexpected contractAllocationNumber  in delivery org of allocation - {contract.SerializeToXml()}");
                     }
                 }
@@ -92,10 +93,10 @@
             }
         }
 
-        private static contract Deserialize(string xml)
+        private static Contract Deserialize(string xml)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(contract));
-            return xs.Deserialize(new StringReader(xml)) as contract;
+            XmlSerializer xs = new XmlSerializer(typeof(Contract));
+            return xs.Deserialize(new StringReader(xml)) as Contract;
         }
 
         private IList<ContractFeedItemExpectedValues> RetrieveExpectedValuesFromTable(Table table)

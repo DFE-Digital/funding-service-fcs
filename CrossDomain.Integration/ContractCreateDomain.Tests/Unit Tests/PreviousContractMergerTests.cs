@@ -27,7 +27,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraft
+                            CRMIntent = Intent.UpdateDraft
                         }
                     }
                 }
@@ -70,7 +70,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraft
+                            CRMIntent = Intent.UpdateDraft
                         }
                     }
                 },
@@ -109,7 +109,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.Amendment
+                            CRMIntent = Intent.Amendment
                         }
                     }
                 }
@@ -152,7 +152,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.Amendment
+                            CRMIntent = Intent.Amendment
                         }
                     }
                 }
@@ -192,7 +192,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraftAmendment
+                            CRMIntent = Intent.UpdateDraftAmendment
                         }
                     }
                 }
@@ -244,7 +244,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraftAmendment
+                            CRMIntent = Intent.UpdateDraftAmendment
                         }
                     }
                 }
@@ -284,7 +284,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.New
+                            CRMIntent = Intent.New
                         }
                     }
                 }
@@ -318,7 +318,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraft,
+                            CRMIntent = Intent.UpdateDraft,
                             startDate = DateTime.Parse("2018-09-01"),
                             endDate = DateTime.Parse("2019-06-30"),
                             description = "Spreadsheet Contract Description",
@@ -368,8 +368,8 @@
                 {
                     contracts = new List<contractType>
                     {
-                        new contractType { CRMIntent = intent.UpdateDraft },
-                        new contractType { CRMIntent = intent.UpdateDraft }
+                        new contractType { CRMIntent = Intent.UpdateDraft },
+                        new contractType { CRMIntent = Intent.UpdateDraft }
                     }
                 }
             };
@@ -403,7 +403,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraft,
+                            CRMIntent = Intent.UpdateDraft,
                             contractAllocations = new List<contractAllocation>
                             {
                                 new contractAllocation
@@ -484,7 +484,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraft,
+                            CRMIntent = Intent.UpdateDraft,
                             contractAllocations = new List<contractAllocation>
                             {
                                 new contractAllocation
@@ -552,7 +552,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraft,
+                            CRMIntent = Intent.UpdateDraft,
                             contractAllocations = new List<contractAllocation>
                             {
                                 new contractAllocation
@@ -617,7 +617,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.Amendment,
+                            CRMIntent = Intent.Amendment,
                             contractAllocations = new List<contractAllocation>
                             {
                                 new contractAllocation
@@ -682,7 +682,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraftAmendment,
+                            CRMIntent = Intent.UpdateDraftAmendment,
                             contractAllocations = new List<contractAllocation>
                             {
                                 new contractAllocation
@@ -748,7 +748,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.UpdateDraftAmendment,
+                            CRMIntent = Intent.UpdateDraftAmendment,
                             contractAllocations = new List<contractAllocation>
                             {
                                 new contractAllocation
@@ -815,7 +815,7 @@
                     {
                         new contractType
                         {
-                            CRMIntent = intent.Amendment,
+                            CRMIntent = Intent.Amendment,
                             contractAllocations = new List<contractAllocation>
                             {
                                 new contractAllocation

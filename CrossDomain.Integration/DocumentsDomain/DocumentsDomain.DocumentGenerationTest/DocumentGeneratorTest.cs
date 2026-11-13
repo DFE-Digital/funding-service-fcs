@@ -33,7 +33,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         public void Initialize()
         {
             _corporateContractValidatorMock = new Mock<ICorporateContractValidator>();
-            _corporateContractValidatorMock.Setup(m => m.Validate(It.IsAny<contract>())).Returns<string>(null).Verifiable();
+            _corporateContractValidatorMock.Setup(m => m.Validate(It.IsAny<Contract>())).Returns<string>(null).Verifiable();
 
             _documentDefiner = new Mock<IDocumentDefiner>();
             _documentCreator = new Mock<IDocumentCreator>();
@@ -50,24 +50,29 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
                 _fundingTypeFundingPeriodQueryRepository.Object);
         }
 
-        [TestMethod, TestCategory("UnitTest")]
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void TestDocumentGeneratorWithFailedValidation()
         {
             const string failedValidationString = "Failed Validation";
-            contract masterContract = new contract()
+
+            var masterContract = new Contract
             {
-                contracts = new List<contractType>()
-                {
-                    new contract()
-                }
+                contracts = new List<contractType>
+        {
+            new Contract()
+        }
             };
 
-            _corporateContractValidatorMock.Setup(m => m.Validate(It.IsAny<contract>())).Returns(failedValidationString);
+            _corporateContractValidatorMock
+                .Setup(m => m.Validate(It.IsAny<Contract>()))
+                .Returns(failedValidationString);
+
             Action act = () => _documentGenerator.GenerateDocument("", masterContract, "");
 
-            act
-                .ShouldThrow<ArgumentException>()
-                .WithMessage(failedValidationString);
+            act.Should()
+               .Throw<ArgumentException>()
+               .WithMessage(failedValidationString);
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -83,9 +88,9 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
                 }
             }).Verifiable();
 
-            _documentDefiner.Setup(m => m.GetTargetFileName(It.IsAny<contract>())).Returns(new FctFile("target-container", "target-filename")).Verifiable();
+            _documentDefiner.Setup(m => m.GetTargetFileName(It.IsAny<Contract>())).Returns(new FctFile("target-container", "target-filename")).Verifiable();
 
-            _documentDefiner.Setup(m => m.GetContractDetails(It.IsAny<contract>())).Returns(new ContractIdentificationDetails()
+            _documentDefiner.Setup(m => m.GetContractDetails(It.IsAny<Contract>())).Returns(new ContractIdentificationDetails()
             {
                 UKPRN = 1,
                 ContractNumber = "SFA-1234",
@@ -110,11 +115,11 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
 
             _fundingTypeFundingPeriodQueryRepository.Setup(m => m.Get(It.IsAny<string>(), It.IsAny<string>())).Returns(fundingTypeFundingPeriod);
 
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 contracts = new List<contractType>()
                 {
-                    new contract()
+                    new Contract()
                 }
             };
 
@@ -124,7 +129,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
             Assert.AreEqual("SFA-1234", details.ContractNumber);
             Assert.AreEqual(99, details.ContractVersionNumber);
             _documentDefiner.Verify(m => m.GetDocumentParts(It.IsAny<string>(), It.IsAny<contractType>()), Times.Once);
-            _documentDefiner.Verify(m => m.GetTargetFileName(It.IsAny<contract>()), Times.Once);
+            _documentDefiner.Verify(m => m.GetTargetFileName(It.IsAny<Contract>()), Times.Once);
             _documentCreator.Verify(m => m.CreateDocument(It.IsAny<DocumentGenerationRequest>()), Times.Once);
             _documentMerger.Verify(m => m.MergeDocuments(It.IsAny<DocumentConvertRequest>()), Times.Once);
 
@@ -135,8 +140,8 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         {
             // Arrange
             _documentDefiner
-                .Setup(m => m.GetContractDetails(It.IsAny<contract>()))
-                .Returns<contract>(m => new ContractIdentificationDetails() { ContractNumber = "SFA-1234", ContractVersionNumber = 1, UKPRN = 12345678 })
+                .Setup(m => m.GetContractDetails(It.IsAny<Contract>()))
+                .Returns<Contract>(m => new ContractIdentificationDetails() { ContractNumber = "SFA-1234", ContractVersionNumber = 1, UKPRN = 12345678 })
                 .Verifiable();
 
             _documentDefiner
@@ -158,11 +163,11 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
 
             _fundingTypeFundingPeriodQueryRepository.Setup(m => m.Get(It.IsAny<string>(), It.IsAny<string>())).Returns(fundingTypeFundingPeriod).Verifiable();
 
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 contracts = new List<contractType>()
                 {
-                    new contract() { period = new period() }
+                    new Contract() { period = new Period() }
                 }
             };
 
@@ -179,8 +184,8 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         {
             // Arrange
             _documentDefiner
-                .Setup(m => m.GetContractDetails(It.IsAny<contract>()))
-                .Returns<contract>(m => new ContractIdentificationDetails()
+                .Setup(m => m.GetContractDetails(It.IsAny<Contract>()))
+                .Returns<Contract>(m => new ContractIdentificationDetails()
                 {
                     ContractNumber = "EOP-1234",
                     ContractVersionNumber = 1,
@@ -207,11 +212,11 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
 
             _fundingTypeFundingPeriodQueryRepository.Setup(m => m.Get(It.IsAny<string>(), It.IsAny<string>())).Returns(fundingTypeFundingPeriod).Verifiable();
 
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 contracts = new List<contractType>()
                 {
-                    new contract() { period = new period() }
+                    new Contract() { period = new Period() }
                 }
             };
 

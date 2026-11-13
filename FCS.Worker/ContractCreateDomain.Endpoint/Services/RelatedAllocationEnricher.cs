@@ -20,7 +20,7 @@
             _approvedContractRepository = approvedContractRepository;
         }
 
-        public async Task EnrichWithRelatedAllocationsWhenAppropriate(contract corpContract, ConnectionInfo connectionInfo)
+        public async Task EnrichWithRelatedAllocationsWhenAppropriate(Contract corpContract, ConnectionInfo connectionInfo)
         {
             var fspsToHaveAllocationNumberReplaced = new Dictionary<string, RelatedAllocationInfo>
             {
@@ -81,7 +81,7 @@
             }
         }
 
-        private async Task<Option<string>> GetRelatedAllocationNumberFromLastApprovedStorage(contract corpContract, string relatedFsp, ConnectionInfo connectionInfo)
+        private async Task<Option<string>> GetRelatedAllocationNumberFromLastApprovedStorage(Contract corpContract, string relatedFsp, ConnectionInfo connectionInfo)
         {
             return await _approvedContractRepository.FindAllocationNumberByUkprnAndFspCodeForLatestApproval(
                 corpContract.contractor.ukprn,
@@ -89,7 +89,7 @@
                 connectionInfo);
         }
 
-        private static Task<Option<string>> GetRelatedAllocationNumberFromInMemoryContract(contract corpContract, string relatedFsp)
+        private static Task<Option<string>> GetRelatedAllocationNumberFromInMemoryContract(Contract corpContract, string relatedFsp)
         {
             var allocationNumber = corpContract.contractAllocations
                 .SingleOrDefault(a => a.fundingStreamPeriodCode == relatedFsp)?.contractAllocationNumber;
@@ -104,7 +104,7 @@
                 RelatedFsp = relatedFsp;
             }
 
-            public RelatedAllocationInfo(string relatedFsp, Func<contract, string, Task<Option<string>>> getRelatedAllocationNumber)
+            public RelatedAllocationInfo(string relatedFsp, Func<Contract, string, Task<Option<string>>> getRelatedAllocationNumber)
             {
                 RelatedFsp = relatedFsp;
                 GetRelatedAllocationNumber = getRelatedAllocationNumber;
@@ -112,7 +112,7 @@
 
             public string RelatedFsp { get; }
 
-            public Func<contract, string, Task<Option<string>>> GetRelatedAllocationNumber { get; }
+            public Func<Contract, string, Task<Option<string>>> GetRelatedAllocationNumber { get; }
         }
     }
 }

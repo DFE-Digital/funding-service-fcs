@@ -1,37 +1,53 @@
-﻿namespace PaymentManagementDomain.PaymentSchedule.DeliverableAggregation
+﻿
+namespace PaymentManagementDomain.PaymentSchedule.DeliverableAggregation
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using SFA.FCT.CrossDomain.Integration.Common;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string EndpointName => "Xrm.DeliverableAggregation";
+        public string EndpointName =>
+            "Xrm.DeliverableAggregation";
 
-        public string NameOfAssembly => "PaymentManagementDomain.PaymentSchedule.dll";
+        public string NameOfAssembly =>
+            "PaymentManagementDomain.PaymentSchedule.dll";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
-        public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>();
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            new List<CommandRoute>();
 
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = new Logger(new System.Diagnostics.TraceSource("WorkerRole"));
+            // ✅ Logging (FIXED FROM TraceSource)
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName} on FCS.Worker", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions (PRESERVED)
             configuration.Conventions()
-                .DefiningCommandsAs(t => (t.Namespace != null && t.Namespace.EndsWith("Commands")) || t.GetInterfaces().Contains(typeof(ICommand)));
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    t.GetInterfaces().Contains(typeof(ICommand)))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddDeliverableAggregationServices();
             });
 
             return configuration;

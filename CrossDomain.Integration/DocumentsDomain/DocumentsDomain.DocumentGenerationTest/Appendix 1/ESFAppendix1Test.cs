@@ -21,7 +21,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsRequiredForESF()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10004643_ESF623_4);
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10004643_ESF623_4);
             ESFAppendix1 classUnderTest = new ESFAppendix1(null, null, null);
             Assert.IsTrue(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -29,7 +29,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsNotRequiredForOtherForESFAppendix1()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10004643_ESF623_4.Replace("<ctr:fundingType><ctr:fundingTypeCode>ESF</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10004643_ESF623_4.Replace("<ctr:fundingType><ctr:fundingTypeCode>ESF</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
             ESFAppendix1 classUnderTest = new ESFAppendix1(null, null, null);
             Assert.IsFalse(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -41,11 +41,21 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(ApplicationException))]
         public void TestThatRequiredHeaderDocumentNameThrowsExceptionForESFAppendix1()
         {
-            string headerName = new ESFAppendix1(null, DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(), DocumentConfigurationSourceTests.GetMockFpQueryRepository(new List<MockQueryRepositorySetup>())).RequiredHeaderDocumentName;
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+                var sut = new ESFAppendix1(
+                    null,
+                    DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(),
+                    DocumentConfigurationSourceTests.GetMockFpQueryRepository(new List<MockQueryRepositorySetup>())
+                );
+
+                // Trigger the exception by accessing the property
+                _ = sut.RequiredHeaderDocumentName;
+            });
         }
+
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void TestGetDocumentPartFor10004643()

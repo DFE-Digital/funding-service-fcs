@@ -1,19 +1,20 @@
 ﻿namespace SFA.FCT.DocumentsDomain.DocumentGeneration.DocumentDefiner.DocumentPartCreators.Appendix1
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using Aspose.Words.Replacing;
     using Aspose.Words.Tables;
+    using Common;
     using Common.Models;
     using ContractManagement.DataStore.Repositories;
     using CrossDomain.Integration.Entities.CorporateContract;
-    using DocumentConfiguration;
-    using Integration;
-    using Common;
     using DataStore.Models;
     using DataStore.Repositories;
+    using DocumentConfiguration;
     using Dtos;
+    using Integration;
     using Optional;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class NlaAppendix1 : DocumentPartCreator
     {
@@ -69,14 +70,19 @@
             return nlapFundingConfig
                 .ValueOr(new NlapFundingConfig(contract.contractor.ukprn, 0, 0, 0, 0));
         }
-
         private static void CleanupIndentMarkers(Row row)
         {
             const string fourSpaces = "    ";
 
             if (row.FirstCell.GetText().Contains(OfWhichNewStartsText))
             {
-                row.FirstCell.Range.Replace(Constants.IndentTextMarker, fourSpaces, true, false);
+                var options = new FindReplaceOptions
+                {
+                    MatchCase = false,
+                    FindWholeWordsOnly = false
+                };
+
+                row.FirstCell.Range.Replace(Constants.IndentTextMarker, fourSpaces, options);
             }
             else
             {
@@ -84,7 +90,8 @@
             }
         }
 
-        private string GetTemplateFilenameFromPolicyConfig(contractType contract, string templateContainer)
+
+    private string GetTemplateFilenameFromPolicyConfig(contractType contract, string templateContainer)
         {
             string documentTemplatePrefix =
                 _fundingTypeFundingPeriodQueryRepository.Get(contract.fundingType.fundingTypeCode, contract.GetFundingPeriod())
@@ -162,8 +169,6 @@
                                         GetSumOfPlannedValuesMergeFieldValue(ca, IsApr24ToMar25, d => d.ToString(Constants.DecimalToValueFormat))),
                                     new MergeFieldType("Apr25ToMar26",
                                         GetSumOfPlannedValuesMergeFieldValue(ca, IsApr25ToMar26, d => d.ToString(Constants.DecimalToValueFormat))),
-                                     new MergeFieldType("Apr26ToMar27",
-                                        GetSumOfPlannedValuesMergeFieldValue(ca, IsApr26ToMar27, d => d.ToString(Constants.DecimalToValueFormat))),
                                     new MergeFieldType("TotalFunding",
                                         GetTotalFundingMergeFieldValue(ca, nlapFundingConfig))
                                 }
@@ -197,8 +202,6 @@
                                 var apr23ToMar24 = GetSummedPlannedValue(ca.GetAllDeliverables(), deliverableCodeToDisplay, IsApr23ToMar24);
                                 var apr24ToMar25 = GetSummedPlannedValue(ca.GetAllDeliverables(), deliverableCodeToDisplay, IsApr24ToMar25);
                                 var apr25ToMar26 = GetSummedPlannedValue(ca.GetAllDeliverables(), deliverableCodeToDisplay, IsApr25ToMar26);
-                                var apr26ToMar27 = GetSummedPlannedValue(ca.GetAllDeliverables(), deliverableCodeToDisplay, IsApr26ToMar27);
-
 
                                 var total = GetSummedPlannedValue(ca.GetAllDeliverables(), deliverableCodeToDisplay, cdp => true);
                                 return new RowTypeWithFormattingInfo(false, isOfWhichRow: true)
@@ -218,7 +221,6 @@
                                         new MergeFieldType("Apr23ToMar24", apr23ToMar24),
                                         new MergeFieldType("Apr24ToMar25", apr24ToMar25),
                                         new MergeFieldType("Apr25ToMar26", apr25ToMar26),
-                                        new MergeFieldType("Apr26ToMar27", apr26ToMar27),
                                         new MergeFieldType("TotalFunding", total)
                                     }
                                 };
@@ -426,11 +428,6 @@
         private static bool IsApr25ToMar26(contractDeliverablePeriodsTypeContractDeliverablePeriod deliverablePeriod)
         {
             return IsInFy1stYear(deliverablePeriod, 2025) || IsInFy2ndYear(deliverablePeriod, 2026);
-        }
-
-        private static bool IsApr26ToMar27(contractDeliverablePeriodsTypeContractDeliverablePeriod deliverablePeriod)
-        {
-            return IsInFy1stYear(deliverablePeriod, 2026) || IsInFy2ndYear(deliverablePeriod, 2027);
         }
 
         private static bool IsInFy1stYear(contractDeliverablePeriodsTypeContractDeliverablePeriod deliverablePeriod, int periodYear)

@@ -30,6 +30,7 @@
     using Utilities;
     using ContractAllocation = CrossDomain.Integration.Entities.PerformanceManagement.FundingClaimReconciliation.ContractAllocation;
     using Allocation = SFA.FCT.PerformanceManagementDomain.DataStore.Models.Allocation;
+    using NUnit.Framework.Legacy;
 
     public class PerformanceManagementPageObject
     {
@@ -485,7 +486,7 @@
             {
                 if (stream == null)
                 {
-                    Assert.Fail("Could not load FundingClaimReconciliation schema resource.");
+                    ClassicAssert.Fail("Could not load FundingClaimReconciliation schema resource.");
                 }
 
                 schemas.Add(SchemaNamespace, new XmlTextReader(stream));

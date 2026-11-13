@@ -43,7 +43,7 @@ namespace Datafix.Tests.Automation.Releases.R151
 
         }
 
-        private void AmendunderterminatedContract(IEnumerable<ContractInformation> approvedUnderTerminationContracts, IEndpointInstance endpoint)
+        private void AmendunderterminatedContract(IEnumerable<ContractInformation> approvedUnderTerminationContracts, EndpointBuilder endpoint)
         {
             var levyContractsForApprovedApproved = approvedUnderTerminationContracts.Where(c => _approvedUnderTerminatedContracts.Contains(c.ContractNumber)).ToList();
 
@@ -63,7 +63,7 @@ namespace Datafix.Tests.Automation.Releases.R151
             });
         }
 
-        private void AmendApprovedApproved(IEnumerable<ContractInformation> approvedApprovedContracts, IEndpointInstance endpoint)
+        private void AmendApprovedApproved(IEnumerable<ContractInformation> approvedApprovedContracts, EndpointBuilder endpoint)
         {
             var levyContractsForApprovedApproved = approvedApprovedContracts.Where(c => _approvedApprovedContracts.Contains(c.ContractNumber)).ToList();
 
@@ -82,7 +82,7 @@ namespace Datafix.Tests.Automation.Releases.R151
             });
         }
 
-        private void AmendApprovedModified(IEnumerable<ContractInformation> approvedModifiedContracts, IEndpointInstance endpoint)
+        private void AmendApprovedModified(IEnumerable<ContractInformation> approvedModifiedContracts, EndpointBuilder endpoint)
         {
             var levyContractsForApprovedModified = approvedModifiedContracts.Where(c => _approvedModifiedContracts.Contains(c.ContractNumber)).ToList();
 
@@ -101,7 +101,7 @@ namespace Datafix.Tests.Automation.Releases.R151
             });
         }
 
-        private void AmendIndividualContract(IEnumerable<ContractInformation> levyContracts, IEndpointInstance endpoint, string contractNumber, string overrideTemplateName, string overrideAmendmentTemplate)
+        private void AmendIndividualContract(IEnumerable<ContractInformation> levyContracts, EndpointBuilder endpoint, string contractNumber, string overrideTemplateName, string overrideAmendmentTemplate)
         {
             var levyContractsForContractNumber = levyContracts.Where(c => c.ContractNumber.Equals(contractNumber)).ToList();
 

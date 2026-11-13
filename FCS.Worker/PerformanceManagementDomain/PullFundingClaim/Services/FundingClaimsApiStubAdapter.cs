@@ -6,7 +6,8 @@
     using System.Linq;
     using System.Threading.Tasks;
     using DTOs;
-    using Microsoft.WindowsAzure.Storage.Table;
+    using Azure;
+    using Azure.Data.Tables;
     using Newtonsoft.Json;
     using SFA.FCT.CrossDomain.Integration.Common.PagedStorage;
 
@@ -44,24 +45,32 @@
         {
             var fundingClaimEntities = _azureTableStore.GetRows<FundingClaimApiEntity>(_tableName).ToList();
 
-            var fundingClaimsForPage =  fundingClaimEntities.Select(e => JsonConvert.DeserializeObject<FundingClaimApiDto>(e.Json))
+            var fundingClaimsForPage = fundingClaimEntities.Select(e => JsonConvert.DeserializeObject<FundingClaimApiDto>(e.Json))
                 .ToList();
 
-            return Task.FromResult((IReadOnlyCollection<FundingClaimApiDto>) fundingClaimsForPage);
+            return Task.FromResult((IReadOnlyCollection<FundingClaimApiDto>)fundingClaimsForPage);
         }
 
-        private class FundingClaimApiEntity : TableEntity
+        private class FundingClaimApiEntity : ITableEntity
         {
+            public string PartitionKey { get; set; }
+            public string RowKey { get; set; }
+            public DateTimeOffset? Timestamp { get; set; }
+            public ETag ETag { get; set; }
+
             public FundingClaimApiEntity()
             {
             }
 
-            public FundingClaimApiEntity(string partitionKey, string rowKey, string json) : base(partitionKey, rowKey)
+            public FundingClaimApiEntity(string partitionKey, string rowKey, string json)
             {
+                PartitionKey = partitionKey;
+                RowKey = rowKey;
                 Json = json;
-            }
 
+            }
             public string Json { get; set; }
+
         }
     }
 }

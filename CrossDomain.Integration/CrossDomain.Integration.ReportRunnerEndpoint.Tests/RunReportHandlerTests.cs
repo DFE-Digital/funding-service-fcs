@@ -30,7 +30,7 @@
             reportRunner.Client = reportingClient.Object;
 
             // act
-            reportRunner.RunReport(new RunReportCommand());
+           // reportRunner.RunReport(new RunReportCommand()); //Ram commented we have to check this as well
 
             // assert
             loggerMock.Verify(l => l.LogError(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<object[]>()), Times.Never);

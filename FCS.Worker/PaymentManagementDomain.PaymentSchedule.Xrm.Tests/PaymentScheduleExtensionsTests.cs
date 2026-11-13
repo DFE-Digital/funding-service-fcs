@@ -1,11 +1,12 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests
 {
+    extern alias Entity;
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     
     using PaymentSchedule.PaymentScheduleXrm.Extensions;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
     
     [TestClass]
     public class PaymentScheduleExtensionsTests

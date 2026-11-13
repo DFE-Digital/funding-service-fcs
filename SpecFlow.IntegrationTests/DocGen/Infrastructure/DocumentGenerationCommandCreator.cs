@@ -4,7 +4,8 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    //using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
     using SFA.FCT.ContractCreateDomain.Implementation.Services;
     using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
@@ -40,7 +41,7 @@
 
                 contractDeliverableEnricher.Enrich(extendedContractType);
 
-                contract corpChildContract = ContractDtoTransformer.TransformToCorpContract(extendedContractType.contracts.First());
+                Contract corpChildContract = ContractDtoTransformer.TransformToCorpContract(extendedContractType.contracts.First());
 
                 return new DocumentGenerationCommand
                 {

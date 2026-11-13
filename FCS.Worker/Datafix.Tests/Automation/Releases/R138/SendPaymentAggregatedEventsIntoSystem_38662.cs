@@ -24,7 +24,7 @@ namespace Datafix.Tests.Automation.Releases.R138
 
             string jsonResource = "Resources.R138.SendPaymentAggregatedEvents_38662.json";
             var messageList = FromJsonMessageList<PaymentScheduleEvent>("Datafix.Tests", jsonResource);
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentScheduleEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentScheduleEvent>();
 
 
             foreach (var message in messageList)

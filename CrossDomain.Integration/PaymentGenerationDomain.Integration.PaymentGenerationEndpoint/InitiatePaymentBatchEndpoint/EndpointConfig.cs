@@ -1,13 +1,22 @@
+﻿// Target: NServiceBus v8+ (DI via Microsoft.Extensions.DependencyInjection)
+
 namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentBatchEndpoint
 {
+    using Common.Commands;
+    using Microsoft.Extensions.DependencyInjection; // <-- new
+    using Microsoft.Extensions.Logging;
+    using NServiceBus;
+    using PaymentGenerationDomain.BusinessLogic;
+    using PaymentGenerationDomain.Integration.DataStore;
+    using SFA.FCS.Worker.Common;
+    using SFA.FCT.CrossDomain.Integration.Common;
+    using SFA.FCT.CrossDomain.Integration.OverrideDate;
+    using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore;
+    using DataStore.Repositories;
+    using Infrastructure;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
-    using Common.Commands;
-    using Ioc;
-    using NServiceBus;
-    using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -15,32 +24,64 @@ namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.Initiate
 
         public string EndpointName => "PaymentGenerationDomain.InitiatePaymentBatch";
 
-        public IReadOnlyCollection<CommandRoute> Routes => new []
+        public IReadOnlyCollection<CommandRoute> Routes => new[]
         {
             new CommandRoute("PaymentGenerationDomain.InitiatePaymentRun", typeof(InitiatePaymentRunCommand))
         };
 
         public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToArray();
 
+
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            if (loggerFactory is null) throw new ArgumentNullException(nameof(loggerFactory));
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
+            // ✅ Correct logger usage
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => null != t.Namespace && t.Namespace.EndsWith("Events"))
-                .DefiningMessagesAs(t => null != t.Namespace && t.Namespace.EndsWith("Messages"));
+            var connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnection");
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new InitiatePaymentBatchWindsorInstaller(loggerFactory)));
+                throw new InvalidOperationException(
+                    "AzureServiceBusConnection environment variable is not set.");
+            }
+
+            // ✅ Clean conventions
+            configuration.Conventions()
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
+
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Converted WindsorInstaller → Microsoft DI
+            configuration.RegisterComponents(services =>
+            {
+                services.AddSingleton(loggerFactory);
+
+                // -----------------------------
+                // Scoped services (from installer)
+                // -----------------------------
+                services.AddScoped<IDataAccessManager, DataAccessManager>();
+                services.AddScoped<PaymentGenerationDbContext>();
+                services.AddScoped<IDate, StaticDate>();
+                services.AddScoped<IOverrideDateDBContext, OverrideDateDBContext>();
+                services.AddScoped<ISubnominalAggregationRepository, SubnominalAggregationRepository>();
+
+                // -----------------------------
+                // Singleton services
+                // -----------------------------
+                services.AddSingleton<ISessionConnectionFactory, SessionConnectionFactory>();
             });
 
             return configuration;
         }
+
     }
 }

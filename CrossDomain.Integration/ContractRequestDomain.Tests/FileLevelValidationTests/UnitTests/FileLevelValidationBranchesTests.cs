@@ -1,3 +1,5 @@
+extern alias RequestDomainDS;
+
 namespace ContractRequestDomain.Tests.FileLevelValidationTests.UnitTests
 {
     using System.Collections.Generic;
@@ -6,7 +8,8 @@ namespace ContractRequestDomain.Tests.FileLevelValidationTests.UnitTests
     using Moq;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
     using SFA.FCT.ContractRequestDomain.Common;
-    using SFA.FCT.ContractRequestDomain.DataStore.Repositories;
+    using IFundingAllocationReleaseRepository = RequestDomainDS::SFA.FCT.ContractRequestDomain.DataStore.Repositories.IFundingAllocationReleaseRepository;
+    using IFundingTypeFundingPeriodRepository = RequestDomainDS::SFA.FCT.ContractRequestDomain.DataStore.Repositories.IFundingTypeFundingPeriodRepository;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Entities.ExcelUpload;
     using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore.Services;

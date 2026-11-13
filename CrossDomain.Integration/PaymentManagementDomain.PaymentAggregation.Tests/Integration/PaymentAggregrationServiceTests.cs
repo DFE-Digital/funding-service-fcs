@@ -1,13 +1,14 @@
 ﻿namespace SFA.FCT.PaymentManagementDomain.PaymentAggregation.Tests.Integration
 {
+    extern alias Entities;
     using System.Collections.Generic;
     using System.Data.Entity;
     using AllocationDeliveryDomain.Common.DataStore;
     using AllocationDeliveryDomain.Common.DataStore.Model;
     using BusinessLogic;
     using BusinessLogic.Services;
-    using CrossDomain.Integration.Entities.Data;
-    using CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
     using Framework.Logging.Interfaces;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;

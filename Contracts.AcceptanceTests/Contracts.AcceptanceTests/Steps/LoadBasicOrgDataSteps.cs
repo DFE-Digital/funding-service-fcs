@@ -6,6 +6,7 @@
     using Pages;
     using TechTalk.SpecFlow;
     using Xrm.TestFramework;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class LoadBasicOrgDataSteps
@@ -22,7 +23,7 @@
         {
             _contractLoadPage.InputFilePath = Path.Combine(filePath, fileName);
 
-            Assert.IsTrue(File.Exists(_contractLoadPage.InputFilePath), "Input file does not exist");
+            ClassicAssert.IsTrue(File.Exists(_contractLoadPage.InputFilePath), "Input file does not exist");
         }
 
         [Then(@"UKPRN '(.*)' has not been duplicated in CRM")]

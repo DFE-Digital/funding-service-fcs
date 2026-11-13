@@ -23,7 +23,7 @@
             string ukprn = contractXmlSearchHelper.GetElementValue("ukprn");
             string contractNumber = contractXmlSearchHelper.GetFirstContractNumber();
             string contractVersionNumber = contractXmlSearchHelper.GetFirstContractVersionNumber();
-            return string.Format(CultureInfo.InvariantCulture, contract.ToStringFormat, ukprn, contractNumber, contractVersionNumber);
+            return string.Format(CultureInfo.InvariantCulture, Contract.ToStringFormat, ukprn, contractNumber, contractVersionNumber);
         }
 
         public abstract string GetTitle(AtomFeedItem row);

@@ -1,70 +1,72 @@
 ﻿namespace SFA.FCT.CrossDomain.Integration.Common.MessageMutators
 {
+    using System;
     using System.IO;
     using System.IO.Compression;
     using System.Text;
+    using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
     using NServiceBus.MessageMutator;
-    using NServiceBus.Unicast.Messages;
-    using Repositories;
+    using SFA.FCT.CrossDomain.Integration.Common.Repositories;
 
-    public class TransportMessageCompressionMutator : IMutateTransportMessages
+    public class TransportMessageCompressionMutator : IMutateOutgoingTransportMessages, IMutateIncomingTransportMessages
     {
         private static readonly int OneKb = 1024;
         private static readonly int AzureServiceBusSizeLimitInKb = 256 * OneKb;
-        private static readonly int VeryLargeMessageSize = AzureServiceBusSizeLimitInKb - OneKb; // 255Kb
+        private static readonly int VeryLargeMessageSize = AzureServiceBusSizeLimitInKb - OneKb;
         private static readonly string VeryLargeMessageHeaderKey = "IAmFcsDataBusMessage";
         private static readonly ILog Logger = LogManager.GetLogger("TransportMessageCompressionMutator");
 
-        public void MutateOutgoing(LogicalMessage message, TransportMessage transportMessage)
+        public Task MutateOutgoing(MutateOutgoingTransportMessageContext context)
         {
-            // there are many small messages that don't need compression and don't merit the overheads.
-            if (transportMessage.Body.Length > VeryLargeMessageSize)
-            { 
-                LargeMessageRepository.StoreMessageBody(key: transportMessage.Id, transportMessage.Body);
+            var body = context.OutgoingBody.ToArray();
+            var headers = context.OutgoingHeaders;
 
-                transportMessage.Body = Encoding.ASCII.GetBytes("{\"the-body-is-in-blob-storage\":}");
-
-                transportMessage.Headers[VeryLargeMessageHeaderKey] = transportMessage.Id;
-            }
-            else if (transportMessage.Body.Length > OneKb)
+            if (body.Length > VeryLargeMessageSize)
             {
-                Logger.Debug("transportMessage.Body size before compression: " + transportMessage.Body.Length);
+                var messageId = headers.TryGetValue(Headers.MessageId, out var id) ? id : Guid.NewGuid().ToString();
+                LargeMessageRepository.StoreMessageBody(messageId, body);
+                context.OutgoingBody = Encoding.ASCII.GetBytes("{\"the-body-is-in-blob-storage\":}");
+                headers[VeryLargeMessageHeaderKey] = messageId;
+            }
+            else if (body.Length > OneKb)
+            {
+                Logger.Debug($"Body size before compression: {body.Length}");
 
-                MemoryStream memoryStream = new MemoryStream(transportMessage.Body);
-                MemoryStream outStream = new MemoryStream();
-
-                using (GZipStream tinyStream = new GZipStream(outStream, CompressionMode.Compress))
+                using var memoryStream = new MemoryStream(body);
+                using var outStream = new MemoryStream();
+                using (var gzip = new GZipStream(outStream, CompressionMode.Compress))
                 {
-                    memoryStream.CopyTo(tinyStream);
+                    memoryStream.CopyTo(gzip);
                 }
 
-                // copy the compressed buffer only after the GZipStream is disposed, 
-                // otherwise, not all the compressed message will be copied.
-                transportMessage.Body = outStream.ToArray();
-                transportMessage.Headers["IWasCompressed"] = "true";
-                Logger.Debug("transportMessage.Body size after compression: " + transportMessage.Body.Length);
+                context.OutgoingBody = outStream.ToArray();
+                headers["IWasCompressed"] = "true";
+
+                Logger.Debug($"Body size after compression: {context.OutgoingBody.Length}");
             }
+
+            return Task.CompletedTask;
         }
 
-        public void MutateIncoming(TransportMessage transportMessage)
+        public Task MutateIncoming(MutateIncomingTransportMessageContext context)
         {
-            if (transportMessage.Headers.ContainsKey("IWasCompressed"))
-            {
-                using (GZipStream bigStream = new GZipStream(new MemoryStream(transportMessage.Body), CompressionMode.Decompress))
-                {
-                    MemoryStream bigStreamOut = new MemoryStream();
-                    bigStream.CopyTo(bigStreamOut);
-                    transportMessage.Body = bigStreamOut.ToArray();
-                }
-            }
-            else if (transportMessage.Headers.ContainsKey(VeryLargeMessageHeaderKey))
-            {
-                var key = transportMessage.Headers[VeryLargeMessageHeaderKey];
+            var headers = context.Headers;
 
-                transportMessage.Body = LargeMessageRepository.GetMessageBody(key);
+            if (headers.ContainsKey("IWasCompressed"))
+            {
+                using var gzip = new GZipStream(new MemoryStream(context.Body.ToArray()), CompressionMode.Decompress);
+                using var outStream = new MemoryStream();
+                gzip.CopyTo(outStream);
+                context.Body = outStream.ToArray();
             }
+            else if (headers.TryGetValue(VeryLargeMessageHeaderKey, out var key))
+            {
+                context.Body = LargeMessageRepository.GetMessageBody(key);
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using ContractManagement.DataStore.Repositories;
-    using EngagementWatcher.Handlers;
-    using EngagementWatcher.Services;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Handlers;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using NServiceBus.Testing;

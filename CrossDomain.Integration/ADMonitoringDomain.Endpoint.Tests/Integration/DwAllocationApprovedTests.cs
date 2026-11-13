@@ -1,5 +1,6 @@
 ﻿namespace ADMonitoringDomain.Endpoint.Tests.Integration
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -24,15 +25,15 @@
     using SFA.FCT.AllocationDelivery.DataStore;
     using SFA.FCT.AllocationDelivery.DataStore.Model;
     using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore;
     using UnitTests.Common;
-    using Allocation = SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation;
+    
     using SFA.FCT.Framework.Logging.NullObjects;
     using SFA.FCT.CrossDomain.Integration.OverrideDate;
     using SFA.FCT.CrossDomain.Integration.Common.SchemaValidator;
@@ -41,7 +42,7 @@
     using ADMonitoringDomain.Endpoint.Repositories;
     using NServiceBus;
     using NServiceBus.Testing;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using EntityData= Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using ISessionConnectionFactory = Infrastructure.ISessionConnectionFactory;
 
     [TestClass]
@@ -277,7 +278,7 @@
             var sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
             sessionConnectionFactoryMock
                 .Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
-                .Returns(ConnectionInfo.CreateFrom(new ContractManagementDbContext().Database.Connection));
+                .Returns(EntityData.ConnectionInfo.CreateFrom(new ContractManagementDbContext().Database.Connection));
 
             return new ContractAllocationApprovedHandler(
                 logger,
@@ -500,13 +501,13 @@
 
             var message = new PaymentScheduleEvent
             {
-                PaymentScheduleAllocation = new Allocation
+                PaymentScheduleAllocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
                 {
                     AllocationNumber = PoPAlNo,
                     ContractNumber = PoPConNo,
                     VersionNumber = 1,
                     FundingStreamPeriodCode = PoPFspCode,
-                    Organisation = new SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Organisation
+                    Organisation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Organisation
                     {
                         MainOrganisationIdentifier = "ORG1234567",
                         OrganisationIdentifiers = new List<OrganisationIdentifier>
@@ -538,12 +539,12 @@
 
             var message = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = PoPAlNo,
                     VersionNumber = 1,
                     FundingStreamPeriodCode = PoPFspCode,
-                    Organisation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Organisation
+                    Organisation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Organisation
                     {
                         MainOrganisationIdentifier = "ORG1234567",
                         AlternativeOrganisationIdentifiers = new List<OrgainsationIdentifier>
@@ -651,7 +652,7 @@
             var handlerPaymentScheduleEvent = SetupContractAllocationApprovedHandler();
             var messagePaymentScheduleEvent = new PaymentScheduleEvent
             {
-                PaymentScheduleAllocation = new Allocation
+                PaymentScheduleAllocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
                 {
                     AllocationNumber = PoPAlNo,
                     ContractNumber = PoPConNo,
@@ -732,7 +733,7 @@
 
             var messagePaymentAggregatedEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     VersionNumber = VerNo,
                     AllocationNumber = PoPAlNo,
@@ -910,7 +911,7 @@
             var handlerPaymentScheduleEvent = SetupContractAllocationApprovedHandler();
             var messagePaymentScheduleEvent = new PaymentScheduleEvent
             {
-                PaymentScheduleAllocation = new Allocation
+                PaymentScheduleAllocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
                 {
                     AllocationNumber = PoPAlNo,
                     ContractNumber = PoPConNo,
@@ -990,7 +991,7 @@
 
             var messagePaymentAggregatedEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     VersionNumber = AmendVerNo,
                     AllocationNumber = PoPAlNo,
@@ -1168,7 +1169,7 @@
             var handlerPaymentScheduleEvent = SetupContractAllocationApprovedHandler();
             var messagePaymentScheduleEvent = new PaymentScheduleEvent
             {
-                PaymentScheduleAllocation = new Allocation
+                PaymentScheduleAllocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
                 {
                     AllocationNumber = PoAAlNo,
                     ContractNumber = PoAConNo,
@@ -1249,7 +1250,7 @@
             var handlerPaymentAggregatedEvent = SetupContractAllocationApprovedHandler();
             var messagePaymentAggregatedEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     VersionNumber = AmendVerNo,
                     AllocationNumber = PoAAlNo,
@@ -1426,7 +1427,7 @@
             var handlerPaymentScheduleEvent = SetupContractAllocationApprovedHandler();
             var messagePaymentScheduleEvent = new PaymentScheduleEvent
             {
-                PaymentScheduleAllocation = new Allocation
+                PaymentScheduleAllocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
                 {
                     AllocationNumber = ExtAlNo,
                     ContractNumber = ExtConNo,
@@ -1595,7 +1596,7 @@
             var handlerPaymentScheduleEvent = SetupContractAllocationApprovedHandler();
             var messagePaymentScheduleEvent = new PaymentScheduleEvent
             {
-                PaymentScheduleAllocation = new Allocation
+                PaymentScheduleAllocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
                 {
                     AllocationNumber = ExtAlNo,
                     ContractNumber = ExtConNo,
@@ -1754,12 +1755,12 @@
 
             var message = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = PoIAlNo,
                     VersionNumber = AmendVerNo,
                     FundingStreamPeriodCode = PoIFspCode,
-                    Organisation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Organisation
+                    Organisation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Organisation
                     {
                         MainOrganisationIdentifier = "ORG1234567",
                         AlternativeOrganisationIdentifiers = new List<OrgainsationIdentifier>

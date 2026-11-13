@@ -45,7 +45,7 @@
 
         public ILogger Logger { get; set; }
 
-        public DocumentSaveCommand GenerateDocument(string correlationId, contract contract, string masterContractNumber)
+        public DocumentSaveCommand GenerateDocument(string correlationId, Contract contract, string masterContractNumber)
         {
             // Guard conditions
             ValidateContract(contract);
@@ -119,7 +119,7 @@
             return null;
         }
 
-        private void ValidateContract(contract contract)
+        private void ValidateContract(Contract contract)
         {
             var validateMessage = _contractValidator.Validate(contract);
 

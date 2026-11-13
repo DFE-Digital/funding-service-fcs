@@ -1,50 +1,75 @@
-﻿namespace ContractManagementDomain.Endpoint.InitiateContractApproval
+﻿
+namespace ContractManagementDomain.Endpoint.InitiateContractApproval
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.ContractManagementService.Common.Commands;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "ContractManagementDomain.Endpoint.dll";
+        // ✅ Assembly
+        public string NameOfAssembly =>
+            "ContractManagementDomain.Endpoint.dll";
 
-        public string EndpointName => "ContractManagementDomain.InitiateContractApproval";
+        // ✅ Endpoint name
+        public string EndpointName =>
+            "ContractManagementDomain.InitiateContractApproval";
 
-        private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint = new List<string>
+        // ✅ Events used (only when needed)
+        private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint =
+            new List<string>
+            {
+                nameof(ContractNotificationPublishedToProviderEvent)
+            };
+
+        // ✅ Subscriptions
+        public IReadOnlyCollection<Subscription> Subscriptions => new[]
         {
-            nameof(ContractNotificationPublishedToProviderEvent)
+            new Subscription(
+                "DocumentsDomain.XrmHandler",
+                typeof(ContractNotificationPublishedToProviderEvent))
         };
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new []
-        {
-            new Subscription("DocumentsDomain.XrmHandler", typeof(ContractNotificationPublishedToProviderEvent))
-        };
-
+        // ✅ Command routes
         public IReadOnlyCollection<CommandRoute> Routes => new[]
         {
-            new CommandRoute("ContractManagementDomain.ContractApproved", typeof (PublishApprovedContractCommand))
+            new CommandRoute(
+                "ContractManagementDomain.ContractApproved",
+                typeof(PublishApprovedContractCommand))
         };
 
+        // ✅ Endpoint configuration
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging (standard)
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation(
+                "Started Endpoint {EndpointName} on FCS.Worker",
+                EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions (standardised)
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null &&
+                    t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization (mandatory for .NET 8)
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ Dependency Injection (clean call)
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddInitiateContractApprovalServices();
             });
 
             return configuration;

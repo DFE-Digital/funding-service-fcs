@@ -1,12 +1,13 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentRunEndpoint
 {
+    extern alias Entities;
     using System.Threading.Tasks;
     using BusinessLogic;
     using Common;
     using Common.Commands;
     using Infrastructure;
     using NServiceBus;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.Framework.Logging.Interfaces;
 
     public class InitiatePaymentRunHandler : IHandleMessages<InitiatePaymentRunCommand>

@@ -107,7 +107,7 @@
             ContractIntent intent,
             IMessageHandlerContext context)
         {
-            contract corpContract = _extendedContractTypeTransformer.TransformToCorpContract(childContract);
+            Contract corpContract = _extendedContractTypeTransformer.TransformToCorpContract(childContract);
             corpContract.IsNewAmendment = intent == ContractIntent.NewAmendment;
             var message = new EnrichContractForDocumentationCommand
             {

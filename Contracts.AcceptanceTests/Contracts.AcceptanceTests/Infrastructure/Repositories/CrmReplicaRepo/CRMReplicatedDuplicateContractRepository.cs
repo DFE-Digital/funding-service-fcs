@@ -6,6 +6,7 @@
     using System.Linq;
     using CrossDomain.Integration.Entities.Xrm;
     using Services;
+    using NUnit.Framework.Legacy;
 
     public class CrmReplicatedDuplicateContractRepository : CrmReplicaDbContext
     {       
@@ -49,7 +50,7 @@
         {
             if (ContractExists(contractNumber, version, subVersion))
             {
-                Assert.Fail("Cannot setup contract for 'Deletion Synchronization Failure'. The contract already exists");
+                ClassicAssert.Fail("Cannot setup contract for 'Deletion Synchronization Failure'. The contract already exists");
             }
             else
             {

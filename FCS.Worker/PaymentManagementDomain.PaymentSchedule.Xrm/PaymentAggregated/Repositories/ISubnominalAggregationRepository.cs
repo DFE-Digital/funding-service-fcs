@@ -1,6 +1,7 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated.Repositories
 {
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    extern alias IntegrationEntities;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using System;
     using System.Collections.Generic;
 

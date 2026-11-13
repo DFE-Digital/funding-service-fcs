@@ -11,6 +11,7 @@ namespace SFA.FCT.Xrm.TestFramework
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Messages;
     using Microsoft.Xrm.Sdk.Query;
+    using NUnit.Framework.Legacy;
 
     /// -----------------------------------------------------------------
     /// Namespace:      Ciber.Xrm.Tests.MetaData
@@ -212,12 +213,12 @@ namespace SFA.FCT.Xrm.TestFramework
                 new XrmWebEntity(crmOrganisationService, entityMetadata, fieldName, recordIdentitier)
                     .GetMatchingRecords();
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 matchingRecords.Count > 0,
                 "The entity " + entityMetadata.LogicalName + " does not contain row with key of " + fieldName +
                 " with value " + recordIdentitier);
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 matchingRecords.Count < 2,
                 "The entity " + entityMetadata.LogicalName + " does not contain a unique row with key of " + fieldName +
                 " with value " + recordIdentitier);
@@ -251,7 +252,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An IList of XrmWebEntity records</returns>
         public IList<XrmWebEntity> GetPartMatchingRecords(XrmPackageEntity entityMetadata, Dictionary<string, object> filterList, LogicalOperator logicalOperator = LogicalOperator.And, bool allColumns = true)
         {
-            //Assert.IsTrue(filterList.Any(), "No filters supplied for filter list");
+            //ClassicAssert.IsTrue(filterList.Any(), "No filters supplied for filter list");
 
             var query = new QueryExpression(entityMetadata.LogicalName)
             {
@@ -301,7 +302,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An IList of XrmWebEntity records</returns>
         public IList<XrmWebEntity> GetRecords(XrmPackageEntity entityMetadata, Dictionary<string, object> filterList, LogicalOperator logicalOperator = LogicalOperator.And, bool allColumns = true)
         {
-            //Assert.IsTrue(filterList.Any(), "No filters supplied for filter list");
+            //ClassicAssert.IsTrue(filterList.Any(), "No filters supplied for filter list");
 
             var query = new QueryExpression(entityMetadata.LogicalName)
             {
@@ -360,7 +361,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 new XrmWebEntity(crmOrganisationService, entityMetadata, fieldName, recordIdentitier)
                     .GetMatchingRecords();
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 matchingRecords.Count == 0,
                 "The entity " + entityMetadata.LogicalName + " contains " + matchingRecords.Count + " row(s) with key of " + fieldName +
                 " with value " + recordIdentitier);
@@ -378,7 +379,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public ExecuteMultipleResponse CreateRecords(XrmPackageEntity entityMetadata, IList<XrmWebEntity> entities)
         {
-            Assert.IsTrue(entities.Any(), "No entities supplied");
+            ClassicAssert.IsTrue(entities.Any(), "No entities supplied");
             Dictionary<string, object> filterList = new Dictionary<string, object>();
 
             var createWithResults = new ExecuteMultipleRequest()

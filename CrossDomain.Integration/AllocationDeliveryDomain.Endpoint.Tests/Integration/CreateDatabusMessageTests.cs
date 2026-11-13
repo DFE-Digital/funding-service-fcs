@@ -1,11 +1,8 @@
-﻿namespace AllocationDeliveryDomain.Endpoint.Tests.Integration
-{
-    using System;
-    using System.Collections.Generic;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using NServiceBus;
-    using SFA.FCT.CrossDomain.Integration.Common;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+namespace AllocationDeliveryDomain.Endpoint.Tests.Integration
+{
     [TestClass]
     public class CreateDatabusMessageTests 
     {

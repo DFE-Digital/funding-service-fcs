@@ -232,7 +232,7 @@
 
         private contractType GetCorpContractWith2ChildContracts(string childContractNumber1, string childContractNumber2, int version)
         {
-            contract contract = GetCorpContract();
+            Contract contract = GetCorpContract();
             var childContract1 = contract.contracts.First();
             childContract1.contractNumber = childContractNumber1;
             childContract1.contractVersionNumber = version;
@@ -257,22 +257,30 @@
             return TransformCorpContractToExtendedCorpContract(GetCorpContract());
         }
 
-        private static ExtendedContract TransformCorpContractToExtendedCorpContract(contract corpContract)
+        private static ExtendedContract TransformCorpContractToExtendedCorpContract(
+            Contract corpContract)
         {
-            Mapper.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.ExtendedContract>();
-            Mapper.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.ExtendedContractType>();
-            Mapper.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractAllocationsContractAllocation, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.ExtendedContractAllocation>();
-            return Mapper.Map<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract, SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.ExtendedContract>(corpContract);
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Contract, ExtendedContract>();
+                cfg.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType, ExtendedContractType>();
+                cfg.CreateMap<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            },null);
+
+            var mapper = mapperConfig.CreateMapper();
+
+            return mapper.Map<ExtendedContract>(corpContract);
         }
 
-        private static contract GetCorpContract()
+
+        private static Contract GetCorpContract()
         {
             using (var resource = new TestResource("ContractCreateDomain.Implementation.Tests", @"Resources.masterContract.xml"))
             {
                 var document = XDocument.Load(resource.Stream);
 
-                XmlSerializer serializer = new XmlSerializer(typeof(SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract));
-                return (SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract)serializer.Deserialize(document.Root.CreateReader());
+                XmlSerializer serializer = new XmlSerializer(typeof(SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract));
+                return (SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract)serializer.Deserialize(document.Root.CreateReader());
             }
         }
 

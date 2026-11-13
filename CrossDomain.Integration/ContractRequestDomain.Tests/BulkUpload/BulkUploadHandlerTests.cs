@@ -320,7 +320,7 @@
                 {
                     contracts = new System.Collections.Generic.List<contractType>
                     {
-                        new contractType { CRMIntent = intent.New }
+                        new contractType { CRMIntent = Intent.New }
                     }
                 }
             };
@@ -354,7 +354,7 @@
                 {
                     contracts = new System.Collections.Generic.List<contractType>
                     {
-                        new contractType { CRMIntent = (intent)999 }
+                        new contractType { CRMIntent = (Intent)999 }
                     }
                 }
             };

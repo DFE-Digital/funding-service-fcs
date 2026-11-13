@@ -31,7 +31,7 @@
         {
             _logger.LogInformation(ContractCreateDomainEventLoggingId.IncrementContractVersionDocGenCompleteArrived, $"DocumentGenerationComplete arrived on Version Increment Endpoint - {message}");
 
-            contract corpChildContract = message.Contract;
+            Contract corpChildContract = message.Contract;
 
             string storageKey = _contractStorage.GetKey(corpChildContract.contractNumber, corpChildContract.contractVersionNumber);
 

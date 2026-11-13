@@ -74,7 +74,7 @@
                 new contractType
                 {
                     fundingType = new fundingType(),
-                    period = new period(),
+                    period = new Period(),
                     startDate = DateTime.Now,
                     contractType1 = string.Empty
                 },
@@ -126,7 +126,7 @@
                 new contractType
                 {
                     fundingType = new fundingType(),
-                    period = new period(),
+                    period = new Period(),
                     startDate = DateTime.Now,
                     contractType1 = string.Empty
                 },
@@ -262,7 +262,7 @@
             contractType contract = new contractType
             {
                 fundingType = new fundingType { fundingTypeCode = "EDSK" },
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType { periodTypeCode = periodTypeCodeType.AY },
                     period1 = "2021"

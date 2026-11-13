@@ -1,14 +1,13 @@
-﻿namespace AllocationDeliveryDomain.Endpoint.ContractUnderTerminationEndpoint
+﻿
+namespace AllocationDeliveryDomain.Endpoint.ContractUnderTerminationEndpoint
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging;
-    using SFA.FCT.Framework.Logging.Interfaces;
-
     public class EndpointConfig : IEndpointConfig
     {
         public string EndpointName => "AllocationDeliveryDomain.ContractUnderTermination";
@@ -31,25 +30,33 @@
             new Subscription("ContractManagement.ContractTermination", typeof(ContractTerminationCancelledEvent)),
         };
 
-        public IReadOnlyCollection<CommandRoute> Routes => Enumerable.Empty<CommandRoute>().ToList();
-        
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            Enumerable.Empty<CommandRoute>().ToList();
+
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            Logger logger = new Logger(new System.Diagnostics.TraceSource("WorkerRole"));
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Preserve custom event mapping
             configuration.Conventions()
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ DI (Microsoft DI)
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddContractUnderTerminationServices();
             });
 
             return configuration;
         }
     }
 }
+

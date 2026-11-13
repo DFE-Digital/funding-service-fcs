@@ -203,7 +203,7 @@
             });  
 
             // Doc Gen requires a contract type not an ExtendedContractType so transform it
-            contract corpContract = _contractRequestTransformer.TransformToCorpContract(extendedContractType);
+            Contract corpContract = _contractRequestTransformer.TransformToCorpContract(extendedContractType);
             corpContract.IsNewRevisedNewOrUpdateDraft = contractRequest.IsNewRevisedNewOrUpdateDraft();
             corpContract.IsNewAmendment = contractRequest.IsNewAmendment();
             IReadOnlyCollection<ApprovedContractInfo> siblingApprovedContractsForDocumentGeneration =
@@ -255,7 +255,7 @@
             }
         }
 
-        private bool IsOrganisationNull(SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractor organisation)
+        private bool IsOrganisationNull(SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Contractor organisation)
         {
             return string.IsNullOrEmpty(organisation.organisationIdentifier);
         }

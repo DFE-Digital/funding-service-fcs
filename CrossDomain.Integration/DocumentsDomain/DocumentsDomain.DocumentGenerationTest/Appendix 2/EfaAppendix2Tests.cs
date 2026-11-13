@@ -28,7 +28,7 @@
             Mock<ITemplateRepository> templateRepository = new Mock<ITemplateRepository>();
 
             IDictionary<string, DocumentGenerationRequest> requests;
-            contract contract = GetCorporateContract();
+            Contract contract = GetCorporateContract();
 
             using (var documentDomainDbContext = new DocumentsDomainDbContext())
             {
@@ -76,13 +76,13 @@
             Assert.AreEqual("0.00", t2Column, "The total value is not zero");
         }
 
-        private contract GetCorporateContract()
+        private Contract GetCorporateContract()
         {
             using (var resource = new TestResource("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests", @"Resources.shortCorpContractEfa.json"))
             {
                 return
-                    (contract)
-                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(contract));
+                    (Contract)
+                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(Contract));
             }
         }
 

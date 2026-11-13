@@ -18,7 +18,7 @@
 
     public class ContractValidationLookupDataCreator : IContractValidationLookupDataCreator
     {
-        private static readonly IEnumerable<intent> CheckForSiblingDraftContractIntents = new List<intent>{intent.RevisedNew, intent.Amendment, intent.NewAmendment};
+        private static readonly IEnumerable<Intent> CheckForSiblingDraftContractIntents = new List<Intent>{Intent.RevisedNew, Intent.Amendment, Intent.NewAmendment};
         private static readonly string[] SubStatusesThatWeCanAmend = { "Approved", "Under Termination", "Modified" };
         // Expiration time of the cache in minutes.
         private const double CacheExpiration = 30;
@@ -275,24 +275,24 @@
             lookupData.PresenceCheckItems.Add(CreatePresenceCheckItemForMasterContractWithMasterContractNumber(contract.contract, present => contract.contract.IsMasterContractWithMatchingMasterContractNumberPresentInCrm = present));
         }
 
-        private bool IsIntentRequiringExistingContractNumberLookup(SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent intent)
+        private bool IsIntentRequiringExistingContractNumberLookup(SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent intent)
         {
-            return intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.Amendment || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.UpdateDraftAmendment || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.RevisedNew;
+            return intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.Amendment || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.UpdateDraftAmendment || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.RevisedNew;
         }
 
-        private bool IsIntentRequiringExistingMasterContractNumberLookup(SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent intent)
+        private bool IsIntentRequiringExistingMasterContractNumberLookup(SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent intent)
         {
-            return intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.NewAmendment;
+            return intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.NewAmendment;
         }
 
-        private bool IsIntentRequiringFtpFspLookup(SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent intent)
+        private bool IsIntentRequiringFtpFspLookup(SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent intent)
         {
-            return intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.NewAmendment
-                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.New
-                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.RevisedNew
-                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.UpdateDraft
-                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.Amendment
-                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.intent.UpdateDraftAmendment;
+            return intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.NewAmendment
+                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.New
+                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.RevisedNew
+                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.UpdateDraft
+                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.Amendment
+                   || intent == SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.UpdateDraftAmendment;
         }
 
         private FSCDeliverableStructureDefinitionResponse FscDeliverableStructureData(string fundingStreamPeriodCode)

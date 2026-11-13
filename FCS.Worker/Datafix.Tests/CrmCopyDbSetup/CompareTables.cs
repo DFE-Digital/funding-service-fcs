@@ -20,7 +20,7 @@
                                                          "Initial Catalog=SkillsFundingAgencyTEST_MSCRM;Persist Security Info=True;" + 
                                                          "User ID=svc-fcs-integritychecker;Password=";
 
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("CrmCopyDbSetup_CheckTables")]
         public void Tables_ShouldHaveEquivalentRowsAndCols()
         {
             List<string> tables = new List<string>
@@ -102,7 +102,7 @@
             Assert.Fail(stringBuilder.ToString());
         }
 
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("CrmCopyDbSetup_CheckEntitiesToTables")]
         public void Tables_ShouldHaveEquivalentRowsAndColsInCrmVsReplicaCopy()
         {
             List<string> tables = new List<string>

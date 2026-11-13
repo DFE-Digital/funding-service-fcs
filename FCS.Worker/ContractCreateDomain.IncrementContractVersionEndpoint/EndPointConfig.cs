@@ -1,9 +1,10 @@
-﻿namespace ContractCreateDomain.IncrementContractVersionEndpoint
+﻿
+namespace ContractCreateDomain.IncrementContractVersionEndpoint
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
-    using IoC;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.ContractCreateDomain.Common.Messages.Commands;
@@ -11,47 +12,66 @@
     using SFA.FCT.ContractManagementService.Common.Commands;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.CrossDomain.Integration.Messages.Messages;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using IoC;
 
     public class EndPointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "ContractCreateDomain.IncrementContractVersionEndpoint.dll";
+        public string NameOfAssembly =>
+            "ContractCreateDomain.IncrementContractVersionEndpoint.dll";
 
-        public string EndpointName => "ContractCreateDomain.IncrementContractVersion";
+        public string EndpointName =>
+            "ContractCreateDomain.IncrementContractVersion";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
         public IReadOnlyCollection<CommandRoute> Routes => new[]
         {
-            new CommandRoute("ContractCreateDomain.XrmService", typeof(AmendContractCommand)),
-            new CommandRoute("DocumentsDomain.GenerateDocument", typeof(DocumentGenerationCommand))
+            new CommandRoute(
+                "ContractCreateDomain.XrmService",
+                typeof(AmendContractCommand)),
+
+            new CommandRoute(
+                "DocumentsDomain.GenerateDocument",
+                typeof(DocumentGenerationCommand))
         };
 
-        private static readonly IReadOnlyCollection<string> RelevantCommands = new List<string>
-        {
-            nameof(IncrementContractVersionCommand),
-            nameof(DocumentGenerationComplete),
-            nameof(AmendContractUnsuccessful),
-            nameof(ContractAmended),
-            nameof(AmendContractCommand),
-            nameof(DocumentGenerationCommand),
-        };
-
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
-        {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
-
-            ILogger logger = loggerFactory.CreateDefaultLogger();
-
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
-            configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningCommandsAs(t => RelevantCommands.Any(c => t.Name.EndsWith(c)));
-
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+        private static readonly IReadOnlyCollection<string> RelevantCommands =
+            new List<string>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                nameof(IncrementContractVersionCommand),
+                nameof(DocumentGenerationComplete),
+                nameof(AmendContractUnsuccessful),
+                nameof(ContractAmended),
+                nameof(AmendContractCommand),
+                nameof(DocumentGenerationCommand)
+            };
+
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
+        {
+            var configuration = new EndpointConfiguration(EndpointName);
+
+            // ✅ Logging
+            var logger = loggerFactory.CreateLogger<EndPointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
+
+            // ✅ Conventions (FIXED: combined into ONE rule)
+            configuration.Conventions()
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    RelevantCommands.Any(c => t.Name.EndsWith(c)))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
+
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
+            {
+                services.AddSingleton(loggerFactory);
+                services.AddIncrementContractVersionServices();
             });
 
             return configuration;

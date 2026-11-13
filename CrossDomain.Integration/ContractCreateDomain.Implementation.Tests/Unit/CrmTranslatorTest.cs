@@ -17,7 +17,7 @@
         public void ShouldTranslateContractWithContractNumberSet()
         {
             CrmTranslator translator = GetTranslator();
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contractNumber = "2"
             };
@@ -30,7 +30,7 @@
         public void ShouldTranslateContract_WithDasLevyFieldsSet()
         {
             CrmTranslator translator = GetTranslator();
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 SkipReviewAndInternalApproval = true,
                 SkipCaseloadAssignment = true,
@@ -47,7 +47,7 @@
         public void ShouldTranslateContractWithStartDateGoodSet()
         {
             CrmTranslator translator = GetTranslator();
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 startDate = new DateTime(2016, 7, 31)
             };
@@ -60,7 +60,7 @@
         public void ShouldTranslateContractWithIsNonFinancialAmendmentWhenNotSetForContract()
         {
             CrmTranslator translator = GetTranslator();
-            contractType contract = new contract();
+            contractType contract = new Contract();
 
             Entity entity = translator.TranslateContract(contract);
             Assert.IsTrue(entity.Attributes.Count(a => a.Key == "sfa_isnonfinancialamendment") == 1, "The attribute is not present");
@@ -130,7 +130,7 @@
             var contract = new contractType
             {
                 hierarchyType = hierarchyType.CONTRACT,
-                period = new period
+                period = new Period
                 {
                     period1 = "202627",
                     periodType = new periodTypeType { periodTypeCode = periodTypeCodeType.AY }

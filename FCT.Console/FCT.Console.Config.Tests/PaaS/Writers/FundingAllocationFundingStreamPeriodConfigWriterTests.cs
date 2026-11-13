@@ -1,22 +1,19 @@
 ﻿namespace FCT.Console.Config.Tests.PaaS.Writers
 {
-    using Dapper;
-    using ExcelTypes;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using PaymentGenerationDomain.Integration.DataStore;
-    using Synchronizers.Writers;
-    using Synchronizers.Writers.PAAS;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
     using System.Linq;
+    using Dapper;
+    using ExcelTypes;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Synchronizers.Writers;
+    using Synchronizers.Writers.PAAS;
 
     [TestClass]
     public class FundingAllocationFundingStreamPeriodConfigWriterTests
     {
-        private static readonly string connectionString = PaymentGenerationDbContext.KeyVaultValue;
-
         [TestMethod, TestCategory("IntegrationTest")]
         public void FundingAllocationFundingStreamPeriodConfigWriter_ShouldInsert()
         {
@@ -168,6 +165,8 @@
 
         private static void RemoveRowsWithPrefix(string fundingStreamPeriodCode)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Execute(@"DELETE FROM [FundingAllocation].[FundingStreamPeriodConfig]
@@ -177,6 +176,8 @@
 
         private static IReadOnlyCollection<dynamic> GetRowsWithPrefix(string fundingStreamPeriodCode)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 return connection.Query(@"SELECT * FROM [FundingAllocation].[FundingStreamPeriodConfig]

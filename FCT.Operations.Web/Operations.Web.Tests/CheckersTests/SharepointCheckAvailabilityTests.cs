@@ -1,29 +1,24 @@
-﻿
-namespace Operations.Web.Tests.CheckersTests
+﻿namespace Operations.Web.Tests.CheckersTests
 {
-    using System.Threading.Tasks;
-    using Checkers;                // Operations.Web.Checkers
+    using System;
+    using Checkers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Operations.Web.Services; // SharepointAuthHelper
+    using Services;
 
     [TestClass]
     public class SharepointCheckAvailabilityTests
     {
         [TestMethod, TestCategory("IntegrationTest")]
-        public async Task SharepointCheckAvailability_OAuth_ShouldReturnPositiveIfSharepointIsAvailable()
+        public void SharepointCheckAvailability_OAuth_ShouldReturnPositiveIfSharepointIsAvailable()
         {
-            // arrange: keep the same signature (delegate is not used by the Graph checker internally)
-            var checker = new SharepointCheckAvailability(SharepointAuthHelper.GetOAuthContext, "Sharepoint");
+            // arrange
+            var checker = new SharepointCheckAvailability(SharepointAuthHelper.GetOAuthContext, String.Empty);
 
             // act
-            var actualResult = await checker.GetCheckResult();
+            var actualResult = checker.GetCheckResult().Result;
 
             // assert
-            Assert.IsTrue(
-                actualResult.IsAvailable,
-                $"Failed to connect to SharePoint. Details: {actualResult.Details ?? "<none>"}"
-                + (string.IsNullOrWhiteSpace(actualResult.SupplementaryInfo) ? "" : $" | Info: {actualResult.SupplementaryInfo}")
-            );
+            Assert.IsTrue(actualResult.IsAvailable, "We have not been able to connect to Sharepoint");
         }
     }
 }

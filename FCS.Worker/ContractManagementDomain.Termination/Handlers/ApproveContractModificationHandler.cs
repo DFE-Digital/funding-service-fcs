@@ -69,7 +69,7 @@
                 $"Contract Modification - END: ApproveContractModificationCommandReceived processed for {message}");
         }
 
-        private static void SetSubStatus(contract masterContract)
+        private static void SetSubStatus(Contract masterContract)
         {
             masterContract.SetChildContractsSubStatus(newStatus: "Modified");
         }

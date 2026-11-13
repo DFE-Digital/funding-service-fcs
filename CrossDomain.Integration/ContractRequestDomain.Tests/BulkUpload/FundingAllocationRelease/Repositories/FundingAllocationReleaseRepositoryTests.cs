@@ -1,11 +1,12 @@
 ﻿namespace ContractRequestDomain.Tests.BulkUpload.FundingAllocationRelease.Repositories
 {
+    extern alias RequestDomainDS;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using UnitTests.Common;
-    using SFA.FCT.ContractRequestDomain.DataStore.Model;
-    using SFA.FCT.ContractRequestDomain.DataStore;
+    using RequestDomainDS::SFA.FCT.ContractRequestDomain.DataStore.Model;
+    using RequestDomainDS::SFA.FCT.ContractRequestDomain.DataStore;
     using SFA.FCT.ContractRequestDomain.Integration.BulkUpload.FundingAllocationRelease.Repositories;
 
     [TestClass]

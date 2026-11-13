@@ -8,7 +8,7 @@
     using SFA.FCT.Operations.Integrity.Repositories;
     using SFA.FCT.Operations.Integrity.Services;
     using System.Configuration;
-    using System.Data.SqlClient;
+    using Microsoft.Data.SqlClient;
 
     [TestClass]
     public class AllocationLevelSummarisedActualsToDeliverablePaymentActualCheckerTests

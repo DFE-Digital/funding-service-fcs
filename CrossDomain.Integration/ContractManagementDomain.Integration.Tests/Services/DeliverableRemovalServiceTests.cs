@@ -17,7 +17,7 @@
             // arrange
             List<int> deliverablesToKeep = new List<int> {1, 6};
                       
-            contract masterContract = TestResource.FromJson<contract>("SFA.FCT.ContractManagementDomain.Integration.Tests",
+            Contract masterContract = TestResource.FromJson<Contract>("SFA.FCT.ContractManagementDomain.Integration.Tests",
                 "Resources.NCS_Contract.json");
             
             var childContract = masterContract.contracts.First();

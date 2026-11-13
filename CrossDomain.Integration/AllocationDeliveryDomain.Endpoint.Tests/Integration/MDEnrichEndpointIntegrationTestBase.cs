@@ -4,8 +4,7 @@
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using SFA.FCT.AllocationDeliveryDomain.MDEnrich.Endpoint.Ioc;
-    using SFA.FCT.Framework.Logging;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
     using Moq;
 
     public abstract class MDEnrichEndpointIntegrationTestBase

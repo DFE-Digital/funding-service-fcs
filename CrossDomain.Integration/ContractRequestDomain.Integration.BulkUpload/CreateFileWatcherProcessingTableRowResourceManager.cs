@@ -1,11 +1,12 @@
-﻿namespace SFA.FCT.ContractRequestDomain.Integration.BulkUpload
+﻿
+namespace SFA.FCT.ContractRequestDomain.Integration.BulkUpload
 {
     using System;
     using System.Transactions;
     using Common;
     using Common.Utils;
     using CrossDomain.Integration.Common.Storage;
-    using Microsoft.WindowsAzure.Storage;
+    using Azure.Data.Tables;
 
     public class CreateFileWatcherProcessingTableRowResourceManager : IEnlistmentNotification
     {
@@ -33,7 +34,12 @@
         public void Prepare(PreparingEnlistment preparingEnlistment)
         {
             _azureTableStore.CreateTableIfNotExists(_processingTable);
-            _azureTableStore.CreateRow(_processingTable, _fileWatcherProcessingEntity);
+
+            // Use Azure.Data.Tables.TableEntity to satisfy the generic constraint (ITableEntity with public parameterless ctor)
+            var entity = new TableEntity(_fileWatcherProcessingEntity.PartitionKey, _fileWatcherProcessingEntity.RowKey);
+
+            _azureTableStore.CreateRow<TableEntity>(_processingTable, entity);
+
             preparingEnlistment.Prepared();
         }
 
@@ -43,11 +49,10 @@
             {
                 _azureTableStore.DeleteRow(_processingTable, _fileWatcherProcessingEntity.PartitionKey, _fileWatcherProcessingEntity.RowKey);
             }
-            catch (StorageException)
+            catch (Exception)
             {
                 // suppress all storage exception as Rollback throwing something is a really bad idea.
             }
-        
             enlistment.Done();
         }
     }

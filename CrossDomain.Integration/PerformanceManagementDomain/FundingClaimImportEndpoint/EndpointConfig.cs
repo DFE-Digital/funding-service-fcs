@@ -1,13 +1,14 @@
-﻿namespace SFA.FCT.PerformanceManagementDomain.FundingClaimImportEndpoint
+﻿
+namespace SFA.FCT.PerformanceManagementDomain.FundingClaimImportEndpoint
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Castle.Windsor;
-    using Framework.Logging.Interfaces;
-    using IoC;
-    using NServiceBus;
     using Common.Commands;
     using FCS.Worker.Common;
+    using Microsoft.Extensions.Logging;
+    using IoC;
+    using Microsoft.Extensions.DependencyInjection;
+    using NServiceBus;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -15,31 +16,36 @@
 
         public string EndpointName => "PerformanceManagementDomain.FundingClaimImport";
 
-        public IReadOnlyCollection<CommandRoute> Routes => new []
+        public IReadOnlyCollection<CommandRoute> Routes => new[]
         {
-            new CommandRoute("PerformanceManagementDomain.FundingClaimImport",  typeof(ClosedFundingClaimCollectionCommand)),
-            new CommandRoute("PerformanceManagementDomain.FundingClaimImport",  typeof(FundingClaimPagedRequestCommand)),
-            new CommandRoute("PerformanceManagementDomain.FundingClaimImport",  typeof(ProcessFundingClaimsCommand)),
+            new CommandRoute(EndpointName, typeof(ClosedFundingClaimCollectionCommand)),
+            new CommandRoute(EndpointName, typeof(FundingClaimPagedRequestCommand)),
+            new CommandRoute(EndpointName, typeof(ProcessFundingClaimsCommand)),
         };
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToArray();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToArray();
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
-
+            // ✅ Conventions only
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => null != t.Namespace && t.Namespace.EndsWith("Events"))
-                .DefiningMessagesAs(t => null != t.Namespace && t.Namespace.EndsWith("Messages"));
+                .DefiningCommandsAs(t =>
+                    t.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    t.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ DI only
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+
+                services.AddFundingClaimImportServices(loggerFactory);
             });
 
             return configuration;

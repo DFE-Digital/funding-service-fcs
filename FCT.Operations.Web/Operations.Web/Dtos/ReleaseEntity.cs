@@ -28,7 +28,7 @@ namespace Operations.Web.Dtos
 
         // Flattened environment statuses
         public string OATStatus { get; set; }
-        public string ReleaseStatus { get; set; }
+        public string PRODStatus { get; set; }
         public string DMOStatus { get; set; }
         public string DATStatus { get; set; }
         public string DOATStatus { get; set; }
@@ -43,7 +43,7 @@ namespace Operations.Web.Dtos
             return new Dictionary<string, string>
          {
          { "OAT", OATStatus },
-         { "Release", ReleaseStatus },
+         { "PROD", PRODStatus },
          { "DMO", DMOStatus },
          { "DAT", DATStatus },
          { "DOAT", DOATStatus },
@@ -58,7 +58,7 @@ namespace Operations.Web.Dtos
         public void SetEnvironmentStatuses(Dictionary<string, string> statuses)
         {
             OATStatus = statuses.ContainsKey("OAT") ? statuses["OAT"] : "Not Started";
-            ReleaseStatus = statuses.ContainsKey("Release") ? statuses["Release"] : "Not Started";
+            PRODStatus = statuses.ContainsKey("PROD") ? statuses["PROD"] : "Not Started";
             DMOStatus = statuses.ContainsKey("DMO") ? statuses["DMO"] : "Not Started";
             DATStatus = statuses.ContainsKey("DAT") ? statuses["DAT"] : "Not Started";
             DOATStatus = statuses.ContainsKey("DOAT") ? statuses["DOAT"] : "Not Started";

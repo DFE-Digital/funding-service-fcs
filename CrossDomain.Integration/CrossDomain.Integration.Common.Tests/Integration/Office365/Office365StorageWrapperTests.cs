@@ -14,7 +14,7 @@
         private string _testTargetDirectoryName = "AGE-1516-Output-Documents for Publication";
         private const string TestEmbeddedFilesNameSpace = "CrossDomain.Integration.Common.Tests.Integration.Office365.TestEmbeddedFiles.";
         private IOffice365Adapter _office365StorageWrapper;
-        
+
         [TestInitialize]
         public void Initialise()
         {
@@ -48,19 +48,19 @@
         [TestMethod, TestCategory("IntegrationTest")]
         public void GetFilesByFileNameStartText_EnsureCorrectFilesReturned()
         {
-            
+
             Dictionary<string, byte[]> TandCs = _office365StorageWrapper.GetFilesByFileNameStartText(_testDirectoryName, "12345_ty434");
             Assert.IsTrue(TandCs.Count == 4, "The number of files returned should be 4");
 
             int count = 1;
-            foreach(var TandC in TandCs)
+            foreach (var TandC in TandCs)
             {
-                Assert.IsTrue(TandC.Key == "12345_ty434_" + count + ".pdf"  , "The file at index " + count + " should be named '12345_ty434_" + count + ".pdf'");
-                Assert.IsTrue(TandC.Value.Length == ReturnEmbededFileAsByteArray(TestEmbeddedFilesNameSpace + "12345_ty434_" + count +".pdf").Length, "Return file does not match expected file array length thus different file ");
-                count++;    
+                Assert.IsTrue(TandC.Key == "12345_ty434_" + count + ".pdf", "The file at index " + count + " should be named '12345_ty434_" + count + ".pdf'");
+                Assert.IsTrue(TandC.Value.Length == ReturnEmbededFileAsByteArray(TestEmbeddedFilesNameSpace + "12345_ty434_" + count + ".pdf").Length, "Return file does not match expected file array length thus different file ");
+                count++;
             }
 
-            
+
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -76,9 +76,9 @@
         {
             _office365StorageWrapper.UploadFileWithOverwrite("12345_ty434_1.pdf", ReturnEmbededFileAsByteArray(TestEmbeddedFilesNameSpace + "12345_ty434_1.pdf"), _testDirectoryName);
             _office365StorageWrapper.MoveFile("12345_ty434_1.pdf", _testDirectoryName, _testTargetDirectoryName);
-            
+
             Assert.IsTrue(_office365StorageWrapper.DoesFileExist(_testTargetDirectoryName, "12345_ty434_1.pdf"), "File move failed from source to target document list");
-            
+
             //move back so cleanup can work
             _office365StorageWrapper.MoveFile("12345_ty434_1.pdf", _testTargetDirectoryName, _testDirectoryName);
             Assert.IsTrue(_office365StorageWrapper.DoesFileExist(_testDirectoryName, "12345_ty434_1.pdf"), "File move failed from source to target document list");
@@ -166,7 +166,7 @@
             _office365StorageWrapper.UploadFileWithOverwrite("34224_fdfcv_2.pdf", ReturnEmbededFileAsByteArray(TestEmbeddedFilesNameSpace + "34224_fdfcv_2.pdf"), _testDirectoryName);
             _office365StorageWrapper.UploadFileWithOverwrite("34343_awerr_5.pdf", ReturnEmbededFileAsByteArray(TestEmbeddedFilesNameSpace + "34343_awerr_5.pdf"), _testDirectoryName);
         }
-        
+
         private void DeleteTestFiles()
         {
             _office365StorageWrapper.DeleteFile("12345_ty434_1.Rejected1234", _testTargetDirectoryName);

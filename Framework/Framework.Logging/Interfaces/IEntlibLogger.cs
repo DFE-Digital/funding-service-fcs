@@ -1,4 +1,4 @@
-﻿namespace SFA.FCT.Framework.Logging.Interfaces
+﻿namespace PaymentsGateway.Framework
 {
     
     public interface ILogger

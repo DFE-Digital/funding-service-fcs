@@ -1,19 +1,22 @@
-﻿namespace ContractCreateDomain.Endpoint.NonFinancialAmendment
+﻿
+namespace ContractCreateDomain.Endpoint.NonFinancialAmendment
 {
     using System.Collections.Generic;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging.Interfaces;
-    using Castle.Windsor;
     using SFA.FCT.ContractManagementService.Common.Commands;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
 
     public class EndpointConfig : IEndpointConfig
     {
         public string NameOfAssembly => "ContractCreateDomain.Endpoint.dll";
+
         public string EndpointName => "ContractCreateDomain.NonFinancialAmendment";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
         public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>
         {
@@ -23,19 +26,27 @@
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions (preserving your custom rule)
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands")
-                    || t.Name.EndsWith(nameof(AmendContractNonFinancialAmendmentCommand)));
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    t.Name.EndsWith(nameof(AmendContractNonFinancialAmendmentCommand)))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddNonFinancialAmendmentServices();
             });
 
             return configuration;

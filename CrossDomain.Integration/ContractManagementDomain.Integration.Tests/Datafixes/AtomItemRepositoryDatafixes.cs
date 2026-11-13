@@ -50,8 +50,8 @@
 
         private static void CheckEsfAtomItemIsCorrect(AtomFeedItem atomFeedItem)
         {
-            contract rehydratedCorporateSchemaContract =
-            atomFeedItem.AtomFeedItemXml.DeserializeXml<contract>();
+            Contract rehydratedCorporateSchemaContract =
+            atomFeedItem.AtomFeedItemXml.DeserializeXml<Contract>();
 
             Assert.IsNotNull(rehydratedCorporateSchemaContract);
             Assert.IsTrue(!string.IsNullOrEmpty(rehydratedCorporateSchemaContract.contracts.First().contractAllocations.First().ProcurementAttrs.TenderSpecReference));
@@ -60,14 +60,14 @@
         private void UpdateContract(ContractManagementDbContext context, int atomFeedItemId, ContractInfo contractInfo)
         {
             IContractsManager contractsManager = _container.Resolve<IContractsManager>();
-            CrossDomain.Integration.Entities.CorporateContract.contract corporateContract = contractsManager.GetCorporateContract(contractInfo.ContractNumber, contractInfo.MasterContractNumber,
+            CrossDomain.Integration.Entities.CorporateContract.Contract corporateContract = contractsManager.GetCorporateContract(contractInfo.ContractNumber, contractInfo.MasterContractNumber,
                 lastApproved: false);
 
             corporateContract.contracts.First().contractStatus.status = contractStatusTypeStatus
                 .PublishedToProvider.ToString();
             // now transform to corp schema
             ContractTransformer contractTransformer = new ContractTransformer();
-            contract corporateSchemaContrat = contractTransformer.TransformToCorporateSchemaContract(corporateContract);
+            Contract corporateSchemaContrat = contractTransformer.TransformToCorporateSchemaContract(corporateContract);
 
             string xmlCorporateSchemaContract = corporateSchemaContrat.SerializeToXml();
 

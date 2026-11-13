@@ -6,7 +6,7 @@
     using SFA.FCT.CrossDomain.Integration.Common;
     using SFA.FCT.CrossDomain.Integration.Common.Storage;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using SFA.FCT.CrossDomain.Integration.Messages.Commands;
+//    using SFA.FCT.CrossDomain.Integration.Messages.Commands;
 
     public class ReportRunner : IReportRunner
     {
@@ -21,26 +21,26 @@
 
         public IReportingServicesClient Client { get; set; }
         
-        public virtual bool RunReport(RunReportCommand command)
-        {
-            try
-            {
-                Logger.LogInformation(CommonLoggingEventId.RenderReportStart, "Beginning to render {0} report.", command.FileName);
+        ////public virtual bool RunReport(RunReportCommand command)
+        //{
+        //    try
+        //    {
+        //        Logger.LogInformation(CommonLoggingEventId.RenderReportStart, "Beginning to render {0} report.", command.FileName);
 
-                var bytes = Client.RenderReportWs(command.ReportName, command.ReportFormat, command.ReportParameters, command.ReportPath);
+        //        var bytes = Client.RenderReportWs(command.ReportName, command.ReportFormat, command.ReportParameters, command.ReportPath);
 
-                Logger.LogInformation(CommonLoggingEventId.UploadToO365Start, "Beginning to upload {0} report to Office 365.", command.FileName);
+        //        Logger.LogInformation(CommonLoggingEventId.UploadToO365Start, "Beginning to upload {0} report to Office 365.", command.FileName);
 
-                Office365Adapter.UploadFileWithOverwrite(command.FileName, bytes, O365Folder);
+        //        Office365Adapter.UploadFileWithOverwrite(command.FileName, bytes, O365Folder);
 
-                Logger.LogInformation(CommonLoggingEventId.UploadReportToO365End, "Report {0} completed succesfully run and loaded to Office365.", command.FileName);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError(CommonLoggingEventId.RenderReportFailed, ex.Message, "Report {0} failed to run and load to Office365.", command.FileName);
-                return false;
-            }
-        }
+        //        Logger.LogInformation(CommonLoggingEventId.UploadReportToO365End, "Report {0} completed succesfully run and loaded to Office365.", command.FileName);
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogError(CommonLoggingEventId.RenderReportFailed, ex.Message, "Report {0} failed to run and load to Office365.", command.FileName);
+        //        return false;
+        //    }
+        //}
     }
 }

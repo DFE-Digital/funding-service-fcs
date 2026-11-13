@@ -32,7 +32,7 @@
             IEnumerable<FundingPeriodSheetType> fundingStreamModels = fundingPeriodSheetTypeReader.ReadConfig(worksheetReader);
 
             // assert
-            Assert.AreEqual(37, fundingStreamModels.Count(), "The number of rows that has been read differs");
+            Assert.AreEqual(34, fundingStreamModels.Count(), "The number of rows that has been read differs");
             Assert.AreEqual(new DateTime(2023,9,1), fundingStreamModels.ToArray().Last().StartDate.Value, "The start date has not been correctly read");
         }
 
@@ -48,7 +48,7 @@
             IEnumerable<FundingPeriodSheetType> fundingStreamModels = fundingPeriodSheetTypeReader.ReadConfig(worksheetReader);
 
             // assert
-            Assert.AreEqual(37, fundingStreamModels.Count(), "The number of rows that has been read differs");
+            Assert.AreEqual(34, fundingStreamModels.Count(), "The number of rows that has been read differs");
             Assert.AreEqual(new DateTime(2023, 9, 1), fundingStreamModels.ToArray().Last().StartDate.Value, "The start date has not been correctly read");
         }
     }

@@ -4,6 +4,8 @@
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using ConnectionInfo = SFA.FCT.CrossDomain.Integration.Entities.Data.ConnectionInfo;
+    using NServiceBus.Persistence;
+    using NServiceBus.Persistence.Sql;
 
     public class SessionConnectionFactory : ISessionConnectionFactory
     {
@@ -16,9 +18,14 @@
 
         public ConnectionInfo GetConnection(IMessageHandlerContext context)
         {
+            var storageSession = context.SynchronizedStorageSession;
+
+            // Convert to SQL persistence session (new NSB8 API)
+            var sqlSession = storageSession.SqlPersistenceSession();
+
             return new ConnectionInfo(
-                context.SynchronizedStorageSession.SqlPersistenceSession().Transaction,
-                context.SynchronizedStorageSession.SqlPersistenceSession().Connection);
+                sqlSession.Transaction,
+                sqlSession.Connection);
         }
 
         public ConnectionInfo GetReplicaConnection()

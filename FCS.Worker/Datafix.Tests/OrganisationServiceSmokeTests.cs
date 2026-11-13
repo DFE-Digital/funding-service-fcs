@@ -10,7 +10,7 @@
     [TestClass]
     public class OrganisationServiceSmokeTests
     {
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("SmokeTest")]
         public void SmokeTest_ShouldCallOrgServiceSuccessfully()
         {
             // arrange

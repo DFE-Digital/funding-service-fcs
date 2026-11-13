@@ -633,7 +633,7 @@
             }
         }
 
-        [TestMethod, TestCategory("IntegrationTest"), ExpectedException(typeof(DbUpdateException), "The expected DbUpdateException was not thrown.")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void MonitoringDeliverableStore_AddAllocationDeliverablePeriods_ShouldErrorForDuplicateUniqueIndexRecord()
         {
             // arrange
@@ -669,16 +669,23 @@
             RemoveAllocationDeliverablePeriod(testAllocationDeliverablePeriod);
             AddAllocationDeliverablePeriod(testAllocationDeliverablePeriod);
 
-            var allocationDeliverablePeriods = new List<AllocationDeliverablePeriod>{ testAllocationDeliverablePeriod };
+            var allocationDeliverablePeriods = new List<AllocationDeliverablePeriod> { testAllocationDeliverablePeriod };
 
             using (var context = new MonitoringDeliverablesDbContext())
             {
-                IMonitoringDeliverableStore monitoringDeliverableStore = new MonitoringDeliverableStore(new LoggerNullObject());
+                IMonitoringDeliverableStore monitoringDeliverableStore =
+                    new MonitoringDeliverableStore(new LoggerNullObject());
 
-                // act & assert
-                monitoringDeliverableStore.AddAllocationDeliverablePeriods(allocationDeliverablePeriods, ConnectionInfo.CreateFrom(context.Database.Connection));
+                // act & assert (duplicate insert should violate unique index and throw)
+                Assert.ThrowsExactly<DbUpdateException>(() =>
+                {
+                    monitoringDeliverableStore.AddAllocationDeliverablePeriods(
+                        allocationDeliverablePeriods,
+                        ConnectionInfo.CreateFrom(context.Database.Connection));
+                });
             }
         }
+
 
         private CurrentViewActual CreateCurrentViewActualForAllocation(string contractAllocationNumber)
         {

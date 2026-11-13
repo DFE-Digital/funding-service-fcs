@@ -7,7 +7,7 @@ namespace ContractManagement.DataStore
 
     public interface IAtomFeedSeedRunner
     {
-        void Execute(IEnumerable<contract> seed);
+        void Execute(IEnumerable<Contract> seed);
         void ExecuteInParallel(IEnumerable<ContractSummary> contractSummaries);
         void PersistContracts(IEnumerable<ContractSummary> contractSummaries);
     }

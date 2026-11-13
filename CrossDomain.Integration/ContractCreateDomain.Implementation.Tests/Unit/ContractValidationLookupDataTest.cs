@@ -99,7 +99,7 @@
                             startDate = new DateTime(),
                             endDate = new DateTime(),
                             contractAllocations = new List<contractAllocation>(),
-                            CRMIntent = intent.RevisedNew,
+                            CRMIntent = Intent.RevisedNew,
                             fundingTypeCode = "GG"
                         }
                     },
@@ -112,7 +112,7 @@
                     },
                     startDate = new DateTime(),
                     endDate = new DateTime(),
-                    CRMIntent = intent.RevisedNew,
+                    CRMIntent = Intent.RevisedNew,
                     fundingTypeCode = "GG"
                 }
             };
@@ -206,7 +206,7 @@
                             startDate = new DateTime(),
                             endDate = new DateTime(),
                             contractAllocations = new List<contractAllocation>(),
-                            CRMIntent = intent.RevisedNew,
+                            CRMIntent = Intent.RevisedNew,
                             fundingTypeCode = "GG"
                         }
                     },
@@ -219,7 +219,7 @@
                     },
                     startDate = new DateTime(),
                     endDate = new DateTime(),
-                    CRMIntent = intent.RevisedNew,
+                    CRMIntent = Intent.RevisedNew,
                     fundingTypeCode = "GG"
                 }
             };
@@ -303,7 +303,7 @@
                             startDate = new DateTime(),
                             endDate = new DateTime(),
                             contractAllocations = new List<contractAllocation>(),
-                            CRMIntent = intent.New,
+                            CRMIntent = Intent.New,
                             fundingTypeCode = "LEVY"
                         }
                     },
@@ -316,7 +316,7 @@
                     },
                     startDate = new DateTime(),
                     endDate = new DateTime(),
-                    CRMIntent = intent.New,
+                    CRMIntent = Intent.New,
                     fundingTypeCode = "LEVY"
                 }
             };
@@ -407,7 +407,7 @@
                                         contractAllocationNumber = "TEST"
                                     }
                                 },
-                                CRMIntent = intent.New,
+                                CRMIntent = Intent.New,
                                 fundingTypeCode = "FTC"
                             },
                             new contractType
@@ -428,7 +428,7 @@
                                         contractAllocationNumber = "TEST"
                                     }
                                 },
-                                CRMIntent = intent.New,
+                                CRMIntent = Intent.New,
                                 fundingTypeCode = "FTC"
                             }
                         },
@@ -441,7 +441,7 @@
                     },
                     startDate = new DateTime(),
                     endDate = new DateTime(),
-                    CRMIntent = intent.New,
+                    CRMIntent = Intent.New,
                     fundingTypeCode = "FTC"
                 }
             };
@@ -534,7 +534,7 @@
                             startDate = new DateTime(),
                             endDate = new DateTime(),
                             contractAllocations = new List<contractAllocation>(),
-                            CRMIntent = intent.RevisedNew,
+                            CRMIntent = Intent.RevisedNew,
                             fundingTypeCode = "GG"
                         }
                     },
@@ -547,7 +547,7 @@
                     },
                     startDate = new DateTime(),
                     endDate = new DateTime(),
-                    CRMIntent = intent.RevisedNew,
+                    CRMIntent = Intent.RevisedNew,
                     fundingTypeCode = "GG"
                 }
             };

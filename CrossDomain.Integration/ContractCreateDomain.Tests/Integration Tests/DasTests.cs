@@ -14,43 +14,71 @@
     using SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
     using CrmConnectionFactory = SFA.FCS.Worker.Common.Crm.CrmConnectionFactory;
     using Microsoft.Xrm.Sdk;
+    using System.Threading.Tasks;
 
     [TestClass]
     public class DasTests
     {
-        [TestMethod, TestCategory("TechnicalExploration_Das")]
-        public void ContractCreate_ShouldLoadContractInCrmWhenValidContractRequestObjectIsSentIn()
+
+        [TestMethod]
+        [TestCategory("TechnicalExploration_Das")]
+        public async System.Threading.Tasks.Task ContractCreate_ShouldLoadContractInCrmWhenValidContractRequestObjectIsSentIn()
         {
             // arrange
-            RemoveExistingContractsWithForThisUkprn(10033670, sfa_contracthierarchytype.Contract);
-            RemoveExistingContractsWithForThisUkprn(10033670, sfa_contracthierarchytype.Master);
-            contractRequestType contract = GetJsonResourceContractRequest();
+            RemoveExistingContractsWithForThisUkprn(
+                10033670,
+                sfa_contracthierarchytype.Contract);
+
+            RemoveExistingContractsWithForThisUkprn(
+                10033670,
+                sfa_contracthierarchytype.Master);
+
+            contractRequestType contract =
+                GetJsonResourceContractRequest();
 
             // act
-            CreateBus().Send(new NewContractRequestCommand
-            {
-                ContractRequest = contract
-            });
+            var endpoint = await CreateMessageSession();
 
-            // we don't need to assert
+            await endpoint.Send(
+                new NewContractRequestCommand
+                {
+                    ContractRequest = contract
+                });
+
+            await endpoint.Stop();
         }
 
-        [TestMethod, TestCategory("TechnicalExploration_Das")]
-        public void ContractCreate_ShouldLoadContractInCrmWhenOpenEndedContractRequestObjectIsSentIn()
+
+
+
+        [TestMethod]
+        [TestCategory("TechnicalExploration_Das")]
+        public async System.Threading.Tasks.Task ContractCreate_ShouldLoadContractInCrmWhenOpenEndedContractRequestObjectIsSentIn()
         {
             // arrange
-            RemoveExistingContractsWithForThisUkprn(10017281, sfa_contracthierarchytype.Contract);
-            RemoveExistingContractsWithForThisUkprn(10017281, sfa_contracthierarchytype.Master);
-            contractRequestType contract = GetObjectInitializedContractRequestType();
+            RemoveExistingContractsWithForThisUkprn(
+                10017281,
+                sfa_contracthierarchytype.Contract);
+
+            RemoveExistingContractsWithForThisUkprn(
+                10017281,
+                sfa_contracthierarchytype.Master);
+
+            contractRequestType contract =
+                GetObjectInitializedContractRequestType();
 
             // act
-            CreateBus().Send(new NewContractRequestCommand
-            {
-                ContractRequest = contract
-            });
+            var endpoint = await CreateMessageSession();
 
-            // we don't need to assert
+            await endpoint.Send(
+                new NewContractRequestCommand
+                {
+                    ContractRequest = contract
+                });
+
+            await endpoint.Stop();
         }
+
 
         private static void RemoveExistingContractsWithForThisUkprn(int ukprn, sfa_contracthierarchytype hierarchyType)
         {
@@ -87,7 +115,7 @@
             {
                 contract = new contractType
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = 10017281,
                         legalName = "Levy 281 Co Ltd",
@@ -116,7 +144,7 @@
                                                 }
                                             },
                                             correlationId = Guid.NewGuid().ToString("D"),
-                                            CRMIntent = intent.New,
+                                            CRMIntent = Intent.New,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 1,
@@ -126,7 +154,7 @@
                                         }
                                     },
                                     correlationId = Guid.NewGuid().ToString("D"),
-                                    CRMIntent = intent.New,
+                                    CRMIntent = Intent.New,
                                     endDate = null,
                                     fundingStreamCode = "LEVY",
                                     fundingStreamPeriodCode = "LEVY1799",
@@ -142,7 +170,7 @@
                                     ukprn = 10017281,
                                 }
                             },
-                            contractor = new contractor
+                            contractor = new Contractor
                             {
                                 ukprn = 10017281,
                                 legalName = "Levy 281 Co Ltd",
@@ -151,7 +179,7 @@
                             contractType1 = "Contract for Services",
                             contractVersionNumber = 1,
                             correlationId = Guid.NewGuid().ToString("D"),
-                            CRMIntent = intent.New,
+                            CRMIntent = Intent.New,
                             endDate = null,
                             fundingTypeCode = "LEVY",
                             hierarchyType = hierarchyType.CONTRACT,
@@ -203,32 +231,21 @@
             };
         }
 
-        private static ISendOnlyBus CreateBus()
+        private static async System.Threading.Tasks.Task<IEndpointInstance> CreateMessageSession()
         {
-            var configuration = new BusConfiguration();
+            var endpointConfiguration =
+                new EndpointConfiguration("ContractCreateDomain.Tests");
 
-            configuration.AssembliesToScan(
-                AllAssemblies.Matching("CrossDomain.Integration.Messages")
-                    .And("Microsoft.WindowsAzure.Configuration.dll")
-                    .And("NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll"));
+            endpointConfiguration.SendOnly();
 
-            configuration.UseTransport<AzureServiceBusTransport>();
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
 
-            configuration.ScaleOut().UseSingleBrokerQueue();
+            endpointConfiguration.UseTransport<LearningTransport>();
 
-            //configuration.UseTransport<MsmqTransport>();
-            configuration.UseSerialization<NServiceBus.JsonSerializer>();
-            configuration.UsePersistence<InMemoryPersistence>();
-            //configuration.DiscardFailedMessagesInsteadOfSendingToErrorQueue();
-            configuration.Conventions()
-                .DefiningCommandsAs(t => null != t.Namespace && t.Namespace.EndsWith("Commands"));
+            endpointConfiguration.UsePersistence<LearningPersistence>();
 
-            configuration.CustomConfigurationSource(new CustomConfigurationProvider(new Dictionary<Type, string>
-            {
-                {typeof (NewContractRequestCommand), "ContractCreateDomain.CreateContract"}
-            }));
-
-            return Bus.CreateSendOnly(configuration);
+            return await Endpoint.Start(endpointConfiguration);
         }
+
     }
 }

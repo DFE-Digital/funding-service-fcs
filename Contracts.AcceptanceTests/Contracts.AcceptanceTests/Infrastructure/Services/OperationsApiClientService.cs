@@ -11,7 +11,7 @@
 
     public static class OperationsApiClientService
     {
-        private static readonly Uri BaseUrl = new Uri(ConfigurationManager.AppSettings["OpsWeb:Url"]);
+        private static readonly Uri BaseUrl = new Uri(TestConfiguration.Configuration["OpsWeb:Url"]);
 
         public static async Task<IReadOnlyCollection<LevyReportRow>> GetLevyContractsThatCannotBeAmended()
         {

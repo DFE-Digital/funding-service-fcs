@@ -1,5 +1,7 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGeneration.InitiatePaymentBatch
 {
+
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -20,7 +22,7 @@
     using NServiceBus.Testing;
     using PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentBatchEndpoint.Ioc;
     using PaymentGenerationEndpoint.Infrastructure;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class InitiatePaymentBatchHandlerTests

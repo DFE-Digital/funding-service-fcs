@@ -1,8 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.UpdateDraftContractAmendment
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using AutoMapper;
     using ContractManagement.DataStore.Model;
     using ContractManagement.DataStore.Repositories;
     using ContractManagement.DataStore.Services;
@@ -10,6 +8,7 @@
     using Infrastructure.DTOs;
     using Infrastructure.Extensions;
     using NServiceBus;
+    using Services;
     using SFA.FCT.ContractCreateDomain.BusinessLogic;
     using SFA.FCT.ContractCreateDomain.BusinessLogic.DTOs;
     using SFA.FCT.ContractCreateDomain.BusinessLogic.Services;
@@ -17,18 +16,20 @@
     using SFA.FCT.ContractCreateDomain.Common.Messages.Commands;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using IContractValidationLookupDataCreator = Infrastructure.IContractValidationLookupDataCreator;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using contractType = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractType;
     using CorporateContract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+    using CR=SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using IContractOperationRules = Infrastructure.IContractOperationRules;
+    using IContractValidationLookupDataCreator = Infrastructure.IContractValidationLookupDataCreator;
     using IFundingTypeFundingPeriodQueryRepository = Infrastructure.IFundingTypeFundingPeriodQueryRepository;
     using IFundingTypePeriodService = Infrastructure.IFundingTypePeriodService;
     using IProcessedMessageRepository = Infrastructure.IProcessedMessageRepository;
-    using Services;
 
     public class UpdateDraftContractAmendmentSaga :
         IHandleMessages<UpdateDraftContractAmendmentRequestCommand>
@@ -41,6 +42,7 @@
         private readonly ISagaDataStorage _sagaDataStorage;
         private readonly IFundingTypeFundingPeriodQueryRepository _fundingTypeFundingPeriodQueryRepository;
         private readonly IFundingTypeFundingPeriodContractTypeQueryRepository _fundingTypeFundingPeriodContractTypeQueryRepository;
+        private readonly IMapper _mapper;
 
         public UpdateDraftContractAmendmentSaga(
             ILogger logger,
@@ -64,7 +66,8 @@
             ICheckForContractChangeService checkForContractChangeService,
             ISiblingApprovedContractService siblingApprovedContractService,
             IRelatedAllocationEnricher relatedAllocationEnricher,
-            ILastApprovedContractCreationDateService lastApprovedContractCreationDate)
+            ILastApprovedContractCreationDateService lastApprovedContractCreationDate,
+            IMapper mapper)
             
         {
             _modifyContractSaga = new ModifyContractSaga(
@@ -96,6 +99,7 @@
             _sagaDataStorage = sagaDataStorage;
             _fundingTypeFundingPeriodContractTypeQueryRepository = fundingTypeFundingPeriodContractTypeQueryRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         protected int AmendRequestCommandReceivedEventLoggingId => ContractCreateDomainEventLoggingId.UpdateDraftContractAmendmentRequestCommandReceived;
@@ -136,7 +140,7 @@
             IReadOnlyCollection<FundingTypeFundingPeriodContractTypeDto> GetFundingTypeFundingPeriodContractTypes()
             {
                 IReadOnlyCollection<FundingTypeFundingPeriodContractType> fundingTypeFundingPeriodContractTypes = _fundingTypeFundingPeriodContractTypeQueryRepository.GetFundingTypeFundingPeriodContractTypes(connectionInfo);
-                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes);
+                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes,_mapper);
             }
 
             return _contractOperationRules.GetUpdateDraftContractAmendmentFirstLevelRules(
@@ -149,7 +153,7 @@
         private IEnumerable<IRule<SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractRequestType>> GetSecondLevelValidationRules(
             SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractRequestType contractRequestType,
             ContractValidationLookupData lookupData,
-            IReadOnlyCollection<ContractIdentityInfo> lastApprovedContractIdentityInfos,
+            IReadOnlyCollection<CR.ContractIdentityInfo> lastApprovedContractIdentityInfos,
             ConnectionInfo connectionInfo)
         {
             bool allowUseOfDeliveryOrgs = _fundingTypeFundingPeriodQueryRepository.Get(contractRequestType.contract.fundingTypeCode,
@@ -216,7 +220,7 @@
             contractType.contractSubVersionNumber++;
         }
 
-        private void AddApprovedContractAllocationsToContract(contractRequestType contractRequest)
+        private void AddApprovedContractAllocationsToContract(CR.contractRequestType contractRequest)
         {
             contractRequest.contract.contracts.ForEach(subContract =>
             {

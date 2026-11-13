@@ -1,15 +1,32 @@
-﻿namespace FCT.Console.Config.Transformers
+﻿
+namespace FCT.Console.Config.Transformers
 {
-    using System;
     using AutoMapper;
+    using FCT.Console.Config.ExcelTypes;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
+    using System;
 
-    internal class PolicyPaymentMethodResolver : ValueResolver<string, PaymentMethod>
+    internal class PolicyPaymentMethodResolver
+        : IValueResolver<FundingStreamPeriodSheetType, PolicyFundingStreamPeriod, PaymentMethod>
     {
-        protected override PaymentMethod ResolveCore(string source)
+        public PaymentMethod Resolve(
+            FundingStreamPeriodSheetType source,
+            PolicyFundingStreamPeriod destination,
+            PaymentMethod destMember,
+            ResolutionContext context)
         {
-            return
-                (PaymentMethod)Enum.Parse(typeof(PaymentMethod), TransformSheetValue(source), ignoreCase: true);
+            var sourceValue = source?.PaymentMethod;
+
+            if (string.IsNullOrWhiteSpace(sourceValue))
+            {                
+                return default; // safer for pipeline
+            }
+
+            return (PaymentMethod)
+                Enum.Parse(
+                    typeof(PaymentMethod),
+                    TransformSheetValue(sourceValue),
+                    ignoreCase: true);
         }
 
         private static string TransformSheetValue(string source)
@@ -19,12 +36,10 @@
             switch (source)
             {
                 case "PaidExternally":
-                    source = "NoPay";
-                    break;
+                    return "NoPay";
 
                 case "NotCalculatedorPaid":
-                    source = "NoCalcAndNoPay";
-                    break;
+                    return "NoCalcAndNoPay";
             }
 
             return source;

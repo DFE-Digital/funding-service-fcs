@@ -1,18 +1,19 @@
 ﻿namespace OrganisationDomain.Implementation.BusinessLogic
 {
+    using Azure;
+    using Converters;
+    using Extensions;
+    using Integration.Entities;
+    using SFA.FCT.CrossDomain.Integration.Common.Storage;
+    using SFA.FCT.Framework.Logging.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
     using System.Reflection;
     using System.Xml.Linq;
-    using Converters;
-    using Extensions;
-    using Integration.Entities;
-    using Microsoft.WindowsAzure.Storage.Table;
-    using SFA.FCT.CrossDomain.Integration.Common.Storage;
-    using SFA.FCT.Framework.Logging.Interfaces;
-
+    using Azure;
+    using Azure.Data.Tables;
     public class CpdsStub : ICpdsOrganisationRetriever, ICpdsSummaryRetriever
     {
         private static readonly string StubTableName = $"GatewayServiceStub{ConfigurationManager.AppSettings["StorageTableSuffix"]}";
@@ -94,17 +95,29 @@
                 }
             }
         }
-
         private StubEntity GetEntityFromStubStorage(int ukprn)
         {
             return _azureTableStore.GetRow<StubEntity>(StubTableName, StubPartitionKey, ukprn.ToString());
         }
 
-        private class StubEntity : TableEntity
+        private class StubEntity : ITableEntity
         {
-            public string Ukprn { get; set; }
+            public string PartitionKey { get; set; }
+
+            public string RowKey { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag { get; set; }
+
+            public string Ukprn
+            {
+                get => RowKey;
+                set => RowKey = value;
+            }
 
             public string Status { get; set; }
         }
+
     }
 }

@@ -37,7 +37,7 @@
         {
 
             // Arrange 
-            contractType contractType = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json")
+            contractType contractType = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json")
                 .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                 .SetDefaultAllocationDescriptions();
 
@@ -78,7 +78,7 @@
         public void Appendix2DocumentCreator_MultipleOrgsNonEFA_ShouldReturnFundingAgreementsInCorrectOrderWhenAllAllocationsHaveADeliveryorgThatIsTheSameAsContractOrg()
         {
             // Arrange 
-            contractType contractType = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json")
+            contractType contractType = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json")
                 .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                 .SetDefaultAllocationDescriptions()
                 .SetAllocationDeliveryOrgsToSameAsContractor();
@@ -120,7 +120,7 @@
         public void Appendix2DocumentCreator_MultipleOrgsNonEFA_ShouldReturnFundingAgreementsInCorrectOrderWhenAllAllocationHaveADeliveryorgThatAreDifferentToContractOrg()
         {
             // Arrange 
-            contractType contractType = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json")
+            contractType contractType = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json")
                 .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                 .SetDefaultAllocationDescriptions();
             contractType.fundingType.fundingTypeCode = "MAIN";
@@ -162,7 +162,7 @@
         public void Appendix2DocumentCreator_MultipleOrgsNonEFA_ShouldReturnFundingAgreementsInCorrectOrderWhenOnlyOneAllocationHasADeliveryorgThatIsDifferentToContractOrg()
         {
             // Arrange 
-            contractType contractType = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json")
+            contractType contractType = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractAeb1819.json")
                 .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                 .SetDefaultAllocationDescriptions()
                 .SetAllocationDeliveryOrgsToSameAsContractor();
@@ -208,7 +208,7 @@
         {
             // Arrange 
             contractType contractType =
-                TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa.json")
+                TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa.json")
                     .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                     .SetDefaultAllocationDescriptions();
 
@@ -263,7 +263,7 @@
         {
             // Arrange 
             contractType contractType =
-                TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa.json")
+                TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa.json")
                     .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                     .SetDefaultAllocationDescriptions()
                     .SetAllocationDeliveryOrgsToSameAsContractor();
@@ -319,7 +319,7 @@
         {
             // Arrange 
             contractType contractType =
-                TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa.json")
+                TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa.json")
                     .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                     .SetDefaultAllocationDescriptions();
 
@@ -401,7 +401,7 @@
         {
             // Arrange 
             contractType contractType =
-                TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa.json")
+                TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa.json")
                     .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                     .SetAllocationDeliveryOrgsToSameAsContractor()
                     .SetDefaultAllocationDescriptions();
@@ -459,7 +459,7 @@
         {
             // Arrange 
             contractType contractType =
-                TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa1819.json")
+                TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa1819.json")
                     .WithOnlyTheseAllocations(allocationNumbers: new[] { "16LR-1046", "NMF-1045", "SSF-1045" })
                     .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                     .SetDefaultAllocationDescriptions();
@@ -503,7 +503,7 @@
         {
             // Arrange 
             contractType contractType =
-                TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa1819.json")
+                TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa1819.json")
                     .WithOnlyTheseAllocations(allocationNumbers: new[] { "16LR-1046", "NMF-1045", "SSF-1045" })
                     .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                     .SetDefaultAllocationDescriptions()
@@ -548,7 +548,7 @@
         {
             // Arrange 
             contractType contractType =
-                TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa1819.json")
+                TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa1819.json")
                     .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                     .SetDefaultAllocationDescriptions();
 
@@ -629,7 +629,7 @@
         {
             // Arrange 
             contractType contractType =
-                TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa1819.json")
+                TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractEfa1819.json")
                     .SetContractor(ukprn: 88888888, legalName: "Contract provider name")
                     .WithOnlyTheseAllocations(allocationNumbers: new[] { "16LR-1046", "NMF-1045", "SSF-1045", "16LR-1048" })
                     .SetAllocationDeliveryOrgsToSameAsContractor()
@@ -687,7 +687,7 @@
             this contractAllocationsContractAllocation allocation, int deliveryUkprn, string deliveryLegalName)
         {
             allocation.DeliveryOrganisation = deliveryUkprn.ToString();
-            allocation.DeliveryOrganisationDetail = new contractor
+            allocation.DeliveryOrganisationDetail = new Contractor
             {
                 ukprn = deliveryUkprn,
                 legalName = deliveryLegalName
@@ -718,7 +718,7 @@
 
         public static contractType SetContractor(this contractType contract, int ukprn, string legalName)
         {
-            contract.contractor = new contractor { legalName = legalName, ukprn = ukprn };
+            contract.contractor = new Contractor { legalName = legalName, ukprn = ukprn };
 
             return contract;
         }

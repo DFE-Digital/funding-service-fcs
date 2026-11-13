@@ -42,7 +42,7 @@
             contractAllocationsContractAllocation allocation = new contractAllocationsContractAllocation
             {
                 DeliveryOrganisation = org.Ukprn,
-                period = new period
+                period = new Period
                 {
                     period1 = "1718",
                     periodType = new periodTypeType

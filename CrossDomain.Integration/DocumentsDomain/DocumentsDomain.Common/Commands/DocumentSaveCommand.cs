@@ -24,7 +24,7 @@
         public bool SendReply { get; set; }
 
         [LogDetail]
-        public contract Contract { get; set; }
+        public Contract Contract { get; set; }
 
         [LogDetail]
         public string CorrelationId { get; set; }

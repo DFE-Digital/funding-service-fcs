@@ -6,6 +6,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Repositories;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     public static class ContractPublisher
     {
@@ -31,7 +32,7 @@
 
             bool atomItemCreated = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(atomItemCreated, $"The contract: {contractNumber} does not appear in the [ContractManagement].[AtomFeedItem] table");
+            ClassicAssert.IsTrue(atomItemCreated, $"The contract: {contractNumber} does not appear in the [ContractManagement].[AtomFeedItem] table");
         }
     }
 }

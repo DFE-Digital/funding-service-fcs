@@ -14,7 +14,7 @@
         private IReadOnlyCollection<FundingTypeFundingPeriodInfo> _allFundingTypeFundingPeriods = new List<FundingTypeFundingPeriodInfo>();
         private int _haveCalled;
 
-        public async Task<bool> ShouldGenerateDocumentationForContract(contract masterContract,
+        public async Task<bool> ShouldGenerateDocumentationForContract(Contract masterContract,
             ConnectionInfo connectionInfo)
         {
             contractType childContract = masterContract.contracts.First();

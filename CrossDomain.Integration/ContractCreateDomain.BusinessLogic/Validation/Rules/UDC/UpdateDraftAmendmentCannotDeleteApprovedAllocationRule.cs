@@ -28,7 +28,7 @@
             {
                 failures.AddRange(
                     c.contractAllocations
-                        .Where(a => a.CRMIntent == intent.DeleteDraftAmendment || a.CRMIntent == intent.DeleteDraft)
+                        .Where(a => a.CRMIntent == Intent.DeleteDraftAmendment || a.CRMIntent == Intent.DeleteDraft)
                         .Where(a => c.ApprovedAllocationValues.Any(aav => aav.ContractAllocationNumber.Equals(a.contractAllocationNumber, StringComparison.OrdinalIgnoreCase)))
                         .Select(a => a.correlationId));
             });

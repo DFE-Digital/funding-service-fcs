@@ -1,9 +1,10 @@
-﻿namespace FCT.Operations.FundingAllocationExtract
+﻿
+namespace FCT.Operations.FundingAllocationExtract
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
@@ -15,35 +16,47 @@
 
         public string NameOfAssembly => "FCT.Operations.dll";
 
-        private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint = new List<string>();
+        private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint =
+            new List<string>();
 
-        private static readonly IReadOnlyCollection<Type> CommandsUsedInThisEndpoint = new List<Type>
-        {
-            typeof(CreateFundingAllocationExtractCommand)
-        };
+        private static readonly IReadOnlyCollection<Type> CommandsUsedInThisEndpoint =
+            new List<Type>
+            {
+                typeof(CreateFundingAllocationExtractCommand)
+            };
 
         string IEndpointConfigWithFcsConfig.EndpointName => EndpointName;
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
-        public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>();
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            new List<CommandRoute>();
 
-        public EndpointConfiguration GetEndpointConfiguration(ILogger logger, IFcsConfiguration appConfiguration)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILogger logger,
+            IFcsConfiguration appConfiguration)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
             logger.LogInformation(1, $"Started Endpoint {EndpointName} on Ops.Worker");
 
+            // ✅ Conventions
             configuration.Conventions()
                 .DefiningCommandsAs(t => CommandsUsedInThisEndpoint.Contains(t))
                 .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization (keep consistent)
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ ✅ DI replacement (NO Windsor)
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(logger, appConfiguration)));
+                services.AddFundingAllocationExtractServices(logger, appConfiguration);
             });
 
             return configuration;
         }
     }
 }
+

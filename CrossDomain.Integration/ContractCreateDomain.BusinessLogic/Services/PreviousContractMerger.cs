@@ -12,10 +12,10 @@
 
     public class PreviousContractMerger : IPreviousContractMerger
     {
-        private static readonly IReadOnlyCollection<intent> AllowedIntents = new List<intent> { intent.UpdateDraft, intent.UpdateDraftAmendment, intent.Amendment };
-        private static readonly IReadOnlyCollection<intent> CopyAmendmentTypeIntents = new List<intent> {intent.UpdateDraftAmendment, intent.Amendment };
-        private static readonly IReadOnlyCollection<intent> CopyAmendmentReasonIntents = new List<intent> { intent.UpdateDraftAmendment};
-        private static readonly IReadOnlyCollection<intent> LastVersionRequiredIntents = new List<intent> {intent.UpdateDraft, intent.UpdateDraftAmendment};
+        private static readonly IReadOnlyCollection<Intent> AllowedIntents = new List<Intent> { Intent.UpdateDraft, Intent.UpdateDraftAmendment, Intent.Amendment };
+        private static readonly IReadOnlyCollection<Intent> CopyAmendmentTypeIntents = new List<Intent> { Intent.UpdateDraftAmendment, Intent.Amendment };
+        private static readonly IReadOnlyCollection<Intent> CopyAmendmentReasonIntents = new List<Intent> { Intent.UpdateDraftAmendment};
+        private static readonly IReadOnlyCollection<Intent> LastVersionRequiredIntents = new List<Intent> { Intent.UpdateDraft, Intent.UpdateDraftAmendment};
         private static readonly string AmendmentNoLastApprovedVersionErrorMessage = ValidationRuleErrorMessages.ContractAmendmentMustHaveExistingApprovedContract;
         private const string UpdateDraftNoLatestVersionErrorMessage = "Cannot find matching draft contract to update";
 
@@ -73,7 +73,7 @@
                 });
         }
 
-        private static bool AreIntentsSupported(IReadOnlyCollection<intent> contractIntents)
+        private static bool AreIntentsSupported(IReadOnlyCollection<Intent> contractIntents)
         {
             return contractIntents.All(contractIntent => AllowedIntents.Contains(contractIntent));
         }
@@ -109,7 +109,7 @@
                     {
                         correlationId = masterContract.correlationId,
                         level = errorInfoTypeLevel.Contract,
-                        Value = contract.CRMIntent == intent.Amendment ? AmendmentNoLastApprovedVersionErrorMessage : UpdateDraftNoLatestVersionErrorMessage,
+                        Value = contract.CRMIntent == Intent.Amendment ? AmendmentNoLastApprovedVersionErrorMessage : UpdateDraftNoLatestVersionErrorMessage,
                         Severity = ErrorSeverity.Standard
                     });
                 });
@@ -125,7 +125,7 @@
             return CrossDomain.Integration.Entities.ContractRequest.amendmentType.None;
         }
 
-        private static void MergePreviousIntoAllocation(contractAllocation allocation, Option<PreviousAllocation> previousAllocation, intent intent)
+        private static void MergePreviousIntoAllocation(contractAllocation allocation, Option<PreviousAllocation> previousAllocation, Intent intent)
         {
             previousAllocation.MatchSome(prev =>
             {

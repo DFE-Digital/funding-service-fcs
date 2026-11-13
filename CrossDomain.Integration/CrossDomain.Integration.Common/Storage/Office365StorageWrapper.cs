@@ -1,5 +1,4 @@
-﻿
-namespace SFA.FCT.CrossDomain.Integration.Common.Storage
+﻿namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 {
     using System;
     using System.Collections.Generic;
@@ -26,7 +25,7 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
         {
         }
 
-        internal Office365StorageWrapper(Func<HttpClient> httpClientFactory)
+        public Office365StorageWrapper(Func<HttpClient> httpClientFactory)
         {
             if (httpClientFactory == null) throw new ArgumentNullException(nameof(httpClientFactory));
             _httpClientFactory = httpClientFactory;
@@ -518,7 +517,8 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
         }
         private static string ResolveSiteId(HttpClient http)
         {
-            string siteUrl = ConfigurationManager.AppSettings["ida:Resource"];
+            string siteUrl =CommonConfiguration.Configuration["AzureAd:Resource"];
+
             if (string.IsNullOrWhiteSpace(siteUrl))
                 throw new InvalidOperationException("AppSetting 'ida:Resource' must be a full SharePoint site URL.");
 
@@ -531,12 +531,21 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage
             using (var resp = http.GetAsync(
                 $"https://graph.microsoft.com/v1.0/sites/{host}:{path}").Result)
             {
-                resp.EnsureSuccessStatusCode();
+                if (!resp.IsSuccessStatusCode)
+                {
+                    var body = resp.Content.ReadAsStringAsync().Result;
+
+                    Console.WriteLine($"Status: {(int)resp.StatusCode}");
+                    Console.WriteLine($"Response: {body}");
+
+                    throw new InvalidOperationException(
+                        $"Graph call failed: {(int)resp.StatusCode} - {body}");
+                }
                 var json = JObject.Parse(resp.Content.ReadAsStringAsync().Result);
                 return (string)json["id"];
             }
         }
-       
+
         private static JObject FindDriveByName(HttpClient http, string siteId, string driveDisplayName)
         {
             // (A) Page through /drives

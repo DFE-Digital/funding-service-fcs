@@ -12,7 +12,7 @@
 
         public string[] DocumentsPublished { get; set; }
 
-        public contract Contract { get; set; }
+        public Contract Contract { get; set; }
 
         public string CorrelationId { get; set; }
 

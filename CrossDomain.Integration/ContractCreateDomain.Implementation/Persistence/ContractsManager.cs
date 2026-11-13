@@ -247,7 +247,7 @@
 
             contractToAmend.contracts.ForEach(childContract =>
             {
-                ISet<contractor> distinctOrganisations = GetDistinctContractors(childContract);
+                ISet<Contractor> distinctOrganisations = GetDistinctContractors(childContract);
 
                 distinctOrganisations.ToList().ForEach(CreateOrganisationIfNecessary);
             });
@@ -282,11 +282,11 @@
             return contractsCollection;
         }
 
-        private ISet<contractor> GetDistinctContractors(ExtendedContractType contract)
+        private ISet<Contractor> GetDistinctContractors(ExtendedContractType contract)
         {
             int childContractUkprn = contract.contractor.ukprn;
 
-            ISet<contractor> distinctOrganisations = contract
+            ISet<Contractor> distinctOrganisations = contract
                 .contractAllocations
                 .Where(a => a.HasDeliveryOrganisation()
                             && a.DeliveryOrganisationDetail.ukprn != childContractUkprn)

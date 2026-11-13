@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Endpoint.ProcessPaymentRunEndpoint.Handlers
 {
+    extern alias CrossdomainCommon;
     using System.Linq;
     using System.Threading.Tasks;
     using BusinessLogic.Services;
@@ -10,7 +11,7 @@
     using Services;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using CorporateSchema = SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
+    using  CorporateSchema = CrossdomainCommon::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
 
     public class ProcessPaymentRunHandler : IHandleMessages<ProcessPaymentRunCommand>
     {

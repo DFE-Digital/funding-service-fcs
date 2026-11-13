@@ -1,5 +1,7 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGeneration.ProcessPaymentRunError
 {
+
+    extern alias Entities;
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -8,7 +10,7 @@
     using PaymentGenerationDomain.Common;
     using PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunErrorEndpoint;
     using PaymentGenerationEndpoint.Infrastructure;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
 

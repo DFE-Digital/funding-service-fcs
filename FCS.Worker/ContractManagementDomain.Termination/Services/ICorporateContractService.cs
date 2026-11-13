@@ -9,7 +9,7 @@
 
     public interface ICorporateContractService
     {
-        contract GetContract(
+        Contract GetContract(
             ConnectionInfo connectionInfo,
             ICrmContractRepository crmContractRepository,
             IContractsManager contractsManager,

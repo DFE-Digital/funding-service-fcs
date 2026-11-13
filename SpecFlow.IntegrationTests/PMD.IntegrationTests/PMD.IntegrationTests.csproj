@@ -1,216 +1,98 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{82DA85B5-596A-4404-B8C7-234A8761FD6C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PMD.IntegrationTests</RootNamespace>
-    <AssemblyName>PMD.IntegrationTests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <Configurations>AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PS;PUB;Release</Configurations>
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet>true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets>$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyTitle>PMD.IntegrationTests</AssemblyTitle>
+    <Company>Microsoft Corporation</Company>
+    <Product>PMD.IntegrationTests</Product>
+    <Copyright>Copyright © Microsoft Corporation 2015</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\CI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
     <OutputPath>bin\AT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
     <OutputPath>bin\OAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DEV\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
     <OutputPath>bin\MO\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PS|AnyCPU'">
     <OutputPath>bin\PS\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Label="SlowCheetah">
-    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
-    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
-    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
-    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
     <OutputPath>bin\DAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>false</Optimize>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
     <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
     <OutputPath>bin\DOAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Windsor.4.1.1\lib\net45\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MoreLinq, Version=1.1.18418.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\morelinq.1.1.1\lib\net35\MoreLinq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.7.1.4\lib\net452\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Testing, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.Testing.7.0.0\lib\net452\NServiceBus.Testing.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.core">
-      <HintPath>..\..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
-      <Private>True</Private>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.core.interfaces">
-      <HintPath>..\..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
-      <Private>True</Private>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.util">
-      <HintPath>..\..\packages\NUnitTestAdapter.2.0.0\lib\nunit.util.dll</HintPath>
-      <Private>True</Private>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NUnit.VisualStudio.TestAdapter">
-      <HintPath>..\..\packages\NUnitTestAdapter.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
-      <Private>True</Private>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Runtime.Remoting" />
+    <!--<Reference Include="System.Runtime.Remoting" />-->
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-    <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <!--<Reference Include="System.Web" />-->
+    <PackageReference Include="NServiceBus" Version="9.2.8" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="Castle.Core" Version="5.2.1" />
+    <PackageReference Include="Castle.Windsor" Version="6.0.0" />
+    <PackageReference Include="EntityFramework" Version="6.5.2" />
+    <PackageReference Include="Moq" Version="4.2.1510.2205" />
+    <PackageReference Include="morelinq" Version="4.4.0" />
+    <PackageReference Include="NServiceBus.Testing" Version="7.0.0" />
+    <PackageReference Include="NUnit" Version="2.6.4" />
+    <PackageReference Include="NUnitTestAdapter" Version="2.0.0" />
+    <PackageReference Include="SlowCheetah" Version="2.5.15" />
+    <PackageReference Include="SpecFlow" Version="1.9.0" />
+    <PackageReference Include="SpecFlow.NUnit" Version="1.1.1" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -225,675 +107,621 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Dtos\PeriodValue.cs" />
-    <Compile Include="Extensions\TableCellExtensions.cs" />
-    <Compile Include="Extensions\TableRowExtensions.cs" />
-    <Compile Include="Features\11591 ESF AllDeliverablesAllPeriods.feature.cs">
+    <Compile Update="Features\11591 ESF AllDeliverablesAllPeriods.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>11591 ESF AllDeliverablesAllPeriods.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\11591 ESF ShortContractSubsetDeliverables.feature.cs">
+    <Compile Update="Features\11591 ESF ShortContractSubsetDeliverables.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>11591 ESF ShortContractSubsetDeliverables.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\16-18TRN2223 36958.feature.cs">
+    <Compile Update="Features\16-18TRN2223 36958.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>16-18TRN2223 36958.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\16-18TRN-ME2122.feature.cs">
+    <Compile Update="Features\16-18TRN-ME2122.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>16-18TRN-ME2122.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\16-18TRN-ME2223 36958.feature.cs">
+    <Compile Update="Features\16-18TRN-ME2223 36958.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>16-18TRN-ME2223 36958.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\16-18TRN2021.feature.cs">
+    <Compile Update="Features\16-18TRN2021.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>16-18TRN2021.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\16-18TRN2122.feature.cs">
+    <Compile Update="Features\16-18TRN2122.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>16-18TRN2122.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\16TR-1095_LiveIssue.feature.cs">
+    <Compile Update="Features\16TR-1095_LiveIssue.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>16TR-1095_LiveIssue.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\19TRN2020.feature.cs">
+    <Compile Update="Features\19TRN2020.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>19TRN2020.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\19TRN20202122.feature.cs">
+    <Compile Update="Features\19TRN20202122.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>19TRN20202122.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\19TRN20202223 36920.feature.cs">
+    <Compile Update="Features\19TRN20202223 36920.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>19TRN20202223 36920.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AATO1617 - FY and Alloc-Level.feature.cs">
+    <Compile Update="Features\AATO1617 - FY and Alloc-Level.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AATO1617 - FY and Alloc-Level.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Advanced Learner Loans 1819.feature.cs">
+    <Compile Update="Features\Advanced Learner Loans 1819.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Advanced Learner Loans 1819.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEB-19TRN1920 - FY and Alloc-level.feature.cs">
+    <Compile Update="Features\AEB-19TRN1920 - FY and Alloc-level.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEB-19TRN1920 - FY and Alloc-level.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEB-19TRN2021 - PoA.feature.cs">
+    <Compile Update="Features\AEB-19TRN2021 - PoA.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEB-19TRN2021 - PoA.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEB-AS1920 - FY and Alloc-levelOverDelivery.feature.cs">
+    <Compile Update="Features\AEB-AS1920 - FY and Alloc-levelOverDelivery.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEB-AS1920 - FY and Alloc-levelOverDelivery.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEB-AS2021- PoA.feature.cs">
+    <Compile Update="Features\AEB-AS2021- PoA.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEB-AS2021- PoA.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEB2021 36925.feature.cs">
+    <Compile Update="Features\AEB2021 36925.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEB2021 36925.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEB2021.feature.cs">
+    <Compile Update="Features\AEB2021.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEB2021.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEBAS2122.feature.cs">
+    <Compile Update="Features\AEBAS2122.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEBAS2122.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEBNSF2122.feature.cs">
+    <Compile Update="Features\AEBNSF2122.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEBNSF2122.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\AEBTO-TOL1617 - FY and Alloc-Level.feature.cs">
+    <Compile Update="Features\AEBTO-TOL1617 - FY and Alloc-Level.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AEBTO-TOL1617 - FY and Alloc-Level.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\ALLB1617 - FY and Alloc-Level.feature.cs">
+    <Compile Update="Features\ALLB1617 - FY and Alloc-Level.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ALLB1617 - FY and Alloc-Level.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\ALLB2021.feature.cs">
+    <Compile Update="Features\ALLB2021.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ALLB2021.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\ALLB2122.feature.cs">
+    <Compile Update="Features\ALLB2122.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ALLB2122.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\APPS1920 - Alloc-duration and Alloc-level with prioritisation.feature.cs">
+    <Compile Update="Features\APPS1920 - Alloc-duration and Alloc-level with prioritisation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>APPS1920 - Alloc-duration and Alloc-level with prioritisation.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\APPS1920 23924.feature.cs">
+    <Compile Update="Features\APPS1920 23924.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>APPS1920 23924.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\APPS1920_29589.feature.cs">
+    <Compile Update="Features\APPS1920_29589.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>APPS1920_29589.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\APPS2021.feature.cs">
+    <Compile Update="Features\APPS2021.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>APPS2021.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\APPS2122.feature.cs">
+    <Compile Update="Features\APPS2122.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>APPS2122.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Bootcamps 36273.feature.cs">
+    <Compile Update="Features\Bootcamps 36273.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Bootcamps 36273.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\CappingApportionmentPrioritisation.feature.cs">
+    <Compile Update="Features\CappingApportionmentPrioritisation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CappingApportionmentPrioritisation.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Capping_MissingActuals.feature.cs">
+    <Compile Update="Features\Capping_MissingActuals.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Capping_MissingActuals.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Capping_NegativeActuals.feature.cs">
+    <Compile Update="Features\Capping_NegativeActuals.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Capping_NegativeActuals.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Capping_SinglePeriodEOP 6394.feature.cs">
+    <Compile Update="Features\Capping_SinglePeriodEOP 6394.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Capping_SinglePeriodEOP 6394.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\EDSK APPS 37264.feature.cs">
+    <Compile Update="Features\EDSK APPS 37264.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EDSK APPS 37264.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\FinancialYearCappingApportionment.feature.cs">
+    <Compile Update="Features\FinancialYearCappingApportionment.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FinancialYearCappingApportionment.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\FinancialYearCappingGroupLevelCappingWithNoFlexibility.feature.cs">
+    <Compile Update="Features\FinancialYearCappingGroupLevelCappingWithNoFlexibility.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FinancialYearCappingGroupLevelCappingWithNoFlexibility.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\NCS_1819.feature.cs">
+    <Compile Update="Features\NCS_1819.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NCS_1819.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\NCS_2021.feature.cs">
+    <Compile Update="Features\NCS_2021.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NCS_2021.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\NLAP_2018.feature.cs">
+    <Compile Update="Features\NLAP_2018.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NLAP_2018.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\NLAP_LevyCareLeavers 23043.feature.cs">
+    <Compile Update="Features\NLAP_LevyCareLeavers 23043.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NLAP_LevyCareLeavers 23043.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PaidExternally.feature.cs">
+    <Compile Update="Features\PaidExternally.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PaidExternally.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap6376GroupCapping.feature.cs">
+    <Compile Update="Features\PayCap6376GroupCapping.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap6376GroupCapping.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap6389MultipleCappingPeriods.feature.cs">
+    <Compile Update="Features\PayCap6389MultipleCappingPeriods.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap6389MultipleCappingPeriods.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap6422CalculatePaymentOnContractAmendmentApproval.feature.cs">
+    <Compile Update="Features\PayCap6422CalculatePaymentOnContractAmendmentApproval.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap6422CalculatePaymentOnContractAmendmentApproval.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap8653LateApprovalShortContract.feature.cs">
+    <Compile Update="Features\PayCap8653LateApprovalShortContract.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap8653LateApprovalShortContract.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap6398_PoAWithCapAndOnePeriod.feature.cs">
+    <Compile Update="Features\PayCap6398_PoAWithCapAndOnePeriod.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap6398_PoAWithCapAndOnePeriod.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap8652_PoAWithOneCappingPeriod.feature.cs">
+    <Compile Update="Features\PayCap8652_PoAWithOneCappingPeriod.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap8652_PoAWithOneCappingPeriod.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap6394EOPCapping.feature.cs">
+    <Compile Update="Features\PayCap6394EOPCapping.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap6394EOPCapping.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap9028SecondCappingPeriod.feature.cs">
+    <Compile Update="Features\PayCap9028SecondCappingPeriod.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap9028SecondCappingPeriod.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCap9063PoAContractAmendment.feature.cs">
+    <Compile Update="Features\PayCap9063PoAContractAmendment.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCap9063PoAContractAmendment.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayCapNCSGroupCappingAndllocationDuration.feature.cs">
+    <Compile Update="Features\PayCapNCSGroupCappingAndllocationDuration.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayCapNCSGroupCappingAndllocationDuration.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayOnActualsAllf.feature.cs">
+    <Compile Update="Features\PayOnActualsAllf.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayOnActualsAllf.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PayOnProfile.feature.cs">
+    <Compile Update="Features\PayOnProfile.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayOnProfile.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PoAPayCalcs1920 26943.feature.cs">
+    <Compile Update="Features\PoAPayCalcs1920 26943.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PoAPayCalcs1920 26943.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PostYearEnd.feature.cs">
+    <Compile Update="Features\PostYearEnd.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PostYearEnd.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\PreFSPStart.feature.cs">
+    <Compile Update="Features\PreFSPStart.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PreFSPStart.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Rollover1819_OPAtests 22878 .feature.cs">
+    <Compile Update="Features\Rollover1819_OPAtests 22878 .feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Rollover1819_OPAtests 22878 .feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\STFI2021.feature.cs">
+    <Compile Update="Features\STFI2021.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>STFI2021.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\STFI2122.feature.cs">
+    <Compile Update="Features\STFI2122.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>STFI2122.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\STFIC2021.feature.cs">
+    <Compile Update="Features\STFIC2021.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>STFIC2021.feature</DependentUpon>
     </Compile>
-    <Compile Include="PageObjects\CalculatedAmount.cs" />
-    <Compile Include="PageObjects\ExtendedAllocation.cs" />
-    <Compile Include="PageObjects\DeliverableCodePayments.cs" />
-    <Compile Include="PageObjects\PaymentCalculationPageObject.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\PaymentCalculationSteps.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.DAT.config">
+    <None Update="App.DAT.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.DCI.config">
+    <None Update="App.DCI.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.DMO.config">
+    <None Update="App.DMO.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.DOAT.config">
+    <None Update="App.DOAT.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.AT.config">
+    <None Update="App.AT.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.CI.config">
+    <None Update="App.CI.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-      <TransformOnBuild>true</TransformOnBuild>
-    </None>
-    <None Include="App.DEV.config">
+    <None Update="App.DEV.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.MO.config">
+    <None Update="App.MO.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.OAT.config">
+    <None Update="App.OAT.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="Features\11591 ESF AllDeliverablesAllPeriods.feature">
+    <None Update="Features\11591 ESF AllDeliverablesAllPeriods.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>11591 ESF AllDeliverablesAllPeriods.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\11591 ESF ShortContractSubsetDeliverables.feature">
+    <None Update="Features\11591 ESF ShortContractSubsetDeliverables.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>11591 ESF ShortContractSubsetDeliverables.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\16-18TRN2223 36958.feature">
+    <None Update="Features\16-18TRN2223 36958.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>16-18TRN2223 36958.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\16-18TRN-ME2122.feature">
+    <None Update="Features\16-18TRN-ME2122.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>16-18TRN-ME2122.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\16-18TRN-ME2223 36958.feature">
+    <None Update="Features\16-18TRN-ME2223 36958.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>16-18TRN-ME2223 36958.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\16-18TRN2021.feature">
+    <None Update="Features\16-18TRN2021.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>16-18TRN2021.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\16-18TRN2122.feature">
+    <None Update="Features\16-18TRN2122.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>16-18TRN2122.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\16TR-1095_LiveIssue.feature">
+    <None Update="Features\16TR-1095_LiveIssue.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>16TR-1095_LiveIssue.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\19TRN2020.feature">
+    <None Update="Features\19TRN2020.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>19TRN2020.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\19TRN20202122.feature">
+    <None Update="Features\19TRN20202122.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>19TRN20202122.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\19TRN20202223 36920.feature">
+    <None Update="Features\19TRN20202223 36920.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>19TRN20202223 36920.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AATO1617 - FY and Alloc-Level.feature">
+    <None Update="Features\AATO1617 - FY and Alloc-Level.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AATO1617 - FY and Alloc-Level.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Advanced Learner Loans 1819.feature">
+    <None Update="Features\Advanced Learner Loans 1819.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Advanced Learner Loans 1819.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEB-19TRN1920 - FY and Alloc-level.feature">
+    <None Update="Features\AEB-19TRN1920 - FY and Alloc-level.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEB-19TRN1920 - FY and Alloc-level.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEB-19TRN2021 - PoA.feature">
+    <None Update="Features\AEB-19TRN2021 - PoA.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEB-19TRN2021 - PoA.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEB-AS1920 - FY and Alloc-levelOverDelivery.feature">
+    <None Update="Features\AEB-AS1920 - FY and Alloc-levelOverDelivery.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEB-AS1920 - FY and Alloc-levelOverDelivery.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEB-AS2021- PoA.feature">
+    <None Update="Features\AEB-AS2021- PoA.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEB-AS2021- PoA.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEB2021 36925.feature">
+    <None Update="Features\AEB2021 36925.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEB2021 36925.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEB2021.feature">
+    <None Update="Features\AEB2021.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEB2021.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEBAS2122.feature">
+    <None Update="Features\AEBAS2122.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEBAS2122.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEBNSF2122.feature">
+    <None Update="Features\AEBNSF2122.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEBNSF2122.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AEBTO-TOL1617 - FY and Alloc-Level.feature">
+    <None Update="Features\AEBTO-TOL1617 - FY and Alloc-Level.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AEBTO-TOL1617 - FY and Alloc-Level.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\ALLB1617 - FY and Alloc-Level.feature">
+    <None Update="Features\ALLB1617 - FY and Alloc-Level.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ALLB1617 - FY and Alloc-Level.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\ALLB2021.feature">
+    <None Update="Features\ALLB2021.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ALLB2021.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\ALLB2122.feature">
+    <None Update="Features\ALLB2122.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ALLB2122.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\APPS1920 - Alloc-duration and Alloc-level with prioritisation.feature">
+    <None Update="Features\APPS1920 - Alloc-duration and Alloc-level with prioritisation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>APPS1920 - Alloc-duration and Alloc-level with prioritisation.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\APPS1920 23924.feature">
+    <None Update="Features\APPS1920 23924.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>APPS1920 23924.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\APPS1920_29589.feature">
+    <None Update="Features\APPS1920_29589.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>APPS1920_29589.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\APPS2021.feature">
+    <None Update="Features\APPS2021.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>APPS2021.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\APPS2122.feature">
+    <None Update="Features\APPS2122.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>APPS2122.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Bootcamps 36273.feature">
+    <None Update="Features\Bootcamps 36273.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Bootcamps 36273.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\CappingApportionmentPrioritisation.feature">
+    <None Update="Features\CappingApportionmentPrioritisation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CappingApportionmentPrioritisation.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Capping_MissingActuals.feature">
+    <None Update="Features\Capping_MissingActuals.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Capping_MissingActuals.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Capping_NegativeActuals.feature">
+    <None Update="Features\Capping_NegativeActuals.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Capping_NegativeActuals.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Capping_SinglePeriodEOP 6394.feature">
+    <None Update="Features\Capping_SinglePeriodEOP 6394.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Capping_SinglePeriodEOP 6394.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\EDSK APPS 37264.feature">
+    <None Update="Features\EDSK APPS 37264.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EDSK APPS 37264.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\FinancialYearCappingApportionment.feature">
+    <None Update="Features\FinancialYearCappingApportionment.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FinancialYearCappingApportionment.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\FinancialYearCappingGroupLevelCappingWithNoFlexibility.feature">
+    <None Update="Features\FinancialYearCappingGroupLevelCappingWithNoFlexibility.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FinancialYearCappingGroupLevelCappingWithNoFlexibility.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\NCS_1819.feature">
+    <None Update="Features\NCS_1819.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NCS_1819.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\NCS_2021.feature">
+    <None Update="Features\NCS_2021.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NCS_2021.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\NLAP_2018.feature">
+    <None Update="Features\NLAP_2018.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NLAP_2018.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\NLAP_LevyCareLeavers 23043.feature">
+    <None Update="Features\NLAP_LevyCareLeavers 23043.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NLAP_LevyCareLeavers 23043.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PaidExternally.feature">
+    <None Update="Features\PaidExternally.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PaidExternally.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap6376GroupCapping.feature">
+    <None Update="Features\PayCap6376GroupCapping.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap6376GroupCapping.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap6389MultipleCappingPeriods.feature">
+    <None Update="Features\PayCap6389MultipleCappingPeriods.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap6389MultipleCappingPeriods.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap6422CalculatePaymentOnContractAmendmentApproval.feature">
+    <None Update="Features\PayCap6422CalculatePaymentOnContractAmendmentApproval.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap6422CalculatePaymentOnContractAmendmentApproval.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap8653LateApprovalShortContract.feature">
+    <None Update="Features\PayCap8653LateApprovalShortContract.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap8653LateApprovalShortContract.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap6398_PoAWithCapAndOnePeriod.feature">
+    <None Update="Features\PayCap6398_PoAWithCapAndOnePeriod.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap6398_PoAWithCapAndOnePeriod.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap8652_PoAWithOneCappingPeriod.feature">
+    <None Update="Features\PayCap8652_PoAWithOneCappingPeriod.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap8652_PoAWithOneCappingPeriod.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap6394EOPCapping.feature">
+    <None Update="Features\PayCap6394EOPCapping.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap6394EOPCapping.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap9028SecondCappingPeriod.feature">
+    <None Update="Features\PayCap9028SecondCappingPeriod.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap9028SecondCappingPeriod.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCap9063PoAContractAmendment.feature">
+    <None Update="Features\PayCap9063PoAContractAmendment.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCap9063PoAContractAmendment.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayCapNCSGroupCappingAndllocationDuration.feature">
+    <None Update="Features\PayCapNCSGroupCappingAndllocationDuration.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayCapNCSGroupCappingAndllocationDuration.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayOnActualsAllf.feature">
+    <None Update="Features\PayOnActualsAllf.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayOnActualsAllf.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PayOnProfile.feature">
+    <None Update="Features\PayOnProfile.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PayOnProfile.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PoAPayCalcs1920 26943.feature">
+    <None Update="Features\PoAPayCalcs1920 26943.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PoAPayCalcs1920 26943.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PostYearEnd.feature">
+    <None Update="Features\PostYearEnd.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PostYearEnd.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\PreFSPStart.feature">
+    <None Update="Features\PreFSPStart.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PreFSPStart.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Rollover1819_OPAtests 22878 .feature">
+    <None Update="Features\Rollover1819_OPAtests 22878 .feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Rollover1819_OPAtests 22878 .feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\STFI2021.feature">
+    <None Update="Features\STFI2021.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>STFI2021.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\STFI2122.feature">
+    <None Update="Features\STFI2122.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>STFI2122.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\STFIC2021.feature">
+    <None Update="Features\STFIC2021.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>STFIC2021.feature.cs</LastGenOutput>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CrossDomain.Integration\AllocationDeliveryDomain.Common\AllocationDeliveryDomain.Common.csproj">
-      <Project>{9b837a72-d62b-46e1-b2c6-6224879b2a30}</Project>
-      <Name>AllocationDeliveryDomain.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj">
-      <Project>{e766a4b6-88b4-4e18-a68b-761b65c7e015}</Project>
-      <Name>CrossDomain.Integration.Common</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\CrossDomain.Integration\AllocationDeliveryDomain.Common\AllocationDeliveryDomain.Common.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj" />
     <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
-      <Project>{6e27f9ef-1391-41e7-8b8d-7c1b82665578}</Project>
-      <Name>CrossDomain.Integration.Entities</Name>
+		<aliases>Entity</aliases>
     </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj">
-      <Project>{d68560c9-7fcc-41e6-b48d-3cd237d97926}</Project>
-      <Name>CrossDomain.Integration.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.OverrideDate.DataStore\CrossDomain.Integration.OverrideDate.DataStore.csproj">
-      <Project>{87892186-a593-46da-900f-6cef458efe20}</Project>
-      <Name>CrossDomain.Integration.OverrideDate.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagement.Calculation\PaymentManagement.Calculation.csproj">
-      <Project>{16681EE9-1FEB-4E24-B93A-9AC69A3DEAF4}</Project>
-      <Name>PaymentManagement.Calculation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.BusinessLogic\PMD.BusinessLogic.csproj">
-      <Project>{61187615-6341-43b6-9385-c44897c3b17c}</Project>
-      <Name>PMD.BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.DataStore\PMD.PolicyCache.DataStore.csproj">
-      <Project>{d3db2af2-6ab8-4257-8678-c171b8c06e6a}</Project>
-      <Name>PMD.PolicyCache.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.PaymentAggregation\PMD.Integration.PaymentAggregation.csproj">
-      <Project>{4e42c505-f8ec-48b6-aea4-b95e54b73708}</Project>
-      <Name>PMD.Integration.PaymentAggregation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.PaymentSchedule\PMD.Integration.PaymentSchedule.csproj">
-      <Project>{f6153562-d00d-4f7c-9a8b-804443f5bd4f}</Project>
-      <Name>PMD.Integration.PaymentSchedule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.PaymentSchedule.DataStore\PMD.PaymentSchedule.DataStore.csproj">
-      <Project>{00ad2bf4-7448-4c7c-9cb1-6a7c39f64083}</Project>
-      <Name>PMD.PaymentSchedule.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
-      <Project>{b93f0ed2-8af4-46c4-ae47-daa3483fd8f3}</Project>
-      <Name>Framework.Logging</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.OverrideDate.DataStore\CrossDomain.Integration.OverrideDate.DataStore.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagement.Calculation\PaymentManagement.Calculation.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.BusinessLogic\PMD.BusinessLogic.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.DataStore\PMD.PolicyCache.DataStore.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.PaymentAggregation\PMD.Integration.PaymentAggregation.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.PaymentSchedule\PMD.Integration.PaymentSchedule.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.PaymentSchedule.DataStore\PMD.PaymentSchedule.DataStore.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -913,14 +741,4 @@
       </ItemGroup>
     </When>
   </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

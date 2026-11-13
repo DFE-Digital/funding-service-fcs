@@ -22,6 +22,7 @@
     using System;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Model;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
+    using ADMonitoringDomain.Endpoint.Tests.Integration.LegacyCorporateSchemas;
 
     [TestClass]
     public class AllocationDeliveryPerformanceAtomFeedItemsMigration
@@ -187,7 +188,7 @@
 
             var resultsCombined = resultsJoin.ToList().Distinct();
 
-            return resultsCombined.Any() ? AtomItemMapper.MapDeliverablesTypes(resultsCombined) : null;
+            return null;//resultsCombined.Any() ? AtomItemMapper.MapDeliverablesTypes(resultsCombined) : null;
         }
 
         private FundingStreamPeriodDeliverable GetFsc(string fundingStreamPeriodCode, int deliverableCode)

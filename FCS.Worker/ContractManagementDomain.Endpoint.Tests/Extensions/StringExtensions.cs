@@ -7,7 +7,7 @@ namespace ContractManagementDomain.Endpoint.Tests.Extensions
     {
         internal static string TrimInvisibleChars(this string text)
         {
-            return text.Replace(Environment.NewLine, string.Empty).Replace("\t", string.Empty);
+            return text.Replace(System.Environment.NewLine, string.Empty).Replace("\t", string.Empty);
         }
 
     }

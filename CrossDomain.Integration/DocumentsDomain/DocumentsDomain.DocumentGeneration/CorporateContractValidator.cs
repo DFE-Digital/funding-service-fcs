@@ -7,19 +7,19 @@
 
     public class CorporateContractValidator : ICorporateContractValidator
     {
-        private static readonly List<ValidationRule<contract>>  MasterContractValidators;
+        private static readonly List<ValidationRule<Contract>>  MasterContractValidators;
         private static readonly List<ValidationRule<contractType>> ContractValidators;
         private static readonly List<ValidationRule<contractAllocationsContractAllocation>> AllocationValidators;
 
         static CorporateContractValidator()
         {
-            MasterContractValidators = new List<ValidationRule<contract>>
+            MasterContractValidators = new List<ValidationRule<Contract>>
             {
-                new ValidationRule<contract>("Master contract is missing from message", masterContract => masterContract == null),
-                new ValidationRule<contract>("Master contract has no contract number", masterContract => string.IsNullOrEmpty(masterContract.contractNumber)),
-                new ValidationRule<contract>("Master contract has no funding type", masterContract => masterContract.fundingType == null || string.IsNullOrEmpty(masterContract.fundingType.fundingTypeCode)),
-                new ValidationRule<contract>("Master contract has no contracts", masterContract => masterContract.contracts == null || masterContract.contracts.Count == 0),
-                new ValidationRule<contract>("Master contract has more than one contract", masterContract => masterContract.contracts.Count > 1)
+                new ValidationRule<Contract>("Master contract is missing from message", masterContract => masterContract == null),
+                new ValidationRule<Contract>("Master contract has no contract number", masterContract => string.IsNullOrEmpty(masterContract.contractNumber)),
+                new ValidationRule<Contract>("Master contract has no funding type", masterContract => masterContract.fundingType == null || string.IsNullOrEmpty(masterContract.fundingType.fundingTypeCode)),
+                new ValidationRule<Contract>("Master contract has no contracts", masterContract => masterContract.contracts == null || masterContract.contracts.Count == 0),
+                new ValidationRule<Contract>("Master contract has more than one contract", masterContract => masterContract.contracts.Count > 1)
             };
 
             ContractValidators = new List<ValidationRule<contractType>>
@@ -37,7 +37,7 @@
             };
         }
 
-        public string Validate(contract contract)
+        public string Validate(Contract contract)
         {
             foreach (var validation in ContractValidators.Where(validation => validation.Rule(contract)))
             {

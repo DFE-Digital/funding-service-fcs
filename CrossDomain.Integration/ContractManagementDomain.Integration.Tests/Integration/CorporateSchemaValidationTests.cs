@@ -17,7 +17,7 @@
     public class CorporateSchemaValidationTests
     {
         private const string CorpContractSchemaNamespace = "urn:sfa:schemas:contract";
-        private const string CorpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.09.xsd";
+        private const string CorpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.08.xsd";
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void CorporateSchemaValidation_ShouldPassValidationWhenLotReferenceAndLotSpecificationTitleIsNull()
@@ -219,7 +219,7 @@
 
         private static Stream GetCorporateSchemaXsdFile()
         {
-            return typeof(contract).Assembly.GetManifestResourceStream(CorpContractSchemaResourceName);
+            return typeof(Contract).Assembly.GetManifestResourceStream(CorpContractSchemaResourceName);
         }
     }
 }

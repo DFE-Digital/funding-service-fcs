@@ -30,7 +30,6 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<ConfirmPublicationToProviderHandler>().LifestyleScoped());
-            container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 
@@ -50,16 +49,16 @@
 
             string completePeriod = periodTypeCodeType.AY + "1516";
 
-            contract corpContract = new contract
+            Contract corpContract = new Contract
             {
                 contractNumber = testMasterConNo,
                 contracts =
                 {
-                    new contract
+                    new Contract
                     {
                         contractNumber = testContractNo,
                         fundingType = new fundingType {fundingTypeCode = testFundingTypeCode, fundingTypeName = testFundingTypeName},
-                        period = new period {period1 = "1516",periodType = new periodTypeType {periodTypeName = periodTypeNameType.ACADEMICYEAR, periodTypeCode = periodTypeCodeType.AY} },
+                        period = new Period {period1 = "1516",periodType = new periodTypeType {periodTypeName = periodTypeNameType.ACADEMICYEAR, periodTypeCode = periodTypeCodeType.AY} },
                         DocumentationRequired = true
                     }
                 }
@@ -111,8 +110,8 @@
                 MasterContractNumber = "1"
             };
 
-            contract simpleContract = CreateSimpleCorpContract();
-            contract simpleChildContract = CreateSimpleCorpContract();
+            Contract simpleContract = CreateSimpleCorpContract();
+            Contract simpleChildContract = CreateSimpleCorpContract();
             simpleChildContract.contractNumber = "1";
             simpleContract.contracts.Add(simpleChildContract);
 
@@ -147,15 +146,15 @@
                 Times.Once);
         }
 
-        private static contract CreateSimpleCorpContract()
+        private static Contract CreateSimpleCorpContract()
         {
-            return new contract
+            return new Contract
             {
                 fundingType = new fundingType
                 {
                     fundingTypeCode = "AGE"
                 },
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType
                     {

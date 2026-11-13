@@ -1,8 +1,9 @@
 namespace SFA.FCT.DocumentsDomain.Common.Models
 {
-    using System;
     using Aspose.Words;
+    using Aspose.Words.Replacing;
     using Aspose.Words.Tables;
+    using System;
 
     public partial class DocumentGenerationRequest
     {
@@ -20,8 +21,15 @@ namespace SFA.FCT.DocumentsDomain.Common.Models
 
         public static void CleanupIndentMarkers(Row row)
         {
-            row.FirstCell.Range.Replace(Constants.IndentTextMarker, string.Empty /* FourSpaces */, true, false);
+            var options = new FindReplaceOptions
+            {
+                MatchCase = true,           // was your 3rd param
+                FindWholeWordsOnly = false  // was your 4th param
+            };
+
+            row.FirstCell.Range.Replace(Constants.IndentTextMarker, string.Empty /* FourSpaces */, options);
             row.FirstCell.CellFormat.LeftPadding = 12;
         }
+
     }
 }

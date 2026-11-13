@@ -1,4 +1,4 @@
-﻿namespace ContractRequestDomain.EngagementWatcher.IoC
+﻿namespace SFA.FCT.ContractRequestDomain.EngagementWatcher.IoC
 {
     using System.Configuration;
     using Castle.MicroKernel;

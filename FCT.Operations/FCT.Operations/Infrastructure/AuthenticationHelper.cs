@@ -1,5 +1,4 @@
-﻿
-namespace FCT.Operations.Infrastructure
+﻿namespace FCT.Operations.Infrastructure
 {
     using System;
     using System.Net.Http;

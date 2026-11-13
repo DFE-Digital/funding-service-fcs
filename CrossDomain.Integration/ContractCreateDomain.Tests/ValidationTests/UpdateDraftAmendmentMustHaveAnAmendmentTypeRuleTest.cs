@@ -11,7 +11,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void ShouldCreateErrorMessageForMasterContractWhenUpdateDraftContractAmendmentIntentHasNoneAmendmentType()
         {
-            Contract.contract.CRMIntent = intent.UpdateDraftAmendment;
+            Contract.contract.CRMIntent = Intent.UpdateDraftAmendment;
             Contract.contract.amendmentType = amendmentType.None;
             var rule = new UpdateDraftAmendmentMustHaveAnAmendmentTypeRule();
             Assert.IsTrue(rule.GetFailuresForItem(Contract).Any());
@@ -20,7 +20,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void ShouldNotCreateErrorMessageForMasterContractWhenUpdateDraftContractAmendmentIntentHasNotificationAmendmentType()
         {
-            Contract.contract.CRMIntent = intent.UpdateDraftAmendment;
+            Contract.contract.CRMIntent = Intent.UpdateDraftAmendment;
             Contract.contract.amendmentType = amendmentType.Notification;
             var rule = new UpdateDraftAmendmentMustHaveAnAmendmentTypeRule();
             Assert.IsFalse(rule.GetFailuresForItem(Contract).Any());
@@ -29,7 +29,7 @@
          [TestMethod, TestCategory("UnitTest")]
         public void ShouldNotCreateErrorMessageForMasterContractWhenUpdateDraftContractAmendmentIntentHasVariationAmendmentType()
         {
-            Contract.contract.CRMIntent = intent.UpdateDraftAmendment;
+            Contract.contract.CRMIntent = Intent.UpdateDraftAmendment;
             Contract.contract.amendmentType = amendmentType.Variation;
             var rule = new UpdateDraftAmendmentMustHaveAnAmendmentTypeRule();
             Assert.IsFalse(rule.GetFailuresForItem(Contract).Any());

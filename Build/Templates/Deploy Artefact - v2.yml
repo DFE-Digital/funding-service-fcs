@@ -8,53 +8,53 @@ parameters:
 steps:
 
 # Update config via FileTransform task.
-- task: FileTransform@2
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
-  displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
-  inputs:
-    folderPath: '$(Build.SourcesDirectory)\CrossDomain.Integration\CrossDomain.Integration.Azure.Deploy\obj\$(BuildConfiguration)\XDomain.Worker\'
-    xmlTargetFiles: |
-      **\*.config
+# - task: FileTransform@1
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+#   displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
+#   inputs:
+#     folderPath: '$(Build.SourcesDirectory)\CrossDomain.Integration\CrossDomain.Integration.Azure.Deploy\obj\$(BuildConfiguration)\XDomain.Worker\'
+#     targetFiles:  '**\*.config'
+#     fileType: xml
 
-- task: FileTransform@2
+- task: FileTransform@1
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
   displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
   inputs:
     folderPath: '$(Build.SourcesDirectory)\CrossDomain.Integration\XDomain.Worker\bin\$(BuildConfiguration)\'
-    xmlTargetFiles: |
-      **\*.config
+    targetFiles: '**\*.config'
+    fileType: xml
 
-- task: FileTransform@2
+- task: FileTransform@1
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
   displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
   inputs:
     folderPath: '$(Build.SourcesDirectory)\CrossDomain.Integration\XDomain.Worker\'
-    xmlTargetFiles: |
-      **\*.config
+    targetFiles: '**\*.config'
+    fileType: xml
 
-- task: FileTransform@2
+- task: FileTransform@1
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
   displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
   inputs:
     folderPath: '$(Build.SourcesDirectory)\CrossDomain.Integration\XDomain.Worker\obj\$(BuildConfiguration)\'
-    xmlTargetFiles: |
-      **\*.config
+    targetFiles: '**\*.config'
+    fileType: xml
 
-- task: FileTransform@2
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
-  displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
-  inputs:
-    folderPath: '$(Build.SourcesDirectory)\CrossDomain.Integration\CrossDomain.Integration.Azure.Deploy\csx\$(BuildConfiguration)\roles\XDomain.Worker\approot\'
-    xmlTargetFiles: |
-      **\*.config
+# - task: FileTransform@1
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+#   displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
+#   inputs:
+#     folderPath: '$(Build.SourcesDirectory)\CrossDomain.Integration\CrossDomain.Integration.Azure.Deploy\csx\$(BuildConfiguration)\roles\XDomain.Worker\approot\'
+#     targetFiles: '**\*.config'
+#     fileType: xml
 
-- task: FileTransform@2
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
-  displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
-  inputs:
-    folderPath: '${{ parameters.StageFolder }}\CrossDomain.Integration.Azure.WorkerSite\CrossDomain.Integration.Azure.WorkerSite.zip'
-    xmlTargetFiles: |
-      **\*.config
+# - task: FileTransform@1
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+#   displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
+#   inputs:
+#     folderPath: '${{ parameters.StageFolder }}\CrossDomain.Integration.Azure.WorkerSite\CrossDomain.Integration.Azure.WorkerSite.zip'
+#     targetFiles: '**\*.config'
+#     fileType: xml
 
 # Unpack Build Control file into variables
 - task: PowerShell@2
@@ -89,31 +89,31 @@ steps:
   continueOnError: false
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CRM'], 'Y'))
 
-# Unpack CrossDomain.Integration.Azure.Deploy cspkg
-- task: PowerShell@2
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
-  displayName: 'Unpack CrossDomain.Integration.Azure.Deploy cspkg'
-  inputs:
-    targetType: filePath
-    filePath: ${{ parameters.StageFolder }}/../Build/Scripts/Unpack_CSPKG_File.ps1
-    arguments: -package "${{ parameters.StageFolder }}/CrossDomain.Integration.Azure.Deploy\CrossDomain.Integration.Azure.Deploy.cspkg" -outputVariable "CrossDomain.Integration.Azure.Deploy"
+# # Unpack CrossDomain.Integration.Azure.Deploy cspkg
+# - task: PowerShell@2
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+#   displayName: 'Unpack CrossDomain.Integration.Azure.Deploy cspkg'
+#   inputs:
+#     targetType: filePath
+#     filePath: ${{ parameters.StageFolder }}/../Build/Scripts/Unpack_CSPKG_File.ps1
+#     arguments: -package "${{ parameters.StageFolder }}/CrossDomain.Integration.Azure.Deploy\CrossDomain.Integration.Azure.Deploy.cspkg" -outputVariable "CrossDomain.Integration.Azure.Deploy"
 
-- task: FileTransform@2
-  displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
-  inputs:
-    folderPath: '$(CrossDomain.Integration.Azure.Deploy)\'
-    xmlTargetFiles: |
-      **\*.config
+# - task: FileTransform@1
+#   displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+#   inputs:
+#     folderPath: '$(CrossDomain.Integration.Azure.Deploy)\'
+#     targetFiles: '**\*.config'
+#     fileType: xml
 
-# Execute Entity Framework Migrations - CDI -- commented out to test file transform task in MO
-- task: PowerShell@2
-  displayName: 'Execute Entity Framework Migrations - CDI'
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
-  inputs:
-    targetType: filePath
-    filePath: ${{ parameters.StageFolder }}/../Build/Scripts/PerformMigrations.ps1
-    arguments: -migrationsFolder $(CrossDomain.Integration.Azure.Deploy) -stageFolder ${{ parameters.StageFolder }} -filter "^(.*\.DataStore.dll|AllocationDeliveryDomain.Common.dll)$" -configuration .\XDomain.Worker.exe.config
+# # Execute Entity Framework Migrations - CDI
+# - task: PowerShell@2
+#   displayName: 'Execute Entity Framework Migrations - CDI'
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+#   inputs:
+#     targetType: filePath
+#     filePath: ${{ parameters.StageFolder }}/../Build/Scripts/PerformMigrations.ps1
+#     arguments: -migrationsFolder $(CrossDomain.Integration.Azure.Deploy) -stageFolder ${{ parameters.StageFolder }} -filter "^(.*\.DataStore.dll|AllocationDeliveryDomain.Common.dll)$" -configuration .\XDomain.Worker.exe.config
 
 # Unpack Operations.Worker cspkg
 # - task: PowerShell@2
@@ -163,22 +163,22 @@ steps:
     testRunTitle: 'CrmCopyDbSetup'
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'),  eq(variables['BC_CrmCopyDbSetup'], 'Y'))
 
-# Azure App Service Deploy: WebJobsHostSite
-- task: AzureRmWebAppDeployment@4.240.2
-  displayName: 'Azure App Service Deploy: WebJobsHostSite'
-  inputs:
-    azureSubscription: ${{ parameters.ARMSubscription }}
-    WebAppName: 'fct-webjobs-$(Release.EnvironmentName)'
-    packageForLinux: '${{ parameters.StageFolder }}/CrossDomain.Integration.Azure.WebJobsHostSite/CrossDomain.Integration.Azure.WebJobsHostSite.zip'
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_WebJobsHostSite'], 'Y'))
+# # Azure App Service Deploy: WebJobsHostSite
+# - task: AzureRmWebAppDeployment@4.240.2
+#   displayName: 'Azure App Service Deploy: WebJobsHostSite'
+#   inputs:
+#     azureSubscription: ${{ parameters.ARMSubscription }}
+#     WebAppName: 'fct-webjobs-$(Release.EnvironmentName)'
+#     packageForLinux: '${{ parameters.StageFolder }}/CrossDomain.Integration.Azure.WebJobsHostSite/CrossDomain.Integration.Azure.WebJobsHostSite.zip'
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_WebJobsHostSite'], 'Y'))
 
-- task: FileTransform@2
+- task: FileTransform@1
   displayName: 'FCT.Console.Subscription - Update Key Vault Secrets'
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_Subscriptions'], 'Y'))
   inputs:
     folderPath: '${{ parameters.StageFolder }}\FCT.Console.Subscription\'
-    xmlTargetFiles: |
-      **\*.config
+    targetFiles: '**\*.config'
+    fileType: xml
 
 # Create Missing Subscriptions for FCS.Worker, CDI, Operations and FcsCore
 - script: |
@@ -192,33 +192,33 @@ steps:
   displayName: 'Create Missing Subscriptions for FCS.Worker/CDI/Operation and FcsCore'
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_Subscriptions'], 'Y'))
 
-- task: FileTransform@2
+- task: FileTransform@1
   displayName: 'FCT.Console.Config Utility- Update Key Vault Secrets'
   #condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_Config'], 'Y'))
   inputs:
     folderPath: '${{ parameters.StageFolder }}/FCT.Console.Config\'
-    xmlTargetFiles: |
-      **\*.config
+    targetFiles: '**\*.config'
+    fileType: xml
 
 # Run the FCT.Console.Config Utility
 - script: |
-    ${{ parameters.StageFolder }}/FCT.Console.Config/FCT.Console.Config.exe
+    ${{ parameters.StageFolder }}/FCT.Console.Config/net8.0/FCT.Console.Config.exe
 
   workingDirectory: '${{ parameters.StageFolder }}/FCT.Console.Config'
   displayName: 'Run the FCT.Console.Config Utility'
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_Config'], 'Y'))
 
-- task: FileTransform@2
+- task: FileTransform@1
   displayName: 'FCT.Console.Config - Template Upload- Update Key Vault Secrets'
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_DocumentTemplates'], 'Y'))
   inputs:
     folderPath: '${{ parameters.StageFolder }}/FCT.Console.Config\'
-    xmlTargetFiles: |
-      **\*.config
+    targetFiles: '**\*.config'
+    fileType: xml
     # Run the FCT.Console.Config Utility for templates only
 - script: |
-    ${{ parameters.StageFolder }}/FCT.Console.Config/FCT.Console.Config.exe /T
+    ${{ parameters.StageFolder }}/FCT.Console.Config/net8.0/FCT.Console.Config.exe /T
 
   workingDirectory: '${{ parameters.StageFolder }}/FCT.Console.Config'
   displayName: 'FCT.Console.Config - Template Upload'

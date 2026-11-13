@@ -12,7 +12,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "7.0.0001.0117")]
-	public enum initialcommunication
+	public enum Initialcommunication
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]

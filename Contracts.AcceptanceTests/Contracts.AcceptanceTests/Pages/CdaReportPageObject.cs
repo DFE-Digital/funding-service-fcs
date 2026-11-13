@@ -11,10 +11,10 @@
 
     public class CdaReportPageObject
     {
-        private readonly string _cdaListName = ConfigurationManager.AppSettings["CdaReportListName"];
+        private readonly string _cdaListName = TestConfiguration.Configuration["Reporting:CdaReportListName"];
         private const string ArchiveName = "Archive";
 
-        public string CdaReportOutputFolder { get; } = ConfigurationManager.AppSettings["CdaReportFileSharePath"];
+        public string CdaReportOutputFolder { get; } = TestConfiguration.Configuration["CdaReportFileSharePath"];
 
         public bool IsCdaCsvReportFileCreatedInDropLocation(string fileName)
         {

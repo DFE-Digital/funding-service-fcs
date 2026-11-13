@@ -10,7 +10,7 @@
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "as per schema")]
     public partial class contractAllocationsContractAllocation
     {
-        private contractor _deliveryOrganisationDetail;
+        private Contractor _deliveryOrganisationDetail;
 
         // Recursive method for assembling hierarchy
         public List<contractDeliverablesTypeContractDeliverable> AssembleChildDeliverables(
@@ -107,9 +107,9 @@
         public string DeliveryOrganisation { get; set; }
 
         [XmlIgnore]
-        public contractor DeliveryOrganisationDetail
+        public Contractor DeliveryOrganisationDetail
         {
-            get => _deliveryOrganisationDetail ?? (_deliveryOrganisationDetail = new contractor());
+            get => _deliveryOrganisationDetail ?? (_deliveryOrganisationDetail = new Contractor());
             set => _deliveryOrganisationDetail = value;
         }
 

@@ -79,7 +79,6 @@
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<InitiateContractApprovalHandler>().LifestyleScoped());
-            container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 
@@ -99,7 +98,7 @@
                 ContractVersionNumber = 1
             };
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.Approved.ToString(), CorporateSchema.contractStatusTypeParentStatus.Approved.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.Approved.ToString(), CorporateSchema.contractStatusTypeParentStatus.Approved.ToString(), 1);
 
             _contractsManagerMock
                 .Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1))
@@ -133,7 +132,7 @@
                 ContractVersionNumber = 1
             };
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.Approved.ToString(), CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.Approved.ToString(), CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
 
             _contractsManagerMock.Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1)).Returns(corpContract);
 
@@ -165,7 +164,7 @@
                 ContractVersionNumber = 1
             };
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.PublishedToProvider.ToString(), CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.PublishedToProvider.ToString(), CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
             
             _contractsManagerMock
                 .Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1))
@@ -201,7 +200,7 @@
                 ContractVersionNumber = 1
             };
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
 
             _contractsManagerMock
                 .Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1))
@@ -236,7 +235,7 @@
                 ContractVersionNumber = 1
             };
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.PublishedToProvider.ToString(), CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.PublishedToProvider.ToString(), CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
 
             _contractsManagerMock
                 .Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1))
@@ -273,7 +272,7 @@
                 .Setup(s => s.IsProcessDateAfterFundingTypeContractingActivityCloseDate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<ConnectionInfo>()))
                 .Returns(false);
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.PublishedToProvider.ToString(), CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", CorporateSchema.contractStatusTypeStatus.PublishedToProvider.ToString(), CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
 
             _contractsManagerMock
                 .Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1))
@@ -295,7 +294,7 @@
         public void InitiateContractApprovalHandler_RequestSourceExternal_GetCorporateContractReturnsContract_SendsMessageOnBus()
         {
             // arrange
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
 
             _contractsManagerMock
                 .Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1))
@@ -328,7 +327,7 @@
         public void InitiateContractApprovalHandler_RequestSourceFcs_GetCorporateContractReturnsContract_SendsMessageOnBus()
         {
             // arrange
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
 
             _contractsManagerMock
                 .Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1))
@@ -369,7 +368,7 @@
                 .Setup(m => m.IsMonthEndInProgress(It.IsAny<ConnectionInfo>()))
                 .Returns(false);
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
 
             _contractsManagerMock
                 .Setup(x => x.GetCorporateContractForSpecificVersion("1", "11", 1))
@@ -407,7 +406,7 @@
                 .Setup(m => m.IsMonthEndInProgress(It.IsAny<ConnectionInfo>()))
                 .Returns(true);
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
             corpContract.contracts.First().contractVersionNumber = 2;
 
             _contractsManagerMock.Setup(x => x.GetCorporateContract("1", "11", false)).Returns(corpContract);
@@ -436,7 +435,7 @@
                 .Setup(m => m.IsMonthEndInProgress(It.IsAny<ConnectionInfo>()))
                 .Returns(true);
 
-            contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
+            Contract corpContract = ReturnPopulatedCorporateContract("11", "1", "Published To Provider", CorporateSchema.contractStatusTypeParentStatus.Draft.ToString(), 1);
             corpContract.contracts.First().contractVersionNumber = 1;
 
             _contractsManagerMock
@@ -521,14 +520,14 @@
             _crmContractDeliverablePeriodRepositoryMock.Verify(x => x.GetContractDeliverablePeriods(It.IsAny<string>(), It.IsAny<int>()), Times.Never, "Contract Deliverable Period GetContractDeliverablePeriods was incorrectly called");
         }
 
-        private static contract ReturnPopulatedCorporateContract(string masterContractNumber, string contractNumber, string contractStatus, string contractParentStatus, int version)
+        private static Contract ReturnPopulatedCorporateContract(string masterContractNumber, string contractNumber, string contractStatus, string contractParentStatus, int version)
         {
-            return new contract
+            return new Contract
             {
                 contractNumber = masterContractNumber,
                 contracts =
                 {
-                    new contract
+                    new Contract
                     {
                         contractNumber = contractNumber,
                         contractStatus = new contractStatusType

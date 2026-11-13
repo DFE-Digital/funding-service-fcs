@@ -32,27 +32,28 @@
                 return contractAllocations.Select(ca => new AllocationInfo(ca.AllocationNumber, ca.ContractAllocationDeliverables.Sum(d => d.PlannedValue))).ToList();
             }
         }
-
         public async Task AddOrUpdateAllocation(ContractAllocation contractAllocation, ConnectionInfo connectionInfo)
         {
             using (var context = new PerformanceManagementDbContext(connectionInfo.Connection, connectionInfo.Transaction))
             {
                 var dbContractAllocation = await context.ContractAllocations
                     .FirstOrDefaultAsync(ca => ca.AllocationNumber == contractAllocation.AllocationNumber)
-                    .ConfigureAwait(continueOnCapturedContext: false);
+                    .ConfigureAwait(false);
 
                 if (dbContractAllocation == null)
                 {
+                    // Add new allocation
                     context.ContractAllocations.Add(contractAllocation);
                 }
                 else
                 {
-                    Mapper.CreateMap<ContractAllocation, ContractAllocation>();
-                    Mapper.Map(contractAllocation,dbContractAllocation);
+                    // ✅ Update existing allocation without AutoMapper
+                    context.Entry(dbContractAllocation).CurrentValues.SetValues(contractAllocation);
                 }
 
-                await context.SaveChangesAsync().ConfigureAwait(continueOnCapturedContext: false);
+                await context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
+
     }
 }

@@ -1,23 +1,36 @@
 ﻿namespace FCT.Console.Config.Transformers
 {
     using System.Collections.Generic;
-
+    using AutoMapper;
+    using Microsoft.Extensions.Logging;
     public static class TypeTransformer
     {
+        private static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => { });
         public static IEnumerable<TDestination> TransformCollection<TSource, TDestination>(
             IEnumerable<TSource> configSheetObjects)
-        {
-            AutoMapper.Mapper.CreateMap<TSource, TDestination>();
-    
-            return AutoMapper.Mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(configSheetObjects);
+        {            
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<TSource, TDestination>();
+            }, loggerFactory);
+
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<IEnumerable<TDestination>>(configSheetObjects);
         }
 
         public static TDestination Transform<TSource, TDestination>(
             TSource source)
-        { 
-            AutoMapper.Mapper.CreateMap<TSource, TDestination>();
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<TSource, TDestination>();
+            }, loggerFactory);
 
-            return AutoMapper.Mapper.Map<TSource, TDestination>(source);
+
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<TDestination>(source);
         }
     }
 }

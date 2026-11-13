@@ -114,8 +114,7 @@
         {
             // Arrange
             ConfigurationManager.AppSettings["CPDS:UseStub"] = "true";
-            IWindsorContainer container = new WindsorContainer().Install(new OrganisationDomain.Integration.CpdsEndpoint.Ioc.ComponentInstaller(new LoggerFactory()))
-                .Register(Castle.MicroKernel.Registration.Component.For<IAzureTableStore>().Instance(Mock.Of<IAzureTableStore>()).IsDefault());
+            IWindsorContainer container = new WindsorContainer().Install(new OrganisationDomain.Integration.CpdsEndpoint.Ioc.ComponentInstaller(new LoggerFactory()));
 
             container.BeginScope();
 
@@ -131,8 +130,7 @@
         {
             // Arrange
             ConfigurationManager.AppSettings["CPDS:UseStub"] = "true";
-            IWindsorContainer container = new WindsorContainer().Install(new OrganisationDomain.Integration.MainEndpoint.Ioc.ComponentInstaller(new LoggerFactory()))
-                .Register(Castle.MicroKernel.Registration.Component.For<IAzureTableStore>().Instance(Mock.Of<IAzureTableStore>()).IsDefault());
+            IWindsorContainer container = new WindsorContainer().Install(new OrganisationDomain.Integration.MainEndpoint.Ioc.ComponentInstaller(new LoggerFactory()));
 
             container.BeginScope();
 
@@ -180,8 +178,7 @@
         {
             // Arrange
             ConfigurationManager.AppSettings["CPDS:UseStub"] = "true";
-            IWindsorContainer container = new WindsorContainer().Install(new OrganisationDomain.Integration.CpdsEndpoint.Ioc.ComponentInstaller(new LoggerFactory()))
-                .Register(Castle.MicroKernel.Registration.Component.For<IAzureTableStore>().Instance(Mock.Of<IAzureTableStore>()).IsDefault());
+            IWindsorContainer container = new WindsorContainer().Install(new OrganisationDomain.Integration.CpdsEndpoint.Ioc.ComponentInstaller(new LoggerFactory()));
 
             container.BeginScope();
 
@@ -197,8 +194,7 @@
         {
             // Arrange
             ConfigurationManager.AppSettings["CPDS:UseStub"] = "true";
-            IWindsorContainer container = new WindsorContainer().Install(new OrganisationDomain.Integration.MainEndpoint.Ioc.ComponentInstaller(new LoggerFactory()))
-                .Register(Castle.MicroKernel.Registration.Component.For<IAzureTableStore>().Instance(Mock.Of<IAzureTableStore>()).IsDefault());
+            IWindsorContainer container = new WindsorContainer().Install(new OrganisationDomain.Integration.MainEndpoint.Ioc.ComponentInstaller(new LoggerFactory()));
 
             container.BeginScope();
 

@@ -6,7 +6,7 @@
     using Castle.MicroKernel.Lifestyle;
     using Castle.Windsor;
     using CrossDomain.Integration.Common.Extensions;
-    using Framework.Logging;
+    using Microsoft.Extensions.Logging;
     using global::UnitTests.Common;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;

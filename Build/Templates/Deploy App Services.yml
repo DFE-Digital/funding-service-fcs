@@ -17,12 +17,12 @@ steps:
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_OperationsWeb'], 'Y'))
 
 # Update config via FileTransform task For Org Service.
-- task: FileTransform@2
+- task: FileTransform@1
   displayName: 'XDomain.Worker.config- Update Key Vault Secrets'
   inputs:
     folderPath: '${{ parameters.StageFolder }}/OrganisationDomain/OrganisationDomain.Web.zip'
-    xmlTargetFiles: |
-      **\*.config
+    targetFiles: '**\*.config'
+    fileType: xml
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_OrgDomain'], 'Y'))
 
 # Azure App Service Deploy: OrganisationDomain.Azure.Deploy
@@ -43,23 +43,23 @@ steps:
     packageForLinux: '${{ parameters.StageFolder }}/FCTServices/ContractManagementService.zip'
   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCTServices'], 'Y'))
 
-# Azure App Service Deploy: FCS.Worker.Azure.Deploy
-- task: AzureRmWebAppDeployment@4.240.2
-  displayName: 'Azure App Service Deploy: FCS.Worker.Azure.WebJobsHostSite'
-  inputs:
-    azureSubscription: ${{ parameters.ARMSubscription }}
-    WebAppName: '${{ parameters.AppNamePrefix}}$(Release.EnvironmentName)-app-x-fcsworker'
-    packageForLinux: '${{ parameters.StageFolder }}/FCS.Worker.Azure.WebJobsHostSite/FCS.Worker.Azure.WebJobsHostSite.zip'
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
+# # Azure App Service Deploy: FCS.Worker.Azure.Deploy
+# - task: AzureRmWebAppDeployment@4.240.2
+#   displayName: 'Azure App Service Deploy: FCS.Worker.Azure.WebJobsHostSite'
+#   inputs:
+#     azureSubscription: ${{ parameters.ARMSubscription }}
+#     WebAppName: '${{ parameters.AppNamePrefix}}$(Release.EnvironmentName)-app-x-fcsworker'
+#     packageForLinux: '${{ parameters.StageFolder }}/FCS.Worker.Azure.WebJobsHostSite/FCS.Worker.Azure.WebJobsHostSite.zip'
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_FCSWorker'], 'Y'))
 
-# Azure App Service Deploy: CDI.Worker
-- task: AzureRmWebAppDeployment@4.240.2
-  displayName: 'Azure App Service Deploy: CrossDomain.Integration.WorkerSite'
-  inputs:
-    azureSubscription: ${{ parameters.ARMSubscription }}
-    WebAppName: '${{ parameters.AppNamePrefix}}$(Release.EnvironmentName)-app-x-cdi'
-    packageForLinux: '${{ parameters.StageFolder }}/CrossDomain.Integration.Azure.WorkerSite/CrossDomain.Integration.Azure.WorkerSite.zip'
-  condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
+# # Azure App Service Deploy: CDI.Worker
+# - task: AzureRmWebAppDeployment@4.240.2
+#   displayName: 'Azure App Service Deploy: CrossDomain.Integration.WorkerSite'
+#   inputs:
+#     azureSubscription: ${{ parameters.ARMSubscription }}
+#     WebAppName: '${{ parameters.AppNamePrefix}}$(Release.EnvironmentName)-app-x-cdi'
+#     packageForLinux: '${{ parameters.StageFolder }}/CrossDomain.Integration.Azure.WorkerSite/CrossDomain.Integration.Azure.WorkerSite.zip'
+#   condition: and(succeeded(), ne(variables['DeployAfterBuild'],'N'), eq(variables['BC_CrossDomainIntegration'], 'Y'))
 
 # Azure App Service Deploy: Operations.Azure.Deploy
 - task: AzureRmWebAppDeployment@4.240.2

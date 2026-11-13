@@ -1,21 +1,19 @@
 ﻿namespace FCT.Console.Config.Tests.PaaS.Writers
 {
-    using Dapper;
-    using ExcelTypes;
-    using FluentAssertions;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using PaymentGenerationDomain.Integration.DataStore;
-    using Synchronizers.Writers;
-    using Synchronizers.Writers.PAAS;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
     using System.Linq;
+    using Dapper;
+    using ExcelTypes;
+    using FluentAssertions;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Synchronizers.Writers;
+    using Synchronizers.Writers.PAAS;
 
     [TestClass]
     public class StatusSubStatusConfigWriterTests
     {
-        private static readonly string connectionString = PaymentGenerationDbContext.KeyVaultValue;
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void StatusSubStatusConfigWriter_WriteToPaaSDatabase_ShouldWriteConfigToDatabase()
@@ -85,6 +83,8 @@
 
         private static IReadOnlyCollection<StatusSubStatusConfigType> GetAll()
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (var connection = new SqlConnection(connectionString))
             {
                 var sql = "SELECT * FROM [FundingAllocation].[StatusSubStatusConfig]";
@@ -94,6 +94,8 @@
 
         private static void Delete(params StatusSubStatusConfigType[] configs)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (var connection = new SqlConnection(connectionString))
             {
                 var sql = "DELETE FROM [FundingAllocation].[StatusSubStatusConfig] where Status = @Status and SubStatus = @SubStatus";

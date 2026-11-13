@@ -38,7 +38,7 @@
             // arrange
             const string contractNumber = "MAIN-3456";
             ClearContracts(contractNumber);
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -92,15 +92,9 @@
             return outStream.ToArray();
         }
 
-        private static byte[] ConvertObjectToByteArray<T>(T objectToSerialize)
+        private static byte[] ConvertObjectToByteArray(string text)
         {
-            MemoryStream memorystream = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(memorystream, objectToSerialize);
-
-            byte[] serializedResult = memorystream.ToArray();
-
-            return serializedResult;
+            return Encoding.UTF8.GetBytes(text);
         }
 
         private void ClearContracts(string contractNumber)

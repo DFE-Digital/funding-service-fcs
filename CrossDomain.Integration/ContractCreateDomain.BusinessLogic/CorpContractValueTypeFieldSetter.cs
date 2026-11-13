@@ -7,7 +7,7 @@
 
     public static class CorpContractValueTypeFieldSetter
     {
-        public static void SetSpecifiedValuesToTrue(contract corpContract)
+        public static void SetSpecifiedValuesToTrue(Contract corpContract)
         {
             SetSpecifiedValuesToTrueWhenRelatedValueSet(corpContract);
             SetSpecifiedValuesToTrueWhenRelatedValueSet(corpContract.contractor);

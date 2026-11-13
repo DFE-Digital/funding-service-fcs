@@ -152,35 +152,35 @@ jobs:
     value: $(NServiceBusLicense) 
     
   steps:
-  - task: PowerShell@2
-    displayName: 'Update AzureAppKey in CRM XML'
-    inputs:
-      targetType: 'inline'
-      script: |
-        Write-Host "Starting XML update..."
-        $filePath = "$(Build.SourcesDirectory)\FCTCRMSolution\CrossDomain.XrmSolutionBuild\ConfigData\SystemConfigData.DAT.xml"
-        Write-Host "File path: $filePath"
-        [xml]$xml = Get-Content $filePath
-        $nodes = $xml.SelectNodes("//AzureAppKey")
-        foreach ($node in $nodes) {
-            $node.InnerText = "$(ContractManagementServiceAppkey)"
-        }
-        $xml.Save($filePath)
-        Write-Host "Completed XML update"
+ # - task: PowerShell@2
+  #  displayName: 'Update AzureAppKey in CRM XML'
+  #  inputs:
+  #    targetType: 'inline'
+  #    script: |
+  #      Write-Host "Starting XML update..."
+  #      $filePath = "$(Build.SourcesDirectory)\FCTCRMSolution\CrossDomain.XrmSolutionBuild\ConfigData\SystemConfigData.DAT.xml"
+  #      Write-Host "File path: $filePath"
+  #      [xml]$xml = Get-Content $filePath
+  #      $nodes = $xml.SelectNodes("//AzureAppKey")
+  #      foreach ($node in $nodes) {
+  #          $node.InnerText = "$(ContractManagementServiceAppkey)"
+  #      }
+  #      $xml.Save($filePath)
+  #      Write-Host "Completed XML update"
 
-  - task: FileTransform@1
-    displayName: 'FCT.Operations App.config - Update Key Vault Secrets'
-    inputs:
-      folderPath: '$(Build.SourcesDirectory)\FCTCRMSolution\'
-      targetFiles: '**\*.config'
-      fileType: xml
+#  - task: FileTransform@1
+#    displayName: 'FCT.Operations App.config - Update Key Vault Secrets'
+#    inputs:
+#      folderPath: '$(Build.SourcesDirectory)\FCTCRMSolution\'
+#      targetFiles: '**\*.config'
+#      fileType: xml
 
-  - task: FileTransform@1
-    displayName: 'FCT.Operations App.config - Update Key Vault Secrets'
-    inputs:
-      folderPath: '$(Build.SourcesDirectory)\FCTCRMSolution\'
-      targetFiles: '**\*.xml'
-      fileType: xml
+ # - task: FileTransform@1
+ #   displayName: 'FCT.Operations App.config - Update Key Vault Secrets'
+ #   inputs:
+ #     folderPath: '$(Build.SourcesDirectory)\FCTCRMSolution\'
+ #     targetFiles: '**\*.xml'
+ #     fileType: xml
 
   - task: FileTransform@1
     displayName: 'FCS Worker Contract Management Domain Endpoint Tests App.config - Update Key Vault Secrets'
@@ -224,6 +224,15 @@ jobs:
       targetFiles:  '**\*.config'
       fileType: xml
 
+#Jayp Debug Start
+
+  - powershell: |
+      Get-ChildItem "$(Build.SourcesDirectory)\CrossDomain.Integration" -Recurse -Filter App.DAT.config
+      Select-String -Path "$(Build.SourcesDirectory)\CrossDomain.Integration\**\App.DAT.config" `
+        -Pattern "Sharepoint:Oauth:ClientSecret"
+    displayName: Verify DAT config after FileTransform
+
+#Jayp Debug end
 
   - task: FileTransform@1
     displayName: 'FCT Console FCT Console Config Tests App.config - Update Key Vault Secrets'

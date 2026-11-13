@@ -147,7 +147,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ForNewIntent_ShouldCreatePresenceItemsForMasterAndSubContracts()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "FT");
+            var request = BuildRequest(ContractRequest.Intent.New, "FT");
 
             var result = _creator.CreateLookupDataAndSetContractPresence(request);
 
@@ -163,7 +163,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ShouldSetPresentFlagsThroughPresenceItemCallbacks()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "FT");
+            var request = BuildRequest(ContractRequest.Intent.New, "FT");
 
             var result = _creator.CreateLookupDataAndSetContractPresence(request);
             result.PresenceCheckItems[0].IsPresent = true;
@@ -176,7 +176,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ShouldPassTenderAwardReferencesToLookup()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "FT");
+            var request = BuildRequest(ContractRequest.Intent.New, "FT");
             IList<string> passed = null;
             _lookupManager.Setup(l => l.GetMatchingTenderAwardRefsForAllocation(It.IsAny<IList<string>>()))
                 .Callback<IList<string>>(r => passed = r)
@@ -190,7 +190,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ShouldRequestDeliverableStructureOncePerFundingStreamPeriod()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "FT");
+            var request = BuildRequest(ContractRequest.Intent.New, "FT");
             request.contract.contracts[0].contractAllocations.Add(
                 new ContractRequest.contractAllocation { fundingStreamPeriodCode = "FSP1" });
             request.contract.contracts[0].contractAllocations.Add(
@@ -208,10 +208,10 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ShouldReuseCachedDeliverableStructureOnSecondCall()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "FT");
+            var request = BuildRequest(ContractRequest.Intent.New, "FT");
 
             _creator.CreateLookupDataAndSetContractPresence(request);
-            var second = _creator.CreateLookupDataAndSetContractPresence(BuildRequest(ContractRequest.intent.New, "FT"));
+            var second = _creator.CreateLookupDataAndSetContractPresence(BuildRequest(ContractRequest.Intent.New, "FT"));
 
             _fundingStreamConfigService.Verify(f => f.GetFullDeliverableStructure("FSP1"), Times.Once);
             Assert.IsNotNull(second.FscDeliverableStructureData["FSP1"]);
@@ -220,8 +220,8 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ShouldAddNewDeliverableStructureToExistingCache()
         {
-            _creator.CreateLookupDataAndSetContractPresence(BuildRequest(ContractRequest.intent.New, "FT", "FSP1"));
-            var second = _creator.CreateLookupDataAndSetContractPresence(BuildRequest(ContractRequest.intent.New, "FT", "FSP9"));
+            _creator.CreateLookupDataAndSetContractPresence(BuildRequest(ContractRequest.Intent.New, "FT", "FSP1"));
+            var second = _creator.CreateLookupDataAndSetContractPresence(BuildRequest(ContractRequest.Intent.New, "FT", "FSP9"));
 
             Assert.IsTrue(second.FscDeliverableStructureData.ContainsKey("FSP9"));
             _fundingStreamConfigService.Verify(f => f.GetFullDeliverableStructure("FSP9"), Times.Once);
@@ -230,7 +230,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ForAmendment_ShouldAddNumberAndStatusPresenceItemsPerSubContract()
         {
-            var request = BuildRequest(ContractRequest.intent.Amendment, "FT");
+            var request = BuildRequest(ContractRequest.Intent.Amendment, "FT");
             _lookupManager.Setup(l => l.IsContractNumberWithMatchingUkprnPeriodAndFundingTypePresentInCrm(
                     "C-1", "M-1", 10001234, PeriodId, FundingTypeId)).Returns(true);
             _lookupManager.Setup(l => l.AreAnyNonWithdrawnOrSupersededDraftContractsWithContractNumber("C-1")).Returns(true);
@@ -248,7 +248,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ForAmendment_ShouldSetStatusPresenceFlagsViaCallbacks()
         {
-            var request = BuildRequest(ContractRequest.intent.UpdateDraftAmendment, "FT");
+            var request = BuildRequest(ContractRequest.Intent.UpdateDraftAmendment, "FT");
 
             var result = _creator.CreateLookupDataAndSetContractPresence(request);
             foreach (var item in result.PresenceCheckItems.Skip(2))
@@ -265,7 +265,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ForNewAmendment_ShouldAddMasterContractNumberPresenceItem()
         {
-            var request = BuildRequest(ContractRequest.intent.NewAmendment, "FT");
+            var request = BuildRequest(ContractRequest.Intent.NewAmendment, "FT");
 
             var result = _creator.CreateLookupDataAndSetContractPresence(request);
 
@@ -277,7 +277,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ForNewAmendment_ShouldThrow_WhenContractIsNotMasterHierarchy()
         {
-            var request = BuildRequest(ContractRequest.intent.NewAmendment, "FT");
+            var request = BuildRequest(ContractRequest.Intent.NewAmendment, "FT");
             request.contract.hierarchyType = ContractRequest.hierarchyType.CONTRACT;
 
             ThrowsHelper.Throws<InvalidOperationException>(
@@ -287,7 +287,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ForIntentWithoutFtpFspLookup_ShouldNotQueryFundingTypePeriods()
         {
-            var request = BuildRequest(ContractRequest.intent.DeleteDraft, "FT");
+            var request = BuildRequest(ContractRequest.Intent.DeleteDraft, "FT");
 
             var result = _creator.CreateLookupDataAndSetContractPresence(request);
 
@@ -298,7 +298,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ForLevyContract_ShouldCheckExistingDraftOrApprovedLevyContract()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "LEVY");
+            var request = BuildRequest(ContractRequest.Intent.New, "LEVY");
             _lookupManager.Setup(l => l.IsExistingLevyContractWithDraftOfApprovedStatusForUkprnPresentInCrm(10001234, FundingTypeId))
                 .Returns(true);
 
@@ -312,7 +312,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ForLevyContract_ShouldSkipLevyLookup_WhenFundingTypeIdIsUnknown()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "LEVY");
+            var request = BuildRequest(ContractRequest.Intent.New, "LEVY");
             request.contract.contracts[0].fundingTypeCode = null;
 
             _creator.CreateLookupDataAndSetContractPresence(request);
@@ -323,7 +323,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ShouldThrow_WhenPeriodTypeCodeIsInvalid()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "FT");
+            var request = BuildRequest(ContractRequest.Intent.New, "FT");
             request.contract.contracts[0].period.periodType1.periodTypeCode = "NOT_A_PERIOD";
 
             ThrowsHelper.Throws<Exception>(() => _creator.CreateLookupDataAndSetContractPresence(request));
@@ -332,7 +332,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_ShouldOmitPeriodColumn_WhenPeriodHasNoPeriodTypeCode()
         {
-            var request = BuildRequest(ContractRequest.intent.New, "FT");
+            var request = BuildRequest(ContractRequest.Intent.New, "FT");
             request.contract.contracts[0].period = null;
 
             var result = _creator.CreateLookupDataAndSetContractPresence(request);
@@ -343,7 +343,7 @@ namespace ContractCreateDomain.Implementation.Tests.Unit
         }
 
         private static ContractRequest.contractRequestType BuildRequest(
-            ContractRequest.intent intent, string fundingTypeCode, string fundingStreamPeriodCode = "FSP1")
+            ContractRequest.Intent intent, string fundingTypeCode, string fundingStreamPeriodCode = "FSP1")
         {
             var allocation = new ContractRequest.contractAllocation
             {

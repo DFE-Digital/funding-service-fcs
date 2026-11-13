@@ -10,27 +10,46 @@
     {
         public static IEndpointInstance CreateSendOnlyEndpoint<TCommand>()
         {
-            EndpointConfiguration endpointConfiguration = new EndpointConfiguration("WebJobs");
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            var endpointConfiguration = new EndpointConfiguration("WebJobs");
+
+            // ✅ Mark as send-only
+            endpointConfiguration.SendOnly();
+
+            // ✅ Command conventions
             endpointConfiguration.Conventions()
                 .DefiningCommandsAs(t => t == typeof(TCommand));
 
-            // exclude all
-            string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+            // ✅ Assembly scanning (preserved)
+            string[] assembliesToExclude = Directory.EnumerateFiles(
+                    AppDomain.CurrentDomain.BaseDirectory, "*.dll")
                 .Select(Path.GetFileName)
                 .ToArray();
 
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
+            var scanner = endpointConfiguration.AssemblyScanner();
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
 
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-            transport.ConnectionString(ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString);
+            // ✅ Get connection string
+            var connectionString = ConfigurationManager
+                .ConnectionStrings["NServiceBus/Transport"]?.ConnectionString;
 
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            // ✅ NEW transport configuration (mandatory now)
+            var transport = new AzureServiceBusTransport(
+                connectionString,
+                TopicTopology.Default
+            );
 
-            return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            endpointConfiguration.UseTransport(transport);
+
+            // ✅ OPTIONAL (recommended to REMOVE unless required)
+            // using NServiceBus.Newtonsoft.Json;
+            // endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
+
+            // ✅ Start endpoint
+            return Endpoint.Start(endpointConfiguration)
+                .GetAwaiter()
+                .GetResult();
+
         }
     }
-}
+    }

@@ -1,7 +1,9 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.AggregatePaymentEndpoint.DTOs
 {
+    extern alias Entities;
+
     using System.Collections.Generic;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
 
     public class AllocationPeriodWithExistingData
     {

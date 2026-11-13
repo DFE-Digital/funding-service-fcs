@@ -75,7 +75,7 @@
         {
             const string childContractFundingType = "Loans";
             const string childContractPeriod = "1718";
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 fundingType = new fundingType {fundingTypeCode = "24+Loans"},
                 contracts = new List<contractType>
@@ -83,7 +83,7 @@
                     new contractType
                     {
                         fundingType = new fundingType {fundingTypeCode = childContractFundingType},
-                        period = new period {period1 = childContractPeriod}
+                        period = new Period {period1 = childContractPeriod}
                     }
                 }
             };
@@ -206,52 +206,62 @@
             _mockOfficeAdapter.Verify(x => x.UploadFile(_fileName, It.IsAny<byte[]>(), _mergedDocumentListName), Times.Never, "The function to upload the merged document should not be called");
         }
 
-        private static contract CreateTestContract()
+        private static Contract CreateTestContract()
         {
-            return new contract
+            return new Contract
             {
                 contractNumber = "Sfa-1234",
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         contractNumber = "Main-1234",
                         contractVersionNumber = 1,
-                        contractor = new contractor {ukprn = 11111}
+                        contractor = new Contractor {ukprn = 11111}
                     }
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 11111
                 }
             };
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+
+        [TestMethod, TestCategory("UnitTest")]
         public void WhenMergeIsCalledWithNullContract_DocumentMergeFails_WithInvalidOperationException()
         {
-            _documentManager.MergeContractDocuments(null);
+            // Act & Assert
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                _documentManager.MergeContractDocuments(null));
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+        [TestMethod, TestCategory("UnitTest")]
         public void WhenMergeIsCalledWithMasterContract_ButNoChildContracts_DocumentMergeFails_WithInvalidOperationException()
         {
-            _documentManager.MergeContractDocuments(new contract
+            // Arrange
+            var contract = new Contract
             {
                 contracts = new List<contractType>(),
                 contractNumber = "SFA-1234"
-            });
+            };
+
+            // Act & Assert
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                _documentManager.MergeContractDocuments(contract));
         }
+        
+
 
         [TestMethod, TestCategory("UnitTest")]
         public void WhenMergeIsCalled_LogInformationAndRethrow_IfOffice365WrapperThrowsException()
         {
-            var contractDocument = new contract
+            var contractDocument = new Contract
             {
                 contractNumber = "SFA-1234",
                 contracts =
                     new List<contractType> { new contractType { contractNumber = "Main-1234", contractVersionNumber = 1 } },
-                contractor = new contractor { ukprn = 11111 }
+                contractor = new Contractor { ukprn = 11111 }
             };
 
             var expectedEx = new Exception("Office 365 is broken");
@@ -274,22 +284,31 @@
 
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+        [TestMethod, TestCategory("UnitTest")]
         public void ContractDocumentManager_ShouldThrowInvalidOperationExceptionWhenCalledWithChildContract()
         {
-            contract contract = CreateTestContract();
+            Contract contract = CreateTestContract();
             contract.hierarchyType = hierarchyType.CONTRACT;
-
-            _documentManager.MergeContractDocuments(contract);
+            // Act & Assert
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+            {
+                _documentManager.MergeContractDocuments(contract);
+            });
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+            [TestMethod, TestCategory("UnitTest")]
         public void ContractDocumentManager_ShouldThrowInvalidOperationExceptionWhenCalledWithMoreThanOneChildContract()
         {
-            contract contract = CreateTestContract();
+            // Arrange
+            Contract contract = CreateTestContract();
             contract.contracts.Add(new contractType());
 
-            _documentManager.MergeContractDocuments(contract);
+            // Act & Assert
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+            {
+                _documentManager.MergeContractDocuments(contract);
+            });
         }
+
     }
 }

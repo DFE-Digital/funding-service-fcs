@@ -21,8 +21,7 @@
 
             IWindsorContainer container = new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
-                .Register(Component.For<BeginFundingClaimPullHandler>().LifestyleScoped())
-                .Register(Component.For<SFA.FCT.CrossDomain.Integration.Common.Storage.IAzureTableStore>().Instance(Moq.Mock.Of<SFA.FCT.CrossDomain.Integration.Common.Storage.IAzureTableStore>()).IsDefault());
+                .Register(Component.For<BeginFundingClaimPullHandler>().LifestyleScoped());
 
             container.BeginScope();
 

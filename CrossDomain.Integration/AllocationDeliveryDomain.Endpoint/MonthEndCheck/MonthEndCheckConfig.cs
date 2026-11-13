@@ -1,13 +1,15 @@
-﻿namespace AllocationDeliveryDomain.Endpoint.MonthEndCheck
+﻿
+namespace AllocationDeliveryDomain.Endpoint.MonthEndCheck
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Castle.Windsor;
     using IoC;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.AllocationDeliveryDomain.Common.Commands;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class MonthEndCheckConfig : IEndpointConfig
     {
@@ -20,23 +22,33 @@
             new CommandRoute("AllocationDeliveryDomain.ReleaseHeldReportedActuals", typeof(ReleaseHeldReportedActualsCommand))
         };
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToList();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToList();
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            var logger = loggerFactory.CreateLogger<MonthEndCheckConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
-
+            // ✅ Conventions only
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => t.Namespace != null && t.Namespace.EndsWith("Events"));
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ DI only
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+
+                services.AddAllocationDomainServices(loggerFactory);
             });
 
             return configuration;

@@ -10,7 +10,7 @@
     using BusinessLogic.FundingClaimReconciliation.Repositories;
     using BusinessLogic.Services;
     using CrossDomain.Integration.Entities.Data;
-    using Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
     using PaymentManagementDomain.PaymentSchedule.DataStore;
     using PolicyCache.DataStore;
     using CrossDomain.Integration.OverrideDate;

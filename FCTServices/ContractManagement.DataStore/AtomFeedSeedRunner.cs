@@ -10,7 +10,7 @@
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract;
+    using Contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract;
 
     public class AtomFeedSeedRunner : IAtomFeedSeedRunner
     {
@@ -24,9 +24,9 @@
             _repository = repository;
         }
 
-        public void Execute(IEnumerable<contract> seed)
+        public void Execute(IEnumerable<Contract> seed)
         {
-            _logger.LogInformation(_loggingId, "Beginning seed for {0}", typeof(contract).Name);
+            _logger.LogInformation(_loggingId, "Beginning seed for {0}", typeof(Contract).Name);
 
             if (_repository.Any())
             {
@@ -94,7 +94,7 @@
                         _logger.LogInformation(_loggingId,
                             "Getting full contract for: Master - {0} Contract {1} Version {2} from CRM",
                             summary.MasterContractNumber, summary.ContractNumber, summary.ContractVersionNumber);
-                        contract contractEntity = summary.GetFullCorpContract();
+                        Contract contractEntity = summary.GetFullCorpContract();
 
                         if (contractEntity != null && contractEntity.contracts.Any())
                         {
@@ -159,7 +159,7 @@
             }
         }
 
-        private AtomFeedItem CreateAtomFeedItem(contract contractEntity, DateTime contractApprovedDate)
+        private AtomFeedItem CreateAtomFeedItem(Contract contractEntity, DateTime contractApprovedDate)
         {
             AtomFeedItem atomFeedItem;
             if (contractApprovedDate != DateTime.MinValue)

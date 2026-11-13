@@ -34,7 +34,7 @@
             _contractTransformerMock = new Mock<IContractTransformer>();
 
             _contractTransformerMock.Setup(
-                m => m.TransformToCorporateSchemaContract(It.IsAny<contract>())).Returns(new CrossDomain.Integration.Entities.CorporateSchema.Contract.contract());
+                m => m.TransformToCorporateSchemaContract(It.IsAny<Contract>())).Returns(new CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract());
 
             _handler = new PublishContractToProviderHandler(_loggerMock.Object, _repositoryMock.Object, _contractTransformerMock.Object, Mock.Of<ISessionConnectionFactory>());
         }
@@ -48,7 +48,7 @@
 
             _handler.Handle(new ContractReadyToPublishEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -67,7 +67,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void PublishContractToProvider_Handler_ShouldThrowContractValidationException_Catch_Absorb_Log_IfTheContractStatusIsInvalid()
         {
-            var corpContract = new contract
+            var corpContract = new Contract
             {
                 contractNumber = "11",
                 contracts =

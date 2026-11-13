@@ -37,11 +37,11 @@
 
                 _logger.LogInformation(1, $"Very large message retrieved and added to body: {messageId}");
             }
-            else if (context.Body.IsZipped())
+            else if (context.Body.ToArray().IsZipped())
             {
                 try
                 {
-                    await using GZipStream bigStream = new GZipStream(new MemoryStream(context.Body), CompressionMode.Decompress);
+                    await using GZipStream bigStream = new GZipStream(new MemoryStream(context.Body.ToArray()), CompressionMode.Decompress);
                     MemoryStream bigStreamOut = new MemoryStream();
                     await bigStream.CopyToAsync(bigStreamOut).ConfigureAwait(continueOnCapturedContext: false);
                     context.Body = bigStreamOut.ToArray();
@@ -50,7 +50,7 @@
                 catch (Exception e)
                 {
                     _logger.LogError(1, $"TransportMessageCompressionMutator {e.Message} - NServiceBus.EnclosedMessageTypes: {context.Headers["NServiceBus.EnclosedMessageTypes"]} " +
-                                        $"Body: {System.Text.Encoding.UTF8.GetString(context.Body)}");
+                                        $"Body: {System.Text.Encoding.UTF8.GetString(context.Body.ToArray())}");
                     throw;
                 }
             }
@@ -58,7 +58,7 @@
 
         public async Task MutateOutgoing(MutateOutgoingTransportMessageContext context)
         {
-            byte[] outgoingBytes = context.OutgoingBody;
+            byte[] outgoingBytes = context.OutgoingBody.ToArray();
 
             _logger.LogVerbose(1, $"MutateOutgoing OutgoingBody length : {outgoingBytes.Length}");
 

@@ -13,6 +13,7 @@
     using Framework.Logging.Interfaces;
     using Framework.Logging.NullObjects;
     using CrossDomain.Integration.Common;
+    using Aspose.Words.Replacing;
 
     public class AsposeWrapper : IAsposeWrapper
     {
@@ -94,14 +95,13 @@
 
                 if (isAppendix2 && (isAppendixOnePresent || completeWordDocument != null))
                 {
-                    // Need to determine number of pages in all documents in this group
+                   
                     var documentsInGroup =
                         sourceFiles.Where(groupPart => groupPart.GroupId == part.GroupId)
                             .Select(groupPart => groupPart.DocPart).ToList();
 
                     int totalPagesInGroup = documentsInGroup.Sum(documentInGroup => documentInGroup.PageCount);
 
-                    // Replace the documnets bookmarks with the correct number
                     foreach (Document documentInGroup in documentsInGroup)
                     {
                         documentInGroup.AddValueToBookMarkIfPresent(numberOfPagesBookmarkName, totalPagesInGroup.ToString());
@@ -132,7 +132,6 @@
                         int numPagesInGroup = 1;
                         if (sourceFiles.Any(sf => sf.GroupId == "PaymentScheduleGroup"))
                         {
-                            // there is a problem with accessing the PageCount for all
                             numPagesInGroup = sourceFiles.Where(groupPart => groupPart.GroupId == part.GroupId)
                                 .Select(groupPart => groupPart.DocPart)
                                 .Sum(documentInGroup => documentInGroup.PageCount);
@@ -186,20 +185,27 @@
 
         private static void CleanupLinestyles(Table table)
         {
+            var options = new FindReplaceOptions
+            {
+                MatchCase = true,          
+                FindWholeWordsOnly = false 
+            };
+
             Row[] deliverableRows = (from r in table.Rows.ToArray()
                                      where r.FirstCell.GetText().Contains(Constants.SubRowMarker)
                                      select r).ToArray();
 
             foreach (Row deliverableRow in deliverableRows)
             {
-                deliverableRow.FirstCell.Range.Replace(Constants.SubRowMarker, string.Empty, true, false);
-                foreach (Cell cell in deliverableRow)
+                deliverableRow.FirstCell.Range.Replace(Constants.SubRowMarker, string.Empty, options);
+
+                foreach (Cell cell in deliverableRow.Cells)
                 {
                     cell.CellFormat.Borders.Top.LineStyle = LineStyle.None;
                     cell.CellFormat.Borders.Top.LineWidth = 0;
                 }
 
-                Row previousRow = (Row)deliverableRow.PreviousSibling;
+                Row previousRow = deliverableRow.PreviousSibling as Row;
                 if (previousRow != null)
                 {
                     foreach (Cell cell in previousRow.Cells)
@@ -213,40 +219,74 @@
 
         private static void CleanupItalicTextMarker(Document doc)
         {
-            doc.Range.Replace(
-                new Regex(@"\" + Constants.ItalicTextMarker + "([^" + Constants.EndOfTextMarker + "]*)" + Constants.EndOfTextMarker, RegexOptions.IgnoreCase),
-                new ReplaceEvaluatorFindAndExecute(run =>
-                {
-                    run.Font.Italic = true;
-                }),
-                false);
+            string italicStart = Regex.Escape(Constants.ItalicTextMarker);
+            string endMarker = Regex.Escape(Constants.EndOfTextMarker);
+
+            var rx = new Regex(italicStart + "([^" + endMarker + "]*)" + endMarker,
+                               RegexOptions.IgnoreCase);
+
+            var options = new FindReplaceOptions
+            {
+                MatchCase = false,
+                FindWholeWordsOnly = false,
+                UseSubstitutions = false, // we aren't using $1, $2 in replacement string
+                ReplacingCallback = new ReplaceEvaluatorFindAndExecute(run => { run.Font.Italic = true; })
+            };
+            doc.Range.Replace(rx, string.Empty, options);
         }
 
         private void CleanupPoundSignMarker(Document doc)
         {
-            doc.Range.Replace(
-                new Regex(@"\" + Constants.RemovePoundSignMarker + "([^" + Constants.EndOfTextMarker + "]*)" + Constants.EndOfTextMarker, RegexOptions.IgnoreCase),
-                new ReplaceEvaluatorFindAndExecute(run =>
-                {
-                    run.Font.Italic = false;
-                }),      
-                false);
+            string poundStart = Regex.Escape(Constants.RemovePoundSignMarker);
+            string endMarker = Regex.Escape(Constants.EndOfTextMarker);
+
+            var rx = new Regex(poundStart + "([^" + endMarker + "]*)" + endMarker,
+                               RegexOptions.IgnoreCase);
+
+            var options = new FindReplaceOptions
+            {
+                MatchCase = false,
+                FindWholeWordsOnly = false,
+                UseSubstitutions = false,
+                ReplacingCallback = new ReplaceEvaluatorFindAndExecute(run => { run.Font.Italic = false; })
+            };
+
+            doc.Range.Replace(rx, string.Empty, options);
         }
 
         private static void CleanupBoldTextMarker(Document doc)
         {
-            doc.Range.Replace(
-                new Regex(@"\" + Constants.BoldTextMarker + "([^" + Constants.EndOfTextMarker + "]*)" + Constants.EndOfTextMarker, RegexOptions.IgnoreCase),
-                new ReplaceEvaluatorFindAndExecute(run =>
-                {
-                    run.Font.Bold = true;
-                }),
-                false);
+            string boldStart = Regex.Escape(Constants.BoldTextMarker);
+            string endMarker = Regex.Escape(Constants.EndOfTextMarker);
+
+            var rx = new Regex(boldStart + "([^" + endMarker + "]*)" + endMarker,
+                               RegexOptions.IgnoreCase);
+
+            var options = new FindReplaceOptions
+            {
+                MatchCase = false,
+                FindWholeWordsOnly = false,
+                UseSubstitutions = false,
+                ReplacingCallback = new ReplaceEvaluatorFindAndExecute(run => { run.Font.Bold = true; })
+            };
+
+            doc.Range.Replace(rx, string.Empty, options);
         }
+
+
 
         private static void CleanupIndentMarkers(Table table, Action<Row> indentMarkersOverride)
         {
-            void DefaultIndentMarkers(Row row) => row.FirstCell.Range.Replace(Constants.IndentTextMarker, FourSpaces, true, false);
+            void DefaultIndentMarkers(Row row)
+            {
+                var options = new FindReplaceOptions
+                {
+                    MatchCase = true,
+                    FindWholeWordsOnly = false
+                };
+
+                row.FirstCell.Range.Replace(Constants.IndentTextMarker, FourSpaces, options);
+            }
 
             table
                 .Rows
@@ -255,6 +295,7 @@
                 .ToList()
                 .ForEach(indentMarkersOverride ?? DefaultIndentMarkers);
         }
+
 
         private static void CleanupMergeMarkers(Table table)
         {
@@ -278,10 +319,23 @@
 
         private static void VerticallyMergeCellAtPosition(Cell cell, int pos)
         {
-            cell.Range.Replace(Constants.MergeThisAndCellAboveMarker, string.Empty, true, false);
+            var options = new FindReplaceOptions
+            {
+                MatchCase = true,            
+                FindWholeWordsOnly = false   
+            };
+
+            cell.Range.Replace(Constants.MergeThisAndCellAboveMarker, string.Empty, options);
+
             cell.CellFormat.VerticalMerge = CellMerge.Previous;
-            ((Row)cell.ParentRow.PreviousSibling).Cells[pos].CellFormat.VerticalMerge = CellMerge.First;
+
+            var prevRow = cell.ParentRow?.PreviousSibling as Row;
+            if (prevRow == null || pos < 0 || pos >= prevRow.Cells.Count)
+                return;
+
+            prevRow.Cells[pos].CellFormat.VerticalMerge = CellMerge.First;
         }
+
 
         private class ReplaceEvaluatorFindAndExecute : IReplacingCallback
         {

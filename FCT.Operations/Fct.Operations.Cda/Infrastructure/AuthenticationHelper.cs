@@ -1,11 +1,11 @@
 ﻿
 namespace FCT.Operations.Cda.Infrastructure
-{   
+{
     using Polly;
     using System;
     using System.Net.Http;
     using System.Net.Http.Headers;
-        
+
     public class AuthenticationHelper : IAuthenticationHelper
     {
         private readonly ISharepointOAuthAccessTokenFactory _accessTokenFactory;
