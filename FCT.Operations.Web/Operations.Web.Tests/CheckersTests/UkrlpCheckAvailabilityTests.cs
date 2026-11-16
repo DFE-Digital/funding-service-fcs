@@ -66,8 +66,7 @@
             Assert.AreEqual("Successful", availabilityCheckResult.Details);
         }
 
-        // Needs live UKRLP credentials that only exist for Pre-Prod/Prod; excluded from the Dev CD integration run.
-        [TestMethod, TestCategory("IntegrationTest"), TestCategory("ExternalDependency")]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void UkrlpCheckAvailability_ShouldSuccessfullyCallProductionUkrlpService()
         {
             // Arrange
