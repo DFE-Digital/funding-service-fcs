@@ -1,12 +1,13 @@
 ﻿namespace SFA.FCT.PaymentManagementDomain.PaymentAggregation.Tests.Unit
 {
+    extern alias Entities;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using Castle.Windsor;
     using CrossDomain.Integration.Common.Serializers;
     using CrossDomain.Integration.Events;
-    using Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Newtonsoft.Json;
@@ -17,11 +18,11 @@
     using PolicyCache.DataStore.Repositories;
     using Framework.Logging;
     using SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.IoC;
-    using paymentsAggregation = CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using paymentSchedule = CrossDomain.Integration.Entities.PaymentSchedule;
+    using paymentsAggregation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using paymentSchedule = Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
     using Castle.MicroKernel.Lifestyle;
     using Castle.MicroKernel.Registration;
-    using CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using PaymentManagementDomain.Integration.PaymentAggregation.Infrastructure;
 
     [TestClass]
@@ -36,7 +37,7 @@
         {
             // arrange
             var container = new WindsorContainer()
-                .Install(new WindsorInstaller(new LoggerFactory()))
+                .Install(new WindsorInstaller(new Microsoft.Extensions.Logging.LoggerFactory()))
                 .Register(Component.For<PaymentScheduleHandler>().LifestyleScoped());
 
             container.BeginScope();
@@ -158,7 +159,7 @@
                 });
 
             _paymentScheduleHandler = new PaymentScheduleHandler(
-                Mock.Of<ILogger>(),
+                Mock.Of<SFA.FCT.Framework.Logging.Interfaces.ILogger>(),
                 _paymentAggregationServiceMock.Object,
                 _payCalcPolicyQueryRepositoryMock.Object,
                 Mock.Of<ISessionConnectionFactory>());

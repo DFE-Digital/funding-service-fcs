@@ -50,7 +50,7 @@ namespace Datafix.Tests.Automation.Releases.R188
                         "1619-AS-2627-Contracting-Provider-10000944-1_0"
                    };
 
-                IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<IgnoreItemsOfNoInterestCommand>();
+                var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<IgnoreItemsOfNoInterestCommand>();
 
                 var obj = new IgnoreItemsOfNoInterestCommand() { FundingAllocationIds = FundingAllocationId1 };
                 endpoint.Send(destination: queueName, message: obj).Wait();

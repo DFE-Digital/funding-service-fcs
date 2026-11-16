@@ -24,7 +24,7 @@
             // arrange
             Mock<ITemplateRepository> templateRepository = new Mock<ITemplateRepository>();
             IDictionary<string, DocumentGenerationRequest> requests;
-            contract contract = GetCorporateContract("DocGenCommand_ALLF1819.json");
+            Contract contract = GetCorporateContract("DocGenCommand_ALLF1819.json");
 
             using (var documentDomainDbContext = new DocumentsDomainDbContext())
             {
@@ -48,13 +48,13 @@
             Assert.IsFalse(requests.Values.Any(v => v.GroupId.Contains("ALLF")), "We should not have included the ALLF allocation");
         }
 
-        private contract GetCorporateContract(string fileName)
+        private Contract GetCorporateContract(string fileName)
         {
             using (var resource = new TestResource("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests", $@"Resources.{fileName}"))
             {
                 return
-                    (contract)
-                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(contract));
+                    (Contract)
+                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(Contract));
             }
         }
     }

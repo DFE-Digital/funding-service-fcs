@@ -19,7 +19,7 @@
 
             using (MemoryStream blobStream = new MemoryStream())
             {
-                cloudBlockBlob.DownloadToStream(blobStream);
+                cloudBlockBlob.DownloadToStreamAsync(blobStream);
 
                 return blobStream.ToArray();
             }

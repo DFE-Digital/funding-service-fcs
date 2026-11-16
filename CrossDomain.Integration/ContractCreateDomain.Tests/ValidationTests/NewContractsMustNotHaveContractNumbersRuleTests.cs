@@ -15,7 +15,7 @@
             // arrange
             this.Contract.contract.contracts.ForEach(c =>
             {
-                c.CRMIntent = intent.New;
+                c.CRMIntent = Intent.New;
                 c.contractNumber = "Some Contract Number";
             });
 
@@ -34,7 +34,7 @@
             // arrange
             this.Contract.contract.contracts.ForEach(c =>
             {
-                c.CRMIntent = intent.NewAmendment;
+                c.CRMIntent = Intent.NewAmendment;
                 c.contractNumber = "Some Contract Number";
             });
 

@@ -1,76 +1,67 @@
-﻿namespace SFA.FCT.CrossDomain.Integration.Common
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using NServiceBus;
+using SFA.FCT.Framework.Logging.Interfaces;
+
+namespace SFA.FCT.CrossDomain.Integration.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using NServiceBus;
-    using Framework.Logging.Interfaces;
-    using NServiceBus.Faults;
-
-    public abstract class NsbNotificationSubscriberBase : IWantToRunWhenBusStartsAndStops, IDisposable
+    /// <summary>
+    /// Base class for handling error notifications via custom recoverability policy.
+    /// </summary>
+    public abstract class NsbNotificationSubscriberBase
     {
-        private readonly BusNotifications _busNotifications;
         private readonly ILogger _logger;
-        private IDisposable _errorQueueSubscriber;
 
-        protected NsbNotificationSubscriberBase(BusNotifications busNotifications, ILogger logger)
+        protected NsbNotificationSubscriberBase(ILogger logger)
         {
-            _busNotifications = busNotifications;
             _logger = logger;
         }
 
-        public virtual IReadOnlyCollection<Type> SpecificMessageTypes
-        {
-            get
-            {
-                return new List<Type>();
-            }
-        }
+        /// <summary>
+        /// List of specific message types to match for custom event logging.
+        /// </summary>
+        public virtual IReadOnlyCollection<Type> SpecificMessageTypes => new List<Type>();
 
+        /// <summary>
+        /// Event ID to use when a specific message type is matched.
+        /// </summary>
         public abstract int SpecificEventId { get; }
 
-        public void Start()
-        {
-            _errorQueueSubscriber = _busNotifications.Errors
-                .MessageSentToErrorQueue
-                .Subscribe(LogMessage);
-        }
+        /// <summary>
+        /// Handles error notification from recoverability policy.
+        /// </summary>
+        /// <param name="errorContext">Error context from recoverability pipeline.</param>
+        //public Task HandleErrorNotification(IErrorContext errorContext)
+        //{
+        //    var headers = errorContext.Headers;
 
-        private void LogMessage(FailedMessage message)
-        {
+        //    var properties = new
+        //    {
+        //        MessageType = headers.TryGetValue("NServiceBus.EnclosedMessageTypes", out var mt) ? mt : "",
+        //        MessageId = headers.TryGetValue("NServiceBus.MessageId", out var mid) ? mid : "",
+        //        OriginatingMachine = headers.TryGetValue("NServiceBus.OriginatingMachine", out var om) ? om : "",
+        //        OriginatingEndpoint = headers.TryGetValue("NServiceBus.OriginatingEndpoint", out var oe) ? oe : "",
+        //        ExceptionType = headers.TryGetValue("NServiceBus.ExceptionInfo.ExceptionType", out var et) ? et : "",
+        //        ExceptionMessage = headers.TryGetValue("NServiceBus.ExceptionInfo.Message", out var em) ? em : "",
+        //        ExceptionSource = headers.TryGetValue("NServiceBus.ExceptionInfo.Source", out var es) ? es : "",
+        //        TimeSent = headers.TryGetValue("NServiceBus.TimeSent", out var ts) ? ts : ""
+        //    };
 
-            var properties = new
-            {
-                MessageType = message.Headers["NServiceBus.EnclosedMessageTypes"],
-                MessageId = message.Headers["NServiceBus.MessageId"],
-                OriginatingMachine = message.Headers["NServiceBus.OriginatingMachine"],
-                OriginatingEndpoint = message.Headers["NServiceBus.OriginatingEndpoint"],
-                ExceptionType = message.Headers["NServiceBus.ExceptionInfo.ExceptionType"],
-                ExceptionMessage = message.Headers["NServiceBus.ExceptionInfo.Message"],
-                ExceptionSource = message.Headers["NServiceBus.ExceptionInfo.Source"],
-                TimeSent = message.Headers["NServiceBus.TimeSent"]
-            };
+        //    int eventId = CommonLoggingEventId.FCSOperationsErrorCode;
 
-            int eventId = CommonLoggingEventId.FCSOperationsErrorCode;
+        //    if (SpecificMessageTypes.Any(t => properties.MessageType.Contains(t.Name)))
+        //    {
+        //        eventId = SpecificEventId;
+        //    }
 
-            string exceptionMessage = properties.ToString().Replace("}", "").Replace("{", "");
+        //    string exceptionMessage = string.Join(", ", properties.GetType().GetProperties()
+        //        .Select(p => $"{p.Name}: {p.GetValue(properties)}"));
 
-            if (SpecificMessageTypes.Any(specificMessageType => properties.MessageType.Contains(specificMessageType.Name)))
-            {
-                eventId = SpecificEventId;
-            }
+        //    _logger.LogError(eventId, $"Message sent to Error Queue: {exceptionMessage}");
 
-            _logger.LogError(eventId, "Message sent to Error Queue" + exceptionMessage);
-        }
-
-        public void Stop()
-        {
-            Dispose();
-        }
-
-        public void Dispose()
-        {
-            _errorQueueSubscriber.Dispose();
-        }
+        //    return Task.CompletedTask;
+        //}
     }
 }

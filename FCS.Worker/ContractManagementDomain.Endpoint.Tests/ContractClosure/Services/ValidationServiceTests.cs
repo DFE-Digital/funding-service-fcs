@@ -274,7 +274,7 @@
             Assert.IsNull(failureMessage);
         }
 
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("UnitTest")]
         public void ValidationService_ShouldResolve()
         {
             IValidationService validationService = GetContainer().Resolve<IValidationService>();

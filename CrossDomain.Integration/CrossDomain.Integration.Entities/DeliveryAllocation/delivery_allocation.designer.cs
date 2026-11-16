@@ -54,7 +54,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation
             this.contractReferenceField = new contractReferenceType();
             this.contractorReferenceField = new organisationReferenceType();
             this.contractDeliverablesField = new List<contractDeliverableType>();
-            this.schemaVersionField = ((decimal)(1.8m));
+            this.schemaVersionField = ((decimal)(1.7m));
         }
 
         [System.Xml.Serialization.XmlArrayAttribute(Order = 0)]
@@ -633,8 +633,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation
         SB,
         /// <remarks/>
         HTES,
-        HTES2,
-        CTEC
+        HTES2
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34230")]
@@ -694,9 +693,6 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation
 
         [System.Xml.Serialization.XmlEnumAttribute("HIGHER TECHNICAL EDUCATION SKILLS 2")]
         HIGHERTECHNICALEDUCATIONSKILLS2,
-
-        [System.Xml.Serialization.XmlEnumAttribute("CONSTRUCTION TECHNICAL EXCELLENCE COLLEGES")]
-        CONSTRUCTIONTECHNICALEXCELLENCECOLLEGES
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34230")]

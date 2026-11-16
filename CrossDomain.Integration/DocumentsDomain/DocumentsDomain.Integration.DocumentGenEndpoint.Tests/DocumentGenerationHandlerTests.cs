@@ -52,13 +52,13 @@
 
             DocumentGenerationCommand command = new DocumentGenerationCommand
             {
-                CorporateContract = new contract()
+                CorporateContract = new Contract()
                 {
                     hierarchyType = hierarchyType.MASTERCONTRACT
                 }
             };
 
-            _documentGenerator.Setup(c => c.GenerateDocument(It.IsAny<string>(), It.IsAny<contract>(), It.IsAny<string>())).Verifiable();
+            _documentGenerator.Setup(c => c.GenerateDocument(It.IsAny<string>(), It.IsAny<Contract>(), It.IsAny<string>())).Verifiable();
 
             bool expectedExceptionThrown = false;
 
@@ -74,7 +74,7 @@
 
             // Assert
             Assert.IsTrue(expectedExceptionThrown, "The expected ArgumentException was not thrown.");
-            _documentGenerator.Verify(c => c.GenerateDocument(It.IsAny<string>(), It.IsAny<contract>(), It.IsAny<string>()), Times.Never);
+            _documentGenerator.Verify(c => c.GenerateDocument(It.IsAny<string>(), It.IsAny<Contract>(), It.IsAny<string>()), Times.Never);
 
         }
 
@@ -93,7 +93,7 @@
 
             DocumentGenerationCommand command = new DocumentGenerationCommand
             {
-                CorporateContract = new contract()
+                CorporateContract = new Contract()
                 {
                     hierarchyType = hierarchyType.CONTRACT
                 }
@@ -103,13 +103,13 @@
             var mockHeader = new Dictionary<string, string> {{"NServiceBus.RelatedTo", "Test"}};
 
 
-            _documentGenerator.Setup(c => c.GenerateDocument(It.IsAny<string>(), It.IsAny<contract>(), It.IsAny<string>())).Verifiable();
+            _documentGenerator.Setup(c => c.GenerateDocument(It.IsAny<string>(), It.IsAny<Contract>(), It.IsAny<string>())).Verifiable();
 
             // Act
             handler.Handle(command, new TestableMessageHandlerContext()).Wait();
 
             // Assert
-            _documentGenerator.Verify(c => c.GenerateDocument(It.IsAny<string>(), It.IsAny<contract>(), It.IsAny<string>()), Times.Once);
+            _documentGenerator.Verify(c => c.GenerateDocument(It.IsAny<string>(), It.IsAny<Contract>(), It.IsAny<string>()), Times.Once);
 
         }
 
@@ -120,7 +120,7 @@
             const string contractNumber = "ABC-123";
 
             Mock<IDocumentGenerator> docGenMock = new Mock<IDocumentGenerator>();
-            docGenMock.Setup(m => m.GenerateDocument(It.IsAny<string>(), It.IsAny<contract>(), It.IsAny<string>()))
+            docGenMock.Setup(m => m.GenerateDocument(It.IsAny<string>(), It.IsAny<Contract>(), It.IsAny<string>()))
                       .Returns((DocumentSaveCommand)null);
 
             Mock<IProcessedMessageRepository> processedMessageRepositoryMock = new Mock<IProcessedMessageRepository>();
@@ -131,7 +131,7 @@
             DocumentGenerationCommand command = new DocumentGenerationCommand
             {
                 CorrelationId = string.Empty,
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     hierarchyType = hierarchyType.CONTRACT,
                     contractAllocations = new List<contractAllocationsContractAllocation>(),

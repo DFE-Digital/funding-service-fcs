@@ -1,6 +1,6 @@
 ﻿namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
 {
-    public partial class period
+    public partial class Period
     {
         public string GetFundingPeriodName()
         {

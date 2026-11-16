@@ -19,9 +19,9 @@
         {
             // arrange
             var contract = GetCorpContractXmlString(EsfContractPath);
-            var s = new System.Xml.Serialization.XmlSerializer(typeof(contract));
+            var s = new System.Xml.Serialization.XmlSerializer(typeof(Contract));
             var sr = new StringReader(contract);
-            var corpContract = (contract)s.Deserialize(sr);
+            var corpContract = (Contract)s.Deserialize(sr);
 
             // act
             var fundingPeriod = corpContract.contracts[0].GetFundingPeriod();
@@ -35,9 +35,9 @@
         {
             // arrange
             var contract = GetCorpContractXmlString(MainContractPath);
-            var s = new System.Xml.Serialization.XmlSerializer(typeof(contract));
+            var s = new System.Xml.Serialization.XmlSerializer(typeof(Contract));
             var sr = new StringReader(contract);
-            var corpContract = (contract)s.Deserialize(sr);
+            var corpContract = (Contract)s.Deserialize(sr);
 
             // act
             var fundingPeriod = corpContract.contracts[0].GetFundingPeriod();
@@ -50,7 +50,7 @@
         public void ContractTypePartial_ShouldSerialize()
         {
             // arrange
-            contract approvedContract = new contract();
+            Contract approvedContract = new Contract();
 
             // act
             string serializedContract = JsonConvert.SerializeObject(approvedContract);
@@ -66,9 +66,9 @@
             const int expectedUkprnReturn = 12345678;
             const string allocationNumberWithDeliveryOrg = "Alloc-1";
 
-            contract contract = new contract()
+            Contract contract = new Contract()
             {
-                contractor = new contractor()
+                contractor = new Contractor()
                 {
                     ukprn = 11223344
                 },
@@ -78,7 +78,7 @@
                     {
                         contractAllocationNumber = allocationNumberWithDeliveryOrg,
                         DeliveryOrganisation = "Some org",
-                        DeliveryOrganisationDetail = new contractor()
+                        DeliveryOrganisationDetail = new Contractor()
                         {
                             ukprn = expectedUkprnReturn,
                             legalName = "Some name"
@@ -88,7 +88,7 @@
                     {
                         contractAllocationNumber = "Some allocation number",
                         DeliveryOrganisation = "Some org",
-                        DeliveryOrganisationDetail = new contractor()
+                        DeliveryOrganisationDetail = new Contractor()
                         {
                             ukprn = 18742088,
                             legalName = "Some name"
@@ -112,9 +112,9 @@
             const string expectedLegalName = "New Company Name";
             const string allocationWithNoDeliveryOrganisationDetail = "Alloc-1";
 
-            contract contract = new contract()
+            Contract contract = new Contract()
             {
-                contractor = new contractor()
+                contractor = new Contractor()
                 {
                     ukprn = expectedUkprnReturn,
                     legalName = expectedLegalName
@@ -129,7 +129,7 @@
                     {
                         contractAllocationNumber = "Alloc-2",
                         DeliveryOrganisation = "Some org-1",
-                        DeliveryOrganisationDetail = new contractor()
+                        DeliveryOrganisationDetail = new Contractor()
                         {
                             ukprn = 16692511,
                             legalName = "Old Company Name"
@@ -139,7 +139,7 @@
                     {
                         contractAllocationNumber = "Alloc-3",
                         DeliveryOrganisation = "Some org-2",
-                        DeliveryOrganisationDetail = new contractor()
+                        DeliveryOrganisationDetail = new Contractor()
                         {
                             ukprn = 18742088
                         }
@@ -159,7 +159,7 @@
         public void ContractType_GetNumberPartOfNumber_ShouldReturnNumber()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contractNumber = "ESIF-2999"
             };

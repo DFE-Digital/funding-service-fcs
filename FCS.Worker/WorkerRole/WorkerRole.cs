@@ -1,97 +1,60 @@
-namespace WorkerRole
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using NServiceBus;
+using WorkerRole;
+using System.Diagnostics;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using SFA.FCT.Framework.Logging;
+using SFA.FCT.Framework.Logging.Bespoke;
+using SFA.FCT.Framework.Logging.Interfaces;
+
+
+public class Worker : IHostedService
 {
-    using System.Diagnostics;
-    using System.Net;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Microsoft.WindowsAzure.ServiceRuntime;
-    using SFA.FCT.Framework.Logging;
-    using SFA.FCT.Framework.Logging.Bespoke;
-    using SFA.FCT.Framework.Logging.Interfaces;
+     private readonly IConfiguration _config;
+    private ILoggerFactory _loggerFactory;
+    private ILogger _logger;
 
-    public class WorkerRole
+    private IReadOnlyCollection<IEndpointInstance> _endpoints;
+
+    public Worker(ILoggerFactory loggerFactory, IConfiguration config)
     {
-        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
+        _loggerFactory = loggerFactory  ;
+        _config = config;
+    }
 
-        private ILoggerFactory _loggerFactory;
-        private ILogger _logger;
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Starting NServiceBus endpoints...");
 
-        public WorkerRole()
-        { 
-        }
 
-        public WorkerRole(ILoggerFactory loggerFactory)
-        {
-            _loggerFactory = loggerFactory;
-        }
-
-        public void Run()
-        {
-            GetLogger().LogInformation("NServiceBus 6 Worker Role has been started");
-
-            try
-            {
-                this.RunAsync(this.cancellationTokenSource.Token).Wait();
-            }
-            finally
-            {
-                this.runCompleteEvent.Set();
-            }
-        }
-
-        public bool OnStart()
-        {
-            // Set the maximum number of concurrent connections
-            ServicePointManager.DefaultConnectionLimit = 12;
-
-            // For information on handling configuration changes
-            // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
-
-            NServiceBus.Logging.LogManager.UseFactory(new NsbLoggerFactory(GetErrorLogger()));
-            Bootstrapper.Start(GetLoggerFactory(), GetLogger()).Wait();
+        //var customLogger = new LoggerWrapper(_logger);
+        _endpoints = await Bootstrapper.Start(_config, GetLogger());
+//        Bootstrapper.Start(GetLoggerFactory(), GetLogger()).Wait();
             
-            Trace.TraceInformation("WorkerRole has been started");
 
-            return true;
-        }
+        _logger.LogInformation("All endpoints started");
+    }
+    private ILogger GetLogger()
+    {
+        return _logger ?? (_logger = _logger = GetLoggerFactory().CreateLogger("WorkerRole"));
+    }
 
-        public void OnStop()
+    private ILoggerFactory GetLoggerFactory()
+    {
+        return _loggerFactory ?? (_loggerFactory = new LoggerFactory());
+    }
+
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Stopping endpoints");
+
+        foreach (var ep in _endpoints)
         {
-            Trace.TraceInformation("WorkerRole is stopping");
-
-            this.cancellationTokenSource.Cancel();
-            this.runCompleteEvent.WaitOne();
-
-            Bootstrapper.Stop().Wait();
-
-
-            Trace.TraceInformation("WorkerRole has stopped");
-        }
-
-        private ILogger GetLogger()
-        {
-            return _logger ?? (_logger = _logger = GetLoggerFactory().CreateLogger("WorkerRole"));
-        }
-
-        private ILogger GetErrorLogger()
-        {
-            return GetLoggerFactory().CreateDefaultLogger(LogLevel.Error);
-        }
-
-        private ILoggerFactory GetLoggerFactory()
-        {
-            return _loggerFactory ?? (_loggerFactory = new LoggerFactory());
-        }
-
-        private async Task RunAsync(CancellationToken cancellationToken)
-        {
-            // TODO: Replace the following with your own logic.
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                Trace.TraceInformation("Working");
-                await Task.Delay(1000);
-            }
+            await ep.Stop();
         }
     }
 }

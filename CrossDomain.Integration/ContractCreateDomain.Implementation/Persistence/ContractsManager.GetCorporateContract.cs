@@ -10,7 +10,7 @@
     using Microsoft.Crm.Sdk.Messages;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
-    using contractor = CrossDomain.Integration.Entities.CorporateContract.contractor;
+    using Contractor = CrossDomain.Integration.Entities.CorporateContract.Contractor;
     using contractType = CrossDomain.Integration.Entities.CorporateContract.contractType;
     using corporateContract = CrossDomain.Integration.Entities.CorporateContract;
     using deliverableType = CrossDomain.Integration.Entities.CorporateContract.deliverableType;
@@ -18,12 +18,12 @@
 
     public partial class ContractsManager
     {
-        public corporateContract.contract GetCorporateContract(string contractNumber, string masterContractNumber)
+        public corporateContract.Contract GetCorporateContract(string contractNumber, string masterContractNumber)
         {
             return GetCorporateContract(contractNumber, masterContractNumber, true);
         }
 
-        public corporateContract.contract GetCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved)
+        public corporateContract.Contract GetCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved)
         {
             var matchingContract = GetMatchingCorporateContract(contractNumber, masterContractNumber, lastApproved);
 
@@ -39,7 +39,7 @@
             return null;
         }
 
-        public corporateContract.contract GetCorporateContractForSpecificVersion(string contractNumber, string masterContractNumber, int versionNumber)
+        public corporateContract.Contract GetCorporateContractForSpecificVersion(string contractNumber, string masterContractNumber, int versionNumber)
         {
             var matchingContract = GetMatchingCorporateContractForSpecificVersion(contractNumber, masterContractNumber, versionNumber);
 
@@ -55,7 +55,7 @@
             return null;
         }
 
-        public SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetCorporateContractForSpecificVersion(string contractNumber, int version, int subVersion)
+        public SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetCorporateContractForSpecificVersion(string contractNumber, int version, int subVersion)
         {
             var matchingContract = GetMatchingCorporateContractForSpecificVersion(contractNumber, version, subVersion);
 
@@ -108,7 +108,7 @@
             }
         }
 
-        internal virtual corporateContract.contract GetMatchingCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved)
+        internal virtual corporateContract.Contract GetMatchingCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved)
         {
             // ReSharper disable AccessToDisposedClosure
             using (var xrmContext = new XrmServiceContext(OrganizationService))
@@ -118,7 +118,7 @@
                                     join f in xrmContext.sfa_fundingtypeSet on m.sfa_FundingType.Id equals f.sfa_fundingtypeId
                                     where m.sfa_number == masterContractNumber
                                     orderby m.CreatedOn descending
-                                    select new corporateContract.contract
+                                    select new corporateContract.Contract
                                     {
                                         contractNumber = m.sfa_number,
                                         description = m.sfa_Description,
@@ -142,7 +142,7 @@
             // ReSharper restore AccessToDisposedClosure
         }
 
-        internal virtual corporateContract.contract GetMatchingCorporateContractForSpecificVersion(string contractNumber, string masterContractNumber, int versionNumber)
+        internal virtual corporateContract.Contract GetMatchingCorporateContractForSpecificVersion(string contractNumber, string masterContractNumber, int versionNumber)
         {
             // ReSharper disable AccessToDisposedClosure
             using (var xrmContext = new XrmServiceContext(OrganizationService))
@@ -152,7 +152,7 @@
                                     join f in xrmContext.sfa_fundingtypeSet on m.sfa_FundingType.Id equals f.sfa_fundingtypeId
                                     where m.sfa_number == masterContractNumber
                                     orderby m.CreatedOn descending
-                                    select new corporateContract.contract
+                                    select new corporateContract.Contract
                                     {
                                         contractNumber = m.sfa_number,
                                         description = m.sfa_Description,
@@ -174,7 +174,7 @@
             // ReSharper restore AccessToDisposedClosure
         }
 
-        private SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetMatchingCorporateContractForSpecificVersion(
+        private SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetMatchingCorporateContractForSpecificVersion(
            string contractNumber,
            int versionNumber,
            int subVersionNumber)
@@ -190,7 +190,7 @@
                                           c.sfa_Version == versionNumber &&
                                           c.sfa_SubVersion == subVersionNumber
 
-                                    select new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract
+                                    select new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract
                                     {
                                         contractNumber = m.sfa_number,
                                         description = m.sfa_Description,
@@ -467,16 +467,16 @@
                     }).ToList();
         }
 
-        private static contractor GetContractorForUkprn(string ukprn, XrmServiceContext xrmContext)
+        private static Contractor GetContractorForUkprn(string ukprn, XrmServiceContext xrmContext)
         {
-            contractor contractor = null;
+            Contractor contractor = null;
             if (!string.IsNullOrEmpty(ukprn))
             {
                 SimpleOrg simpleOrg = GetSimpleOrg(ukprn, xrmContext);
 
                 if (simpleOrg != null)
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         organisationIdentifier = simpleOrg.OrgId,
                         ukprn = int.Parse(ukprn),
@@ -629,12 +629,12 @@
         /// <param name="contract">The CRM Contract object</param>
         /// <param name="account"></param>
         /// <returns></returns>
-        private static contractor GetCorporateContractor(sfa_contract contract, Account account)
+        private static Contractor GetCorporateContractor(sfa_contract contract, Account account)
         {
             int parsedUkprn;
             int.TryParse(contract.sfa_UKPRN, out parsedUkprn);
 
-            return new contractor
+            return new Contractor
             {
                 organisationIdentifier = account.sfa_OrganisationID,
                 ukprn = parsedUkprn,
@@ -690,9 +690,9 @@
         /// <param name="xrmContext">The early-bound Xrm Service Context</param>
         /// <param name="periodId">periodId </param>
         /// <returns>A period</returns>
-        private static corporateContract.period GetCorpContractPeriod(XrmServiceContext xrmContext, EntityReference periodId)
+        private static corporateContract.Period GetCorpContractPeriod(XrmServiceContext xrmContext, EntityReference periodId)
         {
-            corporateContract.period period = null;
+            corporateContract.Period period = null;
             if (periodId != null)
             {
                 period = (
@@ -700,7 +700,7 @@
                     join pt in xrmContext.sfa_periodtypeSet on
                         p.sfa_PeriodTypeId.Id equals pt.sfa_periodtypeId
                     where p.sfa_periodId.Equals(periodId.Id)
-                    select new corporateContract.period
+                    select new corporateContract.Period
                     {
                         period1 = p.sfa_Period,
                         periodType = TransformCrmPeriodTypeType(pt),
@@ -736,7 +736,7 @@
             };
         }
 
-        private void AdjustCRMDates(corporateContract.contract matchingContract)
+        private void AdjustCRMDates(corporateContract.Contract matchingContract)
         {
             if (matchingContract.contracts.Any())
             {
@@ -780,7 +780,7 @@
             }
         }
 
-        private void AddMissingFieldsToContractAllocations(corporateContract.contract matchingContract)
+        private void AddMissingFieldsToContractAllocations(corporateContract.Contract matchingContract)
         {
             var firstContract = matchingContract.contracts.FirstOrDefault();
             if (firstContract != null)

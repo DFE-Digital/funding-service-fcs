@@ -2,6 +2,7 @@
 {
     using AllocationDeliveryDomain.Common.Storage;
     using AutoMapper;
+    using Microsoft.Extensions.Logging;
 
     public static class ReportedActualExtensions
     {
@@ -12,15 +13,23 @@
             return GetMapper().Map<EnrichedReportedActual>(reportedActual);
         }
 
+
         private static IMapper GetMapper()
         {
             if (_mapper == null)
             {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<ReportedActual, EnrichedReportedActual>());
+                var loggerFactory = LoggerFactory.Create(builder => { });
+
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<ReportedActual, EnrichedReportedActual>();
+                }, loggerFactory);
+
                 _mapper = config.CreateMapper();
             }
 
             return _mapper;
         }
+
     }
 }

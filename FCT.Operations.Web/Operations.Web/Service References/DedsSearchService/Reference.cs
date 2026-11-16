@@ -1628,22 +1628,27 @@ namespace Operations.Web.DedsSearchService {
         
         public DedsSearchServiceClient() {
         }
-        
-        public DedsSearchServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+
+        public DedsSearchServiceClient(System.ServiceModel.Channels.Binding binding,System.ServiceModel.EndpointAddress remoteAddress)
+        : base(binding, remoteAddress)
+        {
         }
-        
-        public DedsSearchServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
-        }
-        
-        public DedsSearchServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
-        }
-        
-        public DedsSearchServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
-        }
+
+        //public DedsSearchServiceClient(string endpointConfigurationName) : 
+        //        base(endpointConfigurationName) {
+        //}
+
+        //public DedsSearchServiceClient(string endpointConfigurationName, string remoteAddress) : 
+        //        base(endpointConfigurationName, remoteAddress) {
+        //}
+
+        //public DedsSearchServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        //        base(endpointConfigurationName, remoteAddress) {
+        //}
+
+        //public DedsSearchServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        //        base(binding, remoteAddress) {
+        //}
         
         public Operations.Web.DedsSearchService.DataSetDescriptor GetDataSet(System.Guid dataSetId) {
             return base.Channel.GetDataSet(dataSetId);

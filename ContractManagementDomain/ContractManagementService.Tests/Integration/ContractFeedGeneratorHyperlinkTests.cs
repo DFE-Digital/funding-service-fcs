@@ -226,16 +226,16 @@
             return pageStorageResultSet;
         }
 
-        private static contract GetCorpContract()
+        private static Contract GetCorpContract()
         {
             using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ContractManagementService.Tests.Resources.masterContract.xml");
            
             var document = XDocument.Load(stream);
 
             XmlSerializer serializer =
-                new XmlSerializer(typeof(contract));
+                new XmlSerializer(typeof(Contract));
             return
-                (contract)
+                (Contract)
                 serializer.Deserialize(document.Root.CreateReader());
         }
     }

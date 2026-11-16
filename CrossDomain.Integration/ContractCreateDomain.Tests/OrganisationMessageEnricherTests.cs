@@ -39,7 +39,7 @@
             orgServiceMock.Setup(o => o.GetOrganisationForUkprn(contractMessage.contract.contractor.ukprn)).Returns(organisation);
             messageEnricher.OrganisationService = orgServiceMock.Object;
             messageEnricher.Enrich(contractMessage);
-            contractor contractor = contractMessage.contract.contractor;
+            Contractor contractor = contractMessage.contract.contractor;
             organisationAddressesOrganisationAddress orgAddress = organisation.organisationAddresses.First();
             Assert.IsTrue(IsContractorAddressTheSameAsOrgAddress(contractor, orgAddress));
         }
@@ -60,7 +60,7 @@
             messageEnricher.Enrich(contractMessage);
 
             // assert
-            contractor contractor = contractMessage.contract.contractor;
+            Contractor contractor = contractMessage.contract.contractor;
             
             Assert.AreEqual(Upin, contractor.Upin);
         }
@@ -92,7 +92,7 @@
             messageEnricher.Enrich(contractMessage);
 
             // assert
-            contractor contractor = contractMessage.contract.contractor;
+            Contractor contractor = contractMessage.contract.contractor;
 
             Assert.AreEqual(CompanyNumber, contractor.registeredCompanyNumber, "The registeredCompanyNumber is not set");
             Assert.AreEqual(charityNumber, contractor.CharityNumber, "The CharityNumber is not set");
@@ -143,7 +143,7 @@
             messageEnricher.Enrich(contractMessage);
 
             // assert
-            contractor contractOrgDetail = contractMessage.contract.contractor;
+            Contractor contractOrgDetail = contractMessage.contract.contractor;
 
             Assert.AreEqual(CompanyNumber, contractOrgDetail.registeredCompanyNumber, "The registeredCompanyNumber is not set");
             Assert.AreEqual(charityNumber, contractOrgDetail.CharityNumber, "The CharityNumber is not set");
@@ -191,7 +191,7 @@
             orgServiceMock.Verify(c => c.GetOrganisationForUkprn(It.IsAny<int>()), Times.Exactly(3), "GetOrganisationForUkprn was not called 3 times (for ukprns not in OrganisationServiceCache)");
         }
 
-        private bool IsContractorAddressTheSameAsOrgAddress(contractor contractor,
+        private bool IsContractorAddressTheSameAsOrgAddress(Contractor contractor,
             organisationAddressesOrganisationAddress orgAddress)
         {
             return contractor.addressLine1 == orgAddress.addressLine1 &&
@@ -244,7 +244,7 @@
             {
                 contract = new contractType
                 {
-                   contractor = new contractor(),
+                   contractor = new Contractor(),
                    contracts = new List<contractType>
                    {
                        new contractType

@@ -1,5 +1,4 @@
-﻿
-namespace FCT.Operations.Cda.Tests.ReportUpload
+﻿namespace FCT.Operations.Cda.Tests.ReportUpload
 {
     using Cda.ReportUpload;
     using FCT.Operations.Cda.Dtos;

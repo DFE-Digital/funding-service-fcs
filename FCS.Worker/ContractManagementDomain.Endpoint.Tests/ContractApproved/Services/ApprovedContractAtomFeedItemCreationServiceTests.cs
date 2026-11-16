@@ -38,7 +38,7 @@
             // act
             approvedContractAtomFeedItemCreationService.AddApprovedContract(new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -80,7 +80,7 @@
 
             // act
             approvedContractAtomFeedItemCreationService.AddApprovedContract(
-                new contract
+                new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -156,7 +156,7 @@
             // act
             _approvedContractAtomFeedItemCreationService.AddApprovedContract(new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -198,9 +198,9 @@
             ApprovedContractAtomFeedItemCreationService _approvedContractAtomFeedItemCreationService =
                 new ApprovedContractAtomFeedItemCreationService(Mock.Of<ILogger>(), _repositoryMock.Object, new ContractTransformer(), contractXmlValidatorMock.Object);
             
-            contract contractApprovedEvent = new ContractApprovedEvent
+            Contract contractApprovedEvent = new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                      {
@@ -252,9 +252,9 @@
             ApprovedContractAtomFeedItemCreationService _approvedContractAtomFeedItemCreationService =
                 new ApprovedContractAtomFeedItemCreationService(Mock.Of<ILogger>(), _repositoryMock.Object, new ContractTransformer(), contractXmlValidatorMock.Object);
             
-            contract contractApprovedEvent = new ContractApprovedEvent
+            Contract contractApprovedEvent = new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                      {
@@ -307,9 +307,9 @@
             ApprovedContractAtomFeedItemCreationService _approvedContractAtomFeedItemCreationService =
                 new ApprovedContractAtomFeedItemCreationService(Mock.Of<ILogger>(), _repositoryMock.Object, new ContractTransformer(), contractXmlValidatorMock.Object);
 
-            contract contractApprovedEvent = new ContractApprovedEvent
+            Contract contractApprovedEvent = new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                      {
@@ -358,12 +358,12 @@
             // arrange
             using (ContractManagementDbContext context = new ContractManagementDbContext())
             {
-                context.AtomFeedItems.Add(AtomFeedItem.CreateAtomFeedItem(new contract(), businessKey, AtomItemType.ApprovedContract, feedItemId, xml => true));
+                context.AtomFeedItems.Add(AtomFeedItem.CreateAtomFeedItem(new Contract(), businessKey, AtomItemType.ApprovedContract, feedItemId, xml => true));
                 context.SaveChanges();
             }
 
             IWindsorContainer container = new WindsorContainer()
-                .Install(new Endpoint.ContractApproved.WindsorInstaller(new LoggerFactory()))
+                .Install(new ContractManagementDomain.Endpoint.ContractApproved.WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<IContractManagementDbContext>().ImplementedBy<ContractManagementDbContext>().LifestyleScoped().IsDefault())
                 .Register(Component.For<ILogger>().Instance(Mock.Of<ILogger>()).LifestyleScoped().IsDefault());
             container.BeginScope();
@@ -376,7 +376,7 @@
             ContractManagementDbContext dbContext = new ContractManagementDbContext();
 
             // act
-            AtomItemCreationResult atomItemCreationResult = approvedContractAtomFeedItemCreationService.AddApprovedContract(new contract
+            AtomItemCreationResult atomItemCreationResult = approvedContractAtomFeedItemCreationService.AddApprovedContract(new Contract
             {
                 contracts = new List<contractType>
                 {

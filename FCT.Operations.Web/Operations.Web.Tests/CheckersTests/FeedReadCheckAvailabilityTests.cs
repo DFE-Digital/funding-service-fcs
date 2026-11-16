@@ -102,7 +102,6 @@
         {
             // arrange
             string exceptionMessage = "Http request exception";
-            AuthenticationResult deserializedAuthenticationResult = AuthenticationResult.Deserialize(AuthenticationResultJson);
 
             Mock<IHttpUtility> mockHttp = new Mock<IHttpUtility>();
             mockHttp.Setup(m => m.Get(It.IsAny<string>())).Returns(Task.FromResult(new HttpResult
@@ -112,19 +111,30 @@
             }));
 
             Mock<IAuthenticationHelper> mockAuthenticationHelper = new Mock<IAuthenticationHelper>();
-            mockAuthenticationHelper.Setup(ah => ah.GetAuthenticationResult(It.IsAny<AuthenticationRequest>())).Throws(new TimeoutException(exceptionMessage));
+            mockAuthenticationHelper
+                .Setup(ah => ah.GetAuthenticationResult(It.IsAny<AuthenticationRequest>()))
+                .Throws(new TimeoutException(exceptionMessage));
 
-            var checkerHttpRequestInformation = new CheckerHttpRequestInformation(ServiceInterface.DeliverableSettingFeed, "testBaseUrl", "testPageToCheck", _testMediaHeaderCollection, _testAuthenticationRequest);
+            var checkerHttpRequestInformation =
+                new CheckerHttpRequestInformation(
+                    ServiceInterface.DeliverableSettingFeed,
+                    "testBaseUrl",
+                    "testPageToCheck",
+                    _testMediaHeaderCollection,
+                    _testAuthenticationRequest);
 
-            FeedReadCheckAvailability feedChecker = new FeedReadCheckAvailability(mockHttp.Object, mockAuthenticationHelper.Object, checkerHttpRequestInformation);
+            FeedReadCheckAvailability feedChecker =
+                new FeedReadCheckAvailability(
+                    mockHttp.Object,
+                    mockAuthenticationHelper.Object,
+                    checkerHttpRequestInformation);
 
             // act
             var result = feedChecker.GetCheckResult().GetAwaiter().GetResult();
 
-
             // assert
-            Assert.IsFalse(result.IsAvailable, "result was incorrrectly available.");
-            Assert.AreEqual(exceptionMessage, result.Details, "exception message is wwrong.");
+            Assert.IsFalse(result.IsAvailable);
+            Assert.AreEqual(exceptionMessage, result.Details);
             Assert.AreEqual("DeliverableSettingFeed", result.ServiceName);
         }
     }

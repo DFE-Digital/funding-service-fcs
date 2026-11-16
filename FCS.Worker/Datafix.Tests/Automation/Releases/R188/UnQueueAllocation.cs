@@ -27,7 +27,7 @@ namespace Datafix.Tests.Automation.Releases.R188
 
         }
 
-        private void SendReleaseGroupCommand(IEndpointInstance endpoint, string releaseGroupName, List<ContractIdentity> contractIdentities)
+        private void SendReleaseGroupCommand(EndpointBuilder endpoint, string releaseGroupName, List<ContractIdentity> contractIdentities)
         {
             var command = new FundingAllocationReleaseGroupCommand
             {

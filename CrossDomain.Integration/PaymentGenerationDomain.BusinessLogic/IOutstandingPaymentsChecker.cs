@@ -1,6 +1,7 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic
 {
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    extern alias Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface IOutstandingPaymentsChecker
     {

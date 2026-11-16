@@ -5,8 +5,8 @@
 
     public interface IArchiveFileOrchestrator
     {
-        IReadOnlyCollection<FileInfo> OrchestrateForNotification(contract corporateContract);
+        IReadOnlyCollection<FileInfo> OrchestrateForNotification(Contract corporateContract);
 
-        IReadOnlyCollection<FileInfo> OrchestrateForNonNotification(contract corporateContract);
+        IReadOnlyCollection<FileInfo> OrchestrateForNonNotification(Contract corporateContract);
     }
 }

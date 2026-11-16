@@ -50,7 +50,7 @@
                     },
                     fundingStreamPeriodCode = fsp.FundingStreamPeriodCode,
                     startDate = fsp.StartDate,
-                    period = new period
+                    period = new Period
                     {
                         period1 = PayableNonLevyPeriod,
                         periodType = new periodTypeType

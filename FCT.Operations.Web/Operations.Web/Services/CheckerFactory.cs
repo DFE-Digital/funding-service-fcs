@@ -14,6 +14,7 @@
     using Repositories;
     using SFA.FCT.Framework.Logging;
 
+
     public class CheckerFactory : ICheckerFactory
     {
         public Dictionary<string, Func<Task<AvailabilityCheckResult>>>  GetAvailabilityCheckerDictionary()
@@ -133,17 +134,68 @@
             return await cfsProviderApiCheckAvailability.GetCheckResult();
         }
 
+
         private static IDedsSearchServiceChannel CreateDedsChannel()
         {
-            ChannelFactory<IDedsSearchServiceChannel> channelFactory = new ChannelFactory<IDedsSearchServiceChannel>("BasicHttpBinding_IDedsSearchService");
+            string serviceUrl = ConfigurationManager.AppSettings["BasicHttpBinding_IDedsSearchService"];
+
+            var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport)
+            {
+                MaxReceivedMessageSize = int.MaxValue,
+                MaxBufferSize = int.MaxValue,
+                ReaderQuotas =
+            {
+                MaxStringContentLength = int.MaxValue,
+                MaxArrayLength = int.MaxValue
+            }
+            };
+
+            var endpoint = new EndpointAddress(serviceUrl);
+
+            var channelFactory =
+                new ChannelFactory<IDedsSearchServiceChannel>(
+                    binding,
+                    endpoint);
+
             return channelFactory.CreateChannel();
         }
 
         private static GatewayServiceContractChannel CreateGatewayChannel()
         {
-            ChannelFactory<GatewayServiceContractChannel> channelFactory = new ChannelFactory<GatewayServiceContractChannel>("BasicHttpBinding_GatewayServiceContract");
+            string serviceUrl = ConfigurationManager.AppSettings["BasicHttpBinding_GatewayServiceContract"];
+
+            var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport)
+            {
+                MaxReceivedMessageSize = int.MaxValue,
+                MaxBufferSize = int.MaxValue,
+                ReaderQuotas =
+            {
+                MaxStringContentLength = int.MaxValue,
+                MaxArrayLength = int.MaxValue
+            }
+            };
+
+            var endpoint = new EndpointAddress(serviceUrl);
+
+            var channelFactory =
+                new ChannelFactory<GatewayServiceContractChannel>(
+                    binding,
+                    endpoint);
+
             return channelFactory.CreateChannel();
         }
+
+        //private static IDedsSearchServiceChannel CreateDedsChannel()
+        //{
+        //    ChannelFactory<IDedsSearchServiceChannel> channelFactory = new ChannelFactory<IDedsSearchServiceChannel>("BasicHttpBinding_IDedsSearchService");
+        //    return channelFactory.CreateChannel();
+        //}
+
+        //private static GatewayServiceContractChannel CreateGatewayChannel()
+        //    {
+        //        ChannelFactory<GatewayServiceContractChannel> channelFactory = new ChannelFactory<GatewayServiceContractChannel>("BasicHttpBinding_GatewayServiceContract");
+        //        return channelFactory.CreateChannel();
+        //    }
 
         private async Task<AvailabilityCheckResult> CallServiceAndHandleException(Func<Task<AvailabilityCheckResult>> callService, string serviceName)
         {

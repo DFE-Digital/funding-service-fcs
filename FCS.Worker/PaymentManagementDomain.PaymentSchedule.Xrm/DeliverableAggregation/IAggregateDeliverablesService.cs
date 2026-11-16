@@ -1,7 +1,8 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.DeliverableAggregation
 {
+    extern alias IntegrationEntities;
     using System.Collections.Generic;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Dtos;
 
     public interface IAggregateDeliverablesService

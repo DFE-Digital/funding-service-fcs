@@ -32,14 +32,14 @@
             var contractIdentifier = new ContractIdentifier(contractNumber, versiontNumber, subVersiontNumber);
 
             var mockApprovalOnwardsContractAtomFeedService = new Mock<IApprovalOnwardsContractAtomFeedService>();
-            _ = mockApprovalOnwardsContractAtomFeedService.Setup((m => m.AddContractToFeed(
+            mockApprovalOnwardsContractAtomFeedService.Setup((m => m.AddContractToFeed(
                 It.IsAny<ConnectionInfo>(),
-                It.IsAny<contract>(),
-                It.IsAny<Guid>(),
+                It.IsAny<Contract>(), 
+                It.IsAny<Guid>(), 
                 It.IsAny<AtomItemType>())))
                     .Returns(assertAtomItemCreationResult);
 
-            contract corpContract = new contract
+            Contract corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -58,7 +58,7 @@
             };
             
             Mock<ICorporateContractService> corporateContractServiceMock = new Mock<ICorporateContractService>();
-            _ = corporateContractServiceMock.Setup(ccs => ccs.GetContract(It.IsAny<ConnectionInfo>(),
+            corporateContractServiceMock.Setup(ccs => ccs.GetContract(It.IsAny<ConnectionInfo>(),
                 It.IsAny<ICrmContractRepository>(),
                 It.IsAny<IContractsManager>(), It.IsAny<ILegalDeliverableService>(),
                 It.IsAny<ContractIdentifier>())).Returns(corpContract);
@@ -93,14 +93,14 @@
             var contractIdentifier = new ContractIdentifier(contractNumber, versiontNumber, subVersiontNumber);
 
             var mockApprovalOnwardsContractAtomFeedService = new Mock<IApprovalOnwardsContractAtomFeedService>();
-            _ = mockApprovalOnwardsContractAtomFeedService.Setup((m => m.AddContractToFeed(
+            mockApprovalOnwardsContractAtomFeedService.Setup((m => m.AddContractToFeed(
                 It.IsAny<ConnectionInfo>(),
-                It.IsAny<contract>(),
+                It.IsAny<Contract>(),
                 It.IsAny<Guid>(),
                 It.IsAny<AtomItemType>())))
                     .Returns(assertAtomItemCreationResult);
 
-            contract corpContract = new contract
+            Contract corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -119,7 +119,7 @@
             };
 
             Mock<ICorporateContractService> corporateContractServiceMock = new Mock<ICorporateContractService>();
-            _ = corporateContractServiceMock.Setup(ccs => ccs.GetContract(It.IsAny<ConnectionInfo>(),
+            corporateContractServiceMock.Setup(ccs => ccs.GetContract(It.IsAny<ConnectionInfo>(),
                 It.IsAny<ICrmContractRepository>(),
                 It.IsAny<IContractsManager>(), It.IsAny<ILegalDeliverableService>(),
                 It.IsAny<ContractIdentifier>())).Returns(corpContract);
@@ -154,14 +154,14 @@
             var contractIdentifier = new ContractIdentifier(contractNumber, versiontNumber, subVersiontNumber);
 
             var mockApprovalOnwardsContractAtomFeedService = new Mock<IApprovalOnwardsContractAtomFeedService>();
-            _ = mockApprovalOnwardsContractAtomFeedService.Setup((m => m.AddContractToFeed(
+            mockApprovalOnwardsContractAtomFeedService.Setup((m => m.AddContractToFeed(
                 It.IsAny<ConnectionInfo>(),
-                It.IsAny<contract>(),
+                It.IsAny<Contract>(),
                 It.IsAny<Guid>(),
                 It.IsAny<AtomItemType>())))
                     .Returns(assertAtomItemCreationResult);
 
-            contract corpContract = new contract
+            Contract corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -180,7 +180,7 @@
             };
 
             Mock<ICorporateContractService> corporateContractServiceMock = new Mock<ICorporateContractService>();
-            _ = corporateContractServiceMock.Setup(ccs => ccs.GetContract(It.IsAny<ConnectionInfo>(),
+            corporateContractServiceMock.Setup(ccs => ccs.GetContract(It.IsAny<ConnectionInfo>(),
                 It.IsAny<ICrmContractRepository>(),
                 It.IsAny<IContractsManager>(), It.IsAny<ILegalDeliverableService>(),
                 It.IsAny<ContractIdentifier>())).Returns(corpContract);
@@ -206,7 +206,7 @@
         public void TerminationContractFeedService_UpdateContractValuesAndAddContractToFeed_ShouldUseParameterSuppliedActionToUpdateCorporateContract()
         {
             // arrange
-            contract inputCorporateContract = new contract
+            Contract inputCorporateContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -216,12 +216,12 @@
                     }
                 }
             };
-            contract updatedCorporateContract = null;
+            Contract updatedCorporateContract = null;
 
-            void UpdateCorporateContract(contract contract) => contract.contracts.Single().StopNewStartsDate = null;
+            void UpdateCorporateContract(Contract contract) => contract.contracts.Single().StopNewStartsDate = null;
 
             var corporateContractServiceMock = new Mock<ICorporateContractService>();
-            _ = corporateContractServiceMock
+            corporateContractServiceMock
                 .Setup(m => m.GetContract(
                     It.IsAny<ConnectionInfo>(),
                     It.IsAny<ICrmContractRepository>(),
@@ -231,13 +231,13 @@
                 .Returns(inputCorporateContract);
 
             var approvalOnwardsContractAtomFeedServiceMock = new Mock<IApprovalOnwardsContractAtomFeedService>();
-            _ = approvalOnwardsContractAtomFeedServiceMock
+            approvalOnwardsContractAtomFeedServiceMock
                 .Setup(m => m.AddContractToFeed(
                     It.IsAny<ConnectionInfo>(),
-                    It.IsAny<contract>(),
+                    It.IsAny<Contract>(),
                     It.IsAny<Guid>(),
                     It.IsAny<AtomItemType>()))
-                .Callback<ConnectionInfo, contract, Guid, AtomItemType>((ci, c, g, a) => { updatedCorporateContract = c; });
+                .Callback<ConnectionInfo, Contract, Guid, AtomItemType>((ci, c, g, a) => { updatedCorporateContract = c; });
 
             var terminateContractFeedService = new TerminateContractFeedService(
                 Mock.Of<ICrmContractRepository>(),
@@ -247,7 +247,7 @@
                 corporateContractServiceMock.Object);
 
             // act
-            _ = terminateContractFeedService.UpdateContractAndAddToFeed(
+            terminateContractFeedService.UpdateContractAndAddToFeed(
                 ConnectionInfo.CreateDefault(),
                 new ContractIdentifier("TEST-1234", 1, 0),
                 UpdateCorporateContract,
@@ -255,8 +255,8 @@
                 AtomItemType.ContractModificationCancelled);
 
             // assert
-            _ = updatedCorporateContract.Should().NotBeNull("the test should have set the variable");
-            _ = updatedCorporateContract.contracts.Single().StopNewStartsDate.Should().BeNull("the paramaterised action should have been invoked");
+            updatedCorporateContract.Should().NotBeNull("the test should have set the variable");
+            updatedCorporateContract.contracts.Single().StopNewStartsDate.Should().BeNull("the paramaterised action should have been invoked");
         }
     }
 }

@@ -6,7 +6,6 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.Remoting;
     using System.Threading;
     using System.Threading.Tasks;
     using CrossDomain.Integration.Common;

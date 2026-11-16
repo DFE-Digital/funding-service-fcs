@@ -30,13 +30,13 @@
             _contractXmlValidator = contractXmlValidator;
         }
 
-        public async Task<AtomItemCreationResult> AddApprovedContract(contract corporateContract, Guid feedItemId, ConnectionInfo connectionInfo)
+        public async Task<AtomItemCreationResult> AddApprovedContract(Contract corporateContract, Guid feedItemId, ConnectionInfo connectionInfo)
         {
             _logger.LogInformation(
              ContractManagementLoggingEvents.CMApprovedEventReceivedForPagedStorage,
              $"Approved Contract {corporateContract.contractNumber}, version {corporateContract.contractVersionNumber} received for storage");
 
-            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract corpSchemaContract =
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract corpSchemaContract =
                 _contractTransformer.TransformToCorporateSchemaContract(corporateContract);
 
             try

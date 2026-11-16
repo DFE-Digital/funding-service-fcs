@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Endpoint.Tests.ProcessPaymentRunEndpoint
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,12 +17,11 @@
     using Moq;
     using NServiceBus.Testing;
     using PaymentGenerationDomain.Endpoint.ProcessPaymentRunEndpoint.Services;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using CorporateSchema = SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
-
+    using CorporateSchema = Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
     [TestClass]
     public class ProcessPaymentRunHandlerTests
     {

@@ -119,7 +119,7 @@
         }
 
         private async Task SendContractForDocumentation(
-            contract corpChildContract,
+            Contract corpChildContract,
             string masterContractNumber,
             string replyTo,
             IMessageHandlerContext context,

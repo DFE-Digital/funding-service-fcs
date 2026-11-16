@@ -10,13 +10,10 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Synchronizers.Writers;
     using Synchronizers.Writers.PAAS;
-    using PaymentGenerationDomain.Integration.DataStore;
 
     [TestClass]
     public class FundingAllocationAllocationLineWriterTests
     {
-        private static readonly string connectionString = PaymentGenerationDbContext.KeyVaultValue;
-
         [TestMethod, TestCategory("IntegrationTest")]
         public void FundingAllocationAllocationLineWriter_ShouldInsert()
         {
@@ -204,7 +201,8 @@
         }
 
         private static void RemoveAllocationLineConfigRowsForFundingStream(string fs)
-        {         
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -215,6 +213,8 @@
 
         private static void RemoveFspDeliverableRowsForFsp(string fsp)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Execute(
@@ -224,6 +224,8 @@
 
         private static void InsertFspDeliverableConfigRow(string fsp, int deliverableCode)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Execute(
@@ -233,6 +235,8 @@
 
         private static IReadOnlyCollection<dynamic> GetRowsForFundingStream(string fs)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 return connection.Query(

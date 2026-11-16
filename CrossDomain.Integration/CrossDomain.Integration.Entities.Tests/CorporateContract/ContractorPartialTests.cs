@@ -10,7 +10,7 @@
         public void ContractorPartial_GetLegalAddressCsv_ShouldGetWhenAllFieldsPopulated()
         {
             // arrange
-            contractor contractor = new contractor
+            Contractor contractor = new Contractor
             {
                 addressLine1 = "Some Road",
                 addressLine2 = "Some Village",
@@ -36,7 +36,7 @@
         public void ContractorPartial_GetLegalAddressCsv_ShouldGetWhenSomeFieldsPopulated()
         {
             // arrange
-            contractor contractor = new contractor
+            Contractor contractor = new Contractor
             {
                 addressLine1 = "Some Road",
                 addressLine3 = "Some Town",

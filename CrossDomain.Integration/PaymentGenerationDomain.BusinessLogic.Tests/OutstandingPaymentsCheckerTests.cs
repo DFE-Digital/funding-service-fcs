@@ -1,9 +1,10 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic.Tests
 {
+    extern alias Entities;
     using Integration.DataStore.Repositories;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class OutstandingPaymentsCheckerTests

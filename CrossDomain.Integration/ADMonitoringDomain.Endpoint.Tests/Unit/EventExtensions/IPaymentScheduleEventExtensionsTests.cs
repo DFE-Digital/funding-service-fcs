@@ -1,14 +1,14 @@
-﻿using System;
-using System.Globalization;
-using ADMonitoringDomain.Endpoint.BusinessLogic.EventExtensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using SFA.FCT.CrossDomain.Integration.Common;
-using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
-using SFA.FCT.CrossDomain.Integration.Events;
-
-namespace ADMonitoringDomain.Endpoint.Tests.Unit.EventExtensions
+﻿namespace ADMonitoringDomain.Endpoint.Tests.Unit.EventExtensions
 {
+    extern alias Entities;
+    using System;
+    using System.Globalization;
+    using ADMonitoringDomain.Endpoint.BusinessLogic.EventExtensions;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
+    using SFA.FCT.CrossDomain.Integration.Common;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using SFA.FCT.CrossDomain.Integration.Events;
     [TestClass]
     public class IPaymentScheduleEventExtensionsTests
     {

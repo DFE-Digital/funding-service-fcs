@@ -85,18 +85,18 @@
             }
         }
 
-        private static List<ChildContact> ToChildContracts(contract masterContract, AtomInfo atomInfo)
+        private static List<ChildContact> ToChildContracts(Contract masterContract, AtomInfo atomInfo)
         {
             return masterContract.contracts.Select(c => new ChildContact(c, atomInfo.ItemType, atomInfo.CreatedDate)).ToList();
         }
 
-        private static (contract contract, AtomInfo atomInfo) ToContractFromBytes(AtomInfo atomInfo)
+        private static (Contract contract, AtomInfo atomInfo) ToContractFromBytes(AtomInfo atomInfo)
         {
             string xml = ToStringFromBytes(atomInfo.AtomFeedItemBytes);
 
             using (var stream = new MemoryStream(new UTF8Encoding().GetBytes(xml)))
             {
-                return (new System.Xml.Serialization.XmlSerializer(typeof(contract)).Deserialize(stream) as contract, atomInfo);
+                return (new System.Xml.Serialization.XmlSerializer(typeof(Contract)).Deserialize(stream) as Contract, atomInfo);
             }
         }
 

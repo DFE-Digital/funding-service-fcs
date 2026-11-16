@@ -1,5 +1,6 @@
 ﻿namespace ADMonitoringDomain.Endpoint.Tests.Unit
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -13,10 +14,10 @@
     using NServiceBus.Testing;
     using SFA.FCT.AllocationDelivery.DataStore.Model;
     using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
-    using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
@@ -435,7 +436,7 @@
 
             var testEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = "A101",
                     VersionNumber = 1
@@ -472,7 +473,7 @@
 
             var testEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = "A101",
                     VersionNumber = 2
@@ -509,7 +510,7 @@
 
             var testEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = "A101",
                     VersionNumber = 3
@@ -545,7 +546,7 @@
 
             var testEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = "A101",
                     VersionNumber = 1
@@ -576,7 +577,7 @@
 
             var testEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = "A101",
                     VersionNumber = 1
@@ -607,7 +608,7 @@
 
             var testEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = "A101",
                     VersionNumber = 4
@@ -638,7 +639,7 @@
 
             var testEvent = new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = "A101",
                     VersionNumber = 2,
@@ -788,7 +789,7 @@
             // act
             handler.Handle(new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     VersionNumber = 1
                 }
@@ -816,7 +817,7 @@
             // act
             handler.Handle(new PaymentAggregatedEvent
             {
-                Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                 {
                     VersionNumber = 2
                 }

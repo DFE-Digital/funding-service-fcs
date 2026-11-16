@@ -18,6 +18,7 @@
     using Utilities;
     using Xrm.TestFramework;
     using corpContractType = CrossDomain.Integration.Entities.CorporateContract;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class BulkUpdateDraftContractSteps
@@ -150,7 +151,7 @@
             _inputFile = p0;
 
             _contractLoadPage.InputFilePath = Path.Combine(_sourceFolder, _inputFile);
-            Assert.IsTrue(File.Exists(_contractLoadPage.InputFilePath), "Input file does not exist");
+            ClassicAssert.IsTrue(File.Exists(_contractLoadPage.InputFilePath), "Input file does not exist");
 
             _inputFileList.Add(Path.Combine(_sourceFolder, _inputFile));
             _ukprnList.Add(p2.ToString());
@@ -163,7 +164,7 @@
             _inputFile = p0;
 
             _contractLoadPage.InputFilePath = Path.Combine(_sourceFolder, _inputFile);
-            Assert.IsTrue(File.Exists(_contractLoadPage.InputFilePath), "Input file does not exist");
+            ClassicAssert.IsTrue(File.Exists(_contractLoadPage.InputFilePath), "Input file does not exist");
 
             _inputFileList.Add(Path.Combine(_sourceFolder, _inputFile));
 
@@ -199,7 +200,7 @@
                    contractHeader.Rows[0]["Parent Contract"];
             _paymentManagementPageObject.ContractToTest.contractVersionNumber = int.Parse(contractHeader.Rows[0]["Version"]);
             var masterContract = contractHeader.Rows[0]["Parent Contract"];
-            _paymentManagementPageObject.ContractToTest.contractor = new corpContractType.contractor
+            _paymentManagementPageObject.ContractToTest.contractor = new corpContractType.Contractor
             {
                 legalName = contractHeader.Rows[0]["Provider"],
                 ukprn = int.Parse(contractHeader.Rows[0]["UKPRN"]),
@@ -233,12 +234,12 @@
 
             _paymentManagementPageObject.ContractToTest.contracts[0].contractValue = decimal.Parse(contractHeader.Rows[0]["Contract Value"]);
             _paymentManagementPageObject.ContractToTest.contracts[0].contractType1 = contractHeader.Rows[0]["Contract Type"];
-            _paymentManagementPageObject.ContractToTest.contracts[0].period = new corpContractType.period
+            _paymentManagementPageObject.ContractToTest.contracts[0].period = new corpContractType.Period
             {
                 period1 = contractHeader.Rows[0]["Period"]
             };
 
-            _paymentManagementPageObject.ContractToTest.contracts[0].contractor = new corpContractType.contractor
+            _paymentManagementPageObject.ContractToTest.contracts[0].contractor = new corpContractType.Contractor
             {
                 legalName = contractHeader.Rows[0]["Provider"],
                 ukprn = int.Parse(contractHeader.Rows[0]["UKPRN"]),
@@ -438,14 +439,14 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(contractDeliverablePeriod, $"Contract Deliverable Period not found for {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row["Period Type"], contractDeliverablePeriod.sfa_PeriodTypeId.Name,
+                ClassicAssert.IsNotNull(contractDeliverablePeriod, $"Contract Deliverable Period not found for {row.ToHeaderAndValueString()}");
+                ClassicAssert.AreEqual(row["Period Type"], contractDeliverablePeriod.sfa_PeriodTypeId.Name,
                     $"Unexpected PeriodType returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row["Period"], contractDeliverablePeriod.sfa_PeriodName,
+                ClassicAssert.AreEqual(row["Period"], contractDeliverablePeriod.sfa_PeriodName,
                     $"Unexpected PeriodName returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableDecimal("Planned Value"), contractDeliverablePeriod.sfa_PlannedValue,
+                ClassicAssert.AreEqual(row.ParseNullableDecimal("Planned Value"), contractDeliverablePeriod.sfa_PlannedValue,
                     $"Unexpected PlannedValue returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
-                Assert.AreEqual(row.ParseNullableInt("Planned Volume"), contractDeliverablePeriod.sfa_PlannedVolume,
+                ClassicAssert.AreEqual(row.ParseNullableInt("Planned Volume"), contractDeliverablePeriod.sfa_PlannedVolume,
                     $"Unexpected PlannedVolume returned for Contract Deliverable Period {row.ToHeaderAndValueString()}");
             });
 
@@ -479,7 +480,7 @@
             {
                 case "Reports":
                 {
-                    Assert.IsTrue(_contractLoadPage.IsResultsReportFileGenerated(), "Output Report file not found");
+                    ClassicAssert.IsTrue(_contractLoadPage.IsResultsReportFileGenerated(), "Output Report file not found");
                     break;
                 }
                 
@@ -491,7 +492,7 @@
                             .GetField("Version");
                     fileName = fileName.Replace("*", "_" + _contractNumber + "_v" + versionNumber);
 
-                    Assert.IsTrue(_contractDocumentGeneration.DoesFileExist(fileName), "output pdf file not found");
+                    ClassicAssert.IsTrue(_contractDocumentGeneration.DoesFileExist(fileName), "output pdf file not found");
                     break;
                 }
                 */
@@ -535,7 +536,7 @@
                 loopCount++;
             }
 
-            Assert.AreEqual(table.RowCount, deliverablesCount, "The number of deliverables is not correct for contract: {0}", firstContractFromTable.GetField("Contract"));
+            ClassicAssert.AreEqual(table.RowCount, deliverablesCount, "The number of deliverables is not correct for contract: {0}", firstContractFromTable.GetField("Contract"));
 
             foreach (var r in table.Rows)
             {
@@ -560,7 +561,7 @@
 
                 var deliverables = XrmService.Connection.GetRecords(_deliverableEntity, filterList);
 
-                Assert.AreEqual(deliverables.Count, 1, "More than one matching record based on combination of Contract Id and Allocation Id");
+                ClassicAssert.AreEqual(deliverables.Count, 1, "More than one matching record based on combination of Contract Id and Allocation Id");
 
                 var deliverable = deliverables.First().GetLatestRecord();
 
@@ -596,7 +597,7 @@
                             a.GetRelatedRecords(_deliverableEntity, "Contract Allocation")
                                 .Select(d => d));
 
-            Assert.AreEqual(table.RowCount, deliverablesPeriodsCount, "The number of deliverable periods is not correct for contract: {0}", newContract.GetField("Contract No"));
+            ClassicAssert.AreEqual(table.RowCount, deliverablesPeriodsCount, "The number of deliverable periods is not correct for contract: {0}", newContract.GetField("Contract No"));
 
             foreach (var r in table.Rows)
             {
@@ -613,7 +614,7 @@
 
                 var deliverablePeriods = XrmService.Connection.GetRecords(_deliverablePeriodEntity, filterList);
 
-                Assert.AreEqual(deliverablePeriods.Count, 1, "More than one matching record based on combination of Contract Id and Allocation Id");
+                ClassicAssert.AreEqual(deliverablePeriods.Count, 1, "More than one matching record based on combination of Contract Id and Allocation Id");
 
                 var deliverablePeriod = deliverablePeriods.First().GetLatestRecord();
 
@@ -636,7 +637,7 @@
         [Then(@"[A|a] file '(.*)' is created with success message indicating the processing of the spreadsheet in location '(.*)'")]
         public void ThenAFileIsCreatedWithSuccessMessageIndicatingTheProcessingOfTheSpreadsheetInLocation(string p0, string p1)
         {
-            Assert.IsTrue(_contractLoadPage.IsSyntaxFileGeneratedAndIsSuccess(), "Output Syntax file does not Exist or contains success message");
+            ClassicAssert.IsTrue(_contractLoadPage.IsSyntaxFileGeneratedAndIsSuccess(), "Output Syntax file does not Exist or contains success message");
         }
 
         [Then(@"[A|a] file '(.*)' is created in location '(.*)' in less than (.*) seconds")]
@@ -647,7 +648,7 @@
                 case "Reports":
                 {
                     _contractLoadPage.IsResultsReportFileGeneratedInterval = SLA2;
-                    Assert.IsTrue(_contractLoadPage.IsResultsReportFileGenerated(), "Output Report file not found");
+                    ClassicAssert.IsTrue(_contractLoadPage.IsResultsReportFileGenerated(), "Output Report file not found");
                     break;
                 }
             }
@@ -659,13 +660,13 @@
             // need to get the results report excel file from blob and read cell values
             var results = _contractLoadPage.GetCellValueFromResultsReport(worksheet, cellAddress, false);
 
-            Assert.IsTrue(results.Replace(" ", string.Empty).Contains(message.Replace(" ", string.Empty)), "Expected Response is not available: " + message + "; Actually: " + results);
+            ClassicAssert.IsTrue(results.Replace(" ", string.Empty).Contains(message.Replace(" ", string.Empty)), "Expected Response is not available: " + message + "; Actually: " + results);
         }
 
         [When(@"A file '(.*)' is created with success message indicating the processing of the spreadsheet in location '(.*)'")]
         public void WhenAFileIsCreatedWithSuccessMessageIndicatingTheProcessingOfTheSpreadsheetInLocation(string p0, string p1)
         {
-            Assert.IsTrue(_contractLoadPage.IsSyntaxFileGeneratedAndIsSuccess(), "Output Syntax file does not Exist or contains success message");
+            ClassicAssert.IsTrue(_contractLoadPage.IsSyntaxFileGeneratedAndIsSuccess(), "Output Syntax file does not Exist or contains success message");
         }
 
         [When(@"'(.*)' is displayed in field '(.*)' on the '(.*)' tab of the result report file")]

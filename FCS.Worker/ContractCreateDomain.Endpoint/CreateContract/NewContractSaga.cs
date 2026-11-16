@@ -1,9 +1,6 @@
 ﻿namespace ContractCreateDomain.Endpoint.CreateContract
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using AutoMapper;
     using ContractManagement.DataStore.Dtos;
     using ContractManagement.DataStore.Model;
     using ContractManagement.DataStore.Repositories;
@@ -16,11 +13,15 @@
     using SFA.FCT.ContractCreateDomain.BusinessLogic.Validation;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ContractCreateDomainEventLoggingId = Endpoint.ContractCreateDomainEventLoggingId;
+    using CR=SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using IContractOperationRules = Infrastructure.IContractOperationRules;
     using IContractValidationLookupDataCreator = Infrastructure.IContractValidationLookupDataCreator;
     using IFundingTypeFundingPeriodQueryRepository = Infrastructure.IFundingTypeFundingPeriodQueryRepository;
@@ -35,6 +36,7 @@
         private readonly IFundingTypeFundingPeriodQueryRepository _fundingTypeFundingPeriodQueryRepository;
         private readonly ISagaDataStorage _sagaDataStorage;
         private readonly IFundingTypeFundingPeriodContractTypeQueryRepository _fundingTypeFundingPeriodContractTypeQueryRepository;
+        private readonly IMapper _mapper;
 
         public NewContractSaga(
             IContractDeliverableEnricher contractDeliverableEnricher,
@@ -52,15 +54,16 @@
             IContractValidationLookupDataCreator contractValidationLookupDataCreator,
             IFundingTypeFundingPeriodContractTypeQueryRepository fundingTypeFundingPeriodContractTypeQueryRepository,
             ISiblingApprovedContractService siblingApprovedContractService,
-            IRelatedAllocationEnricher relatedAllocationEnricher)
+            IRelatedAllocationEnricher relatedAllocationEnricher,
+            IMapper mapper)
         {
             _logger = logger;
             _contractOperationRules = contractOperationRules;
             _fundingTypeFundingPeriodQueryRepository = fundingTypeFundingPeriodQueryRepository;
             _sagaDataStorage = sagaDataStorage;
             _fundingTypeFundingPeriodContractTypeQueryRepository = fundingTypeFundingPeriodContractTypeQueryRepository;
-
-            _createContractSaga= new CreateContractSaga(
+            _mapper = mapper;   
+            _createContractSaga = new CreateContractSaga(
                 contractDeliverableEnricher,
                 contractRequestTransformer,
                 contractValueAggregator,
@@ -102,12 +105,12 @@
             if (!data.ShouldReply)
             {
                 message.ContractRequest.errorInfo
-                    .Where(e => e.Severity == ErrorSeverity.Severe)
+                    .Where(e => e.Severity == CR.ErrorSeverity.Severe)
                     .ToList()
                     .ForEach(e => LogErrorToOperationsCode(error: e, prefix: "DAS"));
 
                 message.ContractRequest.errorInfo
-                    .Where(e => e.Severity == ErrorSeverity.Standard)
+                    .Where(e => e.Severity == CR.ErrorSeverity.Standard)
                     .ToList()
                     .ForEach(e => LogInformationToDasRequestCode(error: e, prefix: "DAS"));
             }
@@ -117,17 +120,17 @@
                 $"CreateContractRequestCommand - Handler complete: {message}, CorrelationId: {message.ContractRequest.correlationInfo.correlationId}");
         }
 
-        private void LogErrorToOperationsCode(errorInfoType error, string prefix)
+        private void LogErrorToOperationsCode(CR.errorInfoType error, string prefix)
         {
            _logger.LogError(ContractCreateDomainEventLoggingId.FCSOperationsErrorCode, $"{prefix} - {error.Value}");
         }
 
-        private void LogInformationToDasRequestCode(errorInfoType error, string prefix)
+        private void LogInformationToDasRequestCode(CR.errorInfoType error, string prefix)
         {
             _logger.LogInformation(ContractCreateDomainEventLoggingId.DasRequestIgnored, $"{prefix} - {error.Value}");
         }
 
-        private IEnumerable<IRule<contractRequestType>> GetValidationRules(contractRequestType contractRequest, ContractValidationLookupData lookupData, ConnectionInfo connectionInfo)
+        private IEnumerable<IRule<CR.contractRequestType>> GetValidationRules(CR.contractRequestType contractRequest, ContractValidationLookupData lookupData, ConnectionInfo connectionInfo)
         {
             bool allowUseOfDeliveryOrgs = _fundingTypeFundingPeriodQueryRepository.Get(contractRequest.contract.fundingTypeCode,
                 contractRequest.GetFundingPeriod(), connectionInfo).AllowUseOfDeliveryOrgs;
@@ -135,7 +138,7 @@
             IReadOnlyCollection<FundingTypeFundingPeriodContractTypeDto> GetFundingTypeFundingPeriodContractTypes()
             {
                 IReadOnlyCollection<FundingTypeFundingPeriodContractType> fundingTypeFundingPeriodContractTypes = _fundingTypeFundingPeriodContractTypeQueryRepository.GetFundingTypeFundingPeriodContractTypes(connectionInfo);
-                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes);
+                return CollectionTransformer.Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(fundingTypeFundingPeriodContractTypes,_mapper);
             }
 
             bool IsNewAmendmentAllowed(FundingTypeFundingPeriodDto fundingTypeFundingPeriod)

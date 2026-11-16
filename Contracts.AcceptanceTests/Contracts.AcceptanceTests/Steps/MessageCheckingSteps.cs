@@ -5,6 +5,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class MessageCheckingSteps
@@ -18,7 +19,7 @@
 
             bool isTopicEmpty = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(isTopicEmpty, $"The Queue - {queueName} is not empty");
+            ClassicAssert.IsTrue(isTopicEmpty, $"The Queue - {queueName} is not empty");
         }
 
         [When(@"there are no messages left in the system")]
@@ -31,7 +32,7 @@
 
             bool isTheSystemEmptyOfMessages = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(isTheSystemEmptyOfMessages, $"The system still has messages on the topics");
+            ClassicAssert.IsTrue(isTheSystemEmptyOfMessages, $"The system still has messages on the topics");
         }
     }
 }

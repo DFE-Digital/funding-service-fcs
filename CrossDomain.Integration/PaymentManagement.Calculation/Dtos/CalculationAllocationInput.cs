@@ -81,12 +81,20 @@
 
         public decimal GetOverDeliveryForFinancialPeriod(Period currentPeriod)
         {
-            return _overDeliveryForPeriod.GetValueOrDefault(currentPeriod.GetTaxYear());
+            return DictionaryExtensions.GetValueOrDefault(
+                _overDeliveryForPeriod,
+                currentPeriod.GetTaxYear()
+            );
+
         }
 
         public decimal GetOverDelivery()
         {
-            return _overDeliveryForPeriod.GetValueOrDefault(AllocationDurationPeriod);
+            return DictionaryExtensions.GetValueOrDefault(
+                _overDeliveryForPeriod,
+                AllocationDurationPeriod
+            );
+
         }
 
         public void MergePaymentValuesIncludingActualsOntoInput(IReadOnlyCollection<DeliverablePeriodPaymentInfo> paymentValues)

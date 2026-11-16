@@ -35,7 +35,7 @@
 
             CrmWebDriver driver = new CrmWebDriver()
             {
-                Url = ConfigurationManager.AppSettings["ida:ResourceId_CrmOnline"]
+                Url = TestConfiguration.Configuration["CrmOnline:ResourceId"]
             };
 
             IWebElement emailAddressTextBox = driver.WaitForElement(By.Id("i0116"));
@@ -63,7 +63,7 @@
 
         public void NavigateTo(string path)
         {
-            Url = Uri.EscapeUriString($@"{ConfigurationManager.AppSettings["ida:ResourceId_CrmOnline"]}/{path}");
+            Url = Uri.EscapeUriString($@"{TestConfiguration.Configuration["CrmOnline:ResourceId"]}/{path}");
         }
 
         public void SwitchToFrame(string id)

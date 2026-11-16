@@ -1,5 +1,7 @@
 ﻿namespace Operations.DataStore.Model
 {
+    using Extensions;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -8,8 +10,7 @@
     using System.IO;
     using System.IO.Compression;
     using System.Runtime.Serialization.Formatters.Binary;
-    using Extensions;
-    using Newtonsoft.Json;
+    using System.Text;
 
     public class AuditMessage
     {
@@ -108,10 +109,21 @@
 
         public static T ConvertByteArrayToObject<T>(byte[] bytes)
         {
-            MemoryStream memorystream = new MemoryStream(bytes);
-            BinaryFormatter bfd = new BinaryFormatter();
-            T deserializedResult = (T)bfd.Deserialize(memorystream);
-            return deserializedResult;
+            var json = Encoding.UTF8.GetString(bytes);
+
+            return JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
         }
+
+
+        //public static T ConvertByteArrayToObject<T>(byte[] bytes)
+        //{
+        //    MemoryStream memorystream = new MemoryStream(bytes);
+        //    BinaryFormatter bfd = new BinaryFormatter();
+        //    T deserializedResult = (T)bfd.Deserialize(memorystream);
+        //    return deserializedResult;
+        //}
     }
 }

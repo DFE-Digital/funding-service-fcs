@@ -12,9 +12,9 @@
     using Castle.Windsor;
     using Infrastructure.Services;
     using Microsoft.Xrm.Sdk;
-    using NUnit.Core;
     using XrmTestModel;
     using XrmTestModel.XrmObjects;
+    using NUnit.Framework.Legacy;
 
     public class EnrichReportedActualsPageObject
     {
@@ -341,8 +341,9 @@
                          };
 
             // assert both that the results are correct, and also that no other results were stored at the client
-            NUnitFramework.Assert.AreEqual(allocationDeliverablePeriodActualAudits.Count(), result.Count());
-            NUnitFramework.Assert.AreEqual(allocationDeliverablePeriodActualAudits.Count(), AllocationDeliverablePeriodActualAuditStored.Count());
+            ClassicAssert.That(result.Count(),NUnit.Framework.Is.EqualTo(allocationDeliverablePeriodActualAudits.Count()));
+
+            ClassicAssert.That(AllocationDeliverablePeriodActualAuditStored.Count(),NUnit.Framework.Is.EqualTo(allocationDeliverablePeriodActualAudits.Count()));
         }
 
         public void WaitTillAllocationDeliverablePeriodActualAuditPopulated()

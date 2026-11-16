@@ -15,7 +15,7 @@
             _office365Adapter = office365Adapter;
         }
 
-        public IReadOnlyCollection<FileInfo> OrchestrateForNotification(contract corporateContract)
+        public IReadOnlyCollection<FileInfo> OrchestrateForNotification(Contract corporateContract)
         {
             var childContract = corporateContract.contracts.First();
             string fundingTypeCode = childContract.fundingType.fundingTypeCode;
@@ -27,7 +27,7 @@
             return GetFileInfos(appendicesFolder, filePrefix, FileAction.Delete, ContractAmendmentType.Notification);
         }
 
-        public IReadOnlyCollection<FileInfo> OrchestrateForNonNotification(contract corporateContract)
+        public IReadOnlyCollection<FileInfo> OrchestrateForNonNotification(Contract corporateContract)
         {
             var childContract = corporateContract.contracts.First();
             string fundingTypeCode = childContract.fundingType.fundingTypeCode;

@@ -1,5 +1,7 @@
 ﻿namespace SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.IoC
 {
+    extern alias Entities;
+
     using System;
     using System.Configuration;
     using AllocationDeliveryDomain.Common.DataStore;
@@ -8,10 +10,10 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using CrossDomain.Integration.Common;
-    using CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using CrossDomain.Integration.OverrideDate;
     using CrossDomain.Integration.OverrideDate.DataStore;
-    using Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
     using Infrastructure;
     using PolicyCache.DataStore;
     using PolicyCache.DataStore.Repositories;

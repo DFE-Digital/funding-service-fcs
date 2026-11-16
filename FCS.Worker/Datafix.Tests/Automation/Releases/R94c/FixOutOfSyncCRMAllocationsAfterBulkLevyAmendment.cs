@@ -34,7 +34,7 @@
                 "Resources.R94b.PaymentSchedule_APPS_2885_zero_deferred.json"
             };
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentScheduleEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentScheduleEvent>();
 
             resources.ForEach(r =>
             {
@@ -52,7 +52,7 @@
                 "Resources.R94b.AllocationPaymentsChangedOnAggregationEvent_APPS_2847_zero_deferred.json",
             };
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AllocationPaymentsChangedOnAggregationEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AllocationPaymentsChangedOnAggregationEvent>();
 
             resources.ForEach(r =>
             {

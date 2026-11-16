@@ -202,7 +202,7 @@
                 new PeriodKey(periodString, periodTypeCode),
                 key =>
                 {
-                    CorporateContract.period period = new CorporateContract.period
+                    CorporateContract.Period period = new CorporateContract.Period
                     {
                         period1 = periodString,
                         periodType = new CorporateContract.periodTypeType

@@ -7,7 +7,7 @@
     public static class CorporateContractExtensions
     {
         public static ContractPublishedEvent ToContractPublishedEvent(
-            this SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract contract)
+            this SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract contract)
         {
             var childContracts = contract.contracts.Select(c =>
                 new ContractIdentity(c.contractNumber, c.contractVersionNumber, c.contractSubVersionNumber)).ToList();

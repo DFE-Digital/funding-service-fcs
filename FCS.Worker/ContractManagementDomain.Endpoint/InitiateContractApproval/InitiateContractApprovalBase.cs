@@ -107,13 +107,13 @@
             }
         }
 
-        private contract GetValidatedMasterContract(string masterContractNumber, string contractNumber, int versionNumber, out string errorMessage)
+        private Contract GetValidatedMasterContract(string masterContractNumber, string contractNumber, int versionNumber, out string errorMessage)
         {
             RaiseExceptionOnError(
                 !ContractValidator.ValidateMasterAndChildContractNumber(masterContractNumber, contractNumber, out errorMessage),
                 errorMessage);
 
-            contract masterContract = _contractManager.GetCorporateContractForSpecificVersion(contractNumber, masterContractNumber, versionNumber);
+            Contract masterContract = _contractManager.GetCorporateContractForSpecificVersion(contractNumber, masterContractNumber, versionNumber);
 
             RaiseExceptionOnError(!ContractValidator.ValidateMasterAndChildContracts(masterContract, out errorMessage),
                 errorMessage);

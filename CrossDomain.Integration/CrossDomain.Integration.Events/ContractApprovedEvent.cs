@@ -4,7 +4,7 @@
 
     public class ContractApprovedEvent
     {
-        public contract CorporateContract { get; set; }
+        public Contract CorporateContract { get; set; }
 
         public override string ToString()
         {

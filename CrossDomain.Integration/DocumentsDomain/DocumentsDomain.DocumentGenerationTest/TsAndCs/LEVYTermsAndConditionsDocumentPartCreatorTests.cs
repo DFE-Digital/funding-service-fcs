@@ -17,7 +17,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsRequiredForLEVY()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10000976_APPLEVY1_v1);
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10000976_APPLEVY1_v1);
             LEVYTermsAndConditionsDocumentPartCreator classUnderTest = new LEVYTermsAndConditionsDocumentPartCreator(null, null, null);
             Assert.IsTrue(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -25,7 +25,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsNotRequiredForOtherForLEVYTsAndCs()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10000976_APPLEVY1_v1.Replace("<ctr:fundingType><ctr:fundingTypeCode>LEVY</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10000976_APPLEVY1_v1.Replace("<ctr:fundingType><ctr:fundingTypeCode>LEVY</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>", "<ctr:fundingType><ctr:fundingTypeCode>OTHER</ctr:fundingTypeCode><ctr:fundingTypeName /></ctr:fundingType>"));
             LEVYTermsAndConditionsDocumentPartCreator classUnderTest = new LEVYTermsAndConditionsDocumentPartCreator(null, null, null);
             Assert.IsFalse(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -37,16 +37,26 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(ApplicationException))]
         public void TestThatRequiredHeaderDocumentNameThrowsExceptionForLEVYHeaderName()
         {
-            string headerName = new LEVYTermsAndConditionsDocumentPartCreator(null, DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(), null).RequiredHeaderDocumentName;
+            // Arrange
+            var sut = new LEVYTermsAndConditionsDocumentPartCreator(
+                null,
+                DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories(),
+                null
+            );
+
+            // Act & Assert
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+                var _ = sut.RequiredHeaderDocumentName;
+            });
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void TestSupplyDocumentGenerationWithNullAllocationCollection()
         {
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 contracts = new List<contractType>
                 {
@@ -56,7 +66,7 @@
                         {
                             fundingTypeCode = "LEVY"
                         },
-                        period = new period
+                        period = new Period
                         {
                             period1 = "1799",
                             periodType = new periodTypeType { periodTypeCode = periodTypeCodeType.LEVY, periodTypeName = periodTypeNameType.APPRENTICESHIPLEVY}
@@ -74,7 +84,7 @@
         [TestMethod, TestCategory("IntegrationTest")]
         public void TestSupplyDocumentGenerationWithEmptyAllocationCollection()
         {
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 contracts = new List<contractType>
                 {
@@ -84,7 +94,7 @@
                         {
                             fundingTypeCode = "LEVY"
                         },
-                        period = new period
+                        period = new Period
                         {
                             period1 = "1799",
                             periodType = new periodTypeType { periodTypeCode = periodTypeCodeType.LEVY, periodTypeName = periodTypeNameType.APPRENTICESHIPLEVY}

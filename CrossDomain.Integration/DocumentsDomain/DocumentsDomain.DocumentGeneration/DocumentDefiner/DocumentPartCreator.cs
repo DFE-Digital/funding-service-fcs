@@ -42,7 +42,7 @@
             return _templateRepository.GetNameOfTemplateActiveOnDate(containerName, startsWith, contractStartDate);
         }
 
-        protected int GetStartYearFromPeriod(period period)
+        protected int GetStartYearFromPeriod(Period period)
         {
             string startYearString = period.period1.Substring(0, 2);
             int startYear;
@@ -55,7 +55,7 @@
             return startYear;
         }
  
-        protected int GetEndYearFromPeriod(period period)
+        protected int GetEndYearFromPeriod(Period period)
         {
             string endYearString = period.period1.Substring(2, 2);
             int endYear;
@@ -68,7 +68,7 @@
             return endYear;
         }
 
-        protected int GetStartMonthFromPeriod(period period)
+        protected int GetStartMonthFromPeriod(Period period)
         {
             var startMonth = 8;
             switch (period.periodType.periodTypeCode)
@@ -93,7 +93,7 @@
             return startMonth;
         }
 
-        protected int GetEndMonthFromPeriod(period period)
+        protected int GetEndMonthFromPeriod(Period period)
         {
             var endMonth = 7;
             switch (period.periodType.periodTypeCode)
@@ -110,9 +110,6 @@
                     break;
                 case periodTypeCodeType.ESF:
                     endMonth = 12;
-                    break;
-                case periodTypeCodeType.CTEC:
-                    endMonth = 3;
                     break;
             }
 
@@ -140,8 +137,7 @@
                 periodTypeCodeType.ESF,
                 periodTypeCodeType.SB,
                 periodTypeCodeType.HTES,
-                periodTypeCodeType.HTES2,
-                periodTypeCodeType.CTEC
+                periodTypeCodeType.HTES2
             };
 
             if (periodTypeCodesThatUseContractYearStartAndEnd.Contains(contractAllocation.period.periodType.periodTypeCode))
@@ -182,7 +178,7 @@
 
         protected List<MergeFieldType> GetDocumentHeaderFields(string masterContractNumber, contractType contract, contractAllocationsContractAllocation allocation)
         {
-            contractor organisationDetails = allocation.HasDeliveryOrganisation() ? allocation.DeliveryOrganisationDetail : contract.contractor;
+            Contractor organisationDetails = allocation.HasDeliveryOrganisation() ? allocation.DeliveryOrganisationDetail : contract.contractor;
 
             List <MergeFieldType> mergeFields = new List<MergeFieldType>
             {

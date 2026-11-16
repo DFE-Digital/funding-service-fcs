@@ -57,7 +57,7 @@
         private static IReadOnlyCollection<ExtractRow> GetExtractRowsFromRepository(FundingAllocationExtractType fundingAllocationExtractType)
         {
             // arrange
-            const string sqlConnectionString = "";
+            const string sqlConnectionString = "Data Source=gy2thhzgc4.database.windows.net;Initial Catalog=fct-database-oat;Persist Security Info=True;User ID=fctsa;Password=PPPassword@9";
 
             var repository = new FundingAllocationExtractRepository();
 

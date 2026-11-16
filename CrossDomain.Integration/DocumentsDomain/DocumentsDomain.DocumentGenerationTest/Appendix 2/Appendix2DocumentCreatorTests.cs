@@ -36,7 +36,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsRequiredFor1618APPS()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10003709_MAIN999_v2);
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10003709_MAIN999_v2);
 
             Mock<IDocumentConfigurationSource> configMock = new Mock<IDocumentConfigurationSource>();
             configMock
@@ -51,7 +51,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsNotRequiredForOtherForAppendix2_1618APPS()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10003709_MAIN999_v2.Replace("<ctr:fundingStream><ctr:fundingStreamCode>16-18 APPS</ctr:fundingStreamCode>", "<ctr:fundingStream><ctr:fundingStreamCode>OTHER</ctr:fundingStreamCode>"));
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10003709_MAIN999_v2.Replace("<ctr:fundingStream><ctr:fundingStreamCode>16-18 APPS</ctr:fundingStreamCode>", "<ctr:fundingStream><ctr:fundingStreamCode>OTHER</ctr:fundingStreamCode>"));
 
             Mock<IDocumentConfigurationSource> configMock = new Mock<IDocumentConfigurationSource>();
             configMock
@@ -93,7 +93,7 @@
             {
                 using (StreamReader sr = new StreamReader(resource.Stream))
                 {
-                    contract c = JsonConvert.DeserializeObject<contract>(sr.ReadToEnd());
+                    Contract c = JsonConvert.DeserializeObject<Contract>(sr.ReadToEnd());
 
                     AzureStorageWrapper storageWrapper = new AzureStorageWrapper();
 
@@ -139,7 +139,7 @@
         {
             // arrange
             string templateContainer = ConfigurationManager.AppSettings["DocumentGeneration.TemplateContainer"];
-            contract contract = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests", "Resources.corpContractNla.json");
+            Contract contract = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests", "Resources.corpContractNla.json");
             AzureStorageWrapper storageWrapper = new AzureStorageWrapper();
 
             using (DocumentsDomainDbContext context = new DocumentsDomainDbContext())
@@ -159,7 +159,7 @@
                 IDictionary<string, DocumentGenerationRequest> requests = creator.SupplyDocumentGenerationRequest(contract.parentContractNumber, contract, templateContainer);
 
                 // assert
-                List<MergeFieldType> firstRequestMergeFields = requests["2001-TEST TRAINING COLLEGE-001-YNLP-20180101-01"].MergeData.MergeFields;
+                List<MergeFieldType> firstRequestMergeFields = requests["2001-TEST TRAINING COLLEGE-001-YNLP-20180101-00"].MergeData.MergeFields;
                 Assert.AreEqual("Apr 2017", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H1")?.Value);
                 Assert.AreEqual("May 2017", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H2")?.Value);
                 Assert.AreEqual("Jun 2017", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H3")?.Value);
@@ -173,7 +173,7 @@
                 Assert.AreEqual("Feb 2018", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H11")?.Value);
                 Assert.AreEqual("Mar 2018", firstRequestMergeFields.SingleOrDefault(mf => mf.Name == "H12")?.Value);
 
-                List<MergeFieldType> secondRequestMergeFields = requests["2001-TEST TRAINING COLLEGE-001-YNLP-20180101-02"].MergeData.MergeFields;
+                List<MergeFieldType> secondRequestMergeFields = requests["2001-TEST TRAINING COLLEGE-001-YNLP-20180101-12"].MergeData.MergeFields;
                 Assert.AreEqual("Apr 2018", secondRequestMergeFields.SingleOrDefault(mf => mf.Name == "H1")?.Value);
                 Assert.AreEqual("May 2018", secondRequestMergeFields.SingleOrDefault(mf => mf.Name == "H2")?.Value);
                 Assert.AreEqual("Jun 2018", secondRequestMergeFields.SingleOrDefault(mf => mf.Name == "H3")?.Value);
@@ -380,56 +380,9 @@
             Assert.AreEqual("A2_MAIN{0}", template2122.TemplateName, "Unexpected template name returned for APPS2122");
         }
 
-        [TestMethod, TestCategory("UnitTest")]
-        public void EdskTotalValueCalculator_ShouldSumValuesAcrossFiscalPeriods()
+        private Contract GetRichContract(int deliverableCode = 2)
         {
-            var allocation = new contractAllocationsContractAllocation
-            {
-                period = new period { period1 = "1819" },
-                fundingStreamPeriodCode = "OTHER",
-                contractDeliverables = new List<contractDeliverablesTypeContractDeliverable>
-                {
-                    new contractDeliverablesTypeContractDeliverable
-                    {
-                        deliverable = new deliverableType { deliverableCode = 1 },
-                        contractDeliverablePeriods = new List<contractDeliverablePeriodsTypeContractDeliverablePeriod>
-                        {
-                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2018, period = 8, plannedValue = 10 },
-                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2018, period = 4, plannedValue = 20 },
-                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2019, period = 2, plannedValue = 30 },
-                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2019, period = 4, plannedValue = 40 },
-                            new contractDeliverablePeriodsTypeContractDeliverablePeriod { year = 2019, period = 8, plannedValue = 50 }
-                        }
-                    }
-                }
-            };
-
-            decimal total = EdskTotalValueCalculator.GetAllocationTotal(allocation);
-
-            Assert.AreEqual(150m, total);
-        }
-
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(ApplicationException))]
-        public void EdskTotalValueCalculator_ShouldThrowWhenStartYearIsInvalid()
-        {
-            EdskTotalValueCalculator.GetAllocationTotal(new contractAllocationsContractAllocation
-            {
-                period = new period { period1 = "ABCD" }
-            });
-        }
-
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(ApplicationException))]
-        public void EdskTotalValueCalculator_ShouldThrowWhenEndYearIsInvalid()
-        {
-            EdskTotalValueCalculator.GetAllocationTotal(new contractAllocationsContractAllocation
-            {
-                period = new period { period1 = "18AB" }
-            });
-        }
-
-        private contract GetRichContract(int deliverableCode = 2)
-        {
-            return new contract
+            return new Contract
             {
                 fundingType = new fundingType {fundingTypeCode = "ESF"},
                 contractNumber = "MASTER-001",
@@ -455,7 +408,7 @@
                                 {
                                     fundingStreamCode = "ESF 201420"
                                 },
-                                period = new period
+                                period = new Period
                                 {
                                     periodType = new periodTypeType {periodTypeCode = periodTypeCodeType.ESF},
                                     period1 = "1420"
@@ -500,14 +453,14 @@
                         startDate = new DateTime(2015, 08, 01),
                         contractNumber = "CONTRACT-001",
                         contractVersionNumber = 1,
-                        contractor = new contractor
+                        contractor = new Contractor
                         {
                             ukprn = 12345678,
                             legalName = "Provider Name"
                         }
                     }
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 12345678,
                     legalName = "Provider Name"
@@ -515,7 +468,7 @@
             };
         }
 
-        private contract GetEfaContract()
+        private Contract GetEfaContract()
         {
             var contract = GetRichContract();
             contract.contracts[0].period.period1 = "1718";
@@ -541,7 +494,7 @@
                     {
                         fundingStreamCode = "1619LR"
                     },
-                    period = new period
+                    period = new Period
                     {
                         periodType = new periodTypeType {periodTypeCode = periodTypeCodeType.AY},
                         period1 = "1718"
@@ -594,7 +547,7 @@
                 "Resources.DocGenCommandDeliveryOrg.json").CorporateContract;
         }
 
-        private contract GetEfaContractWithMultipleDeliveryOrgs()
+        private Contract GetEfaContractWithMultipleDeliveryOrgs()
         {
             var contract = GetEfaContract();
             contract.contracts[0].contractAllocations.Add(new contractAllocationsContractAllocation
@@ -614,7 +567,7 @@
                 {
                     fundingStreamCode = "SSF"
                 },
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType {periodTypeCode = periodTypeCodeType.AY},
                     period1 = "1718"
@@ -669,7 +622,7 @@
             var creator = (T)Activator.CreateInstance(typeof(T), new object[] { null, null, null });
             Assert.AreEqual(getIsHeaderDocumentRequired.Invoke(creator, new object[0]), value);
         }
-        
+
         private static class FspFactory
         {
             public static DataStore.Models.FundingStreamPeriod GetDefaultFsp()

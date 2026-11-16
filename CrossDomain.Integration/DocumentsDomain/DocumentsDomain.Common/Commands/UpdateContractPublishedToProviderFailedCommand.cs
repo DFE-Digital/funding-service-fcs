@@ -4,7 +4,7 @@
 
     public class UpdateContractPublishedToProviderFailedCommand
     {
-        public contract CorporateContract { get; set; }
+        public Contract CorporateContract { get; set; }
 
         public string ReasonForFailure { get; set; }
     }

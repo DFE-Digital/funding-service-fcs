@@ -13,6 +13,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class DeleteDraftContractSteps
@@ -75,7 +76,7 @@
                     checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
 
-                    Assert.AreEqual(0, countOfCrmTasksForContractId,
+                    ClassicAssert.AreEqual(0, countOfCrmTasksForContractId,
                         $"Tasks were found for contract {contractNumber} v{version}");
                 }
             } 
@@ -106,7 +107,7 @@
 
                     checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                    Assert.AreEqual(0, countOfWorkflowHistoryForContractId,
+                    ClassicAssert.AreEqual(0, countOfWorkflowHistoryForContractId,
                         $"Workflow history was found for contract {relatedContractToDelete.ContractNumber} v{relatedContractToDelete.ContractVersion}");
                 }
             }
@@ -159,21 +160,21 @@
 
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsFalse(isExistingContract, $"Contract still exists for contract {row["ContractNumber"]} v{row["ContractVersionNumber"]}");
+                ClassicAssert.IsFalse(isExistingContract, $"Contract still exists for contract {row["ContractNumber"]} v{row["ContractVersionNumber"]}");
             }
         }
 
         [Then(@"there are no longer any files prefixed '(.*)' in the Sharepoint '(.*)' folder")]
         public void ThenThereAreNoLongerAnyFilesPrefixedInTheSharepointFolder(string filePrefix, string folderName)
         {
-            Assert.IsFalse(SharepointDocumentRepository.DoesFileWithPrefixExistInFolder(filePrefix, folderName),
+            ClassicAssert.IsFalse(SharepointDocumentRepository.DoesFileWithPrefixExistInFolder(filePrefix, folderName),
                 $"One or more files starting with '{filePrefix}' were found in folder '{folderName}'");
         }
 
         [Then(@"there are files prefixed '(.*)' in the Sharepoint '(.*)' folder")]
         public void ThenThereAreFilesPrefixedInTheSharepointFolder(string filePrefix, string folderName)
         {
-            Assert.IsTrue(SharepointDocumentRepository.DoesFileWithPrefixExistInFolder(filePrefix, folderName),
+            ClassicAssert.IsTrue(SharepointDocumentRepository.DoesFileWithPrefixExistInFolder(filePrefix, folderName),
                 $"No files starting with '{filePrefix}' were found in folder '{folderName}'");
         }
 
@@ -219,9 +220,9 @@
 
                 bool foundContractWithValues = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(contract, $"Could not find contract for {expectedContract.GetKey()}");
+                ClassicAssert.IsNotNull(contract, $"Could not find contract for {expectedContract.GetKey()}");
 
-                Assert.IsTrue(foundContractWithValues, $"Unable to match data for EXPECTED: { expectedContract.GetValues()}. ACTUAL: { crmSimpleContract?.GetValues()}");
+                ClassicAssert.IsTrue(foundContractWithValues, $"Unable to match data for EXPECTED: { expectedContract.GetValues()}. ACTUAL: { crmSimpleContract?.GetValues()}");
             });
         }
 
@@ -234,7 +235,7 @@
 
             bool isCountCorrect = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(isCountCorrect, errorMessage);
+            ClassicAssert.IsTrue(isCountCorrect, errorMessage);
         }
 
         private static string RemoveWhitespaceAndHyphens(string original)

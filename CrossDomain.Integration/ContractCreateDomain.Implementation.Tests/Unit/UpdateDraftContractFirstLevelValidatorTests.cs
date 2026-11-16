@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
-    using Validation;
 
     [TestClass]
     public class ContractRequestApplyValidationRulesTests

@@ -1,12 +1,13 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.DeliverableAggregation
 {
+    extern alias IntegrationEntities;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Microsoft.Xrm.Sdk;
     using PaymentManagementDomain.PaymentSchedule.Xrm.Infrastructure;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Repositories;

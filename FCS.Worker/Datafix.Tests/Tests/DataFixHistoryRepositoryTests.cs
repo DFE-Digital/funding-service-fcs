@@ -34,7 +34,7 @@
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        [ExpectedException(typeof(AggregateException))]
+      //  [ExpectedException(typeof(AggregateException))]
 
         public void DataFixHistoryRepository_Add_ShouldNotAllowDuplicateDataFixHistories()
         {

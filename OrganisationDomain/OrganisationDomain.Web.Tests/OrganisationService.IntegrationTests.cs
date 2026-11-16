@@ -80,11 +80,12 @@
                 // Assert
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    Assert.Fail("Organisation with UkPrn {0} was not found in the Database", ValidUkprnInCache);
+                    Assert.Fail($"Organisation with UkPrn {ValidUkprnInCache} was not found in the Database");
                 }
                 else if (!response.IsSuccessStatusCode)
                 {
-                    Assert.Fail("There was a problem communicating with the Organisation Service - the response was: {0}", response.Content.ToString());
+                    Assert.Fail(
+                        $"There was a problem communicating with the Organisation Service - the response was: {response.Content}");
                 }
             }
         }
@@ -170,11 +171,11 @@
                 // Assert
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    Assert.Fail("Organisation with UkPrn {0} was not found in the Database", ValidUkprnInCache);
+                    Assert.Fail($"Organisation with UkPrn {ValidUkprnInCache} was not found in the Database");
                 }
                 else if (!response.IsSuccessStatusCode)
                 {
-                    Assert.Fail("There was a problem communicating with the Organisation Service - the response was: {0}", response.Content.ToString());
+                    Assert.Fail($"There was a problem communicating with the Organisation Service - the response was: {response.Content}");
                 }
             }
         }
@@ -191,11 +192,11 @@
                 // Assert
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    Assert.Fail("Organisation with UKPrn {0} was not found in cache", ValidUkprnNotInCache);
+                    Assert.Fail($"Organisation with UKPrn {ValidUkprnNotInCache} was not found in cache");
                 }
                 else if (!response.IsSuccessStatusCode)
                 {
-                    Assert.Fail("There was a problem communicating with the Organisation Service - the response was: {0}", response.Content.ToString());
+                    Assert.Fail($"There was a problem communicating with the Organisation Service - the response was: {response.Content}");
                 }
             }
         }
@@ -216,7 +217,7 @@
                 }
                 else if (response.StatusCode != HttpStatusCode.NotFound)
                 {
-                    Assert.Fail("There was a problem communicating with the Organisation Service - the response was: {0}", response.Content.ToString());
+                    Assert.Fail($"There was a problem communicating with the Organisation Service - the response was: {response.Content}");
                 }
             }
         }
@@ -252,11 +253,11 @@
                 // Assert
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    Assert.Fail("Organisation {0} was not found in the Database", validOrgId);
+                    Assert.Fail($"Organisation {validOrgId} was not found in the Database");
                 }
                 else if (!response.IsSuccessStatusCode)
                 {
-                    Assert.Fail("There was a problem communicating with the Organisation Service - the response was: {0}", response.Content.ToString());
+                    Assert.Fail($"There was a problem communicating with the Organisation Service - the response was: {response.Content}");
                 }
             }
         }
@@ -277,7 +278,7 @@
                 }
                 else if (response.StatusCode != HttpStatusCode.NotFound)
                 {
-                    Assert.Fail("There was a problem communicating with the Organisation Service - the response was: {0}", response.Content.ToString());
+                    Assert.Fail($"There was a problem communicating with the Organisation Service - the response was: {response.Content}");
                 }
             }
         }

@@ -24,14 +24,14 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sfa:schemas:contract")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="urn:sfa:schemas:contract", IsNullable=false)]
-    public partial class contract : contractType
+    public partial class Contract : contractType
     {
         
         private decimal schemaVersionField;
         
         private static XmlSerializer serializer;
         
-        public contract()
+        public Contract()
         {
             this.schemaVersionField = ((decimal)(11.09m));
         }
@@ -55,7 +55,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract
             {
                 if ((serializer == null))
                 {
-                    serializer = new XmlSerializerFactory().CreateSerializer(typeof(contract));
+                    serializer = new XmlSerializerFactory().CreateSerializer(typeof(Contract));
                 }
                 return serializer;
             }
@@ -101,10 +101,10 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract
         /// <param name="obj">Output contract object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this Serializer can deserialize the object; otherwise, false</returns>
-        public static bool Deserialize(string input, out contract obj, out System.Exception exception)
+        public static bool Deserialize(string input, out Contract obj, out System.Exception exception)
         {
             exception = null;
-            obj = default(contract);
+            obj = default(Contract);
             try
             {
                 obj = Deserialize(input);
@@ -117,19 +117,19 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract
             }
         }
         
-        public static bool Deserialize(string input, out contract obj)
+        public static bool Deserialize(string input, out Contract obj)
         {
             System.Exception exception = null;
             return Deserialize(input, out obj, out exception);
         }
         
-        public new static contract Deserialize(string input)
+        public new static Contract Deserialize(string input)
         {
             System.IO.StringReader stringReader = null;
             try
             {
                 stringReader = new System.IO.StringReader(input);
-                return ((contract)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
+                return ((Contract)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
             }
             finally
             {
@@ -140,9 +140,9 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract
             }
         }
         
-        public static contract Deserialize(System.IO.Stream s)
+        public static Contract Deserialize(System.IO.Stream s)
         {
-            return ((contract)(Serializer.Deserialize(s)));
+            return ((Contract)(Serializer.Deserialize(s)));
         }
         #endregion
         
@@ -194,10 +194,10 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract
         /// <param name="obj">Output contract object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this Serializer can deserialize the object; otherwise, false</returns>
-        public static bool LoadFromFile(string fileName, out contract obj, out System.Exception exception)
+        public static bool LoadFromFile(string fileName, out Contract obj, out System.Exception exception)
         {
             exception = null;
-            obj = default(contract);
+            obj = default(Contract);
             try
             {
                 obj = LoadFromFile(fileName);
@@ -210,13 +210,13 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract
             }
         }
         
-        public static bool LoadFromFile(string fileName, out contract obj)
+        public static bool LoadFromFile(string fileName, out Contract obj)
         {
             System.Exception exception = null;
             return LoadFromFile(fileName, out obj, out exception);
         }
         
-        public new static contract LoadFromFile(string fileName)
+        public new static Contract LoadFromFile(string fileName)
         {
             System.IO.FileStream file = null;
             System.IO.StreamReader sr = null;

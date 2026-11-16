@@ -1,5 +1,8 @@
+extern alias Entities;
+
 namespace ADMonitoringDomain.Endpoint.Tests.Unit
 {
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,15 +13,15 @@ namespace ADMonitoringDomain.Endpoint.Tests.Unit
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using SFA.FCT.CrossDomain.Integration.Common.SchemaValidator;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
-    using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using Allocation = SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation;
-    using AggregatedAllocation = SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation;
+    using Allocation = Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation;
+    using AggregatedAllocation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation;
 
     [TestClass]
     public class AllocationDeliveryPerformanceMapperMergeTests

@@ -1,8 +1,8 @@
 ﻿namespace Datafix.Tests.Automation.Releases.R100
 {
+    using Azure.Messaging.ServiceBus.Administration;
     using System.Configuration;
     using System.Linq;
-    using Microsoft.ServiceBus;
 
     public class RemoveTopicsToAllowNSB7ToCreate : IApplyDataFix
     {
@@ -10,20 +10,40 @@
         public int StoryNumber => 31996;
         public string Name => "Move Cross Domain Integration to NServiceBus 7 (31996)";
         public int Order => 1;
+
         public void ApplyDataFix()
         {
-            var namespaceManager = GetAsbNamespaceManager();
+            var client = GetAsbAdminClient();
 
-            var topics = namespaceManager.GetTopics().ToList();
-            topics.ForEach(t =>
+            var topics = client.GetTopicsAsync();
+
+            var enumerator = topics.GetAsyncEnumerator();
+
+            try
             {
-                namespaceManager.DeleteTopic(t.Path);
-            });
+                while (enumerator.MoveNextAsync().AsTask().GetAwaiter().GetResult())
+                {
+                    var topic = enumerator.Current;
+
+                    client.DeleteTopicAsync(topic.Name)
+                          .GetAwaiter()
+                          .GetResult();
+                }
+            }
+            finally
+            {
+                enumerator.DisposeAsync().AsTask().GetAwaiter().GetResult();
+            }
         }
 
-        private static NamespaceManager GetAsbNamespaceManager()
+        private static ServiceBusAdministrationClient GetAsbAdminClient()
         {
-            return NamespaceManager.CreateFromConnectionString(ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString);
+            var connectionString = ConfigurationManager
+                .ConnectionStrings["NServiceBus/Transport"]
+                .ConnectionString;
+
+            return new ServiceBusAdministrationClient(connectionString);
         }
+
     }
 }

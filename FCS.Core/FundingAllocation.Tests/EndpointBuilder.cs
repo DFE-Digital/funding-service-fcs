@@ -1,9 +1,9 @@
 ﻿namespace FundingAllocation.Tests
 {
     using System;
+    using System.Configuration;
     using System.IO;
     using System.Linq;
-    using Microsoft.Extensions.Configuration;
     using NServiceBus;
 
     public class EndpointBuilder
@@ -11,22 +11,26 @@
         public static IEndpointInstance CreateSendOnlyEndpoint<TCommand>()
         {
             EndpointConfiguration endpointConfiguration = new EndpointConfiguration("TestSendingEndpoint");
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            endpointConfiguration.SendOnly();
+            // 1) Instantiate the modern ASB transport with topology
+            var transport = new AzureServiceBusTransport(
+                ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString,
+                TopicTopology.Default
+            );
+
+            // 2) Register the transport
+            endpointConfiguration.UseTransport(transport);
             endpointConfiguration.Conventions()
                 .DefiningCommandsAs(t => t == typeof(TCommand));
 
-            // exclude all
-            string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+            // Your existing scanner settings
+            var assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
                 .Select(Path.GetFileName)
                 .ToArray();
 
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
+            var scanner = endpointConfiguration.AssemblyScanner();
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
-
-            var transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-            transport.ConnectionString(AppConfiguration.Configuration().GetConnectionString("NServiceBus/Transport"));
 
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
 

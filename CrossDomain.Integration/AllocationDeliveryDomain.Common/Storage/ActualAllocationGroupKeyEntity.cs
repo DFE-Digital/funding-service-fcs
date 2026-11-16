@@ -1,9 +1,11 @@
 ﻿namespace SFA.FCT.AllocationDeliveryDomain.Common.Storage
 {
+    using Azure;
+    using Azure.Data.Tables;
+    //using Microsoft.WindowsAzure.Storage.Table;
     using System.Text;
-    using Microsoft.WindowsAzure.Storage.Table;
 
-    public class ActualAllocationGroupKeyEntity : TableEntity, IAzureEntity
+    public class ActualAllocationGroupKeyEntity : ITableEntity, IAzureEntity
     {
         public string TableName
         {
@@ -56,5 +58,10 @@
         {
             return CompositeKey.GetHashCode();
         }
+
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
     }
 }

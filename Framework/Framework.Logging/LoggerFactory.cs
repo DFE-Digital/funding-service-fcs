@@ -122,21 +122,23 @@
             return azureTable;
         }
 
-        private  void CreateRowInAzure(LogEntry logEntry)
+
+        private async void CreateRowInAzure(LogEntry logEntry)
         {
             var azureTable = GetCloudTable();
 
             try
             {
-                Policy.Handle<Exception>()
+                await Policy.Handle<Exception>()
                     .WaitAndRetry(1, count => TimeSpan.FromSeconds(1))
-                    .Execute(() => AzureTableStore.CreateRow(azureTable, logEntry));
+                    .ExecuteAsync(() => AzureTableStore.CreateRowAsync(azureTable, logEntry));
             }
             catch (Exception)
             {
                 // do nothing
             }
         }
+
 
         protected static bool IsInAzureCloudService()
         {

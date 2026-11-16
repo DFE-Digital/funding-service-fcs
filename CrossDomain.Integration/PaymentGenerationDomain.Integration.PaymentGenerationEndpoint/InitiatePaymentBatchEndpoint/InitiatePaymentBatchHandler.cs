@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentBatchEndpoint
 {
+    extern alias Entities;
     using System.Linq;
     using System.Threading.Tasks;
     using Common;
@@ -9,7 +10,7 @@
     using BusinessLogic;
     using Infrastructure;
     using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class InitiatePaymentBatchHandler : IHandleMessages<InitiatePaymentBatchCommand>
     {

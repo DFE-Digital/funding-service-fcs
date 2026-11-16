@@ -53,6 +53,6 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.ContractRequest
         public bool crmNotPresent { get; set; }
 
         [XmlAttribute]
-        public intent CRMIntent { get; set; }
+        public Intent CRMIntent { get; set; }
     }
 }

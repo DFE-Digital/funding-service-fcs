@@ -60,7 +60,7 @@
 
             bool AllowUnderTerminationAndNotOnRoatp(ContractInformation c) => allowUnderTerminationAndNotOnRoatp.Contains(c.Ukprn);
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
             CrmContractInformationRepository crmRepository = new CrmContractInformationRepository();
             var allLevyContracts =
                 crmRepository.GetLatestContractInformationByFundingTypeAndFundingPeriod(levyFundingType, levyFundingPeriod);

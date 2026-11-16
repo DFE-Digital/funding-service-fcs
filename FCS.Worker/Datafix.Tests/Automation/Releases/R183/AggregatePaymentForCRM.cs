@@ -39,7 +39,7 @@ namespace Datafix.Tests.Automation.Releases.R183
                 "Resources.R183.ASFC-1629-ReceiveForPaymentAggregation.json"
             };
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AllocationPaymentsChangedOnAggregationEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AllocationPaymentsChangedOnAggregationEvent>();
 
             resources.ForEach(r =>
             {

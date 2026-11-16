@@ -1,44 +1,70 @@
-﻿namespace FCT.Operations.MessageReplay.Endpoint.Tests
+﻿
+namespace FCT.Operations.MessageReplay.Endpoint.Tests
 {
     using System;
+    using System.Threading.Tasks;
     using NServiceBus;
+    using NServiceBus.Transport.AzureServiceBus;
     using SFA.FCT.Operations.Common.Services;
 
     public class MessageReplayBus : IMessageReplayBus
     {
         public void Publish(string endpointName, object message)
         {
-            IBus bus = CreateBus(endpointName);
-            bus.Publish(message);
+            PublishAsync(endpointName, message).GetAwaiter().GetResult();
         }
 
         public void Send(string endpointName, object message)
         {
-            IBus bus = CreateBus(endpointName);
-            bus.Send(message);
+            SendAsync(endpointName, message).GetAwaiter().GetResult();
         }
 
         public void Send<T>(string endpointName, Action<T> messageConstructor)
         {
-            IBus bus = CreateBus(endpointName);
-            bus.Send(endpointName, messageConstructor);
+            SendAsync(endpointName, messageConstructor).GetAwaiter().GetResult();
         }
 
-        private static IBus CreateBus(string endpointName)
+        // ✅ Async implementations (required in modern NSB)
+        private async Task PublishAsync(string endpointName, object message)
         {
-            BusConfiguration configuration = new BusConfiguration();
-            configuration.EndpointName(endpointName);
-            configuration.UseTransport<AzureServiceBusTransport>();
-            configuration.UsePersistence<InMemoryPersistence>();
-            configuration.UseSerialization<JsonSerializer>();
+            var endpoint = await CreateEndpoint(endpointName);
+            await endpoint.Publish(message);
+            await endpoint.Stop();
+        }
 
-            configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => t.Namespace != null && t.Namespace.EndsWith("Events"));
+        private async Task SendAsync(string endpointName, object message)
+        {
+            var endpoint = await CreateEndpoint(endpointName);
+            await endpoint.Send(endpointName, message);
+            await endpoint.Stop();
+        }
+
+        private async Task SendAsync<T>(string endpointName, Action<T> messageConstructor)
+        {
+            var endpoint = await CreateEndpoint(endpointName);
+            await endpoint.Send(endpointName, messageConstructor);
+            await endpoint.Stop();
+        }
+
+        private static async Task<IEndpointInstance> CreateEndpoint(string endpointName)
+        {
+            var configuration = new EndpointConfiguration(endpointName);
+
+            configuration.SendOnly();
+
+            // ✅ Serializer (fixed)
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ Transport (REQUIRED)
+            var transport = new AzureServiceBusTransport(
+                "UseDevelopmentStorage=true", // replace with real connection string if needed
+                TopicTopology.Default);
+
+            configuration.UseTransport(transport);
 
             configuration.EnableInstallers();
 
-            return Bus.Create(configuration);
+            return await Endpoint.Start(configuration);
         }
     }
 }

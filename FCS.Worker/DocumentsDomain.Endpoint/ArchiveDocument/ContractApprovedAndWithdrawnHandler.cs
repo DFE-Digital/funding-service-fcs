@@ -90,7 +90,7 @@
                 $"Documents ContractApprovedAndWithdrawnHandler ContractWithdrawnEvent - Ended: {message}, {amendmentType}");
         }
 
-        private IReadOnlyCollection<FileInfo> GetFilesToBeDeletedAndArchived(contract corporateContract)
+        private IReadOnlyCollection<FileInfo> GetFilesToBeDeletedAndArchived(Contract corporateContract)
         {
             if (corporateContract.contracts.First().amendmentType == "Notification")
             {

@@ -24,7 +24,7 @@
         {
             _logger.LogInformation(ContractManagementLoggingEvents.ReleaseForReviewCommandReceived, $"ReleaseForReviewCommand received for: {message}");
 
-            contract corporateContract = _contractManager.GetCorporateContract(
+            Contract corporateContract = _contractManager.GetCorporateContract(
                 contractNumber: message.ContractNumber,
                 masterContractNumber: message.MasterContractNumber,
                 lastApproved: false);

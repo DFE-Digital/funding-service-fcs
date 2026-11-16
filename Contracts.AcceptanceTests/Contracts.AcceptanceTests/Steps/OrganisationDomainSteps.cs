@@ -19,6 +19,7 @@
     using TechTalk.SpecFlow;
     using Utilities;
     using Xrm.TestFramework;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class OrganisationDomainSteps
@@ -190,7 +191,7 @@
                         EntityReference statusEntityReference = CrmStatusRepository.GetStatus(row["Status"]);
                         string orgStatus = CrmOrganisationRepository.GetOrganisationStatusByName(row["Name"]);
 
-                        Assert.AreEqual(row["Status"], orgStatus, "The org status is not correct");
+                        ClassicAssert.AreEqual(row["Status"], orgStatus, "The org status is not correct");
                     }
                         
                     hasPassed = true;
@@ -223,47 +224,47 @@
 
                 bool hasMatchingOrganisationInCrm = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(hasMatchingOrganisationInCrm, $"Failed to find organisation in CRM with UKPRN {row["UKPRN"]}");
+                ClassicAssert.IsTrue(hasMatchingOrganisationInCrm, $"Failed to find organisation in CRM with UKPRN {row["UKPRN"]}");
 
-                Assert.AreEqual(row["UPIN"], crmOrganisation.Upin, $"UPIN mismatch for UKPRN {row["UKPRN"]}");
-                Assert.AreEqual(row["Name"], crmOrganisation.Name, $"Name mismatch for UKPRN {row["UKPRN"]}");
-                Assert.AreEqual(row["Status"], crmOrganisation.Status, $"Status mismatch for UKPRN {row["UKPRN"]}");
+                ClassicAssert.AreEqual(row["UPIN"], crmOrganisation.Upin, $"UPIN mismatch for UKPRN {row["UKPRN"]}");
+                ClassicAssert.AreEqual(row["Name"], crmOrganisation.Name, $"Name mismatch for UKPRN {row["UKPRN"]}");
+                ClassicAssert.AreEqual(row["Status"], crmOrganisation.Status, $"Status mismatch for UKPRN {row["UKPRN"]}");
 
                 if (row.ContainsKey("CompanyNumber"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("CompanyNumber"), crmOrganisation.CompanyNumber, $"CompanyNumber mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("CompanyNumber"), crmOrganisation.CompanyNumber, $"CompanyNumber mismatch for UKPRN {row["UKPRN"]}");
                 }
                 if (row.ContainsKey("CharityNumber"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("CharityNumber"), crmOrganisation.CharityNumber, $"CharityNumber mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("CharityNumber"), crmOrganisation.CharityNumber, $"CharityNumber mismatch for UKPRN {row["UKPRN"]}");
                 }
                 if (row.ContainsKey("AddressLine1"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("AddressLine1"), crmOrganisation.Address.Line1, $"AddressLine1 mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("AddressLine1"), crmOrganisation.Address.Line1, $"AddressLine1 mismatch for UKPRN {row["UKPRN"]}");
                 }
                 if (row.ContainsKey("AddressLine2"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("AddressLine2"), crmOrganisation.Address.Line2, $"AddressLine2 mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("AddressLine2"), crmOrganisation.Address.Line2, $"AddressLine2 mismatch for UKPRN {row["UKPRN"]}");
                 }
                 if (row.ContainsKey("AddressLine3"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("AddressLine3"), crmOrganisation.Address.Line3, $"AddressLine3 mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("AddressLine3"), crmOrganisation.Address.Line3, $"AddressLine3 mismatch for UKPRN {row["UKPRN"]}");
                 }
                 if (row.ContainsKey("AddressLine4"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("AddressLine4"), crmOrganisation.Address.Line4, $"AddressLine4 mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("AddressLine4"), crmOrganisation.Address.Line4, $"AddressLine4 mismatch for UKPRN {row["UKPRN"]}");
                 }
                 if (row.ContainsKey("Town"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("Town"), crmOrganisation.Address.Town, $"Town mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("Town"), crmOrganisation.Address.Town, $"Town mismatch for UKPRN {row["UKPRN"]}");
                 }
                 if (row.ContainsKey("County"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("County"), crmOrganisation.Address.County, $"County mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("County"), crmOrganisation.Address.County, $"County mismatch for UKPRN {row["UKPRN"]}");
                 }
                 if (row.ContainsKey("Postcode"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("Postcode"), crmOrganisation.Address.Postcode, $"Postcode mismatch for UKPRN {row["UKPRN"]}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("Postcode"), crmOrganisation.Address.Postcode, $"Postcode mismatch for UKPRN {row["UKPRN"]}");
                 }
             });
         }
@@ -276,7 +277,7 @@
                 string ukprn = row["UKPRN"];
                 CrmOrganisationInfo crmOrganisation = CrmOrganisationRepository.GetOrganisationByUkprn(ukprn);
 
-                Assert.IsNull(crmOrganisation, $"Found organisation in CRM with UKPRN {ukprn}");
+                ClassicAssert.IsNull(crmOrganisation, $"Found organisation in CRM with UKPRN {ukprn}");
             });
         }
 
@@ -299,68 +300,68 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(orgInDb, $"No organisation found in Organisation Service for UKPRN {ukprn}");
+                ClassicAssert.IsNotNull(orgInDb, $"No organisation found in Organisation Service for UKPRN {ukprn}");
 
                 if (row.ContainsKey("UPIN"))
                 {
-                    Assert.AreEqual(row.ParseInt("UPIN"), orgInDb.Upin, $"Mismatching UPIN value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseInt("UPIN"), orgInDb.Upin, $"Mismatching UPIN value in Organisation Service for UKPRN {ukprn}");
                 }
 
-                Assert.AreEqual(row["Name"], orgInDb.TradingName, $"Mismatching Name in Organisation Service for UKPRN {ukprn}");
+                ClassicAssert.AreEqual(row["Name"], orgInDb.TradingName, $"Mismatching Name in Organisation Service for UKPRN {ukprn}");
 
                 if (row.ContainsKey("SequenceNumber"))
                 {
-                    Assert.AreEqual(row.ParseInt("SequenceNumber"), orgInDb.SequenceNumber, $"Mismatching SequenceNumber value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseInt("SequenceNumber"), orgInDb.SequenceNumber, $"Mismatching SequenceNumber value in Organisation Service for UKPRN {ukprn}");
                 }
 
                 if (row.ContainsKey("Status"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("Status"), orgInDb.Status, $"Mismatching Status value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("Status"), orgInDb.Status, $"Mismatching Status value in Organisation Service for UKPRN {ukprn}");
                 }
 
-                Assert.AreEqual(row.ParseNullableString("CompanyNumber"), orgInDb.CompanyRegistrationNumber, $"Mismatching CompanyNumber in Organisation Service for UKPRN {ukprn}");
-                Assert.AreEqual(row.ParseNullableString("CharityNumber"), orgInDb.CharityNumber, $"Mismatching CharityNumber in Organisation Service for UKPRN {ukprn}");
+                ClassicAssert.AreEqual(row.ParseNullableString("CompanyNumber"), orgInDb.CompanyRegistrationNumber, $"Mismatching CompanyNumber in Organisation Service for UKPRN {ukprn}");
+                ClassicAssert.AreEqual(row.ParseNullableString("CharityNumber"), orgInDb.CharityNumber, $"Mismatching CharityNumber in Organisation Service for UKPRN {ukprn}");
 
                 string ukrlpCalledOk = row.ParseNullableString("UKRLPCalledOk");
                 if (ukrlpCalledOk != null)
                 {
-                    Assert.AreEqual(ukrlpCalledOk, orgInDb.HasUkrlpBeenCalledSuccessfully ? "Yes" : "No", $"Mismatching UKRLPCalledOk value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(ukrlpCalledOk, orgInDb.HasUkrlpBeenCalledSuccessfully ? "Yes" : "No", $"Mismatching UKRLPCalledOk value in Organisation Service for UKPRN {ukprn}");
                 }
                 if (row.ContainsKey("AddressLine1"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("AddressLine1"), orgInDb.Address.Line1, $"Mismatching AddressLine1 value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("AddressLine1"), orgInDb.Address.Line1, $"Mismatching AddressLine1 value in Organisation Service for UKPRN {ukprn}");
                 }
                 if (row.ContainsKey("AddressLine2"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("AddressLine2"), orgInDb.Address.Line2, $"Mismatching AddressLine2 value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("AddressLine2"), orgInDb.Address.Line2, $"Mismatching AddressLine2 value in Organisation Service for UKPRN {ukprn}");
                 }
                 if (row.ContainsKey("AddressLine3"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("AddressLine3"), orgInDb.Address.Line3, $"Mismatching AddressLine3 value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("AddressLine3"), orgInDb.Address.Line3, $"Mismatching AddressLine3 value in Organisation Service for UKPRN {ukprn}");
                 }
                 if (row.ContainsKey("AddressLine4"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("AddressLine4"), orgInDb.Address.Line4, $"Mismatching AddressLine4 value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("AddressLine4"), orgInDb.Address.Line4, $"Mismatching AddressLine4 value in Organisation Service for UKPRN {ukprn}");
                 }
                 if (row.ContainsKey("Town"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("Town"), orgInDb.Address.Town, $"Mismatching Town value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("Town"), orgInDb.Address.Town, $"Mismatching Town value in Organisation Service for UKPRN {ukprn}");
                 }
                 if (row.ContainsKey("County"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("County"), orgInDb.Address.County, $"Mismatching County value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("County"), orgInDb.Address.County, $"Mismatching County value in Organisation Service for UKPRN {ukprn}");
                 }
                 if (row.ContainsKey("Postcode"))
                 {
-                    Assert.AreEqual(row.ParseNullableString("Postcode"), orgInDb.Address.Postcode, $"Mismatching Postcode value in Organisation Service for UKPRN {ukprn}");
+                    ClassicAssert.AreEqual(row.ParseNullableString("Postcode"), orgInDb.Address.Postcode, $"Mismatching Postcode value in Organisation Service for UKPRN {ukprn}");
                 }
 
                 organisation corporationSchemaOrg = new CpdsMapper().MapDbEntityToCorpSchema(orgInDb);
                 string actualStatus = corporationSchemaOrg.organisationStatusRelationships
                     .FirstOrDefault(o => o.organisationStatus.organisationStatusScheme == organisationStatusSchemeType.LEGAL)?.organisationStatus?.organisationStatus;
 
-                Assert.IsNotNull(actualStatus, $"No Status held in Organisation Service for UKPRN {ukprn}");
-                Assert.AreEqual(row["Status"], actualStatus, $"Mismatching Status in Organisation Service for UKPRN {ukprn}");
+                ClassicAssert.IsNotNull(actualStatus, $"No Status held in Organisation Service for UKPRN {ukprn}");
+                ClassicAssert.AreEqual(row["Status"], actualStatus, $"Mismatching Status in Organisation Service for UKPRN {ukprn}");
             });
         }
 
@@ -372,7 +373,7 @@
                 int ukprn = int.Parse(row["UKPRN"]);
                 Organisation orgInDb = OrganisationRepository.FindByUkprn(ukprn);
 
-                Assert.IsNull(orgInDb, $"Organisation found in Organisation Service for UKPRN {ukprn}");
+                ClassicAssert.IsNull(orgInDb, $"Organisation found in Organisation Service for UKPRN {ukprn}");
             });
         }
 
@@ -381,7 +382,7 @@
         public void ThenWeHaveFollowingNotificationsRelatedToTheInCRM(string notificationType, string teamName, Table table)
         {
             sfa_notificationtype? notificationtype = ParseNotificationType(notificationType);
-            Assert.IsNotNull(notificationtype, $"The notification type passed: {notificationType} in cannot be converted to a sfa_notificationtype");
+            ClassicAssert.IsNotNull(notificationtype, $"The notification type passed: {notificationType} in cannot be converted to a sfa_notificationtype");
 
             EntityReference teamEr = CrmTeamRepository.GetTeamEntityReference(teamName);
             
@@ -390,7 +391,7 @@
 
             simpleNotifications.ForEach(sn =>
             {
-                Assert.IsNotNull(sn.ProviderEntityReference, $"This ukprn: {sn.Ukprn} does not relate to a provider");
+                ClassicAssert.IsNotNull(sn.ProviderEntityReference, $"This ukprn: {sn.Ukprn} does not relate to a provider");
 
                 CheckResultPoller checkResultPoller = new CheckResultPoller(checkResult: () =>
                 {
@@ -403,7 +404,7 @@
                 waitIntervalSeconds: 6);
 
                 bool isPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTimeWithGenericSqlErrorTolerance();
-                Assert.IsTrue(isPresent, $"This notification is not present: {sn}");
+                ClassicAssert.IsTrue(isPresent, $"This notification is not present: {sn}");
             });
         }
 

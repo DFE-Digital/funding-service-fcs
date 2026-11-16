@@ -1,8 +1,9 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm.Services
 {
+    extern alias IntegrationEntities;
     using Microsoft.Xrm.Sdk;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
 
     public static class ScheduledPaymentExtensions
     {

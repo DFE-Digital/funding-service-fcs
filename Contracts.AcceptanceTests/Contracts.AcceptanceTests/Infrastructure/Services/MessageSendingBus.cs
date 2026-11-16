@@ -1,11 +1,10 @@
 ﻿namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services
 {
-    using NServiceBus;
-    using NServiceBus.Logging;
     using System;
-    using System.Configuration;
     using System.IO;
     using System.Linq;
+    using NServiceBus;
+    using NServiceBus.Logging;
 
     public static class MessageSendingBus
     {
@@ -33,11 +32,14 @@
             endpoint.Send(destinationEndpointName, messageConstructor).Wait();
         }
 
-        public static IEndpointInstance CreateEndpointOld<TCommand>(
+        public static IEndpointInstance CreateEndpoint<TCommand>(
             string endpointName = "TestSendingEndpoint")
         {
+            string connectionString = TestConfiguration.Configuration["Microsoft.ServiceBus.ConnectionString"];
+            var topology = TopicTopology.Default;
+
             EndpointConfiguration endpointConfiguration = new EndpointConfiguration(endpointName);
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            endpointConfiguration.UseTransport<AzureServiceBusTransport>(connectionString, topology);
             endpointConfiguration.Conventions()
                 .DefiningCommandsAs(t => t == typeof(TCommand));
             endpointConfiguration.SendOnly();
@@ -51,61 +53,23 @@
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
 
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
+            //AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
+            //transport.Transactions(TransportTransactionMode.ReceiveOnly);
 
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-
-            return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
-        }
-        public static IEndpointInstance CreateEndpoint<TCommand>(
-    string endpointName = "TestSendingEndpoint")
-        {
-            EndpointConfiguration endpointConfiguration = new EndpointConfiguration(endpointName);
-
-            var transport = endpointConfiguration
-                .UseTransport<AzureServiceBusTransport>()
-                .UseEndpointOrientedTopology();
-
-            // ✅ ADD THIS BLOCK
-            var connectionString =
-                ConfigurationManager.AppSettings["NServiceBus/Transport"]
-                ?? ConfigurationManager.ConnectionStrings["NServiceBus/Transport"]?.ConnectionString;
-
-
-            if (string.IsNullOrWhiteSpace(connectionString))
-                throw new InvalidOperationException("Azure Service Bus connection string is missing.");
-
-            transport.ConnectionString(connectionString);
-
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-
-            endpointConfiguration.Conventions()
-                .DefiningCommandsAs(t => t == typeof(TCommand));
-
-            endpointConfiguration.SendOnly();
-
-            // exclude all
-            string[] assembliesToExclude = Directory
-                .EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
-                .Select(Path.GetFileName)
-                .ToArray();
-
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
-            scanner.ExcludeAssemblies(assembliesToExclude);
-            scanner.ThrowExceptions = false;
-
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            // endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
 
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
-
 
         public static IEndpointInstance CreatePublishingEndpoint<TEvent>(
             string endpointName = "TestSendingEndpoint")
         {
+            string connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnectionString");
+            var topology = TopicTopology.Default;
+
             EndpointConfiguration endpointConfiguration = new EndpointConfiguration(endpointName);
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            endpointConfiguration.UseTransport<AzureServiceBusTransport>(connectionString, topology);
             endpointConfiguration.Conventions()
                 .DefiningEventsAs(t => t == typeof(TEvent));
 
@@ -118,14 +82,13 @@
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
 
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
+            // AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
+            // transport.Transactions(TransportTransactionMode.ReceiveOnly);
 
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            //endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
 
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
     }
 }
-
-

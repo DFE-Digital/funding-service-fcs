@@ -23,7 +23,7 @@
         public void ContractClosedHandler_ShouldResolve()
         {
             // Arrange
-            IWindsorContainer container = new WindsorContainer().Install(new ComponentInstaller(new LoggerFactory()));
+            IWindsorContainer container = new WindsorContainer().Install(new ComponentInstaller(new Microsoft.Extensions.Logging.LoggerFactory()));
             container.Register(Component.For<ContractClosedHandler>());
             container.BeginScope();
 

@@ -110,7 +110,7 @@
                 {
                     fundingTypeCode = "EDSK",
                 },
-                period = new period
+                period = new Period
                 {
                     period1 = "2021"
                 },
@@ -141,7 +141,7 @@
                 {
                     fundingTypeCode = "EDSK"
                 },
-                period = new period
+                period = new Period
                 {
                     period1 = "1920"
                 }
@@ -171,7 +171,7 @@
                 {
                     fundingTypeCode = "EDSK"
                 },
-                period = new period
+                period = new Period
                 {
                     period1 = "2021"
                 },
@@ -229,7 +229,7 @@
                 {
                     fundingTypeCode = "DADA"
                 },
-                period = new period
+                period = new Period
                 {
                     period1 = "2021"
                 }
@@ -392,7 +392,7 @@
                     {
                         fundingTypeCode = "EDSK"
                     },
-                    period = new period
+                    period = new Period
                     {
                         periodType = new periodTypeType
                         {
@@ -401,7 +401,7 @@
                         period1 = "1920"
                     },
                     startDate = contractStartDate,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         legalName = "PROVIDER NAME",
                         addressLine1 = "PROVIDER ADDRESS LINE 1",
@@ -476,7 +476,7 @@
                 contract: new contractType
                 {
                     startDate = contractStartDate,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         addressLine1 = "PROVIDER ADDRESS LINE 1",
                         addressLine2 = "PROVIDER ADDRESS LINE 2",
@@ -536,7 +536,7 @@
                 contract: new contractType
                 {
                     startDate = contractStartDate,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         //                        addressLine1 = "PROVIDER ADDRESS LINE 1",
                         addressLine2 = "PROVIDER ADDRESS LINE 2",
@@ -597,7 +597,7 @@
                 contract: new contractType
                 {
                     startDate = contractStartDate,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         addressLine1 = "PROVIDER ADDRESS LINE 1",
                         addressLine2 = "PROVIDER ADDRESS LINE 2",
@@ -657,7 +657,7 @@
                 contract: new contractType
                 {
                     startDate = contractStartDate,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         addressLine1 = "PROVIDER ADDRESS LINE 1",
                         addressLine2 = "PROVIDER ADDRESS LINE 2",
@@ -717,7 +717,7 @@
                 contract: new contractType
                 {
                     startDate = contractStartDate,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         addressLine1 = "PROVIDER ADDRESS LINE 1",
                         addressLine2 = "",
@@ -778,7 +778,7 @@
                 contract: new contractType
                 {
                     startDate = contractStartDate,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         registeredCompanyNumber = "PROVIDER COMPANY NO"
                     }
@@ -831,7 +831,7 @@
                 contract: new contractType
                 {
                     startDate = contractStartDate,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         registeredCompanyNumber = ""
                     }
@@ -890,7 +890,7 @@
                     {
                         fundingTypeCode = "EDSK"
                     },
-                    period = new period
+                    period = new Period
                     {
                         periodType = new periodTypeType
                         {
@@ -956,7 +956,7 @@
                     {
                         fundingTypeCode = "EDSK"
                     },
-                    period = new period
+                    period = new Period
                     {
                         periodType = new periodTypeType
                         {
@@ -1022,7 +1022,7 @@
                     {
                         fundingTypeCode = "EDSK"
                     },
-                    period = new period
+                    period = new Period
                     {
                         periodType = new periodTypeType
                         {

@@ -1,13 +1,14 @@
 ﻿namespace ContractRequestDomain.Tests
 {
+    extern alias CSICommon;
     using System;
     using System.Collections.Generic;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Interfaces;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
-    using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Common.Storage;
+    using CSICommon::SFA.FCT.CrossDomain.Integration.Common;
+    using CSICommon::SFA.FCT.CrossDomain.Integration.Common.Storage;
 
     [TestClass]
     public class Office365FileAccessTests

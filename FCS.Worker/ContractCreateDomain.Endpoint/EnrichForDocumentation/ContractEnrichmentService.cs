@@ -28,7 +28,7 @@
         }
 
         public async Task EnrichContractWithOrganisationData(
-            contract corporateContract,
+            Contract corporateContract,
             string masterContractNumber,
             ConnectionInfo connectionInfo,
             Func<int, organisation> getOrganisation)
@@ -39,7 +39,7 @@
             EnrichAllocationsThatHaveDeliveryOrgs(corporateContract.contractAllocations, getOrganisation);
         }
 
-        private async Task EnrichWithSharedMasterApprovedContracts(string masterContractNumber, contract corporateContract, ConnectionInfo connectionInfo)
+        private async Task EnrichWithSharedMasterApprovedContracts(string masterContractNumber, Contract corporateContract, ConnectionInfo connectionInfo)
         {
             var siblingApprovedContractInfo = await _siblingApprovedContractService.GetSiblingApprovedContractsForDocumentGeneration(
                 masterContractNumber: masterContractNumber,
@@ -68,7 +68,7 @@
             });
         }
 
-        private void EnrichContractor(contractor contractor, organisation organisation)
+        private void EnrichContractor(Contractor contractor, organisation organisation)
         {
             if (organisation != null)
             {
@@ -123,7 +123,7 @@
             return upin;
         }
 
-        private void PopulateContractorAddress(contractor contractor, organisationAddressesOrganisationAddress address)
+        private void PopulateContractorAddress(Contractor contractor, organisationAddressesOrganisationAddress address)
         {
             contractor.addressLine1 = address.addressLine1;
             contractor.addressLine2 = address.addressLine2;

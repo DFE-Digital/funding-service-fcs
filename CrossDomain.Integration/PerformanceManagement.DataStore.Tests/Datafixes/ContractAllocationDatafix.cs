@@ -19,7 +19,8 @@
         [TestMethod, TestCategory("DataFix_R10a")]
         public void ContractAllocation_ShouldSeedContractAllocationTableFromAtomTable()
         {
-            IReadOnlyCollection<contract> contracts = null;
+            //"Data Source = acx03vg6p0.database.windows.net; Initial Catalog = fct-database-dci; Persist Security Info = True; User ID = fctsa; Password =";
+            IReadOnlyCollection<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract> contracts = null;
             using (var context = new PerformanceManagementDbContext())
             {
                 context.Database.Connection.ConnectionString = ConnnectionString;
@@ -37,7 +38,7 @@
                         where atom.contract_number = ctrct.[ContractNumber]
                         and atom.version = ctrct.[ContractVersionNumber] ");
 
-                contracts = xmlContracts.Select(xml => xml.DeserializeXml<contract>()).ToList();
+                contracts = xmlContracts.Select(xml => xml.DeserializeXml<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract>()).ToList();
             }
 
             Assert.IsTrue(contracts.Any());
@@ -57,7 +58,7 @@
             }
         }
 
-        private IEnumerable<ContractAllocation> CreateContractAllocationFromCorpContract(contract contract)
+        private IEnumerable<ContractAllocation> CreateContractAllocationFromCorpContract(SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract contract)
         {
             contractType childContract = contract.contracts.First();
 
@@ -69,7 +70,7 @@
             return new ContractAllocation(corpSchemaAllocation.contractAllocationNumber, corpSchemaAllocation.startDate,
                 corpSchemaAllocation.endDate)
             {
-                Contract = new Contract
+                Contract = new SFA.FCT.PerformanceManagementDomain.DataStore.Models.Allocation.Contract
                 {
                     ApprovalDate = childContract.ContractApprovalDate.Value,
                     ContractNumber = childContract.contractNumber,
@@ -87,7 +88,7 @@
                     FundingTypeName = childContract.fundingType.fundingTypeName,
                     FundingTypeCode = childContract.fundingType.fundingTypeCode
                 },
-                Period = new Period
+                Period = new SFA.FCT.PerformanceManagementDomain.DataStore.Models.Allocation.Period
                 {
                     PeriodTypeName = childContract.period.periodType.periodTypeName.ToString()
                 }

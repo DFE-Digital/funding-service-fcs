@@ -18,7 +18,6 @@
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract;
     using Web.Repositories;
     using Operations.Web.PaymentGenerationDataStore;
-    using System.Security.RightsManagement;
     using System.Data.Entity;
 
 
@@ -59,7 +58,7 @@
             const string otherFSP = "DADTEST";
             ClearContracts(fundingStreamPeriod);
             ClearContracts(otherFSP);
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -105,15 +104,9 @@
             return outStream.ToArray();
         }
 
-        private static byte[] ConvertObjectToByteArray<T>(T objectToSerialize)
+        private static byte[] ConvertObjectToByteArray(string text)
         {
-            MemoryStream memorystream = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(memorystream, objectToSerialize);
-
-            byte[] serializedResult = memorystream.ToArray();
-
-            return serializedResult;
+            return Encoding.UTF8.GetBytes(text);
         }
 
         private void ClearContracts(string fundingStreamPeriod)

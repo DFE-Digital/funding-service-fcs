@@ -6,6 +6,6 @@
 
     public interface IDocumentGenerator
     {
-        DocumentSaveCommand GenerateDocument(string correlationId, contract contract, string masterContractNumber);
+        DocumentSaveCommand GenerateDocument(string correlationId, Contract contract, string masterContractNumber);
     }
 }

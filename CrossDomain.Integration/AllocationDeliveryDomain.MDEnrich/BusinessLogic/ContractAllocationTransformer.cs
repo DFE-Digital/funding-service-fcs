@@ -26,7 +26,7 @@
                 correlationId,
                 contractAllocation.contractAllocationNumber);
 
-            CorporateContract.contractor organisationForAllocation = contract.GetOrganisation(contractAllocation.contractAllocationNumber);
+            CorporateContract.Contractor organisationForAllocation = contract.GetOrganisation(contractAllocation.contractAllocationNumber);
 
             allocationType newAllocation = new allocationType
             {

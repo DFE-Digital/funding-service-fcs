@@ -1,10 +1,11 @@
 ﻿namespace ContractRequestDomain.Tests
 {
+    extern alias CSICommon;
     using System;
     using System.Linq;
     using Aspose.Cells;
     using System.IO;
-    using SFA.FCT.CrossDomain.Integration.Common;
+    using CSICommon::SFA.FCT.CrossDomain.Integration.Common;
 
     public class ExcelHelper 
     {

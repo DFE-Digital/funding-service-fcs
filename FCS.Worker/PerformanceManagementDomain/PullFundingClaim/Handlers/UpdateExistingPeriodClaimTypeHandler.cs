@@ -9,6 +9,7 @@
     using Extensions;
     using Infrastructure;
     using NServiceBus;
+    using NServiceBus.Transport.AzureServiceBus;
     using PerformanceManagementDomain.Services;
     using Repositories;
     using Services;
@@ -18,6 +19,7 @@
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PerformanceManagementDomain.Common.Logging;
+    using System.Configuration;
     
     public class UpdateExistingPeriodClaimTypeHandler : IHandleMessages<UpdateExistingPeriodClaimTypeCommand>
     {
@@ -182,14 +184,21 @@
             };
         }
 
+
         public static IEndpointInstance CreatePublishingEndpoint<TEvent>(string endpointToPublishFrom)
         {
             EndpointConfiguration endpointConfiguration = new EndpointConfiguration(endpointToPublishFrom);
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+
+            var transport = new AzureServiceBusTransport(
+                ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString,
+                TopicTopology.Default
+            );
+
+            endpointConfiguration.UseTransport(transport);
+
             endpointConfiguration.Conventions()
                 .DefiningEventsAs(t => t == typeof(TEvent));
 
-            // exclude all
             string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
                 .Select(Path.GetFileName)
                 .ToArray();
@@ -198,12 +207,10 @@
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
 
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
 
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
+
     }
 }

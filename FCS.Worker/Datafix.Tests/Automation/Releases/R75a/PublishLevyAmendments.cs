@@ -19,7 +19,7 @@
         public int Order => 1;
         public void ApplyDataFix()
         {
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
 
             IReadOnlyCollection<SimpleContract> simpleContracts = new List<SimpleContract>
             {

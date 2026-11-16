@@ -7,7 +7,7 @@
     using BusinessLogic;
     using DataStore.Repositories;
     using Infrastructure;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
 
     public class ProcessPaymentRunErrorWindsorInstaller : IWindsorInstaller
     {

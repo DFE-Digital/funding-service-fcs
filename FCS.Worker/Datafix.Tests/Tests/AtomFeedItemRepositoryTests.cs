@@ -39,7 +39,7 @@
         }
 
 
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("IntegationTest")]
         public void AtomFeedItemRepository_IsLatestPublishedEventAnApprovalIgnoringDraftAndWithdrawn_ShouldReturnFalseIfNotCorrect()
         {
             // arrange
@@ -58,7 +58,7 @@
             Assert.IsFalse(isLatest);
         }
 
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("IntegationTest")]
         public void AtomFeedItemRepository_IsLatestPublishedEventAnApprovalIgnoringDraftAndWithdrawn_ShouldReturnTrueIfCorrect()
         {
             // arrange

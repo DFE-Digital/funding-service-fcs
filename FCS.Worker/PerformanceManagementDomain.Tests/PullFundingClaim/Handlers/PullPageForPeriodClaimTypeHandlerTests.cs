@@ -9,7 +9,8 @@
     using Dapper;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Microsoft.WindowsAzure.Storage.Table;
+    using Azure;
+    using Azure.Data.Tables;
     using Moq;
     using NServiceBus;
     using NServiceBus.Testing;
@@ -116,9 +117,18 @@
             Assert.IsTrue(triggerCommands.Any());
         }
 
-        private class FundingClaimApiEntity : TableEntity
+        private class FundingClaimApiEntity : ITableEntity
         {
+            public string PartitionKey { get; set; }
+
+            public string RowKey { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag { get; set; }
+
             public string Json { get; set; }
+
         }
     }
 }

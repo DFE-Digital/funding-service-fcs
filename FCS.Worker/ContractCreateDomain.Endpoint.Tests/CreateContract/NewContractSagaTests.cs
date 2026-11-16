@@ -34,7 +34,7 @@
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.Framework.Logging.NullObjects;
-    using contractor = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractor;
+    using Contractor = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Contractor;
     using contractType = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractType;
     using ContractOperationRules = Endpoint.Infrastructure.ContractOperationRules;
     using hierarchyType = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.hierarchyType;
@@ -135,7 +135,7 @@
             // arrange
             var msg = new DocumentGenerationComplete
             {
-                Contract = new contract
+                Contract = new Contract
                 {
                     contracts = new List<SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contractType>
                     {
@@ -145,7 +145,7 @@
                             {
                                 fundingTypeCode = "LEVY"
                             },
-                            period = new period
+                            period = new Period
                             {
                                 periodType =
                                     new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeType
@@ -168,7 +168,7 @@
                         {
                             fundingTypeCode = "LEVY"
                         },
-                        period = new period
+                        period = new Period
                         {
                             periodType =
                                 new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.periodTypeType
@@ -195,7 +195,7 @@
                 new SagaStorageValue
                 (
                     JsonConvert.SerializeObject(sagaData),
-                    Intent.New
+                    ContractCreateDomain.Endpoint.Infrastructure.DTOs.Intent.New
                 ));
 
             Mock<IFundingTypeFundingPeriodQueryRepository> fundingTypeFundingPeriodQueryRepositoryMock = new Mock<IFundingTypeFundingPeriodQueryRepository>();
@@ -483,7 +483,7 @@
             private const string PeriodTypeName = "";
             private const decimal MaximumContractValue = 0.0m;
             private const string FundingStreamPeriodCode = "LEVY1799";
-            private const intent NewIntent = intent.New;
+            private const SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent NewIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent.New;
             private const string ContractType = "Provider Agreement";
             private const int AmendmentType = 0;
             private const int VersionNumber = 1;
@@ -530,7 +530,7 @@
                     },
                     contractAllocations = new List<contractAllocation> { allocation },
                     contractVersionNumber = VersionNumber,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = request.Ukprn
                     },
@@ -548,7 +548,7 @@
                     fundingTypeCode = request.FundingType,
                     contractAllocations = new List<contractAllocation>(),
                     contractVersionNumber = VersionNumber,
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         ukprn = request.Ukprn
                     },

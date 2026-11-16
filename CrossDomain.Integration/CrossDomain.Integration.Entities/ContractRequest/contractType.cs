@@ -14,7 +14,7 @@
     {
         public contractType()
         {
-            contractor = new contractor();
+            contractor = new Contractor();
             contractAllocations = new List<contractAllocation>();
             period = new periodType();
             contracts = new List<contractType>();
@@ -51,7 +51,7 @@
         public string description { get; set; }
 
         [XmlElement(Order = 9)]
-        public contractor contractor { get; set; }
+        public Contractor contractor { get; set; }
 
         [XmlElement(Order = 10)]
         public hierarchyType hierarchyType { get; set; }
@@ -75,7 +75,7 @@
         public bool crmNotPresent { get; set; }
 
         [XmlAttribute]
-        public intent CRMIntent { get; set; }
+        public Intent CRMIntent { get; set; }
 
         [XmlAttribute]
         public amendmentType amendmentType { get; set; }
@@ -180,9 +180,9 @@
 
         public bool IsNewRevisedNewOrUpdateDraft()
         {
-            IReadOnlyCollection<intent> newIntents = new List<intent>
+            IReadOnlyCollection<Intent> newIntents = new List<Intent>
             {
-                intent.New, intent.RevisedNew, intent.UpdateDraft
+                Intent.New, Intent.RevisedNew, Intent.UpdateDraft
             };
 
             return newIntents.Contains(this.CRMIntent);
@@ -190,9 +190,9 @@
 
         public bool IsAmendment()
         {
-            IReadOnlyCollection<intent> amendmentIntents = new List<intent>
+            IReadOnlyCollection<Intent> amendmentIntents = new List<Intent>
             {
-                intent.Amendment, intent.UpdateDraftAmendment
+                Intent.Amendment, Intent.UpdateDraftAmendment
             };
 
             return amendmentIntents.Contains(this.CRMIntent);
@@ -215,7 +215,7 @@
 
         internal bool IsNewAmendment()
         {
-            return CRMIntent == intent.NewAmendment;
+            return CRMIntent == Intent.NewAmendment;
         }
     }
 }

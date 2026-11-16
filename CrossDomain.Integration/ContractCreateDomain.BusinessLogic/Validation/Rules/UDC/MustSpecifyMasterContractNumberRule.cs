@@ -25,7 +25,7 @@
             var masterContract = contractRequest.contract;
             var failures = new List<string>();
 
-            if (masterContract.CRMIntent == intent.UpdateDraft && string.IsNullOrWhiteSpace(masterContract.contractNumber))
+            if (masterContract.CRMIntent == Intent.UpdateDraft && string.IsNullOrWhiteSpace(masterContract.contractNumber))
             {
                 failures.Add(masterContract.correlationId);
             }

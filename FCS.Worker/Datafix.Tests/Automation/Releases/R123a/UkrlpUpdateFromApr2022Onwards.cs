@@ -22,33 +22,34 @@
         public int Order => 1;
         public void ApplyDataFix()
         {
-            string ukrlpServiceUrl = ConfigurationManager.AppSettings["UkrlpService:Url"];
-            const int batchSize = 200;
-            OrgSupplementaryDataService service =
-                new OrgSupplementaryDataService(Mock.Of<ILogger>());
+            //string ukrlpServiceUrl = ConfigurationManager.AppSettings["UkrlpService:Url"];
+            //const int batchSize = 200;
+            //var providerQueryService = new ProviderQueryServiceV5 { Url = ukrlpServiceUrl };
+            //OrgSupplementaryDataService service =
+            //    new OrgSupplementaryDataService(providerQueryService, Mock.Of<ILogger>());
 
-            var supplementaryDataChanges = service.GetSupplementaryDataChanges(-120).Result;
+            //var supplementaryDataChanges = service.GetSupplementaryDataChanges(-120);
 
-            var currentUkprns = OrganisationRepository.GetUkprnsInOrgTable();
-            supplementaryDataChanges = supplementaryDataChanges.Where(s => currentUkprns.Contains(s.Ukprn)).ToList();
+            //var currentUkprns = OrganisationRepository.GetUkprnsInOrgTable();
+            //supplementaryDataChanges = supplementaryDataChanges.Where(s => currentUkprns.Contains(s.Ukprn)).ToList();
 
-            List<OrgSupplementaryDataDto> supplementaryDataDtos = supplementaryDataChanges.Select(sdc =>
-                new OrgSupplementaryDataDto
-                {
-                    Ukprn = sdc.Ukprn,
-                    CompanyNumber = sdc.CompanyNumber,
-                    CharityNumber = sdc.CharityNumber,
-                    LegalAddress = sdc.LegalAddress.ToDtoAddress()
-                }).ToList();
+            //List<OrgSupplementaryDataDto> supplementaryDataDtos = supplementaryDataChanges.Select(sdc =>
+            //    new OrgSupplementaryDataDto
+            //    {
+            //        Ukprn = sdc.Ukprn,
+            //        CompanyNumber = sdc.CompanyNumber,
+            //        CharityNumber = sdc.CharityNumber,
+            //        LegalAddress = sdc.LegalAddress.ToDtoAddress()
+            //    }).ToList();
 
 
-            var commands = supplementaryDataDtos.Batch(batchSize)
-                .Select(batch => new UpdateSupplementaryBatchOfDataCommand { OrgSupplementaryDataCollection = batch.ToList() });
+            //var commands = supplementaryDataDtos.Batch(batchSize)
+            //    .Select(batch => new UpdateSupplementaryBatchOfDataCommand { OrgSupplementaryDataCollection = batch.ToList() });
 
-            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<UpdateSupplementaryBatchOfDataCommand>();
-            var sendTasks = commands.Select(c => endpoint.Send("OrgService.Main", c));
+            //var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<UpdateSupplementaryBatchOfDataCommand>();
+            //var sendTasks = commands.Select(c => endpoint.Send("OrgService.Main", c));
             
-            Task.WhenAll(sendTasks).Wait();
+            //Task.WhenAll(sendTasks).Wait();
         }
     }
 }

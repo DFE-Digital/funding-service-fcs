@@ -1,24 +1,23 @@
+﻿
 namespace OrganisationDomain.Integration.DataStoreEndpoint
 {
     using System.Collections.Generic;
-    using Castle.Windsor;
-    using Messages.Commands;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
-    using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCS.Worker.Common;
+    using Messages.Commands;
     using Ioc;
 
-    /*
-        This class configures this endpoint as a Server. More information about how to configure the NServiceBus host
-        can be found here: http://particular.net/articles/the-nservicebus-host
-    */
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "OrganisationDomain.Integration.DataStoreEndpoint.dll";
+        public string NameOfAssembly =>
+            "OrganisationDomain.Integration.DataStoreEndpoint.dll";
 
         public string EndpointName => "OrgService.DataStore";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
         public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>
         {
@@ -27,22 +26,32 @@ namespace OrganisationDomain.Integration.DataStoreEndpoint
             new CommandRoute("OrgService.XrmEndpoint", typeof(CreateProviderUpdatedNotificationCommand))
         };
 
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName} on CrossDomain.Integration", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
-
+            // ✅ Conventions (preserved exactly)
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands")
-                                         || t.Name.EndsWith(nameof(SaveUpdatedOrganisation))
-                                         || t.Name.EndsWith(nameof(GetUpdatedOrganisations)));
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    t.Name.EndsWith(nameof(SaveUpdatedOrganisation)) ||
+                    t.Name.EndsWith(nameof(GetUpdatedOrganisations)))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new ComponentInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddOrganisationDataStoreServices();
             });
 
             return configuration;

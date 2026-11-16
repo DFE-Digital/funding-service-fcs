@@ -1,9 +1,10 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.DeliverableAggregation
 {
+    extern alias IntegrationEntities;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Repositories;
     using System.Collections.Generic;
     using System.Linq;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Dtos;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Repositories;
@@ -22,8 +23,7 @@
 
         public IReadOnlyCollection<DeliverableActual> GetAggregatedDeliverablesForAllocation(
             string allocationNumber,
-            int version, string fundingStreamPeriodCode,
-            ConnectionInfo connectionInfo)
+            int version, string fundingStreamPeriodCode,ConnectionInfo connectionInfo)
         {
             IReadOnlyCollection<DeliverableActual> deliverableActuals = _deliverablePaymentRepository.GetSummedActualsByDeliverableForAllocation(allocationNumber, version, connectionInfo);
 

@@ -7,7 +7,7 @@
     {
         public bool IsMoveComplete { get; set; }
 
-        public contract CorporateContract { get; set; }
+        public Contract CorporateContract { get; set; }
 
         public string ContractNumberMoved { get; set; }
 

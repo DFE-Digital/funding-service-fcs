@@ -16,7 +16,7 @@
             // arrange
             ApprovedContractAtomFeedSyndicationItemCreator creator =
                 new ApprovedContractAtomFeedSyndicationItemCreator("Application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
       
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "Some key", AtomItemType.ApprovedContract, xml => true);
 
@@ -27,15 +27,15 @@
             Assert.AreEqual(contract.ToString(), summaryText);
         }
 
-        private CrossDomain.Integration.Entities.CorporateContract.contract GetCorpContract()
+        private CrossDomain.Integration.Entities.CorporateContract.Contract GetCorpContract()
         {
             using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ContractManagementService.Tests.Resources.masterContract.xml");
             var document = XDocument.Load(stream);
 
             XmlSerializer serializer =
-                    new XmlSerializer(typeof (CrossDomain.Integration.Entities.CorporateContract.contract));
+                    new XmlSerializer(typeof (CrossDomain.Integration.Entities.CorporateContract.Contract));
                 return
-                    (CrossDomain.Integration.Entities.CorporateContract.contract)
+                    (CrossDomain.Integration.Entities.CorporateContract.Contract)
                         serializer.Deserialize(document.Root.CreateReader());
         }
     }

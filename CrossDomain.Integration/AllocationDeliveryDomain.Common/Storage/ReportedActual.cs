@@ -1,10 +1,12 @@
 ﻿namespace SFA.FCT.AllocationDeliveryDomain.Common.Storage
 {
-    using System.Text;
+    using Azure;
+    using Azure.Data.Tables;
     using DataStore.Model;
-    using Microsoft.WindowsAzure.Storage.Table;
+    //using Microsoft.WindowsAzure.Storage.Table;
+    using System.Text;
 
-    public class ReportedActual : TableEntity, IAzureEntity
+    public class ReportedActual : ITableEntity, IAzureEntity
     {
         public virtual string TableName
         {
@@ -110,5 +112,11 @@
                 EnrichedDeliverableCode = allocationDeliverablePeriod.DeliverableCode.ToString()
             };
         }
+
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
+
     }
 }

@@ -9,7 +9,7 @@
 
     public static class ContractService
     {
-        public static SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract GetCorpSchemaContract(ContractIdentifier contractIdentifier)
+        public static SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract GetCorpSchemaContract(ContractIdentifier contractIdentifier)
         {
             ContractsManager contractsManager = new ContractsManager
             {
@@ -22,7 +22,7 @@
             LegalDeliverableService legalDeliverableService = new LegalDeliverableService(new FundingStreamPeriodLegalDeliverableRepository(new ContractManagementDbContext()));
             legalDeliverableService.RemoveNonLegalDeliverablesFromContract(corporateContract);
 
-            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract corporateSchema = new ContractTransformer().TransformToCorporateSchemaContract(corporateContract);
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract corporateSchema = new ContractTransformer().TransformToCorporateSchemaContract(corporateContract);
 
             return corporateSchema;
         }

@@ -9,6 +9,7 @@
     using Microsoft.Xrm.Sdk;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class NotificationSteps
@@ -34,7 +35,7 @@
                maxNumChecks: 30,
                waitIntervalSeconds: 3);
 
-            Assert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(),
+            ClassicAssert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(),
                 $"We have not found the notifications expected for '{notificationType}' and '{userName}' " + notificationsExpected.FirstOrDefault(n => !actualNotifications.Contains(n)));
         }
 
@@ -66,7 +67,7 @@
                     maxNumChecks: 30,
                     waitIntervalSeconds: 3);
 
-                Assert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(),
+                ClassicAssert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(),
                     $"Test has not found the expected number of notifications for '{notificationType}' and '{userName}'. ActualCount: {actualCount}, " + expected);
             });
             
@@ -100,7 +101,7 @@
                 maxNumChecks: 30,
                 waitIntervalSeconds: 3);
 
-            Assert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(),
+            ClassicAssert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(),
                 $"We have not found the notifications expected for '{notificationType}' and '{owningTeam}' {notFoundNotifications.FirstOrDefault()}");
         }
 
@@ -110,7 +111,7 @@
         {
             if (table.RowCount != 1)
             {
-                Assert.Fail("Step is not intended for use with multiple table rows");
+                ClassicAssert.Fail("Step is not intended for use with multiple table rows");
             }
 
             sfa_notificationtype notificationtype = CrmNotificationRepository.ParseNotificationType(notificationType);
@@ -133,7 +134,7 @@
 
             bool foundExpectedNotifications = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(foundExpectedNotifications, $"We have not found {expectedNotificationCount} expected notification(s) for '{notificationType}' and '{owningTeam}': {expectedNotification}");
+            ClassicAssert.IsTrue(foundExpectedNotifications, $"We have not found {expectedNotificationCount} expected notification(s) for '{notificationType}' and '{owningTeam}': {expectedNotification}");
         }
     }
 }

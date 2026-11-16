@@ -8,7 +8,7 @@
     using Castle.MicroKernel.Lifestyle;
     using Castle.Windsor;
     using CrossDomain.Integration.Entities.Data;
-    using Framework.Logging;
+    using Microsoft.Extensions.Logging;
     using FundingClaimReconciliation.Repositories;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using PaymentSchedule.DataStore;

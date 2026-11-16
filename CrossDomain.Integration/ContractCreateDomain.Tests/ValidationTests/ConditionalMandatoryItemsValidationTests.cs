@@ -82,14 +82,14 @@
             const string propertyName = "contractNumber";
             const string CrmIntent = "CRMIntent";
 
-            ConditionalDataItem conditionalDataItem = new ConditionalDataItem(propertyName, CrmIntent, new List<object> { intent.New },
+            ConditionalDataItem conditionalDataItem = new ConditionalDataItem(propertyName, CrmIntent, new List<object> { Intent.New },
                 true, errorInfoTypeLevel.Allocation);
 
             var masterContract = Contract.contract;
-            masterContract.CRMIntent = intent.New;
+            masterContract.CRMIntent = Intent.New;
             masterContract.correlationId = "Some XX";
             masterContract.contractNumber = "some number";
-            PropertyExtractor propertyExtractor = new PropertyExtractor(masterContract, propertyName, intent.New, new List<object> { intent.New });
+            PropertyExtractor propertyExtractor = new PropertyExtractor(masterContract, propertyName, Intent.New, new List<object> { Intent.New });
             ConditionalMandatoryFieldsRule conditionalMandatoryFieldsRule = new ConditionalMandatoryFieldsRule(conditionalDataItem, propertyExtractor, errorInfoTypeLevel.MasterContract);
 
             Assert.IsTrue(conditionalMandatoryFieldsRule.GetFailuresForItem(Contract).Any());

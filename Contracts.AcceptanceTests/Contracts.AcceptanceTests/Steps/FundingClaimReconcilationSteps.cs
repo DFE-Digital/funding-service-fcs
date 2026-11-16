@@ -6,6 +6,7 @@
     using MoreLinq;
     using SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Repositories;
     using TechTalk.SpecFlow;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class FundingClaimReconcilationSteps
@@ -30,7 +31,7 @@
                     claimType: fca.FundingClaimType.Replace(" ", string.Empty).ToUpper(),
                     allocationNumber: fca.AllocationRef);
 
-                Assert.IsFalse(isPresent, $"The Funding Claim Allocation is present (it should be) - {fca}");
+                ClassicAssert.IsFalse(isPresent, $"The Funding Claim Allocation is present (it should be) - {fca}");
             });
         }
 

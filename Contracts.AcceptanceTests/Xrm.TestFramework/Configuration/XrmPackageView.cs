@@ -7,6 +7,7 @@ namespace SFA.FCT.Xrm.TestFramework
     using System.Linq;
     using System.Xml;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework.Legacy;
 
     // Using statements for Assertions
 
@@ -121,7 +122,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 columnFilters = this.fetchXMLField.SelectNodes("//fetchxml/fetch/entity/attribute[@name=\"" + attribute.LogicalName + "\"]");
             }
 
-            Assert.IsTrue(columnFilters.Count > 0, "The column: " + columnName + " does not appear in the view: " + this.ViewName);
+            ClassicAssert.IsTrue(columnFilters.Count > 0, "The column: " + columnName + " does not appear in the view: " + this.ViewName);
             return this;
         }
 
@@ -139,7 +140,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 var attribute = this.entity.Attribute(linkedColumnName);
                 columnFilters = this.fetchXMLField.SelectNodes("//fetchxml/fetch/entity/link-entity[@to=\"" + attribute.LogicalName + "\"]");
             }
-            Assert.IsTrue(columnFilters.Count > 0, "The column: " + linkedColumnName + " does not appear in the view: " + this.ViewName);
+            ClassicAssert.IsTrue(columnFilters.Count > 0, "The column: " + linkedColumnName + " does not appear in the view: " + this.ViewName);
             return this;
         }
 
@@ -152,7 +153,7 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             if (this.IsQuickFind == false)
             {
-                Assert.Fail("The selected view is not a Quick Find view");
+                ClassicAssert.Fail("The selected view is not a Quick Find view");
             }
             else
             {
@@ -164,7 +165,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     searchFilters = this.fetchXMLField.SelectNodes("//fetchxml/fetch/entity/filter[@isquickfindfields=\"" + "1" + "\"]/condition[@attribute=\"" + attribute.LogicalName + "\"]");
                 }
 
-                Assert.IsTrue(searchFilters.Count > 0, "The field " + searchFieldName + " is not searchable in the Quick Find view");
+                ClassicAssert.IsTrue(searchFilters.Count > 0, "The field " + searchFieldName + " is not searchable in the Quick Find view");
             }
 
             return this;
@@ -191,7 +192,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 }
                 else
                 {
-                    Assert.Fail("The Value on the field " + filterFieldName + " with " + xrmValue + " does not match");
+                    ClassicAssert.Fail("The Value on the field " + filterFieldName + " with " + xrmValue + " does not match");
                 }
             }
 
@@ -203,7 +204,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 selectFilters = this.fetchXMLField.SelectNodes(".//condition[@attribute=\"" + attribute.LogicalName + "\" and @operator=\"" + xrmOperatorString + "\" and @value=\"" + xrmValue + "\"]");
             }
 
-            Assert.IsTrue(selectFilters.Count > 0, "The filter on the field " + filterFieldName + " does not match the specified criteria");
+            ClassicAssert.IsTrue(selectFilters.Count > 0, "The filter on the field " + filterFieldName + " does not match the specified criteria");
             return this;
         }
 
@@ -228,7 +229,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 selectFilters = this.fetchXMLField.SelectNodes(".//condition[@attribute=\"" + attribute.LogicalName + "\" and @operator=\"" + xrmOperatorString + "\" and @value=\"" + xrmValue + "\"]");
             }
 
-            Assert.IsTrue(selectFilters.Count > 0, "The filter on the field " + filterFieldName + " for the linked entity " + linkedEntity.LogicalName + " does not match the specified criteria");
+            ClassicAssert.IsTrue(selectFilters.Count > 0, "The filter on the field " + filterFieldName + " for the linked entity " + linkedEntity.LogicalName + " does not match the specified criteria");
             return this;
         }
 
@@ -251,7 +252,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 sortFilters = this.fetchXMLField.SelectNodes("//fetchxml/fetch/entity/order[@attribute=\"" + attribute.LogicalName + "\" and @descending=\"" + descending + "\"]");
             }
 
-            Assert.IsTrue(sortFilters.Count > 0, "The sort on the field " + sortFieldName + " does not match the specified criteria");
+            ClassicAssert.IsTrue(sortFilters.Count > 0, "The sort on the field " + sortFieldName + " does not match the specified criteria");
             
             return this;
         }
@@ -264,7 +265,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageView ViewNameEquals(string viewName)
         {
-            Assert.IsTrue(this.ViewName == ViewName, "The requsted View Name " + viewName + " does not match the actual view name : " + this.ViewName);
+            ClassicAssert.IsTrue(this.ViewName == ViewName, "The requsted View Name " + viewName + " does not match the actual view name : " + this.ViewName);
             return this;
         }
 

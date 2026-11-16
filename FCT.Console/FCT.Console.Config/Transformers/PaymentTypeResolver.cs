@@ -1,18 +1,28 @@
-﻿namespace FCT.Console.Config.Transformers
+﻿
+namespace FCT.Console.Config.Transformers
 {
     using System;
     using AutoMapper;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
 
-    public class PaymentTypeResolver : ValueResolver<string, PaymentType?>
+    public class PaymentTypeResolver
+        : IValueResolver<object, object, PaymentType?>
     {
-        protected override PaymentType? ResolveCore(string source)
+        public PaymentType? Resolve(
+            object source,
+            object destination,
+            PaymentType? destMember,
+            ResolutionContext context)
         {
-            if (source != null)
+            var sourceValue = source as string;
+
+            if (sourceValue != null)
             {
-                return
-                    (PaymentType)
-                        Enum.Parse(typeof(PaymentType), TransformSheetValue(source), ignoreCase: true);
+                return (PaymentType)
+                    Enum.Parse(
+                        typeof(PaymentType),
+                        TransformSheetValue(sourceValue),
+                        ignoreCase: true);
             }
 
             return null;
@@ -20,7 +30,7 @@
 
         private string TransformSheetValue(string source)
         {
-           return source.Replace(" ", string.Empty);
+            return source.Replace(" ", string.Empty);
         }
     }
 }

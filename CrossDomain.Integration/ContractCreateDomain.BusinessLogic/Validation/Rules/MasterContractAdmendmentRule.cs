@@ -16,7 +16,7 @@
         public IEnumerable<string> GetFailuresForItem(contractRequestType itemToValidate)
         {
             List<string> errorList = new List<string>();
-            if (itemToValidate.contract.CRMIntent == intent.Amendment && string.IsNullOrEmpty(itemToValidate.contract.contractNumber))
+            if (itemToValidate.contract.CRMIntent == Intent.Amendment && string.IsNullOrEmpty(itemToValidate.contract.contractNumber))
             {
                 errorList.Add(itemToValidate.contract.correlationId);
             }

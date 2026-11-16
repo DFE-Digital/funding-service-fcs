@@ -1,5 +1,6 @@
 ﻿namespace ADMonitoringDomain.Endpoint
 {
+    extern alias Entities;
     using BusinessLogic;
     using Logging;
     using NServiceBus;    
@@ -9,12 +10,12 @@
     using BusinessLogic.EventExtensions;
     using DataStore.Model;
     using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
     using System.Threading.Tasks;
     using Infrastructure;
     using SFA.FCT.CrossDomain.Integration.Common.Serializers;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class ContractAllocationApprovedHandler :
         IHandleMessages<AllocationDeliveryCommencedEvent>,

@@ -1,10 +1,12 @@
-﻿namespace SFA.FCT.ContractCreateDomain.BusinessLogic
+﻿
+namespace SFA.FCT.ContractCreateDomain.BusinessLogic
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
-    using contractor = CrossDomain.Integration.Entities.ContractRequest.contractor;
+    using Microsoft.Extensions.Logging.Abstractions;          // <-- for NullLoggerFactory (AM v15)
+    using Contractor = CrossDomain.Integration.Entities.ContractRequest.Contractor;
     using ContractRequest = CrossDomain.Integration.Entities.ContractRequest;
     using CorpContract = CrossDomain.Integration.Entities.CorporateContract;
     using deliverableType = CrossDomain.Integration.Entities.ContractRequest.deliverableType;
@@ -12,208 +14,259 @@
 
     public class ContractRequestTransformer : IContractRequestTransformer
     {
+        private static IMapper _mapper;
+        private static readonly object _mapperLock = new();
+
+        private static IMapper GetMapper()
+        {
+            if (_mapper != null) return _mapper;
+
+            lock (_mapperLock)
+            {
+                if (_mapper != null) return _mapper;
+
+                // AutoMapper v15: constructor requires ILoggerFactory
+                // If you prefer DI, inject ILoggerFactory and pass it instead of NullLoggerFactory.Instance.
+                var config = new AutoMapper.MapperConfiguration(cfg =>
+                {
+                    // Request -> Corporate Extended
+                    cfg.CreateMap<ContractRequest.contractType, CorpContract.ExtendedContractType>()
+                       .ForMember(ct => ct.period, opt => opt.Ignore());
+
+                    // Request -> Corporate contractType (intermediate)
+                    cfg.CreateMap<ContractRequest.contractType, CorpContract.contractType>()
+                       .ForMember(ct => ct.period, opt => opt.Ignore());
+
+                    // Allocations
+                    cfg.CreateMap<ContractRequest.contractAllocation, CorpContract.ExtendedContractAllocation>()
+                       .ForMember(ct => ct.period, opt => opt.Ignore())
+                       .ForMember(dest => dest.reasonForAmendment, opt => opt.MapFrom(src => src.amendmentReason))
+                       .ForMember(dest => dest.FundingCessationDate, opt => opt.MapFrom(src => src.TerminationDate));
+
+                    // Contractor (Request -> Corporate)
+                    // If your CorporateContract model has lowercase 'contractor', replace 'Contractor' with 'contractor'.
+                    cfg.CreateMap<Contractor, CorpContract.Contractor>()
+                       .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.organisationStatus));
+
+                    // Deliverables
+                    cfg.CreateMap<deliverableType, CorpContract.deliverableType>();
+
+                    // Deliverable periods: periodType is set manually
+                    cfg.CreateMap<ContractRequest.contractDeliverablePeriodType, CorpContract.contractDeliverablePeriodsTypeContractDeliverablePeriod>()
+                       .ForMember(d => d.periodType, opt => opt.Ignore());
+
+                    cfg.CreateMap<ContractRequest.contractDeliverable, CorpContract.contractDeliverablesTypeContractDeliverable>();
+
+                    // Extended -> contractType -> Contract
+                    cfg.CreateMap<CorpContract.ExtendedContractType, CorpContract.contractType>();
+                    cfg.CreateMap<CorpContract.contractType, CorpContract.Contract>();
+                }, NullLoggerFactory.Instance); // <-- v15 requirement  [1](https://docs.automapper.io/en/stable/Configuration.html)[2](https://docs.automapper.io/en/latest/Setup.html)
+
+                // Optional: validate mappings at startup
+                config.AssertConfigurationIsValid();
+
+                _mapper = config.CreateMapper();
+                return _mapper;
+            }
+        }
+
         /// <summary>
-        /// Transforms a Contract Request to both a Corp Contract (used for Doc Gen) and an ExtendedContractType used elsewhere
+        /// Transform a Contract Request to Corporate ExtendedContractType (DocGen etc.)
         /// </summary>
-        /// <param name="contractRequestType"></param>
-        /// <returns>Both a corporate contract and an extended Contract Type</returns>
         public CorpContract.ExtendedContractType TransformToCorpContractType(ContractRequest.contractRequestType contractRequestType)
         {
-            SetupMapper();
+            var mapper = GetMapper();
 
-            // the mapper will map all the fields except the period ones, they are not 121 and require a transform in code
-            var extendedContractType = Mapper.Map<ContractRequest.contractType, CorpContract.ExtendedContractType>(contractRequestType.contract);
+            // Base map (period/funding set manually)
+            var extendedContractType = mapper.Map<ContractRequest.contractType, CorpContract.ExtendedContractType>(
+                contractRequestType.contract);
 
-            // we need to transform the periods
+            // Period & funding (not 1:1)
             extendedContractType.period = CreateCorpContractPeriod(contractRequestType.contract.period, string.Empty);
             extendedContractType.fundingStream = CreateFundingStream(contractRequestType.contract);
             extendedContractType.fundingType = CreateFundingType(contractRequestType.contract);
-            int index = 0;
 
-            foreach (var contractReqContract in contractRequestType.contract.contracts)
+            // Ensure lists are non-null with the CORRECT element types
+            if (extendedContractType.contracts == null)
+                extendedContractType.contracts = new List<CorpContract.ExtendedContractType>();
+
+            if (contractRequestType.contract.contracts == null)
+                contractRequestType.contract.contracts = new List<ContractRequest.contractType>();
+
+            // Keep the two lists in sync by ensuring the destination has at least the same count
+            while (extendedContractType.contracts.Count < contractRequestType.contract.contracts.Count)
+                extendedContractType.contracts.Add(new CorpContract.ExtendedContractType());
+
+            for (int i = 0; i < contractRequestType.contract.contracts.Count; i++)
             {
-                var corpContract = extendedContractType.contracts[index];
-                corpContract.period = CreateCorpContractPeriod(contractReqContract.period, string.Empty);
-                corpContract.fundingStream = CreateFundingStream(contractReqContract);
-                corpContract.fundingType = CreateFundingType(contractRequestType.contract);
-                corpContract.contractStatus = new CorpContract.contractStatusType
+                var srcSub = contractRequestType.contract.contracts[i];
+                var dstSub = extendedContractType.contracts[i];
+
+                // Period & funding for each sub-contract
+                dstSub.period = CreateCorpContractPeriod(srcSub.period, string.Empty);
+                dstSub.fundingStream = CreateFundingStream(srcSub);
+                dstSub.fundingType = CreateFundingType(contractRequestType.contract);
+
+                // Status
+                dstSub.contractStatus = new CorpContract.contractStatusType
                 {
-                    parentStatus = contractReqContract.status,
-                    status = contractReqContract.subStatus
+                    parentStatus = srcSub.status,
+                    status = srcSub.subStatus
                 };
-                int indexAllocations = 0;
-                foreach (var contractAllocation in extendedContractType.contracts[index].contractAllocations)
+
+                // Allocations
+                if (dstSub.contractAllocations == null)
+                    dstSub.contractAllocations = new List<CorpContract.ExtendedContractAllocation>();
+
+                if (srcSub.contractAllocations == null)
+                    srcSub.contractAllocations = new List<ContractRequest.contractAllocation>();
+
+                // Ensure allocation counts match (we update existing destination allocations)
+                while (dstSub.contractAllocations.Count < srcSub.contractAllocations.Count)
+                    dstSub.contractAllocations.Add(new CorpContract.ExtendedContractAllocation());
+
+                for (int j = 0; j < srcSub.contractAllocations.Count; j++)
                 {
-                    var contractReqAllocation = contractReqContract.contractAllocations[indexAllocations];
-                    contractAllocation.fundingStream.fundingStreamCode =
-                        contractReqAllocation.fundingStreamCode;
+                    var srcAlloc = srcSub.contractAllocations[j];
+                    var dstAlloc = dstSub.contractAllocations[j];
 
-                    contractAllocation.period =
-                        CreateCorpContractPeriod(
-                            contractReqAllocation.period,
-                            contractReqAllocation.fundingStreamPeriodCode);
+                    dstAlloc.fundingStream ??= new CorpContract.fundingStream();
+                    dstAlloc.fundingStream.fundingStreamCode = srcAlloc.fundingStreamCode;
 
-                    int indexContractDeliverable = 0;
+                    dstAlloc.period = CreateCorpContractPeriod(
+                        srcAlloc.period,
+                        srcAlloc.fundingStreamPeriodCode);
 
-                    foreach (var deliverable in contractAllocation.contractDeliverables)
+                    // Deliverables: guard against nulls; if destination doesn’t have items yet,
+                    // we skip aligning by index and only set periodType where both sides exist.
+                    if (dstAlloc.contractDeliverables == null || srcAlloc.contractDeliverables == null)
+                        continue;
+
+                    while (dstAlloc.contractDeliverables.Count < srcAlloc.contractDeliverables.Count)
+                        dstAlloc.contractDeliverables.Add(new CorpContract.contractDeliverablesTypeContractDeliverable());
+
+                    for (int k = 0; k < srcAlloc.contractDeliverables.Count; k++)
                     {
-                        int indexContractDeliverablePeriod = 0;
+                        var srcDel = srcAlloc.contractDeliverables[k];
+                        var dstDel = dstAlloc.contractDeliverables[k];
 
-                        foreach (var deliverablePeriod in deliverable.contractDeliverablePeriods)
+                        if (dstDel.contractDeliverablePeriods == null || srcDel.contractDeliverablePeriods == null)
+                            continue;
+
+                        while (dstDel.contractDeliverablePeriods.Count < srcDel.contractDeliverablePeriods.Count)
+                            dstDel.contractDeliverablePeriods.Add(new CorpContract.contractDeliverablePeriodsTypeContractDeliverablePeriod());
+
+                        for (int m = 0; m < srcDel.contractDeliverablePeriods.Count; m++)
                         {
-                            var contractReqPeriodTypeType = contractReqContract.contractAllocations[indexAllocations].contractDeliverables[indexContractDeliverable].contractDeliverablePeriods[indexContractDeliverablePeriod].periodType;
-
-                            deliverablePeriod.periodType = CreateCorpPeriodType(contractReqPeriodTypeType);
-                            indexContractDeliverablePeriod++;
+                            var srcPeriodType = srcDel.contractDeliverablePeriods[m].periodType;
+                            dstDel.contractDeliverablePeriods[m].periodType = CreateCorpPeriodType(srcPeriodType);
                         }
-
-                        indexContractDeliverable++;
                     }
-
-                    indexAllocations++;
                 }
-
-                index++;
             }
 
             return extendedContractType;
         }
 
-        public CorpContract.contract TransformToCorpContract(CorpContract.ExtendedContractType extendedContractType)
+        public CorpContract.Contract TransformToCorpContract(CorpContract.ExtendedContractType extendedContractType)
         {
-            Mapper.CreateMap<CorpContract.ExtendedContract, CorpContract.contract>();
-            Mapper.CreateMap<CorpContract.ExtendedContractType, CorpContract.contractType>();
-            Mapper.CreateMap<CorpContract.ExtendedContractAllocation, CorpContract.contractAllocationsContractAllocation>();
-            var contractType = Mapper.Map<CorpContract.ExtendedContractType, CorpContract.contractType>(extendedContractType);
+            var mapper = GetMapper();
+            var contractType = mapper.Map<CorpContract.contractType>(extendedContractType);
+            return mapper.Map<CorpContract.Contract>(contractType);
+        }
 
-            // we now need to create corp contract derived class
-            Mapper.CreateMap<CorpContract.contractType, CorpContract.contract>();
-            return Mapper.Map<CorpContract.contractType, CorpContract.contract>(contractType);
+        // Optional overload if callers have a contractType already
+        public CorpContract.Contract TransformToCorpContract(CorpContract.contractType contractType)
+        {
+            var mapper = GetMapper();
+            return mapper.Map<CorpContract.Contract>(contractType);
         }
 
         public ContractRequest.contractType TransformAllocationsToContractRequestContract(
-            IEnumerable<ContractRequest.AllocationValueData> allocationValueDataItems, string contractNumber, int ukprn)
+            IEnumerable<ContractRequest.AllocationValueData> allocationValueDataItems,
+            string contractNumber, int ukprn)
         {
-            ContractRequest.contractType masterContract = new ContractRequest.contractType();
-            masterContract.contracts = new List<ContractRequest.contractType>();
-            ContractRequest.contractType subContract = new ContractRequest.contractType();
-           
-            subContract.contractNumber = contractNumber;
-            subContract.contractor = new contractor
+            var masterContract = new ContractRequest.contractType
             {
-                ukprn = ukprn
+                contracts = new List<ContractRequest.contractType>()
             };
-            
-            foreach (var allocationValueDataItem in allocationValueDataItems)
+
+            var subContract = new ContractRequest.contractType
+            {
+                contractNumber = contractNumber,
+                contractor = new Contractor { ukprn = ukprn },
+                contractAllocations = new List<ContractRequest.contractAllocation>()
+            };
+
+            foreach (var item in allocationValueDataItems ?? Enumerable.Empty<ContractRequest.AllocationValueData>())
             {
                 subContract.contractAllocations.Add(new ContractRequest.contractAllocation
                 {
-                    maximumContractValue = allocationValueDataItem.MaximumContractValue,
-                    contractAllocationNumber = allocationValueDataItem.ContractAllocationNumber
+                    maximumContractValue = item.MaximumContractValue,
+                    contractAllocationNumber = item.ContractAllocationNumber
                 });
             }
-            
-            masterContract.contracts.Add(subContract);
 
+            masterContract.contracts.Add(subContract);
             return masterContract;
         }
 
-        private CorpContract.fundingStream CreateFundingStream(
-            ContractRequest.contractType contractType)
-        {
-            if (contractType != null)
+        private CorpContract.fundingStream CreateFundingStream(ContractRequest.contractType contractType)
+            => contractType == null ? null : new CorpContract.fundingStream
             {
-                return new CorpContract.fundingStream
-                {
-                    fundingStreamCode = contractType.fundingTypeCode
-                };
-            }
-            else
-            {
-                return null;
-            }
-        }
+                fundingStreamCode = contractType.fundingTypeCode
+            };
 
         private CorpContract.fundingType CreateFundingType(ContractRequest.contractType contractType)
-        {
-            if (contractType != null)
+            => contractType == null ? null : new CorpContract.fundingType
             {
-                return new CorpContract.fundingType
-                {
-                    fundingTypeCode = contractType.fundingTypeCode
-                };
-            }
-            else
-            {
-                return null;
-            }
-        }
+                fundingTypeCode = contractType.fundingTypeCode
+            };
 
-        private CorpContract.period CreateCorpContractPeriod(
+        private CorpContract.Period CreateCorpContractPeriod(
             ContractRequest.periodType period, string fundingStreamPeriodCode)
         {
-            if (period != null)
-            {
-                return new CorpContract.period
-                {
-                    startDate = period.startDate,
-                    endDate = period.endDate,
-                    period1 = period.period,
-                    periodType = CreateCorpPeriodType(period.periodType1),
-                    fundingStreamPeriods = new[]
-                    {
-                        new CorpContract.fundingStreamPeriodsFundingStreamPeriod
-                        {
-                            fundingStreamPeriodCode = fundingStreamPeriodCode
-                        }
-                    }.ToList()
-                };
-            }
+            if (period == null) return null;
 
-            return null;
+            return new CorpContract.Period
+            {
+                startDate = period.startDate,
+                endDate = period.endDate,
+                period1 = period.period,
+                periodType = CreateCorpPeriodType(period.periodType1),
+                fundingStreamPeriods = new[]
+                {
+                    new CorpContract.fundingStreamPeriodsFundingStreamPeriod
+                    {
+                        fundingStreamPeriodCode = fundingStreamPeriodCode
+                    }
+                }.ToList()
+            };
         }
 
         private periodTypeType CreateCorpPeriodType(
-            CrossDomain.Integration.Entities.ContractRequest.periodTypeType contractReqPeriodTypeType)
+            CrossDomain.Integration.Entities.ContractRequest.periodTypeType reqType)
         {
-            var corpPeriodTypeType = new periodTypeType();
+            var result = new periodTypeType();
             const string space = " ";
             const string hyphen = "-";
 
-            if (!string.IsNullOrEmpty(contractReqPeriodTypeType.periodTypeCode))
+            if (!string.IsNullOrEmpty(reqType.periodTypeCode))
             {
-                corpPeriodTypeType.periodTypeCode =
-                    (CorpContract.periodTypeCodeType)
-                        Enum.Parse(typeof(CorpContract.periodTypeCodeType), contractReqPeriodTypeType.periodTypeCode);
+                result.periodTypeCode = (CorpContract.periodTypeCodeType)
+                    Enum.Parse(typeof(CorpContract.periodTypeCodeType), reqType.periodTypeCode);
             }
 
-            if (!string.IsNullOrEmpty(contractReqPeriodTypeType.periodTypeName))
+            if (!string.IsNullOrEmpty(reqType.periodTypeName))
             {
-                corpPeriodTypeType.periodTypeName = (CorpContract.periodTypeNameType)
-                    Enum.Parse(
-                        typeof(CorpContract.periodTypeNameType),
-                        contractReqPeriodTypeType.periodTypeName.Replace(space, string.Empty).Replace(hyphen, string.Empty).ToUpper());
+                result.periodTypeName = (CorpContract.periodTypeNameType)
+                    Enum.Parse(typeof(CorpContract.periodTypeNameType),
+                        reqType.periodTypeName.Replace(space, string.Empty)
+                                             .Replace(hyphen, string.Empty)
+                                             .ToUpper());
             }
 
-            return corpPeriodTypeType;
-        }
-
-        private void SetupMapper()
-        {
-            Mapper.CreateMap<ContractRequest.contractType, CorpContract.ExtendedContractType>().ForMember(ct => ct.period, opt => opt.Ignore());
-            Mapper.CreateMap<ContractRequest.contractType, CrossDomain.Integration.Entities.CorporateContract.contractType>().ForMember(ct => ct.period, opt => opt.Ignore());
-            Mapper.CreateMap<ContractRequest.contractAllocation, CorpContract.ExtendedContractAllocation>().ForMember(ct => ct.period, opt => opt.Ignore()).ForMember(dest => dest.reasonForAmendment, opt => opt.MapFrom(origin => origin.amendmentReason));
-            Mapper.CreateMap<ContractRequest.contractAllocation, CorpContract.ExtendedContractAllocation>()
-                .ForMember(ct => ct.period, opt => opt.Ignore())
-                .ForMember(dest => dest.reasonForAmendment, opt => opt.MapFrom(origin => origin.amendmentReason))
-                .ForMember(dest => dest.FundingCessationDate, opts => opts.MapFrom(src => src.TerminationDate));
-            Mapper.CreateMap<ContractRequest.contractAllocation, CrossDomain.Integration.Entities.CorporateContract.contractAllocationsContractAllocation>().ForMember(ct => ct.period, opt => opt.Ignore()).ForMember(dest => dest.reasonForAmendment, opt => opt.MapFrom(origin => origin.amendmentReason));
-            Mapper.CreateMap<contractor, CrossDomain.Integration.Entities.CorporateContract.contractor>()
-                .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.organisationStatus));
-            Mapper.CreateMap<deliverableType, CrossDomain.Integration.Entities.CorporateContract.deliverableType>();
-            Mapper.CreateMap<ContractRequest.contractDeliverablePeriodType, CorpContract.contractDeliverablePeriodsTypeContractDeliverablePeriod>().ForMember(cdpt => cdpt.periodType, opt => opt.Ignore());
-            Mapper.CreateMap<ContractRequest.contractDeliverable, CorpContract.contractDeliverablesTypeContractDeliverable>();
-            Mapper.CreateMap<CrossDomain.Integration.Entities.CorporateContract.contractType, CorpContract.contract>();
+            return result;
         }
     }
 }

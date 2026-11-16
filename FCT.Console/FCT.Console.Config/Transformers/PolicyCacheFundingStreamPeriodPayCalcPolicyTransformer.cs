@@ -1,21 +1,42 @@
 ﻿namespace FCT.Console.Config.Transformers
 {
+    using System;
     using System.Collections.Generic;
     using AutoMapper;
     using ExcelTypes;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
-
+    using Microsoft.Extensions.Logging;
     public class PolicyCacheFundingStreamPeriodPayCalcPolicyTransformer
     {
-        public static IEnumerable<FundingStreamPeriodPayCalcPolicy> TransformCollection(IEnumerable<FundingStreamPeriodPayCalcPolicySheetType> rows)
-        {
-            Mapper
-                .CreateMap<FundingStreamPeriodPayCalcPolicySheetType, FundingStreamPeriodPayCalcPolicy>()
-                .ForMember(
-                    dest => dest.PaymentCappingPeriod,
-                    map => map.ResolveUsing(new PaymentCappingPeriodTypeResolver()).FromMember(source => source.PaymentCappingPeriod));
+        private static readonly IMapper _mapper;
+        private static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => { });
 
-            return Mapper.Map<IEnumerable<FundingStreamPeriodPayCalcPolicySheetType>, IEnumerable<FundingStreamPeriodPayCalcPolicy>>(rows);
+        static PolicyCacheFundingStreamPeriodPayCalcPolicyTransformer()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<FundingStreamPeriodPayCalcPolicySheetType, FundingStreamPeriodPayCalcPolicy>()
+
+                    // ✅ Inline mapping (no resolver needed)
+                    .ForMember(dest => dest.PaymentCappingPeriod,
+                        opt => opt.MapFrom(src =>
+                            string.IsNullOrWhiteSpace(src.PaymentCappingPeriod)
+                                ? null
+                                : (PaymentCappingPeriodType?)Enum.Parse(
+                                    typeof(PaymentCappingPeriodType),
+                                    src.PaymentCappingPeriod.Replace(" ", "") == "ContractAllocationDuration"
+                                        ? "ContractDuration"
+                                        : src.PaymentCappingPeriod.Replace(" ", ""),
+                                    true)));
+            }, loggerFactory);
+
+            _mapper = config.CreateMapper();
+        }
+
+        public static IEnumerable<FundingStreamPeriodPayCalcPolicy> TransformCollection(
+            IEnumerable<FundingStreamPeriodPayCalcPolicySheetType> rows)
+        {
+            return _mapper.Map<IEnumerable<FundingStreamPeriodPayCalcPolicy>>(rows);
         }
     }
 }

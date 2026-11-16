@@ -201,20 +201,39 @@
             Assert.AreEqual(expectedLatestVersionContractId, latestVersionContractId);
         }
 
-        [TestMethod, TestCategory("IntegrationTest"), ExpectedException(typeof(InvalidOperationException))]
+
+
+        [TestMethod]
+        [TestCategory("IntegrationTest")]
         public void ContractsManager_GetApprovedContractId_ShouldFailWithInvalidOperationExceptionWhenThereIsNoApprovedVersion()
         {
-            // arrange
             const string contractNumber = "XX=ApprovedVersTest";
             var contractsManager = CreateContractsManager();
 
             DeleteContracts(contractNumber);
-            CreateTestContractSetStatus(contractNumber: contractNumber, version: 1, sfaContractstatus: sfa_contractstatus.Draft);
-            CreateTestContractSetStatus(contractNumber: contractNumber, version: 2, sfaContractstatus: sfa_contractstatus.Withdrawn);
 
-            // act & assert
-            contractsManager.GetApprovedContractId(contractNumber);
+            CreateTestContractSetStatus(
+                contractNumber: contractNumber,
+                version: 1,
+                sfaContractstatus: sfa_contractstatus.Draft);
+
+            CreateTestContractSetStatus(
+                contractNumber: contractNumber,
+                version: 2,
+                sfaContractstatus: sfa_contractstatus.Withdrawn);
+
+            try
+            {
+                contractsManager.GetApprovedContractId(contractNumber);
+
+                Assert.Fail("Expected InvalidOperationException was not thrown.");
+            }
+            catch (InvalidOperationException)
+            {
+                // expected
+            }
         }
+
 
         [TestMethod, TestCategory("IntegrationTest")]
         public void ContractsManager_GetLatestVersionContractId_ShouldGetContractIdWhereLatestVersionIsTrue()
@@ -555,7 +574,7 @@
             contractsManager.CreateContract(masterContract, Guid.NewGuid().ToString());
 
             // act
-            contract childContract = contractsManager.GetCorporateContractForSpecificVersion(childContractNumber, masterContractNumber, contractVersionNumber);
+            Contract childContract = contractsManager.GetCorporateContractForSpecificVersion(childContractNumber, masterContractNumber, contractVersionNumber);
 
             // assert
             childContract.contracts.ForEach(c =>

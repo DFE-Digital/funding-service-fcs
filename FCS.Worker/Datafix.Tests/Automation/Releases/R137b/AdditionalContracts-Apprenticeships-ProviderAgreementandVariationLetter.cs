@@ -38,7 +38,7 @@ namespace Datafix.Tests.Automation.Releases.R137b
 
         }
 
-        private void AmendunderterminatedContract(IEnumerable<ContractInformation> approvedUnderTerminationContracts, IEndpointInstance endpoint)
+        private void AmendunderterminatedContract(IEnumerable<ContractInformation> approvedUnderTerminationContracts, EndpointBuilder endpoint)
         {
             var levyContractsForApprovedApproved = approvedUnderTerminationContracts.Where(c => _approvedUnderTerminatedContracts.Contains(c.ContractNumber)).ToList();
 
@@ -58,7 +58,7 @@ namespace Datafix.Tests.Automation.Releases.R137b
             });
         }
 
-        private void AmendApprovedApproved(IEnumerable<ContractInformation> approvedApprovedContracts, IEndpointInstance endpoint)
+        private void AmendApprovedApproved(IEnumerable<ContractInformation> approvedApprovedContracts, EndpointBuilder endpoint)
         {
             var levyContractsForApprovedApproved = approvedApprovedContracts.Where(c => _approvedApprovedContracts.Contains(c.ContractNumber)).ToList();
 

@@ -23,7 +23,7 @@
             {"ANLAP-PRS2020", new RelatedAllocationInfo("ANLAP2018")}
         };
 
-        public static async Task EnrichWithRelatedAllocationsWhenAppropriate(contract corpContract, ILogger logger, IApprovedContractRepository approvedContractRepository, ConnectionInfo connectionInfo)
+        public static async Task EnrichWithRelatedAllocationsWhenAppropriate(Contract corpContract, ILogger logger, IApprovedContractRepository approvedContractRepository, ConnectionInfo connectionInfo)
         {
             if (FundingTypesWithRelatedAllocations.Contains(corpContract.fundingType.fundingTypeCode))
             {
@@ -72,7 +72,7 @@
         private static async Task<Option<string>> GetAlternativeAllocationNumber(
             bool getDataFromStorage,
             string relatedFsp,
-            contract corpContract,
+            Contract corpContract,
             IApprovedContractRepository approvedContractRepository,
             int ukprn,
             ConnectionInfo connectionInfo)

@@ -8,7 +8,7 @@
     using CrossDomain.Integration.Messages.Commands;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using NServiceBus;
-
+    using System.Configuration;
     [TestClass]
     public class PreIncrementWithdrawalHandlerTests
     {
@@ -26,26 +26,32 @@
             CreateSendOnlyEndpoint<PreIncrementWithdrawalCommand>().Send(command).Wait();
         }
 
-        private static IEndpointInstance CreateSendOnlyEndpoint<TCommand>()
+        public static IEndpointInstance CreateSendOnlyEndpoint<TCommand>()
         {
-            EndpointConfiguration endpointConfiguration = new EndpointConfiguration("TestSendingEndpoint");
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            var endpointConfiguration = new EndpointConfiguration("WebJobs");
+            endpointConfiguration.SendOnly();
+
+            // 1) Instantiate the modern ASB transport with topology
+            var transport = new AzureServiceBusTransport(
+                ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString,
+                TopicTopology.Default
+            );
+
+            // 2) Register the transport
+            endpointConfiguration.UseTransport(transport);
             endpointConfiguration.Conventions()
                 .DefiningCommandsAs(t => t == typeof(TCommand));
 
-            // exclude all
-            string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+            // Your existing scanner settings
+            var assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
                 .Select(Path.GetFileName)
                 .ToArray();
 
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
+            var scanner = endpointConfiguration.AssemblyScanner();
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
 
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
 
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }

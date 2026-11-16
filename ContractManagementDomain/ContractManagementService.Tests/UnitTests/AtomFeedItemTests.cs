@@ -38,9 +38,9 @@
             return AtomFeedItem.CreateAtomFeedItem(GetCorpContract(), "BK", AtomItemType.ApprovedContract, Guid.Empty, xml => true);
         }
 
-        private contract GetCorpContract()
+        private Contract GetCorpContract()
         {
-            return new contract
+            return new Contract
             {
                 contractNumber = "SFA-123",
                 contracts = new List<contractType>

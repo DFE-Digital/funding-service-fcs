@@ -31,16 +31,17 @@
             };
 
             IMessageReplayBus messageReplayBus = new MessageReplayBus();
-            fundingClaimReconciliationPublishedEventFiles.ForEach(fileName =>
+
+            foreach (var fileName in fundingClaimReconciliationPublishedEventFiles)
             {
                 var eventObj = GetObjectFromJsonFile<FundingClaimReconciliationPublishedEvent>(
-                    rootNamespace:
-                        "FCT.Operations.MessageReplay.Endpoint.Tests",
-                    fileName: fileName);
+                    "FCT.Operations.MessageReplay.Endpoint.Tests",
+                    fileName);
 
                 messageReplayBus.Publish("PerformanceManagementDomain.ReconciliationPublication", eventObj);
-            });
-            
+            }
+
+
 
         }
 
@@ -53,17 +54,15 @@
             };
 
             IMessageReplayBus messageReplayBus = new MessageReplayBus();
-            eventFiles.ForEach(fileName =>
+
+            foreach (var fileName in eventFiles)
             {
                 var eventObj = GetObjectFromJsonFile<PaymentAggregatedEvent>(
-                    rootNamespace:
-                        "FCT.Operations.MessageReplay.Endpoint.Tests",
-                    fileName: fileName);
+                    "FCT.Operations.MessageReplay.Endpoint.Tests",
+                    fileName);
 
                 messageReplayBus.Publish("PaymentManagementDomain.PaymentAggregation", eventObj);
-            });
-
-
+            }
         }
 
         [TestMethod, TestCategory("DataFix_R34")]

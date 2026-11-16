@@ -50,7 +50,7 @@
         private readonly IRelatedAllocationEnricher _relatedAllocationEnricher;
         private readonly ILastApprovedContractCreationDateService _lastApprovedContractCreationDateService;
 
-        private static readonly IReadOnlyCollection<intent> AmendmentIntents = new List<intent> { intent.UpdateDraftAmendment, intent.Amendment };
+        private static readonly IReadOnlyCollection<Intent> AmendmentIntents = new List<Intent> { Intent.UpdateDraftAmendment, Intent.Amendment };
         private static readonly string ModifiedSubStatus = "Modified";
 
         public ModifyContractSaga(
@@ -292,7 +292,7 @@
                 GetLastApprovedContractIdentityInformation(existingCrmContractRequest);
 
             // the masher updates the existing with the delta
-            intent intentOfImportedContract = contractRequest.contract.CRMIntent;
+            Intent intentOfImportedContract = contractRequest.contract.CRMIntent;
             
             contractRequest.contract = _contractMasher.Mash(existingCrmContractRequest, contractRequest.contract);
             
@@ -427,7 +427,7 @@
             var connectionInfo = _sessionConnectionFactory.GetConnection(context);
             foreach (var contract in corporateContract.contracts)
             {
-                CorporateContract.contract corpContract =
+                CorporateContract.Contract corpContract =
                     _contractRequestTransformer.TransformToCorpContract(contract);
                 corpContract.IsNewRevisedNewOrUpdateDraft = mashedContractRequest.IsNewRevisedNewOrUpdateDraft();
                 corpContract.IsAmendment = mashedContractRequest.IsAmendment();

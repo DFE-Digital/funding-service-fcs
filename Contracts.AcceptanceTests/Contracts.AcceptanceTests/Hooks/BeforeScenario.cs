@@ -14,7 +14,7 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Hooks
         [BeforeScenario("AcceptanceTest")]
         public void BeforeAcceptanceTestScenario()
         {
-           TestDbContextFactory.InitializeForTests();
+            TestDbContextFactory.InitializeForTests();
             MonthEndHistoryRepository.StopMonthEnd();
 
             Xrm.TestFramework.OrganizationServiceFactory.Initialize(CrmConnectionFactory.GetConnection);
@@ -28,7 +28,7 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Hooks
         [BeforeScenario("CFS")]
         public void BeforeAcceptanceTestScenario()
         {
-            SFA.FCT.Contracts.AcceptanceTests.TestDbContextFactory.InitializeForTests();
+            //SFA.FCT.Contracts.AcceptanceTests.TestDbContextFactory.InitializeForTests();
             DateTime before = DateTime.Now;
             CfsConfig.ResetCfsConfigTables();
 

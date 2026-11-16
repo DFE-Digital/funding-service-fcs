@@ -318,7 +318,7 @@
                         {
                             fundingTypeCode = "EDSK"
                         },
-                        period = new period
+                        period = new Period
                         {
                             periodType = new periodTypeType
                             {
@@ -405,7 +405,7 @@
                         {
                             fundingTypeCode = "EDSK"
                         },
-                        period = new period
+                        period = new Period
                         {
                             periodType = new periodTypeType
                             {
@@ -476,7 +476,7 @@
                         {
                             fundingTypeCode = "EDSK"
                         },
-                        period = new period
+                        period = new Period
                         {
                             periodType = new periodTypeType
                             {
@@ -554,7 +554,7 @@
                         {
                             fundingTypeCode = "EDSK"
                         },
-                        period = new period
+                        period = new Period
                         {
                             periodType = new periodTypeType
                             {
@@ -636,7 +636,7 @@
                         {
                             fundingTypeCode = "EDSK"
                         },
-                        period = new period
+                        period = new Period
                         {
                             periodType = new periodTypeType
                             {
@@ -708,7 +708,7 @@
             contractType contract = new contractType
             {
                 fundingType = new fundingType {fundingTypeCode = "EDSK"},
-                period = new period
+                period = new Period
                 {
                     periodType = new periodTypeType { periodTypeCode = periodTypeCodeType.AY },
                     period1 = "2021"

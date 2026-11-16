@@ -1,26 +1,38 @@
 ﻿namespace FCT.Console.Config.Transformers
 {
-    using System;
     using AutoMapper;
+    using FCT.Console.Config.ExcelTypes;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
+    using System;
 
-    internal class PaymentCappingPeriodTypeResolver : ValueResolver<string, PaymentCappingPeriodType?>
+    internal class PaymentCappingPeriodTypeResolver
+        : IValueResolver<FundingStreamPeriodSheetType, PolicyFundingStreamPeriod, PaymentCappingPeriodType?>
     {
-        protected override PaymentCappingPeriodType? ResolveCore(string source)
+        public PaymentCappingPeriodType? Resolve(
+            FundingStreamPeriodSheetType source,
+            PolicyFundingStreamPeriod destination,
+            PaymentCappingPeriodType? destMember,
+            ResolutionContext context)
         {
-            if (!string.IsNullOrEmpty(source))
-            {
-                return
-                    (PaymentCappingPeriodType)
-                        Enum.Parse(typeof(PaymentCappingPeriodType), TransformSheetValue(source), ignoreCase: true);
-            }
+            var sourceValue = source?.PaymentCappingPeriod;
 
+            if (string.IsNullOrWhiteSpace(sourceValue))
+            {
+                return null;
+            }
+            var transformed = TransformSheetValue(sourceValue);
+
+            if (Enum.TryParse<PaymentCappingPeriodType>(transformed, true, out var result))
+            {
+                return result;
+            }
             return null;
         }
 
         private string TransformSheetValue(string source)
         {
             source = source.Replace(" ", string.Empty);
+
             if (source == "ContractAllocationDuration")
             {
                 source = "ContractDuration";

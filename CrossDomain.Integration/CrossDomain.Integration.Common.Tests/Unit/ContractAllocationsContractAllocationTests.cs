@@ -20,7 +20,7 @@
         public void ContractAllocationsContractAllocation_ShouldSerializeProcurementAttrsWhenTendSpecReferenceIsSet()
         {
             // arrange
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -45,7 +45,7 @@
 
             // act
 
-            contract rehydratedContract = xmlCorporateContract.DeserializeXml<contract>();
+            Contract rehydratedContract = xmlCorporateContract.DeserializeXml<Contract>();
 
             // assert
             Assert.IsNotNull(rehydratedContract.contracts.First().contractAllocations.First().ProcurementAttrs.TenderSpecReference);
@@ -55,7 +55,7 @@
         public void ContractAllocationsContractAllocation_ShouldSerializeAllocationOrganisationRelationshipsWhenIsSet()
         {
             // arrange
-            contract corporateContract = new contract
+            Contract corporateContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -94,7 +94,7 @@
 
             // act
 
-            contract rehydratedContract = xmlCorporateContract.DeserializeXml<contract>();
+            Contract rehydratedContract = xmlCorporateContract.DeserializeXml<Contract>();
 
             // assert
             Assert.IsNotNull(rehydratedContract.contracts.First().contractAllocations.First().allocationOrganisationRelationships.Organisation,
@@ -112,7 +112,7 @@
             const string period = "1718";
 
 
-            contract master = new contract
+            Contract master = new Contract
             {
                 fundingType = new fundingType { fundingTypeCode = fundingTypeCode },
                 contracts = new List<contractType>
@@ -135,10 +135,10 @@
                                 {
                                     fundingTypeCode = fundingTypeCode
                                 },
-                                period = new period
-                                {
-                                    period1 = period
-                                }
+                                //period = new Period
+                                //{
+                                //    period = period
+                                //}
                             }
                         }
                     }
@@ -169,7 +169,7 @@
             const string period = "1718";
 
 
-            contract master = new contract
+            Contract master = new Contract
             {
                 fundingType = new fundingType { fundingTypeCode = fundingTypeCode },
                 contracts = new List<contractType>
@@ -192,10 +192,10 @@
                                 {
                                     fundingTypeCode = fundingTypeCode
                                 },
-                                period = new period
-                                {
-                                    period1 = period
-                                }
+                                //period = new Period
+                                //{
+                                //    period1 = period
+                                //}
                             }
                         }
                     }
@@ -221,7 +221,7 @@
         public void ContractAllocation_ShouldNotSerializeTerminationAttrsIfNull()
         {
             // arrange
-            var contract = new contract
+            var contract = new Contract
             {
                 contractAllocations = new List<contractAllocationsContractAllocation>
                 {
@@ -243,7 +243,7 @@
         public void ContractAllocation_ShouldNotSerializeTerminationAttrsIfTerminationDateAndStopNewStartsIsNull()
         {
             // arrange
-            var contract = new contract
+            var contract = new Contract
             {
                 contractAllocations = new List<contractAllocationsContractAllocation>
                 {
@@ -268,7 +268,7 @@
         public void ContractAllocation_ShouldSerializeTerminationAttrsIfTerminationDateAndStopNewStartsIsSet()
         {
             // arrange
-            var contract = new contract
+            var contract = new Contract
             {
                 contractAllocations = new List<contractAllocationsContractAllocation>
                 {

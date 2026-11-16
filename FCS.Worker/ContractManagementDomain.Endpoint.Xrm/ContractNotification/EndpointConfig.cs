@@ -1,39 +1,53 @@
-﻿namespace ContractManagementDomain.Endpoint.Xrm.ContractNotification
+﻿
+namespace ContractManagementDomain.Endpoint.Xrm.ContractNotification
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "ContractManagementDomain.Endpoint.Xrm.dll";
+        public string NameOfAssembly =>
+            "ContractManagementDomain.Endpoint.Xrm.dll";
 
-        public string EndpointName => "ContractManagementDomain.IssueNotification.Xrm";
+        public string EndpointName =>
+            "ContractManagementDomain.IssueNotification.Xrm";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToArray();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToArray();
 
-        public IReadOnlyCollection<CommandRoute> Routes => Enumerable.Empty<CommandRoute>().ToArray();
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            Enumerable.Empty<CommandRoute>().ToArray();
 
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions (CUSTOM COMMAND RULE PRESERVED)
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands")
-                                         || t.Name.EndsWith(nameof(IssueCrmNotificationCommand)));
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    t.Name.EndsWith(nameof(IssueCrmNotificationCommand)))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddContractNotificationServices();
             });
 
             return configuration;

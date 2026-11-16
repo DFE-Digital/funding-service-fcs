@@ -1,27 +1,24 @@
 ﻿namespace SFA.FCT.AllocationDelivery.DataStore.Extensions
 {
-    using System.IO;
-    using System.Runtime.Serialization.Formatters.Binary;
+    using System;
+    using System.Text.Json;
 
     public static class ByteArraySerializer
     {
-        public static byte[] ConvertObjectToByteArray<T>(this T objectToSerialize)
+        private static readonly JsonSerializerOptions _jsonOptions = new()
         {
-            MemoryStream memorystream = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(memorystream, objectToSerialize);
+            WriteIndented = false,            
+        };
 
-            byte[] serializedResult = memorystream.ToArray();
-
-            return serializedResult;
+        public static byte[] ConvertObjectToByteArray<T>(this T objectToSerialize)
+        {           
+            return JsonSerializer.SerializeToUtf8Bytes(objectToSerialize, _jsonOptions);
         }
 
-        public static T ConvertByteArrayToObject<T>(this byte[] blob)
+        public static T? ConvertByteArrayToObject<T>(this byte[] blob)
         {
-            MemoryStream memorystream = new MemoryStream(blob);
-            BinaryFormatter bfd = new BinaryFormatter();
-            T deserializedResult = (T)bfd.Deserialize(memorystream);
-            return deserializedResult;
+            if (blob == null || blob.Length == 0) return default;
+            return JsonSerializer.Deserialize<T>(blob, _jsonOptions);
         }
     }
 }

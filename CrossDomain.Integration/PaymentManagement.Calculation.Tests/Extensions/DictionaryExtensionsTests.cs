@@ -21,8 +21,8 @@
         {
             var dictionary = new Dictionary<string, int> { ["present"] = 5 };
 
-            Assert.AreEqual(5, dictionary.GetValueOrDefault("present"));
-            Assert.AreEqual(0, dictionary.GetValueOrDefault("missing"));
+            Assert.AreEqual(5, DictionaryExtensions.GetValueOrDefault(dictionary, "present"));
+            Assert.AreEqual(0, DictionaryExtensions.GetValueOrDefault(dictionary, "missing"));
         }
 
         [TestMethod, TestCategory("UnitTest")]

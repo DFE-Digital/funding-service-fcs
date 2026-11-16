@@ -1,691 +1,152 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{695E2CFC-3FF3-4D09-A2B6-8259B1640AE0}</ProjectGuid>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FCT.Console.Config</RootNamespace>
-    <AssemblyName>FCT.Console.Config</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+   <!-- <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>-->
+    <Configurations>AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PS;Release</Configurations>
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet>true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets>$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+    <AssemblyTitle>FCT.Console.Config</AssemblyTitle>
+    <Product>FCT.Console.Config</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\CI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\AT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\OAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\MO\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
     <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
     <OutputPath>bin\DOAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Label="SlowCheetah">
-    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
-    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
-    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
-    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntiXSSLibrary, Version=4.2.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\AntiXSSLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Aspose.Cells, Version=8.4.2.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Aspose.Cells.8.4.2\lib\net40\Aspose.Cells.dll</HintPath>
-    </Reference>
-    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
-    </Reference>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Services.AppAuthentication, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\lib\net452\Microsoft.Azure.Services.AppAuthentication.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.46\lib\net462\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Office.Client.Policy, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.Office.Client.Policy.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Office.Client.TranslationServices, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.Office.Client.TranslationServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Office.SharePoint.Tools, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.Office.SharePoint.Tools.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Online.SharePoint.Client.Tenant, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.Online.SharePoint.Client.Tenant.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.ServiceBus.5.0.2\lib\net46\Microsoft.ServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.DocumentManagement, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.DocumentManagement.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.Publishing, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.Publishing.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.Search, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.Search.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.Search.Applications, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.Search.Applications.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.Taxonomy, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.Taxonomy.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.UserProfiles, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.UserProfiles.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.WorkflowServices, Version=16.1.3912.1204, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.SharePointOnline.CSOM.16.1.3912.1204\lib\net45\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.0.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client.CodeGeneration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.CodeGeneration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal.Files, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.Files.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.46\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Deployment.9.0.2.34\lib\net462\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="MoreLinq, Version=1.1.18418.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\morelinq.1.1.1\lib\net35\MoreLinq.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Azure.Transports.WindowsAzureServiceBus, Version=9.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.Azure.Transports.WindowsAzureServiceBus.9.0.0\lib\net46\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.7.1.4\lib\net452\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Newtonsoft.Json, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.Newtonsoft.Json.2.1.0\lib\net452\NServiceBus.Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Polly, Version=5.9.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Polly-Signed.5.9.0\lib\net45\Polly.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.29.0" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.Services" />
     <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Design" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.4.403061554\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Json, Version=6.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Text.Json.6.0.2\lib\net461\System.Text.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
+    <PackageReference Include="Aspose.Cells" Version="24.4.0" />
+    <PackageReference Include="AutoMapper" Version="16.1.1" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="EntityFramework" Version="6.5.2" />
+    <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.3" />
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.46" />
+    <PackageReference Include="Microsoft.CrmSdk.Deployment" Version="9.0.2.34" />
+    <PackageReference Include="Microsoft.CrmSdk.Extensions" Version="7.1.0.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Data.Edm" Version="5.8.5" />
+    <PackageReference Include="Microsoft.Data.OData" Version="5.8.5" />
+    <PackageReference Include="Microsoft.Data.Services.Client" Version="5.8.5" />
+    <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.3.0" />
+    <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.26510.12000" />
+    <PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+    <PackageReference Include="morelinq" Version="4.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="NServiceBus" Version="9.2.7" />
+	<PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="5.1.2" />
+    <!--<PackageReference Include="NServiceBus.Azure.Transports.WindowsAzureServiceBus" Version="9.0.0" />-->
+    <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.1.0" />
+    <PackageReference Include="Polly-Signed" Version="5.9.0" />
+    <PackageReference Include="SlowCheetah" Version="2.5.15" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.DirectoryServices" Version="10.0.9" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.9" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
+    <PackageReference Include="System.Runtime.Caching" Version="10.0.9" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
+    <PackageReference Include="System.Spatial" Version="5.8.5" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="10.0.3" />
+    <PackageReference Include="System.Text.Json" Version="10.0.3" />
+    <PackageReference Include="WindowsAzure.ServiceBus" Version="5.0.2" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AzureStorage\AzureStorageWrapper.cs" />
-    <Compile Include="AzureStorage\BlobInfo.cs" />
-    <Compile Include="AzureStorage\FctFile.cs" />
-    <Compile Include="DocumentFolders\DocumentFolderCreator.cs" />
-    <Compile Include="DocumentFolders\DocumentFolderNameUtility.cs" />
-    <Compile Include="Dtos\DeployedConfigVersionInfo.cs" />
-    <Compile Include="Dtos\SheetToJObjectTransform.cs" />
-    <Compile Include="ExcelTypes\ActualsCollectionReturnsSheetType.cs" />
-    <Compile Include="ExcelTypes\AgencySheetType.cs" />
-    <Compile Include="ExcelTypes\AllocationFundingStreamSheetType.cs" />
-    <Compile Include="ExcelTypes\AllocationLinesSheet.cs" />
-    <Compile Include="ExcelTypes\AllocationProviderTypeSheet.cs" />
-    <Compile Include="ExcelTypes\CdaExtractFspSheetType.cs" />
-    <Compile Include="ExcelTypes\CdaExtractSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimCollectionsSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimReconciliationAllocationGroupSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimReconAllocGroupFSPSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimReconciliationBehaviourSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimReconciliationDelGroupsSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimReconciliationPublicationExceptionSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimReconciliationReferenceDataProfileSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimReconciliationReferenceDataReconProfilingSheetType.cs" />
-    <Compile Include="ExcelTypes\ContractDocumentTemplateSheetType.cs" />
-    <Compile Include="ExcelTypes\ClaimTypeSheetType.cs" />
-    <Compile Include="ExcelTypes\ContractReferenceDataSheet.cs" />
-    <Compile Include="ExcelTypes\FundingReportFSPSheetType.cs" />
-    <Compile Include="ExcelTypes\LaFundingReportProviderSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingReportProviderSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingStreamPeriodCappingPeriodPayCalcPolicySheetType.cs" />
-    <Compile Include="ExcelTypes\FundingStreamPeriodPayCalcPolicySheetType.cs" />
-    <Compile Include="ExcelTypes\NlapFundingConfigSheet.cs" />
-    <Compile Include="ExcelTypes\ContractTypeSheetType.cs" />
-    <Compile Include="ExcelTypes\FspGroupDocumentTemplateSheetType.cs" />
-    <Compile Include="ExcelTypes\FspGroupSheetType.cs" />
-    <Compile Include="ExcelTypes\FTPCoTSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingStreamPeriodSubnominalSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingTypePeriodFundingStreamPeriodSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingTypeSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingTypeStreamRelationshipSheetType.cs" />
-    <Compile Include="ExcelTypes\ESFRegionInvestmentPrioritySheetType.cs" />
-    <Compile Include="ExcelTypes\CfsCodesToContractTypeSheetType.cs" />
-    <Compile Include="ExcelTypes\PeriodTypeSheetType.cs" />
-    <Compile Include="ExcelTypes\ProviderCategoryException.cs" />
-    <Compile Include="ExcelTypes\RegionTypeSheetType.cs" />
-    <Compile Include="ExcelTypes\StatusSubStatusConfigType.cs" />
-    <Compile Include="ExcelTypes\SubnominalsSheetType.cs" />
-    <Compile Include="ExcelTypes\DeliverablesSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingPeriodSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingStreamPeriodCappingGroupSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingStreamPeriodDeliverablesSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingStreamPeriodSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingStreamSheetType.cs" />
-    <Compile Include="ExcelTypes\FundingTypePeriodSheetType.cs" />
-    <Compile Include="ExcelTypes\PaymentTimetablesSheetType.cs" />
-    <Compile Include="ExcelTypes\PolicyStatus.cs" />
-    <Compile Include="ExcelTypes\SheetTypeBase.cs" />
-    <Compile Include="ExcelTypes\UnitsOfProcurementSheetType.cs" />
-    <Compile Include="Excel\IWorkbookReader.cs" />
-    <Compile Include="Excel\IWorksheetReader.cs" />
-    <Compile Include="Excel\JsonWorkbookReader.cs" />
-    <Compile Include="Excel\JsonWorksheetReader.cs" />
-    <Compile Include="Excel\WorkbookReader.cs" />
-    <Compile Include="Excel\WorksheetReader.cs" />
-    <Compile Include="Excel\WorksheetRowReader.cs" />
-    <Compile Include="Extraction\ConfigExtractor.cs" />
-    <Compile Include="Extraction\Crm\CrmEntityExtractor.cs" />
-    <Compile Include="Extraction\Crm\CrmEntityRows.cs" />
-    <Compile Include="Extraction\Crm\CrmEntityTransformer.cs" />
-    <Compile Include="Extraction\Crm\CrmValueExtractor.cs" />
-    <Compile Include="Extraction\PaaS\SqlTableExtractor.cs" />
-    <Compile Include="Infrastructure\ContractNumberType.cs" />
-    <Compile Include="Infrastructure\CrmConnectionFactory.cs" />
-    <Compile Include="Infrastructure\MissingSequenceCreator.cs" />
-    <Compile Include="Infrastructure\SequenceNameInfo.cs" />
-    <Compile Include="Json\IWorkbookToJson.cs" />
-    <Compile Include="Json\WorkbookToJson.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CrmContractNumberRepository.cs" />
-    <Compile Include="Repositories\DeployedConfigVersionRepository.cs" />
-    <Compile Include="Repositories\ICrmContractNumberRepository.cs" />
-    <Compile Include="Services\ConfigFileVersionService.cs" />
-    <Compile Include="Services\CrmTableCleaner.cs" />
-    <Compile Include="Services\EndpointBuilder.cs" />
-    <Compile Include="Services\LegalDeliverableExtractor.cs" />
-    <Compile Include="Synchronizers\CRM\CrmAgencySynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmAllocationGroupSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmClaimReconciliationBehaviourSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmClaimReconciliationPublicationExceptionSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmContractTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFspDeliverableSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmDeliverableSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFspGroupSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFundingPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFundingStreamPeriodCappingGroupSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFundingStreamPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmClaimTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFundingTypeFundingPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFundingTypeFundingStreamSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFundingTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmFundingStreamSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmPaymentTimeTableSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmPeriodTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\CRM\CrmUoPSynchronizer.cs" />
-    <Compile Include="Synchronizers\IInitializeConfigStorage.cs" />
-    <Compile Include="Synchronizers\PaaS\ClaimReconciliationReferenceDataReconProfilingSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationAllocationFundingStreamSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\CdaExtractFspSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\CdaExtractSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ContractManagementFundingStreamPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ContractManagementFundingTypeFundingPeriodContractTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ContractManagementFundingTypeFundingPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ContractNumberForAgencySynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ContractNumberForFundingStreamSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ContractNumberForFundingTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ContractRequestFundingTypeFundingPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ContractTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\DocumentsDomainContractDocumentTemplateSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\DocumentsDomainContractReferenceConfigSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\DocumentsDomainFspGroupDocumentTemplateSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\DocumentsDomainFundingStreamPeriodDeliverableSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\DocumentsDomainFundingStreamPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\DocumentsDomainFundingTypeFundingPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationAllocationLineSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationAllocationProviderTypesSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationCfsCodesToContractTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationFspDeliverableConfigSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationFundingStreamPeriodConfigSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationFundingTypeConfigSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationFundingTypeFundingPeriodConfigSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingReportFSPSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\LaFundingReportProviderSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingReportProviderSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\OperationsFspSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCacheFundingStreamPeriodCappingPeriodPayCalcPolicySynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCacheFundingStreamPeriodPayCalcPolicySynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\DocumentsDomainNlapFundingConfigSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FspGroupSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingStreamPeriodLegalDeliverableSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\MonitoringDeliverablesHeldFspCollectionConfigSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\ProviderCategoryExceptionSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\Repositories\PaymentTimetableRepository.cs" />
-    <Compile Include="Synchronizers\PaaS\Repositories\PolicyFundingStreamPeriodRepository.cs" />
-    <Compile Include="Synchronizers\PaaS\Repositories\SequenceRepository.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingAllocationStatusSubStatusConfigSynchronizer.cs" />
-    <Compile Include="Synchronizers\Readers\ActualsCollectionReturnsReader.cs" />
-    <Compile Include="Synchronizers\Readers\AllocationFundingStreamReader.cs" />
-    <Compile Include="Synchronizers\Readers\AllocationLinesReader.cs" />
-    <Compile Include="Synchronizers\Readers\AllocationProviderTypesReader.cs" />
-    <Compile Include="Synchronizers\Readers\CfsCodesToContractTypeReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimReconciliationReferenceDataReconProfilingReader.cs" />
-    <Compile Include="Synchronizers\Readers\ContractDocumentTemplateReader.cs" />
-    <Compile Include="Synchronizers\Readers\ContractReferenceDataReader.cs" />
-    <Compile Include="Synchronizers\Readers\FspGroupDocumentTemplateReader.cs" />
-    <Compile Include="Synchronizers\Readers\FspGroupReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingReportFSPReader.cs" />
-    <Compile Include="Synchronizers\Readers\LaFundingReportProviderReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingReportProviderReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingStreamPeriodCappingPeriodPayCalcPolicyReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingStreamPeriodPayCalcPolicyReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingTypeFundingPeriodContractTypeReader.cs" />
-    <Compile Include="Synchronizers\Readers\NlapFundingConfigReader.cs" />
-    <Compile Include="Synchronizers\Readers\ProviderCategoryExceptionReader.cs" />
-    <Compile Include="Synchronizers\Readers\StatusSubStatusConfigReader.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFspGroupWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\ClaimReconciliationReferenceDataReconProfilingWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingAllocationAllocationFundingStreamConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\AllocationFundingCfsCodesToContractTypeConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingAllocationFspDeliverableConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingAllocationFundingStreamPeriodConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingAllocationFundingTypeConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingAllocationFundingTypeFundingPeriodConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingAllocationProviderTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingAllocationAllocationLineWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\ContractManagementFundingTypeFundingPeriodContractTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\ContractManagementFundingStreamPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\DocumentsDomainContractDocumentTemplateWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\DocumentsDomainContractReferenceConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\DocumentsDomainFspGroupDocumentTemplateWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\DocumentsDomainFSPDeliverableWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\DocumentsDomainFundingTypeFundingPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\DocumentsDomainNlapFundingConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\EntityDifferenceChecker.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FspGroupWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\OperationsFundingReportFSPWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\OperationsLaFundingReportProviderWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\OperationsFundingReportProviderWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingStreamPeriodLegalDeliverableWriter.cs" />
-    <Compile Include="Synchronizers\PaaS\FundingTypePeriodFundingStreamPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PayGenFundingStreamPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\MonitoringDeliverablesFundingStreamPeriodDeliverableSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtClaimReconAllocGroupFSPsSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtClaimCollectionSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtClaimReconciliationAllocationGroupSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtClaimReconciliationBehaviourSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtClaimReconciliationDeliverableGroupSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtClaimReconciliationPublicationExceptionSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtClaimReconciliationReferenceDataProfileSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtClaimTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PayGenFundingStreamSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PayGenPaymentTimetableSynchroniser.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtFspDeliverableClaimSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PerfMgmtFundingStreamPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCacheFundingStreamPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCachePolicyFundingStreamCensusDateSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PayGenSubnominalSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCacheFundingStreamPeriodCappingGroupSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCacheESFRegionInvestmentPrioritySynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCachePolicySubnominalSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCachePolicyDeliverableSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\PolicyCachePolicyDeliverableToSubnominalsSynchronizer.cs" />
-    <Compile Include="Synchronizers\PaaS\RegionTypeSynchronizer.cs" />
-    <Compile Include="Synchronizers\Readers\AgencyReader.cs" />
-    <Compile Include="Synchronizers\Readers\CdaExtractFspReader.cs" />
-    <Compile Include="Synchronizers\Readers\CdaExtractReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimCollectionsReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimReconciliationAllocationGroupReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimReconciliationBehaviourReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimReconAllocGroupFSPsReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimReconciliationDelGroupsReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimReconciliationPublicationExceptionReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimReconciliationReferenceDataProfilesReader.cs" />
-    <Compile Include="Synchronizers\Readers\ClaimTypeReader.cs" />
-    <Compile Include="Synchronizers\Readers\ContractTypeReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingTypePeriodFundingStreamPeriodReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingTypeReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingTypeStreamRelationshipReader.cs" />
-    <Compile Include="Synchronizers\Readers\ESFRegionInvestmentPriorityReader.cs" />
-    <Compile Include="Synchronizers\Readers\PeriodTypeReader.cs" />
-    <Compile Include="Synchronizers\Readers\RegionTypeReader.cs" />
-    <Compile Include="Synchronizers\Readers\SubnominalsReader.cs" />
-    <Compile Include="Synchronizers\Readers\SubnominalPaymentTypesReader.cs" />
-    <Compile Include="Synchronizers\Readers\DeliverablesReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingPeriodSheetTypeReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingStreamPeriodCappingGroupsReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingStreamPeriodDeliverablesReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingStreamSheetReader.cs" />
-    <Compile Include="Synchronizers\Readers\FundingStreamPeriodReader.cs" />
-    <Compile Include="Synchronizers\ISynchronizeConfig.cs" />
-    <Compile Include="Synchronizers\PaaS\MonitoringDeliverablesFundingStreamPeriodSynchronizer.cs" />
-    <Compile Include="Synchronizers\Readers\FundingTypePeriodReader.cs" />
-    <Compile Include="Synchronizers\Readers\PaymentTimetablesSheetReader.cs" />
-    <Compile Include="Synchronizers\Readers\UnitsOfProcurementReader.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmAgencyWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmAllocationGroupWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmClaimReconciliationBehaviourWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmClaimReconciliationPublicationExceptionWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmContractTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmDeliverableWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFspDeliverableWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFundingStreamPeriodCappingGroupWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmClaimTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFundingStreamWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFundingPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFundingTypeFundingPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFundingTypeFundingStreamWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFundingTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmHelper.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmFundingStreamPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmOptionSetFactory.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmPaymentTimeTableWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmPeriodTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\CRM\CrmUoPWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\CdaExtractFspWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\CdaExtractWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\ContractManagementFundingTypeFundingPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\ContractRequestFundingTypeFundingPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\ContractTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\DocumentsDomainFundingStreamPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\EntityMerger.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\OperationsFspWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyCacheFundingStreamPeriodCappingPeriodPayCalcPolicyWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyCacheFundingStreamPeriodPayCalcPolicyWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\FundingTypePeriodFundingStreamPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\MonitoringDeliverablesHeldFspCollectionConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtClaimReconciliationAllocationGroupWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtClaimReconAllocGroupFSPsWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtClaimReconciliationBehaviourWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtClaimReconciliationDelGroupWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtClaimReconciliationPublicationExceptionWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtClaimReconciliationReferenceDataProfileWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtClaimTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtClaimCollectionWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtFspDeliverableClaimWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PerfMgmtFundingStreamPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyCacheFundingStreamPeriodCappingGroupWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PayGenPaymentTimetableWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\ConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\MonitoringDeliverablesFundingStreamPeriodDeliverableWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\MonitoringDeliverablesFundingStreamPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PayGenFundingStreamPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PayGenFundingStreamWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyCacheFundingStreamCensusDateWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyCachePolicyDeliverableToSubnominalsWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyCachePolicyDeliverableWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PayGenSubnominalWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyCacheESFRegionInvestmentPriorityWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyCachePolicySubnominalWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\PolicyFundingStreamPeriodWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\ProviderCategoryExceptionWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\RegionTypeWriter.cs" />
-    <Compile Include="Synchronizers\Writers\PAAS\StatusSubStatusConfigWriter.cs" />
-    <Compile Include="Synchronizers\Writers\WriterBehaviour.cs" />
-    <Compile Include="Templates\Extensions\ByteArrayExtensions.cs" />
-    <Compile Include="Templates\Extensions\UploadedDocumentTemplatesExtensions.cs" />
-    <Compile Include="Templates\ITemplatesUpdater.cs" />
-    <Compile Include="Templates\Repositories\AssemblyRepository.cs" />
-    <Compile Include="Templates\Repositories\IAssemblyRespository.cs" />
-    <Compile Include="Templates\Repositories\ITemplateStorageRepository.cs" />
-    <Compile Include="Templates\Repositories\IUploadedDocumentTemplateRepository.cs" />
-    <Compile Include="Templates\Repositories\TemplateStorageRepository.cs" />
-    <Compile Include="Templates\Repositories\UploadedDocumentTemplateRepository.cs" />
-    <Compile Include="Templates\TemplatesUpdater.cs" />
-    <Compile Include="Transformers\FspDeliverableClaimTransformer.cs" />
-    <Compile Include="Transformers\MonitoringDeliverablesFundingStreamPeriodTransformer.cs" />
-    <Compile Include="Transformers\PaymentMethodTypeResolver.cs" />
-    <Compile Include="Transformers\PaymentTimetableTransformer.cs" />
-    <Compile Include="Transformers\PaymentCappingLevelTypeResolver.cs" />
-    <Compile Include="Transformers\PaymentCappingPeriodTypeResolver.cs" />
-    <Compile Include="Transformers\PaymentTypeResolver.cs" />
-    <Compile Include="Transformers\PerfMgmtFundingStreamPeriodTransformer.cs" />
-    <Compile Include="Transformers\PolicyDeliverableTransformer.cs" />
-    <Compile Include="Transformers\PolicyCacheFundingStreamPeriodPayCalcPolicyTransformer.cs" />
-    <Compile Include="Transformers\PolicyFundingStreamPeriodTransformer.cs" />
-    <Compile Include="Transformers\PolicyPaymentMethodResolver.cs" />
-    <Compile Include="Transformers\ESFRegionInvestmentPriorityTransformer.cs" />
-    <Compile Include="Transformers\SubnominalTransformer.cs" />
-    <Compile Include="Transformers\TypeTransformer.cs" />
-    <Compile Include="Utility\ActionRetrier.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.AT.config">
+    <None Update="App.AT.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.CI.config">
+    <None Update="App.CI.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.config">
-      <TransformOnBuild>true</TransformOnBuild>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="App.DAT.config">
+    <None Update="App.DAT.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.DCI.config">
+    <None Update="App.DCI.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.Debug.config">
+    <None Update="App.Debug.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.DMO.config">
+    <None Update="App.DMO.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.DOAT.config">
+    <None Update="App.DOAT.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.MO.config">
+    <None Update="App.MO.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.OAT.config">
+    <None Update="App.OAT.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App.Release.config">
+    <None Update="App.Release.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
@@ -1009,8 +470,6 @@
     <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_APPLEVY-5587.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\FA_FEACA2223_2022-04-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\FA_HTESIF2223_2023-01-01.docx" />
-    <None Include="packages.config" />
-    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
     <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\FA_1618FU2324_2023-04-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\FA_MULT2324_2023-04-01.docx" />
@@ -1235,6 +694,7 @@
     <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2526_S1 2025-08-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2526_S2_2025-08-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2526_S3ON 2025-08-01.docx" />
+    <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2526_TAC 2025-08-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\FA_ASF2023_2526_2025-08-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\SOF_ASF2023_2025-08-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\EDSK2526_S2_APPS_AA_COLLEGE_2025-08-01.docx" />
@@ -1244,128 +704,22 @@
     <EmbeddedResource Include="Resources\DocumentTemplates\EDSK2526_S3_APPS_OTHER_2025-08-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\FA_TTF2526_2025-04-01.docx" />
     <EmbeddedResource Include="Resources\DocumentTemplates\FA_TTFY22526_2025-04-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_CTEC2526_2025-08-12.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2526_TAC 2025-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_CSPIPF2627_2026-04-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_EDSK2627_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\SOF_EDSK_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_1619ED2627_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_NLG2627_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2627_S1_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2627_S2_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2627_S3ON_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\ASF2023_2627_TAC_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\DADA2026_S1_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\DADA2026_S2_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\DADA2026_S3ON_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\DADA2026_TAC_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_ASF2023_2627_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_DADA2627_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\SOF_ASF2023_2026-08-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-5105.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-5278.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-5639.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-6586.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-6614.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-6668.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-6699.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-6747.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\LEVY1799_Amendment_UnderTerm_APPLEVY-6915.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-5105.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-5278.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-5639.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-6586.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-6614.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-6668.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-6699.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-6747.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\T&amp;C_LEVY_2017-05-01_UT_APPLEVY-6915.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_TTFR92627_2026-04-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_TTFY22526_2026-04-01.docx" />
-    <EmbeddedResource Include="Resources\DocumentTemplates\FA_TTFY22627_2026-04-01.docx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Tests\Tests.Common\UnitTests.Common.csproj">
-      <Project>{6EDBFBFC-A0A0-4650-A92E-B9A686C967FE}</Project>
-      <Name>UnitTests.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\AllocationDeliveryDomain.Common\AllocationDeliveryDomain.Common.csproj">
-      <Project>{9b837a72-d62b-46e1-b2c6-6224879b2a30}</Project>
-      <Name>AllocationDeliveryDomain.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\ContractCreateDomain.Implementation\ContractCreateDomain.Implementation.csproj">
-      <Project>{791022EB-4BF9-41F8-ADEB-791D0765F5C7}</Project>
-      <Name>ContractCreateDomain.Implementation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\ContractRequestDomain.DataStore\ContractRequestDomain.DataStore.csproj">
-      <Project>{da99e1d0-bf88-4941-96c9-93b64e17e185}</Project>
-      <Name>ContractRequestDomain.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj">
-      <Project>{e766a4b6-88b4-4e18-a68b-761b65c7e015}</Project>
-      <Name>CrossDomain.Integration.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
-      <Project>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</Project>
-      <Name>CrossDomain.Integration.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj">
-      <Project>{9d36a2be-95d8-49b7-be54-9f063738cb5b}</Project>
-      <Name>CrossDomain.Integration.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\DocumentsDomain.DataStore\DocumentsDomain.DataStore.csproj">
-      <Project>{9687f2ed-2638-4283-bbdf-a37c9d75f5f5}</Project>
-      <Name>DocumentsDomain.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentGenerationDomain.Integration.DataStore\PaymentGenerationDomain.Integration.DataStore.csproj">
-      <Project>{A0E7041F-2BED-4101-B430-F04A0349E573}</Project>
-      <Name>PaymentGenerationDomain.Integration.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.DataStore\PMD.PolicyCache.DataStore.csproj">
-      <Project>{d3db2af2-6ab8-4257-8678-c171b8c06e6a}</Project>
-      <Name>PMD.PolicyCache.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CrossDomain.Integration\PerformanceManagementDomain.DataStore\PerformanceManagementDomain.DataStore.csproj">
-      <Project>{CF06368C-5322-4127-BE12-EE390E0AEE5B}</Project>
-      <Name>PerformanceManagementDomain.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FCT.Operations.Web\Operations.DataStore\Operations.DataStore.csproj">
-      <Project>{4ef3e8c7-aa14-4e6e-9b69-a8a08309de35}</Project>
-      <Name>Operations.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj">
-      <Project>{67193b3f-0405-4dbf-a77c-c1d9c9fa11ba}</Project>
-      <Name>ContractManagement.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
-      <Project>{B93F0ED2-8AF4-46C4-AE47-DAA3483FD8F3}</Project>
-      <Name>Framework.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FundingStreamConfigDomain\FundingStreamConfigDomain.BusinessLogic\FundingStreamConfigDomain.BusinessLogic.csproj">
-      <Project>{fec9d05e-9593-4996-90cc-ea03d0f51004}</Project>
-      <Name>FundingStreamConfigDomain.BusinessLogic</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Tests\Tests.Common\UnitTests.Common.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\AllocationDeliveryDomain.Common\AllocationDeliveryDomain.Common.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\ContractCreateDomain.Implementation\ContractCreateDomain.Implementation.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\ContractRequestDomain.DataStore\ContractRequestDomain.DataStore.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\DocumentsDomain.DataStore\DocumentsDomain.DataStore.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentGenerationDomain.Integration.DataStore\PaymentGenerationDomain.Integration.DataStore.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PaymentManagementDomain.Integration.DataStore\PMD.PolicyCache.DataStore.csproj" />
+    <ProjectReference Include="..\..\CrossDomain.Integration\PerformanceManagementDomain.DataStore\PerformanceManagementDomain.DataStore.csproj" />
+    <ProjectReference Include="..\..\FCT.Operations.Web\Operations.DataStore\Operations.DataStore.csproj" />
+    <ProjectReference Include="..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
+    <ProjectReference Include="..\..\FundingStreamConfigDomain\FundingStreamConfigDomain.BusinessLogic\FundingStreamConfigDomain.BusinessLogic.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
-  <Import Project="..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
-  <Import Project="..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets" Condition="Exists('..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets'))" />
-    <Error Condition="!Exists('..\..\packages\System.Text.Json.6.0.2\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Text.Json.6.0.2\build\System.Text.Json.targets'))" />
-  </Target>
-  <Import Project="..\..\packages\System.Text.Json.6.0.2\build\System.Text.Json.targets" Condition="Exists('..\..\packages\System.Text.Json.6.0.2\build\System.Text.Json.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

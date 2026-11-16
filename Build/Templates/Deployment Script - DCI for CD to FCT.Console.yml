@@ -320,15 +320,57 @@ jobs:
       fileType: xml
 
   - task: NuGetToolInstaller@1
-    displayName: 'Use NuGet 5.4.0'
+    displayName: 'Use NuGet 6.x'
     inputs:
-      versionSpec: 5.4.0
+      versionSpec: 6.x
 
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore FCT.Console'
+  - task: NuGetAuthenticate@1
+
+  - task: DotNetCoreCLI@2
+    displayName: 'DotNet Restore FCT.Console'
     inputs:
-      restoreSolution: FCT.Console/FCT.Console.B.sln
-      restoreDirectory: '$(Build.SourcesDirectory)\Packages'
+      command: 'restore'
+      projects: 'FCT.Console/FCT.Console.B.sln'
+
+  - task: PowerShell@2
+    displayName: 'Check Assets Files After Restore'
+    inputs:
+      targetType: inline
+      script: |
+        Get-ChildItem "$(Build.SourcesDirectory)" -Recurse -Filter project.assets.json |
+        ForEach-Object {
+            Write-Host $_.FullName
+        }
+
+  - task: UseDotNet@2
+    displayName: 'Install .NET 8 SDK'
+    inputs:
+      packageType: sdk
+      version: '8.0.x'
+
+  - task: PowerShell@2
+    displayName: 'Verify project.assets.json'
+    inputs:
+      targetType: inline
+      script: |
+        $files = Get-ChildItem "$(Build.SourcesDirectory)\FCT.Console" -Recurse -Filter project.assets.json
+
+        if ($files) {
+            Write-Host "FOUND:"
+            $files | ForEach-Object {
+                Write-Host $_.FullName
+            }
+        }
+        else {
+            Write-Host "NO project.assets.json FILES FOUND"
+        }
+
+  - task: PowerShell@2
+    displayName: 'DotNet Info'
+    inputs:
+      targetType: inline
+      script: |
+        dotnet --info
 
   - task: VSBuild@1
     displayName: 'Build FCT.Console solution'
@@ -353,17 +395,116 @@ jobs:
   - task: CmdLine@1
     displayName: 'Run the FCT.Console.Config Utility'
     inputs:
-      filename: '$(Build.SourcesDirectory)\FCT.Console\FCT.Console.Config\bin\$(BuildConfiguration)\FCT.Console.Config.exe'
+      filename: '$(Build.SourcesDirectory)\FCT.Console\FCT.Console.Config\bin\$(BuildConfiguration)\net8.0\FCT.Console.Config.exe'
+
+  #Jayp Debug start:
+
+  - powershell: |
+      Write-Host "=================================================="
+      Write-Host "VSTEST PATH DEBUG"
+      Write-Host "=================================================="
+
+      Write-Host "System.DefaultWorkingDirectory:"
+      Write-Host "$(System.DefaultWorkingDirectory)"
+
+      Write-Host ""
+      Write-Host "BuildConfiguration:"
+      Write-Host "$(BuildConfiguration)"
+
+      Write-Host ""
+      Write-Host "BuildSolutionPlatform:"
+      Write-Host "$(BuildSolutionPlatform)"
+
+      Write-Host ""
+      Write-Host "Expected VSTest pattern:"
+      Write-Host "**\$(BuildConfiguration)\**Tests.dll"
+
+      Write-Host ""
+      Write-Host "=================================================="
+      Write-Host "ALL *Tests.dll FILES"
+      Write-Host "=================================================="
+
+      Get-ChildItem `
+        -Path "$(System.DefaultWorkingDirectory)" `
+        -Recurse `
+        -Filter "*Tests.dll" |
+        ForEach-Object {
+          Write-Host $_.FullName
+        }
+
+      Write-Host ""
+      Write-Host "=================================================="
+      Write-Host "TEST DLLS UNDER BUILD CONFIGURATION"
+      Write-Host "=================================================="
+
+      $config = "$(BuildConfiguration)"
+
+      Get-ChildItem `
+        -Path "$(System.DefaultWorkingDirectory)" `
+        -Recurse `
+        -Filter "*Tests.dll" |
+        Where-Object {
+          $_.FullName -like "*\$config\*" -and
+          $_.FullName -notmatch "\\obj\\"
+        } |
+        ForEach-Object {
+          Write-Host "MATCH: $($_.FullName)"
+        }
+
+      Write-Host ""
+      Write-Host "=================================================="
+      Write-Host "END DEBUG"
+      Write-Host "=================================================="
+    displayName: 'DEBUG: Test DLL Paths'
+
+  - powershell: |
+      Write-Host "=================================================="
+      Write-Host "VSTEST ADAPTER DEBUG"
+      Write-Host "=================================================="
+
+      $adapterPath = "$(System.DefaultWorkingDirectory)\FCT.Console"
+
+      Write-Host "Adapter search path:"
+      Write-Host $adapterPath
+
+      Write-Host ""
+      Write-Host "Test adapter DLLs:"
+
+      Get-ChildItem `
+        -Path $adapterPath `
+        -Recurse `
+        -Filter "*.TestAdapter.dll" `
+        -ErrorAction SilentlyContinue |
+        ForEach-Object {
+          Write-Host $_.FullName
+        }
+
+      Write-Host ""
+      Write-Host "All DLLs in test project output:"
+
+      Get-ChildItem `
+        -Path "$(System.DefaultWorkingDirectory)\FCT.Console\FCT.Console.Config.Tests\bin\$(BuildConfiguration)\net8.0" `
+        -Filter "*.dll" `
+        -ErrorAction SilentlyContinue |
+        ForEach-Object {
+          Write-Host $_.FullName
+        }
+
+      Write-Host ""
+      Write-Host "=================================================="
+    displayName: 'DEBUG: Test Adapter Paths'
+  #Jay Debug End
 
   - task: VSTest@2
     displayName: 'Test: Integration Tests'
     inputs:
       testAssemblyVer2: |
-        **\$(BuildConfiguration)\**Tests.dll
+        **\bin\$(BuildConfiguration)\net8.0\*Tests.dll
         !**\obj\**
-      testFiltercriteria: 'TestCategory=IntegrationTest'
+      testFiltercriteria: ''
       pathtoCustomTestAdapters: '$(System.DefaultWorkingDirectory)\FCT.Console'
       codeCoverageEnabled: false
       platform: '$(BuildSolutionPlatform)'
       configuration: '$(BuildConfiguration)'
-      rerunFailedTests: true
+      rerunFailedTests: false
+      diagnosticsEnabled: true

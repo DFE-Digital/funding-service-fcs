@@ -83,7 +83,7 @@
 
                 StoreContract(masterContract);
 
-                contract corpContract = _contractRequestTransformer.TransformToCorpContract(childContract);
+                Contract corpContract = _contractRequestTransformer.TransformToCorpContract(childContract);
 
                 List<ApprovedContractInfo> siblingApprovedContractsForDocumentGeneration = await 
                      _siblingApprovedContractService.GetSiblingApprovedContractsForDocumentGeneration(
@@ -140,7 +140,7 @@
             _contractStorage.UploadContract(storageKey, contract);
         }
 
-        private async Task SendDocumentGenerationCommand(contract corpContract, string masterContractNumber, IMessageHandlerContext context)
+        private async Task SendDocumentGenerationCommand(Contract corpContract, string masterContractNumber, IMessageHandlerContext context)
         {
             var message = new DocumentGenerationCommand
             {

@@ -17,7 +17,8 @@
     using Utilities;
     using Utilities.DTO;
     using System.Threading.Tasks;
-    
+    using NUnit.Framework.Legacy;
+
 
     [Binding]
     public class CreateCdaReportSteps
@@ -27,7 +28,7 @@
 
         public int DelayTime
         {
-            get { return Convert.ToInt32(ConfigurationManager.AppSettings["DelayTime"]); }
+            get { return Convert.ToInt32(TestConfiguration.Configuration["Azure:DelayTime"]); }
         }
 
         [Given(@"[T|t]he following CDA report is run")]
@@ -48,16 +49,16 @@
                 maxNumChecks: 40,
                 waitIntervalSeconds: 7);
 
-            Assert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(), "The report csv file {0} was not created", reportName);
+            ClassicAssert.IsTrue(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(), "The report csv file {0} was not created", reportName);
         }
 
         [Given(@"there is no CDA report named '(.*)'")]
         public void GivenThereIsNoCdaReportNamed(string reportName)
         {
-            string cdaBlobContainerName = $"fcs-report-{ConfigurationManager.AppSettings["StorageTableSuffix"].ToLower()}";
+            string cdaBlobContainerName = $"fcs-report-{TestConfiguration.Configuration["StorageTableSuffix"].ToLower()}";
             AzureBlobStorageHelper.DeleteBlobIfExists(containerName: cdaBlobContainerName, fileName: reportName);
 
-            SharepointDocumentRepository.DeleteFileIfExists(listName: ConfigurationManager.AppSettings["CdaReportListName"], fileName: reportName);
+            SharepointDocumentRepository.DeleteFileIfExists(listName: TestConfiguration.Configuration["Reporting:CdaReportListName"], fileName: reportName);
         }
 
         [Given(@"the following rows are present in the report")]
@@ -94,7 +95,7 @@
             Dictionary<CdaReportComparisonObjectKey, CdaReportComparisonObject> actualResultsDictionary = actualReportResults.ToDictionary(r => r.GetKey());
 
             var expectedRowsNotInCda = expectedReportResults.Where(expected => !actualResultsDictionary.ContainsKey(expected.GetKey())).ToList();
-            Assert.IsTrue(!expectedRowsNotInCda.Any(),
+            ClassicAssert.IsTrue(!expectedRowsNotInCda.Any(),
                 $"These rows are not present - {string.Join(Environment.NewLine, expectedRowsNotInCda.Select(e => e.GetKey().ToString()))}");
 
             // now check that each of the property values is present
@@ -102,7 +103,7 @@
             {
                 CdaReportComparisonObject actual = actualResultsDictionary[expected.GetKey()];
                 IReadOnlyCollection<string> mismatches = CdaReportComparisonObjectComparisonService.CompareObjects(expected, actual);
-                Assert.IsTrue(!mismatches.Any(), string.Join(Environment.NewLine, mismatches));
+                ClassicAssert.IsTrue(!mismatches.Any(), string.Join(Environment.NewLine, mismatches));
             });
         }
         [Given(@"the following ADF Pipeline run")]
@@ -138,7 +139,7 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(contractExists,
+                ClassicAssert.IsTrue(contractExists,
                     $"CRM Contract does not exist in the CRM replicated database. ContractNumber {contractNumber}, ContractVersionNumber {versionNumber}");
             });
         } 

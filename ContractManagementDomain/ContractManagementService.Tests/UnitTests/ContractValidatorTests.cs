@@ -13,9 +13,9 @@ namespace SFA.FCT.ContractManagementService.Test.UnitTests
     [TestClass]
     public class ContractValidatorTests
     {
-        private static CorporateContract.contract Master(int childCount, CorporateContract.hierarchyType hierarchy = CorporateContract.hierarchyType.MASTERCONTRACT, string status = "Draft")
+        private static CorporateContract.Contract Master(int childCount, CorporateContract.hierarchyType hierarchy = CorporateContract.hierarchyType.MASTERCONTRACT, string status = "Draft")
         {
-            var master = new CorporateContract.contract
+            var master = new CorporateContract.Contract
             {
                 hierarchyType = hierarchy,
                 contracts = new List<CorporateContract.contractType>()
@@ -63,7 +63,7 @@ namespace SFA.FCT.ContractManagementService.Test.UnitTests
             Assert.IsFalse(ContractValidator.ValidateMasterAndChildContracts(Master(0), out var error));
             Assert.AreEqual("ContractManageService called with no child contracts.", error);
 
-            Assert.IsFalse(ContractValidator.ValidateMasterAndChildContracts(new CorporateContract.contract { contracts = null }, out error));
+            Assert.IsFalse(ContractValidator.ValidateMasterAndChildContracts(new CorporateContract.Contract { contracts = null }, out error));
             Assert.AreEqual("ContractManageService called with no child contracts.", error);
         }
 

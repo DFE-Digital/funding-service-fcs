@@ -1,106 +1,112 @@
-﻿namespace Datafix.Tests.Automation.Releases.R77.Audit
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using Azure.Messaging.ServiceBus;
+using Datafix.Tests.Automation.Releases.R77.Audit;
+using Newtonsoft.Json.Linq;
+using Operations.DataStore.Extensions;
+
+public static class BrokeredMessageExtensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.IO.Compression;
-    using System.Linq;
-    using System.Runtime.Serialization.Formatters.Binary;
-    using Microsoft.ServiceBus.Messaging;
-    using Newtonsoft.Json.Linq;
-    using Operations.DataStore.Extensions;
-
-    public static class BrokeredMessageExtensions
+    private static readonly IReadOnlyCollection<string> BusinessKeyAttributes = new List<string>
     {
-        private static readonly IReadOnlyCollection<string> BusinessKeyAttributes = new List<string>
-            { "ContractNumber", "AllocationNumber", "VersionNumber", "Ukprn" };
+        "ContractNumber", "AllocationNumber", "VersionNumber", "Ukprn"
+    };
 
-        public static FcsMessage ToFcsMessage(this BrokeredMessage message)
-        {
-            var messageBytes = message.GetBody<byte[]>();
-            var unZippedBytes = GetUnZippedBytes(messageBytes);
-            var text = GetStringFromBytes(unZippedBytes);
-            var timeSentString = message.GetNServiceBusProperty("NServiceBus.TimeSent");
-            // e.g 2019-12-16 07:47:59:931312 Z
-            var timeSent = DateTime.ParseExact(
-                timeSentString,
-                "yyyy-MM-dd HH:mm:ss:ffffff 'Z'",
-                null,
-                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
+    public static FcsMessage ToFcsMessage(this ServiceBusReceivedMessage message)
+    {
+        // ✅ FIX: Get body correctly
+        var messageBytes = message.Body.ToArray();
 
-            return new FcsMessage(
-                messageBytes,
-                message.GetMessageType(),
-                timeSent,
-                Guid.Parse(message.MessageId),
-                message.GetNServiceBusProperty("NServiceBus.OriginatingEndpoint"),
-                message.GetNServiceBusProperty("NServiceBus.ProcessingEndpoint"),
-                GetBusinessKeyFromMessage(text),
-                ConvertObjectToBytes(message.Properties));
-        }
+        var unZippedBytes = GetUnZippedBytes(messageBytes);
+        var text = GetStringFromBytes(unZippedBytes);
 
-        private static string GetMessageType(this BrokeredMessage message)
-        {
-            return message.Properties["NServiceBus.EnclosedMessageTypes"].ToString().Split(',')[0];
-        }
+        var timeSentString = GetNServiceBusProperty(message, "NServiceBus.TimeSent");
 
-        private static string GetNServiceBusProperty(this BrokeredMessage message, string propertyName)
-        {
-            return message.Properties.GetStringValueOrDefault(propertyName, "Not Present");
-        }
+        var timeSent = DateTime.ParseExact(
+            timeSentString,
+            "yyyy-MM-dd HH:mm:ss:ffffff 'Z'",
+            null,
+            DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
 
-        private static string GetBusinessKeyFromMessage(string messageText)
-        {
-            const int columnLength = 80;
-            var jsonToken = JToken.Parse(messageText);
-            var businessKeysWithValues = BusinessKeyAttributes.Select(a => new { Attribute = a, Values = jsonToken.SelectTokens($"..{a}").FirstOrDefault() })
-                .Where(bk => bk.Values != null)
-                .Select(bk => $"{bk.Attribute}={bk.Values}")
-                .ToList();
-            var businessKey = string.Join(", ", businessKeysWithValues);
-            var length = businessKey.Length > columnLength ? columnLength : businessKey.Length;
+        return new FcsMessage(
+            messageBytes,
+            GetMessageType(message),
+            timeSent,
+            Guid.Parse(message.MessageId),
+            GetNServiceBusProperty(message, "NServiceBus.OriginatingEndpoint"),
+            GetNServiceBusProperty(message, "NServiceBus.ProcessingEndpoint"),
+            GetBusinessKeyFromMessage(text),
+            ConvertObjectToBytes(message.ApplicationProperties)  // ✅ updated
+        );
+    }
 
-            var key = businessKey.Substring(0, length);
+    private static string GetMessageType(ServiceBusReceivedMessage message)
+    {
+        return message.ApplicationProperties["NServiceBus.EnclosedMessageTypes"]
+            .ToString()
+            .Split(',')[0];
+    }
 
-            return string.IsNullOrEmpty(key) ? "None available" : key;
-        }
+    private static string GetNServiceBusProperty(ServiceBusReceivedMessage message, string propertyName)
+    {
+        return message.ApplicationProperties.TryGetValue(propertyName, out var value)
+            ? value?.ToString()
+            : "Not Present";
+    }
 
-        private static byte[] ConvertObjectToBytes(object obj)
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            using (MemoryStream ms = new MemoryStream())
+    private static string GetBusinessKeyFromMessage(string messageText)
+    {
+        const int columnLength = 80;
+
+        var jsonToken = JToken.Parse(messageText);
+
+        var businessKeysWithValues = BusinessKeyAttributes
+            .Select(a => new
             {
-                bf.Serialize(ms, obj);
-                return ms.ToArray();
-            }
-        }
+                Attribute = a,
+                Values = jsonToken.SelectTokens($"..{a}").FirstOrDefault()
+            })
+            .Where(bk => bk.Values != null)
+            .Select(bk => $"{bk.Attribute}={bk.Values}")
+            .ToList();
 
-        private static string GetStringFromBytes(byte[] bytes)
+        var businessKey = string.Join(", ", businessKeysWithValues);
+
+        var length = businessKey.Length > columnLength ? columnLength : businessKey.Length;
+
+        var key = businessKey.Substring(0, length);
+
+        return string.IsNullOrEmpty(key) ? "None available" : key;
+    }
+
+    private static byte[] ConvertObjectToBytes(object obj)
+    {
+        return System.Text.Encoding.UTF8.GetBytes(obj.ToString());
+    }
+
+    private static string GetStringFromBytes(byte[] bytes)
+    {
+        using var ms = new MemoryStream(bytes);
+        using var sr = new StreamReader(ms);
+        return sr.ReadToEnd();
+    }
+
+    private static byte[] GetUnZippedBytes(byte[] messageBytes)
+    {
+        if (messageBytes.IsZipped())
         {
-            using (MemoryStream ms = new MemoryStream(bytes))
-            {
-                using (StreamReader sr = new StreamReader(ms))
-                {
-                    return sr.ReadToEnd();
-                }
-            }
+            using var bigStream = new GZipStream(new MemoryStream(messageBytes), CompressionMode.Decompress);
+            using var unZippedStream = new MemoryStream();
+
+            bigStream.CopyTo(unZippedStream);
+
+            return unZippedStream.ToArray();
         }
 
-        private static byte[] GetUnZippedBytes(byte[] messageBytes)
-        {
-            if (messageBytes.IsZipped())
-            {
-                using (GZipStream bigStream = new GZipStream(new MemoryStream(messageBytes), CompressionMode.Decompress))
-                {
-                    MemoryStream unZippedStream = new MemoryStream();
-                    bigStream.CopyToAsync(unZippedStream).Wait();
-
-                    return unZippedStream.ToArray();
-                }
-            }
-
-            return messageBytes;
-        }
+        return messageBytes;
     }
 }

@@ -1,22 +1,19 @@
-namespace ContractRequestDomain.EngagementWatcher.Tests
+﻿namespace ContractRequestDomain.EngagementWatcher.Tests
 {
     using System.Collections.Generic;
-    using SFA.FCT.CrossDomain.Integration.Common.Storage;
-    using EngagementWatcher.Services;
-    using Handlers;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Services;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Handlers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using SFA.FCT.ContractRequestDomain.Common.Commands;
     using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using IoC;
     using SFA.FCT.Framework.Logging;
     using System.Configuration;
     using System.Linq;
     using Castle.MicroKernel.Lifestyle;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using EngagementWatcher.Handlers;
     using NServiceBus.Testing;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
 
@@ -51,8 +48,7 @@ namespace ContractRequestDomain.EngagementWatcher.Tests
             ConfigurationManager.AppSettings["DasEngagements.UseStub"] = "true";
 
             IWindsorContainer container = new WindsorContainer()
-                .Install(new WindsorInstaller(new LoggerFactory()))
-                .Register(Component.For<IAzureTableStore>().Instance(Mock.Of<IAzureTableStore>()).Named("AzureTableStoreMock").IsDefault())
+                //.Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<InitiateEngagementPollingCommandHandler>());
             container.BeginScope();
 
@@ -70,7 +66,7 @@ namespace ContractRequestDomain.EngagementWatcher.Tests
             ConfigurationManager.AppSettings["DasEngagements.UseStub"] = "false";
 
             IWindsorContainer container = new WindsorContainer()
-                .Install(new WindsorInstaller(new LoggerFactory()))
+                //.Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<InitiateEngagementPollingCommandHandler>());
             container.BeginScope();
 

@@ -7,6 +7,6 @@
 
     public interface IApprovalOnwardsContractAtomFeedService
     {
-        AtomItemCreationResult AddClosedContract(contract corporateContract, Guid feedItemId, ConnectionInfo connectionInfo);
+        AtomItemCreationResult AddClosedContract(Contract corporateContract, Guid feedItemId, ConnectionInfo connectionInfo);
     }
 }

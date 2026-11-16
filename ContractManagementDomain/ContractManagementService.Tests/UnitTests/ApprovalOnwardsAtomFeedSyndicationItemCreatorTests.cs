@@ -20,7 +20,7 @@
             // arrange
             AllContractAtomFeedSyndicationItemCreator creator =
                 new AllContractAtomFeedSyndicationItemCreator(MediaType);
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
             string key = "ABC-123:1:0";
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, key, AtomItemType.ClosedContract, xml => true);
@@ -40,7 +40,7 @@
             // arrange
             AllContractAtomFeedSyndicationItemCreator creator =
                 new AllContractAtomFeedSyndicationItemCreator(MediaType);
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
             string key = "ABC-123:1:0";
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, key, AtomItemType.ApprovedContract, xml => true);
@@ -59,7 +59,7 @@
         {
             // arrange
             AllContractAtomFeedSyndicationItemCreator creator = new AllContractAtomFeedSyndicationItemCreator(MediaType);
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
             const string key = "ABC-123:1:0";
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, key, AtomItemType.CancelledContractTermination, xml => true);
@@ -78,7 +78,7 @@
         {
             // arrange
             AllContractAtomFeedSyndicationItemCreator creator = new AllContractAtomFeedSyndicationItemCreator(MediaType);
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
             const string key = "ABC-123:1:0";
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, key, AtomItemType.ContractTerminationDetailsUpdated, xml => true);
@@ -92,14 +92,14 @@
             Assert.AreEqual("Termination details for a contract have been updated", contractTerminationDetailsUpdatedItem.Categories.First().Label, "Category label is incorrect");
         }
 
-        private static CrossDomain.Integration.Entities.CorporateContract.contract GetCorpContract()
+        private static CrossDomain.Integration.Entities.CorporateContract.Contract GetCorpContract()
         {
             using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ContractManagementService.Tests.Resources.masterContract.xml");
             var document = XDocument.Load(stream);
 
             XmlSerializer serializer =
-                new XmlSerializer(typeof(CrossDomain.Integration.Entities.CorporateContract.contract));
-            return (CrossDomain.Integration.Entities.CorporateContract.contract)
+                new XmlSerializer(typeof(CrossDomain.Integration.Entities.CorporateContract.Contract));
+            return (CrossDomain.Integration.Entities.CorporateContract.Contract)
                 serializer.Deserialize(document.Root.CreateReader());
         }
     }

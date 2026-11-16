@@ -1,27 +1,52 @@
 ﻿namespace AllocationDeliveryDomain.Endpoint.Services
 {
-    using Microsoft.ServiceBus;
+    using Azure.Messaging.ServiceBus.Administration;
     using System.Configuration;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class AzureServiceBusQueryService : IAzureServiceBusQueryService
     {
         public long GetQueueMessageCount(string queueName)
         {
-            NamespaceManager namespaceManager = CreateNamespaceManager();
-            return namespaceManager.GetQueue(queueName).MessageCount;
+            var client = CreateAdministrationClient();
+
+            var runtimeProperties = client
+                .GetQueueRuntimePropertiesAsync(queueName)
+                .GetAwaiter()
+                .GetResult();
+
+            return runtimeProperties.Value.ActiveMessageCount;
         }
+
 
         public long GetTopicMessageCount(string topicName)
         {
-            NamespaceManager namespaceManager = CreateNamespaceManager();
-            return namespaceManager.GetSubscriptions(topicName).Sum(s => s.MessageCount);
+            return GetTopicMessageCountAsync(topicName).GetAwaiter().GetResult();
         }
 
-        private NamespaceManager CreateNamespaceManager()
+        public async Task<long> GetTopicMessageCountAsync(string topicName)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
-            return NamespaceManager.CreateFromConnectionString(connectionString);
+            var client = CreateAdministrationClient();
+
+            long total = 0;
+
+            await foreach (var sub in client.GetSubscriptionsRuntimePropertiesAsync(topicName))
+            {
+                total += sub.ActiveMessageCount;
+            }
+
+            return total;
+        }
+
+
+        private ServiceBusAdministrationClient CreateAdministrationClient()
+        {
+            string connectionString = ConfigurationManager
+                .ConnectionStrings["NServiceBus/Transport"]
+                .ConnectionString;
+
+            return new ServiceBusAdministrationClient(connectionString);
         }
     }
 }

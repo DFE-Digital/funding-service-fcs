@@ -1,39 +1,60 @@
-﻿namespace SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Repositories
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using AutoMapper;
-    using Model;
-    using MoreLinq;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
-    using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Dtos;
+﻿
+using AutoMapper;
+using Microsoft.Extensions.Logging;
+using MoreLinq;
+using SFA.FCT.CrossDomain.Integration.Entities.Data;
+using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Dtos;
+using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Repositories
+{
     public class DeliverablePaymentRepository : IDeliverablePaymentRepository
     {
+        // --------------------------------------------------------------------
+        // STATIC MAPPING SETUP - replaces old Mapper.CreateMap(...)
+        // --------------------------------------------------------------------
+        private static readonly IMapper _mapper;
+
         static DeliverablePaymentRepository()
         {
-            Mapper.CreateMap<DeliverablePayment, DeliverablePayment>();
-        }
-
-        public IReadOnlyCollection<DeliverablePayment> GetDeliverablePaymentsForAllocation(string allocationNumber, int versionNumber,
-            ConnectionInfo connectionInfo)
-        {
-            using (var context = new PaymentSchedulePolicyContext(connectionInfo))
+            var loggerFactory = LoggerFactory.Create(builder =>
             {
-                return context.DeliverablePayments.Where(dp => dp.AllocationNumber == allocationNumber
-                                                                                     && dp.VersionNumber == versionNumber)
-                                                                                     .ToList();
-            }
+                builder.AddDebug();
+                builder.AddConsole();
+            });
+            var cfgExpr = new MapperConfigurationExpression();
+            cfgExpr.CreateMap<DeliverablePayment, DeliverablePayment>();
+            var config = new MapperConfiguration(cfgExpr, loggerFactory);
+            _mapper = config.CreateMapper();
         }
 
-        public IReadOnlyCollection<DeliverablePeriodActualVolume> GetDeliverablePeriodActualVolumesForAllocation(string allocationNumber, int versionNumber,
-            ConnectionInfo connectionInfo)
+        // --------------------------------------------------------------------
+        // REPOSITORY METHODS (unchanged)
+        // --------------------------------------------------------------------
+
+        public IReadOnlyCollection<DeliverablePayment> GetDeliverablePaymentsForAllocation(
+            string allocationNumber, int versionNumber, ConnectionInfo connectionInfo)
         {
             using (var context = new PaymentSchedulePolicyContext(connectionInfo))
             {
                 return context.DeliverablePayments
-                    .Where(dp => dp.AllocationNumber == allocationNumber && dp.VersionNumber == versionNumber)
+                    .Where(dp => dp.AllocationNumber == allocationNumber &&
+                                 dp.VersionNumber == versionNumber)
+                    .ToList();
+            }
+        }
+
+        public IReadOnlyCollection<DeliverablePeriodActualVolume> GetDeliverablePeriodActualVolumesForAllocation(
+            string allocationNumber, int versionNumber, ConnectionInfo connectionInfo)
+        {
+            using (var context = new PaymentSchedulePolicyContext(connectionInfo))
+            {
+                return context.DeliverablePayments
+                    .Where(dp => dp.AllocationNumber == allocationNumber &&
+                                 dp.VersionNumber == versionNumber)
                     .Select(dp => new { dp.Period, dp.DeliverableCode, dp.ActualVolume })
                     .AsEnumerable()
                     .Select(dp => new DeliverablePeriodActualVolume(dp.Period, dp.DeliverableCode, dp.ActualVolume))
@@ -41,14 +62,21 @@
             }
         }
 
-        public IReadOnlyCollection<DeliverableActual> GetSummedActualsByDeliverableForAllocation(string allocationNumber, int versionNumber, ConnectionInfo connectionInfo)
+        public IReadOnlyCollection<DeliverableActual> GetSummedActualsByDeliverableForAllocation(
+            string allocationNumber, int versionNumber, ConnectionInfo connectionInfo)
         {
             using (var context = new PaymentSchedulePolicyContext(connectionInfo))
             {
                 return context.DeliverablePayments
-                    .Where(dp => dp.AllocationNumber == allocationNumber && dp.VersionNumber == versionNumber)
+                    .Where(dp => dp.AllocationNumber == allocationNumber &&
+                                 dp.VersionNumber == versionNumber)
                     .GroupBy(dp => dp.DeliverableCode)
-                    .Select(g => new { g.Key, Value = g.Sum(dp => dp.ActualValue), Volume = g.Sum(dp => dp.ActualVolume) })
+                    .Select(g => new
+                    {
+                        g.Key,
+                        Value = g.Sum(dp => dp.ActualValue),
+                        Volume = g.Sum(dp => dp.ActualVolume)
+                    })
                     .AsEnumerable()
                     .Select(g => new DeliverableActual(g.Key, g.Value, g.Volume))
                     .ToList();
@@ -57,24 +85,30 @@
 
         public IReadOnlyCollection<DeliverablePayment>
             CopyDeliverablePaymentsWithoutPlannedValueOnCertainDeliverableCodes(
-            IReadOnlyCollection<DeliverablePayment> deliverablePayments,
-            IReadOnlyCollection<int> deliverableCodesWherePlannedValueShouldBeRemoved)
+                IReadOnlyCollection<DeliverablePayment> deliverablePayments,
+                IReadOnlyCollection<int> deliverableCodesWherePlannedValueShouldBeRemoved)
         {
-            return deliverablePayments.Select(dp => CreateDeliverablePaymentCopy(dp, deliverableCodesWherePlannedValueShouldBeRemoved)).ToList();
+            return deliverablePayments
+                .Select(dp => CreateDeliverablePaymentCopy(dp, deliverableCodesWherePlannedValueShouldBeRemoved))
+                .ToList();
         }
 
-        public void AddOrUpdateDeliverablePaymentsForAllocation(IReadOnlyCollection<DeliverablePayment> deliverablePayments, string allocationNumber, int version,
-            ConnectionInfo connectionInfo)
+        public void AddOrUpdateDeliverablePaymentsForAllocation(
+            IReadOnlyCollection<DeliverablePayment> deliverablePayments,
+            string allocationNumber, int version, ConnectionInfo connectionInfo)
         {
             using (var context = new PaymentSchedulePolicyContext(connectionInfo))
             {
                 var existingPayments = context.DeliverablePayments
-                    .Where(dp => dp.AllocationNumber == allocationNumber && dp.VersionNumber == version)
+                    .Where(dp => dp.AllocationNumber == allocationNumber &&
+                                 dp.VersionNumber == version)
                     .ToList();
 
                 deliverablePayments.ForEach(dp =>
                 {
-                    var existingDeliverablePayment = existingPayments.FirstOrDefault(exDp => exDp.Equals(dp));
+                    var existingDeliverablePayment =
+                        existingPayments.FirstOrDefault(exDp => exDp.Equals(dp));
+
                     if (existingDeliverablePayment != null)
                     {
                         existingDeliverablePayment.BalancingPaymentAmount = dp.BalancingPaymentAmount;
@@ -95,20 +129,23 @@
             }
         }
 
-        public void UpdateActualValuesAndVolumes(IReadOnlyCollection<DeliverablePayment> deliverablePayments, ConnectionInfo connectionInfo)
+        public void UpdateActualValuesAndVolumes(
+            IReadOnlyCollection<DeliverablePayment> deliverablePayments, ConnectionInfo connectionInfo)
         {
             string allocationNumber = deliverablePayments.First().AllocationNumber;
             int versionNumber = deliverablePayments.First().VersionNumber;
 
             using (var context = new PaymentSchedulePolicyContext(connectionInfo))
             {
-                IReadOnlyCollection<DeliverablePayment> existingPayments = context.DeliverablePayments
-                    .Where(dp => dp.AllocationNumber == allocationNumber && dp.VersionNumber == versionNumber)
+                var existingPayments = context.DeliverablePayments
+                    .Where(dp => dp.AllocationNumber == allocationNumber &&
+                                 dp.VersionNumber == versionNumber)
                     .ToList();
 
                 deliverablePayments.ForEach(dp =>
                 {
-                    DeliverablePayment existingDeliverablePayment = existingPayments.SingleOrDefault(exDp => exDp.Equals(dp));
+                    var existingDeliverablePayment =
+                        existingPayments.SingleOrDefault(exDp => exDp.Equals(dp));
 
                     if (existingDeliverablePayment != null)
                     {
@@ -125,19 +162,12 @@
         {
             using (var context = new PaymentSchedulePolicyContext(connectionInfo))
             {
-                IReadOnlyCollection<int> versionNumbers = context.DeliverablePayments
-                        .Where(dp => dp.AllocationNumber == allocationNumber)
-                        .Select(dp => dp.VersionNumber)
-                        .ToList();
+                var versions = context.DeliverablePayments
+                    .Where(dp => dp.AllocationNumber == allocationNumber)
+                    .Select(dp => dp.VersionNumber)
+                    .ToList();
 
-                int? maxVersionNumber = null;
-
-                if (versionNumbers.Any())
-                {
-                    maxVersionNumber = versionNumbers.Max();
-                }
-
-                return maxVersionNumber;
+                return versions.Any() ? versions.Max() : (int?)null;
             }
         }
 
@@ -147,21 +177,21 @@
             {
                 deliverablePayment.LastModifiedDate = DateTime.UtcNow;
 
-                DeliverablePayment existingDeliverablePayment = context.DeliverablePayments.Find(
+                var existing = context.DeliverablePayments.Find(
                     deliverablePayment.AllocationNumber,
                     deliverablePayment.VersionNumber,
                     deliverablePayment.DeliverableCode,
                     deliverablePayment.Period);
 
-                if (existingDeliverablePayment != null)
+                if (existing != null)
                 {
-                    existingDeliverablePayment.BalancingPaymentAmount = deliverablePayment.BalancingPaymentAmount;
-                    existingDeliverablePayment.CappedPaymentAmount = deliverablePayment.CappedPaymentAmount;
-                    existingDeliverablePayment.NetPaymentAmount = deliverablePayment.NetPaymentAmount;
-                    existingDeliverablePayment.ActualValue = deliverablePayment.ActualValue;
-                    existingDeliverablePayment.ActualVolume = deliverablePayment.ActualVolume;
-                    existingDeliverablePayment.ProfilePaymentAmount = deliverablePayment.ProfilePaymentAmount;
-                    existingDeliverablePayment.ReconciliationPaymentAmount = deliverablePayment.ReconciliationPaymentAmount;
+                    existing.BalancingPaymentAmount = deliverablePayment.BalancingPaymentAmount;
+                    existing.CappedPaymentAmount = deliverablePayment.CappedPaymentAmount;
+                    existing.NetPaymentAmount = deliverablePayment.NetPaymentAmount;
+                    existing.ActualValue = deliverablePayment.ActualValue;
+                    existing.ActualVolume = deliverablePayment.ActualVolume;
+                    existing.ProfilePaymentAmount = deliverablePayment.ProfilePaymentAmount;
+                    existing.ReconciliationPaymentAmount = deliverablePayment.ReconciliationPaymentAmount;
                 }
                 else
                 {
@@ -171,15 +201,16 @@
                 context.SaveChanges();
             }
         }
-
-        private static DeliverablePayment CreateDeliverablePaymentCopy(DeliverablePayment deliverablePayment, IReadOnlyCollection<int> deliverableCodesWherePlannedValueShouldBeRemoved)
+        private static DeliverablePayment CreateDeliverablePaymentCopy(
+            DeliverablePayment deliverablePayment,
+            IReadOnlyCollection<int> deliverableCodesWherePlannedValueShouldBeRemoved)
         {
-            bool removePlannedValue =
+            bool removePlanned =
                 deliverableCodesWherePlannedValueShouldBeRemoved.Contains(deliverablePayment.DeliverableCode);
 
-            DeliverablePayment copy = Mapper.Map<DeliverablePayment, DeliverablePayment>(deliverablePayment);
+            DeliverablePayment copy = _mapper.Map<DeliverablePayment>(deliverablePayment);
 
-            if (removePlannedValue)
+            if (removePlanned)
             {
                 copy.PlannedValue = 0;
             }

@@ -10,6 +10,6 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.ContractDocumentMerger
 {
     public interface IContractDocumentManager
     {
-        void MergeContractDocuments(contract contractDocument);
+        void MergeContractDocuments(Contract contractDocument);
     }
 }

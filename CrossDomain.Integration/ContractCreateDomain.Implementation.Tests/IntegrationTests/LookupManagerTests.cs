@@ -82,7 +82,7 @@
 
             CorporateContract.contractAllocationsContractAllocation contractAllocation = new CorporateContract.contractAllocationsContractAllocation
             {
-                period = new CorporateContract.period
+                period = new CorporateContract.Period
                 {
                     period1 = "1799",
                     periodType = new CorporateContract.periodTypeType
@@ -120,7 +120,7 @@
             // arrange
             const string fundingPeriod = "LEVY1799";
 
-            CorporateContract.period period = new CorporateContract.period
+            CorporateContract.Period period = new CorporateContract.Period
             {
                 period1 = "1799",
                 periodType = new CorporateContract.periodTypeType

@@ -129,7 +129,7 @@
             // Arrange
             var masterContract = new contractType
             {
-                CRMIntent = intent.UpdateDraft,
+                CRMIntent = Intent.UpdateDraft,
                 hierarchyType = hierarchyType.MASTERCONTRACT,
                 contractNumber = "SFA1",
                 contracts = new List<contractType>
@@ -159,7 +159,7 @@
             // Arrange
             var masterContract = new contractType
             {
-                CRMIntent = intent.UpdateDraft,
+                CRMIntent = Intent.UpdateDraft,
                 hierarchyType = hierarchyType.MASTERCONTRACT,
                 contracts = new List<contractType>
                 {
@@ -196,7 +196,7 @@
                 {
                     new contractType
                     {
-                        CRMIntent = intent.UpdateDraft,
+                        CRMIntent = Intent.UpdateDraft,
                         hierarchyType = hierarchyType.CONTRACT,
                         contractNumber = "1"
                     }
@@ -225,7 +225,7 @@
                 {
                     new contractType
                     {
-                        CRMIntent = intent.UpdateDraft,
+                        CRMIntent = Intent.UpdateDraft,
                         hierarchyType = hierarchyType.CONTRACT
                     }
                 }
@@ -252,12 +252,12 @@
                 {
                     new contractType
                     {
-                        CRMIntent = intent.UpdateDraft,
+                        CRMIntent = Intent.UpdateDraft,
                         hierarchyType = hierarchyType.CONTRACT
                     },
                     new contractType
                     {
-                        CRMIntent = intent.UpdateDraft,
+                        CRMIntent = Intent.UpdateDraft,
                         hierarchyType = hierarchyType.CONTRACT
                     }
                 }
@@ -283,12 +283,12 @@
                 {
                     new contractType
                     {
-                        CRMIntent = intent.UpdateDraft,
+                        CRMIntent = Intent.UpdateDraft,
                         hierarchyType = hierarchyType.CONTRACT
                     },
                     new contractType
                     {
-                        CRMIntent = intent.UpdateDraft,
+                        CRMIntent = Intent.UpdateDraft,
                         hierarchyType = hierarchyType.CONTRACT,
                         contractNumber = "TEST"
                     }
@@ -329,7 +329,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.UpdateDraft,
+                                CRMIntent = Intent.UpdateDraft,
                                 contractAllocationNumber = "1"
                             }
                         }
@@ -367,7 +367,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.UpdateDraft
+                                CRMIntent = Intent.UpdateDraft
                             }
                         }
                     }
@@ -404,7 +404,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.UpdateDraft
+                                CRMIntent = Intent.UpdateDraft
                             }
                         }
                     },
@@ -416,7 +416,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.UpdateDraft
+                                CRMIntent = Intent.UpdateDraft
                             }
                         }
                     }
@@ -453,7 +453,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.UpdateDraft
+                                CRMIntent = Intent.UpdateDraft
                             }
                         }
                     },
@@ -465,7 +465,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.UpdateDraft,
+                                CRMIntent = Intent.UpdateDraft,
                                 contractAllocationNumber = "TEST"
                             }
                         }
@@ -507,7 +507,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.DeleteDraft,
+                                CRMIntent = Intent.DeleteDraft,
                                 contractAllocationNumber = "1"
                             }
                         }
@@ -545,7 +545,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.DeleteDraft
+                                CRMIntent = Intent.DeleteDraft
                             }
                         }
                     }
@@ -582,7 +582,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.DeleteDraft
+                                CRMIntent = Intent.DeleteDraft
                             }
                         }
                     },
@@ -594,7 +594,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.DeleteDraft
+                                CRMIntent = Intent.DeleteDraft
                             }
                         }
                     }
@@ -631,7 +631,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.DeleteDraft
+                                CRMIntent = Intent.DeleteDraft
                             }
                         }
                     },
@@ -643,7 +643,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.DeleteDraft,
+                                CRMIntent = Intent.DeleteDraft,
                                 contractAllocationNumber = "TEST"
                             }
                         }
@@ -865,7 +865,7 @@
                                 {
                                     new contractDeliverable
                                     {
-                                        CRMIntent = intent.DeleteDraft,
+                                        CRMIntent = Intent.DeleteDraft,
                                         deliverable = new deliverableType
                                         {
                                             deliverableCode = 2015,
@@ -912,7 +912,7 @@
                                 {
                                     new contractDeliverable
                                     {
-                                        CRMIntent = intent.DeleteDraft,
+                                        CRMIntent = Intent.DeleteDraft,
                                         deliverable = new deliverableType
                                         {
                                             deliverableCode = 2015,
@@ -958,13 +958,13 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.New
+                                CRMIntent = Intent.New
                             },
                             new contractAllocation()
                         }
                     }
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     organisationStatus = OrgStatus.Active
                 }
@@ -993,7 +993,7 @@
                     {
                         hierarchyType = hierarchyType.CONTRACT,
                         contractNumber = "1",
-                        contractor = new contractor
+                        contractor = new Contractor
                         {
                             organisationStatus = "Inactive"
                         },
@@ -1001,7 +1001,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.New
+                                CRMIntent = Intent.New
                             },
                             new contractAllocation()
                         }
@@ -1031,7 +1031,7 @@
                     {
                         hierarchyType = hierarchyType.CONTRACT,
                         contractNumber = "1",
-                        contractor = new contractor
+                        contractor = new Contractor
                         {
                             organisationStatus = "In Liquidation"
                         },
@@ -1039,7 +1039,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.New
+                                CRMIntent = Intent.New
                             },
                             new contractAllocation()
                         }
@@ -1070,7 +1070,7 @@
                     {
                         hierarchyType = hierarchyType.CONTRACT,
                         contractNumber = "1",
-                        contractor = new contractor
+                        contractor = new Contractor
                         {
                             organisationStatus = "Dissolved"
                         },
@@ -1078,7 +1078,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.New
+                                CRMIntent = Intent.New
                             },
                             new contractAllocation()
                         }
@@ -1109,7 +1109,7 @@
                     {
                         hierarchyType = hierarchyType.CONTRACT,
                         contractNumber = "1",
-                        contractor = new contractor
+                        contractor = new Contractor
                         {
                             organisationStatus = "Deleted"
                         },
@@ -1117,7 +1117,7 @@
                         {
                             new contractAllocation
                             {
-                                CRMIntent = intent.New
+                                CRMIntent = Intent.New
                             },
                             new contractAllocation()
                         }
@@ -1145,7 +1145,7 @@
             // Arrange
             var masterContract = new contractType
             {
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     organisationStatus = OrgStatus.Active
                 },
@@ -1163,7 +1163,7 @@
                                 {
                                     new contractDeliverable
                                     {
-                                        CRMIntent = intent.New
+                                        CRMIntent = Intent.New
                                     },
                                     new contractDeliverable()
                                 }
@@ -1197,7 +1197,7 @@
                     {
                         hierarchyType = hierarchyType.CONTRACT,
                         contractNumber = "1",
-                        contractor = new contractor
+                        contractor = new Contractor
                         {
                             organisationStatus = "Dissolved"
                         },
@@ -1209,7 +1209,7 @@
                                 {
                                     new contractDeliverable
                                     {
-                                        CRMIntent = intent.New
+                                        CRMIntent = Intent.New
                                     },
                                     new contractDeliverable()
                                 }
@@ -1682,22 +1682,22 @@
                             {
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.UpdateDraftAmendment,
+                                    CRMIntent = Intent.UpdateDraftAmendment,
                                     contractAllocationNumber = "APPROVED-ALLOC-001"
                                 },
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.UpdateDraftAmendment,
+                                    CRMIntent = Intent.UpdateDraftAmendment,
                                     contractAllocationNumber = "APPROVED-ALLOC-002"
                                 },
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.DeleteDraftAmendment,
+                                    CRMIntent = Intent.DeleteDraftAmendment,
                                     contractAllocationNumber = "ADDED-BY-AMENDMENT-ALLOC-003"
                                 },
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.New,
+                                    CRMIntent = Intent.New,
                                     contractAllocationNumber = null,
                                 }
                             }
@@ -1733,7 +1733,7 @@
                             {
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.DeleteDraftAmendment,
+                                    CRMIntent = Intent.DeleteDraftAmendment,
                                     contractAllocationNumber = "APPROVED-ALLOC-001"
                                 }
                             }
@@ -1769,7 +1769,7 @@
                             {
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.DeleteDraft,
+                                    CRMIntent = Intent.DeleteDraft,
                                     contractAllocationNumber = "APPROVED-ALLOC-001"
                                 }
                             }
@@ -1822,13 +1822,13 @@
                             {
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.UpdateDraftAmendment,
+                                    CRMIntent = Intent.UpdateDraftAmendment,
                                     contractAllocationNumber = "APPROVED-ALLOC-001",
                                     contractDeliverables = new List<contractDeliverable>
                                     {
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.UpdateDraftAmendment,
+                                            CRMIntent = Intent.UpdateDraftAmendment,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 1
@@ -1836,7 +1836,7 @@
                                         },
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.UpdateDraftAmendment,
+                                            CRMIntent = Intent.UpdateDraftAmendment,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 2
@@ -1846,13 +1846,13 @@
                                 },
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.UpdateDraftAmendment,
+                                    CRMIntent = Intent.UpdateDraftAmendment,
                                     contractAllocationNumber = "APPROVED-ALLOC-002",
                                     contractDeliverables = new List<contractDeliverable>
                                     {
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.UpdateDraftAmendment,
+                                            CRMIntent = Intent.UpdateDraftAmendment,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 1
@@ -1860,7 +1860,7 @@
                                         },
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.UpdateDraftAmendment,
+                                            CRMIntent = Intent.UpdateDraftAmendment,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 2
@@ -1868,7 +1868,7 @@
                                         },
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.DeleteDraftAmendment,
+                                            CRMIntent = Intent.DeleteDraftAmendment,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 3
@@ -1878,14 +1878,14 @@
                                 },
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.DeleteDraftAmendment,
+                                    CRMIntent = Intent.DeleteDraftAmendment,
                                     contractAllocationNumber = "ADDED-BY-AMENDMENT-ALLOC-003",
                                     fundingStreamCode = "FSC-003",
                                     contractDeliverables = new List<contractDeliverable>
                                     {
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.DeleteDraftAmendment,
+                                            CRMIntent = Intent.DeleteDraftAmendment,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 1
@@ -1893,7 +1893,7 @@
                                         },
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.DeleteDraftAmendment,
+                                            CRMIntent = Intent.DeleteDraftAmendment,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 2
@@ -1903,14 +1903,14 @@
                                 },
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.New,
+                                    CRMIntent = Intent.New,
                                     contractAllocationNumber = null,
                                     fundingStreamCode = "FSC-004",
                                     contractDeliverables = new List<contractDeliverable>
                                     {
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.New,
+                                            CRMIntent = Intent.New,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 1
@@ -1918,7 +1918,7 @@
                                         },
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.New,
+                                            CRMIntent = Intent.New,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 2
@@ -1960,13 +1960,13 @@
                             {
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.UpdateDraftAmendment,
+                                    CRMIntent = Intent.UpdateDraftAmendment,
                                     contractAllocationNumber = "APPROVED-ALLOC-001",
                                     contractDeliverables = new List<contractDeliverable>
                                     {
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.DeleteDraftAmendment,
+                                            CRMIntent = Intent.DeleteDraftAmendment,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 1
@@ -2008,13 +2008,13 @@
                             {
                                 new contractAllocation
                                 {
-                                    CRMIntent = intent.UpdateDraftAmendment,
+                                    CRMIntent = Intent.UpdateDraftAmendment,
                                     contractAllocationNumber = "APPROVED-ALLOC-001",
                                     contractDeliverables = new List<contractDeliverable>
                                     {
                                         new contractDeliverable
                                         {
-                                            CRMIntent = intent.DeleteDraft,
+                                            CRMIntent = Intent.DeleteDraft,
                                             deliverable = new deliverableType
                                             {
                                                 deliverableCode = 1

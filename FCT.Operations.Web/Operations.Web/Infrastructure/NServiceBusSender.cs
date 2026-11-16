@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
-
     public class NServiceBusSender : ITransportMessageSender
     {
         public async Task Send<T>(T command, string destination)
@@ -39,33 +38,29 @@
         public static IEndpointInstance CreateSendOnlyEndpoint<TCommand>()
         {
             EndpointConfiguration endpointConfiguration = new EndpointConfiguration("TestSendingEndpoint");
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            endpointConfiguration.SendOnly();
+
             endpointConfiguration.Conventions()
                 .DefiningCommandsAs(t => t == typeof(TCommand));
 
-            // exclude all
-            string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+            string[] assembliesToExclude =
+                Directory.EnumerateFiles(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    "*.dll")
                 .Select(Path.GetFileName)
                 .ToArray();
 
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
+            AssemblyScannerConfiguration scanner =
+                endpointConfiguration.AssemblyScanner();
+
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
 
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
 
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-            endpointConfiguration.SetDiagnosticsPath(".");
-            LogManager.Use<DefaultFactory>().Directory(".");
-
-            endpointConfiguration.AuditProcessedMessagesTo(
-                auditQueue: "audit",
-                timeToBeReceived: TimeSpan.FromDays(7));
-
-            endpointConfiguration.SendFailedMessagesTo(errorQueue: "error");
-
-            return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            return Endpoint.Start(endpointConfiguration)
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }

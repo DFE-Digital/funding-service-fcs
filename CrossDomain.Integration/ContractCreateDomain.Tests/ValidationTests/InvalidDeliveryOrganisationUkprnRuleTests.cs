@@ -5,7 +5,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.ContractCreateDomain.BusinessLogic.Validation.Rules;
     using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
-    using contractor = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractor;
+    using contractor = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Contractor;
     using contractType = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.contractType;
 
     [TestClass]

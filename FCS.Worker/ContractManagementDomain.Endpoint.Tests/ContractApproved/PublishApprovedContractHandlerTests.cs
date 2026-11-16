@@ -44,13 +44,13 @@
             // arrange
             Mock<IApprovedContractAtomFeedItemCreationService> contractAtomFeedItemCreationServiceMock = new Mock<IApprovedContractAtomFeedItemCreationService>();
             contractAtomFeedItemCreationServiceMock
-                .Setup(s => s.AddApprovedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Setup(s => s.AddApprovedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
                 .ReturnsAsync(AtomItemCreationResult.AlreadyPresent);
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
                 .Setup(c => c.GetCorporateContract(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -86,13 +86,13 @@
             // arrange
             Mock<IApprovedContractAtomFeedItemCreationService> contractAtomFeedItemCreationServiceMock = new Mock<IApprovedContractAtomFeedItemCreationService>();
             contractAtomFeedItemCreationServiceMock
-                .Setup(s => s.AddApprovedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Setup(s => s.AddApprovedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
                 .ReturnsAsync(AtomItemCreationResult.Added);
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
                 .Setup(c => c.GetCorporateContract(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -128,13 +128,13 @@
             // arrange
             Mock<IApprovedContractAtomFeedItemCreationService> contractAtomFeedItemCreationServiceMock = new Mock<IApprovedContractAtomFeedItemCreationService>();
             contractAtomFeedItemCreationServiceMock
-                .Setup(s => s.AddApprovedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Setup(s => s.AddApprovedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
                 .ReturnsAsync(AtomItemCreationResult.AlreadyPresentWithSameFeedItemId);
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
                 .Setup(c => c.GetCorporateContract(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -170,13 +170,13 @@
             // arrange
             Mock<IApprovedContractAtomFeedItemCreationService> contractAtomFeedItemCreationServiceMock = new Mock<IApprovedContractAtomFeedItemCreationService>();
             contractAtomFeedItemCreationServiceMock
-                .Setup(s => s.AddApprovedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Setup(s => s.AddApprovedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
                 .ReturnsAsync(AtomItemCreationResult.Added);
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
                 .Setup(c => c.GetCorporateContract(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -206,7 +206,7 @@
 
             // assert
             approvedContractService.Verify(s => s.UpdateApprovedContractCache(
-                It.IsAny<contract>(),
+                It.IsAny<Contract>(),
                 It.IsAny<string>(),
                 It.IsAny<ConnectionInfo>()), Times.Once, "failed to call UpdateApprovedContractCache");
         }
@@ -217,13 +217,13 @@
             // arrange
             Mock<IApprovedContractAtomFeedItemCreationService> contractAtomFeedItemCreationServiceMock = new Mock<IApprovedContractAtomFeedItemCreationService>();
             contractAtomFeedItemCreationServiceMock
-                .Setup(s => s.AddApprovedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Setup(s => s.AddApprovedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
                 .ReturnsAsync(AtomItemCreationResult.AlreadyPresentWithSameFeedItemId);
 
             Mock<IContractsManager> contractsManagerMock = new Mock<IContractsManager>();
             contractsManagerMock
                 .Setup(c => c.GetCorporateContract(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -253,7 +253,7 @@
 
             // assert
             approvedContractService.Verify(s => s.UpdateApprovedContractCache(
-                It.IsAny<contract>(),
+                It.IsAny<Contract>(),
                 It.IsAny<string>(),
                 It.IsAny<ConnectionInfo>()), Times.Never, "should not have called UpdateApprovedContractCache");
         }

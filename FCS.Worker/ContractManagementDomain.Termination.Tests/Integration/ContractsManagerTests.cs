@@ -29,9 +29,9 @@
             DeleteContract(contactNumber);
             DeleteContract(masterContractNumber);
             Guid masterContractId = CreateMasterContract(masterContractNumber, version, subVersion);
-            _ = CreateContract(contactNumber, version, subVersion, sfa_contractstatus.Approved, "Under Termination", masterContractId, terminationDate, versionOneTerminationReason);
-            _ = CreateContract(contactNumber, version + 1, subVersion, sfa_contractstatus.Approved, "Under Termination", masterContractId, terminationDate.AddDays(1), sfa_TerminationReasons.NoticefromProvider);
-            _ = CreateContract(contactNumber, version + 2, subVersion, sfa_contractstatus.Approved, "Under Termination", masterContractId, terminationDate.AddDays(2), sfa_TerminationReasons.ProviderChange);
+            CreateContract(contactNumber, version, subVersion, sfa_contractstatus.Approved, "Under Termination", masterContractId, terminationDate, versionOneTerminationReason);
+            CreateContract(contactNumber, version + 1, subVersion, sfa_contractstatus.Approved, "Under Termination", masterContractId, terminationDate.AddDays(1), sfa_TerminationReasons.NoticefromProvider);
+            CreateContract(contactNumber, version + 2, subVersion, sfa_contractstatus.Approved, "Under Termination", masterContractId, terminationDate.AddDays(2), sfa_TerminationReasons.ProviderChange);
             ContractsManager contractsManager = new ContractsManager(CrmConnectionFactory.GetRetryOnErrorOrganizationService());
 
             // act
@@ -70,7 +70,7 @@
             ContractsManager contractsManager = new ContractsManager(CrmConnectionFactory.GetRetryOnErrorOrganizationService());
 
             // act
-            contract masterContract = contractsManager.GetCorporateContractForSpecificVersion(new ContractIdentifier(contractNumber, version, subVersion));
+            Contract masterContract = contractsManager.GetCorporateContractForSpecificVersion(new ContractIdentifier(contractNumber, version, subVersion));
 
             // assert
             contractAllocationsContractAllocation allocation = masterContract.contracts.First().contractAllocations.First();
@@ -191,7 +191,7 @@
                 sfa_terminationdate = fundingCessationDate
             };
 
-            _ = connection.Create(allocation);
+            connection.Create(allocation);
         }
 
         private static EntityReference GetSubStatusEntityReference(string subStatus)

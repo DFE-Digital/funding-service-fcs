@@ -1,7 +1,9 @@
 ﻿namespace Datafix.Tests.Automation.Releases._73
 {
     using System.Configuration;
-    using Microsoft.ServiceBus;
+    //    using Microsoft.ServiceBus;
+
+    using Azure.Messaging.ServiceBus.Administration;
 
     public class RemoveRedundantSubscription : IApplyDataFix
     {
@@ -11,13 +13,27 @@
         public int Order => 1;
         public void ApplyDataFix()
         {
-            GetAsbNamespaceManager().DeleteSubscription("allocationdeliverydomain.validation.events", "4529020e-4b21-dcd9-93e8-d8b1ddf899f1");
-            GetAsbNamespaceManager().DeleteSubscription("paymentgenerationdomain.processpaymentcomplete.events", "0033158e-1291-2fb6-985d-3046fa46dd9f");
+            var client = GetAsbAdminClient();
+
+            client.DeleteSubscriptionAsync(
+                "allocationdeliverydomain.validation.events",
+                "4529020e-4b21-dcd9-93e8-d8b1ddf899f1").GetAwaiter().GetResult();
+
+            client.DeleteSubscriptionAsync(
+                "paymentgenerationdomain.processpaymentcomplete.events",
+                "0033158e-1291-2fb6-985d-3046fa46dd9f").GetAwaiter().GetResult();
+
         }
 
-        private static NamespaceManager GetAsbNamespaceManager()
+        private static ServiceBusAdministrationClient GetAsbAdminClient()
         {
-            return NamespaceManager.CreateFromConnectionString(ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString);
+            var connectionString = ConfigurationManager
+                .ConnectionStrings["NServiceBus/Transport"]
+                .ConnectionString;
+
+            return new ServiceBusAdministrationClient(connectionString);
         }
+
+
     }
 }

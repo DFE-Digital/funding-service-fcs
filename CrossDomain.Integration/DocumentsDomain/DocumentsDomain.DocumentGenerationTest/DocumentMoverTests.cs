@@ -118,22 +118,26 @@
             ;
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+        [TestMethod, TestCategory("UnitTest")]
         public void DocumentMover_ShouldThrowInvalidOperationExceptionWhenCalledWithChildContract()
         {
-            contract contract = CreateTestContract();
+            Contract contract = CreateTestContract();
             contract.hierarchyType = hierarchyType.CONTRACT;
-
-            _documentMover.MoveContractDocumentToPublishLocation(contract);
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+            {
+                _documentMover.MoveContractDocumentToPublishLocation(contract);
+            });
         }
 
-        [TestMethod, TestCategory("UnitTest"), ExpectedException(typeof(InvalidOperationException))]
+        [TestMethod, TestCategory("UnitTest")]
         public void DocumentMover_ShouldThrowInvalidOperationExceptionWhenCalledWithMoreThanOneChildContract()
         {
-            contract contract = CreateTestContract();
+            Contract contract = CreateTestContract();
             contract.contracts.Add(new contractType());
-
-            _documentMover.MoveContractDocumentToPublishLocation(contract);
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+            {
+                _documentMover.MoveContractDocumentToPublishLocation(contract);
+            });
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -156,23 +160,23 @@
             _office365MockAdapter.Verify(m => m.MoveFile(It.Is<string>(s => s == FileName), It.Is<string>(s => s == AppendicesDocumentListName), It.Is<string>(s => s == PublishedDocumentListName)), Times.Once);
         }
 
-        private static contract CreateTestContract()
+        private static  Contract CreateTestContract()
         {
-            return new contract
+            return new Contract
             {
                 contractNumber = "SFA-1234",
                 fundingType = new fundingType { fundingTypeCode = "MAIN" },
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         contractNumber = "MAIN-1234",
                         contractVersionNumber = 1,
-                        contractor = new contractor {ukprn = 11111},
-                        period = new period { period1 = "1516" }
+                        contractor = new Contractor {ukprn = 11111},
+                        period = new Period { period1 = "1516" }
                     }
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 11111
                 }

@@ -3,48 +3,48 @@
     using System.Configuration;
     using System.Linq;
     using System.Net;
-    using ReportExecution2005;
 
-    public class ReportingServicesClient : IReportingServicesClient
+    public class ReportingServicesClient// : IReportingServicesClient
     {
-        private const string DevInfo = @"<DeviceInfo><Toolbar>False</Toolbar></DeviceInfo>";
+        //    private const string DevInfo = @"<DeviceInfo><Toolbar>False</Toolbar></DeviceInfo>";
 
-        public static string Username
-        {
-            get { return ConfigurationManager.AppSettings["ReportDelivery.Username"]; }
-        }
-        
-        public static string Password
-        {
-            get { return ConfigurationManager.AppSettings["ReportDelivery.Password"]; }
-        }
-        
-        public IReportExecutionService ReportService { get; set; }
-    
-        public byte[] RenderReportWs(string reportName, string outputFormat, string[][] reportParams, string reportPath)
-        {
-            ReportService.Timeout = int.Parse(ConfigurationManager.AppSettings["ReportDelivery.Timeout"]);
+        //    public static string Username
+        //    {
+        //        get { return ConfigurationManager.AppSettings["ReportDelivery.Username"]; }
+        //    }
 
-            ReportService.Credentials = new NetworkCredential(Username, Password);
+        //    public static string Password
+        //    {
+        //        get { return ConfigurationManager.AppSettings["ReportDelivery.Password"]; }
+        //    }
 
-            var execHeader = new ExecutionHeader();
+        //    public IReportExecutionService ReportService { get; set; }
 
-            ReportService.ExecutionHeaderValue = execHeader;
+        //    public byte[] RenderReportWs(string reportName, string outputFormat, string[][] reportParams, string reportPath)
+        //    {
+        //        ReportService.Timeout = int.Parse(ConfigurationManager.AppSettings["ReportDelivery.Timeout"]);
 
-            ReportService.LoadReport(reportPath + reportName, null);
+        //        ReportService.Credentials = new NetworkCredential(Username, Password);
 
-            ReportService.SetExecutionParameters(reportParams.Select(item => new ParameterValue { Name = item[0], Value = item[1] }).ToArray(), "en-GB");
+        //        var execHeader = new ExecutionHeader();
 
-            string sessionId = ReportService.ExecutionHeaderValue.ExecutionID;
+        //        ReportService.ExecutionHeaderValue = execHeader;
 
-            string extension;
-            string mimetype;
-            string encoding;
-            Warning[] warnings;
-            string[] streamIds;
-            var result = ReportService.Render(outputFormat, DevInfo, out extension, out mimetype, out encoding, out warnings, out streamIds);
-            
-            return result;
-        }                
+        //        ReportService.LoadReport(reportPath + reportName, null);
+
+        //        ReportService.SetExecutionParameters(reportParams.Select(item => new ParameterValue { Name = item[0], Value = item[1] }).ToArray(), "en-GB");
+
+        //        string sessionId = ReportService.ExecutionHeaderValue.ExecutionID;
+
+        //        string extension;
+        //        string mimetype;
+        //        string encoding;
+        //        Warning[] warnings;
+        //        string[] streamIds;
+        //        var result = ReportService.Render(outputFormat, DevInfo, out extension, out mimetype, out encoding, out warnings, out streamIds);
+
+        //        return result;
+        //    }                
+        //}
     }
 }

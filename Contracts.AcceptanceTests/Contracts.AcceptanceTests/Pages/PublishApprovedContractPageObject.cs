@@ -23,9 +23,9 @@
         private SyndicationFeed _mostRecentlyRetrievedFeed = null;
         private List<Tuple<string, string, int>> _contractsInMostRecentlyRetrievedFeed = null;
 
-        private List<contract> retrievedContracts = new List<contract>();
+        private List<Contract> retrievedContracts = new List<Contract>();
  
-        public bool VerifiyContractsAreInFeed(string targetFeed, IEnumerable<contract> contractsToCheck)
+        public bool VerifiyContractsAreInFeed(string targetFeed, IEnumerable<Contract> contractsToCheck)
         {
             RetrieveCurrentFeedContents(targetFeed);
 
@@ -72,7 +72,7 @@
         private void RetrieveCurrentFeedContents(string targetFeed)
         {
             _contractsInMostRecentlyRetrievedFeed = new List<Tuple<string, string, int>>();
-            retrievedContracts = new List<contract>();
+            retrievedContracts = new List<Contract>();
 
             var retrievedFeed = CallEndpointAndReturnResult("application/atom+xml", MostRecentPageUrl + targetFeed);;
             _mostRecentlyRetrievedFeed = SyndicationFeed.Load(new XmlTextReader(new StringReader(retrievedFeed)));
@@ -124,8 +124,8 @@
 
                 ms.Position = 0;
 
-                XmlSerializer xs = new XmlSerializer(typeof(contract));
-                var masterContract = xs.Deserialize(ms) as contract;
+                XmlSerializer xs = new XmlSerializer(typeof(Contract));
+                var masterContract = xs.Deserialize(ms) as Contract;
 
                 _contractsInMostRecentlyRetrievedFeed.Add(
                     new Tuple<string, string, int>(
@@ -148,7 +148,7 @@
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AzureAuthenticator.GetAuthenticationResult());
 
             var responseMessage = client
-                       .GetAsync(ConfigurationManager.AppSettings["ContractManagementServiceUrl"] + url)
+                       .GetAsync(TestConfiguration.Configuration["ContractManagement:ServiceUrl"] + url)
                        .Result;
 
             var statusCode = responseMessage.StatusCode;

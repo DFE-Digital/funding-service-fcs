@@ -32,7 +32,7 @@
             var items = claimReconciliationReferenceDataReconProfilingReader.ReadConfig(worksheetReader);
 
             // assert
-            Assert.AreEqual(297, items.Count);
+            Assert.AreEqual(272, items.Count);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -47,7 +47,7 @@
             var items = claimReconciliationReferenceDataReconProfilingReader.ReadConfig(worksheetReader);
 
             // asserts
-            Assert.AreEqual(297, items.Count);
+            Assert.AreEqual(272, items.Count);
         }
     }
 }

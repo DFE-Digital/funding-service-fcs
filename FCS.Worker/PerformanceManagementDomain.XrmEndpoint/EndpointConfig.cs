@@ -1,19 +1,22 @@
-﻿namespace PerformanceManagementDomain.XrmEndpoint
+﻿
+namespace PerformanceManagementDomain.XrmEndpoint
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging.Interfaces;
-    using Castle.Windsor;
     using SFA.FCT.CrossDomain.Integration.Common;
     using SFA.FCT.CrossDomain.Integration.Events;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => FctEndpoint.GenerateEndpointName("PerformanceManagementDomain.XrmEndpoint.dll");
+        public string NameOfAssembly =>
+            FctEndpoint.GenerateEndpointName("PerformanceManagementDomain.XrmEndpoint.dll");
 
-        public string EndpointName => "PerformanceManagementDomain.XrmEndpoint";
+        public string EndpointName =>
+            "PerformanceManagementDomain.XrmEndpoint";
 
         private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint = new[]
         {
@@ -29,23 +32,30 @@
             new Subscription("PerformanceManagementDomain.ReconciliationCalculation", typeof(ProposedReconciliationCalculatedEvent))
         };
 
-        public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>();
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            new List<CommandRoute>();
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions (event-based endpoint)
             configuration.Conventions()
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
 
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddPerformanceXrmServices();
             });
 
             return configuration;

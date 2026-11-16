@@ -261,22 +261,26 @@ namespace Operations.Web.GatewayServiceContract {
         
         public GatewayServiceContractClient() {
         }
-        
-        public GatewayServiceContractClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public GatewayServiceContractClient(System.ServiceModel.Channels.Binding binding,System.ServiceModel.EndpointAddress remoteAddress)
+        : base(binding, remoteAddress)
+        {
         }
-        
-        public GatewayServiceContractClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
-        }
-        
-        public GatewayServiceContractClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
-        }
-        
-        public GatewayServiceContractClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
-        }
+
+        //public GatewayServiceContractClient(string endpointConfigurationName) : 
+        //        base(endpointConfigurationName) {
+        //}
+
+        //public GatewayServiceContractClient(string endpointConfigurationName, string remoteAddress) : 
+        //        base(endpointConfigurationName, remoteAddress) {
+        //}
+
+        //public GatewayServiceContractClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        //        base(endpointConfigurationName, remoteAddress) {
+        //}
+
+        //public GatewayServiceContractClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        //        base(binding, remoteAddress) {
+        //}
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         Operations.Web.GatewayServiceContract.GProvByUKPRNResponse Operations.Web.GatewayServiceContract.GatewayServiceContract.GetProvidersByUKPRN(Operations.Web.GatewayServiceContract.GProvByUKPRINRequest request) {

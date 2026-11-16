@@ -13,7 +13,7 @@
     public class DasMissingEventsTests
     {
         private const string ConnectionString =
-            "#connectionstring#";
+            "Data Source=b1aflgo9dg.database.windows.net;Initial Catalog=fct-database-release;Persist Security Info=True;User ID=fctsa;Password=PPPassword@9";
         [TestMethod, TestCategory("DataFix_R19c")]
         public void ShouldPopulateMissingEvents()
         {

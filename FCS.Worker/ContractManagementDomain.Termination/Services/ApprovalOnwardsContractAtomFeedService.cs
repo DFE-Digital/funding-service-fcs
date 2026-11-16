@@ -28,9 +28,9 @@
             _contractXmlValidator = contractXmlValidator;
         }
 
-        public AtomItemCreationResult AddContractToFeed(ConnectionInfo connectionInfo, contract corporateContract, Guid feedItemId, AtomItemType atomItemType)
+        public AtomItemCreationResult AddContractToFeed(ConnectionInfo connectionInfo, Contract corporateContract, Guid feedItemId, AtomItemType atomItemType)
         {
-            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract corporateSchema = _contractTransformer.TransformToCorporateSchemaContract(corporateContract);
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract corporateSchema = _contractTransformer.TransformToCorporateSchemaContract(corporateContract);
             try
             {
                 _approvalOnwardsContractRepository.Add(connectionInfo, AtomFeedItem.CreateAtomFeedItem(corporateSchema,

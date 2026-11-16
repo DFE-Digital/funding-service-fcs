@@ -33,7 +33,7 @@
         public void ContractAllocationTransformer_Transform_ShouldTransformContractOrganisation()
         {
             // Arrange
-            CorporateContract.contract mastercontract = GetRichContract();
+            CorporateContract.Contract mastercontract = GetRichContract();
             CorporateContract.contractAllocationsContractAllocation allocation = mastercontract.contracts[0].contractAllocations[0];
 
             string expectedOrganisationIdentifier = mastercontract.contracts[0].contractor.organisationIdentifier;
@@ -54,13 +54,13 @@
         public void ContractAllocationTransformer_Transform_ShouldTransformAllocationOrganisation()
         {
             // Arrange
-            CorporateContract.contract mastercontract = GetRichContract();
+            CorporateContract.Contract mastercontract = GetRichContract();
             CorporateContract.contractAllocationsContractAllocation allocation = mastercontract.contracts[0].contractAllocations[0];
 
             const string expectedOrganisationIdentifier = "AllocOrganisationIdentifier";
             const int expectedUkprn = 4444;
 
-            var contractor = new CorporateContract.contractor
+            var contractor = new CorporateContract.Contractor
             {
                 organisationIdentifier = expectedOrganisationIdentifier,
                 ukprn = expectedUkprn,
@@ -118,12 +118,15 @@
             Assert.AreEqual(testAllocation.contractDeliverables[0].contractDeliverables.Count, transformedAllocation.contractDeliverables[0].contractDeliverables.Count, "Different number of hierarchical delierables");
 
 
-            AssertExtensions.PropertyValuesAreEqual(transformedAllocation, testAllocation);
+            AllocationDeliveryDomain.Endpoint.Tests.Helpers.AssertExtensions
+                .PropertyValuesAreEqual(transformedAllocation, testAllocation);
+
+           // AssertExtensions.PropertyValuesAreEqual(transformedAllocation, testAllocation);
         }
 
-        private CorporateContract.contract GetRichContract()
+        private CorporateContract.Contract GetRichContract()
         {
-            return new CorporateContract.contract
+            return new CorporateContract.Contract
             {
                 fundingType = new CorporateContract.fundingType { fundingTypeCode = "MAIN" },
                 contractNumber = "MASTER-001",
@@ -135,7 +138,7 @@
                         contractNumber = "CONTRACT-001",
                         contractVersionNumber = 1,
                         contractValue = 48765,
-                        contractor = new CorporateContract.contractor
+                        contractor = new CorporateContract.Contractor
                         {
                             organisationIdentifier = "ORG12345678",
                             ukprn = 12345678,
@@ -158,7 +161,7 @@
                                 {
                                     fundingStreamCode = "16-18 APPS"
                                 },
-                                period = new CorporateContract.period
+                                period = new CorporateContract.Period
                                 {
                                     periodType = new periodTypeType { periodTypeCode = periodTypeCodeType.AY },
                                     period1 = "1516",

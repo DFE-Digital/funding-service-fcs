@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Endpoint.Tests.PaymentPostedEndpoint
 {
+    extern alias Entity;
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
@@ -9,7 +10,7 @@
     using BusinessLogic.Exceptions;
     using Microsoft.Xrm.Sdk;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using SFA.FCT.Framework.Logging;
     using Moq;
     using SFA.FCT.Framework.Logging.Interfaces;

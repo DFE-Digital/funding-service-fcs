@@ -54,7 +54,7 @@
                     new ExtendedContractAllocation
                     {
                         DeliveryOrganisation = deliveryOrganisationName,
-                        DeliveryOrganisationDetail = new contractor
+                        DeliveryOrganisationDetail = new Contractor
                         {
                             ukprn = ukprn,
                             legalName = legalName,
@@ -89,7 +89,7 @@
             };
 
             // act
-            contract transformed = transformer.TransformToCorpContract(contract);
+            Contract transformed = transformer.TransformToCorpContract(contract);
 
             // assert
             var allocation = transformed.contractAllocations[0];

@@ -1,17 +1,18 @@
 ﻿namespace ADMonitoringDomain.Endpoint.Tests.Integration
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using BusinessLogic;
-    using SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
+    using AllocationActuals=Entities::SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.AllocationDelivery.DataStore;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using CorporatePaymentAggregation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
     using SFA.FCT.Framework.Logging.Interfaces;
     using UnitTests.Common;
     using DataStore;
@@ -31,7 +32,7 @@
     using Moq;
     using NServiceBus;
     using NServiceBus.Testing;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using EntityData = Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class ContractAllocationsAtomFeedGenerationHandlerTests
@@ -70,7 +71,7 @@
             var sessionConnectionFactoryMock = new Mock<ISessionConnectionFactory>();
             sessionConnectionFactoryMock
                 .Setup(m => m.GetConnection(It.IsAny<IMessageHandlerContext>()))
-                .Returns(ConnectionInfo.CreateFrom(new ContractManagementDbContext().Database.Connection));
+                .Returns(EntityData.ConnectionInfo.CreateFrom(new ContractManagementDbContext().Database.Connection));
 
             _handler = new ContractAllocationsAtomFeedGenerationHandler(rulesEngine, atomGenerator, _adMonitoringDeliveryEventStore, sessionConnectionFactoryMock.Object)
             {
@@ -84,7 +85,7 @@
             SetUpData(PaymentMethod.PayOnProfile);
             var paymentPostedEvent = new PaymentPostedEvent()
             {
-                Allocation = new Allocation
+                Allocation = new CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = _allocationNumber,
                     VersionNumber = VersionNumber
@@ -107,7 +108,7 @@
             SetUpData(PaymentMethod.PayOnActuals);
             var paymentPostedEvent = new PaymentPostedEvent()
             {
-                Allocation = new Allocation
+                Allocation = new CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = _allocationNumber,
                     VersionNumber = VersionNumber
@@ -129,7 +130,7 @@
             SetUpData(PaymentMethod.PayOnActuals);
             var paymentAggregatedEvent = new PaymentAggregatedEvent()
             {
-                Allocation = new Allocation
+                Allocation = new CorporatePaymentAggregation.Allocation
                 {
                     AllocationNumber = _allocationNumber,
                     VersionNumber = VersionNumber                  
@@ -152,7 +153,7 @@
             SetUpData(PaymentMethod.NoPay);
             var paymentScheduleEvent = new PaymentScheduleEvent()
             {
-                PaymentScheduleAllocation = new SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
+                PaymentScheduleAllocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
                 {
                     AllocationNumber = _allocationNumber,
                     VersionNumber = VersionNumber,
@@ -176,10 +177,10 @@
             SetUpData(PaymentMethod.PayOnProfile);
             var allocationActualsVerified = new AllocationActualsVerified
             {
-                AllocationActuals = new ContractAllocationActualsType
+                AllocationActuals = new AllocationActuals.ContractAllocationActualsType
                 {
                     ContractAllocationNumber = _allocationNumber,
-                    ContractReference = new ContractReferenceType
+                    ContractReference = new AllocationActuals.ContractReferenceType
                     {
                         ContractVersionNumber = VersionNumber
                     }

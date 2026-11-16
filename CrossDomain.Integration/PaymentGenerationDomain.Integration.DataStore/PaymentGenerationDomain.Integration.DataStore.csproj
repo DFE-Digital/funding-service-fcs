@@ -1,386 +1,232 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A0E7041F-2BED-4101-B430-F04A0349E573}</ProjectGuid>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PaymentGenerationDomain.Integration.DataStore</RootNamespace>
-    <AssemblyName>PaymentGenerationDomain.Integration.DataStore</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <Configurations>AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PP-OAT;PS;PUB;Release</Configurations>
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet>true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets>$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+    <AssemblyTitle>PaymentGenerationDomain.Integration.DataStore</AssemblyTitle>
+    <Product>PaymentGenerationDomain.Integration.DataStore</Product>
+    <Copyright>Copyright ©  2015</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\CI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DEV\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
     <OutputPath>bin\MO\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
     <OutputPath>bin\OAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
     <OutputPath>bin\AT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PS|AnyCPU'">
     <OutputPath>bin\PS\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
     <OutputPath>bin\DAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
     <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
     <OutputPath>bin\DOAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Label="SlowCheetah">
-    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
-    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
-    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
-    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="EntityFramework" Version="6.5.1" />
+    <PackageReference Include="Iesi.Collections" Version="4.1.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.VisualStudio.SlowCheetah" Version="4.0.50">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.11" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dtos\SubnominalAggregationDto.cs" />
-    <Compile Include="ICreatePaymentGenerationDbContext.cs" />
-    <Compile Include="Migrations\201507091346032_InitialCreate.cs">
+    <Compile Update="Migrations\201507091346032_InitialCreate.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Migrations\201507091346032_InitialCreate.Designer.cs">
+    <Compile Update="Migrations\201507091346032_InitialCreate.Designer.cs">
       <DependentUpon>201507091346032_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507301048224_AddShouldPayFlag.cs" />
-    <Compile Include="Migrations\201507301048224_AddShouldPayFlag.Designer.cs">
+    <Compile Update="Migrations\201507301048224_AddShouldPayFlag.Designer.cs">
       <DependentUpon>201507301048224_AddShouldPayFlag.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201512171043203_AddCreatedDateColumn.cs" />
-    <Compile Include="Migrations\201512171043203_AddCreatedDateColumn.Designer.cs">
+    <Compile Update="Migrations\201512171043203_AddCreatedDateColumn.Designer.cs">
       <DependentUpon>201512171043203_AddCreatedDateColumn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601121154044_AlterCreatedDateColumn.cs" />
-    <Compile Include="Migrations\201601121154044_AlterCreatedDateColumn.Designer.cs">
+    <Compile Update="Migrations\201601121154044_AlterCreatedDateColumn.Designer.cs">
       <DependentUpon>201601121154044_AlterCreatedDateColumn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601190912058_AddLastModifiedDateToSubnominalAggregations.cs" />
-    <Compile Include="Migrations\201601190912058_AddLastModifiedDateToSubnominalAggregations.Designer.cs">
+    <Compile Update="Migrations\201601190912058_AddLastModifiedDateToSubnominalAggregations.Designer.cs">
       <DependentUpon>201601190912058_AddLastModifiedDateToSubnominalAggregations.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603030916052_AddAge1516PostYearEnd.cs" />
-    <Compile Include="Migrations\201603030916052_AddAge1516PostYearEnd.Designer.cs">
+    <Compile Update="Migrations\201603030916052_AddAge1516PostYearEnd.Designer.cs">
       <DependentUpon>201603030916052_AddAge1516PostYearEnd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603030926058_AddAge1617Data.cs" />
-    <Compile Include="Migrations\201603030926058_AddAge1617Data.Designer.cs">
+    <Compile Update="Migrations\201603030926058_AddAge1617Data.Designer.cs">
       <DependentUpon>201603030926058_AddAge1617Data.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603181422460_AddEsfData.cs" />
-    <Compile Include="Migrations\201603181422460_AddEsfData.Designer.cs">
+    <Compile Update="Migrations\201603181422460_AddEsfData.Designer.cs">
       <DependentUpon>201603181422460_AddEsfData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706291243316_ChangeShouldPay_to_GeneratePayments.cs" />
-    <Compile Include="Migrations\201706291243316_ChangeShouldPay_to_GeneratePayments.Designer.cs">
+    <Compile Update="Migrations\201706291243316_ChangeShouldPay_to_GeneratePayments.Designer.cs">
       <DependentUpon>201706291243316_ChangeShouldPay_to_GeneratePayments.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707191006450_RemoveGeneratePaymentsColumnFromFspTable.cs" />
-    <Compile Include="Migrations\201707191006450_RemoveGeneratePaymentsColumnFromFspTable.Designer.cs">
+    <Compile Update="Migrations\201707191006450_RemoveGeneratePaymentsColumnFromFspTable.Designer.cs">
       <DependentUpon>201707191006450_RemoveGeneratePaymentsColumnFromFspTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801101239050_AddIndexIX_FundingStreamPeriodCodePeriodToTableSubnominalAggregation.cs" />
-    <Compile Include="Migrations\201801101239050_AddIndexIX_FundingStreamPeriodCodePeriodToTableSubnominalAggregation.Designer.cs">
+    <Compile Update="Migrations\201801101239050_AddIndexIX_FundingStreamPeriodCodePeriodToTableSubnominalAggregation.Designer.cs">
       <DependentUpon>201801101239050_AddIndexIX_FundingStreamPeriodCodePeriodToTableSubnominalAggregation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806050926385_CreatePaymentBatchFeedTable.cs" />
-    <Compile Include="Migrations\201806050926385_CreatePaymentBatchFeedTable.Designer.cs">
+    <Compile Update="Migrations\201806050926385_CreatePaymentBatchFeedTable.Designer.cs">
       <DependentUpon>201806050926385_CreatePaymentBatchFeedTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806060756575_AddCreatedDateToFeedTable.cs" />
-    <Compile Include="Migrations\201806060756575_AddCreatedDateToFeedTable.Designer.cs">
+    <Compile Update="Migrations\201806060756575_AddCreatedDateToFeedTable.Designer.cs">
       <DependentUpon>201806060756575_AddCreatedDateToFeedTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807021229109_AddAllocationVersionNumberToSubnominalAggregation.cs" />
-    <Compile Include="Migrations\201807021229109_AddAllocationVersionNumberToSubnominalAggregation.Designer.cs">
+    <Compile Update="Migrations\201807021229109_AddAllocationVersionNumberToSubnominalAggregation.Designer.cs">
       <DependentUpon>201807021229109_AddAllocationVersionNumberToSubnominalAggregation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807061101321_TotalValue_Column_OnPaymentBatchFeedItem.cs" />
-    <Compile Include="Migrations\201807061101321_TotalValue_Column_OnPaymentBatchFeedItem.Designer.cs">
+    <Compile Update="Migrations\201807061101321_TotalValue_Column_OnPaymentBatchFeedItem.Designer.cs">
       <DependentUpon>201807061101321_TotalValue_Column_OnPaymentBatchFeedItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901151340068_ShouldGeneratePayments_Col_Added_To_FSP.cs" />
-    <Compile Include="Migrations\201901151340068_ShouldGeneratePayments_Col_Added_To_FSP.Designer.cs">
+    <Compile Update="Migrations\201901151340068_ShouldGeneratePayments_Col_Added_To_FSP.Designer.cs">
       <DependentUpon>201901151340068_ShouldGeneratePayments_Col_Added_To_FSP.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901161430141_coda_columns_removed_from_fsp_table.cs" />
-    <Compile Include="Migrations\201901161430141_coda_columns_removed_from_fsp_table.Designer.cs">
+    <Compile Update="Migrations\201901161430141_coda_columns_removed_from_fsp_table.Designer.cs">
       <DependentUpon>201901161430141_coda_columns_removed_from_fsp_table.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908081103492_MakeTableFundingStreamColumnFinanceShortCodeNullable.cs" />
-    <Compile Include="Migrations\201908081103492_MakeTableFundingStreamColumnFinanceShortCodeNullable.Designer.cs">
+    <Compile Update="Migrations\201908081103492_MakeTableFundingStreamColumnFinanceShortCodeNullable.Designer.cs">
       <DependentUpon>201908081103492_MakeTableFundingStreamColumnFinanceShortCodeNullable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010060950457_TableFundingStreamPeriodNewColumnFspReportingName.cs" />
-    <Compile Include="Migrations\202010060950457_TableFundingStreamPeriodNewColumnFspReportingName.Designer.cs">
+    <Compile Update="Migrations\202010060950457_TableFundingStreamPeriodNewColumnFspReportingName.Designer.cs">
       <DependentUpon>202010060950457_TableFundingStreamPeriodNewColumnFspReportingName.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202405241344326_CreateStoredProceduretoGetEntitiesForPage.cs" />
-    <Compile Include="Migrations\202405241344326_CreateStoredProceduretoGetEntitiesForPage.designer.cs">
+    <Compile Update="Migrations\202405241344326_CreateStoredProceduretoGetEntitiesForPage.designer.cs">
       <DependentUpon>202405241344326_CreateStoredProceduretoGetEntitiesForPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202405241349341_CreateStoredProceduretOGetEntitiesForLatestPage.cs" />
-    <Compile Include="Migrations\202405241349341_CreateStoredProceduretOGetEntitiesForLatestPage.designer.cs">
+    <Compile Update="Migrations\202405241349341_CreateStoredProceduretOGetEntitiesForLatestPage.designer.cs">
       <DependentUpon>202405241349341_CreateStoredProceduretOGetEntitiesForLatestPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202405301048455_CreateStoredProceduretoGetItemById.cs" />
-    <Compile Include="Migrations\202405301048455_CreateStoredProceduretoGetItemById.designer.cs">
+    <Compile Update="Migrations\202405301048455_CreateStoredProceduretoGetItemById.designer.cs">
       <DependentUpon>202405301048455_CreateStoredProceduretoGetItemById.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\PaymentBatchFeedItem.cs" />
-    <Compile Include="Model\PaymentTimetableHistory.cs" />
-    <Compile Include="Model\SubnominalAggregation.cs" />
-    <Compile Include="Model\FundingStreamPeriod.cs" />
-    <Compile Include="Model\FundingStream.cs" />
-    <Compile Include="Model\PaymentTimetable.cs" />
-    <Compile Include="Model\Subnominal.cs" />
-    <Compile Include="PaymentGenerationDbContext.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\FundingStreamPeriodQueryRepository.cs" />
-    <Compile Include="Repositories\IFundingStreamPeriodQueryRepository.cs" />
-    <Compile Include="Repositories\IPaymentBatchFeedItemCommandRepository.cs" />
-    <Compile Include="Repositories\IPaymentBatchFeedItemQueryRepository.cs" />
-    <Compile Include="Repositories\IPaymentBatchFeedItemRepository.cs" />
-    <Compile Include="Repositories\IPaymentTimetableRepository.cs" />
-    <Compile Include="Repositories\ISubnominalAggregationRepository.cs" />
-    <Compile Include="Repositories\PaymentBatchFeedItemRepository.cs" />
-    <Compile Include="Repositories\PaymentTimetableRepository.cs" />
-    <Compile Include="Repositories\SubnominalAggregationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507091346032_InitialCreate.resx">
+    <EmbeddedResource Update="Migrations\201507091346032_InitialCreate.resx">
       <DependentUpon>201507091346032_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507301048224_AddShouldPayFlag.resx">
+    <EmbeddedResource Update="Migrations\201507301048224_AddShouldPayFlag.resx">
       <DependentUpon>201507301048224_AddShouldPayFlag.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512171043203_AddCreatedDateColumn.resx">
+    <EmbeddedResource Update="Migrations\201512171043203_AddCreatedDateColumn.resx">
       <DependentUpon>201512171043203_AddCreatedDateColumn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601121154044_AlterCreatedDateColumn.resx">
+    <EmbeddedResource Update="Migrations\201601121154044_AlterCreatedDateColumn.resx">
       <DependentUpon>201601121154044_AlterCreatedDateColumn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601190912058_AddLastModifiedDateToSubnominalAggregations.resx">
+    <EmbeddedResource Update="Migrations\201601190912058_AddLastModifiedDateToSubnominalAggregations.resx">
       <DependentUpon>201601190912058_AddLastModifiedDateToSubnominalAggregations.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603030916052_AddAge1516PostYearEnd.resx">
+    <EmbeddedResource Update="Migrations\201603030916052_AddAge1516PostYearEnd.resx">
       <DependentUpon>201603030916052_AddAge1516PostYearEnd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603030926058_AddAge1617Data.resx">
+    <EmbeddedResource Update="Migrations\201603030926058_AddAge1617Data.resx">
       <DependentUpon>201603030926058_AddAge1617Data.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603181422460_AddEsfData.resx">
+    <EmbeddedResource Update="Migrations\201603181422460_AddEsfData.resx">
       <DependentUpon>201603181422460_AddEsfData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706291243316_ChangeShouldPay_to_GeneratePayments.resx">
+    <EmbeddedResource Update="Migrations\201706291243316_ChangeShouldPay_to_GeneratePayments.resx">
       <DependentUpon>201706291243316_ChangeShouldPay_to_GeneratePayments.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707191006450_RemoveGeneratePaymentsColumnFromFspTable.resx">
+    <EmbeddedResource Update="Migrations\201707191006450_RemoveGeneratePaymentsColumnFromFspTable.resx">
       <DependentUpon>201707191006450_RemoveGeneratePaymentsColumnFromFspTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801101239050_AddIndexIX_FundingStreamPeriodCodePeriodToTableSubnominalAggregation.resx">
+    <EmbeddedResource Update="Migrations\201801101239050_AddIndexIX_FundingStreamPeriodCodePeriodToTableSubnominalAggregation.resx">
       <DependentUpon>201801101239050_AddIndexIX_FundingStreamPeriodCodePeriodToTableSubnominalAggregation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806050926385_CreatePaymentBatchFeedTable.resx">
+    <EmbeddedResource Update="Migrations\201806050926385_CreatePaymentBatchFeedTable.resx">
       <DependentUpon>201806050926385_CreatePaymentBatchFeedTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806060756575_AddCreatedDateToFeedTable.resx">
+    <EmbeddedResource Update="Migrations\201806060756575_AddCreatedDateToFeedTable.resx">
       <DependentUpon>201806060756575_AddCreatedDateToFeedTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807021229109_AddAllocationVersionNumberToSubnominalAggregation.resx">
+    <EmbeddedResource Update="Migrations\201807021229109_AddAllocationVersionNumberToSubnominalAggregation.resx">
       <DependentUpon>201807021229109_AddAllocationVersionNumberToSubnominalAggregation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807061101321_TotalValue_Column_OnPaymentBatchFeedItem.resx">
+    <EmbeddedResource Update="Migrations\201807061101321_TotalValue_Column_OnPaymentBatchFeedItem.resx">
       <DependentUpon>201807061101321_TotalValue_Column_OnPaymentBatchFeedItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901151340068_ShouldGeneratePayments_Col_Added_To_FSP.resx">
+    <EmbeddedResource Update="Migrations\201901151340068_ShouldGeneratePayments_Col_Added_To_FSP.resx">
       <DependentUpon>201901151340068_ShouldGeneratePayments_Col_Added_To_FSP.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901161430141_coda_columns_removed_from_fsp_table.resx">
+    <EmbeddedResource Update="Migrations\201901161430141_coda_columns_removed_from_fsp_table.resx">
       <DependentUpon>201901161430141_coda_columns_removed_from_fsp_table.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908081103492_MakeTableFundingStreamColumnFinanceShortCodeNullable.resx">
+    <EmbeddedResource Update="Migrations\201908081103492_MakeTableFundingStreamColumnFinanceShortCodeNullable.resx">
       <DependentUpon>201908081103492_MakeTableFundingStreamColumnFinanceShortCodeNullable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010060950457_TableFundingStreamPeriodNewColumnFspReportingName.resx">
+    <EmbeddedResource Update="Migrations\202010060950457_TableFundingStreamPeriodNewColumnFspReportingName.resx">
       <DependentUpon>202010060950457_TableFundingStreamPeriodNewColumnFspReportingName.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202405241344326_CreateStoredProceduretoGetEntitiesForPage.resx">
+    <EmbeddedResource Update="Migrations\202405241344326_CreateStoredProceduretoGetEntitiesForPage.resx">
       <DependentUpon>202405241344326_CreateStoredProceduretoGetEntitiesForPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202405241349341_CreateStoredProceduretOGetEntitiesForLatestPage.resx">
+    <EmbeddedResource Update="Migrations\202405241349341_CreateStoredProceduretOGetEntitiesForLatestPage.resx">
       <DependentUpon>202405241349341_CreateStoredProceduretOGetEntitiesForLatestPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202405301048455_CreateStoredProceduretoGetItemById.resx">
+    <EmbeddedResource Update="Migrations\202405301048455_CreateStoredProceduretoGetItemById.resx">
       <DependentUpon>202405301048455_CreateStoredProceduretoGetItemById.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FCS.Worker\FCS.Worker.Entities\FCS.Worker.Common.csproj">
-      <Project>{5a495916-854c-4b20-b7fc-b696ea94ff61}</Project>
-      <Name>FCS.Worker.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj">
-      <Project>{E766A4B6-88B4-4E18-A68B-761B65C7E015}</Project>
-      <Name>CrossDomain.Integration.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
-      <Project>{6E27F9EF-1391-41E7-8B8D-7C1B82665578}</Project>
-      <Name>CrossDomain.Integration.Entities</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\FCS.Worker\FCS.Worker.Entities\FCS.Worker.Common.csproj" />
+    <ProjectReference Include="..\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj" />
+    <ProjectReference Include="..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-  </Target>
-  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

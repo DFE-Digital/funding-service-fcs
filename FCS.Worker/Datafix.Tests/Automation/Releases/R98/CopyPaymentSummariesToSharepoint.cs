@@ -19,7 +19,7 @@
         public void ApplyDataFix()
         {
             var blobNames = AzureStorageWrapper.GetBlobsInContainer(ContainerName);
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<UploadPaymentSummaryReportToSharePointCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<UploadPaymentSummaryReportToSharePointCommand>();
 
             var sendTasks = blobNames.Select(blobName =>
             {

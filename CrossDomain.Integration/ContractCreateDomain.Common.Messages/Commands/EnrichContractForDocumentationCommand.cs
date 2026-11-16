@@ -4,7 +4,7 @@
 
     public class EnrichContractForDocumentationCommand
     {
-        public contract Contract { get; set; }
+        public Contract Contract { get; set; }
 
         public string MasterContractNumber { get; set; }
 

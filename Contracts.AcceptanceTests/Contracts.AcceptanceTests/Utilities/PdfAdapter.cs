@@ -6,6 +6,7 @@
     using iTextSharp.text.pdf;
     using iTextSharp.text.pdf.parser;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
 
     public class PdfAdapter
     {
@@ -47,7 +48,7 @@
             {
                 if (line.Contains(multilineText))
                 {
-                    Assert.Fail("Text:{0} is present in pdf and it should not be.", multilineText);
+                    ClassicAssert.Fail($"Text: {multilineText} is present in pdf and it should not be.");
                 }
             }
         }
@@ -108,7 +109,7 @@
                         message = "Found expected line in document but not in the right place, line expected is";
                     }
 
-                    Assert.Fail(message + " \"" + expectedLine + "\"" + Environment.NewLine + string.Join(Environment.NewLine, linesFromPdfFile));
+                    ClassicAssert.Fail(message + " \"" + expectedLine + "\"" + Environment.NewLine + string.Join(Environment.NewLine, linesFromPdfFile));
                 }
             }
         }
@@ -143,8 +144,8 @@
                 foreach (string line in linesFromPdfFile)
                 {
                     if (line == absentText)
-                    {
-                        Assert.Fail("Text:{0} is present in pdf and it should not be.", absentText);
+                    {                       
+                        ClassicAssert.Fail($"Text: {absentText} is present in pdf and it should not be.");
                     }
                 }
             }

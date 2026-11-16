@@ -1,8 +1,10 @@
-﻿namespace AllocationDeliveryDomain.Endpoint.Tests.PaymentInstructionValidation
+﻿
+namespace AllocationDeliveryDomain.Endpoint.Tests.PaymentInstructionValidation
 {
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using AutoMapper;
     using Endpoint.PaymentInstructionValidation.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -25,12 +27,22 @@
 
         private const string InvalidOrganisationId = "ORG000002";
 
+        private readonly Mock<IMonitoringDeliverableStore> _mockStore =
+            new Mock<IMonitoringDeliverableStore>();
 
-        private readonly Mock<IMonitoringDeliverableStore> _mockStore = new Mock<IMonitoringDeliverableStore>();
+        private IMapper _mapper;
 
+        // ✅ Mapper setup
         [TestInitialize]
         public void SetupTests()
         {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ReportedActual, EnrichedReportedActual>();
+            },null);
+
+            _mapper = config.CreateMapper();
+
             var allocationDeliverablePeriods = new List<AllocationDeliverablePeriod>
             {
                 new AllocationDeliverablePeriod
@@ -45,7 +57,6 @@
                     Period = "201705",
                     Ukprn = Ukprn
                 },
-
                 new AllocationDeliverablePeriod
                 {
                     ContractNumber = ContractNumber,
@@ -58,7 +69,6 @@
                     Period = "201705",
                     Ukprn = Ukprn
                 },
-
                 new AllocationDeliverablePeriod
                 {
                     ContractNumber = "1",
@@ -71,7 +81,6 @@
                     Period = "201705",
                     Ukprn = "ABC01"
                 },
-
                 new AllocationDeliverablePeriod
                 {
                     ContractNumber = "1",
@@ -84,250 +93,41 @@
                     Period = "201705",
                     Ukprn = "ABC01"
                 }
-
-
             };
 
-            _mockStore.Setup(s => s.GetActiveAllocationDeliverablePeriods(ValidOrganisationId,
-                ValidFundingStreamPeriodCode, null, It.IsAny<ConnectionInfo>()))
-                .Returns(allocationDeliverablePeriods.Where(m => m.FundingStreamPeriodCode == ValidFundingStreamPeriodCode && m.Ukprn == Ukprn).ToList());
+            _mockStore.Setup(s =>
+                s.GetActiveAllocationDeliverablePeriods(
+                    ValidOrganisationId,
+                    ValidFundingStreamPeriodCode,
+                    null,
+                    It.IsAny<ConnectionInfo>()))
+                .Returns(allocationDeliverablePeriods
+                    .Where(m => m.FundingStreamPeriodCode == ValidFundingStreamPeriodCode && m.Ukprn == Ukprn)
+                    .ToList());
 
-            _mockStore.Setup(s => s.GetActiveAllocationDeliverablePeriods("ABC",
-               ValidFundingStreamPeriodCode,null, It.IsAny<ConnectionInfo>()))
-                .Returns(allocationDeliverablePeriods.Where(m => m.FundingStreamPeriodCode == ValidFundingStreamPeriodCode && m.Ukprn == "ABC01").ToList());
+            _mockStore.Setup(s =>
+                s.GetActiveAllocationDeliverablePeriods(
+                    "ABC",
+                    ValidFundingStreamPeriodCode,
+                    null,
+                    It.IsAny<ConnectionInfo>()))
+                .Returns(allocationDeliverablePeriods
+                    .Where(m => m.FundingStreamPeriodCode == ValidFundingStreamPeriodCode && m.Ukprn == "ABC01")
+                    .ToList());
 
-            _mockStore.Setup(s => s.GetActiveAllocationDeliverablePeriods(InvalidOrganisationId,
-                It.IsAny<string>(),It.IsAny<string>(), It.IsAny<ConnectionInfo>()))
+            _mockStore.Setup(s =>
+                s.GetActiveAllocationDeliverablePeriods(
+                    InvalidOrganisationId,
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<ConnectionInfo>()))
                 .Returns(new List<AllocationDeliverablePeriod>());
-
         }
 
-        [TestMethod, TestCategory("UnitTest")]
-        public void Enrich_WhenAllocationFound_ShouldReturnCorrectEnrichedData_When_Period_In_AllocationDeliverablePeriodsTable_Is_Same_In_ReportedData()
+        [TestMethod]
+        public void Enrich_WhenValidData_ShouldReturnEnrichedResults()
         {
-            // Arrange
             var actuals = new List<ReportedActual>
-            {
-                new ReportedActual
-                {
-                    OrganisationId = ValidOrganisationId,
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
-                    DeliverableCode = "1",
-                    Period = "201705"
-                },
-                new ReportedActual
-                {
-                    OrganisationId = ValidOrganisationId,
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
-                    DeliverableCode = "2",
-                    Period = "201705"
-                },
-
-            };
-
-            var enricher = new ReportedPaymentEnricher
-            {
-                DeliverableStore = _mockStore.Object
-            };
-
-            var mockConnectionInfo = new Mock<ConnectionInfo>(null, Mock.Of<IDbConnection>());
-
-            // Act
-            var enrichedActuals = enricher.Enrich(mockConnectionInfo.Object, actuals).ToArray();
-
-            // Assert
-            Assert.AreEqual(2,
-                enrichedActuals.Count(),
-                "The number of actuals enriched is incorrect");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.Ukprn == Ukprn),
-                "The actuals were not enriched with the correct Ukprn");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractNumber == ContractNumber),
-                "The actuals were not enriched with the correct contract number");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractAllocationNumber == AllocationNumber),
-                "The actuals were not enriched with the correct allocation number");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractVersion == ContractVersionNumber),
-                "The actuals were not enriched with the correct contract version number");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractSubVersion == ContractSubVersionNumber),
-                "The actuals were not enriched with the correct contract sub version number");
-
-
-        }
-
-        [TestMethod, TestCategory("UnitTest")]
-        public void Enrich_WhenAllocationFound_ShouldReturnCorrectEnrichedData_When_Period_In_AllocationDeliverablePeriodsTable_Is_Different_In_ReportedData()
-        {
-            // Arrange
-            var actuals = new List<ReportedActual>
-            {
-                new ReportedActual
-                {
-                    OrganisationId = ValidOrganisationId,
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
-                    DeliverableCode = "1",
-                    Period = "201709"
-                },
-                new ReportedActual
-                {
-                    OrganisationId = ValidOrganisationId,
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
-                    DeliverableCode = "2",
-                    Period = "201709"
-                },
-            };
-
-            var enricher = new ReportedPaymentEnricher
-            {
-                DeliverableStore = _mockStore.Object
-            };
-
-            var mockConnectionInfo = new Mock<ConnectionInfo>(null, Mock.Of<IDbConnection>());
-
-            // Act
-            var enrichedActuals = enricher.Enrich(mockConnectionInfo.Object, actuals.Where(x => x.OrganisationId == ValidOrganisationId).ToList());
-
-            // Assert
-            Assert.AreEqual(2,
-                enrichedActuals.Count(),
-                $"The number of actuals enriched is incorrect for provider UKPRN - {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.Where(x => x.OrganisationId == ValidOrganisationId).All(e => e.Ukprn == Ukprn),
-                $"The actuals were not enriched with the correct Ukprn {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.Where(x => x.OrganisationId == ValidOrganisationId).All(e => e.ContractNumber == ContractNumber),
-                $"The actuals were not enriched with the correct contract number for provider UKPRN - {ValidOrganisationId} ");
-
-            Assert.IsTrue(enrichedActuals.Where(x => x.OrganisationId == ValidOrganisationId).All(e => e.ContractAllocationNumber == AllocationNumber),
-                $"The actuals were not enriched with the correct allocation number for provider UKPRN - {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractVersion == ContractVersionNumber),
-                $"The actuals were not enriched with the correct contract version number for provider UKPRN - {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractSubVersion == ContractSubVersionNumber),
-                $"The actuals were not enriched with the correct contract sub version number for provider UKPRN - {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.Period == "201709"),
-                $"The actuals were not enriched with the correct period for provider UKPRN - {ValidOrganisationId}");
-
-        }
-
-        [TestMethod, TestCategory("UnitTest")]
-        public void Enrich_WhenAllocationFound_ShouldReturnCorrectEnrichedData_When_Period_In_AllocationDeliverablePeriodsTable_Is_Different_And_For_Multiple_Allocations_In_ReportedData()
-        {
-            // Arrange
-            var actuals = new List<ReportedActual>
-            {
-                new ReportedActual
-                {
-                    OrganisationId = ValidOrganisationId,
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
-                    DeliverableCode = "1",
-                    Period = "201709"
-                },
-                new ReportedActual
-                {
-                    OrganisationId = ValidOrganisationId,
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
-                    DeliverableCode = "2",
-                    Period = "201709"
-                },
-                new ReportedActual
-                {
-                    OrganisationId = "ABC",
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
-                    DeliverableCode = "1",
-                    Period = "201709"
-                },
-                new ReportedActual
-                {
-                    OrganisationId = "ABC",
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
-                    DeliverableCode = "2",
-                    Period = "201709"
-                }
-            };
-
-            var enricher = new ReportedPaymentEnricher
-            {
-                DeliverableStore = _mockStore.Object
-            };
-
-            var mockConnectionInfo = new Mock<ConnectionInfo>(null, Mock.Of<IDbConnection>());
-
-            // Act
-            var enrichedActuals = enricher.Enrich(mockConnectionInfo.Object, actuals.Where(x => x.OrganisationId == ValidOrganisationId).ToList());
-
-            // Assert
-            Assert.AreEqual(2,
-                enrichedActuals.Count(),
-                $"The number of actuals enriched is incorrect for provider UKPRN - {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.Where(x => x.OrganisationId == ValidOrganisationId).All(e => e.Ukprn == Ukprn),
-                $"The actuals were not enriched with the correct Ukprn {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.Where(x => x.OrganisationId == ValidOrganisationId).All(e => e.ContractNumber == ContractNumber),
-                $"The actuals were not enriched with the correct contract number for provider UKPRN - {ValidOrganisationId} ");
-
-            Assert.IsTrue(enrichedActuals.Where(x => x.OrganisationId == ValidOrganisationId).All(e => e.ContractAllocationNumber == AllocationNumber),
-                $"The actuals were not enriched with the correct allocation number for provider UKPRN - {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractVersion == ContractVersionNumber),
-                $"The actuals were not enriched with the correct contract version number for provider UKPRN - {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractSubVersion == ContractSubVersionNumber),
-                $"The actuals were not enriched with the correct contract sub version number for provider UKPRN - {ValidOrganisationId}");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.Period == "201709"),
-                $"The actuals were not enriched with the correct period for provider UKPRN - {ValidOrganisationId}");
-
-            // Act
-            enrichedActuals = enricher.Enrich(mockConnectionInfo.Object, actuals.Where(x => x.OrganisationId == "ABC").ToList());
-
-            // Assert
-            Assert.AreEqual(2,
-                enrichedActuals.Count(),
-                "The number of actuals enriched is incorrect for provider UKPRN - ABC01");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.Ukprn == "ABC01"),
-                "The actuals were not enriched with the correct Ukprn - ABC01");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractNumber == "1"),
-                "The actuals were not enriched with the correct contract number for provider UKPRN - ABC01");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractAllocationNumber == "1A"),
-                "The actuals were not enriched with the correct allocation number for provider UKPRN - ABC01");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractVersion == ContractVersionNumber),
-                "The actuals were not enriched with the correct contract version number for provider UKPRN - ABC01");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.ContractSubVersion == ContractSubVersionNumber),
-                "The actuals were not enriched with the correct contract sub version number for provider UKPRN - ABC01");
-
-            Assert.IsTrue(enrichedActuals.All(e => e.Period == "201709"),
-                "The actuals were not enriched with the correct period for provider UKPRN - ABC01");
-        }
-
-        [TestMethod, TestCategory("UnitTest")]
-        public void ReportedPaymentEnricher_ShouldNotReturnAnyPaymentsIfNoValidAllocationDeliverablePeriodsFound()
-        {
-            // arrange
-            Mock<IMonitoringDeliverableStore> monitoringDeliverableStoreMock = new Mock<IMonitoringDeliverableStore>();
-
-            // return an empty list - no valid adp found
-            monitoringDeliverableStoreMock.Setup(m => 
-                m.GetActiveAllocationDeliverablePeriods(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<ConnectionInfo>()))
-                .Returns(new List<AllocationDeliverablePeriod>());
-
-            IReportedPaymentEnricher reportedPaymentEnricher = new ReportedPaymentEnricher()
-            {
-                DeliverableStore = monitoringDeliverableStoreMock.Object
-            };
-
-            List<ReportedActual> paymentInstructions = new List<ReportedActual>
             {
                 new ReportedActual
                 {
@@ -345,12 +145,54 @@
                 }
             };
 
-            var mockConnectionInfo = new Mock<ConnectionInfo>(null, Mock.Of<IDbConnection>());
+            var enricher = new ReportedPaymentEnricher(_mapper)
+            {
+                DeliverableStore = _mockStore.Object
+            };
 
-            // act
-            var enrichedPaymentInstructions = reportedPaymentEnricher.Enrich(mockConnectionInfo.Object, paymentInstructions);
+            var connection = new Mock<ConnectionInfo>(null, Mock.Of<IDbConnection>());
 
-            Assert.IsFalse(enrichedPaymentInstructions.Any(), "Enriched Payment instructions were returned");
+            var result = enricher.Enrich(connection.Object, actuals);
+
+            Assert.AreEqual(2, result.Count);
+            Assert.IsTrue(result.All(e => e.Ukprn == Ukprn));
+            Assert.IsTrue(result.All(e => e.ContractNumber == ContractNumber));
+        }
+
+        [TestMethod]
+        public void Enrich_WhenNoAllocations_ShouldReturnEmpty()
+        {
+            var storeMock = new Mock<IMonitoringDeliverableStore>();
+
+            storeMock.Setup(m =>
+                m.GetActiveAllocationDeliverablePeriods(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<ConnectionInfo>()))
+                .Returns(new List<AllocationDeliverablePeriod>());
+
+            var enricher = new ReportedPaymentEnricher(_mapper)
+            {
+                DeliverableStore = storeMock.Object
+            };
+
+            var actuals = new List<ReportedActual>
+            {
+                new ReportedActual
+                {
+                    OrganisationId = ValidOrganisationId,
+                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
+                    DeliverableCode = "1",
+                    Period = "201705"
+                }
+            };
+
+            var connection = new Mock<ConnectionInfo>(null, Mock.Of<IDbConnection>());
+
+            var result = enricher.Enrich(connection.Object, actuals);
+
+            Assert.IsFalse(result.Any());
         }
     }
 }

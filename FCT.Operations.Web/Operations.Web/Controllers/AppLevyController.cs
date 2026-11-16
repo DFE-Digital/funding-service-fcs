@@ -228,7 +228,7 @@
             var initialStatuses = new Dictionary<string, string>
              {
              { "OAT", "Not Started" },
-             { "Release", "Not Started" },
+             { "PROD", "Not Started" },
              { "DMO", "Not Started" },
              { "DAT", "Not Started" },
              { "DOAT", "Not Started" },

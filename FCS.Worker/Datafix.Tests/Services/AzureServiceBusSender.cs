@@ -2,38 +2,35 @@
 {
     using System.Collections.Generic;
     using System.Configuration;
-    using System.IO;
     using System.Linq;
-    using Microsoft.ServiceBus.Messaging;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Azure.Messaging.ServiceBus;
     using Newtonsoft.Json;
 
     public static class AzureServiceBusSender
     {
-        public static void SendMessage(string queueName, string message, string propertiesJson)
+        public static async Task SendMessage(string queueName, string message, string propertiesJson)
         {
-            var client = GetQueueClient(queueName);
-            var headerProperties = JsonConvert.DeserializeObject<Dictionary<string, string>>(propertiesJson);
-            BrokeredMessage brokeredMessage = new BrokeredMessage(GenerateStreamFromString(message));
-            headerProperties.Keys.ToList().ForEach(key =>
+            var client = new ServiceBusClient(AzureServiceBusConnectionString);
+            var sender = client.CreateSender(queueName);
+
+            var headerProperties =
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(propertiesJson);
+
+            // ✅ Replace BrokeredMessage with ServiceBusMessage
+            var serviceBusMessage = new ServiceBusMessage(Encoding.UTF8.GetBytes(message));
+
+            // ✅ Replace Properties → ApplicationProperties
+            headerProperties?.Keys.ToList().ForEach(key =>
             {
-                brokeredMessage.Properties.Add(key, headerProperties[key]);
+                serviceBusMessage.ApplicationProperties[key] = headerProperties[key];
             });
 
-            client.Send(brokeredMessage);
+            await sender.SendMessageAsync(serviceBusMessage);
         }
-        private static QueueClient GetQueueClient(string queueName) => QueueClient.CreateFromConnectionString(AzureServiceBusConnectionString, queueName);
 
-        private static string AzureServiceBusConnectionString => ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
-
-        public static Stream GenerateStreamFromString(string s)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-
-            return stream;
-        }
+        private static string AzureServiceBusConnectionString =>
+            ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
     }
 }

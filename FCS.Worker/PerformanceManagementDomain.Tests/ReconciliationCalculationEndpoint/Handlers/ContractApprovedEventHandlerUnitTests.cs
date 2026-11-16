@@ -34,7 +34,6 @@
                 .Install(new WindsorInstaller(new LoggerFactory()))
                 .Register(Component.For<IPerformanceManagementDbContext>().ImplementedBy<PerformanceManagementDbContext>().LifestyleScoped().IsDefault())
                 .Register(Component.For<ContractApprovedEventHandler>().LifestyleScoped());
-            container.Register(global::Castle.MicroKernel.Registration.Component.For<global::Microsoft.Xrm.Sdk.IOrganizationService>().Instance(global::Moq.Mock.Of<global::Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
 
             container.BeginScope();
 
@@ -81,7 +80,7 @@
             // Act
             contractApprovedEventHandler.Handle(new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -156,7 +155,7 @@
             // Act
             contractApprovedEventHandler.Handle(new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -223,7 +222,7 @@
             // Act
             contractApprovedEventHandler.Handle(new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -283,7 +282,7 @@
             // Act
             contractApprovedEventHandler.Handle(new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {

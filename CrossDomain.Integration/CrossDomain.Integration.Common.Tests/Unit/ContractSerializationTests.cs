@@ -15,7 +15,7 @@
         public void Contract_ShouldNotSerializeTerminationAttrsIfContractTerminationAttrsIsNullAndAllAllocationTerminationAttrsAreNull()
         {
             // arrange
-            var contract = new contract
+            var contract = new Contract
             {
                 TerminationContractAttrs = null,
                 contractAllocations = new List<contractAllocationsContractAllocation>
@@ -38,7 +38,7 @@
         public void Contract_ShouldNotSerializeTerminationAttrsIfContractTerminationDateIsNull()
         {
             // arrange
-            var contract = new contract
+            var contract = new Contract
             {
                 TerminationContractAttrs = new TerminationContractAttrsCT
                 {
@@ -57,7 +57,7 @@
         public void Contract_ShouldNotSerializeTerminationAttrsIfTerminationDateIsDateTimeMinimum()
         {
             // arrange
-            var contract = new contract
+            var contract = new Contract
             {
                 TerminationContractAttrs = new TerminationContractAttrsCT
                 {
@@ -76,7 +76,7 @@
         public void Contract_ShouldSerializeTerminationAttrsIfContractTerminationDateIsSet()
         {
             // arrange
-            var contract = new contract
+            var contract = new Contract
             {
                 TerminationContractAttrs = new TerminationContractAttrsCT
                 {

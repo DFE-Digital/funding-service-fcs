@@ -9,14 +9,14 @@
 
     public class CorporateContractService : ICorporateContractService
     {
-        public contract GetContract(
+        public Contract GetContract(
             ConnectionInfo connectionInfo,
             ICrmContractRepository crmContractRepository,
             IContractsManager contractsManager,
             ILegalDeliverableService legalDeliverableService,
             ContractIdentifier contractIdentifier)
         {
-            contract corporateContract = contractsManager.GetCorporateContractForSpecificVersion(
+            Contract corporateContract = contractsManager.GetCorporateContractForSpecificVersion(
                 contractIdentifier);
 
             legalDeliverableService.RemoveNonLegalDeliverablesFromContract(connectionInfo, corporateContract);

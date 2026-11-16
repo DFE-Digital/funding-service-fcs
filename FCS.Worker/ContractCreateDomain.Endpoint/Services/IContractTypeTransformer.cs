@@ -6,7 +6,7 @@
 
     public interface IContractTypeTransformer
     {
-        contract TransformContractTypeToContract(contractType contractType);
+        Contract TransformContractTypeToContract(contractType contractType);
         ExtendedContractType TransformContractTypeToExtendedContractType(contractType contractType);
         ContractRequest.contractType TransformCorpContractToContractRequest(CorporateContract.contractType contractType);
     }

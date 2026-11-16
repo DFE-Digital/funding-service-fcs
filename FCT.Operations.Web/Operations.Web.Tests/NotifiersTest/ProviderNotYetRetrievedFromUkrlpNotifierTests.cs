@@ -4,11 +4,12 @@
     using OrganisationDomain.Integration.DataStore.Repositories;
     using Castle.Windsor;
     using IoC;
-    using System.Web.Management;
+    using Microsoft.Extensions.Logging;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Dtos;
     using Notifiers;
+    using Operations.Web.Notifiers;
 
     [TestClass]
     public class ProviderNotYetRetrievedFromUkrlpNotifierTests
@@ -18,7 +19,7 @@
         {
             // Arrange
             var mockOrganisationRepository = new Mock<IOrganisationRepository>();
-            mockOrganisationRepository.Setup(m => m.GetNumberOfProvidersNotYetBeenRetrievedFromUkrlp()).Returns(5);
+            mockOrganisationRepository.Setup(m => m.GetNumberOfProvidersNotYetBeenRetrievedFromUkrlp()).ReturnsAsync(5);
 
             ProviderNotYetRetrievedFromUkrlpNotifier notifier = new ProviderNotYetRetrievedFromUkrlpNotifier(mockOrganisationRepository.Object);
 
@@ -35,7 +36,7 @@
         {
             // Arrange
             var mockOrganisationRepository = new Mock<IOrganisationRepository>();
-            mockOrganisationRepository.Setup(m => m.GetNumberOfProvidersNotYetBeenRetrievedFromUkrlp()).Returns(0);
+            mockOrganisationRepository.Setup(m => m.GetNumberOfProvidersNotYetBeenRetrievedFromUkrlp()).ReturnsAsync(0);
 
             ProviderNotYetRetrievedFromUkrlpNotifier notifier = new ProviderNotYetRetrievedFromUkrlpNotifier(mockOrganisationRepository.Object);
 
@@ -53,7 +54,7 @@
             // Arrange
             string descriptionMessageError = "Generic Sql Error";
             var mockOrganisationRepository = new Mock<IOrganisationRepository>();
-            mockOrganisationRepository.Setup(m => m.GetNumberOfProvidersNotYetBeenRetrievedFromUkrlp()).Throws(new SqlExecutionException(descriptionMessageError));
+            mockOrganisationRepository.Setup(m => m.GetNumberOfProvidersNotYetBeenRetrievedFromUkrlp()).ThrowsAsync(new Exception(descriptionMessageError));
 
             ProviderNotYetRetrievedFromUkrlpNotifier notifier = new ProviderNotYetRetrievedFromUkrlpNotifier(mockOrganisationRepository.Object);
 

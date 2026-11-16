@@ -7,8 +7,10 @@
     using global::ContractManagementService.AtomFeed;
     using global::ContractManagementService.Infrastructure;
     using IoC;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+    //using Microsoft.AspNetCore.Authentication;
+    //using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.Identity.Web;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics;
@@ -46,8 +48,11 @@
             
             try
             {
-                services.AddAuthentication(AzureADDefaults.JwtBearerAuthenticationScheme)
-                    .AddAzureADBearer(options => _configuration.Bind("AzureAd", options));
+                //services.AddAuthentication(AzureADDefaults.JwtBearerAuthenticationScheme)
+                //    .AddAzureADBearer(options => _configuration.Bind("AzureAd", options));
+                services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                        .AddMicrosoftIdentityWebApi(
+                        _configuration.GetSection("AzureAd"));
 
                 services.AddControllersWithViews(options =>
                 {

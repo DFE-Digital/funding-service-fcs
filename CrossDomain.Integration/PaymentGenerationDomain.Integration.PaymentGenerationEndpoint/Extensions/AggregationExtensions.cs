@@ -1,13 +1,13 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.Extensions
 {
+    extern alias Entities;
     using DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
 
     public static class AggregationExtensions
     {
         public static SubnominalAggregation ToSubnominalAggregation(
-            this Aggregation aggregation,
-            SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation allocation,
+            this Aggregation aggregation,Allocation allocation,
             string period,
             string periodTypeCode)
         {

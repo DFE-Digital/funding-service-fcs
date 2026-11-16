@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGeneration.AggregatePayment
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -19,8 +20,8 @@
     using PaymentGenerationEndpoint.Infrastructure;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.Framework.Logging;
 
     [TestClass]

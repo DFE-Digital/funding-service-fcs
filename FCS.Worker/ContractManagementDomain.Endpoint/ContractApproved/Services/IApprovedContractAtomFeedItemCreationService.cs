@@ -8,6 +8,6 @@
 
     public interface IApprovedContractAtomFeedItemCreationService
     {
-        Task<AtomItemCreationResult> AddApprovedContract(contract corporateContract, Guid feedItemId, ConnectionInfo connectionInfo);
+        Task<AtomItemCreationResult> AddApprovedContract(Contract corporateContract, Guid feedItemId, ConnectionInfo connectionInfo);
     }
 }

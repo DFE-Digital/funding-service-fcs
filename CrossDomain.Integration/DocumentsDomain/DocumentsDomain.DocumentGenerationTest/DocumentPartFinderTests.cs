@@ -48,7 +48,7 @@
                     {
                         fundingTypeCode = "EDSK"
                     },
-                    period = new period
+                    period = new Period
                     {
                         period1 = "1920"
                     }
@@ -82,7 +82,7 @@
                     {
                         fundingTypeCode = "EDSK"
                     },
-                    period = new period
+                    period = new Period
                     {
                         period1 = "2021"
                     },
@@ -117,7 +117,7 @@
                     {
                         fundingTypeCode = "AEB2021"
                     },
-                    period = new period
+                    period = new Period
                     {
                         period1 = "ANY"
                     },
@@ -152,7 +152,7 @@
                     {
                         fundingTypeCode = "AEB2023"
                     },
-                    period = new period
+                    period = new Period
                     {
                         period1 = "ANY"
                     },
@@ -186,7 +186,7 @@
                     {
                         fundingTypeCode = "EDSK"
                     },
-                    period = new period
+                    period = new Period
                     {
                         period1 = "2021"
                     },

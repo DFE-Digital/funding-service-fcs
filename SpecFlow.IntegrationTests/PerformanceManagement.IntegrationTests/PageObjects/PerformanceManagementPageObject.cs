@@ -31,8 +31,7 @@
         public void DeleteAllAllocationsFromPaaS()
         {
             using (var context = new PerformanceManagementDbContext())
-            { 
-                context.Database.CommandTimeout = 300;
+            {
                 context.Database.ExecuteSqlCommand("Delete from [PerformanceManagement].[ContractAllocation]");
             }
         }

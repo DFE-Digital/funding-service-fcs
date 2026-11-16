@@ -6,6 +6,7 @@
     using SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services;
     using SFA.FCT.Contracts.AcceptanceTests.Utilities;
     using TechTalk.SpecFlow;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class AppsCarryInSteps
@@ -32,7 +33,7 @@
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.AreEqual(expectedCount, numberOfProcessed, $"We have not got the correct number of processed held rows for {fundingStreamPeriod}, {orgId}, {collectionReturnCode}");
+            ClassicAssert.AreEqual(expectedCount, numberOfProcessed, $"We have not got the correct number of processed held rows for {fundingStreamPeriod}, {orgId}, {collectionReturnCode}");
         }
 
         [Then(@"there is '(.*)' row on table HeldReportedActualGroup for FSP '(.*)' OrgId '(.*)' and Collection '(.*)' marked as unprocessed")]
@@ -53,7 +54,7 @@
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.AreEqual(expectedCount, numberOfUnprocessed,  $"We have not got the correct number of unprocessed held rows for {fundingStreamPeriod}, {orgId}, {collectionReturnCode}");
+            ClassicAssert.AreEqual(expectedCount, numberOfUnprocessed,  $"We have not got the correct number of unprocessed held rows for {fundingStreamPeriod}, {orgId}, {collectionReturnCode}");
         }
 
         [When(@"MonthEnd processing has completed and the processing of held data is triggered")]

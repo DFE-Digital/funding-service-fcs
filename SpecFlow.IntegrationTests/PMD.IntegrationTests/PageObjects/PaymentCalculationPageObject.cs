@@ -1,5 +1,6 @@
 ﻿namespace PMD.IntegrationTests.PageObjects
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -8,7 +9,8 @@
     using Castle.MicroKernel.Lifestyle;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    // using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
     using Moq;
     using NServiceBus;
     using NServiceBus.Testing;
@@ -18,14 +20,15 @@
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
     using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
-    using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.CrossDomain.Integration.OverrideDate;
     using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore.Model;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;
+    using Exlog=Microsoft.Extensions.Logging;
     using SFA.FCT.PaymentManagementDomain.BusinessLogic.Services;
     using SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.Handlers;
     using SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.Infrastructure;
@@ -39,7 +42,7 @@
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Repositories;
     using TechTalk.SpecFlow;
-    using Aggregation = SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Aggregation=Entity::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
     using DeliverablePaymentRepository = SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Repositories.DeliverablePaymentRepository;
     using IDeliverablePaymentRepository = SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Repositories.IDeliverablePaymentRepository;
 
@@ -324,7 +327,7 @@
                 .Returns(ConnectionInfo.CreateFrom(new PaymentManagementPolicyContext().Database.Connection));
 
             IWindsorContainer container = new WindsorContainer()
-                .Install(new SFA.FCT.PaymentManagementDomain.Integration.PaymentSchedule.IoC.WindsorInstaller(new LoggerFactory()))
+                .Install(new SFA.FCT.PaymentManagementDomain.Integration.PaymentSchedule.IoC.WindsorInstaller(new Exlog.LoggerFactory()))
                 .Register(Component.For<IDate>().ImplementedBy<StaticDate>().Named("IDateImplementation").LifestyleScoped().IsDefault())
                 .Register(Component.For<SFA.FCT.PaymentManagementDomain.Integration.PaymentSchedule.Infrastructure.ISessionConnectionFactory>()
                     .Instance(sessionFactoryMock.Object).IsDefault())

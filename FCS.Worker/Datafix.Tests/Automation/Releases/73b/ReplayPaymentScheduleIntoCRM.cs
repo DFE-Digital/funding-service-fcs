@@ -15,7 +15,7 @@
         public int Order => 1;
         public void ApplyDataFix()
         {
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentScheduleEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentScheduleEvent>();
 
             var message = FromJson<PaymentScheduleEvent>(
                 "Datafix.Tests",

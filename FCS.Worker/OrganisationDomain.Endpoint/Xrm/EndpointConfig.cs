@@ -1,36 +1,60 @@
-﻿namespace OrganisationDomain.Endpoint.Xrm
+﻿
+namespace OrganisationDomain.Endpoint.Xrm
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "OrganisationDomain.Endpoint.dll";
+        // ✅ Assembly name
+        public string NameOfAssembly =>
+            "OrganisationDomain.Endpoint.dll";
 
-        public string EndpointName => "OrgService.XrmEndpoint";
+        // ✅ Endpoint name
+        public string EndpointName =>
+            "OrgService.XrmEndpoint";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToList();
+        // ✅ Subscriptions (empty if not event-driven)
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToList();
 
-        public IReadOnlyCollection<CommandRoute> Routes => Enumerable.Empty<CommandRoute>().ToList();
+        // ✅ Routes (empty if not command routing)
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            Enumerable.Empty<CommandRoute>().ToList();
 
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        // ✅ Main configuration
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging (standardised)
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation(
+                "Started Endpoint {EndpointName} on FCS.Worker",
+                EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null &&
+                    t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null &&
+                    t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization (REQUIRED for .NET 8)
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ Dependency Injection (Microsoft DI)
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddOrganisationXrmServices();
             });
 
             return configuration;

@@ -24,7 +24,7 @@
         public void ApprovalOnwardsContractAtomFeedService_AddClosedContract_ShouldReturnAlreadyPresentWithSameFeedItemIdWhenMessageIdPresent()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -78,7 +78,7 @@
             // Arrange
             var mockRepo = new Mock<IApprovalOnwardsContractAtomItemRepository>();
             
-            contract corpContract = new contract
+            Contract corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -120,7 +120,7 @@
             Mock<IContractXmlValidator> contractXmlValidatorMock = new Mock<IContractXmlValidator>();
             contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
-            contract corpContract = new contract
+            Contract corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -161,7 +161,7 @@
             mockRepo.Setup(m => m.GetIdentifierForBusinessKey(It.IsAny<ConnectionInfo>(), It.IsAny<string>(), It.IsAny<AtomItemType>())).Returns(identifier);
             Mock<IContractXmlValidator> contractXmlValidatorMock = new Mock<IContractXmlValidator>();
             contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
-            contract corpContract = new contract
+            Contract corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {

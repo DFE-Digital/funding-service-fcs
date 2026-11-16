@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using System.Net;
-    using System.Threading.Tasks;
     using Implementation.BusinessLogic;
     using Implementation.Converters;
     using Implementation.DataAccess;
@@ -23,14 +22,12 @@
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public async Task ProviderResolver_ShouldInsertNewOrganisation()
+        public void ProviderResolver_ShouldInsertNewOrganisation()
         {
             const int ukprn = 10021107;
             var orgSupplementaryDataService = new Mock<IOrgSupplementaryDataService>();
-            
-            orgSupplementaryDataService
-              .Setup(ds => ds.GetDataForUkprn(It.IsAny<int>()))
-              .ReturnsAsync(new OrgSupplementaryDataServiceResult(null, false));
+            orgSupplementaryDataService.Setup(ds => ds.GetDataForUkprn(It.IsAny<int>()))
+                .ReturnsAsync(new OrgSupplementaryDataServiceResult(null, false));
 
             // arrange
             using (var context = new OrganisationDomainDbContext())
@@ -55,31 +52,24 @@
             };
 
             // act           
-            await providerResolver.GetByUkprn(ukprn);
+            providerResolver.GetByUkprn(ukprn);
 
             // assert
             using (var context = new OrganisationDomainDbContext())
             {
-                Assert.IsTrue(context.Organisations.Any(o => o.Ukprn == ukprn));
+                Assert.IsTrue(context.Organisations.Any(o => o.Ukprn == ukprn));                
             }
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public async Task ProviderResolver_ShouldUpdateSupplementaryData()
+        public void ProviderResolver_ShouldUpdateSupplementaryData()
         {
             const int ukprn = 10021107;
             const string companyRegNumberTest = "Test CN";
             const string charityNumberTest = "Test CH";
             var orgSupplementaryDataService = new Mock<IOrgSupplementaryDataService>();
-
-
-            orgSupplementaryDataService
-                   .Setup(ds => ds.GetDataForUkprn(It.IsAny<int>()))
-                   .ReturnsAsync(new OrgSupplementaryDataServiceResult(
-                       companyRegNumberTest,
-                       charityNumberTest,
-                       true));
-
+            orgSupplementaryDataService.Setup(ds => ds.GetDataForUkprn(It.IsAny<int>()))
+                .ReturnsAsync(new OrgSupplementaryDataServiceResult(companyRegNumberTest, charityNumberTest, true));
 
             // arrange
             using (var context = new OrganisationDomainDbContext())
@@ -105,7 +95,7 @@
             };
 
             // act           
-           await providerResolver.GetByUkprn(ukprn);
+            providerResolver.GetByUkprn(ukprn);
 
             // assert
             using (var context = new OrganisationDomainDbContext())

@@ -18,10 +18,16 @@ namespace CrossDomain.Integration.Entities.Tests.CorporateContract
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void GetFundingPeriod_PeriodNull_Throws()
         {
-            new contractType { period = null }.GetFundingPeriod();
+            try
+            {
+                new contractType { period = null }.GetFundingPeriod();
+                Assert.Fail("Expected exception");
+            }
+            catch (InvalidOperationException)
+            {
+            }
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -104,7 +110,7 @@ namespace CrossDomain.Integration.Entities.Tests.CorporateContract
         [TestMethod, TestCategory("UnitTest")]
         public void GetOrganisation_AllocationWithoutDeliveryOrg_ReturnsContractor()
         {
-            var contractorOrg = new contractor { ukprn = 111, legalName = "Contractor" };
+            var contractorOrg = new Contractor { ukprn = 111, legalName = "Contractor" };
             var contract = ContractWithAllocations(Allocation("ALLOC-1"));
             contract.contractor = contractorOrg;
 
@@ -114,12 +120,12 @@ namespace CrossDomain.Integration.Entities.Tests.CorporateContract
         [TestMethod, TestCategory("UnitTest")]
         public void GetOrganisation_AllocationWithDeliveryOrg_ReturnsDeliveryOrg()
         {
-            var deliveryOrg = new contractor { ukprn = 222, legalName = "Delivery" };
+            var deliveryOrg = new Contractor { ukprn = 222, legalName = "Delivery" };
             var allocation = Allocation("ALLOC-1");
             allocation.DeliveryOrganisation = "222";
             allocation.DeliveryOrganisationDetail = deliveryOrg;
             var contract = ContractWithAllocations(allocation);
-            contract.contractor = new contractor { ukprn = 111, legalName = "Contractor" };
+            contract.contractor = new Contractor { ukprn = 111, legalName = "Contractor" };
 
             Assert.AreSame(deliveryOrg, contract.GetOrganisation("ALLOC-1"));
         }
@@ -201,7 +207,7 @@ namespace CrossDomain.Integration.Entities.Tests.CorporateContract
             other.DeliveryOrganisation = "999";
             var own = Allocation("ALLOC-2");
             var contract = ContractWithAllocations(other, own);
-            contract.contractor = new contractor { ukprn = 111 };
+            contract.contractor = new Contractor { ukprn = 111 };
 
             contract.AlignDeliveryOrgs();
 
@@ -216,7 +222,7 @@ namespace CrossDomain.Integration.Entities.Tests.CorporateContract
             a1.DeliveryOrganisation = "111";
             var a2 = Allocation("ALLOC-2");
             var contract = ContractWithAllocations(a1, a2);
-            contract.contractor = new contractor { ukprn = 111 };
+            contract.contractor = new Contractor { ukprn = 111 };
 
             contract.AlignDeliveryOrgs();
 
@@ -251,7 +257,6 @@ namespace CrossDomain.Integration.Entities.Tests.CorporateContract
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void MergeAllocationsOnToContract_UpdateDraft_DuplicateDeliverable_Throws()
         {
             var existing = Allocation("ALLOC-1");
@@ -260,7 +265,14 @@ namespace CrossDomain.Integration.Entities.Tests.CorporateContract
             var toMerge = ExtendedAllocation("ALLOC-1");
             toMerge.contractDeliverables.Add(Deliverable(1));
 
-            contract.MergeAllocationsOnToContract(new[] { toMerge }, ContractIntent.UpdateDraft);
+            try
+            {
+                contract.MergeAllocationsOnToContract(new[] { toMerge }, ContractIntent.UpdateDraft);
+                Assert.Fail("Expected exception");
+            }
+            catch (InvalidOperationException)
+            {
+            }
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -290,9 +302,9 @@ namespace CrossDomain.Integration.Entities.Tests.CorporateContract
             Assert.AreSame(newDeliverable, existing.contractDeliverables[1]);
         }
 
-        private static period CreatePeriod(periodTypeCodeType typeCode, string periodNumber)
+        private static Period CreatePeriod(periodTypeCodeType typeCode, string periodNumber)
         {
-            return new period
+            return new Period
             {
                 period1 = periodNumber,
                 periodType = new periodTypeType { periodTypeCode = typeCode }

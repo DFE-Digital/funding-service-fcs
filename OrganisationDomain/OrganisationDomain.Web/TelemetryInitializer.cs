@@ -1,13 +1,16 @@
 ﻿namespace OrganisationDomain.Web
 {
-    using Microsoft.ApplicationInsights.DataContracts;
+    using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.Extensibility;
 
-    public class TelemetryInitializer : IContextInitializer
+    public class TelemetryInitializer 
     {
-        public void Initialize(TelemetryContext context)
+        private readonly string componentName =
+            typeof(TelemetryInitializer).Assembly.GetName().Name!;
+
+        public void Initialize(ITelemetry telemetry)
         {
-            context.Properties["ComponentName"] = GetType().Assembly.GetName().Name;
+            telemetry.Context.Component.Version = componentName;
         }
     }
 }

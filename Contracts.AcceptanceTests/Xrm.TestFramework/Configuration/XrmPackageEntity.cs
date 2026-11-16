@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework.Legacy;
 
 namespace SFA.FCT.Xrm.TestFramework
 {
@@ -292,7 +293,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageEntity HasDisplayName(string displayNameString)
         {
-            Assert.IsTrue(this.DisplayName == displayNameString, "The Display Name for entity " + this.LogicalName + " is \"" + this.DisplayName + "\"; not \"" + displayNameString + "\"");
+            ClassicAssert.IsTrue(this.DisplayName == displayNameString, "The Display Name for entity " + this.LogicalName + " is \"" + this.DisplayName + "\"; not \"" + displayNameString + "\"");
             return this;
         }
 
@@ -303,7 +304,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageEntity HasObjectTypeCode(int objectTypeCode)
         {
-            Assert.IsTrue(this.objectTypeCode == objectTypeCode, "The OTC for entity " + this.LogicalName + " is " + this.objectTypeCode + "; not " + objectTypeCode);
+            ClassicAssert.IsTrue(this.objectTypeCode == objectTypeCode, "The OTC for entity " + this.LogicalName + " is " + this.objectTypeCode + "; not " + objectTypeCode);
             return this;
         }
 
@@ -313,7 +314,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageEntity IsActivity()
         {
-            Assert.IsTrue(this.isActivityEntity, "The entity " + this.LogicalName + " is not an activity type");
+            ClassicAssert.IsTrue(this.isActivityEntity, "The entity " + this.LogicalName + " is not an activity type");
             return this;
         }
 
@@ -323,19 +324,19 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageEntity IsAuditEnabled()
         {
-            Assert.IsTrue(this.isAuditEnabled, "The entity " + this.LogicalName + " is not audit enabled");
+            ClassicAssert.IsTrue(this.isAuditEnabled, "The entity " + this.LogicalName + " is not audit enabled");
             return this;
         }
 
         public XrmPackageEntity IsUserOwned()
         {
-            Assert.IsTrue(this.isUserOwned, "The entity " + this.LogicalName + " is not user owned");
+            ClassicAssert.IsTrue(this.isUserOwned, "The entity " + this.LogicalName + " is not user owned");
             return this;
         }
 
         public XrmPackageEntity IsOrganisationOwned()
         {
-            Assert.IsTrue(!this.isUserOwned, "The entity " + this.LogicalName + " is not Organisation owned");
+            ClassicAssert.IsTrue(!this.isUserOwned, "The entity " + this.LogicalName + " is not Organisation owned");
             return this;
         }
 
@@ -348,7 +349,7 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var viewMatch = from v in this.views where v.ViewName == viewName select v;
 
-            Assert.IsTrue(viewMatch.Any(), "The View " + viewName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(viewMatch.Any(), "The View " + viewName + " was not found in the Dynamics CRM Configuration");
             return (XrmPackageView)viewMatch.First();
         }
 
@@ -359,7 +360,7 @@ namespace SFA.FCT.Xrm.TestFramework
         public XrmPackageView QuickView()
         {
             var viewMatch = from v in this.views where v.IsQuickFind == true select v;
-            Assert.IsTrue(viewMatch.Any(), "The Quick View was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(viewMatch.Any(), "The Quick View was not found in the Dynamics CRM Configuration");
             return (XrmPackageView)viewMatch.First();
         }
 
@@ -375,7 +376,7 @@ namespace SFA.FCT.Xrm.TestFramework
                             where v.IsDefault == true
                             && v.QueryType == viewTypeString
                             select v;
-            Assert.IsTrue(viewMatch.Any(), "The Default View was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(viewMatch.Any(), "The Default View was not found in the Dynamics CRM Configuration");
             return (XrmPackageView)viewMatch.First();
         }
 
@@ -387,7 +388,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>The XrmPackageRelationship corresponding to the parameter</returns>
         public XrmPackageRelationship Relationship(string relationshipName, string relationshipDisplayName = "")
         {
-            Assert.IsTrue(this.relationships != null, "The Relationship with entity " + relationshipName + "  was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(this.relationships != null, "The Relationship with entity " + relationshipName + "  was not found in the Dynamics CRM Configuration");
 
             var relMatch = from r in this.relationships where r.ReferencingEntity == relationshipName.ToLowerInvariant() select r;
 
@@ -396,7 +397,7 @@ namespace SFA.FCT.Xrm.TestFramework
             {
                 relMatch = relMatch.Where(a => a.ReferencingAttributeName == relationshipDisplayName);
             }
-            Assert.IsTrue(relMatch.Any(), "The Relationship with entity " + relationshipName + "  was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(relMatch.Any(), "The Relationship with entity " + relationshipName + "  was not found in the Dynamics CRM Configuration");
 
             return (XrmPackageRelationship)relMatch.First();
         }
@@ -410,7 +411,7 @@ namespace SFA.FCT.Xrm.TestFramework
         public XrmPackageForm Form(string formName, string formType)
         {
             var formMatch = from f in this.forms where f.FormName == formName && f.FormType == formType select f;
-            Assert.IsTrue(formMatch.Any(), "The Form " + formName + " for the " + this.LogicalName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(formMatch.Any(), "The Form " + formName + " for the " + this.LogicalName + " was not found in the Dynamics CRM Configuration");
             return (XrmPackageForm)formMatch.First();
         }
 
@@ -426,7 +427,7 @@ namespace SFA.FCT.Xrm.TestFramework
             {
                 attributeMatch = from a in this.attributes where a.displayName == attributeName select a;
             }
-            Assert.IsTrue(attributeMatch.Any(), "The Attribute " + attributeName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(attributeMatch.Any(), "The Attribute " + attributeName + " was not found in the Dynamics CRM Configuration");
             return (XrmPackageAttribute)attributeMatch.First();
         }
 
@@ -438,7 +439,7 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var attributeMatch = from a in this.attributes where a.primaryKey select a;
 
-            Assert.IsTrue(attributeMatch.Any(), "The primary key for " + this.DisplayName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(attributeMatch.Any(), "The primary key for " + this.DisplayName + " was not found in the Dynamics CRM Configuration");
             return (XrmPackageAttribute)attributeMatch.First();
         }
 
@@ -450,7 +451,7 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var attributeMatch = from a in this.attributes where a.dataType == XrmDataType.PrimaryKey select a;
 
-            Assert.IsTrue(attributeMatch.Any(), "The primary key for " + DisplayName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(attributeMatch.Any(), "The primary key for " + DisplayName + " was not found in the Dynamics CRM Configuration");
             return attributeMatch.First();
         }
 
@@ -462,7 +463,7 @@ namespace SFA.FCT.Xrm.TestFramework
         public XrmPackageRibbon Ribbon(XrmRibbonType ribbonType)
         {
             var ribbonMatch = from r in this.ribbons where r.RibbonType == ribbonType select r;
-            Assert.IsTrue(ribbonMatch.Any(), "The Ribbon Type " + ribbonType.ToDescription() + " was not found for the entity " + this.DisplayName + " in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(ribbonMatch.Any(), "The Ribbon Type " + ribbonType.ToDescription() + " was not found for the entity " + this.DisplayName + " in the Dynamics CRM Configuration");
             return (XrmPackageRibbon)ribbonMatch.First();
         }
 
@@ -473,7 +474,7 @@ namespace SFA.FCT.Xrm.TestFramework
                                 && w.WorkflowName == workflowName
                                 select w;
 
-            Assert.IsTrue(workflowMatch.Any(), "The Workflow " + workflowName + " was not found for the entity " + this.DisplayName + " in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(workflowMatch.Any(), "The Workflow " + workflowName + " was not found for the entity " + this.DisplayName + " in the Dynamics CRM Configuration");
             return (XrmPackageWorkflow)workflowMatch.First();
         }
         #endregion

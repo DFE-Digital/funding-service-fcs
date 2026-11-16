@@ -5,8 +5,7 @@
     using AllocationDeliveryDomain.Common.DataStore.Model;
     using Castle.MicroKernel.Lifestyle;
     using Castle.Windsor;
-    using Framework.Logging;
-    using Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using MoreLinq;
     using PolicyCache.DataStore;

@@ -1,8 +1,8 @@
-﻿using SFA.FCT.Framework.Logging;
-using SFA.FCT.Framework.Logging.Bespoke;
-using System;
+﻿using System;
 using System.Configuration;
 using System.IO;
+using Microsoft.Extensions.Logging;
+
 
 namespace SFA.FCT.CrossDomain.Integration.Azure.Worker
 {
@@ -43,12 +43,17 @@ namespace SFA.FCT.CrossDomain.Integration.Azure.Worker
         private int Execute()
         {
             Console.WriteLine("Starting the worker role");
-            _worker = new WorkerRole(
-                new LoggerFactory(
-                    new AppServiceEnvironment(
-                        Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"),
-                        Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID")?.Substring(0, 6),
-                        ConfigurationManager.AppSettings["DeploymentId"])));
+
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.ClearProviders();
+                builder.AddConsole();
+                builder.AddDebug();
+                builder.SetMinimumLevel(LogLevel.Information);
+            });
+
+            _worker = new WorkerRole(loggerFactory);
+
 
             _worker.OnStart();
             Console.WriteLine("Worker role started, now running");

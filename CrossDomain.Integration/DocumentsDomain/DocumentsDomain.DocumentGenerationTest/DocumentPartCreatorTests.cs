@@ -45,19 +45,21 @@
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        [ExpectedException(typeof (FileNotFoundException))]
         public void TestGetNameOfTemplateActiveOnDateWhenFileNotFound()
         {
-            Mock<IAzureStorageWrapper> azureMock = new Mock<IAzureStorageWrapper>();
-            azureMock
-                .Setup(m => m.GetContainerContents(It.IsAny<string>()))
-                .Returns(new string[]
-                {
-                    "A2_OLASS1516_2015-08-01.docx"
-                });
+            Assert.ThrowsExactly<FileNotFoundException>(() =>
+            {
+                Mock<IAzureStorageWrapper> azureMock = new Mock<IAzureStorageWrapper>();
+                azureMock
+                    .Setup(m => m.GetContainerContents(It.IsAny<string>()))
+                    .Returns(new string[]
+                    {
+                        "A2_OLASS1516_2015-08-01.docx"
+                    });
 
-            DocumentPartCreatorTestChild child = new DocumentPartCreatorTestChild(new TemplateRepository(azureMock.Object), DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories());
-            string templateName = child.TestGetNameOfTemplateActiveOnDate("document-io-unittest", "A2_OLASS1516", new DateTime(2015, 07, 01));
+                DocumentPartCreatorTestChild child = new DocumentPartCreatorTestChild(new TemplateRepository(azureMock.Object), DocumentConfigurationSourceTests.GetDocumentConfigurationSourceWithMockRepositories());
+                string templateName = child.TestGetNameOfTemplateActiveOnDate("document-io-unittest", "A2_OLASS1516", new DateTime(2015, 07, 01));
+            });
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -118,48 +120,53 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof (ApplicationException))]
         public void TestWithPeriodWithInvalidStartYearInPeriodValue()
         {
             contractAllocationsContractAllocation allocation = new contractAllocationsContractAllocation()
             {
-                period = new period()
+                period = new Period()
                 {
                     period1 = "SS16"
                 }
             };
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+                GetMonthsInPeriod(allocation);
+            });
 
-            GetMonthsInPeriod(allocation);
         }
 
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetStartYearFromPeriod()
         {
-            Assert.AreEqual(2016, GetStartYearFromPeriod(new period() {period1 = "1617"}));
+            Assert.AreEqual(2016, GetStartYearFromPeriod(new Period() {period1 = "1617"}));
         }
 
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetEndYearFromPeriod()
         {
-            Assert.AreEqual(2017, GetEndYearFromPeriod(new period() {period1 = "1617"}));
+            Assert.AreEqual(2017, GetEndYearFromPeriod(new Period() {period1 = "1617"}));
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof (ApplicationException))]
         public void TestGetEndYearFromPeriodWithBadlyFormedPeriod()
         {
-            period p = new period()
+            Period p = new Period()
             {
                 period1 = "yyyy"
             };
 
-            GetEndYearFromPeriod(p);
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+
+                GetEndYearFromPeriod(p);
+            });
         }
 
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetStartMonthFromPeriodForAY()
         {
-            period p = new period()
+            Period p = new Period()
             {
                 periodType = new periodTypeType()
                 {
@@ -174,7 +181,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetStartMonthFromPeriodForFY()
         {
-            period p = new period()
+            Period p = new Period()
             {
                 periodType = new periodTypeType()
                 {
@@ -189,7 +196,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetEndMonthFromPeriodForAY()
         {
-            period p = new period()
+            Period p = new Period()
             {
                 periodType = new periodTypeType()
                 {
@@ -204,7 +211,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetEndMonthFromPeriodForFY()
         {
-            period p = new period()
+            Period p = new Period()
             {
                 periodType = new periodTypeType()
                 {
@@ -240,7 +247,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetMonthsInPeriodForAY1516()
         {
-            period p = new period()
+            Period p = new Period()
             {
                 period1 = "1516",
                 periodType = new periodTypeType()
@@ -258,7 +265,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetMonthsInPeriodForSB()
         {
-            period p = new period()
+            Period p = new Period()
             {
                 period1 = "2022",
                 periodType = new periodTypeType()
@@ -276,7 +283,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestGetMonthsInPeriodForFY1819()
         {
-            period p = new period()
+            Period p = new Period()
             {
                 period1 = "1819",
                 periodType = new periodTypeType()
@@ -349,7 +356,7 @@
             const string allocationDesc = "Allocation description";
             const string allocationDeliveryOrgUpin = "8765";
 
-            contract master = new contract
+            Contract master = new Contract
             {
                 fundingType = new fundingType { fundingTypeCode = "ESF" },
                 contractNumber = masterContractNumber,
@@ -372,7 +379,7 @@
                                 lotReference = lot,
                                 fundingStreamPeriodCode = "FspCode",
                                 DeliveryOrganisationDetail =
-                                    new contractor
+                                    new Contractor
                                     {
                                         legalName = allocationDeliveryOrgLegalName,
                                         ukprn = allocationDeliveryOrgUkprn,
@@ -383,7 +390,7 @@
                                 {
                                     fundingStreamCode = "Test Funding stream"
                                 },
-                                period = new period
+                                period = new Period
                                 {
                                     periodType = new periodTypeType {periodTypeCode = periodTypeCodeType.ESF},
                                     period1 = "1420"
@@ -431,7 +438,7 @@
                         contractor = null
                     }
                 },
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = 12345678,
                     legalName = "Provider Name",
@@ -505,18 +512,18 @@
                 startDate = new DateTime(2015, 08, 01),
                 endDate = new DateTime(2016, 07, 31),
                 contractAllocationNumber = fundingStreamCode + "-4321",
-                DeliveryOrganisationDetail = new contractor()
+                DeliveryOrganisationDetail = new Contractor()
                 {
                     legalName = "DeliveryOrg Legal Name",
                     ukprn = 12345678
                 }
             };
 
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 contractNumber = "SFA-1234",
                 contractVersionNumber = 5,
-                contractor = new contractor()
+                contractor = new Contractor()
                 {
                     legalName = "ContractorName",
                     ukprn = 87654321
@@ -622,7 +629,7 @@
                         contractDeliverablePeriods = CreateDeliverablePeriods(startDate, endDate)
                     }
                 },
-                period = new period()
+                period = new Period()
                 {
                     periodType = new periodTypeType()
                     {

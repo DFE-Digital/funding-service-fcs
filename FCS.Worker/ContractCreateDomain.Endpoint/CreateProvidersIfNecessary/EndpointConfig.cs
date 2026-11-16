@@ -1,34 +1,47 @@
-﻿namespace ContractCreateDomain.Endpoint.CreateProvidersIfNecessary
+﻿
+namespace ContractCreateDomain.Endpoint.CreateProvidersIfNecessary
 {
     using System.Collections.Generic;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
         public string NameOfAssembly => "ContractCreateDomain.Endpoint.dll";
+
         public string EndpointName => "ContractCreateDomain.CreateProvidersIfNecessary";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
-        public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>();
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            new List<CommandRoute>();
+
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith("Messages"));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Common Saga DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddContractSagaServices();
             });
 
             return configuration;

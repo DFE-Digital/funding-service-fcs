@@ -1,29 +1,51 @@
 ﻿namespace Datafix.Tests.Automation.Releases.R88.Audit
 {
     using System.Collections.Generic;
-    using Microsoft.ServiceBus.Messaging;
     using System.Linq;
     using System.Configuration;
+    using System.Threading.Tasks;
+    using Azure.Messaging.ServiceBus;
 
     public static class AzureServiceBusService
     {
-        public static void ClearMessagesFromDeadLetterQueue(string queueName, IReadOnlyCollection<string> messageIds)
+        public static async Task ClearMessagesFromDeadLetterQueue(
+            string queueName,
+            IReadOnlyCollection<string> messageIds)
         {
-            var client = GetQueueClient(QueueClient.FormatDeadLetterPath(queueName));
+            var client = new ServiceBusClient(AzureServiceBusConnectionString);
 
-            while (client.Peek() != null)
-            {
-                var brokeredMessage = client.Receive();
-
-                if (messageIds.Contains(brokeredMessage.MessageId))
+            var receiver = client.CreateReceiver(
+                queueName,
+                new ServiceBusReceiverOptions
                 {
-                    brokeredMessage.Complete();
+                    SubQueue = SubQueue.DeadLetter
+                });
+
+            while (true)
+            {
+                var messages = await receiver.ReceiveMessagesAsync(50);
+
+                if (messages == null || messages.Count == 0)
+                {
+                    break;
+                }
+
+                foreach (var message in messages)
+                {
+                    if (messageIds.Contains(message.MessageId))
+                    {
+                        await receiver.CompleteMessageAsync(message);
+                    }
+                    else
+                    {
+                        // ✅ IMPORTANT: release message back to DLQ
+                        await receiver.AbandonMessageAsync(message);
+                    }
                 }
             }
         }
 
-        private static QueueClient GetQueueClient(string queueName) => QueueClient.CreateFromConnectionString(AzureServiceBusConnectionString, queueName);
-
-        private static string AzureServiceBusConnectionString => ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
+        private static string AzureServiceBusConnectionString =>
+            ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
     }
 }

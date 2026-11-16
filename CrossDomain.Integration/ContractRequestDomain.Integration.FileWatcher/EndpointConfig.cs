@@ -1,15 +1,20 @@
-namespace SFA.FCT.ContractRequestDomain.Integration.FileWatcher
+﻿namespace SFA.FCT.ContractRequestDomain.Integration.FileWatcher
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Castle.Windsor;
     using FCS.Worker.Common;
     using Framework.Logging;
     using IoC;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using NServiceBus;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Interfaces;
+    using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
     using SFA.FCT.ContractRequestDomain.DataStore.Repositories;
-    using ILoggerFactory = Framework.Logging.Interfaces.ILoggerFactory;
+    using SFA.FCT.CrossDomain.Integration.Common.Storage;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Intlogger=Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -21,34 +26,65 @@ namespace SFA.FCT.ContractRequestDomain.Integration.FileWatcher
 
         public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>();
 
+
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = new LoggerFactory().CreateDefaultLogger();
+            // ✅ Proper logger
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CDI");
+            var connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnection");
 
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "AzureServiceBusConnection environment variable is not set.");
+            }
+
+            // ✅ Conventions (fixed)
             configuration.Conventions()
                 .DefiningCommandsAs(t =>
                     (t.Namespace != null && t.Namespace.EndsWith("Commands")) ||
-                    t.GetInterfaces().Contains(typeof(ICommand)))
-                .DefiningEventsAs(t => Subscriptions.Select(s => s.EventType.Name).Any(e => t.Name.EndsWith(e)));
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    Subscriptions.Any(s => s.EventType.IsAssignableFrom(t)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Correct DI usage
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+
+                services.AddFileWatcherServices(loggerFactory);
+
+                // ✅ Register poller as singleton
+                services.AddSingleton<FileWatcherPollerStarter>();
             });
 
-            // now start polling
-            var container = Bootstrapper.CreateContainer(loggerFactory);
-            var bulkUploadFileAccess = container.Resolve<IBulkUploadFileAccess>();
-            var bus = container.Resolve<IFcsBus>();
-            var lockResourceRepository = container.Resolve<IFileWatcherLockResourceRepository>();
-
-            SimpleFilePoller.StartPolling(logger: logger, bulkUploadFileAccess: bulkUploadFileAccess, bus: bus, fileWatcherLockResourceRepository: lockResourceRepository);
-            
             return configuration;
         }
+
     }
+
+
+    public class FileWatcherPollerStarter
+    {
+        public FileWatcherPollerStarter(
+            Intlogger.ILogger logger,
+            IBulkUploadFileAccess bulkUploadFileAccess,
+            IFcsBus bus,
+            IFileWatcherLockResourceRepository lockRepository)
+        {
+            // ✅ Start polling when DI creates this class
+            SimpleFilePoller.StartPolling(
+                logger,
+                bulkUploadFileAccess,
+                bus,
+                lockRepository);
+        }
+    }
+
 }

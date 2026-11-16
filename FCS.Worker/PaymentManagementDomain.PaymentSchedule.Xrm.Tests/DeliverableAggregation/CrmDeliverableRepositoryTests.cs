@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.DeliverableAggregation
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -8,7 +9,7 @@
     using MoreLinq;
     using PaymentManagementDomain.PaymentSchedule.DeliverableAggregation;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Dtos;
 
     [TestClass]

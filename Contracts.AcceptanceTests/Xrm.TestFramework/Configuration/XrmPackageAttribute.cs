@@ -8,6 +8,7 @@ using System.Linq;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
+using NUnit.Framework.Legacy;
 
 namespace SFA.FCT.Xrm.TestFramework
 {
@@ -344,11 +345,11 @@ namespace SFA.FCT.Xrm.TestFramework
 
             if (optionSetPairs.Any())
             {
-                Assert.IsTrue(optionSetPairs.First().Value == optionSetLabel, "The Option Set label for value " + optionSetValue + " is \"" + optionSetPairs.First().Value + "\"; not \"" + optionSetLabel + "\"");
+                ClassicAssert.IsTrue(optionSetPairs.First().Value == optionSetLabel, "The Option Set label for value " + optionSetValue + " is \"" + optionSetPairs.First().Value + "\"; not \"" + optionSetLabel + "\"");
             }
             else
             {
-                Assert.Fail("The OptionSet value: " + optionSetValue + " is not in the Options for the " + this.LogicalName + " attribute");
+                ClassicAssert.Fail("The OptionSet value: " + optionSetValue + " is not in the Options for the " + this.LogicalName + " attribute");
             }
 
             return this;
@@ -361,7 +362,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageAttribute IsDisabled(bool isDisabled)
         {
-            Assert.IsTrue(this.formEnabled == !isDisabled, "The form field " + this.LogicalName + " has disabled status " + (!this.formEnabled) + "; not " + isDisabled);
+            ClassicAssert.IsTrue(this.formEnabled == !isDisabled, "The form field " + this.LogicalName + " has disabled status " + (!this.formEnabled) + "; not " + isDisabled);
 
             return this;
         }
@@ -373,7 +374,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageAttribute HasType(string dataType)
         {
-            Assert.IsTrue(this.dataType == dataType, "The data type of the " + this.LogicalName + " attribute is " + this.dataType + "; not " + dataType);
+            ClassicAssert.IsTrue(this.dataType == dataType, "The data type of the " + this.LogicalName + " attribute is " + this.dataType + "; not " + dataType);
             return this;
         }
 
@@ -384,7 +385,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageAttribute OfLength(int maxLength)
         {
-            Assert.IsTrue(this.length == maxLength, "The length of the attribute " + this.length + "; not " + maxLength);
+            ClassicAssert.IsTrue(this.length == maxLength, "The length of the attribute " + this.length + "; not " + maxLength);
             return this;
         }
 
@@ -395,7 +396,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageAttribute WithMaxValue(int maxValue)
         {
-            Assert.IsTrue(this.maxValue == maxValue, "The max length of the attribute " + this.LogicalName + " is " + this.maxValue + "; not " + maxValue);
+            ClassicAssert.IsTrue(this.maxValue == maxValue, "The max length of the attribute " + this.LogicalName + " is " + this.maxValue + "; not " + maxValue);
             return this;
         }
 
@@ -406,7 +407,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageAttribute WithMinValue(int minValue)
         {
-            Assert.IsTrue(this.minValue == minValue, "The min length of the attribute " + this.LogicalName + " is " + this.maxValue + "; not " + minValue);
+            ClassicAssert.IsTrue(this.minValue == minValue, "The min length of the attribute " + this.LogicalName + " is " + this.maxValue + "; not " + minValue);
             return this;
         }
 
@@ -419,10 +420,10 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             if (string.IsNullOrWhiteSpace(this.displayName))
             {
-                Assert.Fail("There is no Display Name defined for the " + this.LogicalName + "attribute");
+                ClassicAssert.Fail("There is no Display Name defined for the " + this.LogicalName + "attribute");
             }
 
-            Assert.IsTrue(this.displayName == displayName, "The Display Name of the attribute " + this.LogicalName + " is " + this.displayName + "; not " + displayName);
+            ClassicAssert.IsTrue(this.displayName == displayName, "The Display Name of the attribute " + this.LogicalName + " is " + this.displayName + "; not " + displayName);
             return this;
         }
 
@@ -432,7 +433,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageAttribute IsValidForAdvancedFind()
         {
-            Assert.IsTrue(this.validForAdvancedFind, "The attribute " + this.LogicalName + " is not valid for Advanced Find");
+            ClassicAssert.IsTrue(this.validForAdvancedFind, "The attribute " + this.LogicalName + " is not valid for Advanced Find");
             return this;
         }
 
@@ -445,10 +446,10 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             if (string.IsNullOrWhiteSpace(this.requiredLevel))
             {
-                Assert.Fail("This attribute " + this.LogicalName + " has no Requirement Level");
+                ClassicAssert.Fail("This attribute " + this.LogicalName + " has no Requirement Level");
             }
 
-            Assert.IsTrue(this.requiredLevel == requirementLevel, "The attribute " + this.LogicalName + " has a requirement level of: " + this.requiredLevel + "; not " + requirementLevel);
+            ClassicAssert.IsTrue(this.requiredLevel == requirementLevel, "The attribute " + this.LogicalName + " has a requirement level of: " + this.requiredLevel + "; not " + requirementLevel);
             return this;
         }
 
@@ -458,7 +459,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns></returns>
         public XrmPackageLookupParameter Lookup()
         {
-            Assert.IsTrue(this.lookupParameter != null, "The field " + this.LogicalName + " does not contain a lookup parameter on the form requested");
+            ClassicAssert.IsTrue(this.lookupParameter != null, "The field " + this.LogicalName + " does not contain a lookup parameter on the form requested");
 
             return this.lookupParameter;
         }

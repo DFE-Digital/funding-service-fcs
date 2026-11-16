@@ -1,9 +1,10 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.AggregatePaymentEndpoint
 {
+    extern alias Entities;
     using System.Collections.Generic;
     using DTOs;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface IUpSertSubmoninalAggregationService
     {

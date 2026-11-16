@@ -21,7 +21,7 @@
             _fundingTypeFundingPeriodRepository = fundingTypeFundingPeriodRepository;
         }
 
-        public async Task UpdateApprovedContractCache(contract corporateContract, string masterContractNumber, ConnectionInfo connectionInfo)
+        public async Task UpdateApprovedContractCache(Contract corporateContract, string masterContractNumber, ConnectionInfo connectionInfo)
         {
             foreach (contractType childContract in corporateContract.contracts)
             {

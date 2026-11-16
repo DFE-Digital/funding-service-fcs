@@ -19,7 +19,7 @@
         // connection settings
         private const string AzureStorageConnectionString = "";
         private const string AzureTableSuffix = "OAT";
-        private const string SqlConnectionString = "";
+        private const string SqlConnectionString = "Data Source=gy2thhzgc4.database.windows.net;Initial Catalog=fct-database-oat;Persist Security Info=True;User ID=fctsa;Password=PPPassword@9";
 
         // reset values
         private static readonly DateTime SystemOverrideDateToSet = new DateTime(2020, 09, 04, 20, 00, 00, DateTimeKind.Utc);

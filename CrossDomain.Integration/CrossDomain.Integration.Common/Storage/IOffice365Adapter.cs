@@ -16,7 +16,7 @@
         DateTime GetFileTimestamp(string fileName, string listName);
 
         byte[] GetFileContents(string fileName, string listName);
-        
+
         byte[] GetFileContents(string listName, string folderName, string fileName);
 
         void MoveFile(string originalFileName, string sourceListName, string targetListName);
@@ -40,7 +40,7 @@
         bool DoesFileExist(string listName, string folderName, string fileName);
 
         bool DoesFileExist(string listName, string fileName);
-        
+
         bool DoesFolderExist(string listName, string folderName);
 
         bool DoesLibraryExist(string folderName);

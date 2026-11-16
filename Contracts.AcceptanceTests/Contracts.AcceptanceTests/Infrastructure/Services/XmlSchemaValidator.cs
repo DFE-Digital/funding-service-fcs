@@ -22,7 +22,7 @@
             const string corporateContractSchemaNamespace = "urn:sfa:schemas:contract";
 
             var schema =
-                typeof(CrossDomain.Integration.Entities.CorporateSchema.Contract.contract).Assembly.GetManifestResourceStream(
+                typeof(CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract).Assembly.GetManifestResourceStream(
                     corporateContractSchemaResourceName);
             if (schema != null)
             {

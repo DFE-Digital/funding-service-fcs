@@ -1,14 +1,15 @@
 ﻿namespace ADMonitoringDomain.Endpoint.Tests.Unit
 {
+    extern alias Entities;
     using BusinessLogic;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using NServiceBus.Testing;
     using SFA.FCT.AllocationDelivery.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using AllocationActuals = Entities::SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
+    using CorporatePaymentAggregation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using EntityData = Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
 
@@ -33,7 +34,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
             
             var message = new PaymentAggregatedEvent();
-            var allocation = new Allocation
+            var allocation = new CorporatePaymentAggregation.Allocation
             {
                 AllocationNumber = "A101",
                 VersionNumber = 1
@@ -52,7 +53,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<ConnectionInfo>()), Times.Once(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Once(),
                 "Handle_IPaymentAggregatedEvent did not generate the feed when ContractAllocationActuals Received");
 
         }
@@ -73,7 +74,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var message = new PaymentAggregatedEvent();
-            var allocation = new Allocation
+            var allocation = new CorporatePaymentAggregation.Allocation
             {
                 AllocationNumber = "A101",
                 VersionNumber = 1
@@ -92,7 +93,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsUpdated, It.IsAny<ConnectionInfo>()), Times.Once(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsUpdated, It.IsAny<EntityData.ConnectionInfo>()), Times.Once(),
                 "Handle_IPaymentAggregatedEvent did not generate the feed when ContractAllocationActuals Updated");
 
         }
@@ -113,7 +114,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var message = new PaymentAggregatedEvent();
-            var allocation = new Allocation
+            var allocation = new CorporatePaymentAggregation.Allocation
             {
                 AllocationNumber = "A101",
                 VersionNumber = 1
@@ -132,7 +133,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<ConnectionInfo>()), Times.Never(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Never(),
                 "Handle_IPaymentAggregatedEvent generated the feed when ContractAllocationActuals Not Received");
 
         }
@@ -157,7 +158,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var messageMock = new Mock<IPaymentPostedEvent>();
-            var allocation = new Allocation()
+            var allocation = new CorporatePaymentAggregation.Allocation()
             {
                 AllocationNumber = "A101",
                 VersionNumber = 1
@@ -175,7 +176,7 @@
             };
             handler.Handle(messageMock.Object, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationPaymentReceived, It.IsAny<ConnectionInfo>()), Times.Once(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationPaymentReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Once(),
                 "Handle_IPaymentPostedEvent did not generate the feed when ContractAllocationPaymentPosted Received");
 
         }
@@ -196,7 +197,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var messageMock = new Mock<IPaymentPostedEvent>();
-            var allocation = new Allocation()
+            var allocation = new CorporatePaymentAggregation.Allocation()
             {
                 AllocationNumber = "A101",
                 VersionNumber = 1
@@ -214,7 +215,7 @@
             };
             handler.Handle(messageMock.Object, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationPaymentReceived, It.IsAny<ConnectionInfo>()), Times.Never(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationPaymentReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Never(),
                 "Handle_IPaymentPostedEvent generated the feed when ContractAllocationPaymentPosted Not Received");
        }
 
@@ -237,10 +238,10 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var message = new AllocationActualsVerified();
-            var allocation = new ContractAllocationActualsType()
+            var allocation = new AllocationActuals.ContractAllocationActualsType()
             {
                 ContractAllocationNumber = "A101",
-                ContractReference = new ContractReferenceType()
+                ContractReference = new AllocationActuals.ContractReferenceType()
                 {
                     ContractVersionNumber = 1
                 }
@@ -258,7 +259,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<ConnectionInfo>()), Times.Once(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Once(),
                 "Handle_IAllocationActualsVerified did not generate the feed when ContractAllocationActuals Received");
 
         }
@@ -279,10 +280,10 @@
 
             var message = new AllocationActualsUpdated
             {
-                AllocationActuals = new ContractAllocationActualsType()
+                AllocationActuals = new AllocationActuals.ContractAllocationActualsType()
                 {
                     ContractAllocationNumber = "A101",
-                    ContractReference = new ContractReferenceType()
+                    ContractReference = new AllocationActuals.ContractReferenceType()
                     {
                         ContractVersionNumber = 1
                     }
@@ -301,7 +302,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsUpdated, It.IsAny<ConnectionInfo>()), Times.Once(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsUpdated, It.IsAny<EntityData.ConnectionInfo>()), Times.Once(),
                 "Handle_IAllocationActualsVerified did not generate the feed when ContractAllocationActuals Updated");
 
         }
@@ -323,10 +324,10 @@
 
             var message = new AllocationActualsVerified
             {
-                AllocationActuals = new ContractAllocationActualsType()
+                AllocationActuals = new AllocationActuals.ContractAllocationActualsType()
                 {
                     ContractAllocationNumber = "A101",
-                    ContractReference = new ContractReferenceType()
+                    ContractReference = new AllocationActuals.ContractReferenceType()
                     {
                         ContractVersionNumber = 1
                     }
@@ -345,7 +346,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<ConnectionInfo>()), Times.Never(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Never(),
                 "Handle_IAllocationActualsVerified generated the feed when ContractAllocationActuals Not Received");
 
         }
@@ -370,7 +371,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var message = new PaymentScheduleEvent();
-            var allocation = new SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation()
+            var allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation()
             {
                 AllocationNumber = "A101",
                 ContractVersionNumber = 1
@@ -389,7 +390,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<ConnectionInfo>()), Times.Once(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Once(),
                 "Handle_PaymentScheduledEvent did not generate the feed when ContractAllocationActuals Received");
         }
 
@@ -409,7 +410,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var message = new PaymentScheduleEvent();
-            var allocation = new SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
+            var allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
             {
                 AllocationNumber = "A101",
                 ContractVersionNumber = 1
@@ -428,7 +429,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsUpdated, It.IsAny<ConnectionInfo>()), Times.Once(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsUpdated, It.IsAny<EntityData.ConnectionInfo>()), Times.Once(),
                 "Handle_PaymentScheduledEvent did not generate the feed when ContractAllocationActuals Updated");
 
         }
@@ -449,7 +450,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var message = new PaymentScheduleEvent();
-            var allocation = new SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation()
+            var allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation()
             {
                 AllocationNumber = "A101",
                 ContractVersionNumber = 1
@@ -467,7 +468,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationPaymentReceived, It.IsAny<ConnectionInfo>()), Times.Never(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationPaymentReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Never(),
                 "Handle_PaymentScheduledEvent generated the feed when ContractAllocationActuals Not Received");
 
         }
@@ -488,7 +489,7 @@
             var generatorMock = new Mock<IAtomGenerator>();
 
             var message = new PaymentScheduleEvent();
-            var allocation = new SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation()
+            var allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation()
             {
                 AllocationNumber = "A101",
                 ContractVersionNumber = 1
@@ -507,7 +508,7 @@
             };
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
-            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<ConnectionInfo>()), Times.Never(),
+            generatorMock.Verify(x => x.GenerateAtomFeed("A101", 1, AllocationDeliveryEntryCategory.ContractAllocationActualsReceived, It.IsAny<EntityData.ConnectionInfo>()), Times.Never(),
                 "Handle_PaymentScheduledEvent generated a ContractAllocationActualsReceived feed item when payment event origin was not AllocationActualsVerified");
         }
 

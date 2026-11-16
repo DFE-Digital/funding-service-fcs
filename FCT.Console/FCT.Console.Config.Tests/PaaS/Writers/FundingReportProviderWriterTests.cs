@@ -1,22 +1,19 @@
 ﻿namespace FCT.Console.Config.Tests.PaaS.Writers
 {
-    using Dapper;
-    using ExcelTypes;
-    using FluentAssertions;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using PaymentGenerationDomain.Integration.DataStore;
-    using Synchronizers.Writers;
-    using Synchronizers.Writers.PAAS;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
     using System.Linq;
+    using Dapper;
+    using ExcelTypes;
+    using FluentAssertions;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Synchronizers.Writers;
+    using Synchronizers.Writers.PAAS;
 
     [TestClass]
     public class FundingReportProviderWriterTests
     {
-        private static readonly string connectionString = PaymentGenerationDbContext.KeyVaultValue;
-
         [TestMethod, TestCategory("IntegrationTest")]
         public void FundingReportProviderWriter_ShouldUpdate()
         {
@@ -53,6 +50,8 @@
 
         private static void InsertRow(int ukprn, string fundingPeriod, string type, int period )
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 const string sql = @"insert into [Operations].[FundingReportProvider]
@@ -68,6 +67,8 @@
 
         private static void RemoveRowsForUkprn(int ukprn)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Execute(
@@ -77,6 +78,8 @@
 
         private static IReadOnlyCollection<dynamic> GetRowsForUkprn(int ukprn)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 return connection.Query(

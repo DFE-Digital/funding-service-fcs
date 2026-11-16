@@ -21,7 +21,7 @@ namespace SFA.FCT.ContractCreateDomain.BusinessLogic.Validation.Rules
         {
             return itemToValidate
                 .GetAllContracts()
-                .Where(c => c.CRMIntent == intent.RevisedNew && c.amendmentType != amendmentType.None)
+                .Where(c => c.CRMIntent == Intent.RevisedNew && c.amendmentType != amendmentType.None)
                 .Select(a => a.correlationId);
         }
     }

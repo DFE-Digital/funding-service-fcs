@@ -18,7 +18,7 @@
         {
             return itemToValidate
                .GetAllocations()
-               .Where(c => (c.CRMIntent == intent.New || c.CRMIntent == intent.RevisedNew) && c.contractAllocationNumber != null)
+               .Where(c => (c.CRMIntent == Intent.New || c.CRMIntent == Intent.RevisedNew) && c.contractAllocationNumber != null)
                .Select(a => a.correlationId);
         }
     }

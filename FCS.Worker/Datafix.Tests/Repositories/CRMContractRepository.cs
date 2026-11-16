@@ -189,16 +189,16 @@ namespace Datafix.Tests.Repositories
         }
 
     
-        private static contractor GetContractorIfPresent(XrmServiceContext xrmContext, EntityReference accountEntityReference)
+        private static Contractor GetContractorIfPresent(XrmServiceContext xrmContext, EntityReference accountEntityReference)
         {
-            contractor contractor = null;
+            Contractor contractor = null;
             if (accountEntityReference != null)
             {
                 var account = xrmContext.AccountSet.SingleOrDefault(a => a.Id == accountEntityReference.Id);
 
                 if (account != null)
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         legalName = account.Name,
                         ukprn = int.Parse(account.sfa_UKPRN),
@@ -207,15 +207,15 @@ namespace Datafix.Tests.Repositories
                 }
             }
 
-            return contractor ?? new contractor();
+            return contractor ?? new Contractor();
         }
         private static string GetContractStatusName(sfa_contract contract)
         {
             return Enum.GetName(typeof(sfa_contractstatus), contract.sfa_ContractStatus.Value);
         }
-        private static contractor GetContractor(sfa_contract contract, Account organisation)
+        private static Contractor GetContractor(sfa_contract contract, Account organisation)
         {
-            return new contractor
+            return new Contractor
             {
                 ukprn = int.Parse(contract.sfa_UKPRN),
                 legalName = contract.sfa_ProviderName.Name,

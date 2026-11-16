@@ -1,14 +1,15 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SFA.FCT.CrossDomain.Integration.Events;
-using Moq;
-using SFA.FCT.CrossDomain.Integration.Common;
-using ADMonitoringDomain.Endpoint.BusinessLogic.EventExtensions;
-using System.Globalization;
-using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
-
-namespace ADMonitoringDomain.Endpoint.Tests.Unit.EventExtensions
+﻿namespace ADMonitoringDomain.Endpoint.Tests.Unit.EventExtensions
 {
+    extern alias Entities;
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using SFA.FCT.CrossDomain.Integration.Events;
+    using Moq;
+    using SFA.FCT.CrossDomain.Integration.Common;
+    using ADMonitoringDomain.Endpoint.BusinessLogic.EventExtensions;
+    using System.Globalization;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+
     [TestClass]
     public class IAllocationDeliveryCommencedEventExtensionsTests
     {

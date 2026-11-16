@@ -9,7 +9,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Synchronizers.Writers;
     using Synchronizers.Writers.PAAS;
-    using PaymentGenerationDomain.Integration.DataStore;
 
     [TestClass]
     public class FundingAllocationAllocationFundingStreamConfigWriterTests
@@ -157,7 +156,7 @@
 
         private static void RemoveRowsWithPrefix(string allocationFundingStreamCode, string allocationPeriodId)
         {
-            var connectionString =PaymentGenerationDbContext.KeyVaultValue;
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -170,7 +169,7 @@
 
         private static IReadOnlyCollection<dynamic> GetRowsWithPrefix(string allocationFundingStreamCode, string allocationPeriodId)
         {
-            var connectionString = PaymentGenerationDbContext.KeyVaultValue;
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

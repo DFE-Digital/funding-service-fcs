@@ -1,7 +1,8 @@
 ﻿namespace SFA.FCS.Worker.Common
 {
-    using NServiceBus;
     using System.Collections.Generic;
+    using Microsoft.Extensions.Logging;
+    using NServiceBus;
 
     public interface IEndpointConfig
     {
@@ -13,6 +14,7 @@
 
         IReadOnlyCollection<CommandRoute> Routes { get; }
 
-        EndpointConfiguration GetEndpointConfiguration(SFA.FCT.Framework.Logging.Interfaces.ILoggerFactory loggerFactory);
+        // ✅ Updated to Microsoft logger
+        EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory);
     }
 }

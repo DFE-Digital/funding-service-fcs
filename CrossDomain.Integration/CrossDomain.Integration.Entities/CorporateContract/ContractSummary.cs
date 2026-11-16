@@ -10,6 +10,6 @@
 
         public string MasterContractNumber { get; set; }
 
-        public Func<CorporateSchema.Contract.contract> GetFullCorpContract { get; set; }
+        public Func<CorporateSchema.Contract.Contract> GetFullCorpContract { get; set; }
     }
 }

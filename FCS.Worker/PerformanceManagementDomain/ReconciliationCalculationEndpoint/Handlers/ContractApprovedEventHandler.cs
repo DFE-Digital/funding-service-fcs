@@ -2,9 +2,9 @@
 {
     using SFA.FCT.PerformanceManagementDomain.Common.Commands;
     using SFA.FCT.PerformanceManagementDomain.Common.Logging;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+    using Integration = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+    using AllocationModel = SFA.FCT.PerformanceManagementDomain.DataStore.Models.Allocation;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.PerformanceManagementDomain.DataStore.Models.Allocation;
     using SFA.FCT.PerformanceManagementDomain.DataStore.Models;
     using SFA.FCT.Framework.Logging.Interfaces;
     using NServiceBus;
@@ -45,7 +45,7 @@
 
         public async Task Handle(ContractApprovedEvent message, IMessageHandlerContext context)
         {
-            contractType contract = message.CorporateContract.contracts.First();
+            Integration.contractType contract = message.CorporateContract.contracts.First();
 
             _logger.LogInformation(PerformanceManagementLoggingId.StartProcessingContractApprovedEvent,
                 $"Beginning handler to process ContractApprovedEvent for Contract: {contract.contractNumber}, Version: {contract.contractVersionNumber}");
@@ -93,7 +93,7 @@
         }
 
         private async Task<IEnumerable<FundingClaimReconciliationInformation>> GetFundingClaimsThatRequiredRecalculation(
-            IReadOnlyCollection<contractAllocationsContractAllocation> allocations, 
+            IReadOnlyCollection<Integration.contractAllocationsContractAllocation> allocations, 
             IReadOnlyCollection<string> payOnProfilesFspCodes, ConnectionInfo connectionInfo)
         {
             IReadOnlyCollection<string> allocationNumbers = allocations.Select(ca => ca.contractAllocationNumber).ToList();
@@ -112,11 +112,11 @@
                 .Distinct();
         }
 
-        private async Task PersistContractToPaas(contractType contract, IReadOnlyCollection<string> payOnProfilesFspCodes, ConnectionInfo connectionInfo)
+        private async Task PersistContractToPaas(Integration.contractType contract, IReadOnlyCollection<string> payOnProfilesFspCodes, ConnectionInfo connectionInfo)
         {
-            Contract allocationContract = CreateAllocationContract(contract);
-            FundingType fundingType = CreateAllocationFundingType(contract.fundingType);
-            Period period = CreatePeriod(contract.period);
+            AllocationModel.Contract allocationContract = CreateAllocationContract(contract);
+            AllocationModel.FundingType fundingType = CreateAllocationFundingType(contract.fundingType);
+            AllocationModel.Period period = CreatePeriod(contract.period);
             DateTime utcNow = DateTime.UtcNow;
 
             var payOnProfileAllocations = contract.contractAllocations.Where(a => payOnProfilesFspCodes.Contains(a.fundingStreamPeriodCode)).ToList();
@@ -124,7 +124,7 @@
             foreach (var allocation in payOnProfileAllocations)
             {
                 await _contractAllocationRepository.AddOrUpdateAllocation(
-                    new ContractAllocation(allocation.contractAllocationNumber, allocation.startDate, allocation.endDate)
+                    new AllocationModel.ContractAllocation(allocation.contractAllocationNumber, allocation.startDate, allocation.endDate)
                     {
                         Contract = allocationContract,
                         Contractor = CreateAllocationContractor(contract.GetOrganisation(allocation.contractAllocationNumber)),
@@ -145,9 +145,9 @@
             };
         }
 
-        private static Contract CreateAllocationContract(contractType contract)
+        private static AllocationModel.Contract CreateAllocationContract(Integration.contractType contract)
         {
-            return new Contract
+            return new AllocationModel.Contract
             {
                 ContractNumber = contract.contractNumber,
                 ApprovalDate = contract.ContractApprovalDate.Value,
@@ -156,9 +156,9 @@
             };
         }
 
-        private static Contractor CreateAllocationContractor(contractor contractor)
+        private static AllocationModel.Contractor CreateAllocationContractor(Integration.Contractor contractor)
         {
-            return new Contractor
+            return new AllocationModel.Contractor
             {
                 LegalName = contractor.legalName,
                 OrganisationIdentifier = contractor.organisationIdentifier,
@@ -166,25 +166,25 @@
             };
         }
 
-        private static FundingType CreateAllocationFundingType(fundingType fundingType)
+        private static AllocationModel.FundingType CreateAllocationFundingType(Integration.fundingType fundingType)
         {
-            return new FundingType
+            return new AllocationModel.FundingType
             {
                 FundingTypeCode = fundingType.fundingTypeCode,
                 FundingTypeName = fundingType.fundingTypeName
             };
         }
 
-        private static Period CreatePeriod(period period)
+        private static AllocationModel.Period CreatePeriod(Integration.Period period)
         {
-            return new Period
+            return new AllocationModel.Period
             {
                 PeriodTypeName = period.periodType.periodTypeName.ToString()
             };
         }
 
         private async Task<IReadOnlyCollection<string>> GetPayOnProfileFundingStreamPeriodCodes(
-            List<contractAllocationsContractAllocation> contractAllocations, ConnectionInfo connectionInfo)
+            List<Integration.contractAllocationsContractAllocation> contractAllocations, ConnectionInfo connectionInfo)
         {
             IReadOnlyCollection<string> fundingStreamPeriodCodes = contractAllocations.Select(ca => ca.fundingStreamPeriodCode).ToList();
 

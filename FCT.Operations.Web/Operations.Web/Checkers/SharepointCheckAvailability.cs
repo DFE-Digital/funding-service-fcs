@@ -1,5 +1,4 @@
-﻿
-namespace Operations.Web.Checkers
+﻿namespace Operations.Web.Checkers
 {
     using System;
     using System.Configuration;
@@ -29,7 +28,7 @@ namespace Operations.Web.Checkers
         public Task<AvailabilityCheckResult> GetCheckResult()
         {
             try
-            {               
+            {
                 string siteUrl = ConfigurationManager.AppSettings["ida:Resource"];
                 if (string.IsNullOrWhiteSpace(siteUrl))
                     throw new ArgumentException("AppSetting 'ida:Resource' is missing or empty.");

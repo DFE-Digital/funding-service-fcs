@@ -36,10 +36,10 @@
     <EmbeddedResource Include="Resources\ParkingAndDiscardedExtract.xlsx" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\NServiceBus.7.1.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+    <PackageReference Include="NServiceBus" Version="9.2.12" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
@@ -47,7 +47,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.11" />
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
@@ -57,16 +57,16 @@
     <PackageReference Include="Aspose.Cells" Version="18.12.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="NServiceBus" Version="7.4.4" />
-    <PackageReference Include="NServiceBus.CastleWindsor" Version="7.2.0" />
-    <PackageReference Include="NServiceBus.Persistence.Sql" Version="6.0.4" />
-    <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="1.7.0" />
+    <PackageReference Include="NServiceBus.CastleWindsor" Version="7.0.0" />
+    <PackageReference Include="NServiceBus.Persistence.Sql" Version="8.0.0" />
+    <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="5.1.0" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.7.0" />
-    <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.21812.12000" />
+    <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.26510.12000" />
     <PackageReference Include="Polly-Signed" Version="5.9.0" />
-    <PackageReference Include="System.Runtime.Caching" Version="5.0.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="9.0.9" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

@@ -82,7 +82,7 @@
             return new Dictionary<string, DocumentGenerationRequest>();
         }
 
-        private static string MergeAddressLines(contractor contractor)
+        private static string MergeAddressLines(Contractor contractor)
         {
             return ConditionallyAddAddressLine(contractor.addressLine1) +
                    ConditionallyAddAddressLine(contractor.addressLine2) +

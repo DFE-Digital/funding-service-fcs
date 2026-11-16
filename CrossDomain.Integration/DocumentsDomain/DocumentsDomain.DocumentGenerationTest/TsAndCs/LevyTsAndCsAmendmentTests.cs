@@ -100,20 +100,22 @@
             Assert.AreEqual(templateName, docGenRequestDictionary.First().Value.TemplateFilename, "The template is not correct");
         }
 
-        [TestMethod, TestCategory("UnitTest")]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void LevyTsAndCsAmendmentTest_SupplyDocumentGenerationRequest_ShouldUseOverrideWhenSpecified()
         {
             // arrange
-            const string amendmentTemplatePrefix = "LEVY1799_Amendment"; // this is called AmendmentTemplate in the db
+            const string amendmentTemplatePrefix = "LEVY1799_Amendment";
             const string standardLetter = "LEVY1799_Amendment.docx";
             const string amendmentTemplateOverridePrefix = "LEVY1799_Amendment2";
             const string amendmentTemplateOverride = "LEVY1799_Amendment2.docx";
-            const string agreementPrefix = "T&C_LEVY"; // this is called Template name in the db
+            const string agreementPrefix = "T&C_LEVY";
             const string standardAgreement = "T&C_LEVY_2017-05-01.docx";
             const string agreementOverridePrefix = "T&C_LEVY2";
             const string standardAgreementOverride = "T&C_LEVY2_2017-05-01.docx";
-            Mock<IFundingTypeFundingPeriodQueryRepository> fundingTypeFundingPeriodRepMock = new Mock<IFundingTypeFundingPeriodQueryRepository>();
-            
+
+            var fundingTypeFundingPeriodRepMock = new Mock<IFundingTypeFundingPeriodQueryRepository>();
             fundingTypeFundingPeriodRepMock.Setup(r => r.Get(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new FundingTypeFundingPeriod
                 {
@@ -121,7 +123,7 @@
                     AmendmentTemplate = amendmentTemplatePrefix
                 });
 
-            Mock<ITemplateRepository> templateRepositoryMock = new Mock<ITemplateRepository>();
+            var templateRepositoryMock = new Mock<ITemplateRepository>();
             templateRepositoryMock.Setup(r =>
                     r.GetNameOfTemplateActiveOnDate(It.IsAny<string>(), agreementPrefix, It.IsAny<DateTime>()))
                 .Returns(standardAgreement);
@@ -135,51 +137,51 @@
                     r.GetNameOfTemplateActiveOnDate(It.IsAny<string>(), amendmentTemplateOverridePrefix, It.IsAny<DateTime>()))
                 .Returns(amendmentTemplateOverride);
 
-            LEVYTermsAndConditionsDocumentPartCreator creator = new LEVYTermsAndConditionsDocumentPartCreator(
+            var creator = new LEVYTermsAndConditionsDocumentPartCreator(
                 templateRepositoryMock.Object,
                 Mock.Of<IDocumentConfigurationSource>(),
                 fundingTypeFundingPeriodRepMock.Object);
-            var inputsWithResult =
-                new List<(bool shouldMergeAmendmentTemplate,
-                          string overrideLetterTemplate,
-                          string overrideAgreementTemplate,
-                          List<string> resultDocs)>
-                {
-                    (true, string.Empty, string.Empty, new List<string>{standardLetter, standardAgreement}),
-                    (true, string.Empty, overrideAgreementTemplate: agreementOverridePrefix, new List<string>{standardLetter, standardAgreementOverride}),
-                    (true, overrideLetterTemplate:amendmentTemplateOverridePrefix, overrideAgreementTemplate: string.Empty, new List<string>{amendmentTemplateOverride, standardAgreement}),
-                    (true, overrideLetterTemplate:amendmentTemplateOverridePrefix, overrideAgreementTemplate: agreementOverridePrefix, new List<string>{amendmentTemplateOverride, standardAgreementOverride}),
-                    (false, string.Empty, string.Empty, new List<string>{standardLetter}),
-                    (false, string.Empty, overrideAgreementTemplate: agreementOverridePrefix, new List<string>{standardLetter}),
-                    (false, overrideLetterTemplate:amendmentTemplateOverridePrefix, overrideAgreementTemplate: string.Empty, new List<string>{amendmentTemplateOverride}),
-                    (false, overrideLetterTemplate:amendmentTemplateOverridePrefix, overrideAgreementTemplate: agreementOverridePrefix, new List<string>{amendmentTemplateOverride}),
-                };
 
-            // act
-            inputsWithResult.ForEach(i =>
+            var cases = new List<(bool shouldMergeAmendmentTemplate,
+                                  string overrideLetterTemplate,
+                                  string overrideAgreementTemplate,
+                                  List<string> expectedDocs)>
+    {
+        (true,  string.Empty,                        string.Empty,           new() { standardLetter,           standardAgreement }),
+        (true,  string.Empty,                        agreementOverridePrefix,new() { standardLetter,           standardAgreementOverride }),
+        (true,  amendmentTemplateOverridePrefix,     string.Empty,           new() { amendmentTemplateOverride,standardAgreement }),
+        (true,  amendmentTemplateOverridePrefix,     agreementOverridePrefix,new() { amendmentTemplateOverride,standardAgreementOverride }),
+        (false, string.Empty,                        string.Empty,           new() { standardLetter }),
+        (false, string.Empty,                        agreementOverridePrefix,new() { standardLetter }),
+        (false, amendmentTemplateOverridePrefix,     string.Empty,           new() { amendmentTemplateOverride }),
+        (false, amendmentTemplateOverridePrefix,     agreementOverridePrefix,new() { amendmentTemplateOverride }),
+    };
+
+            // act & assert
+            foreach (var c in cases)
             {
-                var docGenRequestDictionary = creator.SupplyDocumentGenerationRequest("Master", new contractType
+                var docGenRequestDictionary = creator.SupplyDocumentGenerationRequest(
+                    "Master",
+                    new contractType
                     {
                         IsAmendment = true,
-                        contractAllocations = new List<contractAllocationsContractAllocation>
-                        {
-                            new contractAllocationsContractAllocation()
-                        },
-                        ShouldMergeAmendmentTemplate = i.shouldMergeAmendmentTemplate,
-                        OverrideAmendmentTemplate = i.overrideLetterTemplate,
-                        OverrideTemplateName = i.overrideAgreementTemplate
-                },
+                        contractAllocations = new List<contractAllocationsContractAllocation> { new() },
+                        ShouldMergeAmendmentTemplate = c.shouldMergeAmendmentTemplate,
+                        OverrideAmendmentTemplate = c.overrideLetterTemplate,
+                        OverrideTemplateName = c.overrideAgreementTemplate
+                    },
                     "templateContainerName");
 
-                // assert
-                KeyValuePair<string, DocumentGenerationRequest>[] orderedDocs = docGenRequestDictionary.OrderBy(d => d.Key).ToArray();
-                i.resultDocs.Select((doc, index) => new {doc, index}).ToList().ForEach(resultDoc =>
-                {
-                    resultDoc.doc.ShouldBeEquivalentTo(orderedDocs[resultDoc.index].Value.TemplateFilename, $"index of failure: {resultDoc.index}");
-                });
-            });
-            
+                var orderedDocs = docGenRequestDictionary
+                    .OrderBy(d => d.Key)
+                    .Select(d => d.Value.TemplateFilename)
+                    .ToList();
+
+                // exact match, order-sensitive
+                orderedDocs.Should().Equal(c.expectedDocs, "the selected templates should match the overrides and merge flag");
+            }
         }
+
 
         [TestMethod, TestCategory("UnitTest")]
         public void LevyTsAndCsAmendmentTest_SupplyDocumentGenerationRequest_ShouldPopulateTerminationDate_WhenLastApprovedUnderTermination()

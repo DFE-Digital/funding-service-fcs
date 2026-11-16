@@ -5,7 +5,7 @@
     using Implementation.Services;
     using Integration.Entities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+    
     [TestClass]
     public class ProviderQueryResponseExtensionsTests
     {

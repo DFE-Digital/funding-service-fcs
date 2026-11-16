@@ -24,7 +24,7 @@
         {
             // arrange
             IWindsorContainer container = new WindsorContainer()
-                .Install(new WindsorInstaller(new LoggerFactory()))
+                .Install(new WindsorInstaller(new Microsoft.Extensions.Logging.LoggerFactory()))
                 .Register(Component.For<FundingClaimReconciliationPublishedHandler>().LifestyleScoped());
 
             container.BeginScope();
@@ -38,7 +38,7 @@
         {
             // arrange
             IWindsorContainer container = new WindsorContainer()
-                .Install(new WindsorInstaller(new LoggerFactory()))
+                .Install(new WindsorInstaller(new Microsoft.Extensions.Logging.LoggerFactory()))
                 .Register(Component.For<FundingClaimReconciliationPublishedHandler>().LifestyleScoped())
                 .Register(Component.For<ISessionConnectionFactory>().Instance(new MyClassSessionConnectionFactory()).IsDefault());
 

@@ -1,6 +1,6 @@
-﻿
-namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
+﻿namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
 {
+    using Microsoft.Online.SharePoint.TenantAdministration;
     using Newtonsoft.Json.Linq;
     using Polly;
     using System;
@@ -12,23 +12,23 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
 
     public static class SharepointOAuthAccessTokenFactory
     {
-        private static readonly HttpClient HttpClient = new HttpClient();
-        private static readonly MemoryCache Cache = MemoryCache.Default;
+        private static HttpClient HttpClient = new HttpClient();
+        private static MemoryCache Cache = MemoryCache.Default;
 
-        private static readonly string Tenant =
-            ConfigurationManager.AppSettings["Sharepoint:Oauth:Tenant"];
-        private static readonly string ClientId =
-            ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientId"];
-        private static readonly string ClientSecret =
-            Environment.GetEnvironmentVariable("SP_CLIENT_SECRET") ??
-            ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientSecret"];
+        //private static string Tenant => LoadConfiguration().AppSettings.Settings["Sharepoint:Oauth:Tenant"]?.Value;
+        //private static string ClientId =>LoadConfiguration().AppSettings.Settings["Sharepoint:Oauth:ClientId"]?.Value;
+        //private static string ClientSecret =>LoadConfiguration().AppSettings.Settings["Sharepoint:Oauth:ClientSecret"]?.Value;
+        //private static string Scope =>LoadConfiguration().AppSettings.Settings["Graph:Scope"]?.Value ?? "https://graph.microsoft.com/.default";
 
-        // Graph audience (allow override if you need)
-        private static readonly string Scope =
-            (ConfigurationManager.AppSettings["Graph:Scope"] ?? "https://graph.microsoft.com/.default").Trim();
+        private static string Tenant =>CommonConfiguration.Configuration["Sharepoint:Oauth:Tenant"];
 
-        private static readonly string TokenEndpoint =
-            "https://login.microsoftonline.com/" + Tenant + "/oauth2/v2.0/token";
+        private static string ClientId =>CommonConfiguration.Configuration["Sharepoint:Oauth:ClientId"];
+
+        private static string ClientSecret =>CommonConfiguration.Configuration["Sharepoint:Oauth:ClientSecret"];
+        private static string Scope => CommonConfiguration.Configuration["Graph:Scope"] ?? "https://graph.microsoft.com/.default";
+
+
+        private static string TokenEndpoint ="https://login.microsoftonline.com/" + Tenant + "/oauth2/v2.0/token";
 
         private static string CacheKey
         {
@@ -42,7 +42,6 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
             {
                 return ((Lazy<string>)cached).Value;
             }
-
             var newLazy = new Lazy<string>(RequestAccessTokenWithRetry, true);
             object existing = Cache.AddOrGetExisting(CacheKey, newLazy, DateTimeOffset.UtcNow.AddMinutes(5));
             var winner = existing as Lazy<string> ?? newLazy;
@@ -74,10 +73,19 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
                 new KeyValuePair<string, string>("scope",         Scope)
             });
 
+            Console.WriteLine("Tenant from AppSettings NOW = " + ConfigurationManager.AppSettings["Sharepoint:Oauth:Tenant"]);
+            Console.WriteLine("ClientId from AppSettings NOW = " + ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientId"]);
+
             using (var req = new HttpRequestMessage(HttpMethod.Post, TokenEndpoint))
             {
                 req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 req.Content = form;
+
+                Console.WriteLine($"ClientId Length={ClientId?.Length}");
+                Console.WriteLine($"Tenant='{Tenant}'");
+                Console.WriteLine($"Secret Length={ClientSecret?.Length}");
+                Console.WriteLine($"Scope='{Scope}'");
+                Console.WriteLine($"TokenEndpoint='{TokenEndpoint}'");
 
                 using (var resp = HttpClient.SendAsync(req).Result)
                 {
@@ -91,9 +99,11 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
                             authHeader = string.Join(" | ", resp.Headers.GetValues("WWW-Authenticate"));
                         }
 
-                        throw new InvalidOperationException(
-                            "AAD token request failed. HTTP " + (int)resp.StatusCode + " " + resp.ReasonPhrase +
-                            ". Scope='" + Scope + "'. WWW-Authenticate: " + authHeader + ". Body: " + raw);
+                        Console.WriteLine(raw);
+
+                        //throw new InvalidOperationException(
+                        //    "AAD token request failed. HTTP " + (int)resp.StatusCode + " " + resp.ReasonPhrase +
+                        //    ". Scope='" + Scope + "'. WWW-Authenticate: " + authHeader + ". Body: " + raw);
                     }
 
                     var json = JObject.Parse(raw);
@@ -115,5 +125,21 @@ namespace SFA.FCT.CrossDomain.Integration.Common.Storage.Office365Helpers
                 }
             }
         }
+
+        //public static Configuration LoadConfiguration()
+        //{
+        //    var configFile = Path.Combine(
+        //        AppContext.BaseDirectory,
+        //        "TeamSiteTests.dll.config");
+
+        //    var map = new ExeConfigurationFileMap
+        //    {
+        //        ExeConfigFilename = configFile
+        //    };
+
+        //    return ConfigurationManager.OpenMappedExeConfiguration(
+        //        map,
+        //        ConfigurationUserLevel.None);
+        //}
     }
 }

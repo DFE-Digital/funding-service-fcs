@@ -37,7 +37,7 @@ VALUES ('EDSK','AY2324','College','Accountability Agreement (College)',getdate()
 
             const string queueName = "FundingAllocation.UnParkFundingAllocation";
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<StartUnParkFundingAllocationsCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<StartUnParkFundingAllocationsCommand>();
 
             endpoint.Send(destination: queueName, message: new StartUnParkFundingAllocationsCommand()).Wait();
         }

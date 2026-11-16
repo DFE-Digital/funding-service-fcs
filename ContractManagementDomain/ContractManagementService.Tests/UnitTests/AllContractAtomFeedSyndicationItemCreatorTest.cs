@@ -16,7 +16,7 @@
             // arrange
             var creator =
                 new DraftContractAtomFeedSyndicationItemCreator("Application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "Some key", AtomItemType.DraftContract, xml => true);
 
@@ -33,7 +33,7 @@
             // arrange
             var creator =
                 new WithdrawnContractAtomFeedSyndicationItemCreator("Application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "Some key", AtomItemType.WithdrawnContract, xml => true);
 
@@ -50,7 +50,7 @@
             // arrange
             var creator =
                 new ApprovedContractAtomFeedSyndicationItemCreator("Application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "Some key", AtomItemType.ApprovedContract, xml => true);
 
@@ -67,7 +67,7 @@
             // arrange
             var creator =
                 new DraftContractAtomFeedSyndicationItemCreator("Application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "Some key", AtomItemType.DraftContract, xml => true);
           
@@ -88,7 +88,7 @@
             // arrange
             var creator =
                 new DraftContractAtomFeedSyndicationItemCreator("Application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "Some key", AtomItemType.WithdrawnContract, xml => true);
 
@@ -109,7 +109,7 @@
             // arrange
             var creator =
                 new DraftContractAtomFeedSyndicationItemCreator("Application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "Some key", AtomItemType.ApprovedContract, xml => true);
 
@@ -130,7 +130,7 @@
             // arrange
             var creator =
                 new ContractTerminationDetailsUpdatedAtomFeedSyndicationItemCreator("Application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
 
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "Some key", AtomItemType.ContractTerminationDetailsUpdated, xml => true);
 
@@ -145,15 +145,15 @@
             Assert.AreEqual("Contract Termination Details Updated", result.Categories[0].Name, "Name not same");
         }
 
-        private CrossDomain.Integration.Entities.CorporateContract.contract GetCorpContract()
+        private CrossDomain.Integration.Entities.CorporateContract.Contract GetCorpContract()
         {
             using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"ContractManagementService.Tests.Resources.masterContract.xml");
             var document = XDocument.Load(stream);
 
             XmlSerializer serializer =
-                new XmlSerializer(typeof(CrossDomain.Integration.Entities.CorporateContract.contract));
+                new XmlSerializer(typeof(CrossDomain.Integration.Entities.CorporateContract.Contract));
             return
-                (CrossDomain.Integration.Entities.CorporateContract.contract)
+                (CrossDomain.Integration.Entities.CorporateContract.Contract)
                     serializer.Deserialize(document.Root.CreateReader());
         }
     }

@@ -1,14 +1,15 @@
 ﻿namespace SFA.FCT.DocumentsDomain.Integration
 {
+    using Common.Models;
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Blob;
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Common.Models;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Blob;
 
     [ExcludeFromCodeCoverage]
     public class AzureStorageWrapper : IAzureStorageWrapper
@@ -28,59 +29,89 @@
 
         public byte[] GetBlockBlobContents(FctFile file)
         {
-            byte[] blobContents;
             CloudBlockBlob blockBlob = GetBlockBlob(file);
 
-            using (MemoryStream blobStream = new MemoryStream())
-            {
-                blockBlob.DownloadToStream(blobStream);
-                blobContents = blobStream.ToArray();
+            using (var blobStream = new MemoryStream())
+            {                
+                blockBlob.DownloadToStreamAsync(blobStream).GetAwaiter().GetResult();
+                return blobStream.ToArray();
             }
-
-            return blobContents;            
         }
 
         public void PutBlockBlob(FctFile file, byte[] contents)
         {
             CloudBlockBlob blockBlob = GetBlockBlob(file);
-
-            blockBlob.UploadFromByteArray(contents, 0, contents.Length);    
+            blockBlob.UploadFromByteArrayAsync(contents, 0, contents.Length)
+                     .GetAwaiter().GetResult();
         }
+
 
         public void DeleteBlockBlob(FctFile file)
         {
             CloudBlockBlob fileBlob = GetBlockBlob(file);
-            fileBlob.DeleteIfExists();
+            fileBlob.DeleteIfExistsAsync()
+                    .GetAwaiter().GetResult();
         }
-
         public bool DoesBlockBlobExist(FctFile file)
         {
-            return GetBlockBlob(file).Exists();
+            CloudBlockBlob blob = GetBlockBlob(file);
+            return blob.ExistsAsync().GetAwaiter().GetResult();
         }
 
-        public void CopyBlockBlob(FctFile sourcefile, FctFile targetFile)
+        public void CopyBlockBlob(FctFile sourceFile, FctFile targetFile)
         {
-            CloudBlockBlob sourceBlockBlob = GetBlockBlob(sourcefile);
-            CloudBlockBlob targetBlockBlob = GetBlockBlob(targetFile);
+            CloudBlockBlob sourceBlob = GetBlockBlob(sourceFile);
+            CloudBlockBlob targetBlob = GetBlockBlob(targetFile);
 
-            // Start the copy process
-            targetBlockBlob.StartCopyFromBlob(sourceBlockBlob);
+            targetBlob.StartCopyAsync(sourceBlob).GetAwaiter().GetResult();
 
-            // Check progress to see if it is done
-            while (targetBlockBlob.CopyState.Status == CopyStatus.Pending)
+            
+            CopyState copyState;
+
+            do
             {
-                Task.Delay(TimeSpan.FromSeconds(5d)).Wait();
-            }
+                targetBlob.FetchAttributesAsync().GetAwaiter().GetResult();
+                copyState = targetBlob.CopyState;
+
+                if (copyState.Status == CopyStatus.Pending)
+                {
+                    Task.Delay(TimeSpan.FromSeconds(2)).Wait();
+                }
+
+            } while (copyState.Status == CopyStatus.Pending);
         }
 
         public string[] GetContainerContents(string containerName)
         {
-            return 
-                GetContainer(containerName)
-                .ListBlobs()
-                .Where(b => b.GetType() == typeof(CloudBlockBlob))
-                .Select(b => ((CloudBlockBlob)b).Name)
-                .ToArray();
+            var container = GetContainer(containerName); // returns CloudBlobContainer
+            var results = new List<string>();
+
+            BlobContinuationToken token = null;
+            do
+            {
+                var segment = container
+                    .ListBlobsSegmentedAsync(
+                        prefix: null,
+                        useFlatBlobListing: true,
+                        blobListingDetails: BlobListingDetails.None,
+                        maxResults: null,
+                        currentToken: token,
+                        options: null,
+                        operationContext: null)
+                    .GetAwaiter()
+                    .GetResult();
+
+                token = segment.ContinuationToken;
+
+                results.AddRange(
+                    segment.Results
+                           .OfType<CloudBlockBlob>()
+                           .Select(b => b.Name));
+            } while (token != null);
+
+            return results.ToArray();
         }
+
+
     }
 }

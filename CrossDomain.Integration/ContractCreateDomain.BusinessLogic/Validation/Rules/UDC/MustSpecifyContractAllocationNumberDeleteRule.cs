@@ -30,7 +30,7 @@
             masterContract.contracts.SelectMany(c => c.contractAllocations)
                           .ForEach(ca =>
                                    {
-                                       if (ca.CRMIntent == intent.DeleteDraft &&
+                                       if (ca.CRMIntent == Intent.DeleteDraft &&
                                            string.IsNullOrWhiteSpace(ca.contractAllocationNumber))
                                        {
                                            failures.Add(ca.correlationId);

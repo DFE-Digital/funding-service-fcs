@@ -142,7 +142,7 @@
         {
             contractType contract = new contractType
             {
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     legalName = "TEST"
                 },
@@ -403,7 +403,7 @@
             contractType contract = new contractType
             {
                 description = "This is the contract description",
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     legalName = "TEST"
                 },

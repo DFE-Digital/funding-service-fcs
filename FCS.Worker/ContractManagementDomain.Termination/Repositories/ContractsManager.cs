@@ -21,7 +21,7 @@
             _organizationService = organizationService;
         }
 
-        public SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved)
+        public SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved)
         {
             var matchingContract = GetMatchingCorporateContract(contractNumber, masterContractNumber, lastApproved);
 
@@ -37,7 +37,7 @@
             return null;
         }
 
-        public SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetCorporateContractForSpecificVersion(
+        public SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetCorporateContractForSpecificVersion(
             ContractIdentifier contractIdentifier)
         {
             var matchingContract = GetMasterContractForSpecificChild(contractIdentifier.ContractNumber, contractIdentifier.VersionNumber, contractIdentifier.SubVersionNumber);
@@ -91,7 +91,7 @@
             }
         }
 
-        internal virtual SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetMatchingCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved)
+        internal virtual SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetMatchingCorporateContract(string contractNumber, string masterContractNumber, bool lastApproved)
         {
             using (var xrmContext = new XrmServiceContext(_organizationService))
             {
@@ -100,7 +100,7 @@
                                     join f in xrmContext.sfa_fundingtypeSet on m.sfa_FundingType.Id equals f.sfa_fundingtypeId
                                     where m.sfa_number == masterContractNumber
                                     orderby m.CreatedOn descending
-                                    select new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract
+                                    select new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract
                                     {
                                         contractNumber = m.sfa_number,
                                         description = m.sfa_Description,
@@ -123,7 +123,7 @@
             }
         }
 
-        private  SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract GetMasterContractForSpecificChild(
+        private  SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetMasterContractForSpecificChild(
             string contractNumber,
             int versionNumber,
             int subVersionNumber)
@@ -138,7 +138,7 @@
                                           c.sfa_Version == versionNumber &&
                                           c.sfa_SubVersion == subVersionNumber
 
-                                    select new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract
+                                    select new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract
                                     {
                                         contractNumber = m.sfa_number,
                                         description = m.sfa_Description,
@@ -353,16 +353,16 @@
                     }).ToList();
         }
 
-        private static contractor GetContractorForUkprn(string ukprn, XrmServiceContext xrmContext)
+        private static Contractor GetContractorForUkprn(string ukprn, XrmServiceContext xrmContext)
         {
-            contractor contractor = null;
+            Contractor contractor = null;
             if (!string.IsNullOrEmpty(ukprn))
             {
                 SimpleOrg simpleOrg = GetSimpleOrg(ukprn, xrmContext);
 
                 if (simpleOrg != null)
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         organisationIdentifier = simpleOrg.OrgId,
                         ukprn = int.Parse(ukprn),
@@ -515,12 +515,12 @@
         /// <param name="contract">The CRM Contract object</param>
         /// <param name="account"></param>
         /// <returns></returns>
-        private static contractor GetCorporateContractor(sfa_contract contract, Account account)
+        private static Contractor GetCorporateContractor(sfa_contract contract, Account account)
         {
             int parsedUkprn;
             int.TryParse(contract.sfa_UKPRN, out parsedUkprn);
 
-            return new contractor
+            return new Contractor
             {
                 organisationIdentifier = account.sfa_OrganisationID,
                 ukprn = parsedUkprn,
@@ -576,9 +576,9 @@
         /// <param name="xrmContext">The early-bound Xrm Service Context</param>
         /// <param name="periodId">periodId </param>
         /// <returns>A period</returns>
-        private static SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.period GetCorpContractPeriod(XrmServiceContext xrmContext, EntityReference periodId)
+        private static SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Period GetCorpContractPeriod(XrmServiceContext xrmContext, EntityReference periodId)
         {
-            SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.period period = null;
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Period period = null;
             if (periodId != null)
             {
                 period = (
@@ -586,7 +586,7 @@
                     join pt in xrmContext.sfa_periodtypeSet on
                         p.sfa_PeriodTypeId.Id equals pt.sfa_periodtypeId
                     where p.sfa_periodId.Equals(periodId.Id)
-                    select new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.period
+                    select new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Period
                     {
                         period1 = p.sfa_Period,
                         periodType = TransformCrmPeriodTypeType(pt),
@@ -623,7 +623,7 @@
             };
         }
 
-        private void AdjustCRMDates(contract matchingContract)
+        private void AdjustCRMDates(Contract matchingContract)
         {
             if (matchingContract.contracts.Any())
             {
@@ -667,7 +667,7 @@
             }
         }
 
-        private void AddMissingFieldsToContractAllocations(contract matchingContract)
+        private void AddMissingFieldsToContractAllocations(Contract matchingContract)
         {
             var firstContract = matchingContract.contracts.FirstOrDefault();
             if (firstContract != null)

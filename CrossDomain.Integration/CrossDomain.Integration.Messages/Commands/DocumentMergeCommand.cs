@@ -4,7 +4,7 @@
 
     public class DocumentMergeCommand
     {
-        public contract CorporateContract { get; set; }
+        public Contract CorporateContract { get; set; }
 
         public string ContractNumberToBeMerged { get; set; }
     }

@@ -1,10 +1,14 @@
 ﻿namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Repositories
 {
+    // using Microsoft.WindowsAzure.Storage.Table;
+    using Azure;
+    using Azure.Data.Tables;
+    using CrossDomain.Integration.Common.Storage;
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
-    using CrossDomain.Integration.Common.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
+
 
     public static class GatewayServiceStubRepository
     {
@@ -14,7 +18,7 @@
 
         static GatewayServiceStubRepository()
         {
-            EnvironmentSuffixedTableName = $"{UnSuffixedTableName}{ConfigurationManager.AppSettings["StorageTableSuffix"]}";
+            EnvironmentSuffixedTableName = $"{UnSuffixedTableName}{TestConfiguration.Configuration["StorageTableSuffix"]}";
             IAzureTableStore azureTableStore = new AzureTableStore();
             azureTableStore.CreateTableIfNotExists(EnvironmentSuffixedTableName);
         }
@@ -43,11 +47,20 @@
             }
         }
 
-        private class GatewayServiceStubEntity : TableEntity
+        private class GatewayServiceStubEntity : ITableEntity
         {
             public string Ukprn { get; set; }
 
             public string Status { get; set; }
+
+            public string PartitionKey { get; set; }
+
+            public string RowKey { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag { get; set; }
+
         }
     }
 }

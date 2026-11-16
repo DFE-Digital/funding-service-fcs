@@ -25,7 +25,7 @@
         {
             ExtendedContractType childContract = contract.contracts.First();
 
-            ISet<contractor> distinctOrganisations = GetDistinctContractors(childContract);
+            ISet<Contractor> distinctOrganisations = GetDistinctContractors(childContract);
 
             distinctOrganisations.ForEach(CreateOrganisationIfNecessary);
 
@@ -107,7 +107,7 @@
             }
         }
 
-        private void CreateOrganisationIfNecessary(contractor contractor)
+        private void CreateOrganisationIfNecessary(Contractor contractor)
         {
             ContractOrganisation org = new ContractOrganisation
             {

@@ -1,90 +1,134 @@
-﻿namespace Datafix.Tests.Tests.R88.Audit
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using System.Reflection;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Configuration;
+using System.Threading.Tasks;
+using Azure.Messaging.ServiceBus;
+using Datafix.Tests.Automation.Releases.R88.Audit;
+using System;
+
+[TestClass]
+public class AzureServiceBusServiceTests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System.IO;
-    using System.Reflection;
-    using Newtonsoft.Json;
-    using System.Collections.Generic;
-    using Microsoft.ServiceBus.Messaging;
-    using System.Linq;
-    using System.Configuration;
-    using Datafix.Tests.Automation.Releases.R88.Audit;
-
-    [TestClass]
-    public class AzureServiceBusServiceTests
+    [TestMethod, TestCategory("TechnicalExploration")]
+    public void AzureServiceBusService_ClearMessagesFromDeadLetterQueue_RemoveCorrectMessages()
     {
-        [TestMethod, TestCategory("TechnicalExploration")] 
-        public void AzureServiceBusService_ClearMessagesFromDeadLetterQueue_RemoveCorrectMessages()
-        {
-            // arrange 
-            const string auditQueueName = "audit";
-            var clientAuditQueue = GetQueueClient(auditQueueName);
-            var clientAuditDeadLetterQueue = GetQueueClient(QueueClient.FormatDeadLetterPath(auditQueueName));
-
-            ClearQueue(clientAuditQueue);
-            ClearQueue(clientAuditDeadLetterQueue);
-
-            var brokeredMessages = GetBrokeredMessagesFromJson(
-                "Datafix.Tests", "Resources.R88.audit_dead_letter_messages.json");
-            
-            AddTheAssertMessagesToQueue(clientAuditQueue, brokeredMessages);
-            AddOneRandomMessageToQueue(clientAuditQueue, brokeredMessages.First());
-            
-            MoveAllAuditMessagesToDeadLetterQueue(clientAuditQueue);
-
-            var messageIds = brokeredMessages.Select(bm => bm.MessageId).ToList();
-
-            // Act
-            AzureServiceBusService.ClearMessagesFromDeadLetterQueue(auditQueueName, messageIds);
-            
-            // check the 27 messages are not in the dead letter queue but the random one is still there
-        }
-
-        private static void ClearQueue(QueueClient client)
-        {
-            while (client.Peek() != null)
-            {
-                var brokeredMessage = client.Receive();
-                brokeredMessage?.Complete();
-            }
-        }
-
-        private static void AddTheAssertMessagesToQueue(QueueClient client, IReadOnlyCollection<BrokeredMessage> brokeredMessages)
-        {
-            brokeredMessages.ToList().ForEach(brokeredMessage =>
-            {
-                client.Send(brokeredMessage);
-            });
-        }
-
-        private static void AddOneRandomMessageToQueue(QueueClient client, BrokeredMessage brokeredMessage)
-        {
-            var randomBrokeredMessage = brokeredMessage.Clone();
-            randomBrokeredMessage.MessageId = "55555555-4444-3333-2222-111111111111";
-
-            client.Send(randomBrokeredMessage);
-        }
-
-        private static void MoveAllAuditMessagesToDeadLetterQueue(QueueClient client)
-        {
-            while (client.Peek() != null)
-            {
-                var receivedMessage = client.Receive();
-                receivedMessage.DeadLetter();
-            }
-        }
-
-        private static IReadOnlyCollection<BrokeredMessage> GetBrokeredMessagesFromJson(string nameSpace, string resourceName)
-        {
-            using (var stream = Assembly.GetCallingAssembly().GetManifestResourceStream($"{nameSpace}.{resourceName}"))
-            using (var streamReader = new StreamReader(stream))
-            {
-                return JsonConvert.DeserializeObject<List<BrokeredMessage>>(streamReader.ReadToEnd());
-            }
-        }
-        
-        private static QueueClient GetQueueClient(string queueName) => QueueClient.CreateFromConnectionString(AzureServiceBusConnectionString, queueName);
-
-        private static string AzureServiceBusConnectionString => ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
+        Run().GetAwaiter().GetResult();
     }
+
+    private async Task Run()
+    {
+        const string auditQueueName = "audit";
+
+        var client = new ServiceBusClient(AzureServiceBusConnectionString);
+
+        var sender = client.CreateSender(auditQueueName);
+        var receiver = client.CreateReceiver(auditQueueName);
+
+        var deadLetterReceiver = client.CreateReceiver(
+            auditQueueName,
+            new ServiceBusReceiverOptions
+            {
+                SubQueue = SubQueue.DeadLetter
+            });
+
+        await ClearQueue(receiver);
+        await ClearQueue(deadLetterReceiver);
+
+        var messages = GetMessagesFromJson(
+            "Datafix.Tests",
+            "Resources.R88.audit_dead_letter_messages.json");
+
+        await AddMessagesToQueue(sender, messages);
+        await AddOneRandomMessageToQueue(sender, messages.First());
+
+        await MoveAllMessagesToDeadLetterQueue(receiver);
+
+        var messageIds = messages.Select(m => m.MessageId).ToList();
+
+        // Act
+        await AzureServiceBusService.ClearMessagesFromDeadLetterQueue(
+            auditQueueName,
+            messageIds);
+
+        // TODO: assert logic
+    }
+
+    private static async Task ClearQueue(ServiceBusReceiver receiver)
+    {
+        while (true)
+        {
+            var messages = await receiver.ReceiveMessagesAsync(50);
+
+            if (messages == null || messages.Count == 0)
+                break;
+
+            foreach (var message in messages)
+            {
+                await receiver.CompleteMessageAsync(message);
+            }
+        }
+    }
+
+    private static async Task AddMessagesToQueue(ServiceBusSender sender, IReadOnlyCollection<ServiceBusMessage> messages)
+    {
+        foreach (var msg in messages)
+        {
+            await sender.SendMessageAsync(msg);
+        }
+    }
+
+    private static async Task AddOneRandomMessageToQueue(ServiceBusSender sender, ServiceBusMessage message)
+    {
+        var randomMessage = new ServiceBusMessage(message.Body);
+
+        randomMessage.MessageId = "55555555-4444-3333-2222-111111111111";
+
+        await sender.SendMessageAsync(randomMessage);
+    }
+
+    private static async Task MoveAllMessagesToDeadLetterQueue(ServiceBusReceiver receiver)
+    {
+        while (true)
+        {
+            var messages = await receiver.ReceiveMessagesAsync(50);
+
+            if (messages == null || messages.Count == 0)
+                break;
+
+            foreach (var message in messages)
+            {
+                await receiver.DeadLetterMessageAsync(message);
+            }
+        }
+    }
+
+    // ✅ BrokeredMessage replacement
+    private static IReadOnlyCollection<ServiceBusMessage> GetMessagesFromJson(string nameSpace, string resourceName)
+    {
+        using var stream = Assembly.GetCallingAssembly()
+            .GetManifestResourceStream($"{nameSpace}.{resourceName}");
+
+        using var reader = new StreamReader(stream);
+
+        var json = reader.ReadToEnd();
+
+        var bodies = JsonConvert.DeserializeObject<List<string>>(json);
+
+        return bodies.Select(body =>
+        {
+            var msg = new ServiceBusMessage(body);
+
+            // If JSON includes MessageId, set it here manually
+            msg.MessageId = Guid.NewGuid().ToString();
+
+            return msg;
+        }).ToList();
+    }
+
+    private static string AzureServiceBusConnectionString =>
+        ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
 }

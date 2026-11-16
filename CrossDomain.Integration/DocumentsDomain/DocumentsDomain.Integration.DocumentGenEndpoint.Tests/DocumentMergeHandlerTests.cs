@@ -5,7 +5,9 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
     using Common.Exceptions;
     using CrossDomain.Integration.Entities.CorporateContract;
     using CrossDomain.Integration.Messages.Commands;
-    using Framework.Logging.Interfaces;
+    //using Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
+    using Framework.Logging.NullObjects;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using SFA.FCT.DocumentsDomain.DocumentGeneration.ContractDocumentMerger;
@@ -38,7 +40,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
                 _logger.Object);
 
             DocumentMergeCommand command = new DocumentMergeCommand();
-            contract mockContract = command.CorporateContract = CreateTestContract();
+            Contract mockContract = command.CorporateContract = CreateTestContract();
             command.ContractNumberToBeMerged = "CONTRACT1";
 
             var context = new TestableMessageHandlerContext();
@@ -48,7 +50,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
 
             // Assert
             _contractDocumentManager.Verify(m => m.MergeContractDocuments(
-                            It.Is<contract>(c => c.contracts.Count == 1
+                            It.Is<Contract>(c => c.contracts.Count == 1
                                                 && c.contracts[0].contractNumber == command.ContractNumberToBeMerged)),
                             Times.Once, 
                             "MergeContractDocuments should be called once with a master contract that contains one child.");
@@ -71,7 +73,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
                 _logger.Object);
 
             DocumentMergeCommand command = new DocumentMergeCommand();
-            contract mockContract = command.CorporateContract = CreateTestContract();
+            Contract mockContract = command.CorporateContract = CreateTestContract();
             command.ContractNumberToBeMerged = "CONTRACT1";
 
             string errorMessage = "Custom raised merge exception";
@@ -79,7 +81,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
 
             // Expect
             //_contractDocumentManager.Setup(c => c.MergeContractDocuments(command.CorporateContract)).Throws(exception).Verifiable();
-            _contractDocumentManager.Setup(c => c.MergeContractDocuments(It.IsAny<contract>())).Throws(exception).Verifiable();
+            _contractDocumentManager.Setup(c => c.MergeContractDocuments(It.IsAny<Contract>())).Throws(exception).Verifiable();
 
             var context = new TestableMessageHandlerContext();
 
@@ -87,7 +89,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
             handler.Handle(command, context).Wait();
 
             // Assert
-            _contractDocumentManager.Verify(c => c.MergeContractDocuments(It.IsAny<contract>()), 
+            _contractDocumentManager.Verify(c => c.MergeContractDocuments(It.IsAny<Contract>()), 
                                                     Times.Once, 
                                                     "MergeContractDocuments should be called once with contract passed in the command parameter.");
 
@@ -117,7 +119,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
                 _logger.Object);
 
             DocumentMergeCommand command = new DocumentMergeCommand();
-            contract mockContract = command.CorporateContract = CreateTestContract();
+            Contract mockContract = command.CorporateContract = CreateTestContract();
             command.ContractNumberToBeMerged = "CONTRACT1";
 
             string errorMessage = "Non custom raised merge exception";
@@ -125,7 +127,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
 
             // Expect
             //_contractDocumentManager.Setup(c => c.MergeContractDocuments(command.CorporateContract)).Throws(exception).Verifiable();
-            _contractDocumentManager.Setup(c => c.MergeContractDocuments(It.IsAny<contract>())).Throws(exception).Verifiable();
+            _contractDocumentManager.Setup(c => c.MergeContractDocuments(It.IsAny<Contract>())).Throws(exception).Verifiable();
 
             // Act
             string returnedErrorMessage = string.Empty;
@@ -142,7 +144,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
             // Assert
             Assert.AreEqual(errorMessage, returnedErrorMessage, "Error messsage for generic document merge exeption is not as expected.");
 
-            _contractDocumentManager.Verify(c => c.MergeContractDocuments(It.IsAny<contract>()),
+            _contractDocumentManager.Verify(c => c.MergeContractDocuments(It.IsAny<Contract>()),
                                             Times.Once,
                                             "MergeContractDocuments should be called once with contract passed in the command parameter.");
 
@@ -164,11 +166,11 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
                 _logger.Object);
 
             DocumentMergeCommand command = new DocumentMergeCommand();
-            contract mockContract = command.CorporateContract = CreateTestContract();
+            Contract mockContract = command.CorporateContract = CreateTestContract();
             command.ContractNumberToBeMerged = "CONTRACT1";
 
             //_contractDocumentManager.Setup(c => c.MergeContractDocuments(command.CorporateContract));
-            _contractDocumentManager.Setup(c => c.MergeContractDocuments(It.IsAny<contract>()));
+            _contractDocumentManager.Setup(c => c.MergeContractDocuments(It.IsAny<Contract>()));
 
             var context = new TestableMessageHandlerContext();
 
@@ -248,7 +250,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
 
             DocumentMergeCommand command = new DocumentMergeCommand();
             command.CorporateContract = CreateTestContract();
-            command.CorporateContract.contracts.Add(new contract { contractNumber = "CONTRACT4", hierarchyType = hierarchyType.MASTERCONTRACT });
+            command.CorporateContract.contracts.Add(new Contract { contractNumber = "CONTRACT4", hierarchyType = hierarchyType.MASTERCONTRACT });
             command.ContractNumberToBeMerged = "CONTRACT4";
 
             bool expectedExceptionThrown = false;
@@ -276,7 +278,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
 
             DocumentMergeCommand command = new DocumentMergeCommand();
             command.CorporateContract = CreateTestContract();
-            command.CorporateContract.contracts.Add(new contract { contractNumber = "CONTRACT1", hierarchyType = hierarchyType.CONTRACT });
+            command.CorporateContract.contracts.Add(new Contract { contractNumber = "CONTRACT1", hierarchyType = hierarchyType.CONTRACT });
             command.ContractNumberToBeMerged = "CONTRACT1";
 
             bool expectedExceptionThrown = false;
@@ -328,23 +330,23 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
             _contractDocumentManager = null;
         }
 
-        public contract CreateTestContract()
+        public Contract CreateTestContract()
         {
-            var contract = new contract();
+            var contract = new Contract();
             contract.hierarchyType = hierarchyType.MASTERCONTRACT;
             contract.contractNumber = "MASTER_CONTRACT";
-            contract.contracts.AddRange(new List<contract>{ 
-                    new contract
+            contract.contracts.AddRange(new List<Contract>{ 
+                    new Contract
                     {
                         contractNumber = "CONTRACT1",
                         hierarchyType = hierarchyType.CONTRACT
                     },
-                    new contract
+                    new Contract
                     {
                         contractNumber = "CONTRACT2",
                         hierarchyType = hierarchyType.CONTRACT
                     },
-                    new contract
+                    new Contract
                     {
                         contractNumber = "CONTRACT3",
                         hierarchyType = hierarchyType.CONTRACT

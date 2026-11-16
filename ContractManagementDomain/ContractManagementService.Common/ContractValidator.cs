@@ -21,7 +21,7 @@
             return true;
         }
 
-        public static bool ValidateMasterAndChildContracts(contract masterContract, out string errorMessage)
+        public static bool ValidateMasterAndChildContracts(Contract masterContract, out string errorMessage)
         {
             errorMessage = string.Empty;
 
@@ -54,7 +54,7 @@
             return true;
         }
 
-        public static bool ValidateContractStatus(contract masterContract, out string errorMessage)
+        public static bool ValidateContractStatus(Contract masterContract, out string errorMessage)
         {
             errorMessage = string.Empty;
             var contract = masterContract.contracts.First();

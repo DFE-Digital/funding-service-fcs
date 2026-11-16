@@ -65,6 +65,7 @@
 
             private static readonly HttpClient _httpClient;
             private static readonly MemoryCache _objectCache = MemoryCache.Default;
+            private static Func<string, string> _appSettingReader;
 
             static OAuthCrmConnectionFactory()
             {
@@ -75,7 +76,7 @@
 
             public static OrganizationWebProxyClient GetOrganizationService()
             {
-                Uri baseUri = new Uri(ConfigurationManager.AppSettings["ida:ResourceId_CrmOnline"]);
+                Uri baseUri = new Uri(GetAppSetting("ida:ResourceId_CrmOnline"));
                 Uri serviceUri = new Uri(baseUri, @"xrmservices/2011/organization.svc/web?SdkClientVersion=8.2");
 
                 Lazy<string> newLazyAccessToken = new Lazy<string>(GetAccessTokenWithRetry);
@@ -101,11 +102,11 @@
 
             private static string GetAccessToken()
             {
-                string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance_CrmOnline"];
-                string tenant = ConfigurationManager.AppSettings["ida:Tenant_CrmOnline"];
-                string clientId = ConfigurationManager.AppSettings["ida:ClientId_CrmOnline"];
-                string appKey = ConfigurationManager.AppSettings["ida:AppKey_CrmOnline"];
-                string resourceId = ConfigurationManager.AppSettings["ida:ResourceId_CrmOnline"];
+                string aadInstance = GetAppSetting("ida:AADInstance_CrmOnline");
+                string tenant = GetAppSetting("ida:Tenant_CrmOnline");
+                string clientId = GetAppSetting("ida:ClientId_CrmOnline");
+                string appKey = GetAppSetting("ida:AppKey_CrmOnline");
+                string resourceId = GetAppSetting("ida:ResourceId_CrmOnline");
 
                 string authority = string.Format(aadInstance, tenant);
 
@@ -124,6 +125,21 @@
 
                 return jsonObject.access_token;
             }
+
+            private static string GetAppSetting(string key)
+            {
+                return _appSettingReader?.Invoke(key) ?? ConfigurationManager.AppSettings[key];
+            }
+
+            public static void SetAppSettingReader(Func<string, string> appSettingReader)
+            {
+                _appSettingReader = appSettingReader;
+            }
+        }
+
+        public static void SetAppSettingReader(Func<string, string> appSettingReader)
+        {
+            OAuthCrmConnectionFactory.SetAppSettingReader(appSettingReader);
         }
     }
 }

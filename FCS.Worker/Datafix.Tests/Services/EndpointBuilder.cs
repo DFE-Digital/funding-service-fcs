@@ -1,58 +1,112 @@
-﻿namespace Datafix.Tests.Services
+﻿using Azure.Messaging.ServiceBus;
+using Newtonsoft.Json;
+using NServiceBus;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+public class EndpointBuilder
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using NServiceBus;
+    private readonly ServiceBusClient client;
+    private readonly string connectionString;
 
-    public class EndpointBuilder
+    private EndpointBuilder()
     {
-        public static IEndpointInstance CreateSendOnlyEndpoint<TCommand>()
-        {
-            EndpointConfiguration endpointConfiguration = new EndpointConfiguration("TestSendingEndpoint");
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
-            endpointConfiguration.Conventions()
-                .DefiningCommandsAs(t => t == typeof(TCommand));
+        connectionString = ConfigurationManager
+            .ConnectionStrings["NServiceBus/Transport"]
+            .ConnectionString;
 
-            // exclude all
-            string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
-                .Select(Path.GetFileName)
-                .ToArray();
-
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
-            scanner.ExcludeAssemblies(assembliesToExclude);
-            scanner.ThrowExceptions = false;
-
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-
-            return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
-        }
-
-        public static IEndpointInstance CreatePublishingEndpoint<TEvent>(string endpointToPublishFrom)
-        {
-            EndpointConfiguration endpointConfiguration = new EndpointConfiguration(endpointToPublishFrom);
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
-            endpointConfiguration.Conventions()
-                .DefiningEventsAs(t => t == typeof(TEvent));
-
-            // exclude all
-            string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
-                .Select(Path.GetFileName)
-                .ToArray();
-
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
-            scanner.ExcludeAssemblies(assembliesToExclude);
-            scanner.ThrowExceptions = false;
-
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-
-            return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
-        }
+        client = new ServiceBusClient(connectionString);
     }
+
+    public static EndpointBuilder CreateSendOnlyEndpoint<T>()
+    {
+        return new EndpointBuilder();
+    }
+    public async Task Publish<T>(Action<T> messageConstructor)
+    where T : new()
+    {
+        var message = new T();
+        messageConstructor(message);
+
+        // ✅ Decide topic name (very important)
+        var topicName = $"{typeof(T).Name.ToLower()}.events";
+
+        var sender = client.CreateSender(topicName);
+
+        var json = JsonConvert.SerializeObject(message);
+
+        var sbMessage = new ServiceBusMessage(Encoding.UTF8.GetBytes(json));
+
+        // ✅ Required for compatibility
+        sbMessage.ApplicationProperties["NServiceBus.EnclosedMessageTypes"] =
+            typeof(T).FullName;
+
+        sbMessage.MessageId = Guid.NewGuid().ToString();
+
+        await sender.SendMessageAsync(sbMessage);
+    }
+
+    public static EndpointBuilder CreatePublishingEndpoint<T>(string endpointToPublishFrom)
+    {
+        return new EndpointBuilder();
+    }
+ 
+
+    public Task Send(object message, SendOptions options)
+    {
+        return Send(options.Destination, message);
+    }
+
+    public async Task Send(string destination, object message)
+    {
+        var sender = client.CreateSender(destination);
+
+        var json = JsonConvert.SerializeObject(message);
+
+        var sbMessage = new ServiceBusMessage(Encoding.UTF8.GetBytes(json));
+
+        sbMessage.ApplicationProperties["NServiceBus.EnclosedMessageTypes"] =
+            message.GetType().FullName;
+
+        sbMessage.MessageId = Guid.NewGuid().ToString();
+
+        await sender.SendMessageAsync(sbMessage);
+    }
+
+    public async Task Publish(object message)
+    {
+        var topicName = $"{message.GetType().Name.ToLower()}.events";
+
+        await Send(topicName, message);
+    }
+
+    public async Task SendWithDelay(string destination, object message, TimeSpan delay)
+    {
+        var sender = client.CreateSender(destination);
+
+        var json = JsonConvert.SerializeObject(message);
+
+        var sbMessage = new ServiceBusMessage(Encoding.UTF8.GetBytes(json));
+
+        sbMessage.ApplicationProperties["NServiceBus.EnclosedMessageTypes"] =
+            message.GetType().FullName;
+
+        sbMessage.MessageId = Guid.NewGuid().ToString();
+
+        // ✅ delay replacement
+        sbMessage.ScheduledEnqueueTime = DateTimeOffset.UtcNow.Add(delay);
+
+        await sender.SendMessageAsync(sbMessage);
+    }
+
 }
+
+public class SendOptions
+{
+    public string Destination { get; set; }
+}
+
+

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using NUnit.Core;
     using TechTalk.SpecFlow;
     using System.IO;
     using AllocationDeliveryDomain.Common.DataStore.Model;
@@ -14,6 +13,7 @@
     using Pages;
     using Pages.DTO;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class RetrieveSummarisedActualsSteps
@@ -98,7 +98,7 @@
 
             // assert both that the results are correct, and also that no other results were stored at the client
             var firstMissing = missingRows.FirstOrDefault();
-            Assert.IsFalse(missingRows.Any(), $"Some actuals are missing, deliverableCode: {firstMissing?.DeliverableCode}, actualValue: {firstMissing?.ActualValue}");
+            ClassicAssert.IsFalse(missingRows.Any(), $"Some actuals are missing, deliverableCode: {firstMissing?.DeliverableCode}, actualValue: {firstMissing?.ActualValue}");
         }
 
         [Given(@"there are no entries in the DCFS stub table")]

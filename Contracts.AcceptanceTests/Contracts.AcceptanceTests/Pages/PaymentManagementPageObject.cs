@@ -14,7 +14,7 @@
     using CrossDomain.Integration.Entities.Xrm;
     using Microsoft.Xrm.Sdk;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
-    using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
     using SFA.FCT.CrossDomain.Integration.OverrideDate;
     using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore.Model;
@@ -312,7 +312,7 @@
                 {
                     fundingStreamCode = pmcAllocationType.FundingStreamCode
                 },
-                period = new corpContractType.period()
+                period = new corpContractType.Period()
                 {
                     period1 = pmcAllocationType.Period
                 }
@@ -373,7 +373,7 @@
                 {
                     fundingStreamCode = gwtAllocation.FundingStreamCode
                 },
-                period = new corpContractType.period()
+                period = new corpContractType.Period()
                 {
                     period1 = gwtAllocation.Period,
                     fundingStreamPeriods = new List<corpContractType.fundingStreamPeriodsFundingStreamPeriod>()
@@ -1296,7 +1296,7 @@
 
                 var deliverablePeriods = GetDeliverablePeriods(allocationNumber, row["DeliverableCode"], expectedNonNullPayments, selectPayment);
 
-                Assert.IsTrue(deliverablePeriods.Any(), "Unable to get deliverable periods for allocation: {0} deliverable code: {1} at: {2}", allocationNumber, row["DeliverableCode"], DateTime.Now);
+                ClassicAssert.IsTrue(deliverablePeriods.Any(), "Unable to get deliverable periods for allocation: {0} deliverable code: {1} at: {2}", allocationNumber, row["DeliverableCode"], DateTime.Now);
 
                 foreach (string columnHeading in row.Keys)
                 {
@@ -1327,7 +1327,7 @@
                         checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
                         //TODO: say what payment type we're checking?
-                        Assert.AreEqual(expected.GetValueOrDefault(0), actual.GetValueOrDefault(0), "Expected Payment for Allocation Ref {0}, Deliverable Code {1}, Period {2}",
+                        ClassicAssert.AreEqual(expected.GetValueOrDefault(0), actual.GetValueOrDefault(0), "Expected Payment for Allocation Ref {0}, Deliverable Code {1}, Period {2}",
                             allocationNumber,
                             row["DeliverableCode"],
                             columnHeading);
@@ -1336,7 +1336,7 @@
                     {
                         var deliverable = deliverables.Single(d => d.sfa_DeliverableCode == row["DeliverableCode"]);
 
-                        Assert.AreEqual(row["DeliverableName"], deliverable.sfa_deliverablename,
+                        ClassicAssert.AreEqual(row["DeliverableName"], deliverable.sfa_deliverablename,
                             $"Deliverable name did not match for allocation: {allocationNumber} deliverable code {row["DeliverableCode"]}");
                     }
                 }

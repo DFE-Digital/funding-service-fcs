@@ -1,9 +1,11 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic
 {
+    extern alias Entities;
+    
     using System.Collections.Generic;
     using Integration.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface IAggregatedPaymentMapper
     {

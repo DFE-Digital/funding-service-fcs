@@ -1,9 +1,7 @@
-﻿
-namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services
+﻿namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Runtime.Caching;
@@ -16,17 +14,17 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services
 
         // Configuration (legacy keys retained where possible)
         private static readonly string Tenant =
-            ConfigurationManager.AppSettings["Sharepoint:Oauth:Tenant"];
+            TestConfiguration.Configuration["SharePoint:OAuth:Tenant"];
 
         private static readonly string ClientId =
-            ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientId"];
+            TestConfiguration.Configuration["SharePoint:OAuth:ClientId"];
 
         // Prefer appSetting; fallback to env var for flexibility in CI/CD
         private static readonly string ClientSecret =
-            !string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientSecret"])
-                ? ConfigurationManager.AppSettings["Sharepoint:Oauth:ClientSecret"]
+            !string.IsNullOrWhiteSpace(TestConfiguration.Configuration["SharePoint:OAuth:ClientSecret"])
+                ? TestConfiguration.Configuration["SharePoint:OAuth:ClientSecret"]
                 : Environment.GetEnvironmentVariable("SP_CLIENT_SECRET");
-     
+
         private static readonly string Scope = ResolveScope();
 
         // Cache key unique per tenant + audience + client
@@ -149,7 +147,7 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Services
         }
         private static string ResolveScope()
         {
-            string configured = ConfigurationManager.AppSettings["Graph:Scope"];
+            string configured = TestConfiguration.Configuration["Graph:Scope"];
             if (!string.IsNullOrWhiteSpace(configured))
             {
                 return configured.Trim();

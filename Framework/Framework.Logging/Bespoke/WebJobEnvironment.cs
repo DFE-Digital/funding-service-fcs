@@ -1,6 +1,7 @@
-﻿namespace SFA.FCT.Framework.Logging.Bespoke
+﻿
+namespace SFA.FCT.Framework.Logging.Bespoke
 {
-    public class WebJobEnvironment : ICloudEnvironment
+        public class WebJobEnvironment : ICloudEnvironment
     {
         private string _deploymentId;
         private string _roleId;

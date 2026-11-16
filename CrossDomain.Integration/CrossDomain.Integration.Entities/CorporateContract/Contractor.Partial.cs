@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Extensions;
 
-    public partial class contractor
+    public partial class Contractor
     {
         public string GetLegalAddressCsv()
         {

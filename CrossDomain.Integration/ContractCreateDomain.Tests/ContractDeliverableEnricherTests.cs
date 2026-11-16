@@ -41,7 +41,7 @@
                     fundingStreamName = "16-18 Apprenticeships",
                     fundingStreamShortCode = "APS"
                 },
-                period = new CorporateContract.period(),
+                period = new CorporateContract.Period(),
                 fundingStreamPeriodCode = "16-18APPS1516"
             };
             
@@ -172,7 +172,7 @@
             allocation.startDate = DateTime.MinValue;
             allocation.endDate = DateTime.MinValue;
             allocation.fundingStreamPeriodCode = "16-18APPS1516";
-            allocation.period = new CorporateContract.period();
+            allocation.period = new CorporateContract.Period();
 
             CorporateContract.contractDeliverablesTypeContractDeliverable deliverableC = new CorporateContract.contractDeliverablesTypeContractDeliverable();
             deliverableC.deliverable = new CorporateContract.deliverableType() { deliverableCode = 1 };
@@ -233,7 +233,7 @@
                 startDate = DateTime.MinValue,
                 endDate = DateTime.MinValue,
                 fundingStreamPeriodCode = "16-18APPS1516",
-                period = new CorporateContract.period()
+                period = new CorporateContract.Period()
             };
             contract.contractAllocations.Add(allocation);
             masterContract.contracts.Add(contract);
@@ -271,7 +271,7 @@
                 startDate = DateTime.MinValue,
                 endDate = DateTime.MinValue,
                 fundingStreamPeriodCode = uniqueCode,
-                period = new CorporateContract.period()
+                period = new CorporateContract.Period()
             };
             contract.contractAllocations.Add(allocation);
             masterContract.contracts.Add(contract);
@@ -305,7 +305,7 @@
             var allocation = new CorporateContract.ExtendedContractAllocation();
             allocation.startDate = DateTime.MinValue;
             allocation.endDate = DateTime.MinValue;
-            allocation.period = new CorporateContract.period();
+            allocation.period = new CorporateContract.Period();
             allocation.fundingStreamPeriodCode = "16-18APPS1516";
 
             CorporateContract.contractDeliverablesTypeContractDeliverable deliverableC = new CorporateContract.contractDeliverablesTypeContractDeliverable();
@@ -768,7 +768,9 @@
 
             var filteredData = FundingStreamConfigServiceHelper.FilterProfileDeliverableStructure(deliverableStructure);
 
-            Assert.IsTrue(filteredData.DeliverableStructureList.Count == 5, "Expected number of deliverables does not equal 5, actually {0}", filteredData.DeliverableStructureList.Count);
+            Assert.IsTrue(
+                filteredData.DeliverableStructureList.Count == 5,
+                $"Expected number of deliverables does not equal 5, actually {filteredData.DeliverableStructureList.Count}");
         }
 
         [TestMethod, TestCategory("UnitTest")]

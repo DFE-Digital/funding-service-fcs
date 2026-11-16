@@ -1219,7 +1219,7 @@
         {
             for (int i = 0; i < numRows; i++)
             {
-                var contract = new CorporateSchema.contract
+                var contract = new CorporateSchema.Contract
                 {
                     contracts = new List<CorporateSchema.contractType>
                     {

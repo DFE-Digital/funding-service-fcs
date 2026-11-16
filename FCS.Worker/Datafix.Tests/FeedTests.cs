@@ -59,7 +59,7 @@ namespace Datafix.Tests
                     invalidContractsForAllPages.AddRange(invalidContracts);
                 });
 
-            Assert.IsTrue(invalidContractsForAllPages.IsNullOrEmpty(), "We have some invalid contracts");
+            Assert.IsTrue(!invalidContractsForAllPages.Any(), "We have some invalid contracts");
         }
 
         private static bool IsContractXmlValid(string xml)
@@ -92,7 +92,7 @@ namespace Datafix.Tests
         {
            const string corpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.06.xsd";
 
-           return typeof(SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract).Assembly.GetManifestResourceStream(corpContractSchemaResourceName);
+           return typeof(SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract).Assembly.GetManifestResourceStream(corpContractSchemaResourceName);
         }
 
         private bool AreDeliverablesCorrectOnAllocation(AllocationWithDeliverables allocation)

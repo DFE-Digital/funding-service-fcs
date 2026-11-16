@@ -57,10 +57,16 @@ namespace CrossDomain.Integration.Entities.Tests.Messages
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void GetPeriodTypeCode_UnsupportedPrefix_Throws()
         {
-            new ContractItemsMappingResult("ESF", "CY1819", "GRP", "TYPE").GetPeriodTypeCode();
+            try
+            {
+                new ContractItemsMappingResult("ESF", "CY1819", "GRP", "TYPE").GetPeriodTypeCode();
+                Assert.Fail("Expected exception");
+            }
+            catch (InvalidOperationException)
+            {
+            }
         }
     }
 }

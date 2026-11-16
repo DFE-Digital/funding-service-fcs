@@ -1,77 +1,65 @@
-﻿namespace Datafix.Tests.Automation.Releases.R77
+﻿using Azure.Messaging.ServiceBus;
+using Datafix.Tests.Automation;
+using Datafix.Tests.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+
+public class MoveAuditMessages : IApplyDataFix
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Data.SqlClient;
-    using System.Linq;
-    using Audit;
-    using Datafix.Tests.Repositories;
-    using Microsoft.ServiceBus.Messaging;
+    private static string TransportConnectionString =>
+        ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
 
-    public class MoveAuditMessages : IApplyDataFix
+    public string Release => "R77";
+    public int StoryNumber => 27124;
+    public string Name => "Move messages from the audit queue to a table in Operations";
+    public int Order => 1;
+
+    public void ApplyDataFix()
     {
-        private static string TransportConnectionString => ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
-        public string Release => "R77";
-        public int StoryNumber => 27124;
-        public string Name => "Move messages from the audit queue to a table in Operations";
-        public int Order => 1;
+        Run().GetAwaiter().GetResult();
+    }
 
-        public void ApplyDataFix()
+    private async Task Run()
+    {
+        var client = new ServiceBusClient(TransportConnectionString);
+
+        var receiver = client.CreateReceiver("audit");
+
+        const int batchSize = 100;
+
+        while (true)
         {
-            var queueClient = CreateQueueClient(queueName: "audit");
-            const int batchSize = 100;
-            
-            do
+            IReadOnlyList<ServiceBusReceivedMessage> batchMessages =
+                await receiver.ReceiveMessagesAsync(batchSize);
+
+            if (batchMessages == null || !batchMessages.Any())
             {
-                List<BrokeredMessage> batchMessages = queueClient.ReceiveBatch(batchSize).ToList();
-                if (!batchMessages.Any())
+                break;
+            }
+
+            foreach (var message in batchMessages)
+            {
+                try
                 {
-                    break;
+                    WriteMessageToTable(message);
+
+                    await receiver.CompleteMessageAsync(message);
                 }
-
-                batchMessages.ForEach(m =>
+                catch (Exception)
                 {
-                    try
-                    {
-                        WriteMesssageToTable(m);
-                        m.Complete();
-                    }
-                    catch (Exception)
-                    {
-                        m.Abandon();
-                    }
-                });
-                
-            } while (true);
-        }
-
-        private static QueueClient CreateQueueClient(string queueName)
-        {
-            return QueueClient.CreateFromConnectionString(TransportConnectionString, queueName);
-        }
-
-        private void WriteMesssageToTable(BrokeredMessage brokeredMessage)
-        {
-            const int UniqueConstraintViolation = 2627;
-            var fcsMessage = brokeredMessage.ToFcsMessage();
-
-            try
-            {
-                AuditMessageRepository.Add(
-                    messageBytes: fcsMessage.MessageBytes,
-                    messageType: fcsMessage.MessageType,
-                    sentTime: fcsMessage.SentTime,
-                    messageId: fcsMessage.MessageId,
-                    originatingEndpoint: fcsMessage.OriginatingEndpoint,
-                    processingEndpoint: fcsMessage.ProcessingEndpoint,
-                    businessKey: fcsMessage.BusinessKey,
-                    propertiesBytes: fcsMessage.PropertiesBytes);
-            }
-            catch (SqlException sqlE) when (sqlE.Number == UniqueConstraintViolation)
-            {
-                // we ignore these
+                    await receiver.AbandonMessageAsync(message);
+                }
             }
         }
+    }
+
+    private void WriteMessageToTable(ServiceBusReceivedMessage message)
+    {
+        const int UniqueConstraintViolation = 2627;
+
     }
 }

@@ -1,12 +1,13 @@
 ﻿namespace ContractRequestDomain.Tests.FileLevelValidationTests.UnitTests
 {
+    extern alias CSICommon;
     using System.IO;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Validation;
     using SFA.FCT.ContractRequestDomain.Common;
-    using SFA.FCT.CrossDomain.Integration.Common.Extensions;
+    using CSICommon::SFA.FCT.CrossDomain.Integration.Common.Extensions;
     using SFA.FCT.CrossDomain.Integration.Entities.ExcelUpload;
 
     [TestClass]

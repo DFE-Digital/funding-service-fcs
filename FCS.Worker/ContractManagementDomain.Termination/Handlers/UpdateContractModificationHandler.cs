@@ -57,7 +57,7 @@
                 $"Termination ModificationDetailsUpdated - END: UpdateContractModificationCommand for {message} processed");
         }
 
-        private static void SetSubStatus(contract corporateContract)
+        private static void SetSubStatus(Contract corporateContract)
         {
             corporateContract.SetChildContractsSubStatus(newStatus: "Modified");
         }

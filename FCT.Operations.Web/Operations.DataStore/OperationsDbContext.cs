@@ -19,10 +19,10 @@
                 this.Database.UseTransaction(transaction);
             }
         }
-
         public OperationsDbContext() : base(GetConnectionString())
         {
         }
+
         private static string GetConnectionString()
         {
             if (!string.IsNullOrWhiteSpace(KeyVaultValue))
@@ -31,12 +31,11 @@
             }
             return "name=OperationsDbContext";
         }
-
+ 
         public OperationsDbContext(SqlConnection connection)
-            : base(connection, contextOwnsConnection: false)
         {
+            Connection = connection;
         }
-
 
         public DbSet<Session> Sessions { get; set; }
 

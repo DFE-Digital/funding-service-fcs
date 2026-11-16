@@ -5,8 +5,8 @@
     using System.Configuration;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
+    using Azure;
+    using Azure.Data.Tables;
     using Newtonsoft.Json;
     using PerformanceManagementDomain.PullFundingClaim.DTOs;
     using PerformanceManagementDomain.PullFundingClaim.Services;
@@ -160,62 +160,61 @@
             Assert.AreEqual(11111M, deliverable.ForecastValue, "The ForecastValue is not correct on FC1");
             Assert.AreEqual(111111M, deliverable.TotalDelivery, "The TotalDelivery is not correct on FC1");
         }
-
-        private static void CreateRow(string tablename, FundingClaimApiDto dto, int rowKey)
+        private static void CreateRow(string tableName, FundingClaimApiDto dto, int rowKey)
         {
-            var table = GetTable(tablename);
-            table.CreateIfNotExists();
-            TableBatchOperation batchOp = new TableBatchOperation();
+            var table = GetTable(tableName);
 
-            batchOp.Add(TableOperation.Insert(new FundingClaimApiEntity
-            {
-               PartitionKey = $"{dto.Period}-{dto.ClaimTypeName}",
-               RowKey = rowKey.ToString(),
-               Json = JsonConvert.SerializeObject(dto)
-            }));
-            table.ExecuteBatch(batchOp);
+            table.CreateIfNotExists();
+
+            table.UpsertEntity(
+                new FundingClaimApiEntity
+                {
+                    PartitionKey = $"{dto.Period}-{dto.ClaimTypeName}",
+                    RowKey = rowKey.ToString(),
+                    Json = JsonConvert.SerializeObject(dto)
+                },
+                TableUpdateMode.Replace);
         }
 
         private static void DeleteRowsFromTable(string tableName)
         {
             var table = GetTable(tableName);
+
             table.CreateIfNotExists();
 
-            var query = new TableQuery<FundingClaimApiEntity>();
-            var queryResult = table.ExecuteQuerySegmentedAsync(query, null).Result;
-
-            queryResult.ToList().GroupBy(e => e.PartitionKey).ToList()
-                .ForEach(grp =>
-                {
-                    TableBatchOperation batchDeleteOperation = new TableBatchOperation();
-                    grp.ToList().ForEach(batchDeleteOperation.Delete);
-                    if (batchDeleteOperation.Any())
-                    {
-                        table.ExecuteBatchAsync(batchDeleteOperation).Wait();
-                    }
-                });
+            foreach (var entity in table.Query<FundingClaimApiEntity>())
+            {
+                table.DeleteEntity(
+                    entity.PartitionKey,
+                    entity.RowKey);
+            }
         }
 
-        private class FundingClaimApiEntity : TableEntity
+        private class FundingClaimApiEntity : ITableEntity
         {
-            public FundingClaimApiEntity()
-            {
-            }
+            public string PartitionKey { get; set; }
 
-            public FundingClaimApiEntity(string partitionKey, string rowKey, string json) : base(partitionKey, rowKey)
-            {
-                Json = json;
-            }
+            public string RowKey { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag { get; set; }
 
             public string Json { get; set; }
         }
 
-        private static CloudTable GetTable(string tablename)
+        private static TableClient GetTable(string tableName)
         {
-            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
-            var tableClient = storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference(tablename);
-            return table;
+            string connectionString =
+                ConfigurationManager
+                    .ConnectionStrings["StorageConnectionString"]
+                    .ConnectionString;
+
+            return new TableClient(
+                connectionString,
+                tableName);
         }
+
+
     }
 }

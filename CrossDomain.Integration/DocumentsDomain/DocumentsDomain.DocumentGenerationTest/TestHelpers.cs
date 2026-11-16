@@ -34,7 +34,7 @@
                                                             string masterContractXml,
                                                             params string[] documentGenerationRequestXml) where T : DocumentPartCreator
         {
-            contract contractObject = GetObjectFromXml<contract>(masterContractXml);
+            Contract contractObject = GetObjectFromXml<Contract>(masterContractXml);
 
             TestDocumentPartCreatorSupply<T>(templateName, null, contractObject, documentGenerationRequestXml);
         }
@@ -44,14 +44,14 @@
                                                             string masterContractXml,
                                                             params string[] documentGenerationRequestXml) where T : DocumentPartCreator
         {
-            contract contractObject = GetObjectFromXml<contract>(masterContractXml);
+            Contract contractObject = GetObjectFromXml<Contract>(masterContractXml);
 
             TestDocumentPartCreatorSupply<T>(templateName, configSource, contractObject, documentGenerationRequestXml);
         }
 
         public static void TestDocumentPartCreatorSupply<T>(string templateName,
                                                             IDocumentConfigurationSource configSource,
-                                                            contract masterContract,
+                                                            Contract masterContract,
                                                             params string[] documentGenerationRequestXml) where T : DocumentPartCreator
         {
             DocumentGenerationRequest[] docGens =
@@ -65,7 +65,7 @@
 
         public static void TestDocumentPartCreatorSupply<T>(string templateName,
                                                             IDocumentConfigurationSource configSource,
-                                                            contract masterContract,
+                                                            Contract masterContract,
                                                             params DocumentGenerationRequest[] documentGenerationRequests) where T : DocumentPartCreator
         {
             Mock<ITemplateRepository> templateRepositoryMock = new Mock<ITemplateRepository>();
@@ -100,7 +100,7 @@
         }
 
         public static void TestDocumentPartCreatorSupply<T>(string templateName,
-                                                           contract masterContract,
+                                                           Contract masterContract,
                                                            params DocumentGenerationRequest[] documentGenerationRequests) where T : DocumentPartCreator
         {
             IAzureStorageWrapper storageWrapper = new AzureStorageWrapper();
@@ -149,7 +149,7 @@
 
         public static void TestDocumentHeaderCreatorSupply<T>(string templateName, string masterContractXml, string documentGenerationRequestXml) where T : IDocumentHeaderCreator
         {
-            contract masterContract = GetObjectFromXml<contract>(masterContractXml);
+            Contract masterContract = GetObjectFromXml<Contract>(masterContractXml);
             DocumentGenerationRequest docGen = GetObjectFromXml<DocumentGenerationRequest>(documentGenerationRequestXml);
 
             Mock<ITemplateRepository> templateRepositoryMock = new Mock<ITemplateRepository>();

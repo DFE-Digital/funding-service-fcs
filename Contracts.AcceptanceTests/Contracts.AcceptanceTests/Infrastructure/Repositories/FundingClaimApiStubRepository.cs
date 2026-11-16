@@ -1,10 +1,13 @@
 ﻿namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Repositories
 {
-    using System.Configuration;
+    using Azure;
+    using Azure.Data.Tables;
     using CrossDomain.Integration.Common.Storage;
     using global::PerformanceManagementDomain.PullFundingClaim.DTOs;
-    using Microsoft.WindowsAzure.Storage.Table;
+   // using Microsoft.WindowsAzure.Storage.Table;
     using Newtonsoft.Json;
+    using System;
+    using System.Configuration;
 
     public static class FundingClaimApiStubRepository
     {
@@ -32,8 +35,20 @@
             AzureTableStore.DeleteAllRows<FundingClaimApiEntity>(TableName);
         }
 
-        private class FundingClaimApiEntity : TableEntity
+        private class FundingClaimApiEntity : ITableEntity
         {
+
+            public string PartitionKey { get; set; }
+
+            public string RowKey { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag
+            {
+                get; set;
+            }
+
             public string Json { get; set; }
         }
 

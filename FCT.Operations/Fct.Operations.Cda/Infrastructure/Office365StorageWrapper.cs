@@ -1,5 +1,4 @@
-﻿
-namespace FCT.Operations.Cda.Infrastructure
+﻿namespace FCT.Operations.Cda.Infrastructure
 {
     using Newtonsoft.Json.Linq;
     using SFA.FCS.Worker.Common;

@@ -1,93 +1,104 @@
 ﻿namespace FundingAllocation.Infrastructure
 {
-    using System.IO;
-    using System.Runtime.Serialization;
-    using System.Runtime.Serialization.Formatters.Binary;
-    using System.Threading.Tasks;
     using Azure;
     using Azure.Storage.Blobs;
+    using Azure.Storage.Blobs.Models;
+    using FundingAllocation.Infrastructure;
     using Microsoft.Extensions.Configuration;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+    using System;
+    using System.IO;
+    using System.Text.Json;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class ContractStorage : IContractStorage
     {
-        private readonly IConfigurationRoot _configuration;
+        private readonly IConfiguration _configuration;
         private const string ContainerNameRoot = "fct-contract";
 
-        public ContractStorage(IConfigurationRoot configuration)
+        // Configure JSON once; adjust as needed for your model.
+        private static readonly JsonSerializerOptions JsonOptions = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            // If you have reference cycles, uncomment:
+            // ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
+        };
+
+        public ContractStorage(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<ETag> StoreContract(string key, ExtendedContractTypeAndIntent extendedContract)
+        /// <summary>
+        /// Stores the contract as JSON in a blob (overwrites if exists).
+        /// </summary>
+        public async Task<ETag> StoreContract(
+            string key,
+            ExtendedContractTypeAndIntent extendedContract,
+            CancellationToken cancellationToken = default)
         {
-            var containerClient = await GetBlobContainerClient();
-            var stream = CreateStreamForObject(extendedContract);
+            var containerClient = await GetBlobContainerClient(cancellationToken);
+            var blobClient = containerClient.GetBlobClient(key);
 
-            try
-            {
-                var response = await containerClient.UploadBlobAsync(key, stream);
+            // Serialize to UTF-8 JSON bytes (safe alternative to BinaryFormatter).
+            byte[] payload = JsonSerializer.SerializeToUtf8Bytes(extendedContract, JsonOptions);
+            await using var stream = new MemoryStream(payload);
 
-                return response.Value.ETag;
-            }
-            catch (RequestFailedException e) when (e.Status == 409)
-            {
-                // this is already there, delete the one there and then replace
-                var blobClient = containerClient.GetBlobClient(key);
-                await blobClient.DeleteIfExistsAsync();
-                stream.Position = 0;
-                var response = await containerClient.UploadBlobAsync(key, stream);
+            // Overwrite existing blob if present.
+            var upload = await blobClient.UploadAsync(stream, overwrite: true, cancellationToken);
 
-                return response.Value.ETag;
-            }
+            await blobClient.SetHttpHeadersAsync(
+                new BlobHttpHeaders { ContentType = "application/json; charset=utf-8" },
+                conditions: null,
+                cancellationToken);
+
+            return upload.Value.ETag;
         }
 
-        public async Task<ExtendedContractTypeAndIntent> GetContract(string key)
+        /// <summary>
+        /// Retrieves the contract by downloading the blob and deserializing from JSON.
+        /// </summary>
+        public async Task<ExtendedContractTypeAndIntent> GetContract(
+            string key,
+            CancellationToken cancellationToken = default)
         {
-            var containerClient = await GetBlobContainerClient();
+            var containerClient = await GetBlobContainerClient(cancellationToken);
             var blobClient = containerClient.GetBlobClient(key);
-            MemoryStream stream = new MemoryStream();
-            await blobClient.DownloadToAsync(stream);
-            var formatter = new BinaryFormatter();
-            stream.Position = 0;
 
-            return formatter.Deserialize(stream) as ExtendedContractTypeAndIntent;
+            // Use DownloadToAsync for broad compatibility across v12.* of Azure.Storage.Blobs.
+            await using var ms = new MemoryStream();
+            await blobClient.DownloadToAsync(ms, cancellationToken);
+            ms.Position = 0;
+
+            var result = JsonSerializer.Deserialize<ExtendedContractTypeAndIntent>(ms.ToArray(), JsonOptions);
+            if (result is null)
+                throw new InvalidOperationException($"Blob '{key}' could not be deserialized to {nameof(ExtendedContractTypeAndIntent)}.");
+
+            return result;
         }
 
         public string GetKey(string contractNumber, int version, int subVersion)
+            => $"{contractNumber}___{version}___{subVersion}";
+
+        private async Task<BlobContainerClient> GetBlobContainerClient(CancellationToken cancellationToken = default)
         {
-            return $"{contractNumber}___{version}___{subVersion}";
+            var connectionString = _configuration.GetConnectionString("StorageConnectionString");
+            var blobServiceClient = new BlobServiceClient(connectionString);
+
+            var containerName = GetContainerName();
+            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+            await containerClient.CreateIfNotExistsAsync(PublicAccessType.None, cancellationToken: cancellationToken);
+            return containerClient;
         }
 
         private string GetContainerName()
         {
             var environment = _configuration["StorageTableSuffix"];
-            if (string.IsNullOrEmpty(environment))
-            {
-                return ContainerNameRoot;
-            }
-
-            return $"{ContainerNameRoot}-{environment.ToLower()}";
-        }
-
-        private static Stream CreateStreamForObject(ExtendedContractTypeAndIntent extendedContract)
-        {
-            MemoryStream stream = new MemoryStream();
-            IFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, extendedContract);
-            stream.Position = 0;
-
-            return stream;
-        }
-
-        private async Task<BlobContainerClient> GetBlobContainerClient()
-        {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration.GetConnectionString("StorageConnectionString"));
-            var containerName = GetContainerName();
-            var client = blobServiceClient.GetBlobContainerClient(containerName);
-            await client.CreateIfNotExistsAsync();
-
-            return client;
+            return string.IsNullOrWhiteSpace(environment)
+                ? ContainerNameRoot
+                : $"{ContainerNameRoot}-{environment.ToLower()}";
         }
     }
 }

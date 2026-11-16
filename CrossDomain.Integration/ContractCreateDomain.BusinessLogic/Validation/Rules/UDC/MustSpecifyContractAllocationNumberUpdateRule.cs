@@ -29,7 +29,7 @@
 
             masterContract.contracts.SelectMany(c => c.contractAllocations).ForEach(ca =>
             {
-                if (ca.CRMIntent == intent.UpdateDraft && string.IsNullOrWhiteSpace(ca.contractAllocationNumber))
+                if (ca.CRMIntent == Intent.UpdateDraft && string.IsNullOrWhiteSpace(ca.contractAllocationNumber))
                 {
                     failures.Add(ca.correlationId);
                 }

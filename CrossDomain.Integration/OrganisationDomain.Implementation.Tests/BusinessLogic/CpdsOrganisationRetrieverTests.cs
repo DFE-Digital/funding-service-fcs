@@ -49,7 +49,6 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(CommunicationException))]
         public void GetProviderByUKPRN_ShouldAbortTheServiceClient_WhenAnExceptionIsThrown()
         {
             //Arrange
@@ -63,7 +62,15 @@
             var cpdsOrganisationRetriever = new CpdsOrganisationRetriever(Mock.Of<ILogger>(), mockCpdsGatewayService.Object, new Mock<ICpdsMapper>().Object, new Mock<ICpdsXmlValidator>().Object);
             
             //Act
-            cpdsOrganisationRetriever.GetProviderByUkprn(It.IsAny<int>());
+            try
+            {
+                cpdsOrganisationRetriever.GetProviderByUkprn(It.IsAny<int>());
+                Assert.Fail("Expected CommunicationException was not thrown.");
+            }
+            catch (CommunicationException)
+            {
+                // Expected
+            }
 
             //Assert
             mockCpdsGatewayService.As<ICommunicationObject>().Verify(x => x.Abort(), Times.Once(),
@@ -102,7 +109,6 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(DuplicateUkprnProviderException))]
         public void GetProviderByUKPRN_ShouldThrowADuplicateUkPrnException_WhenHasMultipleActiveProvidersWithTheSameUkprnReturnsTrue()
         {
             //Arrange
@@ -178,7 +184,6 @@
 
         
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(CommunicationException))]
         public void GetProviderByUkprn_WhenCallToCpdsFails_ShouldLogError()
         {
             // Arrange
@@ -196,14 +201,21 @@
             var cpdsOrganisationRetriever = new CpdsOrganisationRetriever(Mock.Of<ILogger>(), mockCpdsGatewayService.Object, new Mock<ICpdsMapper>().Object, new Mock<ICpdsXmlValidator>().Object);
             
             // Act
-            cpdsOrganisationRetriever.GetProviderByUkprn(It.IsAny<int>());
+            try
+            {
+                cpdsOrganisationRetriever.GetProviderByUkprn(It.IsAny<int>());
+                Assert.Fail("Expected CommunicationException was not thrown.");
+            }
+            catch (CommunicationException)
+            {
+                // Expected
+            }
 
             // Assert
             loggerMock.Verify(x => x.Error(It.Is<String>(y => y.Contains("CPDS has failed")), e));
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(Exception))]
         public void GetProviderByUkprn_WhenProcessResponseFails_ShouldLogError()
         {
             // Arrange
@@ -227,7 +239,15 @@
             var cpdsOrganisationRetriever = new CpdsOrganisationRetriever(Mock.Of<ILogger>(), mockCpdsGatewayService.Object, new Mock<ICpdsMapper>().Object, cpdsXmlValidatorMock.Object);
 
             // Act
-            cpdsOrganisationRetriever.GetProviderByUkprn(It.IsAny<int>());
+            try
+            {
+                cpdsOrganisationRetriever.GetProviderByUkprn(It.IsAny<int>());
+                Assert.Fail("Expected Exception was not thrown.");
+            }
+            catch (Exception)
+            {
+                // Expected
+            }
 
             // Assert
             loggerMock.Verify(x => x.Error(It.Is<String>(y => y.Contains("Error trying to process")), e));
@@ -287,91 +307,132 @@
                 Times.Once(), "The RemoveProvidersThatDoNotHaveAMatchingUpin method was not called with the correct Upin and the raw response from CPDS");
         }
 
-        [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(CommunicationException))]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void GetProviderByUkprnAndUpin_WhenCallToCpdsFails_ShouldLogError()
         {
             // Arrange
             var mockCpdsGatewayService = new Mock<GatewayServiceContract>();
             mockCpdsGatewayService.As<ICommunicationObject>();
             mockCpdsGatewayService.As<IDisposable>();
+
             var loggerMock = new Mock<ILog>();
 
             var e = new CommunicationException("Exception was thrown");
-            mockCpdsGatewayService.Setup(x => x.GetProvidersByUKPRN(It.IsAny<GProvByUKPRINRequest>()))
+
+            mockCpdsGatewayService
+                .Setup(x => x.GetProvidersByUKPRN(It.IsAny<GProvByUKPRINRequest>()))
                 .Throws(e);
 
-            var cpdsOrganisationRetriever = new CpdsOrganisationRetriever(Mock.Of<ILogger>(), mockCpdsGatewayService.Object, new Mock<ICpdsMapper>().Object, new Mock<ICpdsXmlValidator>().Object);
+            var cpdsOrganisationRetriever =
+                new CpdsOrganisationRetriever(
+                    Mock.Of<ILogger>(),
+                    mockCpdsGatewayService.Object,
+                    new Mock<ICpdsMapper>().Object,
+                    new Mock<ICpdsXmlValidator>().Object);
 
-            // Act
-            cpdsOrganisationRetriever.GetProviderByUkprnAndUpin(It.IsAny<int>(), It.IsAny<int>());
+            // Act / Assert
 
-            // Assert
-            loggerMock.Verify(x => x.Error(It.Is<String>(y => y.Contains("CPDS has failed")), e));
+            try
+            {
+                cpdsOrganisationRetriever.GetProviderByUkprnAndUpin(
+                    It.IsAny<int>(),
+                    It.IsAny<int>());
+
+                Assert.Fail("Expected CommunicationException was not thrown.");
+            }
+            catch (CommunicationException)
+            {
+                // Expected
+            }
+
+
+            loggerMock.Verify(x =>
+                x.Error(
+                    It.Is<string>(y => y.Contains("CPDS has failed")),
+                    e));
         }
 
-        [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(OrganisationCorporateSchemaValidationFailedException))]
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void GetProviderByUKPRN_ShouldThrowAnOrganisationCorporateSchemaValidationFailedException_WhenTheXmlResponseFromCpdsIsInvalidWhenMappedToCorporateSchema()
         {
-            //Arrange
+            // Arrange
             var mockCpdsGatewayService = new Mock<GatewayServiceContract>();
+
             mockCpdsGatewayService.As<ICommunicationObject>();
             mockCpdsGatewayService.As<IDisposable>();
 
-            const string rawCpdsResponse = "<ProviderDataSetV2 xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://xpims.lsc.gov.uk/ProviderDataSetV2'>" +             
-                   "<Provider ProviderSequenceNumber='1111111' id='25114'>" +
-                        "<Upin>105008</Upin>" +
-                        "<UKPRN>12345678</UKPRN>" +
-                        "<TradingName>LEARNING UPDATE</TradingName>" +
-                        "<RegisteredName>LEARNING UPDATE</RegisteredName>" +
-                        "<Dissolved>1899-12-30T00:00:00+00:00</Dissolved>" +
-                        "<CharityNumber>UNKNOWN</CharityNumber>" +
-                        "<ProviderType id='49'>" +
-                          "<ProviderType>PRI/LBG/NSC (Use of Limited exemption)</ProviderType>" +
-                          "<ProviderTypeCode>PBGS</ProviderTypeCode>" +
-                          "<ParentTypeCode>PRIV</ParentTypeCode>" +
-                          "<IsIndependent>Y</IsIndependent>" +
-                        "</ProviderType>" +
-                        "<Codes id='120649' Type='C'>" +
-                            "<EffectiveFrom>2001-01-01T00:00:00+00:00</EffectiveFrom>" +
-                            "<EffectiveTo>9999-12-31T00:00:00+00:00</EffectiveTo>" +
-                            "<CodeType id='91'>" +
-                                "<CodeType>EXTSTATUS</CodeType>" +
-                                "<CodeTypeDesc>Extended Status code for Organisation</CodeTypeDesc>" +
-                             "</CodeType>" +
-                            "<CodeValue id='214'>" +
-                                "<CodeValueName>ES_ACTIVE</CodeValueName>" +
-                                "<CodeValueDesc>Active</CodeValueDesc>" +
-                            "</CodeValue>" +
-                        "</Codes>" +
-                    "</Provider>" +
+            const string rawCpdsResponse =
+                "<ProviderDataSetV2 xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://xpims.lsc.gov.uk/ProviderDataSetV2'>" +
+                "<Provider ProviderSequenceNumber='1111111' id='25114'>" +
+                "<Upin>105008</Upin>" +
+                "<UKPRN>12345678</UKPRN>" +
+                "<TradingName>LEARNING UPDATE</TradingName>" +
+                "<RegisteredName>LEARNING UPDATE</RegisteredName>" +
+                "<Dissolved>1899-12-30T00:00:00+00:00</Dissolved>" +
+                "<CharityNumber>UNKNOWN</CharityNumber>" +
+                "<ProviderType id='49'>" +
+                "<ProviderType>PRI/LBG/NSC (Use of Limited exemption)</ProviderType>" +
+                "<ProviderTypeCode>PBGS</ProviderTypeCode>" +
+                "<ParentTypeCode>PRIV</ParentTypeCode>" +
+                "<IsIndependent>Y</IsIndependent>" +
+                "</ProviderType>" +
+                "<Codes id='120649' Type='C'>" +
+                "<EffectiveFrom>2001-01-01T00:00:00+00:00</EffectiveFrom>" +
+                "<EffectiveTo>9999-12-31T00:00:00+00:00</EffectiveTo>" +
+                "<CodeType id='91'>" +
+                "<CodeType>EXTSTATUS</CodeType>" +
+                "<CodeTypeDesc>Extended Status code for Organisation</CodeTypeDesc>" +
+                "</CodeType>" +
+                "<CodeValue id='214'>" +
+                "<CodeValueName>ES_ACTIVE</CodeValueName>" +
+                "<CodeValueDesc>Active</CodeValueDesc>" +
+                "</CodeValue>" +
+                "</Codes>" +
+                "</Provider>" +
                 "</ProviderDataSetV2>";
 
-            mockCpdsGatewayService.Setup(x => x.GetProvidersByUKPRN(It.IsAny<GProvByUKPRINRequest>()))
-                .Returns(new GProvByUKPRNResponse { RawCPDSResponse = rawCpdsResponse });
+            mockCpdsGatewayService
+                .Setup(x => x.GetProvidersByUKPRN(It.IsAny<GProvByUKPRINRequest>()))
+                .Returns(new GProvByUKPRNResponse
+                {
+                    RawCPDSResponse = rawCpdsResponse
+                });
 
             var mockCpdsXmlValidator = new Mock<ICpdsXmlValidator>();
-            List<OrganisationSchemaValidationError> validationErrors = new List<OrganisationSchemaValidationError>();
-            mockCpdsXmlValidator.Setup(x => x.IsOrganisationValidAgainstOrganisationCorporateSchema(It.IsAny<organisation>(), out validationErrors)).Returns(false);
 
-            var cpdsOrganisationRetriever = new CpdsOrganisationRetriever(Mock.Of<ILogger>(), mockCpdsGatewayService.Object, new Mock<ICpdsMapper>().Object, mockCpdsXmlValidator.Object);
-           
-            var wasExceptionThrown = false;
-            //Act
+            List<OrganisationSchemaValidationError> validationErrors =
+                new List<OrganisationSchemaValidationError>();
+
+            mockCpdsXmlValidator
+                .Setup(x => x.IsOrganisationValidAgainstOrganisationCorporateSchema(
+                    It.IsAny<organisation>(),
+                    out validationErrors))
+                .Returns(false);
+
+            var cpdsOrganisationRetriever =
+                new CpdsOrganisationRetriever(
+                    Mock.Of<ILogger>(),
+                    mockCpdsGatewayService.Object,
+                    new Mock<ICpdsMapper>().Object,
+                    mockCpdsXmlValidator.Object);
+            // Act / Assert
+
             try
             {
                 cpdsOrganisationRetriever.GetProviderByUkprn(It.IsAny<int>());
+
+                Assert.Fail(
+                    "Expected OrganisationCorporateSchemaValidationFailedException was not thrown.");
             }
             catch (OrganisationCorporateSchemaValidationFailedException)
             {
-                wasExceptionThrown = true;
-                throw;
+                // Expected
             }
 
-            //Assert
-            Assert.IsTrue(wasExceptionThrown, "OrganisationCorporateSchemaValidationFailedException was not thrown");
-            //Expected exception of DuplicateUkprnProviderException (see method annotation)
         }
 
         [TestMethod, TestCategory("UnitTest")]

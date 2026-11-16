@@ -1,46 +1,61 @@
-﻿namespace ContractManagementDomain.Endpoint.Xrm.ContractClosure
+﻿
+namespace ContractManagementDomain.Endpoint.Xrm.ContractClosure
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "ContractManagementDomain.Endpoint.Xrm.dll";
+        public string NameOfAssembly =>
+            "ContractManagementDomain.Endpoint.Xrm.dll";
 
-        public string EndpointName => "ContractManagementDomain.ContractClosure.Xrm";
+        public string EndpointName =>
+            "ContractManagementDomain.ContractClosure.Xrm";
 
         private static readonly IReadOnlyCollection<string> EventsUsedInThisEndpoint = new[]
         {
             nameof(ContractClosedEvent)
         };
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new []
+        public IReadOnlyCollection<Subscription> Subscriptions => new[]
         {
-            new Subscription("ContractManagementDomain.ContractClosure", typeof(ContractClosedEvent)) 
+            new Subscription(
+                "ContractManagementDomain.ContractClosure",
+                typeof(ContractClosedEvent))
         };
 
-        public IReadOnlyCollection<CommandRoute> Routes => Enumerable.Empty<CommandRoute>().ToArray();
+        public IReadOnlyCollection<CommandRoute> Routes =>
+            Enumerable.Empty<CommandRoute>().ToArray();
 
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Local DI
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddContractClosureServices();
             });
 
             return configuration;

@@ -1,12 +1,13 @@
 ﻿namespace ADMonitoringDomain.Endpoint.BusinessLogic
 {
+    extern alias Entities;
     using System;
     using System.Xml.Schema;
     using SFA.FCT.AllocationDelivery.DataStore;
     using SFA.FCT.AllocationDelivery.DataStore.Model;
     using SFA.FCT.CrossDomain.Integration.Common.SchemaValidator;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class AtomGenerator : IAtomGenerator
     {

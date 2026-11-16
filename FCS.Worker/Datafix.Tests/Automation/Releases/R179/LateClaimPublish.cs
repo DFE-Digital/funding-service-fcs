@@ -112,7 +112,7 @@ namespace Datafix.Tests.Automation.Releases.R179
             }
         }
 
-        private void PublishDebatchedFundingClaims(IEnumerable<DebatchedFundingClaim> debatchedFundingClaims, IEndpointInstance endpoint)
+        private void PublishDebatchedFundingClaims(IEnumerable<DebatchedFundingClaim> debatchedFundingClaims, EndpointBuilder endpoint)
         {
             foreach (DebatchedFundingClaim fc in debatchedFundingClaims)
             {

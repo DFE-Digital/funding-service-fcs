@@ -8,11 +8,11 @@
     [TestClass]
     public class AggregateDeliverableCommandTests
     {
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("SmokeTest_R64a")]
         public void SendAggregateDeliverablesCommandForPostActivityClosureAllocationToEnsureCrmConnectivityFromWorkerRole()
         {
             // arrange
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<HousekeepProcessedMessageTables>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<HousekeepProcessedMessageTables>();
 
             AggregateDeliverablesCommand command = new AggregateDeliverablesCommand
             {

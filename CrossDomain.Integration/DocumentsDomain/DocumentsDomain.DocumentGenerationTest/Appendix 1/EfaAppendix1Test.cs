@@ -26,7 +26,7 @@
         [TestMethod, TestCategory("UnitTest")]
         public void TestThatDocumentPartIsRequiredForEsf()
         {
-            contract masterContract = TestHelpers.GetObjectFromXml<contract>(xml_10000976_1619LR1718_v1);
+            Contract masterContract = TestHelpers.GetObjectFromXml<Contract>(xml_10000976_1619LR1718_v1);
             EfaApendix1 classUnderTest = new EfaApendix1(null, null, null, null, null);
             Assert.IsTrue(classUnderTest.IsDocumentPartRequired(masterContract.contracts.First()));
         }
@@ -48,7 +48,7 @@
                 .Returns(new FundingTypeFundingPeriod());
 
             IDictionary<string, DocumentGenerationRequest> requests;
-            contract contract = GetCorporateContract("corpContractEfa.json");
+            Contract contract = GetCorporateContract("corpContractEfa.json");
             var numRepeatingSections =
                 contract.contractAllocations.SelectMany(
                     ca => ca.contractDeliverables.Select(cd => cd.deliverable.deliverableName)).Distinct().Count();
@@ -91,7 +91,7 @@
                 .Returns(new FundingTypeFundingPeriod());
 
             IDictionary<string, DocumentGenerationRequest> requests;
-            contract contract = GetCorporateContract("DocumentSaveCommand_10008865.json");
+            Contract contract = GetCorporateContract("DocumentSaveCommand_10008865.json");
            
             using (var paymentManagementPolicyContext = new PaymentManagementPolicyContext())
             using (var documentDomainDbContext = new DocumentsDomainDbContext())
@@ -127,7 +127,7 @@
             string[] mergeFieldsShouldBePresent = {"T4", "T5"};
 
             IDictionary<string, DocumentGenerationRequest> requests;
-            contract contract = GetShortCorporateContract();
+            Contract contract = GetShortCorporateContract();
 
             using (var paymentManagementPolicyContext = new PaymentManagementPolicyContext())
             using (var documentDomainDbContext = new DocumentsDomainDbContext())
@@ -148,23 +148,23 @@
             Assert.IsFalse(requests.Values.Any(r => r.MergeData.MergeFields.Any(md => mergeFieldsShouldNotBePresent.Contains(md.Name))), "Totals are in the wrong columns");
         }
 
-        private contract GetCorporateContract(string fileName)
+        private Contract GetCorporateContract(string fileName)
         {
             using (var resource = new TestResource("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests", $@"Resources.{fileName}"))
             {
                 return
-                    (contract)
-                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(contract));
+                    (Contract)
+                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(Contract));
             }
         }
 
-        private contract GetShortCorporateContract()
+        private Contract GetShortCorporateContract()
         {
             using (var resource = new TestResource("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests", @"Resources.shortCorpContractEfa.json"))
             {
                 return
-                    (contract)
-                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(contract));
+                    (Contract)
+                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(Contract));
             }
         }
 

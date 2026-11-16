@@ -25,7 +25,7 @@
 
             ArchiveFileOrchestrator orchestrator = new ArchiveFileOrchestrator(office365AdapterMock.Object);
 
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -35,7 +35,7 @@
                         {
                             fundingTypeCode = "FT"
                         },
-                        period = new period()
+                        period = new Period()
                     }
                 }
             };
@@ -60,7 +60,7 @@
 
             ArchiveFileOrchestrator orchestrator = new ArchiveFileOrchestrator(office365AdapterMock.Object);
 
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -70,7 +70,7 @@
                         {
                             fundingTypeCode = "FT"
                         },
-                        period = new period()
+                        period = new Period()
                     }
                 }
             };

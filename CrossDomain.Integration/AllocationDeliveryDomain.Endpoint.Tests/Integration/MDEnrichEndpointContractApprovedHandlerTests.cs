@@ -71,7 +71,7 @@
             var expectedDeliveryAllocation = GetExpectedDeliveryAllocation();
             var publishedDeliveryAllocation = publishedEvents.Single().Allocation;
 
-            AssertExtensions.PropertyValuesAreEqual(expectedDeliveryAllocation, publishedDeliveryAllocation);
+            AllocationDeliveryDomain.Endpoint.Tests.Helpers.AssertExtensions.PropertyValuesAreEqual(expectedDeliveryAllocation, publishedDeliveryAllocation);
 
             ValidateDeliveryAllocationAgainstSchema(publishedDeliveryAllocation);
         }
@@ -122,7 +122,7 @@
         private static void ValidateDeliveryAllocationAgainstSchema(DeliveryAllocation.allocationType allocation)
         {
             XmlSchemaSet schemas = new XmlSchemaSet();
-            Stream xsdStream = typeof(CorporateContract.contract).Assembly.GetManifestResourceStream(DeliveryAllocationSchemaResourceName);
+            Stream xsdStream = typeof(CorporateContract.Contract).Assembly.GetManifestResourceStream(DeliveryAllocationSchemaResourceName);
 
             Assert.IsNotNull(xsdStream, "DeliveryAllocation schema not found as resource stream");
 
@@ -145,9 +145,9 @@
                 });
         }
 
-        private static CorporateContract.contract GetCorporateContract()
+        private static CorporateContract.Contract GetCorporateContract()
         {
-            return new CorporateContract.contract
+            return new CorporateContract.Contract
             {
                 fundingType = new CorporateContract.fundingType { fundingTypeCode = "MAIN" },
                 contractNumber = "MASTER-001",
@@ -159,7 +159,7 @@
                         contractNumber = "CONTRACT-001",
                         contractVersionNumber = 1,
                         contractValue = 48765,
-                        contractor = new CorporateContract.contractor
+                        contractor = new CorporateContract.Contractor
                         {
                             organisationIdentifier = "ORG1234567",
                             ukprn = 12345678,
@@ -182,7 +182,7 @@
                                 {
                                     fundingStreamCode = "16-18 APPS"
                                 },
-                                period = new CorporateContract.period
+                                period = new CorporateContract.Period
                                 {
                                     periodType = new CorporateContract.periodTypeType() { periodTypeCode = CorporateContract.periodTypeCodeType.AY },
                                     period1 = "1516",

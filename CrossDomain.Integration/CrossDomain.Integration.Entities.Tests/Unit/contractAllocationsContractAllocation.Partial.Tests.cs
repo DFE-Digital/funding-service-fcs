@@ -223,7 +223,7 @@ namespace CrossDomain.Integration.Entities.Tests.Unit
             // arrange
             contractAllocationsContractAllocation allocation = new contractAllocationsContractAllocation()
             {
-                period = new period()
+                period = new Period()
                 {
                     periodType = new periodTypeType()
                     {

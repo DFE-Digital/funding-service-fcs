@@ -29,7 +29,7 @@ namespace Operations.Web.Tests.Controller
                 // act
                 var httpResponse = http.GetAsync("fcs-payment-batch-feed-info?fundingStreamPeriod=FSP").Result;
                 // assert
-                Assert.IsTrue(httpResponse.IsSuccessStatusCode, DescribeFailure(httpResponse));
+                Assert.IsTrue(httpResponse.IsSuccessStatusCode);
             }
         }
 
@@ -39,7 +39,7 @@ namespace Operations.Web.Tests.Controller
             // arrange
             const string fundingStreamPeriod = "TSPTEST";
             ClearContracts(fundingStreamPeriod);
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -61,22 +61,11 @@ namespace Operations.Web.Tests.Controller
                 // act
                 var httpResponse = http.GetAsync($"fcs-payment-batch-feed-info/{id}").Result;
                 // assert
-                Assert.IsTrue(httpResponse.IsSuccessStatusCode, "This has not returned ok. " + DescribeFailure(httpResponse));
+                Assert.IsTrue(httpResponse.IsSuccessStatusCode, "This has not returned ok");
                 var xmlResult = httpResponse.Content.ReadAsStringAsync().Result;
                 Assert.IsTrue(xmlResult.Contains(fundingStreamPeriod), "The xml returned did not contain the right contract number");
             }
             ClearContracts(fundingStreamPeriod);
-        }
-
-        private static string DescribeFailure(System.Net.Http.HttpResponseMessage response)
-        {
-            var body = response.Content.ReadAsStringAsync().Result ?? string.Empty;
-            if (body.Length > 500)
-            {
-                body = body.Substring(0, 500);
-            }
-
-            return $"Request {response.RequestMessage?.RequestUri} returned {(int)response.StatusCode} {response.ReasonPhrase}. Body: {body}";
         }
 
         private static string SerializeToXml<T>(T objectToSerialize) where T : class
@@ -105,15 +94,9 @@ namespace Operations.Web.Tests.Controller
             return outStream.ToArray();
         }
 
-        private static byte[] ConvertObjectToByteArray<T>(T objectToSerialize)
+        private static byte[] ConvertObjectToByteArray(string text)
         {
-            MemoryStream memorystream = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(memorystream, objectToSerialize);
-
-            byte[] serializedResult = memorystream.ToArray();
-
-            return serializedResult;
+            return Encoding.UTF8.GetBytes(text);
         }
 
         private void ClearContracts(string fundingStreamPeriod)

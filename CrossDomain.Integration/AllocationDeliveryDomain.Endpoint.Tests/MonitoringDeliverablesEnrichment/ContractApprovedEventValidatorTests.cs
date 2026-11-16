@@ -15,7 +15,7 @@
             // arrange
             var message = new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -38,7 +38,7 @@
             // arrange
             var message = new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>()
                 }
@@ -57,7 +57,7 @@
             // arrange
             var message = new ContractApprovedEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     hierarchyType = hierarchyType.CONTRACT,
                     contracts = new List<contractType>

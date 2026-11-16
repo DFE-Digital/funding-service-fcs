@@ -9,7 +9,7 @@
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.Framework.Logging.Interfaces;
-    using contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.contract;
+    using contract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract;
 
     [TestClass]
     public class RelatedAllocationEnricherTests

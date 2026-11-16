@@ -1,13 +1,17 @@
-﻿namespace FCT.Operations.MessageReplay.WebJob
+﻿
+namespace FCT.Operations.MessageReplay.WebJob
 {
     using System;
+    using System.Configuration;
+    using System.Threading.Tasks;
     using NServiceBus;
+    using NServiceBus.Transport.AzureServiceBus;
     using SFA.FCT.CrossDomain.Integration.Common;
     using SFA.FCT.Operations.Common.Commands;
 
     public class Program
     {
-        public static void Main()
+        public static async Task Main()
         {
             Console.Write("[ENTER] Message ID: ");
             string messageId = Console.ReadLine();
@@ -17,27 +21,52 @@
 
             Console.WriteLine();
             Console.WriteLine($"Send MessageReplayCommand for {messageId}? [ENTER] 'y' to continue..");
+
             if (Console.ReadLine() == "y")
             {
                 Console.WriteLine($"Initiating MessageReplayCommand for {messageId}.");
 
                 try
                 {
-                    BusConfiguration configuration = new BusConfiguration();
-                    configuration.Conventions().DefiningCommandsAs(t => t == typeof (MessageReplayCommand));
-                    configuration.UseSerialization<JsonSerializer>();
-                    configuration.UseTransport<AzureServiceBusTransport>();
+                    // ✅ Read from App.config
+                    string connectionString =
+                        ConfigurationManager.ConnectionStrings["NServiceBus/Transport"]?.ConnectionString;
 
-                    using (ISendOnlyBus bus = Bus.CreateSendOnly(configuration))
+                    if (string.IsNullOrWhiteSpace(connectionString))
                     {
-                        bus.Send<MessageReplayCommand>(FctEndpoint.GenerateEndpointName("Operations.MessageReplay"), cmd =>
+                        throw new Exception("Connection string 'NServiceBus/Transport' not found.");
+                    }
+
+                    // ✅ Endpoint config (modern replacement of BusConfiguration)
+                    var endpointConfiguration = new EndpointConfiguration("MessageReplay.Sender");
+
+                    endpointConfiguration.SendOnly();
+
+                    // ✅ Serialization
+                    endpointConfiguration.UseSerialization<SystemJsonSerializer>();
+
+                    // ✅ ✅ CORRECT TRANSPORT CONFIG (NO WARNINGS)
+                    endpointConfiguration.UseTransport(
+                        new AzureServiceBusTransport(
+                            connectionString,
+                            TopicTopology.Default));
+
+                    // ✅ Start endpoint
+                    var endpointInstance = await Endpoint.Start(endpointConfiguration);
+
+                    // ✅ Send command (modern equivalent of bus.Send)
+                    await endpointInstance.Send(
+                        FctEndpoint.GenerateEndpointName("Operations.MessageReplay"),
+                        new MessageReplayCommand
                         {
-                            cmd.MessageId = messageId;
-                            cmd.Description = description;
+                            MessageId = messageId,
+                            Description = description
                         });
 
-                        Console.WriteLine("MessageReplayCommand sent successfully.");
-                    }
+                    Console.WriteLine("MessageReplayCommand sent successfully.");
+
+                    // ✅ Stop endpoint
+                    await endpointInstance.Stop();
                 }
                 catch (Exception ex)
                 {

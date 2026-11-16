@@ -4,6 +4,7 @@ using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SFA.FCT.Framework.ExceptionHandling.Interfaces;
 
+
 namespace SFA.FCT.Framework.ExceptionHandling
 {
     public class EntLibExceptionManager : IExceptionManager

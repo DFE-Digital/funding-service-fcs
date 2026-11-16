@@ -20,7 +20,7 @@
     public class AtomItemRepositoryTests
     {
         private const string TestBusinessKey = "TestKey:1:0";
-        private const string CorpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.09.xsd";
+        private const string CorpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.08.xsd";
         private IWindsorContainer _container;
 
         [TestCleanup, TestInitialize]
@@ -42,31 +42,43 @@
             }
         }
 
-        [TestMethod, TestCategory("IntegrationTest"), ExpectedException(typeof(SqlDuplicateKeyStorageException))]
+        [TestMethod, TestCategory("IntegrationTest")]
         public void ApprovedContractAtomItemRepository_ShouldThrowDuplicateKeyStorageExceptionWhenAddingTheSameObjectTwice()
         {
-            using (ContractManagementDbContext context = new ContractManagementDbContext())
+            Assert.ThrowsExactly<SqlDuplicateKeyStorageException>(() =>
             {
-                IAtomItemRepository repository = new ApprovedContractAtomItemRepository(context);
-                AtomFeedItem item1 = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
-                    AtomItemType.ApprovedContract, xml => true);
-                AtomFeedItem item2 = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
-                    AtomItemType.ApprovedContract, xml => true);
+                using (var context = new ContractManagementDbContext())
+                {
+                    IAtomItemRepository repository = new ApprovedContractAtomItemRepository(context);
 
-                repository.Add(item1);
-                repository.Add(item2);
-            }
+                    var item1 = AtomFeedItem.CreateAtomFeedItem(
+                        new Contract(),
+                        TestBusinessKey,
+                        AtomItemType.ApprovedContract,
+                        xml => true);
+
+                    var item2 = AtomFeedItem.CreateAtomFeedItem(
+                        new Contract(),
+                        TestBusinessKey,
+                        AtomItemType.ApprovedContract,
+                        xml => true);
+
+                    repository.Add(item1);
+                    repository.Add(item2); // ← should trigger SqlDuplicateKeyStorageException
+                }
+            });
         }
 
-        [TestMethod, TestCategory("IntegrationTest")]
+
+    [TestMethod, TestCategory("IntegrationTest")]
         public void ApprovedContractAtomItemRepository_ShouldNotThrowDuplicateKeyStorageExceptionWhenAddingObjectWithSameBusinessKeyAndItemTypeForAllowedDuplicateItemType()
         {
             using (ContractManagementDbContext context = new ContractManagementDbContext())
             {
                 IAtomItemRepository repository = new ApprovedContractAtomItemRepository(context);
-                AtomFeedItem item1 = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
+                AtomFeedItem item1 = AtomFeedItem.CreateAtomFeedItem(new Contract(), TestBusinessKey,
                     AtomItemType.ContractTerminationInitiated, xml => true);
-                AtomFeedItem item2 = AtomFeedItem.CreateAtomFeedItem(new contract(), TestBusinessKey,
+                AtomFeedItem item2 = AtomFeedItem.CreateAtomFeedItem(new Contract(), TestBusinessKey,
                     AtomItemType.ContractTerminationInitiated, xml => true);
 
                 repository.Add(item1);
@@ -84,7 +96,7 @@
                     IAtomItemRepository repository = new ApprovedContractAtomItemRepository(context);
                     AtomFeedItem item =
                         AtomFeedItem.CreateAtomFeedItem(
-                            new contract(), TestBusinessKey,
+                            new Contract(), TestBusinessKey,
                             AtomItemType.ApprovedContract, xml => true);
 
                     repository.Add(item);
@@ -124,7 +136,7 @@
                 
                 AtomFeedItem item =
                     AtomFeedItem.CreateAtomFeedItem(
-                        new contract(), businessKey,
+                        new Contract(), businessKey,
                         AtomItemType.ApprovedContract, feedItemId, xml => true);
 
                 repository.Add(item);
@@ -174,7 +186,7 @@
 
         public static Stream GetCorporateSchemaXsdFile()
         {
-            return typeof(CrossDomain.Integration.Entities.CorporateSchema.Contract.contract).Assembly.GetManifestResourceStream(CorpContractSchemaResourceName);
+            return typeof(CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract).Assembly.GetManifestResourceStream(CorpContractSchemaResourceName);
         }
     }
 }

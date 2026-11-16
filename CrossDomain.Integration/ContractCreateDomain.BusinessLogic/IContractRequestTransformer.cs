@@ -8,7 +8,7 @@
     {
         CorporateContract.ExtendedContractType TransformToCorpContractType(ContractRequest.contractRequestType contractRequestType);
 
-        CorporateContract.contract TransformToCorpContract(CorporateContract.ExtendedContractType extendedContractType);
+        CorporateContract.Contract TransformToCorpContract(CorporateContract.ExtendedContractType extendedContractType);
 
         ContractRequest.contractType TransformAllocationsToContractRequestContract(IEnumerable<ContractRequest.AllocationValueData> allocationValueDataItems, string contractNumber, int ukprn);
     }

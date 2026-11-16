@@ -8,7 +8,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.ContractRequest
     [XmlType(Namespace = "contractrequest")]
     [XmlRoot(Namespace = "contractrequest", IsNullable = false)]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public enum intent
+    public enum Intent
     {
         New,
 
@@ -35,9 +35,9 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.ContractRequest
 
     public static class IntentExtensions
     {
-        public static bool IsNewOrNewAmendment(this intent intent)
+        public static bool IsNewOrNewAmendment(this Intent intent)
         {
-            return intent == intent.NewAmendment || intent == intent.New;
+            return intent == Intent.NewAmendment || intent == Intent.New;
         }
     }
 }

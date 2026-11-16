@@ -1,73 +1,49 @@
-﻿namespace SFA.FCT.CrossDomain.Integration.Common
+﻿using System;
+using System.Collections.Generic;
+using NServiceBus;
+
+namespace SFA.FCT.CrossDomain.Integration.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-
-    using NServiceBus.Config;
-    using NServiceBus.Config.ConfigurationSource;
-
-    public class CustomConfigurationProvider : IConfigurationSource
+    public static class EndpointConfigurator
     {
-        private readonly IDictionary<Type, string> _typeToEndpointNameMappings;
-        private readonly int _concurrentThreadCount;
-        private readonly bool _shouldSuppressAuditMessages;
-
-        public CustomConfigurationProvider(IDictionary<Type, string> typeToEndpointNameMappings, int concurrentThreadCount = 1, bool shouldSuppressAuditMessages = false)
+        public static EndpointConfiguration CreateEndpointConfiguration(
+            string endpointName,
+            IDictionary<Type, string> typeToEndpointNameMappings,
+            int concurrentThreadCount = 1,
+            bool suppressAuditMessages = false)
         {
-            _typeToEndpointNameMappings = typeToEndpointNameMappings;
-            _concurrentThreadCount = concurrentThreadCount;
-            _shouldSuppressAuditMessages = shouldSuppressAuditMessages;
-        }
+            var endpointConfiguration = new EndpointConfiguration(endpointName);
 
-        public T GetConfiguration<T>() where T : class, new()
-        {
-            if (typeof(T) == typeof(UnicastBusConfig) && _typeToEndpointNameMappings != null)
+            // Transport configuration (example: LearningTransport)
+            var transport = new LearningTransport();
+            var routing = endpointConfiguration.UseTransport(transport);
+
+            // Message routing
+            if (typeToEndpointNameMappings != null)
             {
-                return GetUnicastBusConfig() as T;
+                foreach (var mapping in typeToEndpointNameMappings)
+                {
+                    routing.RouteToEndpoint(mapping.Key, FctEndpoint.GenerateEndpointName(mapping.Value));
+                }
             }
 
-            if (typeof(T)  == typeof(TransportConfig))
+            // Concurrency
+            endpointConfiguration.LimitMessageProcessingConcurrencyTo(concurrentThreadCount);
+
+            // Audit suppression
+            if (suppressAuditMessages)
             {
-                return GetTransportConfig() as T;
+                endpointConfiguration.AuditProcessedMessagesTo(null);
             }
 
-            if (typeof(T) == typeof(AuditConfig) && _shouldSuppressAuditMessages)
-            {
-                return new AuditConfig() as T;
-            }
+            // Persistence (example: LearningPersistence)
+            endpointConfiguration.UsePersistence<LearningPersistence>();
 
-            // leaving the rest of the configuration as is:
-            return ConfigurationManager.GetSection(typeof(T).Name) as T;
-        }
+            // Other optional configurations
+            endpointConfiguration.SendFailedMessagesTo("error");
+            endpointConfiguration.EnableInstallers();
 
-        private UnicastBusConfig GetUnicastBusConfig()
-        {
-            var result = new MessageEndpointMappingCollection();
-
-            foreach (var mapping in _typeToEndpointNameMappings)
-            {
-                result.Add(
-                    new MessageEndpointMapping
-                    {
-                        AssemblyName = mapping.Key.Assembly.GetName().Name,
-                        TypeFullName = mapping.Key.FullName,
-                        Endpoint = FctEndpoint.GenerateEndpointName(mapping.Value),
-                    });
-            }
-
-            return new UnicastBusConfig { MessageEndpointMappings = result };
-        }
-
-        private TransportConfig GetTransportConfig()
-        {
-            // these are the default settings plus the threading value which is defaulted in the CTOR above to its default value of 1
-            return new TransportConfig
-            {
-                MaxRetries = 5,
-                MaximumMessageThroughputPerSecond = 0,
-                MaximumConcurrencyLevel = _concurrentThreadCount
-            };
+            return endpointConfiguration;
         }
     }
 }

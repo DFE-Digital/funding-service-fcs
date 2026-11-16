@@ -1,16 +1,18 @@
 ﻿namespace SFA.FCT.Contracts.AcceptanceTests
 {
+    using Azure.Identity;
+    using Azure.Security.KeyVault.Secrets;
+    using Microsoft.Extensions.Configuration;
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Configuration;
-    using Azure.Identity;
-    using Azure.Security.KeyVault.Secrets;
     using System.Collections.Specialized;
+
     public class KeyVaultTestConfiguration
     {
         private readonly Dictionary<string, string> _values =
                     new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        public IConfiguration configuration = TestConfiguration.Configuration;
 
         public KeyVaultTestConfiguration()
         {
@@ -20,20 +22,39 @@
             LoadEnvironmentVariables();
         }
 
-        private void LoadAppConfigValues()
-        {
-            foreach (string key in ConfigurationManager.AppSettings)
-                _values[key] = ConfigurationManager.AppSettings[key];
+        //private void LoadAppConfigValues()
+        //{
+        //    foreach (string key in ConfigurationManager.AppSettings)
+        //        _values[key] =TestConfiguration.Configuration[key];
 
-            foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
-                _values[$"ConnectionStrings:{cs.Name}"] = cs.ConnectionString;
+        //    foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
+        //        _values[$"ConnectionStrings:{cs.Name}"] = cs.ConnectionString;
+        //}
+
+        private void LoadAppConfigValues()
+        {           
+
+            foreach (var item in configuration.AsEnumerable())
+            {
+                if (!string.IsNullOrEmpty(item.Value))
+                {
+                    _values[item.Key] = item.Value;
+                }
+            }
+
+            var connectionStrings = configuration.GetSection("ConnectionStrings");
+
+            foreach (var connection in connectionStrings.GetChildren())
+            {
+                _values[$"ConnectionStrings:{connection.Key}"] = connection.Value;
+            }
         }
 
         private void LoadSelectedKeyVaultValues()
         {
 
             var useKeyVault =
-                   bool.TryParse(ConfigurationManager.AppSettings["UseKeyVault"], out var enabled)
+                   bool.TryParse(TestConfiguration.Configuration["UseKeyVault"], out var enabled)
                    && enabled;
 
             if (!useKeyVault)
@@ -45,12 +66,14 @@
 
             try
             {
-                string kvUri = ConfigurationManager.AppSettings["KeyVault:Uri"];
+                string kvUri = TestConfiguration.Configuration["KeyVault:Uri"];
 
                 if (string.IsNullOrWhiteSpace(kvUri))
                     return;
 
-                var client = new SecretClient(new Uri(kvUri), new AzureCliCredential());
+                // var client = new SecretClient(new Uri(kvUri), new AzureCliCredential());
+                var client = new SecretClient(new Uri(kvUri),new DefaultAzureCredential());
+
 
                 foreach (var map in SecretMappings)
                 {
@@ -89,35 +112,44 @@
         }
 
 
+        //private static void ForceAppSettingsValue(string key, string value)
+        //{
+        //    var appSettings = TestConfiguration.Configuration as NameValueCollection;
+
+        //    typeof(NameValueCollection)
+        //        .GetMethod("BaseAdd", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        //        .Invoke(appSettings, new object[] { key, value });
+
+        //    appSettings[key] = value;
+        //}
         private static void ForceAppSettingsValue(string key, string value)
         {
-            var appSettings = ConfigurationManager.AppSettings as NameValueCollection;
-
-            typeof(NameValueCollection)
-                .GetMethod("BaseAdd", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                .Invoke(appSettings, new object[] { key, value });
-
-            appSettings[key] = value;
+            TestConfiguration.ForceAppSettingValue(key, value);
         }
+
+        //private static void ForceConnectionStringValue(string name, string value)
+        //{
+        //    var settings = ConfigurationManager.ConnectionStrings;
+
+        //    var field = typeof(ConfigurationElementCollection)
+        //        .GetField("bReadOnly", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+        //    field.SetValue(settings, false);
+
+        //    var existing = settings[name];
+        //    if (existing != null)
+        //    {
+        //        settings.Remove(name);
+        //    }
+
+        //    settings.Add(new ConnectionStringSettings(name, value));
+
+        //    field.SetValue(settings, true);
+        //}
 
         private static void ForceConnectionStringValue(string name, string value)
         {
-            var settings = ConfigurationManager.ConnectionStrings;
-
-            var field = typeof(ConfigurationElementCollection)
-                .GetField("bReadOnly", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-
-            field.SetValue(settings, false);
-
-            var existing = settings[name];
-            if (existing != null)
-            {
-                settings.Remove(name);
-            }
-
-            settings.Add(new ConnectionStringSettings(name, value));
-
-            field.SetValue(settings, true);
+            TestConfiguration.ForceConnectionStringValue(name, value);
         }
         private void LoadEnvironmentVariables()
         {
@@ -153,17 +185,17 @@
             {
                 { "SharepointOauthClientSecret",  new List<string>{"Sharepoint:Oauth:ClientSecret" } },
                 { "fcsPaaSDBConnectionstring", new List<string>{"ConnectionStrings:CommonDBContext" , "organisationDomainDatabase", "ConnectionStrings:PerformanceManagementDbContext" } },
-                { "CRMAppKey", new List<string>{"ida:AppKey_CrmOnline" } },
+                { "CRMAppKey", new List<string>{"ida:AppKey_CrmOnline", "CrmOnline:AppKey" } },
                 { "AzureServiceBus", new List < string > { "AzureServiceBus" } },
                 { "StorageConnectionString", new List < string > { "AzureStorage:ConnectionString", "ConnectionStrings:StorageConnectionString" } },
                 { "AzureWebJobsDashboard", new List < string > { "AzureWebJobsDashboard" } },
                 { "clientSecret", new List < string > { "clientSecret" } },
-                { "NServiceBusTransport", new List < string > { "NServiceBus/Transport", "Microsoft.ServiceBus.ConnectionString" } },
+                { "NServiceBusTransport", new List < string > { "NServiceBus/Transport", "Microsoft.ServiceBus.ConnectionString", "ConnectionStrings:NServiceBusTransport" } },
                 { "CrmReplicaDb", new List < string > { "CrmReplicaDbContext", "CrmGwtReplicaDbContext" } },
                 { "CrmConnectionString", new List < string > { "CrmConnectionString" , "CrmConnectionString_CRMIntegration" } },
-                { "idaAppKeyFundingStreamConfig",  new List<string>{ "ida:AppKey_FundingStreamConfig" } },
-                { "idaAppKeyContractPublish",  new List<string>{ "ida:AppKey_ContractPublish" } },
-                { "idaAppKeyOPSWEB", new List < string > { "ida:AppKey_OPS_WEB" } }
+                { "idaAppKeyFundingStreamConfig",  new List<string>{ "ida:AppKey_FundingStreamConfig", "FundingStreamConfig:AppKey" } },
+                { "idaAppKeyContractPublish",  new List<string>{ "ida:AppKey_ContractPublish", "ContractPublish:AppKey" } },
+                { "idaAppKeyOPSWEB", new List < string > { "ida:AppKey_OPS_WEB", "OpsWeb:AppKey" } }
             };
     }
 }

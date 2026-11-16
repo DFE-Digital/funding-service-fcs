@@ -31,7 +31,7 @@
         public void NlaAppendix1_IsDocumentPartRequired_ShouldReturnTrue()
         {
             // arrange
-            contractType corpContract = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractNla.json");
+            contractType corpContract = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractNla.json");
             NlaAppendix1 nLaAppendix1 = new NlaAppendix1(null, null, null, null);
 
             // act
@@ -45,7 +45,7 @@
         public void NlaAppendix1_IsDocumentPartRequired_ShouldReturnTrueWhenFundingPeriodNONLEVY2018()
         {
             // arrange
-            contractType corpContract = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractNla.json");
+            contractType corpContract = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractNla.json");
             NlaAppendix1 nLaAppendix1 = new NlaAppendix1(null, null, null, null);
 
             corpContract.period.periodType.periodTypeCode = periodTypeCodeType.NONLEVY;
@@ -58,16 +58,20 @@
             Assert.IsTrue(isDocumentPartRequired);
         }
 
+       
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(ApplicationException))]
         public void NlaAppendix1_RequiredHeaderDocumentName_ShouldThrowApplicationException()
         {
-            // arrange
-            NlaAppendix1 nLaAppendix1 = new NlaAppendix1(null, null, null, null);
+            // Arrange
+            var nLaAppendix1 = new NlaAppendix1(null, null, null, null);
 
-            // act, assert
-            string requiredHeaderDocumentName = nLaAppendix1.RequiredHeaderDocumentName;
+            // Act & Assert
+            Assert.ThrowsExactly<ApplicationException>(() =>
+            {
+                var _ = nLaAppendix1.RequiredHeaderDocumentName; // accessing the property should throw
+            });
         }
+
 
         [TestMethod, TestCategory("UnitTest")]
         public void NlaAppendix1_IsHeaderDocumentRequired_ShouldReturnFalse()
@@ -156,7 +160,7 @@
         public void NlaAppendix1_SupplyDocumentGenerationRequest_ShouldReturnExpectedDocumentGenerationRequest()
         {
             // arrange
-            contractType corpContract = TestResource.FromJson<contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractNla.json");
+            contractType corpContract = TestResource.FromJson<Contract>("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "corpContractNla.json");
             IDictionary<string, DocumentGenerationRequest> documentGenerationRequests;
 
             using (DocumentsDomainDbContext context = new DocumentsDomainDbContext())

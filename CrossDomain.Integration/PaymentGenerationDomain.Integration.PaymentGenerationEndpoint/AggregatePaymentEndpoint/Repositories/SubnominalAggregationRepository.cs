@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.AggregatePaymentEndpoint.Repositories
 {
+    extern alias Entities;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
@@ -7,7 +8,7 @@
     using DataStore;
     using DataStore.Model;
     using DTOs;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class SubnominalAggregationRepository : ISubnominalAggregationRepository
     {

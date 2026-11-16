@@ -26,6 +26,9 @@
     using NServiceBus;
     using Repositories;
     using SFA.FCS.Worker.Common.Slack;
+    using DomainIntent = SFA.FCT.ContractRequestDomain.Common.intent;
+    using CrmIntent = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest.Intent;
+
 
     public class BulkUploadHandler : Saga<BulkUploadSagaData>, 
                                     IAmStartedByMessages<INewExcelUploadFileEvent>, 
@@ -35,6 +38,10 @@
     {
         private readonly string _processingTable;
         private readonly string _processedTable;
+
+        private static DomainIntent ToDomainIntent(CrmIntent crmIntent) =>
+            Enum.Parse<DomainIntent>(crmIntent.ToString(), ignoreCase: true);
+
 
         public BulkUploadHandler()
         {
@@ -266,18 +273,33 @@
                     .ToSaga(m => m.BatchId);
         }
 
+        //private async Task CheckAndCompleteIfDone(string batchId, IMessageHandlerContext context)
+        //{
+        //    CloudTable processingTable = AzureTableStore.GetTable(EndpointConfig.BulkImportProcessingTable);
+        //    TableQuery<BulkUploadProcessingEntity> notFinishedQuery = new TableQuery<BulkUploadProcessingEntity>()
+        //        .Where(TableQuery.CombineFilters(
+        //            TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, batchId),
+        //            TableOperators.And,
+        //            TableQuery.GenerateFilterConditionForBool("Complete", QueryComparisons.Equal, false)))
+        //        .Take(1);
+
+        //    var anyNotFinished = processingTable.ExecuteQuery(notFinishedQuery);
+        //    if (anyNotFinished.Any())
+        //    {
+        //        return;
+        //    }
+
+        //    await CompleteAndCloseSaga(Data.BatchId, context);
+        //}
+
+
         private async Task CheckAndCompleteIfDone(string batchId, IMessageHandlerContext context)
         {
-            CloudTable processingTable = AzureTableStore.GetTable(EndpointConfig.BulkImportProcessingTable);
-            TableQuery<BulkUploadProcessingEntity> notFinishedQuery = new TableQuery<BulkUploadProcessingEntity>()
-                .Where(TableQuery.CombineFilters(
-                    TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, batchId),
-                    TableOperators.And,
-                    TableQuery.GenerateFilterConditionForBool("Complete", QueryComparisons.Equal, false)))
-                .Take(1);
+            // Use the storage abstraction (modern SDK under the hood)
+            var rows = AzureTableStore.GetRows<SFA.FCT.ContractRequestDomain.Common.BulkUploadProcessingEntity>(
+                EndpointConfig.BulkImportProcessingTable, batchId);
 
-            var anyNotFinished = processingTable.ExecuteQuery(notFinishedQuery);
-            if (anyNotFinished.Any())
+            if (rows.Any(r => r.Complete == false))
             {
                 return;
             }
@@ -465,7 +487,12 @@
                 else
                 {
                     // need the CRMIntent from the contract not the master contract as this always seems to be new
-                    ContractRequestCommandInfo commandInfo = ContractRequestCommandInfoFactory.Create(cr.contract.contracts[0].CRMIntent, cr);
+                    // ContractRequestCommandInfo commandInfo = ContractRequestCommandInfoFactory.Create(cr.contract.contracts[0].CRMIntent, cr);
+
+                    var domainIntent = ToDomainIntent(cr.contract.contracts[0].CRMIntent);
+                    ContractRequestCommandInfo commandInfo =
+                        ContractRequestCommandInfoFactory.Create(domainIntent, cr);
+
                     if (commandInfo != null)
                     {
                         await context.Send(commandInfo.CommandObject);

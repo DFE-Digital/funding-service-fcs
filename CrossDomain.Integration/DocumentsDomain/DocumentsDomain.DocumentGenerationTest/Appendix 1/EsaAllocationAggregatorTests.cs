@@ -16,7 +16,7 @@
         public void EsaAllocationAggregator_ShouldAggregateUpDeliverablePeriodValues()
         {
             // arrange
-            contract contract = GetCorporateContract();
+            Contract contract = GetCorporateContract();
 
             // act
             IReadOnlyCollection<contractAllocationsContractAllocation> aggregatedAllocations =
@@ -49,13 +49,13 @@
             Assert.AreEqual(12175.44M, plannedValue, "The value for deliverable code: 43, FSP: NMF1718 anf period: 1 is incorrect");
         }
 
-        private contract GetCorporateContract()
+        private Contract GetCorporateContract()
         {
             using (var resource = new TestResource("SFA.FCT.DocumentsDomain.DocumentGeneration.Tests", @"Resources.corpContractEfa.json"))
             {
                 return
-                    (contract)
-                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(contract));
+                    (Contract)
+                        new JsonSerializer().Deserialize(new StreamReader(resource.Stream), typeof(Contract));
             }
         }
     }

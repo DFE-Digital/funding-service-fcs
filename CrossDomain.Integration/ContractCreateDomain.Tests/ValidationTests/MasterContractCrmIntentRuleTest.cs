@@ -32,7 +32,7 @@ namespace ContractCreateDomain.Tests.ValidationTests
         [TestMethod, TestCategory("UnitTest")]
         public void ShouldFailValidationWhenCrmIntentIsAmendmentAndContractNumberIsMissing()
         {
-            Contract.contract.CRMIntent = intent.NewAmendment;
+            Contract.contract.CRMIntent = Intent.NewAmendment;
             MasterContractNewAmendmentRule validator = new MasterContractNewAmendmentRule(dto => true);
             Assert.IsTrue(validator.GetFailuresForItem(Contract).Any());
         }
@@ -40,7 +40,7 @@ namespace ContractCreateDomain.Tests.ValidationTests
         [TestMethod, TestCategory("UnitTest")]
         public void ShouldFailValidationWhenCrmIntentIsNewAmendmentAndMasterContractNumberIsNotInCrm()
         {
-            Contract.contract.CRMIntent = intent.NewAmendment;
+            Contract.contract.CRMIntent = Intent.NewAmendment;
             Contract.contract.IsMasterContractWithMatchingMasterContractNumberPresentInCrm = false;
 
             MasterContractNewAmendmentRule validator = new MasterContractNewAmendmentRule(dto => true);

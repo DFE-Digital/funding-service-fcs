@@ -1,5 +1,6 @@
 ﻿namespace SFA.FCT.CrossDomain.Integration.Common
 {
+
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -7,15 +8,21 @@
     using System.Reflection;
     using NServiceBus;
 
+
     public static class BusConfigurationExtensions
     {
-        public static void DiscoverFctAssemblies(this BusConfiguration busConfig, Type endpointType)
+        public static void DiscoverFctAssemblies(this EndpointConfiguration endpointConfiguration, Type endpointType)
         {
-            var assembliesToScan =
-                new List<Assembly>
-                {
-                    endpointType.Assembly
-                };
+            var scanner = endpointConfiguration.AssemblyScanner();
+
+            // Optional: disable scanning of AppDomain assemblies if needed
+            // scanner.ScanAppDomainAssemblies = false;
+
+            // Load additional assemblies manually
+            var additionalAssemblies = new List<Assembly>
+            {
+                endpointType.Assembly
+            };
 
             foreach (string assemblyName in new[]
             {
@@ -26,23 +33,27 @@
             {
                 try
                 {
-                    assembliesToScan.Add(Assembly.Load(assemblyName));
+                    additionalAssemblies.Add(Assembly.Load(assemblyName));
                 }
                 catch (FileNotFoundException)
                 {
-                    // The above assemblies may not exist in the directory which this code is running within, so silently
-                    // ignore the failure to find the assembly file.
+                    // Silently ignore missing optional assemblies
                 }
             }
 
-            assembliesToScan.AddRange(endpointType.Assembly
-                                                  .GetReferencedAssemblies()
-                                                  .Where(a => !a.ToString().StartsWith("System"))
-                                                  .Where(a => !a.ToString().StartsWith("mscorlib"))
-                                                  .Select(Assembly.Load)
-                                                  .ToList());
+            additionalAssemblies.AddRange(endpointType.Assembly
+                .GetReferencedAssemblies()
+                .Where(a => !a.Name.StartsWith("System", StringComparison.OrdinalIgnoreCase))
+                .Where(a => !a.Name.StartsWith("mscorlib", StringComparison.OrdinalIgnoreCase))
+                .Select(Assembly.Load));
 
-            busConfig.AssembliesToScan(assembliesToScan);
+            // Add manually loaded assemblies to scanner
+            foreach (var assembly in additionalAssemblies)
+            {
+                //scanner.ScanAssemblies.Add(assembly);
+            }
+
         }
+
     }
 }

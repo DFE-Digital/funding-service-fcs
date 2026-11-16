@@ -18,6 +18,8 @@
     using AzureStorageWrapper = DocumentsDomain.Integration.AzureStorageWrapper;
     using FctFile = DocumentsDomain.Common.Models.FctFile;
     using XmlSerializer = System.Xml.Serialization.XmlSerializer;
+    using NUnit.Framework.Legacy;
+
 
     public class ContractDocumentGenerationPageObject
     {
@@ -37,11 +39,11 @@
 
         public string DocumentLocation { get; set; }
 
-        private static string AzureDocumentContainerName => ConfigurationManager.AppSettings["DocumentGeneration.TargetContainer"];
+        private static string AzureDocumentContainerName => TestConfiguration.Configuration["DocumentGeneration:TargetContainer"];
 
-        private static bool UseAzureStorageForDocuments => ConfigurationManager.AppSettings["UseAzureStorageForDocuments"] == "true";
+        private static bool UseAzureStorageForDocuments => TestConfiguration.Configuration["AzureStorage:UseForDocuments"] == "true";
 
-        public contract MasterContract { get; set; }
+        public Contract MasterContract { get; set; }
 
         public string FundingTypePeriod { get; set; }
 
@@ -51,11 +53,11 @@
         {
             if (FundingTypePeriod == null)
             {
-                Assert.Fail("FundingTypePeriod has not been set");
+                ClassicAssert.Fail("FundingTypePeriod has not been set");
             }
             if (FundingTypeCode == null)
             {
-                Assert.Fail("FundingTypeCode has not been set");
+                ClassicAssert.Fail("FundingTypeCode has not been set");
             }
             XmlDocument doc = new XmlDocument();
             doc.LoadXml("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
@@ -192,7 +194,7 @@
                         {
                             if (!DateTime.TryParseExact(allocationRowDictionary["startDate"].Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out startDate))
                             {
-                                Assert.Fail("Date format of allocation start date not recognized");
+                                ClassicAssert.Fail("Date format of allocation start date not recognized");
                             }
                         }
                         DateTime endDate = DateTime.MinValue;
@@ -200,7 +202,7 @@
                         {
                             if (!DateTime.TryParseExact(allocationRowDictionary["endDate"].Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out endDate))
                             {
-                                Assert.Fail("Date format of allocation end date not recognized");
+                                ClassicAssert.Fail("Date format of allocation end date not recognized");
                             }
                         }
                         allocationRowElement.AddElement("ctr:startDate", ContractUri, startDate.ToString("yyyy-MM-dd"));
@@ -224,7 +226,7 @@
                 {
                     if (!DateTime.TryParseExact(contractDictionary["startDate"].Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out startDate))
                     {
-                        Assert.Fail("Date format of allocation start date not recognized");
+                        ClassicAssert.Fail("Date format of allocation start date not recognized");
                     }
                 }
                 DateTime endDate = DateTime.MinValue;
@@ -232,7 +234,7 @@
                 {
                     if (!DateTime.TryParseExact(contractDictionary["endDate"].Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out endDate))
                     {
-                        Assert.Fail("Date format of allocation end date not recognized");
+                        ClassicAssert.Fail("Date format of allocation end date not recognized");
                     }
                 }
                 contractElement.AddElement("ctr:startDate", ContractUri, startDate.ToString("yyyy-MM-dd"));
@@ -266,7 +268,7 @@
             return doc;
         }
 
-        private void EnrichCorporateContractWithEsfSpecificValues(contract contract)
+        private void EnrichCorporateContractWithEsfSpecificValues(Contract contract)
         {
             Dictionary<string, RepeatingSectionType> repeatingSections = MergeData.RepeatingSections.ToDictionary(rs => rs.Name);
             if (repeatingSections.ContainsKey("contractAllocation"))
@@ -346,7 +348,7 @@
             return GetPdfFile().ExtractLineIfFound(searchString);
         }
 
-        public contract GetContractUsingInputData()
+        public Contract GetContractUsingInputData()
         {
             if (MasterContract == null)
             {
@@ -357,10 +359,10 @@
                     writer.Write(doc.OuterXml);
                     writer.Flush();
                     ms.Position = 0;
-                    XmlSerializer xs = new XmlSerializer(typeof(contract));
+                    XmlSerializer xs = new XmlSerializer(typeof(Contract));
                     xs.UnknownAttribute += (sender, e) => {};
                     xs.UnknownElement += (sender, e) => {};
-                    MasterContract = xs.Deserialize(ms) as contract;
+                    MasterContract = xs.Deserialize(ms) as Contract;
                 }
                 if (MasterContract != null)
                 {
@@ -371,18 +373,38 @@
             return MasterContract;
         }
 
-        private static contract TransformContractTypeToContract(contractType contractType)
+        //private static Contract TransformContractTypeToContract(contractType contractType)
+        //{
+        //    Mapper.CreateMap<contractType, Contract>();
+        //    return Mapper.Map<contractType, Contract>(contractType);
+
+        //}
+
+
+
+        private static Contract TransformContractTypeToContract(contractType contractType)
         {
-            Mapper.CreateMap<contractType, contract>();
-            return Mapper.Map<contractType, contract>(contractType);
+            var configurationExpression = new MapperConfigurationExpression();
+
+            configurationExpression.CreateMap<contractType, Contract>();
+
+            var config = new MapperConfiguration(
+                configurationExpression,
+                null);
+
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<Contract>(contractType);
         }
 
-        public contract CreateDeletingContract(int ukprn, string contractNumber, int contractVersion)
+
+
+        public Contract CreateDeletingContract(int ukprn, string contractNumber, int contractVersion)
         {
-            contract delContract = new contract();
+            Contract delContract = new Contract();
             delContract.contracts.Add(new contractType()
             {
-                contractor = new contractor()
+                contractor = new Contractor()
                 {
                     ukprn = ukprn
                 },

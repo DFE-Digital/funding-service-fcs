@@ -1,27 +1,34 @@
 ﻿namespace ContractCreateDomain.Endpoint.Infrastructure.Extensions
 {
-    using System.IO;
-    using System.Runtime.Serialization.Formatters.Binary;
+    using System.Text;
+    using System.Text.Json;
 
     public static class ByteArraySerializer
     {
+        private static readonly JsonSerializerOptions Options =
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                WriteIndented = false
+            };
+
         public static byte[] ConvertObjectToByteArray<T>(this T objectToSerialize)
         {
-            MemoryStream memorystream = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(memorystream, objectToSerialize);
+            if (objectToSerialize == null)
+                return null;
 
-            byte[] serializedResult = memorystream.ToArray();
-
-            return serializedResult;
+            return Encoding.UTF8.GetBytes(
+                JsonSerializer.Serialize(objectToSerialize, Options));
         }
 
         public static T ConvertByteArrayToObject<T>(this byte[] blob)
         {
-            MemoryStream memorystream = new MemoryStream(blob);
-            BinaryFormatter bfd = new BinaryFormatter();
-            T deserializedResult = (T)bfd.Deserialize(memorystream);
-            return deserializedResult;
+            if (blob == null || blob.Length == 0)
+                return default;
+
+            return JsonSerializer.Deserialize<T>(
+                Encoding.UTF8.GetString(blob),
+                Options);
         }
     }
 }

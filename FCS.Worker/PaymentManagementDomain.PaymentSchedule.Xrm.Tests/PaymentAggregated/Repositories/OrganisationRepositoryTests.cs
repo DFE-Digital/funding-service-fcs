@@ -1,10 +1,11 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.PaymentAggregated.Repositories
 {
+    extern alias Entity;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Xrm.Sdk;
     using MoreLinq;
     using PaymentManagementDomain.PaymentSchedule.PaymentAggregated.Repositories;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using System;
     using System.Linq;
     using SFA.FCS.Worker.Common.Crm;

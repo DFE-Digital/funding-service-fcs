@@ -14,7 +14,7 @@
         public Guid CreateNewAmendedContract(ExtendedContractType masterContract, string correlationId)
         {
             ExtendedContractType childContract = masterContract.contracts.First();
-            ISet<contractor> distinctOrganisations = GetDistinctContractors(childContract);
+            ISet<Contractor> distinctOrganisations = GetDistinctContractors(childContract);
             distinctOrganisations.ForEach(CreateOrganisationIfNecessary);
 
             LookupManager.BatchId = BatchId;

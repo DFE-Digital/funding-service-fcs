@@ -1,11 +1,12 @@
 ﻿namespace ContractCreateDomain.Tests
 {
-    using System.Collections.Generic;
-    using System.Linq;
+    using AutoMapper;
     using ContractManagement.DataStore.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.ContractCreateDomain.BusinessLogic;
     using SFA.FCT.ContractCreateDomain.BusinessLogic.DTOs;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [TestClass]
     public class CollectionTransformerTests
@@ -25,8 +26,21 @@
                 };
 
             // act
-            var dtos = CollectionTransformer
-                .Transform<FundingTypeFundingPeriodContractType, FundingTypeFundingPeriodContractTypeDto>(models);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<FundingTypeFundingPeriodContractType,
+                              FundingTypeFundingPeriodContractTypeDto>();
+            },null);
+
+            var mapper = config.CreateMapper();
+
+            var dtos = CollectionTransformer.Transform<
+                FundingTypeFundingPeriodContractType,
+                FundingTypeFundingPeriodContractTypeDto>(
+                    models,
+                    mapper);
+
 
             // assert
             Assert.AreEqual(models.Count, dtos.Count, "The number of transformed objects does not match");

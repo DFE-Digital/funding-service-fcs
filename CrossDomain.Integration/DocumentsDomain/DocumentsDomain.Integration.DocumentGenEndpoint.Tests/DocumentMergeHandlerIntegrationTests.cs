@@ -13,13 +13,15 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
     using DocumentGeneration.DocumentDefiner;
     using DocumentGeneration.DocumentLocationResolver;
     using DocumentGenerationEndpoint.DocumentMergeEndpoint;
-    using Framework.Logging.Interfaces;
+    using SfaLogger = SFA.FCT.Framework.Logging.Interfaces.ILogger;
+    using MsLogger=Microsoft.Extensions.Logging.ILogger;
     using NServiceBus.Testing;
 
     [TestClass]
     public class DocumentMergeHandlerIntegrationTests
     {
-        private Mock<ILogger> _logger;
+        private Mock<SfaLogger> _logger;
+        private Mock<MsLogger> _log;
         private IContractDocumentManager _contractDocumentManager;
         private IDocumentDefiner _docDefiner;
         private IDocumentLocationResolver _documentLocationResolver;
@@ -33,7 +35,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
         [TestInitialize]
         public void Initialise()
         {
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<SfaLogger>();
             _officeAdapter = new Office365StorageWrapper {Logger = _logger.Object};
             _pdfMerger = new PdfMerger();
             _documentLocationResolver = new DocumentLocationResolver {Logger = _logger.Object};
@@ -58,7 +60,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
 
             var message = CreateDocumentMergeCommand();
 
-            var handler = new DocumentMergeHandler(_contractDocumentManager, _logger.Object);
+            var handler = new DocumentMergeHandler(_contractDocumentManager, _log.Object);
 
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
@@ -79,7 +81,7 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
 
             var message = CreateDocumentMergeCommand();
 
-            var handler = new DocumentMergeHandler(_contractDocumentManager, _logger.Object);
+            var handler = new DocumentMergeHandler(_contractDocumentManager, _log.Object);
 
             handler.Handle(message, new TestableMessageHandlerContext()).Wait();
 
@@ -110,17 +112,17 @@ namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenEndpoint.Tests
         {
             return new DocumentMergeCommand
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contractNumber = "Sfa-1234",
-                    contractor = new contractor { ukprn = 11111 },
+                    contractor = new Contractor { ukprn = 11111 },
                     contracts = new List<contractType>
                     {
                         new contractType
                         {
                             contractNumber = "Main-1234",
-                            period = new period {period1 = _period},
-                            contractor = new contractor {ukprn = 11111},
+                            period = new Period {period1 = _period},
+                            contractor = new Contractor {ukprn = 11111},
                             contractVersionNumber = 1,
                             contractSubVersionNumber = 0,
                             fundingType = new fundingType

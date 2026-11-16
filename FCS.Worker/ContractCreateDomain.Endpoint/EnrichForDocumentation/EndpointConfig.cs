@@ -1,39 +1,52 @@
-﻿namespace ContractCreateDomain.Endpoint.EnrichForDocumentation
+﻿
+namespace ContractCreateDomain.Endpoint.EnrichForDocumentation
 {
     using System.Collections.Generic;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
         public string NameOfAssembly => "ContractCreateDomain.Endpoint.dll";
+
         public string EndpointName => "ContractCreateDomain.EnrichForDocumentation";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new List<Subscription>();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            new List<Subscription>();
 
         public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>
         {
-            new CommandRoute("DocumentsDomain.GenerateDocument", typeof(DocumentGenerationCommand))
+            new CommandRoute(
+                "DocumentsDomain.GenerateDocument",
+                typeof(DocumentGenerationCommand))
         };
 
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging (aligned)
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions (aligned across all endpoints)
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith("Messages"));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Serialization (aligned)
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ DI (aligned with other non-saga endpoints)
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddEnrichForDocumentationServices();
             });
 
             return configuration;

@@ -84,9 +84,9 @@ namespace ContractManagementService.Tests.UnitTests.Services
             _repository.Verify(repository => repository.GetLegalDeliverablesForFsp("FSP1"), Times.Never);
         }
 
-        private static contract CorporateContract(params contractAllocationsContractAllocation[] allocations)
+        private static Contract CorporateContract(params contractAllocationsContractAllocation[] allocations)
         {
-            return new contract
+            return new Contract
             {
                 contracts =
                 [

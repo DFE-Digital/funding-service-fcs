@@ -14,8 +14,8 @@
         public void ShouldCreateErrorMessageWhenNewIntentOnMasterButNotOnContract()
         {
             // make sure that the legal name is not set
-            Contract.contract.CRMIntent = ContractRequest.intent.New;
-            Contract.contract.contracts.First().CRMIntent = ContractRequest.intent.UpdateDraft;
+            Contract.contract.CRMIntent = ContractRequest.Intent.New;
+            Contract.contract.contracts.First().CRMIntent = ContractRequest.Intent.UpdateDraft;
 
             NewIntentConsistentRule validator = new NewIntentConsistentRule();
             Assert.IsTrue(validator.GetFailuresForItem(Contract).Any());
@@ -24,8 +24,8 @@
         [TestMethod, TestCategory("UnitTest")]
         public void ShouldCreateErrorMessageWhenRevisedNewIntentOnMasterButNotOnContract()
         {
-            Contract.contract.CRMIntent = ContractRequest.intent.RevisedNew;
-            Contract.contract.contracts[0].CRMIntent = ContractRequest.intent.UpdateDraft;
+            Contract.contract.CRMIntent = ContractRequest.Intent.RevisedNew;
+            Contract.contract.contracts[0].CRMIntent = ContractRequest.Intent.UpdateDraft;
 
             NewIntentConsistentRule validator = new NewIntentConsistentRule();
             Assert.IsTrue(validator.GetFailuresForItem(Contract).Any());

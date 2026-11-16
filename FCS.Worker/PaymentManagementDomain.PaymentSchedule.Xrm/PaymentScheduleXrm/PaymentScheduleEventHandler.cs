@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm
 {
+    extern alias IntegrationEntities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -7,7 +8,6 @@
     using Extensions;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
@@ -16,7 +16,6 @@
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.Xrm.Integration.Repositories;
     using Xrm.Extensions;
     using Xrm.Infrastructure;
-    using ConnectionInfo = SFA.FCT.CrossDomain.Integration.Entities.Data.ConnectionInfo;
 
     public class PaymentScheduleEventHandler : IHandleMessages<PaymentScheduleEvent>
     {
@@ -49,7 +48,7 @@
                 PaymentManagementLoggingEvents.PaymentManagementStart,
                 $"{LogMessage.NewWorker} - Payment Schedule XRM - START: Payment Schedule Event for {message} received");
 
-            ConnectionInfo connectionInfo = _sessionConnectionFactory.GetConnection(context);
+            IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Data.ConnectionInfo connectionInfo = _sessionConnectionFactory.GetConnection(context);
 
             if (_processedMessageRepository.Add(context.MessageId, connectionInfo))
             {
@@ -62,7 +61,7 @@
                 IReadOnlyCollection<DeliverablePeriodYear> deliverablePeriodYearsInCrm = _crmDeliverablePeriodRepository.GetDeliverablePeriodYears(allocationInfo.AllocationId);
 
                 IReadOnlyCollection<DeliverablePeriodYear> deliverablePeriodYearsOnPaymentSchedule = message.PaymentScheduleAllocation
-                    .ToDeliverablePeriodYears();
+                   .ToDeliverablePeriodYears();
 
                 var deliverablePeriodYearsMissingFromCrm = deliverablePeriodYearsOnPaymentSchedule.Where(dpOnPaymentSchedule =>
                     !deliverablePeriodYearsInCrm.Contains(dpOnPaymentSchedule))

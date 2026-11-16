@@ -1,13 +1,14 @@
-﻿namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentMoveEndpoint
+﻿
+namespace SFA.FCT.DocumentsDomain.Integration.DocumentGenerationEndpoint.DocumentMoveEndpoint
 {
-    using CrossDomain.Integration.Messages.Messages;
     using AutoMapper;
+    using CrossDomain.Integration.Messages.Messages;
     using Common.Exceptions;
     using CrossDomain.Integration.Common;
     using CrossDomain.Integration.Entities.CorporateContract;
     using CrossDomain.Integration.Messages.Commands;
     using DocumentGeneration;
-    using Framework.Logging.Interfaces;
+    //using Framework.Logging.Interfaces;
     using Framework.Logging.NullObjects;
     using NServiceBus;
     using System;
@@ -15,6 +16,7 @@
     using System.Threading.Tasks;
     using Common.Commands;
     using LoggingEvents = Common.DocumentsDomainLoggingEventId;
+    using Microsoft.Extensions.Logging; // for ILoggerFactory if needed
 
     public class DocumentMoveHandler : IHandleMessages<DocumentMoveCommand>
     {
@@ -24,22 +26,44 @@
 
         public IDate Date { get; set; }
 
-        public DocumentMoveHandler(IDocumentMover docMover)
+        // ---------------------------------------------------------------------
+        // STATIC MAPPER INSTANCE (for your custom AutoMapper version)
+        // ---------------------------------------------------------------------
+        private static readonly IMapper _mapper = CreateMapper();
+
+        private static IMapper CreateMapper()
+        {
+            var cfg = new MapperConfigurationExpression();
+            cfg.CreateMap<Contract, Contract>(); // your clone map
+
+            ILoggerFactory loggerFactory = null; // safe for your version
+
+            var config = new MapperConfiguration(cfg, loggerFactory);
+            return new Mapper(config);
+        }
+
+        public DocumentMoveHandler(IDocumentMover docMover, ILogger loggerNullObject)
         {
             _docMover = docMover;
-            Logger = new LoggerNullObject();
+
+            // Default null-object logger pattern preserved
+            Logger = loggerNullObject;
             Date = new SystemDate();
-        }        
+        }
 
         public async Task Handle(DocumentMoveCommand message, IMessageHandlerContext context)
         {
             ValidateCommand(message);
 
-            var internalContract = Transform(message.CorporateContract, message.ContractNumberToBeMoved);
+            var internalContract =
+                Transform(message.CorporateContract, message.ContractNumberToBeMoved);
 
-            bool isContractDocAlreadyPublished = _docMover.IsContractDocumentAlreadyPublished(internalContract);
+            bool isContractDocAlreadyPublished =
+                _docMover.IsContractDocumentAlreadyPublished(internalContract);
 
-            bool isMoveComplete = isContractDocAlreadyPublished || await MoveContract(message.CorporateContract, internalContract, context);
+            bool isMoveComplete =
+                isContractDocAlreadyPublished ||
+                await MoveContract(message.CorporateContract, internalContract, context);
 
             await context.Reply(new DocumentMoveResponse
             {
@@ -48,25 +72,33 @@
                 ContractNumberMoved = message.ContractNumberToBeMoved,
                 CorporateContract = message.CorporateContract
             }).ConfigureAwait(false);
-            
-            Logger.LogInformation(LoggingEvents.DocMoveEnd,
+
+            Logger.LogInformation(
+                LoggingEvents.DocMoveEnd,
                 $"DocumentsDomain handling DocumentMoveCommand message END, [Contract: {internalContract.contracts.First().contractNumber}]");
         }
 
-        private async Task<bool> MoveContract(contract contractOnMessage, contract internalContract, IMessageHandlerContext context)
+        private async Task<bool> MoveContract(
+            Contract contractOnMessage,
+            Contract internalContract,
+            IMessageHandlerContext context)
         {
             try
             {
-                Logger.LogInformation(LoggingEvents.DocMoveStart,
+                Logger.LogInformation(
+                    LoggingEvents.DocMoveStart,
                     $"DocumentsDomain handling DocumentMoveCommand message START, [Contract: {internalContract.contracts.First().contractNumber}]");
 
-                 _docMover.MoveContractDocumentToPublishLocation(internalContract);
-                return true;
+                _docMover.MoveContractDocumentToPublishLocation(internalContract);
 
+                return true;
             }
             catch (DocumentMoveException e)
             {
-                Logger.LogError(LoggingEvents.DocMoveMoveError, e, $"Error occurred trying to move document to publish location. [Contract: {internalContract.contracts.First().contractNumber}]");
+                Logger.LogError(
+                    LoggingEvents.DocMoveMoveError,
+                    e,
+                    $"Error occurred trying to move document to publish location. [Contract: {internalContract.contracts.First().contractNumber}]");
 
                 await context.Send(new UpdateContractPublishedToProviderFailedCommand
                 {
@@ -82,36 +114,47 @@
         {
             if (message.CorporateContract == null || !message.CorporateContract.contracts.Any())
             {
-                var e = new ArgumentNullException($"{nameof(message.CorporateContract)}", $"DocumentsDomain handling {nameof(DocumentMoveCommand)} but it does not contain a corporate contract.");
+                var e = new ArgumentNullException(
+                    $"{nameof(message.CorporateContract)}",
+                    $"DocumentsDomain handling {nameof(DocumentMoveCommand)} but it does not contain a corporate contract.");
+
                 Logger.LogError(LoggingEvents.DocMoveBadContract, e, e.Message);
                 throw e;
             }
-            else if (message.CorporateContract.hierarchyType != hierarchyType.MASTERCONTRACT)
+
+            if (message.CorporateContract.hierarchyType != hierarchyType.MASTERCONTRACT)
             {
-                throw new InvalidOperationException("DocumentMoveHandler called with child corporate contract.");
+                throw new InvalidOperationException(
+                    "DocumentMoveHandler called with child corporate contract.");
             }
 
             if (string.IsNullOrEmpty(message.ContractNumberToBeMoved))
             {
-                throw new ArgumentException("DocumentMoveCommand.ContractNumberToBeMoved must contain a value.");
+                throw new ArgumentException(
+                    "DocumentMoveCommand.ContractNumberToBeMoved must contain a value.");
             }
 
             if (message.CorporateContract.contracts
                 .Single(c =>
-                    c.contractNumber == message.ContractNumberToBeMoved
-                    && c.hierarchyType == hierarchyType.CONTRACT) == null)
+                    c.contractNumber == message.ContractNumberToBeMoved &&
+                    c.hierarchyType == hierarchyType.CONTRACT) == null)
             {
-                throw new InvalidOperationException("DocumentMergeCommand.ContractNumberToBeMerged must match a member of the contracts list with a hierarchy type of contract.");
+                throw new InvalidOperationException(
+                    "DocumentMoveCommand.ContractNumberToBeMoved must match a member of the contracts list with a hierarchy type of contract.");
             }
         }
 
-        private static contract Transform(contract sourceContract, string childContractNumber)
+        // -----------------------------------------------------
+        // TRANSFORM METHOD — NAME AND SIGNATURE KEPT AS‑IS
+        // -----------------------------------------------------
+        private static Contract Transform(Contract sourceContract, string childContractNumber)
         {
-            // Use Automapper to clone the contract on the message
-            Mapper.CreateMap<contract, contract>();
-            var contract = Mapper.Map<contract, contract>(sourceContract);
-            contract.contracts.RemoveAll(c => c.contractNumber != childContractNumber);
-            return contract;
+            var contractClone = _mapper.Map<Contract>(sourceContract);
+
+            contractClone.contracts.RemoveAll(c =>
+                c.contractNumber != childContractNumber);
+
+            return contractClone;
         }
     }
 }

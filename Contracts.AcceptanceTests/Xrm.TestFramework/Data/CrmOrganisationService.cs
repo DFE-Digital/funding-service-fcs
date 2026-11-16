@@ -9,6 +9,7 @@ namespace SFA.FCT.Xrm.TestFramework
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using Services;
+    using NUnit.Framework.Legacy;
 
     /// <summary>
     ///     ICrmOrganisationService
@@ -26,7 +27,10 @@ namespace SFA.FCT.Xrm.TestFramework
 
     public class CrmOrganisationService : IDisposable, ICrmOrganisationService
     {
-        public IOrganizationService OrganizationService => CrmConnectionFactory.GetConnection();
+        private readonly IOrganizationService _organizationService;
+
+        public IOrganizationService OrganizationService =>
+            _organizationService ?? OrganizationServiceFactory.GetOrganizationService();
 
         public CrmOrganisationService(string connectionString)
         {
@@ -34,6 +38,7 @@ namespace SFA.FCT.Xrm.TestFramework
 
         public CrmOrganisationService(IOrganizationService organizationService)
         {
+            _organizationService = organizationService;
         }
 
         public Entity RetrieveSolution(string solutionName)
@@ -73,7 +78,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 sb.AppendFormat("Message: {0}", ex.Detail.Message);
                 sb.AppendFormat("Inner Fault: {0}", null == ex.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
 
-                Assert.Fail("Organization Service Fault " + sb);
+                ClassicAssert.Fail("Organization Service Fault " + sb);
             }
             catch (TimeoutException ex)
             {
@@ -82,7 +87,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 sb.AppendFormat("Stack Trace: {0}", ex.StackTrace);
                 sb.AppendFormat("Inner Fault: {0}", ex.InnerException.Message);
 
-                Assert.Fail("Timeout Exception " + sb);
+                ClassicAssert.Fail("Timeout Exception " + sb);
             }
             catch (Exception ex)
             {
@@ -105,7 +110,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                 }
 
-                Assert.Fail("Exception: " + sb);
+                ClassicAssert.Fail("Exception: " + sb);
             }
         }
 
@@ -131,7 +136,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 sb.AppendFormat("Message: {0}", ex.Detail.Message);
                 sb.AppendFormat("Inner Fault: {0}", null == ex.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
 
-                Assert.Fail("Organization Service Fault " + sb);
+                ClassicAssert.Fail("Organization Service Fault " + sb);
             }
             catch (TimeoutException ex)
             {
@@ -140,7 +145,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 sb.AppendFormat("Stack Trace: {0}", ex.StackTrace);
                 sb.AppendFormat("Inner Fault: {0}", ex.InnerException.Message);
 
-                Assert.Fail("Timeout Exception " + sb);
+                ClassicAssert.Fail("Timeout Exception " + sb);
             }
             catch (Exception ex)
             {
@@ -164,7 +169,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                 }
 
-                Assert.Fail("Exception: " + sb);
+                ClassicAssert.Fail("Exception: " + sb);
             }
 
             return returnGuid;
@@ -188,7 +193,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 sb.AppendFormat("Message: {0}", ex.Detail.Message);
                 sb.AppendFormat("Inner Fault: {0}", null == ex.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
 
-                Assert.Fail("Organization Service Fault " + sb);
+                ClassicAssert.Fail("Organization Service Fault " + sb);
             }
             catch (TimeoutException ex)
             {
@@ -197,7 +202,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 sb.AppendFormat("Stack Trace: {0}", ex.StackTrace);
                 sb.AppendFormat("Inner Fault: {0}", ex.InnerException.Message);
 
-                Assert.Fail("Timeout Exception " + sb);
+                ClassicAssert.Fail("Timeout Exception " + sb);
             }
             catch (Exception ex)
             {
@@ -220,7 +225,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                 }
 
-                Assert.Fail("Exception: " + sb);
+                ClassicAssert.Fail("Exception: " + sb);
             }
         }
 
@@ -244,7 +249,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 error.AppendFormat("Plugin Trace: {0}", ex.Detail.TraceText);
                 error.AppendFormat("Inner Fault: {0}", null == ex.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
 
-                Assert.Fail("Organization Service Fault " + error);
+                ClassicAssert.Fail("Organization Service Fault " + error);
             }
             catch (TimeoutException ex)
             {
@@ -254,7 +259,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 error.AppendFormat("Stack Trace: {0}", ex.StackTrace);
                 error.AppendFormat("Inner Fault: {0}", ex.InnerException.Message);
 
-                Assert.Fail("TimeoutException " + error);
+                ClassicAssert.Fail("TimeoutException " + error);
             }
             catch (Exception ex)
             {
@@ -279,7 +284,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                 }
 
-                Assert.Fail("Exception " + error);
+                ClassicAssert.Fail("Exception " + error);
             }
 
             // Additional exceptions to catch: SecurityTokenValidationException, ExpiredSecurityTokenException,
@@ -308,7 +313,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 error.AppendFormat("Plugin Trace: {0}", ex.Detail.TraceText);
                 error.AppendFormat("Inner Fault: {0}", null == ex.Detail.InnerFault ? "No Inner Fault" : "Has Inner Fault");
 
-                Assert.Fail("Organization Service Fault " + error);
+                ClassicAssert.Fail("Organization Service Fault " + error);
             }
             catch (TimeoutException ex)
             {
@@ -318,7 +323,7 @@ namespace SFA.FCT.Xrm.TestFramework
                 error.AppendFormat("Stack Trace: {0}", ex.StackTrace);
                 error.AppendFormat("Inner Fault: {0}", ex.InnerException.Message);
 
-                Assert.Fail("TimeoutException " + error);
+                ClassicAssert.Fail("TimeoutException " + error);
             }
             catch (Exception ex)
             {
@@ -343,7 +348,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     }
                 }
 
-                Assert.Fail("Exception " + error);
+                ClassicAssert.Fail("Exception " + error);
             }
 
             //// Additional exceptions to catch: SecurityTokenValidationException, ExpiredSecurityTokenException,
@@ -355,7 +360,7 @@ namespace SFA.FCT.Xrm.TestFramework
         public bool Exists(Guid recordId, string entityLogicalName)
         {
             bool response = false;
-            StringBuilder error;
+           // StringBuilder error;
 
             try
             {

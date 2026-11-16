@@ -1,23 +1,19 @@
 ﻿namespace FCT.Console.Config.Tests.PaaS.Writers
 {
-    using Dapper;
-    using ExcelTypes;
-    using FluentAssertions;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using PaymentGenerationDomain.Integration.DataStore;
-    using Synchronizers.Writers;
-    using Synchronizers.Writers.PAAS;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
     using System.Linq;
+    using Dapper;
+    using ExcelTypes;
+    using FluentAssertions;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Synchronizers.Writers;
+    using Synchronizers.Writers.PAAS;
 
     [TestClass]
     public class ProviderCategoryExceptionWriterTests
     {
-        private static readonly string connectionString = PaymentGenerationDbContext.KeyVaultValue;
-
-
         [TestMethod, TestCategory("IntegrationTest")]
         public void ProviderCategoryExceptionWriter_ShouldInsertData()
         {
@@ -157,6 +153,9 @@
 
         private void RemoveAll()
         {
+            var connectionString =
+                ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Execute(@"delete from [FundingAllocation].[ProviderCategoryException]");
@@ -165,6 +164,9 @@
 
         private void InsertAll(params ProviderCategoryException[] providerCategoryExceptions)
         {
+            var connectionString =
+                ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Execute(
@@ -177,6 +179,9 @@
 
         private IReadOnlyCollection<ProviderCategoryException> GetAll()
         {
+            var connectionString =
+                ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 const string sql = @"select * from [FundingAllocation].[ProviderCategoryException]";

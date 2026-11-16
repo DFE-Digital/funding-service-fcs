@@ -1,7 +1,8 @@
 ﻿namespace PaymentGenerationDomain.Endpoint.ProcessPaymentRunEndpoint.Services
 {
+    extern alias CrossdomainCommon;
     using NServiceBus;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using CrossdomainCommon::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class SessionConnectionFactory : ISessionConnectionFactory
     {

@@ -10,7 +10,7 @@
         {
             CloudBlockBlob blockBlob = GetBlockBlob(fileName, containerName);
 
-            blockBlob.UploadFromByteArray(contents, 0, contents.Length);
+            blockBlob.UploadFromByteArrayAsync(contents, 0, contents.Length);
         }
 
         public static CloudBlockBlob GetBlockBlob(string fileName, string containerName)
@@ -26,7 +26,7 @@
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference(containerName);
-            container.CreateIfNotExists();
+            container.CreateIfNotExistsAsync();
 
             return container;
         }

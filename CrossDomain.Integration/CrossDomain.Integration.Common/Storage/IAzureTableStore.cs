@@ -1,7 +1,9 @@
 ﻿namespace SFA.FCT.CrossDomain.Integration.Common.Storage
 {
     using System.Collections.Generic;
-    using Microsoft.WindowsAzure.Storage.Table;
+    // using Microsoft.WindowsAzure.Storage.Table;
+    using Azure.Data.Tables;
+    using Azure;
 
     public interface IAzureTableStore
     {
@@ -23,9 +25,11 @@
 
         T GetRow<T>(string tablename, string partitionKey, string rowKey) where T : class, ITableEntity, new();
 
-        TableResult GetResult<T>(string tablename, string partitionKey, string rowKey) where T : class, ITableEntity, new();
+        //TableResult GetResult<T>(string tablename, string partitionKey, string rowKey) where T : class, ITableEntity, new();
+        Response<T> GetResult<T>(string tablename, string partitionKey, string rowKey) where T : class, ITableEntity, new();
 
-        CloudTable GetTable(string tablename);
+        //CloudTable GetTable(string tablename);
+        TableClient GetTable(string tablename);
 
         void DeleteTable(string tableName);
 

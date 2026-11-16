@@ -20,12 +20,12 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:sfa:schemas:contract")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:sfa:schemas:contract", IsNullable = false)]
-    public partial class contract : contractType
+    public partial class Contract : contractType
     {
 
         private decimal schemaVersionField;
 
-        public contract()
+        public Contract()
         {
             this.schemaVersionField = ((decimal)(8.04m));
         }
@@ -56,7 +56,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
 
         private fundingType fundingTypeField;
 
-        private period periodField;
+        private Period periodField;
 
         private fundingStream fundingStreamField;
 
@@ -74,7 +74,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
 
         private string descriptionField;
 
-        private contractor contractorField;
+        private Contractor contractorField;
 
         private hierarchyType hierarchyTypeField;
 
@@ -97,12 +97,12 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
         public contractType()
         {
             this.contractStatusField = new contractStatusType();
-            this.contractorField = new contractor();
+            this.contractorField = new Contractor();
             this.contractOrganisationRelationshipsField = new List<organisationRelationship>();
             this.contractDimensionRelationshipsField = new List<dimensionRelationshipType>();
             this.contractAllocationsField = new List<contractAllocationsContractAllocation>();
             this.fundingStreamField = new fundingStream();
-            this.periodField = new period();
+            this.periodField = new Period();
             this.fundingTypeField = new fundingType();
             this.contractsField = new List<contractType>();
         }
@@ -135,7 +135,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
         }
 
         [System.Xml.Serialization.XmlElementAttribute(Order = 2)]
-        public period period
+        public Period period
         {
             get
             {
@@ -255,7 +255,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
         }
 
         [System.Xml.Serialization.XmlElementAttribute(Order = 11)]
-        public contractor contractor
+        public Contractor contractor
         {
             get
             {
@@ -468,7 +468,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:sfa:schemas:contract")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:sfa:schemas:contract", IsNullable = true)]
-    public partial class contractor
+    public partial class Contractor
     {
 
         private string organisationIdentifierField;
@@ -662,7 +662,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
 
         public override bool Equals(object obj)
         {
-            contractor other = obj as contractor;
+            Contractor other = obj as Contractor;
             if (other == null)
             {
                 return false;
@@ -1028,8 +1028,8 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
 
         /// <remarks/>
         HTES,
-        HTES2,
-        CTEC
+        HTES2
+
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
@@ -1089,9 +1089,6 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
 
         [System.Xml.Serialization.XmlEnumAttribute("HIgher Technical Education Skills 2")]
         HIGHERTECHNICALEDUCATIONSKILLS2,
-
-        [System.Xml.Serialization.XmlEnumAttribute("CONSTRUCTION TECHNICAL EXCELLENCE COLLEGES")]
-        CONSTRUCTIONTECHNICALEXCELLENCECOLLEGES
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
@@ -1099,7 +1096,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:sfa:schemas:contract")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:sfa:schemas:contract", IsNullable = true)]
-    public partial class period
+    public partial class Period
     {
 
         private periodTypeType periodTypeField;
@@ -1112,7 +1109,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
 
         private System.DateTime endDateField;
 
-        public period()
+        public Period()
         {
             this.fundingStreamPeriodsField = new List<fundingStreamPeriodsFundingStreamPeriod>();
             this.periodTypeField = new periodTypeType();
@@ -1217,7 +1214,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
 
         private List<contractAllocationsContractAllocation> contractAllocationsField;
 
-        private period periodField;
+        private Period periodField;
 
         private fundingStream fundingStreamField;
 
@@ -1257,7 +1254,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
             this.allocationOrganisationRelationshipsField = new List<organisationRelationship>();
             this.allocationDimensionRelationshipsField = new List<dimensionRelationshipType>();
             this.fundingStreamField = new fundingStream();
-            this.periodField = new period();
+            this.periodField = new Period();
             this.contractAllocationsField = new List<contractAllocationsContractAllocation>();
         }
 
@@ -1276,7 +1273,7 @@ namespace SFA.FCT.CrossDomain.Integration.Entities.CorporateContract
         }
 
         [System.Xml.Serialization.XmlElementAttribute(Order = 1)]
-        public period period
+        public Period period
         {
             get
             {

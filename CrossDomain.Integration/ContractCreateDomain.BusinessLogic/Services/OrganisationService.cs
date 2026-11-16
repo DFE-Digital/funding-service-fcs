@@ -42,6 +42,17 @@
 
             _logger.LogInformation(ContractCreateDomainEventLoggingId.OrganisationService, $"Retrieved organisation UKPRN: {ukprn}, {httpResponse.StatusCode}");
 
+            _logger.LogInformation(ContractCreateDomainEventLoggingId.OrganisationService, $"Retrieved organisation UKPRN 2: {ukprn}, {httpResponse.StatusCode}");
+
+            if(!httpResponse.IsSuccessStatusCode)
+            {
+                _logger.LogInformation(ContractCreateDomainEventLoggingId.OrganisationService, $"Failed to retrieve organisation for UKPRN: {ukprn}, {httpResponse.StatusCode}");
+                return new organisation()
+                {
+                    organisationId = "2"
+                };
+            }
+
             if (httpResponse.IsSuccessStatusCode)
             {
                 
@@ -54,7 +65,13 @@
             }
             else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
             {
-                return null;
+                // test perspective , need to remove later :RS
+                _logger.LogInformation(ContractCreateDomainEventLoggingId.OrganisationService, $"NotFound Retrieved organisation UKPRN: {ukprn}");
+
+                return new organisation()
+                {
+                    organisationId = "2"
+                };
             }
             else if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
             {

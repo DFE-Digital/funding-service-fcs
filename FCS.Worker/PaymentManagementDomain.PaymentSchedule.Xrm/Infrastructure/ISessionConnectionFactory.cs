@@ -1,7 +1,8 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Infrastructure
 {
+    extern alias IntegrationEntities;
     using NServiceBus;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface ISessionConnectionFactory
     {

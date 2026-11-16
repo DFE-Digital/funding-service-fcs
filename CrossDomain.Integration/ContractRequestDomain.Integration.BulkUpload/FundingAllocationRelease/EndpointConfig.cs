@@ -1,13 +1,15 @@
 ﻿namespace SFA.FCT.ContractRequestDomain.Integration.BulkUpload.FundingAllocationRelease
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Castle.Windsor;
     using CrossDomain.Integration.Events;
     using FCS.Worker.Common;
     using Framework.Logging;
-    using Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Repositories;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -25,26 +27,61 @@
 
         public IReadOnlyCollection<CommandRoute> Routes => new List<CommandRoute>();
 
+
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            var logger = new Logger(new System.Diagnostics.TraceSource("WorkerRole"));
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CDI");
+            var connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnection");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "AzureServiceBusConnection environment variable is not set.");
+            }
+
+            configuration.UseTransport(
+                new AzureServiceBusTransport(
+                    connectionString,
+                    TopicTopology.Default));
+
+            configuration.UsePersistence<LearningPersistence>();
+
+            configuration.EnableInstallers();
+
+            configuration.Recoverability()
+                .Immediate(i => i.NumberOfRetries(3))
+                .Delayed(d => d.NumberOfRetries(3));
 
             configuration.Conventions()
                 .DefiningCommandsAs(t =>
                     (t.Namespace != null && t.Namespace.EndsWith("Commands")) ||
-                    t.GetInterfaces().Contains(typeof(ICommand)))
-                .DefiningEventsAs(t => EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    EventsUsedInThisEndpoint.Any(e => t.Name.EndsWith(e)));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ Windsor fully replaced here
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                // Logger factory
+                services.AddSingleton(loggerFactory);
+
+                // ✅ Converted Windsor registrations
+                services.AddSingleton<ILogger>(
+                    _ => loggerFactory.CreateLogger<EndpointConfig>());
+
+                services.AddSingleton<IFundingAllocationReleaseRepository, FundingAllocationReleaseRepository>();
+
+                services.AddSingleton<ISessionConnectionFactory, SessionConnectionFactory>();
             });
 
             return configuration;
         }
+
     }
 }

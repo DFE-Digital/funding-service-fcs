@@ -8,7 +8,7 @@
     using System.Linq;
     using SFA.FCT.CrossDomain.Integration.Entities.PerformanceManagement.FundingClaim;
     using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
-    using System.Windows.Documents;
+    //using System.Windows.Documents;
     using System.Collections.Generic;
 
     public static class CrmReplicatedRepository

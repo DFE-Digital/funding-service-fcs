@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Runtime.Remoting.Proxies;
 using System.Threading.Tasks;
 using NServiceBus;
 using SFA.FCT.ContractRequestDomain.Common.Commands;

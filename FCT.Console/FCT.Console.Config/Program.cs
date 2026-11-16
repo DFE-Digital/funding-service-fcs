@@ -31,7 +31,7 @@
     using Synchronizers.Writers.CRM;
     using UnitTests.Common;
     using FCT.Console.Config.Templates.Repositories;
-    using Microsoft.ServiceBus;
+    using Azure.Messaging.ServiceBus.Administration;
     using Microsoft.ServiceBus.Messaging;
     using Services;
     using NServiceBus;
@@ -358,23 +358,23 @@
                 connection.Execute(sql);
             }
         }
-
-        private static NamespaceManager GetAsbNamespaceManager()
+        private static ServiceBusAdministrationClient GetAsbNamespaceManager()
         {
-            return NamespaceManager.CreateFromConnectionString(ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString);
+            var connectionString =
+                ConfigurationManager.ConnectionStrings["NServiceBus/Transport"]?.ConnectionString;
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException("NServiceBus/Transport connection string is missing.");
+            }
+
+            return new ServiceBusAdministrationClient(connectionString);
         }
 
-        private static void CreateEndpointIfNotPresent(string queueName, NamespaceManager namespaceManager)
+        private static void CreateEndpointIfNotPresent(string queueName, ServiceBusAdministrationClient namespaceManager)
         {
-            bool isQueuePresent = false;
-            try
-            {
-                namespaceManager.GetQueue(queueName);
-                isQueuePresent = true;
-            }
-            catch (MessagingEntityNotFoundException)
-            {
-            }
+            bool isQueuePresent =
+                namespaceManager.QueueExistsAsync(queueName).GetAwaiter().GetResult();
 
             if (!isQueuePresent)
             {
@@ -382,17 +382,22 @@
             }
         }
 
-        private static void CreateQueue(string queueName, NamespaceManager namespaceManager)
+
+        private static void CreateQueue(string queueName, ServiceBusAdministrationClient namespaceManager)
         {
             long fiveGBInMegabytes = 5 * 1024;
-            namespaceManager.CreateQueue(new QueueDescription(queueName)
+
+            var options = new CreateQueueOptions(queueName)
             {
                 LockDuration = TimeSpan.FromMinutes(5),
-                MaxDeliveryCount = 2147483647,
+                MaxDeliveryCount = int.MaxValue,
                 MaxSizeInMegabytes = fiveGBInMegabytes,
                 ForwardDeadLetteredMessagesTo = "error"
-            });
+            };
+
+            namespaceManager.CreateQueueAsync(options).GetAwaiter().GetResult();
         }
+
 
         private static void SetupLicence()
         {

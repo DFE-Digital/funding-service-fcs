@@ -1,9 +1,10 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm.Repositories
 {
+    extern alias IntegrationEntities;
     using System;
     using System.Linq;
     using Microsoft.Xrm.Sdk;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
 
     public class CrmPeriodTypeRepository : ICrmPeriodTypeRepository
     {

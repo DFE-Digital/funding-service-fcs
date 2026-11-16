@@ -5,7 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Infrastructure;
-    using Microsoft.ServiceBus;
+//    using Microsoft.ServiceBus;
     using NServiceBus;
     using Services;
     using SFA.FCT.ContractCreateDomain.Implementation.Persistence;
@@ -62,7 +62,7 @@
 
             ConnectionInfo connectionInfo = _sessionConnectionFactory.GetConnection(context);
 
-            contract masterContract = _contractsManager.GetCorporateContract(message.ContractNumber, message.MasterContractNumber, lastApproved: false);
+            Contract masterContract = _contractsManager.GetCorporateContract(message.ContractNumber, message.MasterContractNumber, lastApproved: false);
 
 
             if (ValidateContractStructure(masterContract, message.ContractNumber))
@@ -137,9 +137,9 @@
             }
         }
 
-        public contract ImmediateRetries(ConfirmPublicationToProviderCommand message)
+        public Contract ImmediateRetries(ConfirmPublicationToProviderCommand message)
         {
-            contract masterContract = null;
+            Contract masterContract = null;
             bool allocationSync = true;
             int retryCount = 0;
             _logger.LogInformation($"Retry verification for APPLevy allocation count for :{message.MasterContractNumber} ContractNumber:{message.ContractNumber}");
@@ -186,7 +186,7 @@
             return true;
         }
 
-        private bool ValidateContractStructure(contract masterContract, string childContractNumber)
+        private bool ValidateContractStructure(Contract masterContract, string childContractNumber)
         {
             if (masterContract == null || masterContract.contracts.Count == 0)
             {
@@ -201,7 +201,7 @@
             return true;
         }
 
-        private async Task PublishContractReadyToPublishEvent(contract masterContract, ContractApprovalType approvalType, IMessageHandlerContext context)
+        private async Task PublishContractReadyToPublishEvent(Contract masterContract, ContractApprovalType approvalType, IMessageHandlerContext context)
         {
             await context.Publish(new ContractReadyToPublishEvent
             {
@@ -229,7 +229,7 @@
             childContract.contractStatus.status = status;
         }
 
-        private async Task MoveContract(contract masterContract, string contractNumber, IMessageHandlerContext context)
+        private async Task MoveContract(Contract masterContract, string contractNumber, IMessageHandlerContext context)
         {
             contractType childContract = GetChildContract(masterContract, contractNumber);
             DocumentMoveCommand documentMoveCommand = new DocumentMoveCommand
@@ -254,7 +254,7 @@
             return childContract.DocumentationRequired != null && childContract.DocumentationRequired.Value;
         }
 
-        private static contractType GetChildContract(contract masterContract, string contractNumber)
+        private static contractType GetChildContract(Contract masterContract, string contractNumber)
         {
             return masterContract.contracts.SingleOrDefault(c => c.contractNumber == contractNumber);
         }

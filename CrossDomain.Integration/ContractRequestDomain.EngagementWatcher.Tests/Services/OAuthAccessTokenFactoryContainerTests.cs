@@ -2,7 +2,7 @@ namespace ContractRequestDomain.EngagementWatcher.Tests.Services
 {
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using ContractRequestDomain.EngagementWatcher.Services;
+    using SFA.FCT.ContractRequestDomain.EngagementWatcher.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

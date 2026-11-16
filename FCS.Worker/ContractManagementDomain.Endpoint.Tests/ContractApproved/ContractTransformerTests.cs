@@ -20,13 +20,13 @@
         public void ContractTransformer_TransformToCorporateSchemaContract_ShouldTransformWithRightDeliverables()
         {
             // arrange
-            contract corpContract = GetCorporateContractFromFile("corporate_contract_EDSK-1579.json");
+            Contract corpContract = GetCorporateContractFromFile("corporate_contract_EDSK-1579.json");
             Assert.IsNotNull(corpContract);
 
             ContractTransformer contractTransformer = new ContractTransformer();
-
+            
             // act
-            CorporateSchema.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
             
             // assert
             schemaContract.contracts.First().contractAllocations.ForEach(schemaAllocation =>
@@ -50,7 +50,7 @@
         public void ContractTransformer_TransformToCorporateSchemaContract_ShouldTransformWithRightDeliverablesWhenThereAre2LevelsOfHierarchy()
         {
             // 'AEBC1819'
-            contract corpContract = GetCorporateContractFromFile("corporate_contracts_withAEBC1819.json");
+            Contract corpContract = GetCorporateContractFromFile("corporate_contracts_withAEBC1819.json");
 
             Assert.IsNotNull(corpContract);
 
@@ -58,7 +58,7 @@
             ContractTransformer contractTransformer = new ContractTransformer();
 
             // act
-            CorporateSchema.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
             
             // assert
             schemaContract.contracts.First().contractAllocations.ForEach(schemaAllocation =>
@@ -101,7 +101,7 @@
             DateTime fundingCessationDate = DateTime.UtcNow.AddDays(2);
 
             // arrange
-            contract corporateContract = GetCorporateContractFromFile("corporate_contract_EDSK-1579.json");
+            Contract corporateContract = GetCorporateContractFromFile("corporate_contract_EDSK-1579.json");
             contractAllocationsContractAllocation inputAllocation = corporateContract.contracts.First().contractAllocations.First();
 
             inputAllocation.StopNewStartsDate = stopNewStartsDate;
@@ -111,7 +111,7 @@
             ContractTransformer contractTransformer = new ContractTransformer();
 
             // act
-            CorporateSchema.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corporateContract);
+            CorporateSchema.Contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corporateContract);
 
             // assert
             CorporateSchema.contractAllocationsContractAllocation transformedAllocation = schemaContract.contracts.First().contractAllocations.First();
@@ -131,7 +131,7 @@
             // 'AEBC1819'
             const string allocationNumber = "AEC-529";
             DateTime fundingCessationDate = DateTime.Now;
-            contract corpContract = GetCorporateContractFromFile("corporate_contracts_withAEBC1819.json");
+            Contract corpContract = GetCorporateContractFromFile("corporate_contracts_withAEBC1819.json");
 
             Assert.IsNotNull(corpContract);
             corpContract.contracts.First().contractAllocations
@@ -140,7 +140,7 @@
             ContractTransformer contractTransformer = new ContractTransformer();
 
             // act
-            CorporateSchema.contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract schemaContract = contractTransformer.TransformToCorporateSchemaContract(corpContract);
 
             // assert
             var terminationAllocationAttrs = schemaContract.contracts.First().contractAllocations
@@ -149,21 +149,21 @@
            Assert.AreEqual(fundingCessationDate, terminationAllocationAttrs.fundingCessationDate);
         }
 
-        private static contract GetCorporateContractFromFile(string fileName)
+        private static Contract GetCorporateContractFromFile(string fileName)
         {
             using (Stream stream = Assembly.GetCallingAssembly().GetManifestResourceStream($"ContractManagementDomain.Endpoint.Tests.Resources.{fileName}"))
             using (StreamReader streamReader = new StreamReader(stream))
             {
-                return JsonConvert.DeserializeObject<contract>(streamReader.ReadToEnd());
+                return JsonConvert.DeserializeObject<Contract>(streamReader.ReadToEnd());
             }
         }
 
-        public List<CorporateSchema.contractDeliverablesTypeContractDeliverable> FlattenDeliverables(
-            List<CorporateSchema.contractDeliverablesTypeContractDeliverable> hierarchicalDeliverableList,
-            List<CorporateSchema.contractDeliverablesTypeContractDeliverable> flattenedList = null,
+        public List<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractDeliverablesTypeContractDeliverable> FlattenDeliverables(
+            List<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractDeliverablesTypeContractDeliverable> hierarchicalDeliverableList,
+            List<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractDeliverablesTypeContractDeliverable> flattenedList = null,
             int? parentDeliverablId = null)
         {
-            flattenedList = flattenedList ?? new List<CorporateSchema.contractDeliverablesTypeContractDeliverable>();
+            flattenedList = flattenedList ?? new List<SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contractDeliverablesTypeContractDeliverable>();
 
             foreach (var deliverable in hierarchicalDeliverableList)
             {

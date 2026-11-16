@@ -319,19 +319,19 @@ jobs:
       restoreSolution: Contracts.AcceptanceTests/Contracts.AcceptanceTests.sln
       restoreDirectory: '$(Build.SourcesDirectory)\Packages'
 
-  - task: VSBuild@1
-    displayName: 'Build solution Contracts.AcceptanceTests.sln'
-    inputs:
-      solution: Contracts.AcceptanceTests/Contracts.AcceptanceTests.sln
-      platform: '$(BuildSolutionPlatform)'
-      configuration: '$(BuildConfiguration)'
+#  - task: VSBuild@1
+#    displayName: 'Build solution Contracts.AcceptanceTests.sln'
+#    inputs:
+#      solution: Contracts.AcceptanceTests/Contracts.AcceptanceTests.sln
+#      platform: '$(BuildSolutionPlatform)'
+#      configuration: '$(BuildConfiguration)'
 
   - task: VSTest@2
     displayName: 'Test: Selected Acceptance Tests'
     inputs:
       testAssemblyVer2: '**\bin\$(BuildConfiguration)\Contracts.AcceptanceTests.dll'
       testFiltercriteria: '$(TestFilter)'
-      pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\packages\NUnitTestAdapter.1.2'
+     # pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\packages\NUnitTestAdapter.1.2'
       runInParallel: false
       codeCoverageEnabled: false
       platform: '$(BuildSolutionPlatform)'

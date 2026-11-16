@@ -13,7 +13,7 @@
     [TestClass]
     public class SendRunReportCommandTests
     {
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("ProductionSupport")]
         public void SendRunReportCommandsForErroredCdaReports()
         {
             /*
@@ -24,7 +24,7 @@
             */
 
             // arrange
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<RunReportCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<RunReportCommand>();
 
             ReportInfo[] reportInfos =
             {

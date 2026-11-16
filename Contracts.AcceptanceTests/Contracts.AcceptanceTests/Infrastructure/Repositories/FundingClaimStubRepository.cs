@@ -1,13 +1,17 @@
 ﻿namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Repositories
 {
-    using System.Configuration;
+    //using Microsoft.WindowsAzure.Storage.Table;
+    using Azure;
+    using Azure.Data.Tables;
     using CrossDomain.Integration.Common.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Configuration;
+
 
     public static class FundingClaimStubRepository
     {
         private static readonly IAzureTableStore _azureTableStore = new AzureTableStore();
-        private static readonly string _tableName = $"FundingClaimStub{ConfigurationManager.AppSettings["StorageTableSuffix"]}";
+        private static readonly string _tableName = $"FundingClaimStub{TestConfiguration.Configuration["StorageTableSuffix"]}";
         private static int _nextRowKey = 1;
 
         static FundingClaimStubRepository()
@@ -25,7 +29,7 @@
             _azureTableStore.DeleteAllRows<FundingClaimEntity>(_tableName);
         }
 
-        private class FundingClaimEntity : TableEntity
+        private class FundingClaimEntity : ITableEntity
         {
             public FundingClaimEntity()
             {
@@ -37,6 +41,15 @@
                 RowKey = rowKey.ToString("D8");
                 FundingClaimXml = fundingClaimXml;
             }
+
+            public string PartitionKey { get; set; }
+
+            public string RowKey { get; set; }
+
+            public DateTimeOffset? Timestamp { get; set; }
+
+            public ETag ETag { get; set; }
+
 
             public string FundingClaimXml { get; set; }
 

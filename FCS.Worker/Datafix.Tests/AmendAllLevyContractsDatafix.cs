@@ -1,52 +1,76 @@
 ﻿namespace Datafix.Tests
 {
-    using System.Linq;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Text;
+    using Azure.Messaging.ServiceBus;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using MoreLinq;
+    using Newtonsoft.Json;
     using NServiceBus;
     using Repositories;
     using Services;
     using SFA.FCT.ContractManagementService.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using ContractInformation = SFA.FCT.CrossDomain.Integration.Entities.ContractInformation;
     using SFA.FCT.ContractManagementService.Common.Commands;
+    using SFA.FCT.CrossDomain.Integration.Entities;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using ContractInformation = SFA.FCT.CrossDomain.Integration.Entities.ContractInformation;
 
     [TestClass]
     public class AmendAllLevyContractsDatafix
     {
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("AmendAllLevyContracts")]
         public void AmendAllLevyContracts()
         {
             const string levyFundingType = "LEVY";
             const string levyFundingPeriod = "LEVY1799";
 
-            CrmContractInformationRepository crmRepository = new CrmContractInformationRepository();
-            LevyAmendmentLogger logger = new LevyAmendmentLogger();
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
+            var crmRepository = new CrmContractInformationRepository();
+            var logger = new LevyAmendmentLogger();
+
+            // ✅ Azure Service Bus client
+            var client = new ServiceBusClient(ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString);
+            var sender = client.CreateSender("ContractManagementDomain.LevyAmendmentEndpoint");
 
             logger.Log("INFORMATION: Retrieving all LEVY contracts from CRM");
 
             try
             {
                 IReadOnlyCollection<ContractInformation> levyContracts =
-                    crmRepository.GetLatestContractInformationByFundingTypeAndFundingPeriod(levyFundingType, levyFundingPeriod);
+                    crmRepository.GetLatestContractInformationByFundingTypeAndFundingPeriod(
+                        levyFundingType,
+                        levyFundingPeriod);
 
                 logger.Log($"INFORMATION: Found {levyContracts.Count} LEVY contracts, beginning processing");
 
-                levyContracts.ForEach(contract =>
+                foreach (var contract in levyContracts)
                 {
                     logger.Log($"INFORMATION: Sending AmendLevyContractCommand for {contract}");
 
-                    endpoint.Send("ContractManagementDomain.LevyAmendmentEndpoint", new AmendLevyContractCommand
+                    var command = new AmendLevyContractCommand
                     {
                         ContractInformation = contract
-                    }).Wait();
-                });
+                    };
+
+                    // ✅ Serialize body
+                    var messageBody = JsonConvert.SerializeObject(command);
+
+                    var message = new ServiceBusMessage(messageBody);
+
+                    // ✅ Important for compatibility with your existing NServiceBus consumers
+                    message.ApplicationProperties["NServiceBus.EnclosedMessageTypes"] =
+                        typeof(AmendLevyContractCommand).FullName;
+
+                    // ✅ Optional but recommended
+                    message.MessageId = Guid.NewGuid().ToString();
+
+                    sender.SendMessageAsync(message)
+                          .GetAwaiter();
+
+                }
             }
             catch (Exception ex)
             {
@@ -58,14 +82,15 @@
             }
         }
 
+
         public static void AmendAllLevyContractsThatMeetCriteria(Func<ContractInformation, bool> predicate)
         {
             const string levyFundingType = "LEVY";
             const string levyFundingPeriod = "LEVY1799";
 
             CrmContractInformationRepository crmRepository = new CrmContractInformationRepository();
-            
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
+
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
 
             IReadOnlyCollection<ContractInformation> levyContracts =
                 crmRepository.GetLatestContractInformationByFundingTypeAndFundingPeriod(levyFundingType, levyFundingPeriod)
@@ -80,7 +105,7 @@
             });
         }
 
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("AmendAllLevyContracts")]
         public void AmendAllLevyContractsOnList()
         {
             const string levyFundingType = "LEVY";
@@ -128,7 +153,7 @@
 
             CrmContractInformationRepository crmRepository = new CrmContractInformationRepository();
             LevyAmendmentLogger logger = new LevyAmendmentLogger();
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
 
             logger.Log("INFORMATION: Retrieving all LEVY contracts from CRM");
 
@@ -199,10 +224,10 @@
             }
         }
 
-        [TestMethod, TestCategory("IntegrationTest")]
+        [TestMethod, TestCategory("AmendLevyContract")]
         public void AmendSingleLevyContract()
         {
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AmendLevyContractCommand>();
 
             endpoint.Send("ContractManagementDomain.LevyAmendmentEndpoint", new AmendLevyContractCommand
             {

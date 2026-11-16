@@ -48,10 +48,16 @@ namespace CrossDomain.Integration.Entities.Tests.Unit
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(ArgumentException))]
         public void ContractInfo_NoAllocations_Throws()
         {
-            new ContractInfo(new List<AllocationInfo>(), "C1", 1);
+            try
+            {
+                new ContractInfo(new List<AllocationInfo>(), "C1", 1);
+                Assert.Fail("Expected exception");
+            }
+            catch (ArgumentException)
+            {
+            }
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -63,12 +69,18 @@ namespace CrossDomain.Integration.Entities.Tests.Unit
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void ContractInfo_FindAllocationInfo_Unknown_Throws()
         {
             var info = new ContractInfo(new List<AllocationInfo> { new AllocationInfo("A", 1m, DateTime.Today, DateTime.Today, "F") }, "C9", 4);
 
-            info.FindAllocationInfo("missing");
+            try
+            {
+                info.FindAllocationInfo("missing");
+                Assert.Fail("Expected exception");
+            }
+            catch (InvalidOperationException)
+            {
+            }
         }
     }
 }

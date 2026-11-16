@@ -1,5 +1,7 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGeneration.AggregatePayment
 {
+
+    extern alias Entities;
     using System.Collections.Generic;
     using DataStore.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,8 +9,8 @@
     using PaymentGenerationEndpoint.AggregatePaymentEndpoint;
     using PaymentGenerationEndpoint.AggregatePaymentEndpoint.DTOs;
     using PaymentGenerationEndpoint.AggregatePaymentEndpoint.Repositories;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class UpSertSubmoninalAggregationServiceTests

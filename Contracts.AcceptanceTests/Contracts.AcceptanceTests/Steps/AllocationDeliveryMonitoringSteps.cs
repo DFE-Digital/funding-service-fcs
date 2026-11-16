@@ -19,6 +19,7 @@
     using MoreLinq;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class AllocationDeliveryMonitoringSteps
@@ -44,7 +45,7 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(atomFeedItem, $"No matching atom feed item for AllocationDeliveryEntryCategory: { adpKey.AllocationDeliveryEntryCategory}, AllocationNumber: { adpKey.AllocationNumber}, VersionNumber: {adpKey.VersionNumber}");
+                ClassicAssert.IsNotNull(atomFeedItem, $"No matching atom feed item for AllocationDeliveryEntryCategory: { adpKey.AllocationDeliveryEntryCategory}, AllocationNumber: { adpKey.AllocationNumber}, VersionNumber: {adpKey.VersionNumber}");
 
                 AllocationDeliveryPerformance allocationDeliveryPerformance = atomFeedItem.GetAllocationDeliveryPerformanceXml().DeserializeXml<AllocationDeliveryPerformance>();
 
@@ -52,7 +53,7 @@
                     .SingleOrDefault(x => x.Period == adpKey.Period)?.ScheduledPayment
                     .SingleOrDefault(x => x.DeliverableCode == adpKey.DeliverableCode);
 
-                Assert.IsNotNull(scheduledPaymentType, $"No matching Scheduled Payment in atom feed item for {adpKey}");
+                ClassicAssert.IsNotNull(scheduledPaymentType, $"No matching Scheduled Payment in atom feed item for {adpKey}");
 
                 AssertDecimalValueIfPresent(row, "ProfilePayment", scheduledPaymentType.ProfilePayment, adpKey.ToString());
                 AssertDecimalValueIfPresent(row, "BalancingPayment", scheduledPaymentType.BalancingPayment, adpKey.ToString());
@@ -66,7 +67,7 @@
                     .SingleOrDefault(ap => ap.Period == adpKey.Period)?.Actual
                     .SingleOrDefault(a => a.DeliverableCode == adpKey.DeliverableCode);
 
-                Assert.AreEqual(expectedActualValue, actualType?.ActualValue, $"No matching Actual in atom feed item for {adpKey}");
+                ClassicAssert.AreEqual(expectedActualValue, actualType?.ActualValue, $"No matching Actual in atom feed item for {adpKey}");
             });
 
             void AssertDecimalValueIfPresent(TableRow row, string columnName, decimal? actualValue, string rowDescription)
@@ -74,7 +75,7 @@
                 if (row.ContainsKey(columnName))
                 {
                     decimal? expectedValue = row.ParseNullableDecimal(columnName);
-                    Assert.AreEqual(expectedValue, actualValue, $"{columnName} for {rowDescription}");
+                    ClassicAssert.AreEqual(expectedValue, actualValue, $"{columnName} for {rowDescription}");
                 }
             }
         }
@@ -149,7 +150,7 @@
 
                 bool success = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(success, $"Could not find ADP atom feed entry for {row.ToHeaderAndValueString()}");
+                ClassicAssert.IsTrue(success, $"Could not find ADP atom feed entry for {row.ToHeaderAndValueString()}");
             });
         }
 
@@ -185,15 +186,15 @@
 
                 if (deliveryOrgUkprn == null || deliveryOrgProviderName == null)
                 {
-                    Assert.IsNull(allocationOrganisationRelationshipsElement, $"Delivery org was populated when unexpected - {feedItemsXml}");
+                    ClassicAssert.IsNull(allocationOrganisationRelationshipsElement, $"Delivery org was populated when unexpected - {feedItemsXml}");
                 }
                 else
                 {
-                    Assert.IsNotNull(allocationOrganisationRelationshipsElement, $"The allocationOrganisationRelationships element has not been populated - {feedItemsXml}");
+                    ClassicAssert.IsNotNull(allocationOrganisationRelationshipsElement, $"The allocationOrganisationRelationships element has not been populated - {feedItemsXml}");
                     allocationOrganisationRelationshipsTYPE organisation = allocationDeliveryPerformance.allocationOrganisationRelationships;
-                    Assert.IsNotNull(organisation, $"Delivery org was not populated when expected - {feedItemsXml}");
-                    Assert.AreEqual(allocationNumber, organisation.contractAllocationNumber, $"Delivery org contractAllocationNumber was not populated correctly - {feedItemsXml}");
-                    Assert.AreEqual(deliveryOrgUkprn, organisation.Organisation.alternativeOrganisationIdentifiers.AlternativeOrganisationIdentifier.OrganisationIdentifier, $"Delivery org ukprn was not populated when expected - {feedItemsXml}");
+                    ClassicAssert.IsNotNull(organisation, $"Delivery org was not populated when expected - {feedItemsXml}");
+                    ClassicAssert.AreEqual(allocationNumber, organisation.contractAllocationNumber, $"Delivery org contractAllocationNumber was not populated correctly - {feedItemsXml}");
+                    ClassicAssert.AreEqual(deliveryOrgUkprn, organisation.Organisation.alternativeOrganisationIdentifiers.AlternativeOrganisationIdentifier.OrganisationIdentifier, $"Delivery org ukprn was not populated when expected - {feedItemsXml}");
                 }
             });
         }
@@ -208,7 +209,7 @@
                 CheckResultPoller poller = new CheckResultPoller(checkResult: () =>
                 {
                     IEnumerable<SyndicationItem> retrievedFeedItems = AtomFeedReader.EnumerateItems(
-                        $"{ConfigurationManager.AppSettings["ContractManagementServiceUrl"]}{urlSuffix}",
+                        $"{TestConfiguration.Configuration["ContractManagement:ServiceUrl"]}{urlSuffix}",
                         AzureAuthenticator.GetAuthenticationConfig(),
                         "application/vnd.sfa.allocation-delivery.allocation-delivery-performance.v1+atom+xml");
 
@@ -230,7 +231,7 @@
 
                 bool foundExpectedItem = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(foundExpectedItem, $"Expected item not found on ALLOCATIONDELIVERYPERFORMANCE Atom Feed item for {row.ToHeaderAndValueString()}");
+                ClassicAssert.IsTrue(foundExpectedItem, $"Expected item not found on ALLOCATIONDELIVERYPERFORMANCE Atom Feed item for {row.ToHeaderAndValueString()}");
             });
         }
 
@@ -243,7 +244,7 @@
                 versionNumber: version,
                 allocationNumber: allocationNumber);
 
-            Assert.IsFalse(arePresent, $"The are ADP entries for contract: {contractNumber}, version: {version}, itemType: {itemType}");
+            ClassicAssert.IsFalse(arePresent, $"The are ADP entries for contract: {contractNumber}, version: {version}, itemType: {itemType}");
 
         }
 
@@ -259,7 +260,7 @@
                 CheckResultPoller poller = new CheckResultPoller(checkResult: () =>
                 {
                     IEnumerable<SyndicationItem> retrievedFeedItems = AtomFeedReader.EnumerateItems(
-                        $"{ConfigurationManager.AppSettings["ContractManagementServiceUrl"]}{urlSuffix}",
+                        $"{TestConfiguration.Configuration["ContractManagement:ServiceUrl"]}{urlSuffix}",
                         AzureAuthenticator.GetAuthenticationConfig(),
                         "application/vnd.sfa.allocation-delivery.allocation-delivery-performance.v1+atom+xml");
 
@@ -301,7 +302,7 @@
 
                 bool foundExpectedItem = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(foundExpectedItem, $"Expected item not found on ALLOCATIONDELIVERYPERFORMANCE Atom Feed item for {row.ToHeaderAndValueString()}, column that failed: {failedMessage}");
+                ClassicAssert.IsTrue(foundExpectedItem, $"Expected item not found on ALLOCATIONDELIVERYPERFORMANCE Atom Feed item for {row.ToHeaderAndValueString()}, column that failed: {failedMessage}");
             });
         }
 

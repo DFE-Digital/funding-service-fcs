@@ -1,5 +1,7 @@
 ﻿namespace ContractRequestDomain.Tests
 {
+    extern alias RequestDomainDS;
+    extern alias CSICommon;
     using System;
     using System.Linq;
     using System.Xml.Linq;
@@ -7,8 +9,8 @@
     using Moq;
     using SFA.FCT.ContractRequestDomain.Common;
     using SFA.FCT.ContractRequestDomain.BusinessLogic.Services;
-    using SFA.FCT.ContractRequestDomain.DataStore.Repositories;
-    using SFA.FCT.CrossDomain.Integration.Common;
+    using RequestDomainDS::SFA.FCT.ContractRequestDomain.DataStore.Repositories;
+    using CSICommon::SFA.FCT.CrossDomain.Integration.Common;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Entities.ExcelUpload;
     using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore.Services;
@@ -20,14 +22,14 @@
         private ContractBulkUploadFileLevelValidation _fileValidation;
         private dataLoadResults _testData;
         private readonly Mock<IFundingTypeFundingPeriodRepository> _mockRepository = new Mock<IFundingTypeFundingPeriodRepository>();
-        private readonly Mock<IDate> _mockDate = new Mock<IDate>();
+        //private readonly Mock<IDate> _mockDate = new Mock<IDate>();
 
         [TestInitialize]
         public void GetData()
         {
             _mockRepository.Setup(m => m.GetActivityCloseDate(It.IsAny<string>(), It.IsAny<string>()))
                            .Returns((DateTime?) null);
-            _mockDate.Setup(m => m.GetCalculationDate()).Returns(DateTime.Now);
+            //_mockDate.Setup(m => m.GetCalculationDate()).Returns(DateTime.Now);
 
             _fileValidation = new ContractBulkUploadFileLevelValidation(_mockRepository.Object, new DateProvider(), Mock.Of<IFundingAllocationReleaseRepository>(), Mock.Of<ILogger>());
             XDocument xmlFile = XDocument.Load("Resources\\FileLevelValidationRequest.xml");

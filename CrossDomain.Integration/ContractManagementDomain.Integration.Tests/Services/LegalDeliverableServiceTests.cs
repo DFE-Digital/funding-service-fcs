@@ -16,7 +16,7 @@
         public void LegalDeliverableService_ShouldRemoveNonLegalDeliverables()
         {
             // arrange
-            contract masterContract = TestResource.FromJson<contract>("SFA.FCT.ContractManagementDomain.Integration.Tests", "Resources.NCS_Contract.json");
+            Contract masterContract = TestResource.FromJson<Contract>("SFA.FCT.ContractManagementDomain.Integration.Tests", "Resources.NCS_Contract.json");
             IDictionary<string, IReadOnlyCollection<int>> deliverablesForFsp = new Dictionary<string, IReadOnlyCollection<int>>();
             deliverablesForFsp["NCS-EA1718"] = new List<int> { 1 };
             deliverablesForFsp["NCS-SEEDIC1718"] = new List<int> { 1 };

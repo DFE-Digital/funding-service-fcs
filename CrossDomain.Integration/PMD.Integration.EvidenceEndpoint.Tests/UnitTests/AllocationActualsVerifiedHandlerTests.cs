@@ -290,7 +290,7 @@
         {
             // arrange
             IWindsorContainer container = new WindsorContainer()
-                .Install(new WindsorInstaller(new LoggerFactory()))
+                .Install(new WindsorInstaller(new Microsoft.Extensions.Logging.LoggerFactory()))
                 .Register(Component.For<AllocationActualsVerifiedHandler>().ImplementedBy<AllocationActualsVerifiedHandler>());
             container.BeginScope();
 

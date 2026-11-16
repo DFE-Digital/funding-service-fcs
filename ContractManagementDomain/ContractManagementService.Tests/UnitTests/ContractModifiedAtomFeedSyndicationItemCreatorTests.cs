@@ -16,7 +16,7 @@
         {
             // arrange
             ContractModifiedAtomFeedSyndicationItemCreator creator = new ContractModifiedAtomFeedSyndicationItemCreator("application/json");
-            CrossDomain.Integration.Entities.CorporateContract.contract contract = GetCorpContract();
+            CrossDomain.Integration.Entities.CorporateContract.Contract contract = GetCorpContract();
             AtomFeedItem item = AtomFeedItem.CreateAtomFeedItem(contract, "BUSINESS-KEY", AtomItemType.ContractModified, xml => true);
 
             // act
@@ -30,13 +30,13 @@
             Assert.AreEqual("Contract has been modified", result.Categories[0].Label, "Label incorrect");
         }
 
-        private static CrossDomain.Integration.Entities.CorporateContract.contract GetCorpContract()
+        private static CrossDomain.Integration.Entities.CorporateContract.Contract GetCorpContract()
         {
             using var stream = Assembly.GetCallingAssembly().GetManifestResourceStream("ContractManagementService.Tests.Resources.masterContract.xml");
             var document = XDocument.Load(stream);
-            XmlSerializer serializer = new XmlSerializer(typeof(CrossDomain.Integration.Entities.CorporateContract.contract));
+            XmlSerializer serializer = new XmlSerializer(typeof(CrossDomain.Integration.Entities.CorporateContract.Contract));
                 
-                return (CrossDomain.Integration.Entities.CorporateContract.contract)serializer.Deserialize(document.Root.CreateReader());
+                return (CrossDomain.Integration.Entities.CorporateContract.Contract)serializer.Deserialize(document.Root.CreateReader());
         }
     }
 }

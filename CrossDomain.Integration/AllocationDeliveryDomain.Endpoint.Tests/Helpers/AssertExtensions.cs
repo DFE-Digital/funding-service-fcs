@@ -1,50 +1,92 @@
 ﻿namespace AllocationDeliveryDomain.Endpoint.Tests.Helpers
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System;
     using System.Collections;
     using System.Reflection;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     public static class AssertExtensions
     {
+
+
         public static void PropertyValuesAreEqual(object expected, object actual)
         {
-            PropertyInfo[] properties = expected.GetType().GetProperties();
+            // Quick null / type sanity checks
+            if (expected is null && actual is null) return;
+
+            Assert.IsNotNull(expected, "Expected object is null while actual is not.");
+            Assert.IsNotNull(actual, "Actual object is null while expected is not.");
+
+            var expectedType = expected.GetType();
+            var actualType = actual.GetType();
+
+            // If types differ, fail early with a clear message
+            if (expectedType != actualType)
+            {
+                Assert.Fail($"Type mismatch. Expected type {expectedType.FullName} but was {actualType.FullName}.");
+            }
+
+            PropertyInfo[] properties = expectedType.GetProperties(BindingFlags.Instance | BindingFlags.Public);
 
             foreach (PropertyInfo property in properties)
             {
                 object expectedValue = property.GetValue(expected, null);
                 object actualValue = property.GetValue(actual, null);
 
-                bool isClass = false;
-                if (expectedValue != null)
+                // If both null => equal
+                if (expectedValue is null && actualValue is null)
+                    continue;
+
+                // If only one is null => mismatch
+                if (expectedValue is null || actualValue is null)
                 {
-                    var ns = expectedValue.GetType().UnderlyingSystemType.Namespace;
-                    if (ns != null)
-                    {
-                        isClass = ns.Contains("SFA.FCT");
-                    }
+                    Assert.Fail(
+                        $"Property {property.DeclaringType.Name}.{property.Name} does not match. " +
+                        $"Expected: {(expectedValue ?? "null")} but was: {(actualValue ?? "null")}");
                 }
 
-                if (actualValue is IList)
+                // Determine if this is one of your domain types (recursive compare)
+                bool isDomainType = false;
+                var ns = expectedValue!.GetType().Namespace;
+                if (!string.IsNullOrEmpty(ns))
                 {
-                    AssertListsAreEqual(property, (IList)expectedValue, (IList)actualValue);
+                    isDomainType = ns!.Contains("SFA.FCT", StringComparison.Ordinal);
                 }
-                else if (isClass)
+
+                // IList handling
+                if (actualValue is IList actualList && expectedValue is IList expectedList)
+                {
+                    AssertListsAreEqual(property, expectedList, actualList);
+                }
+                else if (actualValue is IList || expectedValue is IList)
+                {
+                    Assert.Fail(
+                        $"Property {property.DeclaringType.Name}.{property.Name} type mismatch. " +
+                        $"One side is IList and the other is not.");
+                }
+                // Recurse into domain objects
+                else if (isDomainType)
                 {
                     PropertyValuesAreEqual(expectedValue, actualValue);
                 }
+                // Fallback to value equality
                 else if (!Equals(expectedValue, actualValue))
                 {
-                    Assert.Fail("Property {0}.{1} does not match. Expected: {2} but was: {3}", property.DeclaringType.Name, property.Name, expectedValue, actualValue);
+                    Assert.Fail(
+                        $"Property {property.DeclaringType.Name}.{property.Name} does not match. " +
+                        $"Expected: {expectedValue} but was: {actualValue}");
                 }
             }
         }
+
 
         private static void AssertListsAreEqual(PropertyInfo property, IList expectedList, IList actualList)
         {
             if (actualList.Count != expectedList.Count)
             {
-                Assert.Fail("Property {0}.{1} does not match. Expected IList containing {2} elements but was IList containing {3} elements", property.PropertyType.Name, property.Name, expectedList.Count, actualList.Count);
+                Assert.Fail(
+                    $"Property {property.PropertyType.Name}.{property.Name} does not match. " +
+                    $"Expected IList containing {expectedList.Count} elements but was IList containing {actualList.Count} elements");
             }
 
             for (int i = 0; i < actualList.Count; i++)
@@ -52,5 +94,6 @@
                 PropertyValuesAreEqual(expectedList[i], actualList[i]);
             }
         }
+
     }
 }

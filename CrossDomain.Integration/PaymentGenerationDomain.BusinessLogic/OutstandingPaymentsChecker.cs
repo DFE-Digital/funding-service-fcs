@@ -1,7 +1,8 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic
 {
+    extern alias Entities;
     using Integration.DataStore.Repositories;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class OutstandingPaymentsChecker : IOutstandingPaymentsChecker
     {

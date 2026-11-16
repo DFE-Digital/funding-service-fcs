@@ -1,93 +1,113 @@
-﻿namespace ContractCreateDomain.Endpoint.Services
-{
-    using System.Linq;
-    using AutoMapper;
-    using Endpoint.Extensions;
-    using ContractRequest = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
-    using CorporateContract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
+﻿using System.Linq;
+using AutoMapper;
+using ContractRequest = SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
+using CorporateContract = SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
 
+namespace ContractCreateDomain.Endpoint.Services
+{
     public class ContractTypeTransformer : IContractTypeTransformer
     {
-        public CorporateContract.contract TransformContractTypeToContract(CorporateContract.contractType contractType)
-        {
-            Mapper.CreateMap<CorporateContract.contractType, CorporateContract.contract>();
+        private readonly IMapper _mapper;
 
-            var contract = Mapper.Map<CorporateContract.contractType, CorporateContract.contract>(contractType);
+        public ContractTypeTransformer(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public CorporateContract.Contract TransformContractTypeToContract(
+            CorporateContract.contractType contractType)
+        {
+            var contract =
+                _mapper.Map<CorporateContract.Contract>(contractType);
+
             contract.contracts.ForEach(c =>
             {
-                var matchingCorpChildContract = contract.contracts.Single(corpChildContract => corpChildContract.contractNumber == c.contractNumber);
+                var matchingCorpChildContract =
+                    contract.contracts.Single(cc =>
+                        cc.contractNumber == c.contractNumber);
 
                 c.contractAllocations.ForEach(a =>
                 {
-                    var matchingCorpAllocation = matchingCorpChildContract.contractAllocations.Single(corpAllocation =>
-                        corpAllocation.contractAllocationNumber == a.contractAllocationNumber);
+                    var matchingCorpAllocation =
+                        matchingCorpChildContract.contractAllocations.Single(ca =>
+                            ca.contractAllocationNumber ==
+                            a.contractAllocationNumber);
 
-                    a.contractDeliverables = matchingCorpAllocation.contractDeliverables.Select(ToCorporateContractDeliverable).ToList();
+                    a.contractDeliverables =
+                        matchingCorpAllocation.contractDeliverables
+                            .Select(ToCorporateContractDeliverable)
+                            .ToList();
                 });
             });
 
             return contract;
         }
 
-        public ContractRequest.contractType TransformCorpContractToContractRequest(CorporateContract.contractType contractType)
+        public ContractRequest.contractType TransformCorpContractToContractRequest(
+            CorporateContract.contractType contractType)
         {
-            Mapper.CreateMap<CorporateContract.contractType, ContractRequest.contractType>();
-            Mapper.CreateMap<CorporateContract.period, ContractRequest.periodType>();
-            Mapper.CreateMap<CorporateContract.contractAllocationsContractAllocation, ContractRequest.contractAllocation>();
-            Mapper.CreateMap<CorporateContract.contractDeliverablesTypeContractDeliverable, ContractRequest.contractDeliverable>();
-            Mapper.CreateMap<CorporateContract.deliverableType, ContractRequest.deliverableType>();
-            Mapper.CreateMap<CorporateContract.contractDeliverablesTypeContractDeliverable, ContractRequest.contractDeliverable>();
-            Mapper
-                .CreateMap<CorporateContract.contractDeliverablePeriodsTypeContractDeliverablePeriod,
-                    ContractRequest.contractDeliverablePeriodType>();
-            Mapper.CreateMap<CorporateContract.periodTypeType, ContractRequest.periodTypeType>();
-            Mapper.CreateMap<CorporateContract.contractor, ContractRequest.contractor>();
+            var contract =
+                _mapper.Map<ContractRequest.contractType>(contractType);
 
-            var contract = Mapper.Map<CorporateContract.contractType, ContractRequest.contractType>(contractType);
-            contract.contractAllocations.ForEach(contractRequestAllocation =>
+            contract.contractAllocations.ForEach(crAllocation =>
             {
-                var corpContractAllocation = contractType.contractAllocations.Single(ca =>
-                    ca.contractAllocationNumber == contractRequestAllocation.contractAllocationNumber);
+                var corpContractAllocation =
+                    contractType.contractAllocations.Single(ca =>
+                        ca.contractAllocationNumber ==
+                        crAllocation.contractAllocationNumber);
 
-                contractRequestAllocation.contractDeliverables = corpContractAllocation.GetAllDeliverables()
-                    .Select(Mapper
-                        .Map<CorporateContract.contractDeliverablesTypeContractDeliverable,
-                            ContractRequest.contractDeliverable>).ToList();
+                crAllocation.contractDeliverables =
+                    corpContractAllocation.GetAllDeliverables()
+                        .Select(d =>
+                            _mapper.Map<ContractRequest.contractDeliverable>(d))
+                        .ToList();
             });
-            
+
             return contract;
         }
 
-        public CorporateContract.ExtendedContractType TransformContractTypeToExtendedContractType(CorporateContract.contractType contractType)
+        public CorporateContract.ExtendedContractType
+            TransformContractTypeToExtendedContractType(
+                CorporateContract.contractType contractType)
         {
-            Mapper.CreateMap<CorporateContract.contractType, CorporateContract.ExtendedContractType>();
-            Mapper.CreateMap<CorporateContract.contractAllocationsContractAllocation, CorporateContract.ExtendedContractAllocation>();
+            var extended =
+                _mapper.Map<CorporateContract.ExtendedContractType>(contractType);
 
-            var extendedContractType = Mapper.Map<CorporateContract.contractType, CorporateContract.ExtendedContractType>(contractType);
-
-            extendedContractType.contracts.ForEach(c =>
+            extended.contracts.ForEach(c =>
             {
-                var matchingCorpChildContract = extendedContractType.contracts.Single(corpChildContract => corpChildContract.contractNumber == c.contractNumber);
+                var matchingCorpChildContract =
+                    extended.contracts.Single(cc =>
+                        cc.contractNumber == c.contractNumber);
 
                 c.contractAllocations.ForEach(a =>
                 {
-                    var matchingCorpAllocation = matchingCorpChildContract.contractAllocations.Single(corpAllocation =>
-                        corpAllocation.contractAllocationNumber == a.contractAllocationNumber);
+                    var matchingCorpAllocation =
+                        matchingCorpChildContract.contractAllocations.Single(ca =>
+                            ca.contractAllocationNumber ==
+                            a.contractAllocationNumber);
 
-                    a.contractDeliverables = matchingCorpAllocation.contractDeliverables.Select(ToCorporateContractDeliverable).ToList();
+                    a.contractDeliverables =
+                        matchingCorpAllocation.contractDeliverables
+                            .Select(ToCorporateContractDeliverable)
+                            .ToList();
                 });
-                c.TerminationReason = c.TerminationReason.HasValue() ? c.TerminationReason : null;
+
+                c.TerminationReason =
+                    !string.IsNullOrWhiteSpace(c.TerminationReason)
+                        ? c.TerminationReason
+                        : null;
+
             });
 
-            return extendedContractType;
+            return extended;
         }
 
-        private static CorporateContract.contractDeliverablesTypeContractDeliverable ToCorporateContractDeliverable(
-            CorporateContract.contractDeliverablesTypeContractDeliverable deliverable)
+        private CorporateContract.contractDeliverablesTypeContractDeliverable
+            ToCorporateContractDeliverable(
+                CorporateContract.contractDeliverablesTypeContractDeliverable deliverable)
         {
-            return Mapper
-                .Map<CorporateContract.contractDeliverablesTypeContractDeliverable,
-                    CorporateContract.contractDeliverablesTypeContractDeliverable>(deliverable);
+            return _mapper.Map<
+                CorporateContract.contractDeliverablesTypeContractDeliverable>(deliverable);
         }
     }
 }

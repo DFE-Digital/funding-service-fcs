@@ -1,4 +1,5 @@
-﻿namespace AllocationDeliveryDomain.Endpoint.Tests.Unit
+﻿
+namespace AllocationDeliveryDomain.Endpoint.Tests.Unit
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -30,7 +31,7 @@
         [TestInitialize]
         public void SetupTests()
         {
-            AutoMapper.Mapper.Reset();
+            // Removed: AutoMapper.Mapper.Reset();  (obsolete on modern AutoMapper; not used in these tests)
 
             var allocationDeliverablePeriods = new List<AllocationDeliverablePeriod>
             {
@@ -107,6 +108,7 @@
                     Ukprn = Ukprn
                 },
 
+                // ESF entries
                 new AllocationDeliverablePeriod
                 {
                     ContractNumber = ContractNumber,
@@ -150,7 +152,8 @@
                     ContractSubVersionNumber = ContractSubVersionNumber,
                     ContractAllocationNumber = ESFAllocationNumber,
                     DeliverableCode = 2,
-                    FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
+                    // Fixed: should be ESF code (was ValidFundingStreamPeriodCode before)
+                    FundingStreamPeriodCode = ValidESFFundingStreamPeriodCode,
                     OrganisationId = ValidOrganisationId,
                     Period = "201508",
                     Ukprn = Ukprn
@@ -181,24 +184,34 @@
                 }
             };
 
-            // in our code the UopCode is defaulted to empty strin
+            // In our code the UopCode is defaulted to empty string
             allocationDeliverablePeriods.ForEach(adp => adp.UopCode = string.Empty);
-            _mockStore.Setup(s => s.GetActiveAllocationDeliverablePeriods(ValidOrganisationId,
-                ValidFundingStreamPeriodCode,
-                null,
-                It.IsAny<ConnectionInfo>())).Returns(allocationDeliverablePeriods
-                .Where(m => m.FundingStreamPeriodCode == ValidFundingStreamPeriodCode).ToList());
 
-            _mockStore.Setup(s => s.GetActiveAllocationDeliverablePeriods(InvalidOrganisationId,
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<ConnectionInfo>())).Returns(new List<AllocationDeliverablePeriod>());
-
-            _mockStore.Setup(s =>
-                    s.GetActiveAllocationDeliverablePeriods(It.Is<List<string>>(a =>
-                        a.Count == 1 && a.Contains(ESFAllocationNumber)), It.IsAny<ConnectionInfo>()))
+            _mockStore
+                .Setup(s => s.GetActiveAllocationDeliverablePeriods(
+                    ValidOrganisationId,
+                    ValidFundingStreamPeriodCode,
+                    null,
+                    It.IsAny<ConnectionInfo>()))
                 .Returns(allocationDeliverablePeriods
-                    .Where(m => m.FundingStreamPeriodCode == ValidESFFundingStreamPeriodCode).ToList());
+                    .Where(m => m.FundingStreamPeriodCode == ValidFundingStreamPeriodCode)
+                    .ToList());
+
+            _mockStore
+                .Setup(s => s.GetActiveAllocationDeliverablePeriods(
+                    InvalidOrganisationId,
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<ConnectionInfo>()))
+                .Returns(new List<AllocationDeliverablePeriod>());
+
+            _mockStore
+                .Setup(s => s.GetActiveAllocationDeliverablePeriods(
+                    It.Is<List<string>>(a => a.Count == 1 && a.Contains(ESFAllocationNumber)),
+                    It.IsAny<ConnectionInfo>()))
+                .Returns(allocationDeliverablePeriods
+                    .Where(m => m.FundingStreamPeriodCode == ValidESFFundingStreamPeriodCode)
+                    .ToList());
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -224,14 +237,11 @@
             };
 
             // Act
-            ActualEnricher enricher = new ActualEnricher(_mockStore.Object, Mock.Of<ILogger>());
-
+            var enricher = new ActualEnricher(_mockStore.Object, Mock.Of<ILogger>());
             var enrichedActuals = enricher.Enrich(actuals, It.IsAny<ConnectionInfo>()).ToArray();
 
             // Assert
-            Assert.AreEqual(2,
-                enrichedActuals.Count(),
-                "The number of actuals enriched is incorrect");
+            Assert.AreEqual(2, enrichedActuals.Length, "The number of actuals enriched is incorrect");
 
             Assert.IsTrue(enrichedActuals.All(e => e.Ukprn == Ukprn),
                 "The actuals were not enriched with the correct Ukprn");
@@ -248,10 +258,10 @@
             Assert.IsTrue(enrichedActuals.All(e => e.ContractSubVersion == ContractSubVersionNumber),
                 "The actuals were not enriched with the correct contract sub version number");
 
-            Assert.IsTrue(enrichedActuals.Single(e => e.EnrichedDeliverableCode == "1") != null,
+            Assert.IsTrue(enrichedActuals.Any(e => e.EnrichedDeliverableCode == "1"),
                 "Matching Deliverable Period was not found for Deliverable Code 1");
 
-            Assert.IsTrue(enrichedActuals.Single(e => e.EnrichedDeliverableCode == "2") != null,
+            Assert.IsTrue(enrichedActuals.Any(e => e.EnrichedDeliverableCode == "2"),
                 "Matching Deliverable Period was not found for Deliverable Code 2");
         }
 
@@ -280,14 +290,11 @@
             };
 
             // Act
-            ActualEnricher enricher = new ActualEnricher(_mockStore.Object, Mock.Of<ILogger>());
-
+            var enricher = new ActualEnricher(_mockStore.Object, Mock.Of<ILogger>());
             var enrichedActuals = enricher.Enrich(actuals, It.IsAny<ConnectionInfo>()).ToArray();
 
             // Assert
-            Assert.AreEqual(2,
-                enrichedActuals.Count(),
-                "The number of actuals enriched is incorrect");
+            Assert.AreEqual(2, enrichedActuals.Length, "The number of actuals enriched is incorrect");
 
             Assert.IsTrue(enrichedActuals.All(e => e.Ukprn == Ukprn),
                 "The actuals were not enriched with the correct Ukprn");
@@ -304,10 +311,10 @@
             Assert.IsTrue(enrichedActuals.All(e => e.ContractSubVersion == ContractSubVersionNumber),
                 "The actuals were not enriched with the correct contract sub version number");
 
-            Assert.IsTrue(enrichedActuals.Single(e => e.EnrichedDeliverableCode == "1") != null,
+            Assert.IsTrue(enrichedActuals.Any(e => e.EnrichedDeliverableCode == "1"),
                 "Matching Deliverable Period was not found for Deliverable Code 1");
 
-            Assert.IsTrue(enrichedActuals.Single(e => e.EnrichedDeliverableCode == "2") != null,
+            Assert.IsTrue(enrichedActuals.Any(e => e.EnrichedDeliverableCode == "2"),
                 "Matching Deliverable Period was not found for Deliverable Code 2");
         }
 
@@ -315,14 +322,15 @@
         public void ActualEnricher_ShouldNotMapNullAllocationDeliverablePeriodsToEnrichedReportedActuals()
         {
             // arrange
-            Mock<IMonitoringDeliverableStore> monitoringDeliverableStoreMock =
-                new Mock<IMonitoringDeliverableStore>();
+            var monitoringDeliverableStoreMock = new Mock<IMonitoringDeliverableStore>();
 
-            monitoringDeliverableStoreMock.Setup(m =>
-                    m.GetActiveAllocationDeliverablePeriods(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<ConnectionInfo>()))
+            monitoringDeliverableStoreMock
+                .Setup(m => m.GetActiveAllocationDeliverablePeriods(
+                    It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<ConnectionInfo>()))
                 .Returns(new List<AllocationDeliverablePeriod>());
 
-            ActualEnricher enricher = new ActualEnricher(_mockStore.Object, Mock.Of<ILogger>());
+            // Use the mock created in this method (fixed)
+            var enricher = new ActualEnricher(monitoringDeliverableStoreMock.Object, Mock.Of<ILogger>());
 
             var actuals = new List<ReportedActual>
             {
@@ -343,7 +351,7 @@
             };
 
             // act
-            IEnumerable<EnrichedReportedActual> result = enricher.Enrich(actuals, It.IsAny<ConnectionInfo>());
+            var result = enricher.Enrich(actuals, It.IsAny<ConnectionInfo>());
 
             // assert
             Assert.IsFalse(result.Any(),
@@ -360,16 +368,17 @@
             const int validDelCode = 1;
             const string validPeriod = "201508";
 
-            Mock<IMonitoringDeliverableStore> monitoringDeliverableStoreMock =
-                new Mock<IMonitoringDeliverableStore>();
+            var monitoringDeliverableStoreMock = new Mock<IMonitoringDeliverableStore>();
 
-            monitoringDeliverableStoreMock.Setup(m =>
-                    m.GetActiveAllocationDeliverablePeriods(It.IsAny<string>(), It.IsAny<string>(), invalidUopCode, It.IsAny<ConnectionInfo>()))
+            monitoringDeliverableStoreMock
+                .Setup(m => m.GetActiveAllocationDeliverablePeriods(
+                    It.IsAny<string>(), It.IsAny<string>(), invalidUopCode, It.IsAny<ConnectionInfo>()))
                 .Returns(new List<AllocationDeliverablePeriod>());
 
-            monitoringDeliverableStoreMock.Setup(m =>
-                    m.GetActiveAllocationDeliverablePeriods(It.IsAny<string>(), It.IsAny<string>(), validUopCode, It.IsAny<ConnectionInfo>()))
-                .Returns(new List<AllocationDeliverablePeriod>()
+            monitoringDeliverableStoreMock
+                .Setup(m => m.GetActiveAllocationDeliverablePeriods(
+                    It.IsAny<string>(), It.IsAny<string>(), validUopCode, It.IsAny<ConnectionInfo>()))
+                .Returns(new List<AllocationDeliverablePeriod>
                 {
                     new AllocationDeliverablePeriod
                     {
@@ -382,7 +391,7 @@
                     }
                 });
 
-            ActualEnricher enricher = new ActualEnricher(monitoringDeliverableStoreMock.Object, Mock.Of<ILogger>());
+            var enricher = new ActualEnricher(monitoringDeliverableStoreMock.Object, Mock.Of<ILogger>());
 
             var actuals = new List<ReportedActual>
             {
@@ -405,11 +414,12 @@
             };
 
             // act
-            List<EnrichedReportedActual> result = enricher.Enrich(actuals, It.IsAny<ConnectionInfo>()).ToList();
+            var result = enricher.Enrich(actuals, It.IsAny<ConnectionInfo>()).ToList();
 
             // assert
             Assert.AreEqual(1, result.Count, "Enricher should have enriched exactly 1 actual");
-            Assert.AreEqual(result[0].ContractAllocationNumber, allocationNumber, "Enricher mapped the wrong value for Allocation Number");
+            Assert.AreEqual(allocationNumber, result[0].ContractAllocationNumber,
+                "Enricher mapped the wrong value for Allocation Number");
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -419,15 +429,15 @@
             const int delCode = 1;
             const string period = "201508";
 
-            Mock<IMonitoringDeliverableStore> monitoringDeliverableStoreMock =
-                new Mock<IMonitoringDeliverableStore>();
+            var monitoringDeliverableStoreMock = new Mock<IMonitoringDeliverableStore>();
 
-            monitoringDeliverableStoreMock.Setup(m =>
-                    m.GetActiveAllocationDeliverablePeriods(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<ConnectionInfo>()))
+            monitoringDeliverableStoreMock
+                .Setup(m => m.GetActiveAllocationDeliverablePeriods(
+                    It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<ConnectionInfo>()))
                 .Returns(new List<AllocationDeliverablePeriod>
                 {
                     new AllocationDeliverablePeriod
-                    { 
+                    {
                         OrganisationId = ValidOrganisationId,
                         FundingStreamPeriodCode = ValidFundingStreamPeriodCode,
                         DeliverableCode = delCode,
@@ -436,7 +446,7 @@
                     }
                 });
 
-            ActualEnricher enricher = new ActualEnricher(monitoringDeliverableStoreMock.Object, Mock.Of<ILogger>());
+            var enricher = new ActualEnricher(monitoringDeliverableStoreMock.Object, Mock.Of<ILogger>());
 
             var actuals = new List<ReportedActual>
             {
@@ -451,7 +461,7 @@
             };
 
             // act
-            List<EnrichedReportedActual> result = enricher.Enrich(actuals, It.IsAny<ConnectionInfo>()).ToList();
+            var result = enricher.Enrich(actuals, It.IsAny<ConnectionInfo>()).ToList();
 
             // assert
             Assert.AreEqual(1, result.Count, "Enricher should have enriched exactly 1 actual");

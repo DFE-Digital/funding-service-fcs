@@ -1,5 +1,6 @@
 ﻿namespace ADMonitoringDomain.Endpoint.Tests.Integration
 {
+    extern alias Entities;
     using System;
     using System.Linq;
     using BusinessLogic;
@@ -12,9 +13,9 @@
     using SFA.FCT.AllocationDelivery.DataStore;
     using SFA.FCT.AllocationDelivery.DataStore.Model;
     using SFA.FCT.CrossDomain.Integration.Common;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
-    using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using Entity=Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Data = Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using DeliveryAllocation=Entities::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore;
@@ -58,7 +59,7 @@
             var allocDeliveryPerf = CreateAllocationDeliveryPerformance();
             var allocationDeliveryMonitoringRepository = _container.Resolve<IAllocationDeliveryMonitoringRepository>();
             _id = allocationDeliveryMonitoringRepository.StoreEvent(allocDeliveryPerf, AllocationDeliveryEntryCategory.NewContractAllocationApproved,
-                ConnectionInfo.CreateFrom(new AllocationDeliveryMonitoringDbContext().Database.Connection));
+                Data.ConnectionInfo.CreateFrom(new AllocationDeliveryMonitoringDbContext().Database.Connection));
 
             var addedItem = GetAllocationDeliveryEntry(_id.Value);
             Assert.IsNotNull(addedItem);
@@ -87,10 +88,10 @@
                 ObjectType = typeof (AllocationDeliveryCommencedEvent).AssemblyQualifiedName,
                 Object = new AllocationDeliveryCommencedEvent
                 {
-                    Allocation = new allocationType
+                    Allocation = new DeliveryAllocation.allocationType
                     {
                         contractAllocationNumber = testAllocNum,
-                        contractReference = new contractReferenceType
+                        contractReference = new DeliveryAllocation.contractReferenceType
                         {
                             contractVersionNumber = 1
                         }
@@ -108,7 +109,7 @@
                 ObjectType = typeof(PaymentScheduleEvent).AssemblyQualifiedName,
                 Object = new PaymentScheduleEvent
                 {
-                    PaymentScheduleAllocation = new SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
+                    PaymentScheduleAllocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation
                     {
                         AllocationNumber = testAllocNum,
                         VersionNumber = 1
@@ -126,7 +127,7 @@
                 ObjectType = typeof(PaymentAggregatedEvent).AssemblyQualifiedName,
                 Object = new PaymentAggregatedEvent
                 {
-                    Allocation = new SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
+                    Allocation = new Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation
                     {
                         AllocationNumber = testAllocNum,
                         VersionNumber = 1
@@ -147,7 +148,7 @@
             // Act
 
             repo.ClearEvents("NewContractAllocationApproved", testAllocNum, 1,
-                ConnectionInfo.CreateFrom(new AllocationDeliveryMonitoringDbContext().Database.Connection));
+                Data.ConnectionInfo.CreateFrom(new AllocationDeliveryMonitoringDbContext().Database.Connection));
             
             // Assert
 
@@ -177,11 +178,11 @@
             }
         }
 
-        private AllocationDeliveryPerformance CreateAllocationDeliveryPerformance()
+        private Entity.AllocationDeliveryPerformance CreateAllocationDeliveryPerformance()
         {
-            var result = new AllocationDeliveryPerformance();
+            var result = new Entity.AllocationDeliveryPerformance();
             result.contractAllocationNumber = "1";
-            result.Contract = new contractReferenceTYPE() { contractNumber = "2", contractVersionNumber = 3 };
+            result.Contract = new Entity.contractReferenceTYPE() { contractNumber = "2", contractVersionNumber = 3 };
             result.schemaVersion = 4M;
             return result;
         }

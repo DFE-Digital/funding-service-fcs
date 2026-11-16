@@ -18,6 +18,7 @@
     using Infrastructure.Repositories.CrmReplicaRepo;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class CfsFundingAllocationSteps
@@ -61,7 +62,7 @@
         [Given(@"the following Provider Funding Agreement data is present in the CFS stub")]
         public void GivenTheFollowingProviderFundingAgreementDataIsPresentInTheCfsStub(Table table)
         {
-            Assert.IsNotNull(_fundingAllocations, $"{nameof(_fundingAllocations)} variable not set");
+            ClassicAssert.IsNotNull(_fundingAllocations, $"{nameof(_fundingAllocations)} variable not set");
            
             _fundingAllocations
                 .Where(fa => table.Rows.ContainsColumnValue("FundingId", fa.FundingId))
@@ -83,7 +84,7 @@
         [Given(@"the following Funding Allocation Line data is present in the CFS stub")]
         public void GivenTheFollowingFundingAllocationLineDataIsPresentInTheCfsStub(Table table)
         {
-            Assert.IsNotNull(_fundingAllocations, $"{nameof(_fundingAllocations)} variable not set");
+            ClassicAssert.IsNotNull(_fundingAllocations, $"{nameof(_fundingAllocations)} variable not set");
 
             _fundingAllocations
                 .SelectMany(fa => fa.ProviderFundingAllocations)
@@ -105,7 +106,7 @@
         [Given(@"the following Funding Allocation Profile Period data is present in the CFS stub")]
         public void GivenTheFollowingFundingAllocationProfilePeriodDataIsPresentInTheCfsStub(Table table)
         {
-            Assert.IsNotNull(_fundingAllocations, $"{nameof(_fundingAllocations)} variable not set");
+            ClassicAssert.IsNotNull(_fundingAllocations, $"{nameof(_fundingAllocations)} variable not set");
 
 
             _fundingAllocations
@@ -129,7 +130,7 @@
         [When(@"the feed-reading process is started and the CFS stub data is processed into CRM")]
         public void WhenTheFeed_ReadingProcessIsStartedAndTheCFSStubDataIsProcessedIntoCRM()
         {
-            Assert.IsNotNull(_fundingAllocations, $"{nameof(_fundingAllocations)} variable not set");
+            ClassicAssert.IsNotNull(_fundingAllocations, $"{nameof(_fundingAllocations)} variable not set");
 
             CfsStubRepository.AddRange(_fundingAllocations);
 
@@ -164,7 +165,7 @@
                 row => row["FundingId"],
                 IsMatchingRow);
 
-            Assert.IsFalse(unmatchedRows.Any(), $"Failed to find the following rows: {unmatchedRows.ToHeaderAndValueString()}");
+            ClassicAssert.IsFalse(unmatchedRows.Any(), $"Failed to find the following rows: {unmatchedRows.ToHeaderAndValueString()}");
         }
 
         [Then(@"the following Funding Allocations and Contracts are linked in PaaS")]
@@ -185,7 +186,7 @@
                 row => row["FundingId"],
                 IsMatchingRow);
 
-            Assert.IsFalse(unmatchedRows.Any(), $"Failed to find the following rows: {unmatchedRows.ToHeaderAndValueString()}");
+            ClassicAssert.IsFalse(unmatchedRows.Any(), $"Failed to find the following rows: {unmatchedRows.ToHeaderAndValueString()}");
         }
 
         [Then(@"the following Funding Allocations data is present in CRM")]
@@ -221,7 +222,7 @@
                 {
                     var crmRows = CrmFundingAllocationRepository.GetFundingAllocationsForUkprn(expectedRow.Ukprn, expectedRow.FundingId);
 
-                    Assert.IsTrue(crmRows.Count <=1,
+                    ClassicAssert.IsTrue(crmRows.Count <=1,
                         $"There should only be one funding allocation in CRM for this ukprn:{expectedRow.Ukprn} and fundingId{expectedRow.FundingId}");
 
                     var crmRow = crmRows.FirstOrDefault();
@@ -247,7 +248,7 @@
 
                 var isDataPresent = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(isDataPresent, $"The funding allocation in CRM does not contain the expected items, expected: {expectedRow}");
+                ClassicAssert.IsTrue(isDataPresent, $"The funding allocation in CRM does not contain the expected items, expected: {expectedRow}");
             });
         }
 
@@ -296,7 +297,7 @@
 
                 var isDataPresent = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(isDataPresent, $"The funding allocation history in CRM does not contain the expected items, expected: {expectedRow}");
+                ClassicAssert.IsTrue(isDataPresent, $"The funding allocation history in CRM does not contain the expected items, expected: {expectedRow}");
             });
         }
 
@@ -358,7 +359,7 @@
 
                 bool successfullySetVariable = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(successfullySetVariable, $"Unable to set variable {row["ReleaseGroupParameterName"]} based on {row.ToHeaderAndValueString()}");
+                ClassicAssert.IsTrue(successfullySetVariable, $"Unable to set variable {row["ReleaseGroupParameterName"]} based on {row.ToHeaderAndValueString()}");
             });
         }
 
@@ -383,7 +384,7 @@
                 CheckResultPoller poller = new CheckResultPoller(ReleaseCollectionOfReleaseGrps, maxNumChecks: 10, waitIntervalSeconds: 2);
                 bool hasReleaseOccurredInCrm = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(hasReleaseOccurredInCrm, $"The release in CRM has failed: {string.Join(", ", releaseGroupNames)}");
+                ClassicAssert.IsTrue(hasReleaseOccurredInCrm, $"The release in CRM has failed: {string.Join(", ", releaseGroupNames)}");
             }
         }
 
@@ -422,7 +423,7 @@
 
             bool foundReleaseGroup = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(foundReleaseGroup, $"Release Group Name: {releaseGroupName} - {string.Join(", ", errors)}");
+            ClassicAssert.IsTrue(foundReleaseGroup, $"Release Group Name: {releaseGroupName} - {string.Join(", ", errors)}");
         }
 
         [When(@"User '(.*)' opts to put the following Funding Allocations on hold")]
@@ -469,7 +470,7 @@
 
             bool isStatusFound = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(isStatusFound, $"ReleaseGroup {releaseGroupName} has a status of {actualStatus}. Test expected {expectedStatus}");
+            ClassicAssert.IsTrue(isStatusFound, $"ReleaseGroup {releaseGroupName} has a status of {actualStatus}. Test expected {expectedStatus}");
         }
 
         [When(@"User '(.*)' opts to withdraw the following Funding Allocations from Contract Control with Withdrawal Reason '(.*)'")]
@@ -623,17 +624,17 @@
             {
                 var sheet = workBook.Worksheets[expectedRow.TabName];
                 var row = sheet.GetRow(1, expectedRow.FundingId);
-                Assert.IsNotNull(row, $"The funding allocation is not found: {expectedRow.FundingId}");
+                ClassicAssert.IsNotNull(row, $"The funding allocation is not found: {expectedRow.FundingId}");
                 string failureMessage = $"The funding allocation: {expectedRow.FundingId} does not have the right: ";
-                Assert.AreEqual(expectedRow.Status.RemoveSpacing(), row[statusColIndex].DisplayStringValue.RemoveSpacing(), failureMessage + "Status");
-                Assert.AreEqual(expectedRow.SubStatus.RemoveSpacing(), row[subStatusColIndex].DisplayStringValue.RemoveSpacing(), failureMessage + "SubStatus");
-                Assert.AreEqual(expectedRow.Value, row[valueColIndex].DoubleValue, failureMessage + "Value");
-                Assert.AreEqual(expectedRow.ProviderType, row[providerTypeIndex].DisplayStringValue, failureMessage + "Provider Type");
-                Assert.AreEqual(expectedRow.ProviderSubType, row[providerSubTypeIndex].DisplayStringValue, failureMessage + "Provider Sub Type");
+                ClassicAssert.AreEqual(expectedRow.Status.RemoveSpacing(), row[statusColIndex].DisplayStringValue.RemoveSpacing(), failureMessage + "Status");
+                ClassicAssert.AreEqual(expectedRow.SubStatus.RemoveSpacing(), row[subStatusColIndex].DisplayStringValue.RemoveSpacing(), failureMessage + "SubStatus");
+                ClassicAssert.AreEqual(expectedRow.Value, row[valueColIndex].DoubleValue, failureMessage + "Value");
+                ClassicAssert.AreEqual(expectedRow.ProviderType, row[providerTypeIndex].DisplayStringValue, failureMessage + "Provider Type");
+                ClassicAssert.AreEqual(expectedRow.ProviderSubType, row[providerSubTypeIndex].DisplayStringValue, failureMessage + "Provider Sub Type");
                 
                 if (expectedRow.TabName.ToLower() == "discarded")
                 {
-                    Assert.IsTrue(FundingAllocationRepository.ParkingAndDiscardedInfoExists(expectedRow.FundingId), "FundingId not in ParkingAndDiscardedInfo table");
+                    ClassicAssert.IsTrue(FundingAllocationRepository.ParkingAndDiscardedInfoExists(expectedRow.FundingId), "FundingId not in ParkingAndDiscardedInfo table");
                 }
             });
         }
@@ -660,15 +661,15 @@
             {
                 var sheet = workBook.Worksheets[expectedRow.TabName];
                 var row = sheet.GetRow(1, expectedRow.FundingId);
-                Assert.IsNotNull(row, $"The funding allocation is not found: {expectedRow.FundingId}");
+                ClassicAssert.IsNotNull(row, $"The funding allocation is not found: {expectedRow.FundingId}");
                 string failureMessage = $"The funding allocation: {expectedRow.FundingId} does not have the right: ";
-                Assert.AreEqual(expectedRow.Status.RemoveSpacing(), row[statusColIndex].DisplayStringValue.RemoveSpacing(), failureMessage + "Status");
-                Assert.AreEqual(expectedRow.SubStatus.RemoveSpacing(), row[subStatusColIndex].DisplayStringValue.RemoveSpacing(), failureMessage + "SubStatus");
-                Assert.AreEqual(expectedRow.Value, row[valueColIndex].DoubleValue, failureMessage + "Value");
+                ClassicAssert.AreEqual(expectedRow.Status.RemoveSpacing(), row[statusColIndex].DisplayStringValue.RemoveSpacing(), failureMessage + "Status");
+                ClassicAssert.AreEqual(expectedRow.SubStatus.RemoveSpacing(), row[subStatusColIndex].DisplayStringValue.RemoveSpacing(), failureMessage + "SubStatus");
+                ClassicAssert.AreEqual(expectedRow.Value, row[valueColIndex].DoubleValue, failureMessage + "Value");
 
                 if (expectedRow.TabName.ToLower() == "discarded")
                 {
-                    Assert.IsTrue(FundingAllocationRepository.ParkingAndDiscardedInfoExists(expectedRow.FundingId), "FundingId not in ParkingAndDiscardedInfo table");
+                    ClassicAssert.IsTrue(FundingAllocationRepository.ParkingAndDiscardedInfoExists(expectedRow.FundingId), "FundingId not in ParkingAndDiscardedInfo table");
                 }
             });
         }

@@ -3,6 +3,7 @@ using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
 namespace Operations.Web.Repositories
 {
+    extern alias CMService;
     using System.Threading.Tasks;
     using Azure.Messaging.ServiceBus;
     using Azure.Messaging.ServiceBus.Administration;
@@ -14,7 +15,7 @@ namespace Operations.Web.Repositories
     using NServiceBus;
     using System.IO;
     using System;
-    using SFA.FCT.ContractManagementService.Common.Commands;
+    using CMService::SFA.FCT.ContractManagementService.Common.Commands;
     using Operations.Web.Dtos;
     using SFA.FCT.Framework.Logging.NullObjects;
     using SFA.FCT.Framework.Logging;
@@ -22,11 +23,13 @@ namespace Operations.Web.Repositories
     using Operations.Web.Infrastructure;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using Microsoft.Azure.Amqp.Framing;
+    using System.Configuration;
 
     public class AzureServiceBusQueueService : IAzureServiceBusQueueService
     {
         //private readonly IFcsConfiguration _configuration;
         public static ILogger Logger { get; set; }
+        private string AzureServiceBusConnectionString =>ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
         public AzureServiceBusQueueService()
         {
 
@@ -205,28 +208,33 @@ namespace Operations.Web.Repositories
 
         public static IEndpointInstance CreateSendOnlyEndpoint<TCommand>()
         {
-            EndpointConfiguration endpointConfiguration = new EndpointConfiguration("TestSendingEndpoint");
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            EndpointConfiguration endpointConfiguration =
+                new EndpointConfiguration("TestSendingEndpoint");
+
+            endpointConfiguration.SendOnly();
+
             endpointConfiguration.Conventions()
                 .DefiningCommandsAs(t => t == typeof(TCommand));
 
-            // exclude all
-            string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+            string[] assembliesToExclude =
+                Directory.EnumerateFiles(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    "*.dll")
                 .Select(Path.GetFileName)
                 .ToArray();
 
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
+            AssemblyScannerConfiguration scanner =
+                endpointConfiguration.AssemblyScanner();
+
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
 
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
+            endpointConfiguration.UseSerialization<SystemJsonSerializer>();
 
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-
-            return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            return Endpoint.Start(endpointConfiguration)
+                .GetAwaiter()
+                .GetResult();
         }
-        // private string AzureServiceBusConnectionString => _configuration["ConnectionStrings:NServiceBus/Transport"];
-        private string AzureServiceBusConnectionString => System.Configuration.ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString;
+
     }
 }

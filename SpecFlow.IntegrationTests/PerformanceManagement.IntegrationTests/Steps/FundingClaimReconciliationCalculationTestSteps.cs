@@ -29,6 +29,7 @@
     using PerformanceManagementDomain.ReconciliationCalculationEndpoint.Services;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore;
+    using MoreLinq;
 
     [Binding]
     public class FundingClaimReconciliationCalculationTestSteps

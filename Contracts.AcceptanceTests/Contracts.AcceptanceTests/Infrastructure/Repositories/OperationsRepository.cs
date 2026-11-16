@@ -9,7 +9,7 @@
 
     public class OperationsRepository
     {
-        private static string ConnectionString => ConfigurationManager.ConnectionStrings["ContractManagementDbContext"].ConnectionString;
+        private static string ConnectionString => TestConfiguration.Configuration["ConnectionStrings:ContractManagementDbContext"];
 
         public static void ClearProcessedMessageTable(string schemaName)
         {

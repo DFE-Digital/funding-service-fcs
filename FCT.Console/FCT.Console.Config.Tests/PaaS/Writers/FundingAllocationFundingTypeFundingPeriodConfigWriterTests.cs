@@ -1,22 +1,19 @@
 ﻿namespace FCT.Console.Config.Tests.PaaS.Writers
 {
-    using Dapper;
-    using ExcelTypes;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using PaymentGenerationDomain.Integration.DataStore;
-    using Synchronizers.Writers;
-    using Synchronizers.Writers.PAAS;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
     using System.Linq;
+    using Dapper;
+    using ExcelTypes;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Synchronizers.Writers;
+    using Synchronizers.Writers.PAAS;
 
     [TestClass]
     public class FundingAllocationFundingTypeFundingPeriodConfigWriterTests
     {
-        private static readonly string connectionString = PaymentGenerationDbContext.KeyVaultValue;
-
         [TestMethod, TestCategory("IntegrationTest")]
         public void FundingAllocationFundingTypeFundingPeriodConfigWriter_ShouldInsert()
         {
@@ -162,6 +159,8 @@
 
         private static void RemoveRowsWithPrefix(string fundingTypeCode, string fundingPeriod)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Execute(
@@ -174,6 +173,8 @@
 
         private static IReadOnlyCollection<dynamic> GetRowsWithPrefix(string fundingTypeCode, string fundingPeriod)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 return connection.Query(
@@ -186,6 +187,8 @@
 
         private static Tuple<string, string, string, bool, bool, bool?> GetUpdatedDataItems(string fundingTypeCode, string fundingPeriod)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["PaymentGenerationDbContext"].ConnectionString;
+
             using (var connection = new SqlConnection(connectionString))
             {
                 var sql = @"SELECT FtpGroupCode, PrecedingFtpFundingType, PrecedingFtpFundingPeriod, 

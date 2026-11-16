@@ -5,7 +5,7 @@
 
     public class ContractReadyToPublishEvent
     {
-        public contract CorporateContract { get; set; }
+        public Contract CorporateContract { get; set; }
 
         public ContractApprovalType ContractApprovalType { get; set; }
     }

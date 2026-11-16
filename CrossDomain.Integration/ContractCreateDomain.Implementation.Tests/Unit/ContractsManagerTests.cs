@@ -28,10 +28,10 @@
             Mock<ContractsManager> mockContractManager = new Mock<ContractsManager> { CallBase = true };
             mockContractManager
                 .Setup(c => c.GetMatchingCorporateContract(It.IsAny<string>(), It.IsAny<string>(), true))
-                .Returns(new contract());
+                .Returns(new Contract());
 
             // Act
-            contract returnedContract = mockContractManager.Object.GetCorporateContract(masterContractNumber, contractNumber);
+            Contract returnedContract = mockContractManager.Object.GetCorporateContract(masterContractNumber, contractNumber);
 
             // Assert
             Assert.IsNull(returnedContract);
@@ -43,32 +43,45 @@
             // Arrange 
             const string masterContractNumber = "111111";
             const string contractNumber = "123456";
-            contract contract = null;
+            Contract contract = null;
 
             Mock<ContractsManager> mockContractManager = new Mock<ContractsManager> { CallBase = true };
             mockContractManager.Setup(c => c.GetMatchingCorporateContract(It.IsAny<string>(), It.IsAny<string>(), true)).Returns(contract);
 
             // Act
-            contract returnedContract = mockContractManager.Object.GetCorporateContract(masterContractNumber, contractNumber);
+            Contract returnedContract = mockContractManager.Object.GetCorporateContract(masterContractNumber, contractNumber);
 
             // Assert
             Assert.IsNull(returnedContract);
         }
 
-        [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(ContractDoesntExistException))]
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void ContractsManager_GetXrmContract_ShouldThrowContractDoesntExistExceptionIfNoMatchingContractIsFound()
         {
-            // Arrange 
+            // Arrange
             const string contractNumber = "123456";
 
-            Mock<ContractsManager> mockContractManager = new Mock<ContractsManager> { CallBase = true };
+            Mock<ContractsManager> mockContractManager =
+                new Mock<ContractsManager> { CallBase = true };
+
             mockContractManager
-                .Setup(c => c.GetMatchingXrmContracts(It.Is<string>(s => s == contractNumber)))
+                .Setup(c => c.GetMatchingXrmContracts(
+                    It.Is<string>(s => s == contractNumber)))
                 .Returns(new List<sfa_contract>());
 
-            // Act
-            mockContractManager.Object.GetXrmContract(contractNumber);
+            // Act / Assert
+            try
+            {
+                mockContractManager.Object.GetXrmContract(contractNumber);
+
+                Assert.Fail(
+                    "Expected ContractDoesntExistException was not thrown.");
+            }
+            catch (ContractDoesntExistException)
+            {
+                // expected
+            }
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -110,7 +123,7 @@
                 {
                     contractAllocationNumber = ukprn,
                     DeliveryOrganisation = ukprn,
-                    period = new period
+                    period = new Period
                     {
                         period1 = "1516",
                         periodType = new periodTypeType
@@ -122,7 +135,7 @@
                     {
                         fundingStreamCode = "TEST"
                     },
-                    DeliveryOrganisationDetail = new contractor
+                    DeliveryOrganisationDetail = new Contractor
                     {
                         ukprn = (ukprn != null) ? int.Parse(ukprn):0,
                         legalName = "Some name",
@@ -170,7 +183,7 @@
                 {
                     contractAllocationNumber = org,
                     DeliveryOrganisation = org,
-                    period = new period
+                    period = new Period
                     {
                         period1 = "1516",
                         periodType = new periodTypeType
@@ -229,7 +242,7 @@
                 {
                     contractAllocationNumber = ukprn,
                     DeliveryOrganisation = ukprn,
-                    period = new period
+                    period = new Period
                     {
                         period1 = "1516",
                         periodType = new periodTypeType
@@ -241,7 +254,7 @@
                     {
                         fundingStreamCode = "TEST"
                     },
-                    DeliveryOrganisationDetail = new contractor
+                    DeliveryOrganisationDetail = new Contractor
                     {
                         ukprn = (ukprn != null) ? int.Parse(ukprn) : 0
                     }

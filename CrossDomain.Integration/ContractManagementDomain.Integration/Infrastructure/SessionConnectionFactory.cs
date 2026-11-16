@@ -1,14 +1,16 @@
-﻿namespace SFA.FCT.ContractManagementDomain.Integration.Infrastructure
+﻿
+namespace SFA.FCT.ContractManagementDomain.Integration.Infrastructure
 {
     using CrossDomain.Integration.Entities.Data;
-    using NServiceBus;
+    using NServiceBus;                 // IMessageHandlerContext, SynchronizedStorageSession
+    using NServiceBus.Persistence.Sql; // SqlPersistenceSession() + ISqlStorageSession
 
     public class SessionConnectionFactory : ISessionConnectionFactory
     {
         public ConnectionInfo GetConnection(IMessageHandlerContext context)
         {
-            return new ConnectionInfo(context.SynchronizedStorageSession.SqlPersistenceSession().Transaction,
-                context.SynchronizedStorageSession.SqlPersistenceSession().Connection);
+            var sqlSession = context.SynchronizedStorageSession.SqlPersistenceSession();
+            return new ConnectionInfo(sqlSession.Transaction, sqlSession.Connection);
         }
     }
 }

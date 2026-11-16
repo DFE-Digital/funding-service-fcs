@@ -60,7 +60,7 @@
 
             public static OrganizationWebProxyClient GetOrganizationService(string crmUser = null)
             {
-                Uri baseUri = new Uri(ConfigurationManager.AppSettings["ida:ResourceId_CrmOnline"]);
+                Uri baseUri = new Uri(TestConfiguration.Configuration["ida:ResourceId_CrmOnline"]);
                 Uri serviceUri = new Uri(baseUri, @"xrmservices/2011/organization.svc/web?SdkClientVersion=8.2");
 
                 Lazy<string> newLazyAccessToken = new Lazy<string>(GetAccessTokenWithRetry);
@@ -93,11 +93,11 @@
 
             private static string GetAccessToken()
             {
-                string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance_CrmOnline"];
-                string tenant = ConfigurationManager.AppSettings["ida:Tenant_CrmOnline"];
-                string clientId = ConfigurationManager.AppSettings["ida:ClientId_CrmOnline"];
-                string appKey = ConfigurationManager.AppSettings["ida:AppKey_CrmOnline"];
-                string resourceId = ConfigurationManager.AppSettings["ida:ResourceId_CrmOnline"];
+                string aadInstance =TestConfiguration.Configuration["ida:AADInstance_CrmOnline"];
+                string tenant =TestConfiguration.Configuration["ida:Tenant_CrmOnline"];
+                string clientId =TestConfiguration.Configuration["ida:ClientId_CrmOnline"];
+                string appKey =TestConfiguration.Configuration["ida:AppKey_CrmOnline"];
+                string resourceId =TestConfiguration.Configuration["ida:ResourceId_CrmOnline"];
 
                 string authority = string.Format(aadInstance, tenant);
 

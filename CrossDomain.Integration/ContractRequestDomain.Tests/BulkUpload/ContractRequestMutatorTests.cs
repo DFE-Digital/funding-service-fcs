@@ -17,7 +17,7 @@
             var childContract = new contractType
             {
                 period = period,
-                contractor = new contractor { ukprn = 12345678 },
+                contractor = new Contractor { ukprn = 12345678 },
                 startDate = startDate,
                 contractAllocations = new List<contractAllocation>()
             };

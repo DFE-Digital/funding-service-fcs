@@ -1,11 +1,12 @@
 ﻿namespace ADMonitoringDomain.Endpoint.Repositories
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class AllocationDeliverablePeriodActualAuditRepository : IAllocationDeliverablePeriodActualAuditRepository
     {

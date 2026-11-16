@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Data.Entity.Validation;
     using System.Linq;
-    using System.Threading.Tasks;
     using Implementation.Services;
     using Integration.DataStore;
     using Integration.DataStore.Model;
@@ -19,7 +18,7 @@
     public class OrgSupplementaryPopulationServiceTests
     {
         [TestMethod, TestCategory("IntegrationTest")]
-        public async Task OrgSupplementaryPopulationService_ShouldUpdateAllTestOrganisationsWhenOrgSupplementaryDataServiceGetDataForUkprnIsSuccessfulIsTrueForAllTestOrganisations()
+        public void OrgSupplementaryPopulationService_ShouldUpdateAllTestOrganisationsWhenOrgSupplementaryDataServiceGetDataForUkprnIsSuccessfulIsTrueForAllTestOrganisations()
         {
             // arrange
             var orgSupplementaryDataServiceMock = new Mock<IOrgSupplementaryDataService>();
@@ -48,7 +47,7 @@
                         new OrganisationRepository(context));
 
                 // act
-                var data = await orgSupplementaryPopulationService.PopulateOrgSupplementaryData(ukprnsToTest);
+                var data = orgSupplementaryPopulationService.PopulateOrgSupplementaryData(ukprnsToTest);
             }
 
             // assert            
@@ -67,7 +66,7 @@
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
-        public async Task OrgSupplementaryPopulationService_ShouldUpdateNoTestOrganisationsWhenOrgSupplementaryDataServiceGetDataForUkprnIsSuccessfulIsFalseForAllTestOrganisations()
+        public void OrgSupplementaryPopulationService_ShouldUpdateNoTestOrganisationsWhenOrgSupplementaryDataServiceGetDataForUkprnIsSuccessfulIsFalseForAllTestOrganisations()
         {
             // arrange
             var orgSupplementaryDataServiceMock = new Mock<IOrgSupplementaryDataService>();
@@ -96,7 +95,7 @@
                         new OrganisationRepository(context));
 
                 // act
-               await orgSupplementaryPopulationService.PopulateOrgSupplementaryData(ukprnsToTest);
+                orgSupplementaryPopulationService.PopulateOrgSupplementaryData(ukprnsToTest);
             }
 
             // assert            
@@ -115,7 +114,7 @@
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        public async void OrgSupplementaryPopulationService_ShouldCallDelegateForEachOrgsWithSupplementaryData()
+        public void OrgSupplementaryPopulationService_ShouldCallDelegateForEachOrgsWithSupplementaryData()
         {
             // arrange
             var orgSupplementaryDataServiceMock = new Mock<IOrgSupplementaryDataService>();
@@ -144,10 +143,15 @@
                     Mock.Of<ILogger>(),
                     orgSupplementaryDataServiceMock.Object, repositoryMock.Object);
 
+            // act
+
             IReadOnlyCollection<OrgSupplementaryDataExtended> results;
 
-            // act
-            results = await service.PopulateOrgSupplementaryData(new List<int> { 15, 16 });
+            results = service
+                .PopulateOrgSupplementaryData(new List<int> { 15, 16 })
+                .GetAwaiter()
+                .GetResult();
+
 
             var resultsArray = results.ToArray();
             // assert
@@ -157,20 +161,29 @@
             Assert.AreEqual(charityNumber16, resultsArray[0].CharityNumber, "Charity number was incorrect");
         }
 
-        [TestMethod, TestCategory("IntegrationTest")]
-        [ExpectedException(typeof(DbEntityValidationException))]
+
+        [TestMethod]
+        [TestCategory("IntegrationTest")]
         public void OrgSupplementaryPopulationService_ShouldCauseAnDbEntityValidationExceptionWhenOrgSupplementaryDataServiceGetDataForUkprnReturnsACharityNumberThatIsTooLarge()
         {
             // arrange
-            var orgSupplementaryDataServiceMock = new Mock<IOrgSupplementaryDataService>();
-            const string companyRegNumber16 = "TestCompanyRegNumber16";
+            var orgSupplementaryDataServiceMock =
+                new Mock<IOrgSupplementaryDataService>();
 
+            const string companyRegNumber16 = "TestCompanyRegNumber16";
             const string charityNumber16 = "charityNumberTooLarge";
 
-            orgSupplementaryDataServiceMock.Setup(osds => osds.GetDataForUkprn(16))
-                .ReturnsAsync(new OrgSupplementaryDataServiceResult(companyRegNumber16, charityNumber16, true));
+            orgSupplementaryDataServiceMock
+                .Setup(osds => osds.GetDataForUkprn(16))
+                .ReturnsAsync(
+                    new OrgSupplementaryDataServiceResult(
+                        companyRegNumber16,
+                        charityNumber16,
+                        true));
 
-            IReadOnlyCollection<int> ukprnsToTest = new List<int> { 16 };
+            IReadOnlyCollection<int> ukprnsToTest =
+                new List<int> { 16 };
+
             DeleteOrgsForUkrpns(ukprnsToTest);
             CreateOrgs(ukprnsToTest);
 
@@ -182,11 +195,22 @@
                         orgSupplementaryDataServiceMock.Object,
                         new OrganisationRepository(context));
 
-                // act
-                // Assert
-                orgSupplementaryPopulationService.PopulateOrgSupplementaryData(ukprnsToTest);
+                // act / assert
+                try
+                {
+                    orgSupplementaryPopulationService
+                        .PopulateOrgSupplementaryData(ukprnsToTest);
+
+                    Assert.Fail(
+                        "Expected DbEntityValidationException was not thrown.");
+                }
+                catch (DbEntityValidationException)
+                {
+                    // Expected exception
+                }
             }
         }
+
 
         [TestMethod, TestCategory("IntegrationTest")]
         public async Task OrgSupplementaryPopulationService_ShouldStoreAndPublishNewAddressInformation()
@@ -242,7 +266,13 @@
                     orgSupplementaryDataServiceMock.Object,
                     new OrganisationRepository(context));
 
-                publishedData = orgSupplementaryPopulationService.PopulateOrgSupplementaryData(new[] { ukprn }).Result.First();
+
+                var results =
+                    await orgSupplementaryPopulationService
+                        .PopulateOrgSupplementaryData(new[] { ukprn });
+
+                publishedData = results.First();
+
             }
 
             // assert

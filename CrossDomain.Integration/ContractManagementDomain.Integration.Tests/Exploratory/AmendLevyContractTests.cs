@@ -1,4 +1,5 @@
-﻿namespace SFA.FCT.ContractManagementDomain.Integration.Tests.Exploratory
+﻿
+namespace SFA.FCT.ContractManagementDomain.Integration.Tests.Exploratory
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +7,7 @@
     using System.IO;
     using System.Linq;
     using AutoMapper;
+    using Microsoft.Extensions.Logging;
     using ContractCreateDomain.Implementation;
     using ContractCreateDomain.Implementation.Persistence;
     using ContractManagement.DataStore;
@@ -22,6 +24,8 @@
     using MoreLinq;
     using NServiceBus;
     using UnitTests.Common;
+
+
 
     [TestClass]
     public class AmendLevyContractTests
@@ -56,15 +60,14 @@
                 }
             };
 
-            CreateSendOnlyEndpoint<AmendLevyContractCommand>().Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
-            
+            CreateSendOnlyEndpoint<AmendLevyContractCommand>()
+                .Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
+
             // poll for result of completion
             CheckResultPoller poller = new CheckResultPoller(
                 checkResult: () =>
                 {
-                    var crmContract = GetContract(childContract.contractNumber, childContract.contractVersionNumber + 1,
-                        0);
-
+                    var crmContract = GetContract(childContract.contractNumber, childContract.contractVersionNumber + 1, 0);
                     return crmContract.Count == 1;
                 },
                 maxNumChecks: 20,
@@ -73,7 +76,8 @@
             Assert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(), "Amended version was not present");
 
             // send second command to "amend levy contract"
-            CreateSendOnlyEndpoint<AmendLevyContractCommand>().Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
+            CreateSendOnlyEndpoint<AmendLevyContractCommand>()
+                .Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
 
             // poll for result, should fail
             CheckResultPoller duplicatePoller = new CheckResultPoller(
@@ -114,15 +118,14 @@
                 }
             };
 
-            CreateSendOnlyEndpoint<AmendLevyContractCommand>().Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
+            CreateSendOnlyEndpoint<AmendLevyContractCommand>()
+                .Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
 
             // poll for result of completion
             CheckResultPoller poller = new CheckResultPoller(
                 checkResult: () =>
                 {
-                    var crmContract = GetContract(childContract.contractNumber, childContract.contractVersionNumber + 1,
-                        0);
-
+                    var crmContract = GetContract(childContract.contractNumber, childContract.contractVersionNumber + 1, 0);
                     return crmContract.Count == 1;
                 },
                 maxNumChecks: 20,
@@ -131,7 +134,8 @@
             Assert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(), "Contract was not amended");
 
             // send second command to "amend levy contract"
-            CreateSendOnlyEndpoint<AmendLevyContractCommand>().Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
+            CreateSendOnlyEndpoint<AmendLevyContractCommand>()
+                .Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
 
             // poll for result, should fail
             CheckResultPoller duplicatePoller = new CheckResultPoller(
@@ -181,14 +185,14 @@
                 }
             };
 
-            CreateSendOnlyEndpoint<AmendLevyContractCommand>().Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
+            CreateSendOnlyEndpoint<AmendLevyContractCommand>()
+                .Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
 
             // poll for result of completion
             CheckResultPoller poller = new CheckResultPoller(
                 checkResult: () =>
                 {
-                    var crmContract = GetContractStatusAndSubStatus(childContract.contractNumber, childContract.contractVersionNumber,
-                        childContract.contractSubVersionNumber);
+                    var crmContract = GetContractStatusAndSubStatus(childContract.contractNumber, childContract.contractVersionNumber, childContract.contractSubVersionNumber);
 
                     if (crmContract == null)
                     {
@@ -203,7 +207,8 @@
             Assert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(), "Contract version was not withdrawn");
 
             // send second command to "amend levy contract"
-            CreateSendOnlyEndpoint<AmendLevyContractCommand>().Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
+            CreateSendOnlyEndpoint<AmendLevyContractCommand>()
+                .Send("ContractManagementDomain.LevyAmendmentEndpoint", command).Wait();
             // poll for result, should fail - not applicable? Check logs / CRM
         }
 
@@ -251,19 +256,19 @@
             using (XrmServiceContext context = new XrmServiceContext(organizationService))
             {
                 return (from c in context.sfa_contractSet
-                    join s in context.sfa_statusSet
-                        on c.sfa_SubStatus.Id equals s.sfa_statusId.Value
-                    where c.sfa_number == contractNumber
-                          && c.sfa_Version == versionNumber
-                          && c.sfa_SubVersion == subVersionNumber
-                    select new {Id = c.sfa_contractId, Status = c.sfa_ContractStatus, SubStatus = s.sfa_name})
+                        join s in context.sfa_statusSet
+                            on c.sfa_SubStatus.Id equals s.sfa_statusId.Value
+                        where c.sfa_number == contractNumber
+                              && c.sfa_Version == versionNumber
+                              && c.sfa_SubVersion == subVersionNumber
+                        select new { Id = c.sfa_contractId, Status = c.sfa_ContractStatus, SubStatus = s.sfa_name })
                     .ToList()
                     .Select(
                         i =>
                             new ContractStatusSubStatus
                             {
                                 Id = i.Id.Value,
-                                Status = (sfa_contractstatus) i.Status.Value,
+                                Status = (sfa_contractstatus)i.Status.Value,
                                 SubStatus = i.SubStatus
                             })
                     .Single();
@@ -318,12 +323,24 @@
 
         private static ExtendedContract GetCorporateContractFromResource()
         {
-            Mapper.CreateMap<contract, ExtendedContract>();
-            Mapper.CreateMap<contractType, ExtendedContractType>();
-            Mapper.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            // Build logging
+            using ILoggerFactory loggerFactory = LoggerFactory.Create(b => b.AddConsole());
 
-            contract contract = TestResource.FromXml<contract>("SFA.FCT.ContractManagementDomain.Integration.Tests.Resources", "levyContractForAmendment.xml");
-            return Mapper.Map<contract, ExtendedContract>(contract);
+            // Build mapping configuration (AutoMapper v15+: MapperConfiguration requires an ILoggerFactory)
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Contract, ExtendedContract>();
+                cfg.CreateMap<contractType, ExtendedContractType>();
+                cfg.CreateMap<contractAllocationsContractAllocation, ExtendedContractAllocation>();
+            }, loggerFactory);
+
+            var mapper = config.CreateMapper();
+
+            var source = TestResource.FromXml<Contract>(
+                "SFA.FCT.ContractManagementDomain.Integration.Tests.Resources",
+                "levyContractForAmendment.xml");
+
+            return mapper.Map<ExtendedContract>(source);
         }
 
         private static CrmConnection GetCrmConnection()
@@ -352,26 +369,37 @@
             }
         }
 
+        /// <summary>
+        /// Modern (NServiceBus 8+) send-only endpoint using the current Azure Service Bus transport.
+        /// Reads the ASB connection string from either AppSettings["AzureServiceBusConnectionString"]
+        /// or a ConnectionStrings entry with the same key.
+        /// </summary>
         public static IEndpointInstance CreateSendOnlyEndpoint<TCommand>()
         {
-            EndpointConfiguration endpointConfiguration = new EndpointConfiguration("TestSendingEndpoint");
-            endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+            var endpointConfiguration = new EndpointConfiguration("WebJobs");
+            endpointConfiguration.SendOnly();
+
+            // 1) Instantiate the modern ASB transport with topology
+            var transport = new AzureServiceBusTransport(
+                ConfigurationManager.ConnectionStrings["NServiceBus/Transport"].ConnectionString,
+                TopicTopology.Default
+            );
+
+            // 2) Register the transport
+            endpointConfiguration.UseTransport(transport);
             endpointConfiguration.Conventions()
                 .DefiningCommandsAs(t => t == typeof(TCommand));
 
-            // exclude all
-            string[] assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+            // Your existing scanner settings
+            var assembliesToExclude = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
                 .Select(Path.GetFileName)
                 .ToArray();
 
-            AssemblyScannerConfiguration scanner = endpointConfiguration.AssemblyScanner();
+            var scanner = endpointConfiguration.AssemblyScanner();
             scanner.ExcludeAssemblies(assembliesToExclude);
             scanner.ThrowExceptions = false;
 
-            AzureServiceBusEndpointOrientedTopologySettings transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>().UseEndpointOrientedTopology();
-            transport.Transactions(TransportTransactionMode.ReceiveOnly);
-
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
+            endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
 
             return Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
         }
@@ -382,7 +410,7 @@
             {
                 contractNumber = "SFA4823",
                 contractVersionNumber = 1,
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     legalName = "NACRO",
                     ukprn = 40004823,
@@ -403,7 +431,7 @@
                         contractSubVersionNumber = 0,
                         contractValue = 0,
                         contractType1 = "Contract for Services",
-                        period = new period
+                        period = new Period
                         {
                             period1 = "1799",
                             fundingStreamPeriods = new List<fundingStreamPeriodsFundingStreamPeriod>
@@ -419,7 +447,7 @@
                                 periodTypeName = periodTypeNameType.APPRENTICESHIPLEVY
                             }
                         },
-                        contractor = new contractor
+                        contractor = new Contractor
                         {
                             legalName = "NACRO",
                             ukprn = 40004823,
@@ -458,7 +486,7 @@
                     {
                         fundingStreamCode = "LEVY"
                     },
-                    period = new period
+                    period = new Period
                     {
                         period1 = "1799",
                         fundingStreamPeriods = new List<fundingStreamPeriodsFundingStreamPeriod>
@@ -546,9 +574,7 @@
         private class ContractStatusSubStatus
         {
             public Guid Id { get; set; }
-
             public sfa_contractstatus Status { get; set; }
-
             public string SubStatus { get; set; }
         }
     }

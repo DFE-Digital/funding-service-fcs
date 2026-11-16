@@ -11,7 +11,7 @@
     using Newtonsoft.Json;
     using NServiceBus;
     using SFA.FCT.ContractCreateDomain.Common.Messages.Commands;
-    using SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
+    using CR=SFA.FCT.CrossDomain.Integration.Entities.ContractRequest;
     using SFA.FCT.CrossDomain.Integration.Entities.CorporateContract;
     using SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
@@ -20,7 +20,7 @@
 
     public class DocumentGenerationCompleteHandler : IHandleMessages<DocumentGenerationComplete>
     {
-        private static readonly IReadOnlyCollection<Intent> ModifySagaIntents = new List<Intent>{Intent.Update, Intent.UpdateAmendment, Intent.Amendment};
+        private static readonly IReadOnlyCollection<Intent> ModifySagaIntents = new List<Intent>{ Intent.Update,Intent.UpdateAmendment, Intent.Amendment};
         private static readonly IReadOnlyCollection<Intent> CreateSagaIntents = new List<Intent> { Intent.New, Intent.RevisedNew, Intent.NewAmendment };
         private readonly ISagaDataStorage _sagaDataStorage;
         private readonly ILogger _logger;
@@ -84,7 +84,7 @@
 
                 object commandToSaveInCrm = GetNewCommandToSaveToCrm(
                     extendedContract,
-                    batchId: createContractSaga.ContractRequestContract.ConvertByteArrayToObject<contractRequestType>()
+                    batchId: createContractSaga.ContractRequestContract.ConvertByteArrayToObject<CR.contractRequestType>()
                         .correlationInfo.batchId,
                     processId: createContractSaga.ProcessId,
                     intent: sagaData.Intent);

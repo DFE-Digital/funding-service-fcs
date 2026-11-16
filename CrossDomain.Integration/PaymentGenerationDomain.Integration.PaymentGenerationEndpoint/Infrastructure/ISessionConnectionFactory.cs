@@ -1,7 +1,8 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.Infrastructure
 {
+    extern alias Entities;
     using NServiceBus;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface ISessionConnectionFactory
     {

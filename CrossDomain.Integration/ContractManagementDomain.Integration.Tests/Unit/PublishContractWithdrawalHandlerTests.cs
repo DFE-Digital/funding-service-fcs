@@ -36,7 +36,7 @@
             mockContractXmlValidator.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
             contractTransformerMock.Setup(
-                m => m.TransformToCorporateSchemaContract(It.IsAny<contract>())).Returns(new CorporateSchema.contract());
+                m => m.TransformToCorporateSchemaContract(It.IsAny<Contract>())).Returns(new CorporateSchema.Contract());
 
             PublishContractWithdrawalHandler handler = new PublishContractWithdrawalHandler(Mock.Of<ILogger>(), repositoryMock.Object, 
                                                                                             contractTransformerMock.Object, mockContractXmlValidator.Object, Mock.Of<ISessionConnectionFactory>());
@@ -44,7 +44,7 @@
             // act
             handler.Handle(new ContractWithdrawnEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -80,7 +80,7 @@
                                                                                             mockContractXmlValidator.Object, Mock.Of<ISessionConnectionFactory>());
 
             contractTransformerMock.Setup(
-                m => m.TransformToCorporateSchemaContract(It.IsAny<contract>())).Returns(new CorporateSchema.contract());
+                m => m.TransformToCorporateSchemaContract(It.IsAny<Contract>())).Returns(new CorporateSchema.Contract());
 
             repositoryMock
                 .Setup(m => m.Add(It.IsAny<AtomFeedItem>(), It.IsAny<ConnectionInfo>()))
@@ -89,7 +89,7 @@
             // act
             handler.Handle(new ContractWithdrawnEvent
             {
-                CorporateContract = new contract
+                CorporateContract = new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -117,7 +117,7 @@
             mockContractXmlValidator.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
             contractTransformerMock.Setup(
-                m => m.TransformToCorporateSchemaContract(It.IsAny<contract>())).Returns(new CorporateSchema.contract());
+                m => m.TransformToCorporateSchemaContract(It.IsAny<Contract>())).Returns(new CorporateSchema.Contract());
 
             PublishContractWithdrawalHandler handler = new PublishContractWithdrawalHandler(Mock.Of<ILogger>(), repositoryMock.Object, 
                                                                                             contractTransformerMock.Object,
@@ -165,7 +165,7 @@
             mockContractXmlValidator.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
             contractTransformerMock.Setup(
-                m => m.TransformToCorporateSchemaContract(It.IsAny<contract>())).Returns(new CorporateSchema.contract());
+                m => m.TransformToCorporateSchemaContract(It.IsAny<Contract>())).Returns(new CorporateSchema.Contract());
 
             PublishContractWithdrawalHandler handler = new PublishContractWithdrawalHandler(Mock.Of<ILogger>(), repositoryMock.Object,
                                                                                             contractTransformerMock.Object, mockContractXmlValidator.Object, Mock.Of<ISessionConnectionFactory>());
@@ -194,16 +194,16 @@
             Assert.IsTrue(context.SentMessages.Empty(), "IncrementContractVersionCommand incorrectly called");
         }
 
-        private static contract ReturnPopulatedCorporateContract(string masterContractNumber,
+        private static Contract ReturnPopulatedCorporateContract(string masterContractNumber,
             string contractNumber, int contractVersionNumber,
             string contractParentStatus, string contractSubStatus = "Published To Provider")
         {
-            return new contract
+            return new Contract
             {
                 contractNumber = masterContractNumber,
                 contracts =
                 {
-                    new contract
+                    new Contract
                     {
                         contractNumber = contractNumber,
                         contractVersionNumber = contractVersionNumber,

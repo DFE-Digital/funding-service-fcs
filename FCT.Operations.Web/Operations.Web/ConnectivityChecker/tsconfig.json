@@ -1,25 +1,25 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "downlevelIteration": true,
-    "importHelpers": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
+    "baseUrl": "./",
     "declaration": false,
-    "moduleResolution": "node",
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [], 
+    "importHelpers": true,
     "lib": [
       "es2017",
       "dom"
     ],
     "module": "es2020",
-    "baseUrl": "./",
+    "moduleResolution": "node",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+     "target": "es2020",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [],
     "useDefineForClassFields": false
   }
 }

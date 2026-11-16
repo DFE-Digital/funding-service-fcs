@@ -36,7 +36,7 @@
             var contract = new contractType
             {
                 contractNumber = contractNumber,
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = ukprn
                 }
@@ -95,7 +95,7 @@
             var contract = new contractType
             {
                 contractNumber = contractNumber,
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = ukprn
                 }

@@ -13,11 +13,11 @@
     /// </summary>
     public class NewIntentConsistentRule : IRule<contractRequestType>
     {
-        private readonly IEnumerable<intent> _crmIntents = new List<intent>
+        private readonly IEnumerable<Intent> _crmIntents = new List<Intent>
         {
-            intent.New,
-            intent.NewAmendment,
-            intent.RevisedNew
+            Intent.New,
+            Intent.NewAmendment,
+            Intent.RevisedNew
         };
 
         public string ErrorMessage => ErrorMessages.CrmIntentIsNotConsistent;

@@ -4,6 +4,7 @@
 
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework.Legacy;
 
 namespace SFA.FCT.Xrm.TestFramework
 {
@@ -87,7 +88,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageLookupParameter FilterAttribute(string filterAttributeString)
         {
-            Assert.IsTrue(this.dependantAttributeName == filterAttributeString, "The form field " + this.fieldLogicalName + " has a filter on the field \"" + this.dependantAttributeName + "\"; not \"" + filterAttributeString + "\"");
+            ClassicAssert.IsTrue(this.dependantAttributeName == filterAttributeString, "The form field " + this.fieldLogicalName + " has a filter on the field \"" + this.dependantAttributeName + "\"; not \"" + filterAttributeString + "\"");
 
             return this;
         }
@@ -99,7 +100,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageLookupParameter AutoResolve(bool isAutoResolve)
         {
-            Assert.IsTrue(this.autoResolve == isAutoResolve, "The form field " + this.fieldLogicalName + " has disable auto-resolution status: " + this.autoResolve + "; not " + isAutoResolve);
+            ClassicAssert.IsTrue(this.autoResolve == isAutoResolve, "The form field " + this.fieldLogicalName + " has disable auto-resolution status: " + this.autoResolve + "; not " + isAutoResolve);
 
             return this;
         }
@@ -111,7 +112,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageLookupParameter DisableMRU(bool isDisableMru)
         {
-            Assert.IsTrue(this.disableMru == isDisableMru, "The form field " + this.fieldLogicalName + " has Disable Most Recently Used status: " + this.disableMru + "; not " + isDisableMru);
+            ClassicAssert.IsTrue(this.disableMru == isDisableMru, "The form field " + this.fieldLogicalName + " has Disable Most Recently Used status: " + this.disableMru + "; not " + isDisableMru);
 
             return this;
         }
@@ -123,7 +124,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageLookupParameter DisableQuickFind(bool isDisableQuickFind)
         {
-            Assert.IsTrue(this.disableQuickFind == isDisableQuickFind, "The form field " + this.fieldLogicalName + " has Disable Quick Find status: " + this.disableQuickFind + "; not " + isDisableQuickFind);
+            ClassicAssert.IsTrue(this.disableQuickFind == isDisableQuickFind, "The form field " + this.fieldLogicalName + " has Disable Quick Find status: " + this.disableQuickFind + "; not " + isDisableQuickFind);
 
             return this;
         }
@@ -135,7 +136,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageLookupParameter DisableViewPicker(bool isDisableViewPicker)
         {
-            Assert.IsTrue(this.disableViewPicker == isDisableViewPicker, "The form field " + this.fieldLogicalName + " has Disable View Picker status: " + this.disableViewPicker + "; not " + isDisableViewPicker);
+            ClassicAssert.IsTrue(this.disableViewPicker == isDisableViewPicker, "The form field " + this.fieldLogicalName + " has Disable View Picker status: " + this.disableViewPicker + "; not " + isDisableViewPicker);
 
             return this;
         }
@@ -147,7 +148,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageLookupParameter AllowFilterOff(bool isAllowFilterOff)
         {
-            Assert.IsTrue(this.allowFilterOff == isAllowFilterOff, "The form field " + this.fieldLogicalName + " has Disable View Picker status: " + this.allowFilterOff + "; not " + isAllowFilterOff);
+            ClassicAssert.IsTrue(this.allowFilterOff == isAllowFilterOff, "The form field " + this.fieldLogicalName + " has Disable View Picker status: " + this.allowFilterOff + "; not " + isAllowFilterOff);
 
             return this;
         }

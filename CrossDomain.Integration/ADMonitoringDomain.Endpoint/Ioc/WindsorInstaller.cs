@@ -21,7 +21,7 @@
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore;
     using SFA.FCT.CrossDomain.Integration.Common.SchemaValidator;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore;
 

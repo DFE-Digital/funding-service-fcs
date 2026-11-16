@@ -6,7 +6,7 @@
     using Castle.Windsor;
     using CrossDomain.Integration.Entities.Data;
     using CrossDomain.Integration.Entities.PaymentSchedule;
-    using Framework.Logging;
+    using Microsoft.Extensions.Logging;
     using Framework.Logging.NullObjects;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;

@@ -16,7 +16,7 @@
         public void EsfRound1Appendix2DocumentPartCreator_IsDocumentPartRequired_ShouldReturnTrueForRound1()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 fundingType = new fundingType
                 {
@@ -40,7 +40,7 @@
         public void Appendix2DocumentCreator_IsDocumentPartRequired_ShouldReturnFalseForRound1()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 fundingType = new fundingType
                 {

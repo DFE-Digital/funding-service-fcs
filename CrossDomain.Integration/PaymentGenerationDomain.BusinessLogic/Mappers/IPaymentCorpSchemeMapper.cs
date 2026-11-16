@@ -1,11 +1,12 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic
-{
+{ 
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Xml.Linq;
     using Integration.DataStore.Model;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
     using PaymentGenerationDomain.Integration.DataStore.Dtos;
 
     public interface IPaymentCorpSchemaMapper

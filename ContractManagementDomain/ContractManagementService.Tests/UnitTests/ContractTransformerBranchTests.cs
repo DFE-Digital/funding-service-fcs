@@ -10,7 +10,7 @@ namespace SFA.FCT.ContractManagementService.Test.UnitTests
     [TestClass]
     public class ContractTransformerBranchTests
     {
-        private static CorporateContract.contract Build(string fundingTypeCode, Action<CorporateContract.contractType, CorporateContract.contractAllocationsContractAllocation> customise = null)
+        private static CorporateContract.Contract Build(string fundingTypeCode, Action<CorporateContract.contractType, CorporateContract.contractAllocationsContractAllocation> customise = null)
         {
             var allocation = new CorporateContract.contractAllocationsContractAllocation
             {
@@ -30,7 +30,7 @@ namespace SFA.FCT.ContractManagementService.Test.UnitTests
 
             customise?.Invoke(child, allocation);
 
-            return new CorporateContract.contract
+            return new CorporateContract.Contract
             {
                 contractNumber = "M1",
                 fundingType = new CorporateContract.fundingType { fundingTypeCode = fundingTypeCode },
@@ -116,7 +116,7 @@ namespace SFA.FCT.ContractManagementService.Test.UnitTests
             var contract = Build("AAA", (c, a) =>
             {
                 a.DeliveryOrganisation = "ORG1";
-                a.DeliveryOrganisationDetail = new CorporateContract.contractor { organisationIdentifier = "ORG1", legalName = "Org One", ukprn = 123 };
+                a.DeliveryOrganisationDetail = new CorporateContract.Contractor { organisationIdentifier = "ORG1", legalName = "Org One", ukprn = 123 };
             });
 
             var relationship = new ContractTransformer().TransformToCorporateSchemaContract(contract).contracts[0].contractAllocations[0].allocationOrganisationRelationships;

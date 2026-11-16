@@ -15,7 +15,7 @@
 
                 foreach (var importChildContract in importContract.contracts)
                 {
-                    if (importChildContract.CRMIntent == intent.New)
+                    if (importChildContract.CRMIntent == Intent.New)
                     {
                         crmContract.contracts.Add(importChildContract);
                     }
@@ -26,7 +26,7 @@
 
                         switch (importChildContract.CRMIntent)
                         {
-                            case intent.DeleteDraft:
+                            case Intent.DeleteDraft:
 
                                 if (currentCrmContract == null)
                                 {
@@ -42,9 +42,9 @@
                                 }
 
                                 break;
-                            case intent.UpdateDraft:
-                            case intent.Amendment:
-                            case intent.UpdateDraftAmendment:
+                            case Intent.UpdateDraft:
+                            case Intent.Amendment:
+                            case Intent.UpdateDraftAmendment:
 
                                 if (currentCrmContract == null)
                                 {
@@ -92,7 +92,7 @@
 
             foreach (var importAllocation in importContract.contractAllocations)
             {
-                if (importAllocation.CRMIntent == intent.New)
+                if (importAllocation.CRMIntent == Intent.New)
                 {
                     crmContract.contractAllocations.Add(importAllocation);
                 }
@@ -103,8 +103,8 @@
 
                     switch (importAllocation.CRMIntent)
                     {
-                        case intent.DeleteDraft:
-                        case intent.DeleteDraftAmendment:
+                        case Intent.DeleteDraft:
+                        case Intent.DeleteDraftAmendment:
                             if (currentCrmAllocation == null)
                             {
                                 // Persist non-existent record for further validation.
@@ -120,9 +120,9 @@
 
                             break;
 
-                        case intent.UpdateDraft:
-                        case intent.Amendment:
-                        case intent.UpdateDraftAmendment:
+                        case Intent.UpdateDraft:
+                        case Intent.Amendment:
+                        case Intent.UpdateDraftAmendment:
                             if (currentCrmAllocation == null)
                             {
                                 // Persist non-existent record for further validation.
@@ -171,7 +171,7 @@
 
             foreach (var importDeliverable in importAllocation.contractDeliverables)
             {
-                if (importDeliverable.CRMIntent == intent.New)
+                if (importDeliverable.CRMIntent == Intent.New)
                 {
                     crmAllocation.contractDeliverables.Add(importDeliverable);
                 }
@@ -183,8 +183,8 @@
 
                     switch (importDeliverable.CRMIntent)
                     {
-                        case intent.DeleteDraft:
-                        case intent.DeleteDraftAmendment:
+                        case Intent.DeleteDraft:
+                        case Intent.DeleteDraftAmendment:
                             if (currentCrmDeliverable == null)
                             {
                                 // Persist non-existent record for further validation.
@@ -199,9 +199,9 @@
                             }
 
                             break;
-                        case intent.UpdateDraft:
-                        case intent.Amendment:
-                        case intent.UpdateDraftAmendment:
+                        case Intent.UpdateDraft:
+                        case Intent.Amendment:
+                        case Intent.UpdateDraftAmendment:
                             if (currentCrmDeliverable == null)
                             {
                                 // Persist non-existent record for further validation.

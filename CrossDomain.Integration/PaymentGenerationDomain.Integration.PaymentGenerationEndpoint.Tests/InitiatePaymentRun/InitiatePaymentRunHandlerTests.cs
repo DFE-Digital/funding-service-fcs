@@ -2,6 +2,8 @@
 
 namespace PaymentGenerationDomain.Integration.PaymentGeneration.InitiatePaymentRun
 {
+
+    extern alias Entities;
     using Moq;
     using NServiceBus.Testing;
     using PaymentGenerationDomain.BusinessLogic;
@@ -9,7 +11,7 @@ namespace PaymentGenerationDomain.Integration.PaymentGeneration.InitiatePaymentR
     using PaymentGenerationDomain.Integration.DataStore.Model;
     using PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentRunEndpoint;
     using PaymentGenerationEndpoint.Infrastructure;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.Framework.Logging.Interfaces;
 
     [TestClass]

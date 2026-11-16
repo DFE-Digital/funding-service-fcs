@@ -14,6 +14,7 @@
     using TechTalk.SpecFlow;
     using Utilities;
     using SFA.FCT.Contracts.AcceptanceTests.Extensions;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class WorkflowSteps
@@ -38,7 +39,7 @@
             bool areWorkflowHistoriesPresent =
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTimeWithGenericSqlErrorTolerance();
 
-            Assert.IsTrue(areWorkflowHistoriesPresent, "We have not found all the workflow histories - " + requestedWorkflowHistories.FirstOrDefault(req => !actualWorkflowHistories.Contains(req)));
+            ClassicAssert.IsTrue(areWorkflowHistoriesPresent, "We have not found all the workflow histories - " + requestedWorkflowHistories.FirstOrDefault(req => !actualWorkflowHistories.Contains(req)));
         }
 
         [Then(@"the workflow history on contract '(.*)' version '(.*)' includes '(.*)' entry which matches the following")]
@@ -61,7 +62,7 @@
             bool areWorkflowHistoriesPresent =
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTimeWithGenericSqlErrorTolerance();
 
-            Assert.AreEqual(true, areWorkflowHistoriesPresent, 
+            ClassicAssert.AreEqual(true, areWorkflowHistoriesPresent, 
                 "We have not found all the workflow histories - " 
                     + requestedWorkflowHistories.FirstOrDefault(req => actualWorkflowHistories.Count(awh => awh.Equals(req)) != count));
         }
@@ -115,7 +116,7 @@
 
             bool allTasksAreComplete = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(allTasksAreComplete, $"Not all tasks are complete for this contract: {contractNumber}, version: {version}");
+            ClassicAssert.IsTrue(allTasksAreComplete, $"Not all tasks are complete for this contract: {contractNumber}, version: {version}");
         }
 
         [Given(@"the following Tasks are present against version '(.*)' of contract '(.*)' for provider '(.*)'")]
@@ -151,7 +152,7 @@
             bool areWorkflowHistoriesPresent =
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTimeWithGenericSqlErrorTolerance();
 
-            Assert.AreEqual(true, areWorkflowHistoriesPresent, "We have not found all the Tasks");
+            ClassicAssert.AreEqual(true, areWorkflowHistoriesPresent, "We have not found all the Tasks");
         }
 
         [When(@"the following open Task currently linked to version '(.*)' of contract '(.*)' for provider '(.*)' is triggered by User '(.*)'")]
@@ -164,7 +165,7 @@
                 .Select(t => new SimpleTask(t.Name, t.Owner)).ToList();
             
             SimpleTask missingTaskInfo = expectedTasks.FirstOrDefault(t => !openSimpleTasksForContract.Contains(t));
-            Assert.IsTrue(expectedTasks.All(exp => openSimpleTasksForContract.Contains(exp)), "Task not found. " + missingTaskInfo ?? "");
+            ClassicAssert.IsTrue(expectedTasks.All(exp => openSimpleTasksForContract.Contains(exp)), "Task not found. " + missingTaskInfo ?? "");
 
 
             var matchingTaskInfos = openTasksForContract.Where(openTask => expectedTasks.Select(exp => exp.TaskName).Contains(openTask.Name)).ToList();
@@ -220,7 +221,7 @@
 
                 bool foundMatchingWorkflowHistoryItem = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(foundMatchingWorkflowHistoryItem, $"Could not find matching workflow history item for {row.ToHeaderAndValueString()}");
+                ClassicAssert.IsTrue(foundMatchingWorkflowHistoryItem, $"Could not find matching workflow history item for {row.ToHeaderAndValueString()}");
             });
         }
 

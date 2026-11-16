@@ -11,7 +11,7 @@
     public class PaymentBatchResetTools
     {
         // connection settings
-        private const string SqlConnectionString = "";
+        private const string SqlConnectionString = "Data Source=gy2thhzgc4.database.windows.net;Initial Catalog=fct-database-oat;Persist Security Info=True;User ID=fctsa;Password=PPPassword@9";
 
         // reset values
         // Values for NAV testing requested by Michelle Brown 11-Sep-2018. Run payment batch for July.

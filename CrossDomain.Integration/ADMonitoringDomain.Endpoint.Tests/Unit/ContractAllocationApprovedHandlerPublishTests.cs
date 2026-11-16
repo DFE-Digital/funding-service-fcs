@@ -1,3 +1,5 @@
+extern alias Entities;
+
 namespace ADMonitoringDomain.Endpoint.Tests.Unit
 {
     using System;
@@ -10,13 +12,13 @@ namespace ADMonitoringDomain.Endpoint.Tests.Unit
     using SFA.FCT.AllocationDelivery.DataStore.Model;
     using SFA.FCT.CrossDomain.Integration.Common;
     using SFA.FCT.CrossDomain.Integration.Common.Serializers;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
-    using PaySchedAllocation = SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation;
-    using AggregatedAllocation = SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation;
+    using PaySchedAllocation = Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentSchedule.Allocation;
+    using AggregatedAllocation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation;
 
     [TestClass]
     public class ContractAllocationApprovedHandlerPublishTests

@@ -1,41 +1,60 @@
-﻿namespace ContractManagementDomain.Endpoint.InitiateContractWithdrawal
+﻿
+namespace ContractManagementDomain.Endpoint.InitiateContractWithdrawal
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using SFA.FCS.Worker.Common;
     using SFA.FCT.ContractManagementService.Common.Commands;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
-        public string NameOfAssembly => "ContractManagementDomain.Endpoint.dll";
+        public string NameOfAssembly =>
+            "ContractManagementDomain.Endpoint.dll";
 
-        public string EndpointName => "ContractManagementDomain.InitiateContractWithdrawal";
+        public string EndpointName =>
+            "ContractManagementDomain.InitiateContractWithdrawal";
 
-        public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToList();
+        public IReadOnlyCollection<Subscription> Subscriptions =>
+            Enumerable.Empty<Subscription>().ToList();
 
         public IReadOnlyCollection<CommandRoute> Routes => new[]
         {
-            new CommandRoute(EndpointName, typeof (InitiateContractWithdrawalCommand))
+            new CommandRoute(
+                EndpointName,
+                typeof(InitiateContractWithdrawalCommand))
         };
 
-        public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
+        public EndpointConfiguration GetEndpointConfiguration(
+            ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            // ✅ Logging FIXED
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation(
+                "Started Endpoint {EndpointName} on FCS.Worker",
+                EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on FCS.Worker");
-
+            // ✅ Conventions
             configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => t.Namespace != null && t.Namespace.EndsWith("Events"));
+                .DefiningCommandsAs(t =>
+                    t?.Namespace != null &&
+                    t.Namespace.EndsWith("Commands"))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null &&
+                    t.Namespace.EndsWith("Events"));
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            // ✅ Required for .NET 8
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ CLEAN DI call
+            configuration.RegisterComponents(services =>
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new WindsorInstaller(loggerFactory)));
+                services.AddSingleton(loggerFactory);
+                services.AddInitiateContractWithdrawalServices();
             });
 
             return configuration;

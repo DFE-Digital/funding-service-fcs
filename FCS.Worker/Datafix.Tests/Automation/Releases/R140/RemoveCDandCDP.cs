@@ -108,7 +108,7 @@
                 "Resources.R140.YNLP-1223-ReceiveForPaymentAggregation.json"
             };
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AllocationPaymentsChangedOnAggregationEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<AllocationPaymentsChangedOnAggregationEvent>();
 
             resources.ForEach(r =>
             {
@@ -125,7 +125,7 @@
                 "Resources.R140.YNLP-1223-ReceiveQueueForPaymentSchedule.json"
             };
 
-            IEndpointInstance endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentScheduleEvent>();
+            var endpoint = EndpointBuilder.CreateSendOnlyEndpoint<PaymentScheduleEvent>();
 
             resources.ForEach(r =>
             {

@@ -1,14 +1,14 @@
 ﻿namespace Datafix.Tests.Automation.Releases.R88
 {
-    using System.IO;
-    using System.Reflection;
+    using Audit;
+    using Azure.Messaging.ServiceBus;
+    using Datafix.Tests.Repositories;
     using Newtonsoft.Json;
     using System.Collections.Generic;
-    using Microsoft.ServiceBus.Messaging;
-    using Audit;
-    using Datafix.Tests.Repositories;
-    using System.Linq;
     using System.Data.SqlClient;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
 
     public class WriteDeadLetterQueueAuditMessagesToAuditTable : IApplyDataFix
     {
@@ -29,7 +29,7 @@
 
             brokeredMessages.ToList().ForEach(brokeredMessage =>
             {
-                var storageKey = brokeredMessage.Properties[VeryLargeMessageHeaderKey].ToString();
+                var storageKey = brokeredMessage.ApplicationProperties[VeryLargeMessageHeaderKey].ToString();
 
                 var largeMessageBodyBytes = LargeMessageRepository.GetMessageBody(storageKey);
                 
@@ -41,16 +41,16 @@
             AzureServiceBusService.ClearMessagesFromDeadLetterQueue("audit", messageIds);
         }
 
-        private static IReadOnlyCollection<BrokeredMessage> GetBrokeredMessagesFromJson(string nameSpace, string resourceName)
+        private static IReadOnlyCollection<ServiceBusReceivedMessage> GetBrokeredMessagesFromJson(string nameSpace, string resourceName)
         {
             using (var stream = Assembly.GetCallingAssembly().GetManifestResourceStream($"{nameSpace}.{resourceName}"))
             using (var streamReader = new StreamReader(stream))
             {
-                return JsonConvert.DeserializeObject<List<BrokeredMessage>>(streamReader.ReadToEnd());
+                return JsonConvert.DeserializeObject<List<ServiceBusReceivedMessage>>(streamReader.ReadToEnd());
             }
         }
 
-        private void WriteMessageToTable(BrokeredMessage brokeredMessage, byte[] body)
+        private void WriteMessageToTable(ServiceBusReceivedMessage brokeredMessage, byte[] body)
         {
             const int UniqueConstraintViolation = 2627;
             var fcsMessage = brokeredMessage.ToFcsMessage(body);

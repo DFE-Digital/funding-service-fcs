@@ -36,7 +36,7 @@
         private readonly List<Entity> _createdProviderEntities = new List<Entity>();
         private const string FundingStreamCode = "16-18 APPS";
         private const string CorpContractSchemaNamespace = "urn:sfa:schemas:contract";
-        private const string CorpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.09.xsd";
+        private const string CorpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.08.xsd";
         private Guid _masterContractGuid = Guid.Empty;
         private Guid _masterContractGuid2 = Guid.Empty;
 
@@ -845,7 +845,7 @@
                 }
 
                 // Act
-                CorporateContract.contract corporateContract = contractsManager.GetCorporateContract(contractNumber, masterContractNumber);
+                CorporateContract.Contract corporateContract = contractsManager.GetCorporateContract(contractNumber, masterContractNumber);
 
                 var corpSchemeContract = contractTransformer.TransformToCorporateSchemaContract(corporateContract);
 
@@ -895,7 +895,7 @@
             DeleteContractsWithContractNumber(contractNumber);
             DeleteContractsWithContractNumber(masterContractNumber);
 
-            var provider = new CorporateContract.contractor
+            var provider = new CorporateContract.Contractor
             {
                 ukprn = ukprn,
                 legalName = providerName,
@@ -927,7 +927,7 @@
                 }
 
                 // The CRM workflow that attaches the deliverables to the contract does not necessarily finish quickly enough
-                CorporateContract.contract exportedCorpContract = null;
+                CorporateContract.Contract exportedCorpContract = null;
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -1065,7 +1065,7 @@
             }
 
             // Act
-            CorporateContract.contract corporateContract = contractsManager.GetCorporateContract(contractNumber, masterContractNumber, false);
+            CorporateContract.Contract corporateContract = contractsManager.GetCorporateContract(contractNumber, masterContractNumber, false);
 
             var corpSchemeContract = contractTransformer.TransformToCorporateSchemaContract(corporateContract);
 
@@ -1478,13 +1478,13 @@
             }
         }
 
-        private static void ValidateCorpContractAgainstXsd(CorporateSchema.contract contract)
+        private static void ValidateCorpContractAgainstXsd(CorporateSchema.Contract contract)
         {
 
             XmlSchemaSet schemas = new XmlSchemaSet();
             AddSchemasToSet(schemas);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.contract));
+            XmlSerializer serializer = new XmlSerializer(typeof(SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract));
 
             XDocument responseXml;
             using (MemoryStream xmlStream = new MemoryStream())
@@ -1510,7 +1510,7 @@
 
         private static Stream GetCorporateSchemaXsdFile()
         {
-            return typeof(CorporateSchema.contract).Assembly.GetManifestResourceStream(CorpContractSchemaResourceName);
+            return typeof(CorporateSchema.Contract).Assembly.GetManifestResourceStream(CorpContractSchemaResourceName);
         }
 
         private static bool ApproveContract(string contractNumber)
@@ -1582,7 +1582,7 @@
             }
         }
 
-        private static CorporateContract.ExtendedContractType GetHierarchicalCorpContract(string masterContractNumber, CorporateContract.contractor provider, string contractNumber, string contractAllocationNumber)
+        private static CorporateContract.ExtendedContractType GetHierarchicalCorpContract(string masterContractNumber, CorporateContract.Contractor provider, string contractNumber, string contractAllocationNumber)
         {
             return new CorporateContract.ExtendedContractType
             {
@@ -1618,7 +1618,7 @@
                             parentStatus = "Draft",
                             status = "Unassigned"
                         },
-                        period = new CorporateContract.period
+                        period = new CorporateContract.Period
                         {
                             period1 = "1516",
                             periodType = new CorporateContract.periodTypeType
@@ -1642,7 +1642,7 @@
                                 fundingStreamPeriodCode = "16-18APPS1516",
                                 startDate = DateTime.Now,
                                 endDate = DateTime.Now.AddYears(1),
-                                period = new CorporateContract.period
+                                period = new CorporateContract.Period
                                 {
                                     period1 = "1516",
                                     periodType = new CorporateContract.periodTypeType

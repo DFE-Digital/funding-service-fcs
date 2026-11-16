@@ -9,7 +9,7 @@
     using DataStore;
     using DataStore.Repositories;
     using Infrastructure;
-    using SFA.FCT.Framework.Logging.Interfaces;
+    using Microsoft.Extensions.Logging;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore;
     using SFA.FCT.CrossDomain.Integration.Common;
     using SFA.FCT.CrossDomain.Integration.OverrideDate;

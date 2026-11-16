@@ -16,7 +16,7 @@
     public class ContractRequestTransformerTest
     {
         private const string CorpContractSchemaNamespace = "urn:sfa:schemas:contract";
-        private const string CorpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.09.xsd";
+        private const string CorpContractSchemaResourceName = "SFA.FCT.CrossDomain.Integration.Entities.CorporateSchema.contract_corporate_schema_v11.08.xsd";
 
         [TestMethod, TestCategory("UnitTest")]
         public void ShouldTransformCorporateContractToCorporateSchemaContract()
@@ -59,7 +59,7 @@
             XmlSchemaSet schemas = new XmlSchemaSet();
             AddSchemasToSet(schemas);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(CrossDomain.Integration.Entities.CorporateSchema.Contract.contract));
+            XmlSerializer serializer = new XmlSerializer(typeof(CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract));
 
             XDocument responseXml;
             using (MemoryStream xmlStream = new MemoryStream())
@@ -85,12 +85,12 @@
 
         public static Stream GetCorporateSchemaXsdFile()
         {
-            return typeof(CrossDomain.Integration.Entities.CorporateSchema.Contract.contract).Assembly.GetManifestResourceStream(CorpContractSchemaResourceName);
+            return typeof(CrossDomain.Integration.Entities.CorporateSchema.Contract.Contract).Assembly.GetManifestResourceStream(CorpContractSchemaResourceName);
         }
 
-        private CorporateContract.contract GetContract()
+        private CorporateContract.Contract GetContract()
         {
-            var corporateContract = new CorporateContract.contract()
+            var corporateContract = new CorporateContract.Contract()
             {
                 schemaVersion = new Decimal(10.07),
                 contractNumber = "123456",
@@ -171,9 +171,9 @@
             };
         }
 
-        private CorporateContract.contractor CreateContractor()
+        private CorporateContract.Contractor CreateContractor()
         {
-            return new CorporateContract.contractor
+            return new CorporateContract.Contractor
             {
                 ukprn = 12345678,
                 organisationAddressIdentifier = 12345678,
@@ -198,9 +198,9 @@
             };
         }
 
-        private CorporateContract.period CreatePeriod()
+        private CorporateContract.Period CreatePeriod()
         {
-            return new CorporateContract.period
+            return new CorporateContract.Period
             {
                 period1 = "1516",
                 startDate = GetDate(),

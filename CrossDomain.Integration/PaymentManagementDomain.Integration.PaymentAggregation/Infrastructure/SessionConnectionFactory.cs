@@ -1,6 +1,8 @@
 ﻿namespace SFA.FCT.PaymentManagementDomain.Integration.PaymentAggregation.Infrastructure
 {
-    using CrossDomain.Integration.Entities.Data;
+    extern alias Entities;
+
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using NServiceBus;
 
     public class SessionConnectionFactory : ISessionConnectionFactory

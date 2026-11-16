@@ -55,7 +55,7 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
                 _siblingCheck.Object);
         }
 
-        private static contractRequestType Request(intent crmIntent, string fundingType = "Ft", hierarchyType hierarchy = hierarchyType.MASTERCONTRACT, params contractAllocation[] allocations)
+        private static contractRequestType Request(Intent crmIntent, string fundingType = "Ft", hierarchyType hierarchy = hierarchyType.MASTERCONTRACT, params contractAllocation[] allocations)
         {
             return new contractRequestType
             {
@@ -93,7 +93,7 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
         public void CreateLookupData_WithAllocations_LoadsDeliverableStructureOncePerFundingStreamPeriodAndSendsTenderRefs()
         {
             var contract = Request(
-                intent.New,
+                Intent.New,
                 "Ft",
                 hierarchyType.MASTERCONTRACT,
                 new contractAllocation { fundingStreamPeriodCode = "LDT-UNIQUE-1", tenderAwardReference = "T-1" },
@@ -113,8 +113,8 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
         {
             var allocation = new contractAllocation { fundingStreamPeriodCode = "LDT-CACHED" };
 
-            _creator.CreateLookupDataAndSetContractPresence(Request(intent.New, "Ft", hierarchyType.MASTERCONTRACT, allocation), ConnectionInfo.CreateDefault());
-            var second = _creator.CreateLookupDataAndSetContractPresence(Request(intent.New, "Ft", hierarchyType.MASTERCONTRACT, allocation), ConnectionInfo.CreateDefault());
+            _creator.CreateLookupDataAndSetContractPresence(Request(Intent.New, "Ft", hierarchyType.MASTERCONTRACT, allocation), ConnectionInfo.CreateDefault());
+            var second = _creator.CreateLookupDataAndSetContractPresence(Request(Intent.New, "Ft", hierarchyType.MASTERCONTRACT, allocation), ConnectionInfo.CreateDefault());
 
             Assert.IsTrue(second.FscDeliverableStructureData.ContainsKey("LDT-CACHED"));
             _fundingStreamConfig.Verify(s => s.GetFullDeliverableStructure("LDT-CACHED"), Times.Once);
@@ -126,7 +126,7 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
             var expected = new List<ContractManagement.DataStore.Model.FundingTypePeriodFundingStreamPeriod>();
             _ftpFspRepository.Setup(r => r.GetByFundingType("Ft", It.IsAny<ConnectionInfo>())).Returns(expected);
 
-            var data = _creator.CreateLookupDataAndSetContractPresence(Request(intent.New), ConnectionInfo.CreateDefault());
+            var data = _creator.CreateLookupDataAndSetContractPresence(Request(Intent.New), ConnectionInfo.CreateDefault());
 
             Assert.AreSame(expected, data.FundingTypePeriodFundingStreamPeriods);
         }
@@ -135,7 +135,7 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
         public void CreateLookupData_LevyContract_ChecksForExistingDraftOrApprovedContractForUkprn()
         {
             _lookupManager.Setup(l => l.IsExistingLevyContractWithDraftOfApprovedStatusForUkprnPresentInCrm(It.IsAny<int>(), It.IsAny<Guid>())).Returns(true);
-            var contract = Request(intent.New, "LEVY", hierarchyType.CONTRACT);
+            var contract = Request(Intent.New, "LEVY", hierarchyType.CONTRACT);
 
             var data = _creator.CreateLookupDataAndSetContractPresence(contract, ConnectionInfo.CreateDefault());
 
@@ -147,7 +147,7 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_NewAmendmentWithMasterContract_AddsMasterContractNumberPresenceCheck()
         {
-            var contract = Request(intent.NewAmendment);
+            var contract = Request(Intent.NewAmendment);
 
             var data = _creator.CreateLookupDataAndSetContractPresence(contract, ConnectionInfo.CreateDefault());
 
@@ -163,7 +163,7 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
         {
             try
             {
-                _creator.CreateLookupDataAndSetContractPresence(Request(intent.NewAmendment, "Ft", hierarchyType.CONTRACT), ConnectionInfo.CreateDefault());
+                _creator.CreateLookupDataAndSetContractPresence(Request(Intent.NewAmendment, "Ft", hierarchyType.CONTRACT), ConnectionInfo.CreateDefault());
                 Assert.Fail("Expected InvalidOperationException");
             }
             catch (InvalidOperationException)
@@ -174,7 +174,7 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_AmendmentIntent_AddsDraftApprovedAndWithdrawnPresenceChecksPerSubContract()
         {
-            var contract = Request(intent.Amendment);
+            var contract = Request(Intent.Amendment);
 
             var data = _creator.CreateLookupDataAndSetContractPresence(contract, ConnectionInfo.CreateDefault());
 
@@ -196,7 +196,7 @@ namespace ContractCreateDomain.Endpoint.Tests.Infrastructure
         [TestMethod, TestCategory("UnitTest")]
         public void CreateLookupData_InvalidPeriodTypeCode_Throws()
         {
-            var contract = Request(intent.New);
+            var contract = Request(Intent.New);
             contract.contract.contracts[0].period.periodType1.periodTypeCode = "NotAPeriodType";
 
             try

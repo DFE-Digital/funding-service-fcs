@@ -50,13 +50,13 @@
         {
             _mockCreationService = new Mock<IApprovalOnwardsContractAtomFeedService>();
             _mockCreationService
-                .Setup(m => m.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Setup(m => m.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
                 .Returns(AtomItemCreationResult.Added);
 
             _mockContractsManager = new Mock<IContractsManager>();
             _mockContractsManager
                 .Setup(m => m.GetCorporateContractForSpecificVersion(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -128,7 +128,6 @@
             IWindsorContainer container =
                 new WindsorContainer()
                 .Install(new WindsorInstaller(new LoggerFactory()))
-                .Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault())
                 .Register(Component.For<ApproveContractClosureHandler>());
 
             container.BeginScope();
@@ -193,7 +192,7 @@
                     cmd.VersionNumber == _dummyCommand.VersionNumber &&
                     cmd.SubVersionNumber == _dummyCommand.SubVersionNumber &&
                     cmd.NotificationText == testNotificationText));
-            _mockCreationService.Verify(m => m.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()), Times.Never, "An attempt was made to add to atom feed unexpectedly");
+            _mockCreationService.Verify(m => m.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()), Times.Never, "An attempt was made to add to atom feed unexpectedly");
         }
 
         [TestMethod, TestCategory("UnitTest")]
@@ -201,7 +200,7 @@
         {
             // Arrange
             Setup();
-            _mockCreationService.Setup(m => m.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>())).Returns(AtomItemCreationResult.AlreadyPresent);
+            _mockCreationService.Setup(m => m.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>())).Returns(AtomItemCreationResult.AlreadyPresent);
 
             // Act
             _handler.Handle(_dummyCommand, _messageHandlerContext).Wait();
@@ -215,7 +214,7 @@
         {
             // Arrange
             Setup();
-            _mockCreationService.Setup(m => m.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>())).Returns(AtomItemCreationResult.AlreadyPresentWithSameFeedItemId);
+            _mockCreationService.Setup(m => m.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>())).Returns(AtomItemCreationResult.AlreadyPresentWithSameFeedItemId);
 
             // Act
             _handler.Handle(_dummyCommand, _messageHandlerContext).Wait();
@@ -230,10 +229,10 @@
             // Arrange
             Setup();
 
-            contract contractPassedIn = null;
+            Contract contractPassedIn = null;
             _mockCreationService
-                .Setup(s => s.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
-                .Callback<contract, Guid, ConnectionInfo>(
+                .Setup(s => s.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Callback<Contract, Guid, ConnectionInfo>(
                 (c, g, ci) =>
                 {
                     contractPassedIn = c;
@@ -254,7 +253,7 @@
 
             _mockContractsManager
                 .Setup(m => m.GetCorporateContract(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -269,10 +268,10 @@
                     }
                 });
 
-            contract publishedContract = null;
+            Contract publishedContract = null;
             _mockCreationService
-                .Setup(s => s.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
-                .Callback<contract, Guid, ConnectionInfo>(
+                .Setup(s => s.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Callback<Contract, Guid, ConnectionInfo>(
                 (c, g, ci) =>
                 {
                     publishedContract = c;
@@ -294,7 +293,7 @@
 
             _mockContractsManager
                 .Setup(m => m.GetCorporateContractForSpecificVersion(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -309,10 +308,10 @@
                     }
                 });
 
-            contract publishedContract = null;
+            Contract publishedContract = null;
             _mockCreationService
-                .Setup(s => s.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
-                .Callback<contract, Guid, ConnectionInfo>(
+                .Setup(s => s.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Callback<Contract, Guid, ConnectionInfo>(
                 (c, g, ci) =>
                 {
                     publishedContract = c;
@@ -336,7 +335,7 @@
 
             _mockContractsManager
                 .Setup(m => m.GetCorporateContractForSpecificVersion(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -358,10 +357,10 @@
                     }
                 });
 
-            contract publishedContract = null;
+            Contract publishedContract = null;
             _mockCreationService
-                .Setup(s => s.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
-                .Callback<contract, Guid, ConnectionInfo>(
+                .Setup(s => s.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Callback<Contract, Guid, ConnectionInfo>(
                 (c, g, ci) =>
                 {
                     publishedContract = c;
@@ -385,7 +384,7 @@
 
             _mockContractsManager
                 .Setup(m => m.GetCorporateContractForSpecificVersion(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new contract
+                .Returns(new Contract
                 {
                     contracts = new List<contractType>
                     {
@@ -411,10 +410,10 @@
                 .Setup(m => m.GetDate(It.IsAny<ConnectionInfo>()))
                 .Returns(now);
 
-            contract publishedContract = null;
+            Contract publishedContract = null;
             _mockCreationService
-                .Setup(s => s.AddClosedContract(It.IsAny<contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
-                .Callback<contract, Guid, ConnectionInfo>(
+                .Setup(s => s.AddClosedContract(It.IsAny<Contract>(), It.IsAny<Guid>(), It.IsAny<ConnectionInfo>()))
+                .Callback<Contract, Guid, ConnectionInfo>(
                 (c, g, ci) =>
                 {
                     publishedContract = c;

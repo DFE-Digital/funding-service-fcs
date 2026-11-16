@@ -55,7 +55,7 @@
                     }.ConvertObjectToByteArray(),
                     ContractRequestContract = new contractRequestType().ConvertObjectToByteArray()
 
-                }, Intent.New));
+                }, ContractCreateDomain.Endpoint.Infrastructure.DTOs.Intent.New));
 
             DocumentGenerationCompleteHandler handler = new DocumentGenerationCompleteHandler(
                 sagaDataStorageMock.Object,
@@ -97,7 +97,7 @@
                     }.ConvertObjectToByteArray(),
                     ContractRequestContract = new contractRequestType().ConvertObjectToByteArray()
 
-                }, Intent.RevisedNew));
+                }, ContractCreateDomain.Endpoint.Infrastructure.DTOs.Intent.RevisedNew));
 
             DocumentGenerationCompleteHandler handler = new DocumentGenerationCompleteHandler(
                 sagaDataStorageMock.Object,
@@ -139,7 +139,7 @@
                     }.ConvertObjectToByteArray(),
                     ContractRequestContract = new contractRequestType().ConvertObjectToByteArray()
 
-                }, Intent.NewAmendment));
+                }, ContractCreateDomain.Endpoint.Infrastructure.DTOs.Intent.NewAmendment));
 
             DocumentGenerationCompleteHandler handler = new DocumentGenerationCompleteHandler(
                 sagaDataStorageMock.Object,
@@ -183,7 +183,7 @@
                     {
                         new ContractCorrelationData("MAIN-1234")
                     }.ConvertObjectToByteArray()
-                }, Intent.Amendment));
+                }, ContractCreateDomain.Endpoint.Infrastructure.DTOs.Intent.Amendment));
 
             DocumentGenerationCompleteHandler handler = new DocumentGenerationCompleteHandler(
                 sagaDataStorageMock.Object,
@@ -227,7 +227,7 @@
                     {
                         new ContractCorrelationData("MAIN-1234")
                     }.ConvertObjectToByteArray()
-                }, Intent.Update));
+                }, ContractCreateDomain.Endpoint.Infrastructure.DTOs.Intent.Update));
 
             DocumentGenerationCompleteHandler handler = new DocumentGenerationCompleteHandler(
                 sagaDataStorageMock.Object,
@@ -271,7 +271,7 @@
                     {
                         new ContractCorrelationData("MAIN-1234")
                     }.ConvertObjectToByteArray()
-                }, Intent.UpdateAmendment));
+                }, ContractCreateDomain.Endpoint.Infrastructure.DTOs.Intent.UpdateAmendment));
 
             DocumentGenerationCompleteHandler handler = new DocumentGenerationCompleteHandler(
                 sagaDataStorageMock.Object,

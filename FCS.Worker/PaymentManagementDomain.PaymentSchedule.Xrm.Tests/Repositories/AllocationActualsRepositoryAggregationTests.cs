@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.Repositories
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -8,9 +9,9 @@
     using Microsoft.Xrm.Sdk;
     using PaymentManagementDomain.AllocationActualsVerified.Repositories;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.AllocationActuals;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm.OptionSets;
 
     [TestClass]
     public class AllocationActualsRepositoryAggregationTests

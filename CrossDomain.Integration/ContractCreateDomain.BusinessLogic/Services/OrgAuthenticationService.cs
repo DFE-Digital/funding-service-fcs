@@ -1,55 +1,60 @@
-﻿using System.Configuration;
+﻿
+using System.Configuration;
 using System.Globalization;
 using System.Security.Authentication;
-using System.Threading;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System.Threading.Tasks;
+using Microsoft.Identity.Client; // MSAL
 
 namespace SFA.FCT.ContractCreateDomain.BusinessLogic.Services
 {
     public static class OrgAuthenticationService
-    { 
-        private static readonly string AadInstance = ConfigurationManager.AppSettings["ida:AADInstance_OrgService"];
-        private static readonly string Tenant = ConfigurationManager.AppSettings["ida:Tenant_OrgService"];
+    {
+        private static readonly string AadInstance = ConfigurationManager.AppSettings["ida:AADInstance_OrgService"];  // e.g. "https://login.microsoftonline.com/{0}/"
+        private static readonly string Tenant = ConfigurationManager.AppSettings["ida:Tenant_OrgService"];         // e.g. "<tenant-id-or-name>"
         private static readonly string ClientId = ConfigurationManager.AppSettings["ida:ClientId_OrgService"];
-        private static readonly string AppKey = ConfigurationManager.AppSettings["ida:AppKey_OrgService"];
-        private static readonly string ResourceId = ConfigurationManager.AppSettings["ida:ResourceId_OrgService"];
+        private static readonly string ClientSecret = ConfigurationManager.AppSettings["ida:AppKey_OrgService"];       // same value as AppKey
+        private static readonly string ResourceId = ConfigurationManager.AppSettings["ida:ResourceId_OrgService"];    // e.g. "https://graph.microsoft.com" or "api://<app-id>"
 
-        public static AuthenticationResult GetAuthenticationResult()
+        /// <summary>
+        /// Acquires an app-only access token using MSAL client credentials flow.
+        /// Returns MSAL's AuthenticationResult (access token, expiry, etc.).
+        /// </summary>
+        public static async Task<AuthenticationResult> GetAuthenticationResultAsync()
         {
-            string authority = string.Format(CultureInfo.InvariantCulture, AadInstance, Tenant);
-            AuthenticationContext authContext = new AuthenticationContext(authority);
-            ClientCredential clientCredential = new ClientCredential(ClientId, AppKey);
+            // Build a tenant-specific authority (avoid "common"/"organizations")
+            var authority = string.Format(CultureInfo.InvariantCulture, AadInstance, Tenant);
 
-            AuthenticationResult authResult = null;
-            int retryCount = 0;
-            bool retry;
+            // Build a confidential client (keep this as a singleton in a real app to leverage token caching)
+            var app = ConfidentialClientApplicationBuilder
+                .Create(ClientId)
+                .WithClientSecret(ClientSecret)   // or .WithCertificate(cert)
+                .WithAuthority(authority)
+                .Build();
 
-            do
+            // For client credentials, always request {resource}/.default
+            // e.g. "https://graph.microsoft.com/.default" or "api://<app-id>/.default"
+            var scopes = new[] { $"{ResourceId}/.default" };
+
+            // Retry a few times on transient errors
+            for (int attempt = 0; attempt < 3; attempt++)
             {
-                retry = false;
                 try
                 {
-                    authResult = authContext.AcquireToken(ResourceId, clientCredential);
-                    return authResult;
+                    return await app.AcquireTokenForClient(scopes)
+                                    .ExecuteAsync()
+                                    .ConfigureAwait(false);
                 }
-                catch (AdalException ex)
+                catch (MsalServiceException ex) when (IsTransient(ex) && attempt < 2)
                 {
-                    if (ex.ErrorCode == "temporarily_unavailable")
-                    {
-                        retry = true;
-                        retryCount++;
-                        Thread.Sleep(3000);
-                    }
+                    // Backoff: 3 seconds like your original code
+                    await Task.Delay(3000).ConfigureAwait(false);
                 }
             }
-            while (retry && (retryCount < 3));
 
-            if (authResult == null)
-            {
-                throw new AuthenticationException("Could not authenticate with the OAUTH2 claims provider after several attempts");
-            }
-
-            return authResult;
+            throw new AuthenticationException("Could not acquire an application token with MSAL after several attempts.");
         }
+
+        private static bool IsTransient(MsalServiceException ex)
+            => ex.ErrorCode == "temporarily_unavailable" || ex.StatusCode is 429 or >= 500;
     }
 }

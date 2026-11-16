@@ -1,13 +1,17 @@
-namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentRunEndpoint
+﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.InitiatePaymentRunEndpoint
 {
+    using Common.Commands;
+    using Microsoft.Extensions.DependencyInjection; // <-- new
+    using Microsoft.Extensions.Logging;
+    using NServiceBus;
+    using PaymentGenerationDomain.BusinessLogic;
+    using PaymentGenerationDomain.Integration.DataStore;
+    using DataStore.Repositories;
+    using Infrastructure;
+    using SFA.FCS.Worker.Common;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
-    using Common.Commands;
-    using Ioc;
-    using NServiceBus;
-    using SFA.FCS.Worker.Common;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -22,25 +26,50 @@ namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.Initiate
 
         public IReadOnlyCollection<Subscription> Subscriptions => Enumerable.Empty<Subscription>().ToArray();
 
+
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            if (loggerFactory is null) throw new ArgumentNullException(nameof(loggerFactory));
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => null != t.Namespace && t.Namespace.EndsWith("Events"))
-                .DefiningMessagesAs(t => null != t.Namespace && t.Namespace.EndsWith("Messages"));
+            var connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnection");
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new InitiatePaymentRunWindsorInstaller(loggerFactory)));
+                throw new InvalidOperationException(
+                    "AzureServiceBusConnection environment variable is not set.");
+            }
+
+            // ✅ Conventions (clean)
+            configuration.Conventions()
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    t?.Namespace != null && t.Namespace.EndsWith("Events"));
+
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Replace WindsorInstaller here
+            configuration.RegisterComponents(services =>
+            {
+                services.AddSingleton(loggerFactory);
+
+                // ✅ Scoped services (from installer)
+                services.AddScoped<IDataAccessManager, DataAccessManager>();
+                services.AddScoped<PaymentGenerationDbContext>();
+                services.AddScoped<ISubnominalAggregationRepository, SubnominalAggregationRepository>();
+
+                // ✅ Singleton
+                services.AddSingleton<ISessionConnectionFactory, SessionConnectionFactory>();
             });
 
             return configuration;
         }
+
     }
 }

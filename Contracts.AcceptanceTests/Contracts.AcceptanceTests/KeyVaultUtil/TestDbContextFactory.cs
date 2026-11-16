@@ -6,6 +6,7 @@ using SFA.FCT.AllocationDelivery.DataStore;
 using SFA.FCT.AllocationDeliveryDomain.Common.DataStore;
 using SFA.FCT.ContractRequestDomain.DataStore;
 using SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Repositories.CrmReplicaRepo;
+using SFA.FCT.CrossDomain.Integration.Common;
 using SFA.FCT.CrossDomain.Integration.OverrideDate;
 using SFA.FCT.DocumentsDomain.DataStore;
 using SFA.FCT.Operations.DataStore;
@@ -22,6 +23,8 @@ namespace SFA.FCT.Contracts.AcceptanceTests
         {
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var config = new KeyVaultTestConfiguration();
+            CommonConfiguration.Configuration = TestConfiguration.Configuration;
+            Xrm.TestFramework.Services.CrmConnectionFactory.SetAppSettingReader(ResolveCrmSetting);
             var sqlconn = config["ConnectionStrings:CommonDBContext"];
             var storageConn = config["AzureStorage:ConnectionString"];
             var CRMConn = config["CrmReplicaDbContext"];
@@ -41,6 +44,25 @@ namespace SFA.FCT.Contracts.AcceptanceTests
             CrmReplicaDbContext.KeyVaultValue = CRMConn;
             StorageConnectionStringProvider.StorageConnectionString = storageConn;
 
+        }
+
+        private static string ResolveCrmSetting(string key)
+        {
+            switch (key)
+            {
+                case "ida:AADInstance_CrmOnline":
+                    return TestConfiguration.Configuration["CrmOnline:AADInstance"];
+                case "ida:Tenant_CrmOnline":
+                    return TestConfiguration.Configuration["CrmOnline:Tenant"];
+                case "ida:ClientId_CrmOnline":
+                    return TestConfiguration.Configuration["CrmOnline:ClientId"];
+                case "ida:AppKey_CrmOnline":
+                    return TestConfiguration.Configuration["CrmOnline:AppKey"];
+                case "ida:ResourceId_CrmOnline":
+                    return TestConfiguration.Configuration["CrmOnline:ResourceId"];
+                default:
+                    return null;
+            }
         }
 
     }

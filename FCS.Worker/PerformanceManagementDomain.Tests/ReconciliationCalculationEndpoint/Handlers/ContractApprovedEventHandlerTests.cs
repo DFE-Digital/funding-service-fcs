@@ -70,7 +70,7 @@
                     fcrRecalculationRequiredCheckerMock.Object,
                     mockSessionConnectionFactory.Object);
 
-                contract contractToTest = GetContractToTest();
+                SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract contractToTest = GetContractToTest();
 
                 TestableMessageHandlerContext testableContext = new TestableMessageHandlerContext();
 
@@ -115,7 +115,7 @@
                     fcrRecalculationRequiredCheckerMock.Object,
                     mockSessionConnectionFactory.Object);
 
-                contract contractToTest = GetContractToTest();
+                SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract contractToTest = GetContractToTest();
                 contractToTest.contracts.ForEach(c => c.contractAllocations.ForEach(a => a.fundingStreamPeriodCode = NonPayOnProfileFsp));
 
                 TestableMessageHandlerContext testableContext = new TestableMessageHandlerContext();
@@ -136,7 +136,7 @@
         public void ContractApprovedEventHandler_ShouldSuccessfullyPersistUpdatedContractAllocationsWhenContractVersionIncrements()
         {
             // Arrange
-            contract contractToTest = GetContractToTest();
+            SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract contractToTest = GetContractToTest();
             const int incrementedContractVersionNumber = 2;
 
             using (PerformanceManagementDbContext context = new PerformanceManagementDbContext())
@@ -234,7 +234,8 @@
                     fcrRecalculationRequiredCheckerMock.Object,
                     mockSessionConnectionFactory.Object);
 
-                contract contractToTest = GetContractToTest();
+
+                SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract contractToTest = GetContractToTest();
 
                 TestableMessageHandlerContext testableContext = new TestableMessageHandlerContext();
 
@@ -253,7 +254,7 @@
             }
         }
 
-        private contract GetContractToTest()
+        private SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract GetContractToTest()
         {
             string TestLegalName = "LegalName";
             string TestOrganisationId = "OrgId";
@@ -264,7 +265,7 @@
             DateTime _testApprovalDate = new DateTime(2016, 01, 01);
             int TestContractVersionNumber = 1;
             int TestContractSubVersionNumber = 1;
-            return new contract
+            return new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contract
             {
                 contracts = new List<contractType>
                 {
@@ -274,7 +275,7 @@
                         ContractApprovalDate = _testApprovalDate,
                         contractVersionNumber = TestContractVersionNumber,
                         contractSubVersionNumber = TestContractSubVersionNumber,
-                        contractor = new contractor
+                        contractor = new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Contractor
                         {
                             legalName = TestLegalName,
                             organisationIdentifier = TestOrganisationId,
@@ -285,7 +286,7 @@
                             fundingTypeCode = TestFundingTypeCode,
                             fundingTypeName = TestFundingTypeName
                         },
-                        period = new period
+                        period = new SFA.FCT.CrossDomain.Integration.Entities.CorporateContract.Period
                         {
                             periodType = new periodTypeType
                             {

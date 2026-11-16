@@ -42,7 +42,7 @@
 
             ConnectionInfo connectionInfo = _sessionConnectionFactory.GetConnection(context);
 
-            contract approvedContract = _contractsManager.GetCorporateContract(message.ContractNumber, message.MasterContractNumber);
+            Contract approvedContract = _contractsManager.GetCorporateContract(message.ContractNumber, message.MasterContractNumber);
 
             Guid messageId = new Guid(context.MessageId);
 

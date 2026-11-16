@@ -14,49 +14,36 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
     [TestClass]
     public class DocumentCreatorTest
     {
-        [TestMethod, TestCategory("UnitTest"),
-            ExpectedException(typeof(FileNotFoundException), "Requested template file not found: Container:'testcontainer' Filename:'testfilename'")]
-        public void DocumentCreator_ThrowsAnException_WhenTemplateNotFound()
+
+        [TestMethod]
+        [TestCategory("UnitTest")]        public void DocumentCreator_ThrowsAnException_WhenTemplateNotFound()
         {
             // Arrange
-            Mock<ITemplateRepository> templateRepositoryMock = new Mock<ITemplateRepository>();
-            Mock<IAsposeWrapper> asposeWrapperMock = new Mock<IAsposeWrapper>();
+            var templateRepositoryMock = new Mock<ITemplateRepository>();
+            var asposeWrapperMock = new Mock<IAsposeWrapper>();
 
-            templateRepositoryMock.Setup(m => m.GetTemplate(It.IsAny<FctFile>())).Throws<FileNotFoundException>();
+            templateRepositoryMock
+                .Setup(m => m.GetTemplate(It.IsAny<FctFile>()))
+                .Throws<FileNotFoundException>();
 
-            DocumentGenerationRequest dgr = new DocumentGenerationRequest();
-            dgr.TemplateContainer = "testcontainer";
-            dgr.TemplateFilename = "testfilename";
+            var dgr = new DocumentGenerationRequest
+            {
+                TemplateContainer = "testcontainer",
+                TemplateFilename = "testfilename"
+            };
 
-            // Act
-            IDocumentCreator docCreator = new DocumentCreator.DocumentCreator(asposeWrapperMock.Object, templateRepositoryMock.Object);
-            docCreator.CreateDocument(dgr);
-
-            // Assert
-            // Exception should be raised and checked with the method attribute setting
-        }
-
-        [TestMethod, TestCategory("UnitTest"),
-        ExpectedException(typeof(FileNotFoundException), "Requested template file not found: Container:'testcontainer' Filename:'testfilename'")]
-        public void DocumentCreator_ThrowsAnException_WhenGetTemplateReturnsNull()
-        {
-            // Arrange
-            Mock<ITemplateRepository> templateRepositoryMock = new Mock<ITemplateRepository>();
-            Mock<IAsposeWrapper> asposeWrapperMock = new Mock<IAsposeWrapper>();
-
-            templateRepositoryMock.Setup(m => m.GetTemplate(It.IsAny<FctFile>())).Returns((Document) null);
-
-            DocumentGenerationRequest dgr = new DocumentGenerationRequest();
-            dgr.TemplateContainer = "testcontainer";
-            dgr.TemplateFilename = "testfilename";
+            var docCreator = new DocumentCreator.DocumentCreator(asposeWrapperMock.Object, templateRepositoryMock.Object);
 
             // Act
-            IDocumentCreator docCreator = new DocumentCreator.DocumentCreator(asposeWrapperMock.Object, templateRepositoryMock.Object);
-            docCreator.CreateDocument(dgr);
+            var ex = Assert.ThrowsExactly<FileNotFoundException>(() =>
+                docCreator.CreateDocument(dgr));
 
-            // Assert
-            // Exception should be raised and checked with the method attribute setting
+            // Assert (optional: message)
+            StringAssert.Contains(ex.Message, "Requested template file not found");
+            StringAssert.Contains(ex.Message, "testcontainer");
+            StringAssert.Contains(ex.Message, "testfilename");
         }
+
 
         [TestMethod, TestCategory("UnitTest")]
         public void DocumentCreator_HandlesRequestWithNoMergeFields()

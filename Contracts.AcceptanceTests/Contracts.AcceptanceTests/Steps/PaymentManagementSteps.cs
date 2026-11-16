@@ -26,6 +26,7 @@
     using Microsoft.Xrm.Sdk.Messages;
     using Microsoft.Xrm.Sdk.Metadata;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using Pages;
     using Polly;
     using TechTalk.SpecFlow;
@@ -193,7 +194,7 @@
                    contractHeader.Rows[0]["MasterContractNumber"];
             _paymentManagementPageObject.ContractToTest.contractVersionNumber = int.Parse(contractHeader.Rows[0]["ContractVersionNumber"]);
             var masterContract = contractHeader.Rows[0]["MasterContractNumber"];
-            _paymentManagementPageObject.ContractToTest.contractor = new corpContractType.contractor
+            _paymentManagementPageObject.ContractToTest.contractor = new corpContractType.Contractor
             {
                 legalName = contractHeader.Rows[0]["LegalName"],
                 ukprn = int.Parse(contractHeader.Rows[0]["UKPRN"]),
@@ -231,12 +232,12 @@
 
             _paymentManagementPageObject.ContractToTest.contracts[0].contractValue = decimal.Parse(contractHeader.Rows[0]["ContractValue"]);
             _paymentManagementPageObject.ContractToTest.contracts[0].contractType1 = contractHeader.Rows[0]["ContractType"];
-            _paymentManagementPageObject.ContractToTest.contracts[0].period = new corpContractType.period
+            _paymentManagementPageObject.ContractToTest.contracts[0].period = new corpContractType.Period
             {
                 period1 = contractHeader.Rows[0]["Period"]
             };
 
-            _paymentManagementPageObject.ContractToTest.contracts[0].contractor = new corpContractType.contractor
+            _paymentManagementPageObject.ContractToTest.contracts[0].contractor = new corpContractType.Contractor
             {
                 legalName = contractHeader.Rows[0]["LegalName"],
                 ukprn = int.Parse(contractHeader.Rows[0]["UKPRN"]),
@@ -427,7 +428,7 @@
                                                + x);
                     _paymentManagementPageObject.ContractToTest.contractNumber = masterContract;
 
-                    _paymentManagementPageObject.ContractToTest.contractor = new corpContractType.contractor
+                    _paymentManagementPageObject.ContractToTest.contractor = new corpContractType.Contractor
                     {
                         legalName = contractHeader.Rows[0]["LegalName"],
                         ukprn = int.Parse(contractHeader.Rows[0]["UKPRN"]) + x,
@@ -456,7 +457,7 @@
                         decimal.Parse(contractHeader.Rows[0]["ContractValue"]);
                     _paymentManagementPageObject.ContractToTest.contracts[0].contractType1 =
                         contractHeader.Rows[0]["ContractType"];
-                    _paymentManagementPageObject.ContractToTest.contracts[0].period = new corpContractType.period
+                    _paymentManagementPageObject.ContractToTest.contracts[0].period = new corpContractType.Period
                     {
                         period1 = contractHeader.Rows[0]["Period"]
                     };
@@ -774,7 +775,7 @@
                 countAttempts++;
             }
 
-            Assert.IsTrue(actualNumberOfFiles == expectedNumberOfFiles, $"Number of files {actualNumberOfFiles} in the sharepoint document library {documentLibrary} don't match expected value of {expectedNumberOfFiles}");
+            ClassicAssert.IsTrue(actualNumberOfFiles == expectedNumberOfFiles, $"Number of files {actualNumberOfFiles} in the sharepoint document library {documentLibrary} don't match expected value of {expectedNumberOfFiles}");
         }
 
         [Then(@"there are '(.*)' files in (.*) seconds in Sharepoint folder '(.*)' prefixed '(.*)'")]
@@ -796,7 +797,7 @@
             }
 
             stopwatch.Stop();
-            Assert.IsTrue(actualNumberOfFiles == expectedNumberOfFiles, $"Number of files {actualNumberOfFiles} in the sharepoint document library {documentLibrary} don't match expected value of {expectedNumberOfFiles}");
+            ClassicAssert.IsTrue(actualNumberOfFiles == expectedNumberOfFiles, $"Number of files {actualNumberOfFiles} in the sharepoint document library {documentLibrary} don't match expected value of {expectedNumberOfFiles}");
         }
 
         [Given(@"all the contracts exist in CRM")]
@@ -823,7 +824,7 @@
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 actualDeliverablePeriodsCount == numberOfDeliverableRecords,
                 $"The test expected to find {numberOfDeliverableRecords} records in CRM for contract {contractNumber} but instead found {actualDeliverablePeriodsCount}");
         }
@@ -849,7 +850,7 @@
 
                 bool isPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(
+                ClassicAssert.IsTrue(
                     isPresent,
                     $"Subnominal not found for: {s}");
             });
@@ -872,7 +873,7 @@
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 actualDeliverablePeriodsCount == expectedNumberOfDeliverablePeriods,
                 $"The test expected to find {expectedNumberOfDeliverablePeriods} records in CRM for allocation {allocationNumber} but instead found {actualDeliverablePeriodsCount}");
         }
@@ -999,7 +1000,7 @@
 
             bool allEventsFound = resultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(allEventsFound, "Not all expected allocation delivery performance events are in retrieved atom feed");
+            ClassicAssert.IsTrue(allEventsFound, "Not all expected allocation delivery performance events are in retrieved atom feed");
         }
 
         [Then(@"the planned volume details on the '(.*)' event on the ADP feed for version '(.*)' of contract allocation '(.*)' are as follows")]
@@ -1021,7 +1022,7 @@
 
             _adMonitoringDomainPageObject.VerifyPlannedVolumeInFeed(contractAllocationsToCheck, _allocationEntriesInFeed);
 
-            Assert.IsTrue(contractAllocationsToCheck.AllocationDeliverablePeriods.Where(x => x.IsPlannedVolumeMatches == false).Count() == 0, "Planned Volume do not match with the feed entry");
+            ClassicAssert.IsTrue(contractAllocationsToCheck.AllocationDeliverablePeriods.Where(x => x.IsPlannedVolumeMatches == false).Count() == 0, "Planned Volume do not match with the feed entry");
         }
 
         [Then(@"the actual volume details on the '(.*)' event on the ADP feed for version '(.*)' of contract allocation '(.*)' are as follows")]
@@ -1040,7 +1041,7 @@
                                                       )).ToList()
             };
             _adMonitoringDomainPageObject.VerifyActualVolumeInFeed(contractAllocationsToCheck, _allocationEntriesInFeed);
-            Assert.IsTrue(contractAllocationsToCheck.AllocationDeliverablePeriods.Where(x => x.IsActualVolumeMatches == false).Count() == 0, "Actual Volume don not match with the feed entry");
+            ClassicAssert.IsTrue(contractAllocationsToCheck.AllocationDeliverablePeriods.Where(x => x.IsActualVolumeMatches == false).Count() == 0, "Actual Volume don not match with the feed entry");
         }
 
         [Given(@"the following allocation periods are present in the subnominal aggregation PaaS table")]
@@ -1054,7 +1055,7 @@
 
             bool areSubnominalAggregationsPresent = resultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(areSubnominalAggregationsPresent, "Not all the subnominal aggregations are present - " + string.Join(",", table.Rows.Select(r => GetAllocationNumber(r["ContractAllocationNumber"])).Distinct()));
+            ClassicAssert.IsTrue(areSubnominalAggregationsPresent, "Not all the subnominal aggregations are present - " + string.Join(",", table.Rows.Select(r => GetAllocationNumber(r["ContractAllocationNumber"])).Distinct()));
         }
 
         [Then(@"the AllocationDeliveryEntry Atom feed has '(.*)' ContractAllocationActualsReceived rows with allocation numbers prefixed '(.*)'")]
@@ -1072,7 +1073,7 @@
 
             bool allEventsFound = resultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(allEventsFound, "Not all expected allocation delivery performance events are in retrieved atom feed");
+            ClassicAssert.IsTrue(allEventsFound, "Not all expected allocation delivery performance events are in retrieved atom feed");
         }
 
         [When(@"all contracts are approved")]
@@ -1147,7 +1148,7 @@
             //file.Write("\nTest completed for " + sample + " records Total Time =" + _stopwatch.Elapsed);
 
             //file.Close();
-            Assert.IsTrue(_stopwatch.Elapsed.TotalHours < interval.TotalHours);
+            ClassicAssert.IsTrue(_stopwatch.Elapsed.TotalHours < interval.TotalHours);
         }
 
         [Given(@"the latest version of contract '(.*)' is approved")]
@@ -1187,7 +1188,7 @@
                         break;
                 }
 
-                Assert.IsTrue(successfullMatch, $"The sub status of contract {contractNumber} is not {contractState}");
+                ClassicAssert.IsTrue(successfullMatch, $"The sub status of contract {contractNumber} is not {contractState}");
             }
         }
 
@@ -1205,7 +1206,7 @@
         public void ThenTheContractDataIsNowRemovedFromCrm()
         {
             _paymentManagementPageObject.TestTearDown();
-            Assert.Pass(("Total Time" + _stopwatch.Elapsed));
+            ClassicAssert.Pass(("Total Time" + _stopwatch.Elapsed));
         }
 
         [Given(@"there is no Organisation data in CRM for UKPRN '(.*)'")]
@@ -1331,8 +1332,8 @@
                                                   string periodString = $"{period.ToString("MMM")}-{period.ToString("yy")}";
                                                   var matching =
                                                       delPeriods.SingleOrDefault(dp => dp.Period == periodString);
-                                                  Assert.NotNull(matching, $"Deliverable Period: {g} not returned from CRM.");
-                                                  Assert.AreEqual(g.PlannedVolume, matching.Volume, $"Planned volume incorrect for Deliverable Period: {g}.");
+                                                  ClassicAssert.NotNull(matching, $"Deliverable Period: {g} not returned from CRM.");
+                                                  ClassicAssert.AreEqual(g.PlannedVolume, matching.Volume, $"Planned volume incorrect for Deliverable Period: {g}.");
                                               });
                 });
         }
@@ -1366,7 +1367,7 @@
 
                     bool isPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                    Assert.IsTrue(isPresent, $"This one is not present {si} - {siv}");
+                    ClassicAssert.IsTrue(isPresent, $"This one is not present {si} - {siv}");
                 });
             });
         }
@@ -1411,7 +1412,7 @@
 
                     bool isPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                    Assert.IsTrue(isPresent, $"This one is not present {si} - {siv}");
+                    ClassicAssert.IsTrue(isPresent, $"This one is not present {si} - {siv}");
                 });
             });
         }
@@ -1438,11 +1439,11 @@
                 maxNumChecks: 20,
                 waitIntervalSeconds: 3);
 
-                Assert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(), $"The contract {contractNumber} does not have the expected service response {serviceResponseString} it actually has {serviceresponseOfContract}");
+                ClassicAssert.IsTrue(poller.CheckResultAndWaitTillCompleteOrOutOfTime(), $"The contract {contractNumber} does not have the expected service response {serviceResponseString} it actually has {serviceresponseOfContract}");
             }
             else
             {
-                Assert.Fail($"This service response is not supported {serviceResponseString}");
+                ClassicAssert.Fail($"This service response is not supported {serviceResponseString}");
             }
         }
 
@@ -1450,10 +1451,10 @@
         public void GivenAnExcelSpreadsheetExistsAndHasCellWithAUkprnAndAFileName(string p0, string p1, string p2)
         {
             _contractLoadStep.InputFilePath = Path.Combine(SourceFolder, p2);
-            Assert.IsTrue(File.Exists(_contractLoadStep.InputFilePath), "Input file does not exist");
+            ClassicAssert.IsTrue(File.Exists(_contractLoadStep.InputFilePath), "Input file does not exist");
 
             string excelValue = ExcelHelper.GetCellValue(_contractLoadStep.InputFilePath, "Contract", p0);
-            Assert.AreEqual(p1, excelValue);
+           ClassicAssert.That(excelValue, Is.EqualTo(p1));
 
             _contractLoadStep.Ukprns.Add(p1);
         }
@@ -1487,7 +1488,7 @@
                 maxNumChecks: 40,
                 waitIntervalSeconds: 3);
 
-            Assert.True(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(), $"Contract {contractNumber} is not at status: {status}");
+            ClassicAssert.True(checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime(), $"Contract {contractNumber} is not at status: {status}");
         }
 
         [When(@"the latest version of '(.*)' contract '(.*)' is '(.*)'")]
@@ -1518,7 +1519,7 @@
             foreach (var contractNumber in _paymentManagementPageObject.contractNumbersList)
             {
                 bool successfullMatch = _paymentManagementPageObject.AssertContractSubStatus(contractNumber, p0);
-                Assert.IsTrue(successfullMatch, $"Sub status of contract {contractNumber} does not match {p0}");
+                ClassicAssert.IsTrue(successfullMatch, $"Sub status of contract {contractNumber} does not match {p0}");
             }
         }
 
@@ -1542,7 +1543,7 @@
                         break;
                 }
 
-                Assert.IsTrue(successfullMatch, $"Sub status of contract {contractNumber} does not match {p0}");
+                ClassicAssert.IsTrue(successfullMatch, $"Sub status of contract {contractNumber} does not match {p0}");
             }
         }
 
@@ -1598,7 +1599,7 @@
                                     orderby n.CreatedOn descending
                                     select n).FirstOrDefault();
 
-                Assert.IsNull(notification, $"Unexpected notification found for {notificationName}");
+                ClassicAssert.IsNull(notification, $"Unexpected notification found for {notificationName}");
             }
         }
 
@@ -1655,9 +1656,9 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsNotNull(crmDeliverable, $"No matching deliverable found for - {expectedDeliverable}");
-                Assert.AreEqual(expectedDeliverable.ActualValue, crmDeliverable.ActualValue, $"The actual value differs from expected - {expectedDeliverable}");
-                Assert.AreEqual(expectedDeliverable.ActualVolume, crmDeliverable.ActualVolume, $"The actual volume differs from expected - {expectedDeliverable}");
+                ClassicAssert.IsNotNull(crmDeliverable, $"No matching deliverable found for - {expectedDeliverable}");
+                ClassicAssert.AreEqual(expectedDeliverable.ActualValue, crmDeliverable.ActualValue, $"The actual value differs from expected - {expectedDeliverable}");
+                ClassicAssert.AreEqual(expectedDeliverable.ActualVolume, crmDeliverable.ActualVolume, $"The actual volume differs from expected - {expectedDeliverable}");
             });
         }
 
@@ -1678,7 +1679,7 @@
 
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.AreEqual(expectedRowCount, actualRowCount, $"Unexpected number of rows found in PaymentSchedule.DeliverablePayment for Alloc:{allocationNumber.Value}");
+            ClassicAssert.AreEqual(expectedRowCount, actualRowCount, $"Unexpected number of rows found in PaymentSchedule.DeliverablePayment for Alloc:{allocationNumber.Value}");
         }
 
         [Given(@"there are no master contracts in CRM for master contract number '(.*)'")]
@@ -1732,15 +1733,15 @@
 
                 checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(subnominalAggregations.Count >= periodsWithValues, $"Test expected {periodsWithValues} subnominal aggregations in CRM but instead found {subnominalAggregations.Count}");
+                ClassicAssert.IsTrue(subnominalAggregations.Count >= periodsWithValues, $"Test expected {periodsWithValues} subnominal aggregations in CRM but instead found {subnominalAggregations.Count}");
                 var remainingSubNoms = subnominalAggregations.Where(sa => !periodsToTest.Contains(sa.Period));
 
                 var areRemainSubNomsEmptyOrAllZero = remainingSubNoms.Empty() || remainingSubNoms.All(sa => sa.AggregatedValue == 0);
-                Assert.IsTrue(areRemainSubNomsEmptyOrAllZero, "The are other subnominal aggregations that are non zero");
+                ClassicAssert.IsTrue(areRemainSubNomsEmptyOrAllZero, "The are other subnominal aggregations that are non zero");
 
                 if (!result.AreAllValuesPresent)
                 {
-                    Assert.Fail(result.ErrorMsg);
+                    ClassicAssert.Fail(result.ErrorMsg);
                 }
             }
         }
@@ -1984,7 +1985,7 @@
                 bool isPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
                 PeriodValue missingPeriodValue = cd.Values.FirstOrDefault(v => !cdps.Contains(v));
-                Assert.IsTrue(isPresent, $"{missingMessagePrefix} {cd}, {missingPeriodValue}");
+                ClassicAssert.IsTrue(isPresent, $"{missingMessagePrefix} {cd}, {missingPeriodValue}");
             });
         }
 
@@ -2013,7 +2014,7 @@
                 bool isPresent = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
                 PeriodValue missingPeriodValue = cd.Values.FirstOrDefault(v => !cdps.Contains(v));
-                Assert.IsTrue(isPresent, $"{missingMessagePrefix} {cd}, {missingPeriodValue}");
+                ClassicAssert.IsTrue(isPresent, $"{missingMessagePrefix} {cd}, {missingPeriodValue}");
             });
         }
 

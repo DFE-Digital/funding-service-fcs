@@ -1,6 +1,6 @@
 ﻿namespace Operations.Worker.Audit
 {
-    using System.Data.SqlClient;
+    using Microsoft.Data.SqlClient;
     using DataStore.Model;
     using DataStore.Repositories;
     using SFA.FCS.Worker.Common;

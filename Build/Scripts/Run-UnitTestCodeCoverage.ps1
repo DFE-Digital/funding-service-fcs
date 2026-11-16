@@ -74,13 +74,6 @@ if ($ExcludeInfrastructureTests) {
         (($excludedCategories | ForEach-Object { "TestCategory!=$_" }) -join "&")
 }
 
-$testProjects = @(
-    Select-String -Path $solutionPath -Pattern '^Project\("\{[^}]+\}"\)\s*=\s*"[^"]*",\s*"([^"]+\.csproj)"' |
-        ForEach-Object { Join-Path $solutionRoot $_.Matches[0].Groups[1].Value } |
-        Where-Object { (Split-Path -Leaf $_) -match '(?i)Tests?\.csproj$' -and (Test-Path $_) } |
-        Sort-Object -Unique
-)
-
 if ($Build) {
     $vswhere = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
     $msbuild = if (Test-Path $vswhere) {
@@ -95,18 +88,19 @@ if ($Build) {
         throw "MSBuild.exe was not found (vswhere). Install Visual Studio with MSBuild."
     }
 
-    # Only the test projects (and their references) are built: building the whole solution also builds
-    # non-test projects such as Azure .ccproj packages, which fail without the Azure packaging tooling.
-    Write-Host "Cleaning and building $($testProjects.Count) test projects from $solutionPath ($Configuration)..."
-    foreach ($testProject in $testProjects) {
-        & $msbuild $testProject /restore /t:Clean /m /v:q /nologo "/p:Configuration=$Configuration"
-        if ($LASTEXITCODE -ne 0) { throw "MSBuild clean failed for $testProject with exit code $LASTEXITCODE." }
-    }
-    foreach ($testProject in $testProjects) {
-        & $msbuild $testProject /restore /t:Build /m /v:q /nologo "/p:Configuration=$Configuration"
-        if ($LASTEXITCODE -ne 0) { throw "MSBuild build failed for $testProject with exit code $LASTEXITCODE." }
-    }
+    Write-Host "Cleaning and building $solutionPath ($Configuration)..."
+    & $msbuild $solutionPath /restore /t:Clean /m /v:q /nologo "/p:Configuration=$Configuration"
+    if ($LASTEXITCODE -ne 0) { throw "MSBuild clean failed with exit code $LASTEXITCODE." }
+    & $msbuild $solutionPath /restore /t:Build /m /v:q /nologo "/p:Configuration=$Configuration"
+    if ($LASTEXITCODE -ne 0) { throw "MSBuild build failed with exit code $LASTEXITCODE." }
 }
+
+$testProjects = @(
+    Select-String -Path $solutionPath -Pattern '^Project\("\{[^}]+\}"\)\s*=\s*"[^"]*",\s*"([^"]+\.csproj)"' |
+        ForEach-Object { Join-Path $solutionRoot $_.Matches[0].Groups[1].Value } |
+        Where-Object { (Split-Path -Leaf $_) -match '(?i)Tests?\.csproj$' -and (Test-Path $_) } |
+        Sort-Object -Unique
+)
 
 $assemblies = @(
     foreach ($projectFile in $testProjects) {

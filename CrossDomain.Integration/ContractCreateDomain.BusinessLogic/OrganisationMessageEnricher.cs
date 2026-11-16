@@ -51,7 +51,7 @@
             });
         }
 
-        private void Enrich(contractor contractor, organisation organisation)
+        private void Enrich(Contractor contractor, organisation organisation)
         {
             if (organisation != null)
             {
@@ -106,7 +106,7 @@
             return upin;
         }
 
-        private void PopulateContractorAddress(contractor contractor, organisationAddressesOrganisationAddress address)
+        private void PopulateContractorAddress(Contractor contractor, organisationAddressesOrganisationAddress address)
         {
             contractor.addressLine1 = address.addressLine1;
             contractor.addressLine2 = address.addressLine2;

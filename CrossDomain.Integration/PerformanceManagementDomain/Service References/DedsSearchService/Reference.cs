@@ -1629,17 +1629,17 @@ namespace SFA.FCT.PerformanceManagementDomain.DedsSearchService {
         public DedsSearchServiceClient() {
         }
         
-        public DedsSearchServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
-        }
+        //public DedsSearchServiceClient(string endpointConfigurationName) : 
+        //        base(endpointConfigurationName) {
+        //}
         
-        public DedsSearchServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
-        }
+        //public DedsSearchServiceClient(string endpointConfigurationName, string remoteAddress) : 
+        //        base(endpointConfigurationName, remoteAddress) {
+        //}
         
-        public DedsSearchServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
-        }
+        //public DedsSearchServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        //        base(endpointConfigurationName, remoteAddress) {
+        //}
         
         public DedsSearchServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {

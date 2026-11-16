@@ -18,7 +18,7 @@
         {
             return itemToValidate
                 .GetAllContracts()
-                .Where(c => c.CRMIntent == intent.UpdateDraft && c.amendmentType != amendmentType.None)
+                .Where(c => c.CRMIntent == Intent.UpdateDraft && c.amendmentType != amendmentType.None)
                 .Select(a => a.correlationId);
         }
     }

@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Endpoint.Tests
 {
+    extern alias Entity;
     using System;
     using System.Threading.Tasks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +13,7 @@
     using PaymentGenerationDomain.Integration.DataStore.Repositories;
     using SFA.FCT.AllocationDeliveryDomain.Common.BusinessLogic.Repository;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.Framework.Logging.NullObjects;
 

@@ -52,7 +52,7 @@
                         contractNumber = contractNumber,
                         contractVersionNumber = contractVersionNumber,
                         contractSubVersionNumber = 0,
-                        period = new period
+                        period = new Period
                         {
                             period1 = contractItemsMappings.FundingPeriodCode[2..],
                             periodType = new periodTypeType
@@ -60,7 +60,7 @@
                                 periodTypeCode = contractItemsMappings.GetPeriodTypeCode()
                             }
                         },
-                        contractor = new contractor
+                        contractor = new Contractor
                         {
                             ukprn = contractProviderUkprn
                         },
@@ -83,7 +83,7 @@
                 },
                 contractNumber = masterContractNumber,
                 contractVersionNumber = 1,
-                contractor = new contractor
+                contractor = new Contractor
                 {
                     ukprn = contractProviderUkprn
                 },
@@ -123,7 +123,7 @@
                         maximumContractValue = a.GetTotalPlannedValue(),
                         contractAllocationNumber =
                             $"{a.AllocationReferencePrefix}-{getAllocationNumberForFundingStream((a.FundingStreamCode, a.DeliveryUkprn))}",
-                        period = new period
+                        period = new Period
                         {
                             period1 = contractItemsMappings.FundingPeriodCode[2..],
                             periodType = new periodTypeType

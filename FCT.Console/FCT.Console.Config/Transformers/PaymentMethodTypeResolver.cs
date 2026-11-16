@@ -1,15 +1,37 @@
 ﻿namespace FCT.Console.Config.Transformers
 {
-    using System;
     using AutoMapper;
+    using FCT.Console.Config.ExcelTypes;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
+    using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
+    using System;
 
-    public class PaymentMethodTypeResolver : ValueResolver<string, FundingStreamPeriodPaymentMethod>
+    public class PaymentMethodTypeResolver
+        : IValueResolver<FundingStreamPeriodSheetType, FundingStreamPeriod, FundingStreamPeriodPaymentMethod>
     {
-        protected override FundingStreamPeriodPaymentMethod ResolveCore(string source)
+        public FundingStreamPeriodPaymentMethod Resolve(
+            FundingStreamPeriodSheetType source,
+            FundingStreamPeriod destination,
+            FundingStreamPeriodPaymentMethod destMember,
+            ResolutionContext context)
         {
-            return
-                (FundingStreamPeriodPaymentMethod)Enum.Parse(typeof(FundingStreamPeriodPaymentMethod), TransformSheetValue(source), ignoreCase: true);
+            var sourceValue = source?.PaymentMethod;
+
+            if (string.IsNullOrWhiteSpace(sourceValue))
+            {
+                return default;
+            }
+
+            if (!Enum.TryParse<FundingStreamPeriodPaymentMethod>(
+                          TransformSheetValue(sourceValue),
+                          true,
+                          out var result))
+            {
+                return default;
+            }
+
+            return result;
+
         }
 
         private static string TransformSheetValue(string source)
@@ -19,8 +41,7 @@
             switch (source)
             {
                 case "NotCalculatedorPaid":
-                    source = "NoCalcAndNoPay";
-                    break;
+                    return "NoCalcAndNoPay";
             }
 
             return source;

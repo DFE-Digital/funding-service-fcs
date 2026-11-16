@@ -5,7 +5,7 @@ namespace SFA.FCT.Xrm.TestFramework
 {
     using System.Xml;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+    using NUnit.Framework.Legacy;
     /// -----------------------------------------------------------------
     ///   Namespace:      Ciber.Xrm.Tests.MetaData
     ///   Class:          XrmPackageRelationship
@@ -108,7 +108,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageRelationship HasFieldName(string fieldName)
         {
-            Assert.IsTrue(this.ReferencingAttributeName == fieldName.ToLowerInvariant(), "The relationship to entity " + this.ReferencingEntity + " has the field name \"" + this.ReferencingAttributeName + "\"; not \"" + fieldName + "\"");
+            ClassicAssert.IsTrue(this.ReferencingAttributeName == fieldName.ToLowerInvariant(), "The relationship to entity " + this.ReferencingEntity + " has the field name \"" + this.ReferencingAttributeName + "\"; not \"" + fieldName + "\"");
 
             return this;
         }
@@ -121,7 +121,7 @@ namespace SFA.FCT.Xrm.TestFramework
         public XrmPackageRelationship HasDisplayName(string displayName)
         {
             //This is now ignored for D365 due to change in XML structure which does not contain this node
-            //Assert.IsTrue(this.DisplayName == displayName, "The relationship to entity " + this.ReferencingEntity + " has the Display name \"" + this.DisplayName + "\"; not \"" + displayName + "\"");
+            //ClassicAssert.IsTrue(this.DisplayName == displayName, "The relationship to entity " + this.ReferencingEntity + " has the Display name \"" + this.DisplayName + "\"; not \"" + displayName + "\"");
 
             return this;
         }
@@ -134,7 +134,7 @@ namespace SFA.FCT.Xrm.TestFramework
         public XrmPackageRelationship HasRequiredLevel(string requirementLevel)
         {
             //This is now ignored for D365 due to change in XML structure which does not contain this node
-            //Assert.IsTrue(this.requiredLevel == requirementLevel, "The relationship to entity " + this.ReferencingEntity + " has the requirement level \"" + this.requiredLevel + "\"; not \"" + requirementLevel + "\"");
+            //ClassicAssert.IsTrue(this.requiredLevel == requirementLevel, "The relationship to entity " + this.ReferencingEntity + " has the requirement level \"" + this.requiredLevel + "\"; not \"" + requirementLevel + "\"");
 
             return this;
         }
@@ -146,7 +146,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageRelationship HasCascadeDelete(XrmCascadeDeleteType cascadeDeleteType)
         {
-            Assert.IsTrue(this.cascadeDelete == cascadeDeleteType.ToDescription(), "The relationship to entity " + this.ReferencingEntity + " has the Cascade Delete \"" + this.cascadeDelete + "\"; not \"" + cascadeDeleteType.ToDescription() + "\"");
+            ClassicAssert.IsTrue(this.cascadeDelete == cascadeDeleteType.ToDescription(), "The relationship to entity " + this.ReferencingEntity + " has the Cascade Delete \"" + this.cascadeDelete + "\"; not \"" + cascadeDeleteType.ToDescription() + "\"");
 
             return this;
         }
@@ -158,7 +158,7 @@ namespace SFA.FCT.Xrm.TestFramework
         /// <returns>An instance of itself</returns>
         public XrmPackageRelationship IsAvailableForAdvanceFind(bool validForAdvancedFind)
         {
-            Assert.IsTrue(this.isValidForAdvancedFind == validForAdvancedFind, "The relationship from " + this.DisplayName + " to entity " + this.ReferencingEntity + " does not have the ValidForAdvancedFind  \"" + this.isValidForAdvancedFind + "\"; not \"" + validForAdvancedFind + "\"");
+            ClassicAssert.IsTrue(this.isValidForAdvancedFind == validForAdvancedFind, "The relationship from " + this.DisplayName + " to entity " + this.ReferencingEntity + " does not have the ValidForAdvancedFind  \"" + this.isValidForAdvancedFind + "\"; not \"" + validForAdvancedFind + "\"");
 
             return this;
         }

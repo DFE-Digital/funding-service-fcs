@@ -123,7 +123,7 @@
 
             // Changed for Nullable start and end date
             DateTime startDate = contractAllocation.startDate != DateTime.MinValue ? contractAllocation.startDate : contract.startDate.GetValueOrDefault();
-            DateTime? endDate = contractAllocation.endDate != DateTime.MinValue ? contractAllocation.endDate : contract.endDate.GetValueOrDefault();
+            DateTime? endDate = contractAllocation.endDate != DateTime.MinValue ? contractAllocation.endDate : contract.endDate;
 
             // Invoke the FSC web service to retrieve the deliverable structure configuration data
             // (Pass in the funding stream period data for this contract)
@@ -158,10 +158,6 @@
                     }
                     else
                     {
-                        if (endDate == DateTime.MinValue)
-                        {
-                            endDate = null;
-                        }
                         // This DC has no children so empty row
                         CreateEmptyMandatoryDeliverable(contractAllocation, startDate, endDate, delConfig);
                     }
@@ -178,7 +174,7 @@
                 }
             }
 
-            //Update deliverable Name and display order at contract deliverable level
+           //Update deliverable Name and display order at contract deliverable level
             UpdateDeliverableNameAndDisplayOrderAtContractDeliverablesLevel(contractAllocation.contractDeliverables,
                 deliverableStructure);
 
@@ -246,7 +242,7 @@
         {
             List<contractDeliverablePeriodsTypeContractDeliverablePeriod> periods = new List<contractDeliverablePeriodsTypeContractDeliverablePeriod>();
 
-            if (endDate == null || endDate == DateTime.MinValue)
+            if (endDate == null)
             {
                 periods.Add(new contractDeliverablePeriodsTypeContractDeliverablePeriod
                 {

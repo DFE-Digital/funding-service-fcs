@@ -11,7 +11,7 @@
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using NServiceBus.Testing;
+    using NServiceBus;
     using Services;
     using SFA.FCT.ContractManagementService.Common;
     using SFA.FCT.ContractManagementService.Common.Commands;
@@ -21,6 +21,9 @@
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
+
 
     [TestClass]
     public class TerminateContractHandlerTests
@@ -34,40 +37,68 @@
         private static TerminateContractHandler GetTerminateContractHandlerFromContainer()
         {
             IWindsorContainer container = new WindsorContainer()
-                .Install(new WindsorInstaller(new LoggerFactory()))
-                .Register(Component.For<TerminateContractHandler>().ImplementedBy<TerminateContractHandler>());
-            _ = container.Register(Component.For<Microsoft.Xrm.Sdk.IOrganizationService>().Instance(Mock.Of<Microsoft.Xrm.Sdk.IOrganizationService>()).IsDefault());
+                .Install(new ContractManagementDomain.Termination.WindsorInstaller(new LoggerFactory()))
+                .Register(Component.For<ContractManagementDomain.Termination.Handlers.TerminateContractHandler>().ImplementedBy<TerminateContractHandler>());
 
-            _ = container.BeginScope();
+            container.BeginScope();
 
             return container.Resolve<TerminateContractHandler>();
         }
 
-        [TestMethod, TestCategory("UnitTest")]
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public void TerminateContractHandler_WhenValidateFails_ShouldSendIssueCrmNotificationCommand()
         {
-            // Arramge
+            // Arrange
             const string contractNumber = "Contract1";
             const int versionNumber = 1;
             const int subVersionNumber = 0;
 
-            var terminateContractInfo = new TerminateContractInfo(isLatest: false,
+            var terminateContractInfo = new TerminateContractInfo(
+                isLatest: false,
                 contractTerminationDate: DateTime.Now,
-                contractIdentifier: new ContractIdentifier(contractNumber, versionNumber, subVersionNumber),
+                contractIdentifier: new ContractIdentifier(
+                    contractNumber,
+                    versionNumber,
+                    subVersionNumber),
                 hasOutStandingPayments: null,
                 isMonthEndRunning: null,
                 currentDate: DateTime.Now);
 
-            Mock<ITerminateContractInfoCreator> terminateContractInfoCreatorMock = new Mock<ITerminateContractInfoCreator>();
-            _ = terminateContractInfoCreatorMock.Setup(tcic => tcic.CreateTerminateContractInfo(It.IsAny<ContractIdentifier>(), It.IsAny<ConnectionInfo>()))
+            Mock<ITerminateContractInfoCreator> terminateContractInfoCreatorMock =
+                new Mock<ITerminateContractInfoCreator>();
+
+            terminateContractInfoCreatorMock
+                .Setup(tcic => tcic.CreateTerminateContractInfo(
+                    It.IsAny<ContractIdentifier>(),
+                    It.IsAny<ConnectionInfo>()))
                 .Returns(terminateContractInfo);
 
-            Mock<ITerminateContractValidationService> terminateContractValidationServiceMock = new Mock<ITerminateContractValidationService>();
-            _ = terminateContractValidationServiceMock.Setup(tcvs => tcvs.Validate(terminateContractInfo))
-                .Returns(new Either<RejectionReason, TerminateContractInfo>(
-                                new RejectionReason(
-                                    "Contract Termination Date must be in the past",
-                                    RejectionReason.Why.TerminationDateIsNotValid)));
+            Mock<ITerminateContractValidationService> terminateContractValidationServiceMock =
+                new Mock<ITerminateContractValidationService>();
+
+            terminateContractValidationServiceMock
+                .Setup(tcvs => tcvs.Validate(terminateContractInfo))
+                .Returns(
+                    new Either<RejectionReason, TerminateContractInfo>(
+                        new RejectionReason(
+                            "Contract Termination Date must be in the past",
+                            RejectionReason.Why.TerminationDateIsNotValid)));
+
+            var publishedMessages = new System.Collections.Generic.List<object>();
+
+            var messageHandlerContextMock =
+                new Mock<IMessageHandlerContext>();
+
+            messageHandlerContextMock
+                .Setup(x => x.Publish(
+                    It.IsAny<object>(),
+                    It.IsAny<PublishOptions>()))
+                .Callback<object, PublishOptions>((message, options) =>
+                {
+                    publishedMessages.Add(message);
+                })
+                .Returns(Task.CompletedTask);
 
             TerminateContractHandler handler =
                 new TerminateContractHandler(
@@ -81,24 +112,35 @@
                     Mock.Of<IApprovalOnwardsContractAtomFeedService>(),
                     Mock.Of<ICorporateContractService>());
 
-            TerminateContractCommand command = new TerminateContractCommand
-            {
-                ContractNumber = contractNumber,
-                SubVersionNumber = versionNumber,
-                VersionNumber = subVersionNumber
-            };
-
-            TestableMessageHandlerContext testableMessageHandlerContext = new TestableMessageHandlerContext();
+            TerminateContractCommand command =
+                new TerminateContractCommand
+                {
+                    ContractNumber = contractNumber,
+                    SubVersionNumber = versionNumber,
+                    VersionNumber = subVersionNumber
+                };
 
             // Act
-            _ = handler.Handle(command, testableMessageHandlerContext);
+            handler.Handle(command, messageHandlerContextMock.Object).Wait();
 
             // Assert
-            Assert.AreEqual(1, testableMessageHandlerContext.PublishedMessages.Length, "The wrong number of messages were sent");
-            Assert.IsTrue(testableMessageHandlerContext.PublishedMessages[0].Message is ContractTerminationFailedEvent, "The sent message is the wrong type");
+            Assert.AreEqual(
+                1,
+                publishedMessages.Count,
+                "The wrong number of messages were sent");
 
-            ContractTerminationFailedEvent message = (ContractTerminationFailedEvent) testableMessageHandlerContext.PublishedMessages[0].Message;
-            Assert.AreEqual(message.ContractNumber, contractNumber, "Incorrect data in sent ContractTerminationFailedEvent message");
+            Assert.IsTrue(
+                publishedMessages[0] is ContractTerminationFailedEvent,
+                "The sent message is the wrong type");
+
+            var message =
+                (ContractTerminationFailedEvent)publishedMessages[0];
+
+            Assert.AreEqual(
+                contractNumber,
+                message.ContractNumber,
+                "Incorrect data in sent ContractTerminationFailedEvent message");
         }
+
     }
 }

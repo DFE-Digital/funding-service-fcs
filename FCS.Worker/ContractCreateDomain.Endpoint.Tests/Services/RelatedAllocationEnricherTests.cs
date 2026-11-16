@@ -29,7 +29,7 @@
                 .ReturnsAsync(allocationNumber.SomeWhen(n => n != null));
 
             RelatedAllocationEnricher relatedAllocationEnricher = new RelatedAllocationEnricher(approvedContractRepositoryMock.Object);
-            contract contract = GetContractFromFile("Resources.NlapContract.json");
+            Contract contract = GetContractFromFile("Resources.NlapContract.json");
 
             // act
             relatedAllocationEnricher
@@ -56,7 +56,7 @@
                 .ReturnsAsync(allocationNumber.SomeWhen(n => n != null));
 
             RelatedAllocationEnricher relatedAllocationEnricher = new RelatedAllocationEnricher(approvedContractRepositoryMock.Object);
-            contract contract = GetContractFromFile("Resources.NlapContract.json");
+            Contract contract = GetContractFromFile("Resources.NlapContract.json");
 
             // act
             relatedAllocationEnricher
@@ -75,7 +75,7 @@
         {
             // arrange
             RelatedAllocationEnricher relatedAllocationEnricher = new RelatedAllocationEnricher(Mock.Of<IApprovedContractRepository>());
-            contract contract = GetContractFromFile("Resources.AEB-PRS-CorpContract.json");
+            Contract contract = GetContractFromFile("Resources.AEB-PRS-CorpContract.json");
 
             // act
             relatedAllocationEnricher.EnrichWithRelatedAllocationsWhenAppropriate(contract, ConnectionInfo.CreateDefault()).Wait();
@@ -170,9 +170,9 @@
             Assert.IsNull(prsAllocation.ContractAllocationNumber);
         }
 
-        private static contract GetContractFromFile(string filename)
+        private static Contract GetContractFromFile(string filename)
         {
-            return FromJson<contract>("ContractCreateDomain.Endpoint.Tests", filename);
+            return FromJson<Contract>("ContractCreateDomain.Endpoint.Tests", filename);
         }
 
         public static T FromJson<T>(string nameSpace, string resourceName)

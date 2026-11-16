@@ -12,6 +12,7 @@
     using MoreLinq;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     public static class TableRowExtensions
     {
@@ -318,7 +319,7 @@
                     actualValue = actualValue != null && actualValue.ToString() != string.Empty ? actualValue : null;
                 }
 
-                Assert.AreEqual(expectedValue, actualValue, $"Value incorrect for column: {p.Name} in row: {row.ToHeaderAndValueString()}");
+                ClassicAssert.AreEqual(expectedValue, actualValue, $"Value incorrect for column: {p.Name} in row: {row.ToHeaderAndValueString()}");
             });
         }
 

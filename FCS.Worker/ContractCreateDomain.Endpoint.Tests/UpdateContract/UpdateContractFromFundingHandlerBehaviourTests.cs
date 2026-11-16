@@ -39,8 +39,8 @@ namespace ContractCreateDomain.Endpoint.Tests.UpdateContract
         private Mock<ICheckForContractChangeService> _changeService;
         private Mock<IMessageHandlerContext> _context;
         private UpdateContractFromFundingHandler _handler;
-        private contract _master;
-        private contract _corpChild;
+        private Contract _master;
+        private Contract _corpChild;
         private object _sentMessage;
         private ExtendedContractType _extended;
 
@@ -65,9 +65,9 @@ namespace ContractCreateDomain.Endpoint.Tests.UpdateContract
                 contractNumber = ContractNumber,
                 startDate = new DateTime(2020, 8, 1, 13, 30, 0),
                 endDate = new DateTime(2021, 7, 31, 9, 15, 0),
-                contractor = new contractor { ukprn = 100 },
+                contractor = new Contractor { ukprn = 100 },
                 fundingType = new fundingType { fundingTypeCode = "ESF" },
-                period = new period { period1 = "2021" },
+                period = new Period { period1 = "2021" },
                 contractAllocations = new List<contractAllocationsContractAllocation>(),
                 CrmContractId = Guid.NewGuid()
             };
@@ -78,8 +78,8 @@ namespace ContractCreateDomain.Endpoint.Tests.UpdateContract
                 endDate = new DateTime(2021, 7, 31, 11, 0, 0),
                 contractDeliverables = new List<contractDeliverablesTypeContractDeliverable>()
             });
-            _master = new contract { contractNumber = ContractNumber, contracts = new List<contractType> { child } };
-            _corpChild = new contract { contractNumber = ContractNumber, amendmentType = "Variation" };
+            _master = new Contract { contractNumber = ContractNumber, contracts = new List<contractType> { child } };
+            _corpChild = new Contract { contractNumber = ContractNumber, amendmentType = "Variation" };
             _extended = new ExtendedContractType { contractNumber = ContractNumber };
 
             _contractsManager.Setup(m => m.GetCorporateContractForSpecificVersion(ContractNumber, 3, 2)).Returns(_master);

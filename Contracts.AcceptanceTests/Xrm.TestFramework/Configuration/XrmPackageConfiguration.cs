@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework.Legacy;
 
 namespace SFA.FCT.Xrm.TestFramework
 {
@@ -164,7 +165,7 @@ namespace SFA.FCT.Xrm.TestFramework
             {
                 entityMatch = from e in this.entities where e.DisplayName == entityName select e;
             }
-            Assert.IsTrue(entityMatch.Any(), "The Entity " + entityName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(entityMatch.Any(), "The Entity " + entityName + " was not found in the Dynamics CRM Configuration");
             return entityMatch.First();
         }
 
@@ -185,7 +186,7 @@ namespace SFA.FCT.Xrm.TestFramework
             {
                 processMatch = from e in this.Workflows where e.WorkflowName == processName select e;
             }
-            Assert.IsTrue(processMatch.Any(), "The Process " + processName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(processMatch.Any(), "The Process " + processName + " was not found in the Dynamics CRM Configuration");
             return processMatch.First();
 
         }
@@ -201,7 +202,7 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var roleMatch = from r in this.roles where r.RoleName == roleName select r;
 
-            Assert.IsTrue(roleMatch.Any(), "The Role " + roleName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(roleMatch.Any(), "The Role " + roleName + " was not found in the Dynamics CRM Configuration");
             return roleMatch.First();
         }
 
@@ -235,7 +236,7 @@ namespace SFA.FCT.Xrm.TestFramework
         {
             var dashboardMatch = from d in _dashboards where d.Name  == dashboardName select d;
 
-            Assert.IsTrue(dashboardMatch.Any(), "The Dashboard " + dashboardName + " was not found in the Dynamics CRM Configuration");
+            ClassicAssert.IsTrue(dashboardMatch.Any(), "The Dashboard " + dashboardName + " was not found in the Dynamics CRM Configuration");
             return dashboardMatch.First();
         }
 

@@ -9,6 +9,7 @@ namespace SFA.FCT.Xrm.TestFramework
     using System.Text;
     using System.Xml;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework.Legacy;
 
     // Using statements for Assertions
 
@@ -81,7 +82,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     where p.Key == actionString
                     select p);
 
-                Assert.IsFalse(privMatch.Any(), "The Role : " + this.RoleName + " does not have the " + action.ToDescription() + " permission on the " + entity + " entity at the " + priv.ToDescription() + " level");
+                ClassicAssert.IsFalse(privMatch.Any(), "The Role : " + this.RoleName + " does not have the " + action.ToDescription() + " permission on the " + entity + " entity at the " + priv.ToDescription() + " level");
             }
             else
             {
@@ -89,7 +90,7 @@ namespace SFA.FCT.Xrm.TestFramework
                     where p.Key == actionString && p.Value == privString
                     select p);
 
-                Assert.IsTrue(privMatch.Any(), "The Role : " + this.RoleName + " does not have the " + action.ToDescription() + " permission on the " + entity + " entity at the " + priv.ToDescription() + " level");
+                ClassicAssert.IsTrue(privMatch.Any(), "The Role : " + this.RoleName + " does not have the " + action.ToDescription() + " permission on the " + entity + " entity at the " + priv.ToDescription() + " level");
             }
 
             return this;

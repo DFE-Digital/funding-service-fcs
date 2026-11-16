@@ -65,7 +65,7 @@
                 context.SaveChanges();
             }
 
-            var corpContract = new contract
+            var corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -79,7 +79,7 @@
                             new contractAllocationsContractAllocation
                             {
                                 contractAllocationNumber = approvedContractAllocationPrefix + "4",
-                                DeliveryOrganisationDetail = new contractor{ legalName = "legal name", ukprn = 4, organisationIdentifier = "OrgId 4" },
+                                DeliveryOrganisationDetail = new Contractor{ legalName = "legal name", ukprn = 4, organisationIdentifier = "OrgId 4" },
                                 DeliveryOrganisation = "DelOrg",
                                 contractDeliverables = new List<contractDeliverablesTypeContractDeliverable>
                                 {
@@ -158,7 +158,7 @@
                         {
                             fundingTypeCode = fundingType
                         },
-                        period = new period
+                        period = new Period
                         {
                             period1 = period,
                             periodType = new periodTypeType
@@ -166,7 +166,7 @@
                                 periodTypeCode = periodType
                             }
                         },
-                        contractor = new contractor{organisationIdentifier = organisationId, ukprn = ukprn },
+                        contractor = new Contractor{organisationIdentifier = organisationId, ukprn = ukprn },
                     }
                 }
             };
@@ -266,7 +266,7 @@
             ClearDownFundingTypeFundingPeriod(fundingType, fundingPeriod);
             CreateFundingTypeFundingPeriod(fundingType, fundingPeriod, true);
 
-            var corpContract = new contract
+            var corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -367,7 +367,7 @@
                             fundingTypeCode = fundingType,
                             fundingTypeName = fundingType + "N"
                         },
-                        period = new period
+                        period = new Period
                         {
                             period1 = period,
                             periodType = new periodTypeType
@@ -375,7 +375,7 @@
                                 periodTypeCode = periodType
                             }
                         },
-                        contractor = new contractor{organisationIdentifier = organisationId, ukprn = ukprn },
+                        contractor = new Contractor{organisationIdentifier = organisationId, ukprn = ukprn },
                     }
                 }
             };
@@ -450,7 +450,7 @@
                 context.SaveChanges();
             }
 
-            var corpContract = new contract();
+            var corpContract = new Contract();
 
             using (ContractManagementDbContext context = new ContractManagementDbContext())
             {
@@ -518,7 +518,7 @@
             CreateFundingTypeFundingPeriod(fundingType, fundingPeriod);
             CreateFundingTypeFundingPeriod(fundingType2, fundingPeriod2);
 
-            var corpContract = new contract
+            var corpContract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -609,7 +609,7 @@
                             fundingTypeCode = fundingType,
                             fundingTypeName = fundingType + "N"
                         },
-                        period = new period
+                        period = new Period
                         {
                             period1 = period,
                             periodType = new periodTypeType
@@ -617,7 +617,7 @@
                                 periodTypeCode = periodType
                             }
                         },
-                        contractor = new contractor{organisationIdentifier = organisationId, ukprn = ukprn },
+                        contractor = new Contractor{organisationIdentifier = organisationId, ukprn = ukprn },
                     },
                     new contractType
                     {
@@ -706,7 +706,7 @@
                             fundingTypeCode = fundingType2,
                             fundingTypeName = fundingType2 + "N"
                         },
-                        period = new period
+                        period = new Period
                         {
                             period1 = period2,
                             periodType = new periodTypeType
@@ -714,7 +714,7 @@
                                 periodTypeCode = periodType
                             }
                         },
-                        contractor = new contractor{organisationIdentifier = organisationId, ukprn = ukprn },
+                        contractor = new Contractor{organisationIdentifier = organisationId, ukprn = ukprn },
                     },
                 }
             };
@@ -801,11 +801,11 @@
                 approvedContractRepositoryMock.Object,
                 fundingTypeFundingPeriodQueryRepositoryMock.Object);
 
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         startDate = DateTime.Now.AddDays(7).Date,
                         endDate = DateTime.Now.AddYears(1).Date,
@@ -869,11 +869,11 @@
                 approvedContractRepositoryMock.Object,
                 fundingTypeFundingPeriodQueryRepositoryMock.Object);
 
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         startDate = DateTime.Now.AddDays(7).Date,
                         endDate = DateTime.Now.AddYears(1).Date,
@@ -938,11 +938,11 @@
                 approvedContractRepositoryMock.Object,
                 fundingTypeFundingPeriodQueryRepositoryMock.Object);
 
-            contract masterContract = new contract
+            Contract masterContract = new Contract
             {
                 contracts = new List<contractType>
                 {
-                    new contract
+                    new Contract
                     {
                         startDate = DateTime.Now.AddDays(7).Date,
                         endDate = DateTime.Now.AddYears(1).Date,

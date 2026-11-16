@@ -22,7 +22,7 @@
         public void ApprovalOnwardsContractAtomFeedService_AddTerminationInitiatedContract_ShouldReturnAlreadyPresentWithSameFeedItemIdWhenMessageIdPresent()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract
             {
                 contracts = new List<contractType>
                 {
@@ -43,7 +43,7 @@
                 }
             };
             Mock<IContractXmlValidator> contractXmlValidatorMock = new Mock<IContractXmlValidator>();
-            _ = contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
+            contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
             contractType childContract = contract.contracts.First();
             string businessKey = $"{childContract.contractNumber}:{childContract.contractVersionNumber}.{childContract.contractSubVersionNumber}";
@@ -55,7 +55,7 @@
             {
                 ApprovalOnwardsContractAtomFeedService service = new ApprovalOnwardsContractAtomFeedService(Mock.Of<ILogger>(), new ApprovalOnwardsContractAtomItemRepository(context), new ContractTransformer(), contractXmlValidatorMock.Object);
 
-                _ = service.AddContractToFeed(new ConnectionInfo(null, context.Database.Connection), contract, messageId, AtomItemType.ContractTerminationInitiated);
+                service.AddContractToFeed(new ConnectionInfo(null, context.Database.Connection), contract, messageId, AtomItemType.ContractTerminationInitiated);
             }
 
             using (var context = new ContractManagementDbContext())
@@ -74,7 +74,7 @@
         public void ApprovalOnwardsContractAtomFeedService_AddTerminationInitiatedContract_ShouldAddToFeedWhenContractTerminationInitiatedEventPresentForSameContractButWithDifferentFeedId()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract    
             {
                 contracts = new List<contractType>
                 {
@@ -96,7 +96,7 @@
             };
 
             Mock<IContractXmlValidator> contractXmlValidatorMock = new Mock<IContractXmlValidator>();
-            _ = contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
+            contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
             contractType childContract = contract.contracts.First();
             string businessKey = $"{childContract.contractNumber}:{childContract.contractVersionNumber}.{childContract.contractSubVersionNumber}";
@@ -107,7 +107,7 @@
             {
                 ApprovalOnwardsContractAtomFeedService service = new ApprovalOnwardsContractAtomFeedService(Mock.Of<ILogger>(), new ApprovalOnwardsContractAtomItemRepository(context), new ContractTransformer(), contractXmlValidatorMock.Object);
 
-                _ = service.AddContractToFeed(ConnectionInfo.CreateDefault(), contract, Guid.NewGuid(), AtomItemType.ContractTerminationInitiated);
+                service.AddContractToFeed(ConnectionInfo.CreateDefault(), contract, Guid.NewGuid(), AtomItemType.ContractTerminationInitiated);
             }
 
             using (var context = new ContractManagementDbContext())
@@ -126,7 +126,7 @@
         public void ApprovalOnwardsContractAtomFeedService_AddTerminationInitiatedContract_ShouldAddToFeedWithCorrectAtomItemType()
         {
             // arrange
-            contract contract = new contract
+            Contract contract = new Contract    
             {
                 contracts = new List<contractType>
                 {
@@ -148,7 +148,7 @@
             };
 
             Mock<IContractXmlValidator> contractXmlValidatorMock = new Mock<IContractXmlValidator>();
-            _ = contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
+            contractXmlValidatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
             contractType childContract = contract.contracts.First();
             string businessKey = $"{childContract.contractNumber}:{childContract.contractVersionNumber}.{childContract.contractSubVersionNumber}";
@@ -160,7 +160,7 @@
                 ApprovalOnwardsContractAtomFeedService service = new ApprovalOnwardsContractAtomFeedService(Mock.Of<ILogger>(), new ApprovalOnwardsContractAtomItemRepository(context), new ContractTransformer(), contractXmlValidatorMock.Object);
 
                 // act
-                _ = service.AddContractToFeed(ConnectionInfo.CreateDefault(), contract, Guid.NewGuid(), AtomItemType.ContractTerminationDetailsUpdated);
+                service.AddContractToFeed(ConnectionInfo.CreateDefault(), contract, Guid.NewGuid(), AtomItemType.ContractTerminationDetailsUpdated);
             }
 
 
@@ -181,7 +181,7 @@
                 context.AtomFeedItems.Where(a => a.BusinessKey == businessKey)
                     .ForEach(a => context.AtomFeedItems.Remove(a));
 
-                _ = context.SaveChanges();
+                context.SaveChanges();
             }
         }
     }

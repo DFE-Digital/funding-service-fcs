@@ -1,12 +1,13 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.PaymentAggregated.Repositories
 {
+    extern alias IntegrationEntities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Messages;
     using Microsoft.Xrm.Sdk.Query;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
 
     public class SubnominalAggregationRepository : ISubnominalAggregationRepository
     {

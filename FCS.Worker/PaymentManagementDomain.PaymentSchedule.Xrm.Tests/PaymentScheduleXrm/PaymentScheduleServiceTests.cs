@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.PaymentScheduleXrm
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -12,7 +13,7 @@
     using PaymentManagementDomain.PaymentSchedule.PaymentScheduleXrm.Services;
     using PaymentSchedule.PaymentScheduleXrm.Extensions;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.Xrm.Integration.Repositories;
 

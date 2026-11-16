@@ -1,17 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {  ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { MonthEndComponent } from './month-end.component';
 
 describe('MonthEndComponent', () => {
   let component: MonthEndComponent;
   let fixture: ComponentFixture<MonthEndComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ MonthEndComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MonthEndComponent);

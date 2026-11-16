@@ -11,7 +11,7 @@
     using Extensions;
     using Microsoft.Xrm.Sdk;
     using MoreLinq;
-    using contractor = CrossDomain.Integration.Entities.ContractRequest.contractor;
+    using Contractor = CrossDomain.Integration.Entities.ContractRequest.Contractor;
     using contractType = CrossDomain.Integration.Entities.ContractRequest.contractType;
     using deliverableType = CrossDomain.Integration.Entities.ContractRequest.deliverableType;
     using hierarchyType = CrossDomain.Integration.Entities.ContractRequest.hierarchyType;
@@ -325,16 +325,16 @@
                 }).ToList();
         }
 
-        private static contractor GetContractorIfPresent(XrmServiceContext xrmContext, EntityReference accountEntityReference)
+        private static Contractor GetContractorIfPresent(XrmServiceContext xrmContext, EntityReference accountEntityReference)
         {
-            contractor contractor = null;
+            Contractor contractor = null;
             if (accountEntityReference != null)
             {
                 var account = xrmContext.AccountSet.SingleOrDefault(a => a.Id == accountEntityReference.Id);
 
                 if (account != null)
                 {
-                    contractor = new contractor
+                    contractor = new Contractor
                     {
                         legalName = account.Name,
                         ukprn = int.Parse(account.sfa_UKPRN),
@@ -343,7 +343,7 @@
                 }
             }
             
-            return contractor ?? new contractor();
+            return contractor ?? new Contractor();
         }
 
         /// <summary>
@@ -420,9 +420,9 @@
             return owner;
         }
 
-        private static contractor GetContractor(sfa_contract contract, Account organisation)
+        private static Contractor GetContractor(sfa_contract contract, Account organisation)
         {
-            return new contractor
+            return new Contractor
             {
                 ukprn = int.Parse(contract.sfa_UKPRN),
                 legalName = contract.sfa_ProviderName.Name,

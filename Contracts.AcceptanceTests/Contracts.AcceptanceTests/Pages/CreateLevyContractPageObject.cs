@@ -37,6 +37,7 @@
     using ContractRequest = CrossDomain.Integration.Entities.ContractRequest;
     using CorporateContract = CrossDomain.Integration.Entities.CorporateSchema.Contract;
     using Dapper;
+    using NUnit.Framework.Legacy;
 
     public class CreateLevyContractPageObject
     {
@@ -64,12 +65,12 @@
 
         public bool UseAzureStorageForDocuments
         {
-            get { return ConfigurationManager.AppSettings["UseAzureStorageForDocuments"] == "true"; }
+            get { return TestConfiguration.Configuration["AzureStorage:UseForDocuments"] == "true"; }
         }
 
         public string AzureDocumentContainerName
         {
-            get { return ConfigurationManager.AppSettings["DocumentGeneration.TargetContainer"]; }
+            get { return TestConfiguration.Configuration["DocumentGeneration:TargetContainer"]; }
         }
 
         public void SetStepBuiltContractRequestType(ContractRequest.contractRequestType contractRequestType)
@@ -216,7 +217,7 @@
                     }).ToList();
 
                 EnrichContractDeliverablePeriodsWithLatestParentDeliverableCodes(contractDeliverablePeriods);
-                    // left join not supported in Linq to CRM, hence additional query for parent deliverables
+                // left join not supported in Linq to CRM, hence additional query for parent deliverables
 
                 return contractDeliverablePeriods;
             }
@@ -246,7 +247,7 @@
                 {
                     var relationship =
                         contractDeliverableRelationships.SingleOrDefault(
-                            pd => pd.ChildDeliverableCode == dp.DeliverableCode 
+                            pd => pd.ChildDeliverableCode == dp.DeliverableCode
                                   && pd.AllocatonNumber == dp.AllocationNumber);
                     dp.ParentDeliverableCode = relationship?.ParentDeliverableCode;
                 });
@@ -397,7 +398,7 @@
             using (XrmServiceContext context = new XrmServiceContext(_organizationService))
             {
                 return context.sfa_contractSet.Where(c =>
-                    c.sfa_UKPRN == ukPrn && c.sfa_HierarchyType.Value == (int) sfa_contracthierarchytype.Contract
+                    c.sfa_UKPRN == ukPrn && c.sfa_HierarchyType.Value == (int)sfa_contracthierarchytype.Contract
                     && c.sfa_LatestVersion.Value).OrderByDescending(x => x.CreatedOn)
                     .First().sfa_number;
             }
@@ -443,7 +444,7 @@
             {
                 var contractIds = xrmContext.sfa_contractSet.Where(
                     c => c.sfa_UKPRN == ukprn
-                         && (sfa_contracthierarchytype) c.sfa_HierarchyType.Value == sfa_contracthierarchytype.Contract)
+                         && (sfa_contracthierarchytype)c.sfa_HierarchyType.Value == sfa_contracthierarchytype.Contract)
                     .Select(c => new
                     {
                         c.Id,
@@ -468,24 +469,24 @@
         {
             using (var xrmContext = new XrmServiceContext(_organizationService))
             {
-                var enumStatus = Enum.Parse(typeof (sfa_contractstatus), status);
+                var enumStatus = Enum.Parse(typeof(sfa_contractstatus), status);
                 var contractIds = (from c in xrmContext.sfa_contractSet
-                    join ft in xrmContext.sfa_fundingtypeSet on c.sfa_FundingType.Id equals ft.Id
-                    where c.sfa_UKPRN == ukprn
-                          && (sfa_contracthierarchytype) c.sfa_HierarchyType.Value == sfa_contracthierarchytype.Contract
-                          && ft.sfa_fundingtypecode == "LEVY"
-                          && (c.sfa_ContractStatus.Value == (int) enumStatus)
-                    select new
-                    {
-                        c.Id,
-                        c.sfa_number,
-                        c.sfa_Version,
-                        c.CreatedOn,
-                        c.sfa_ContractStatus,
-                        HasOwner = c.sfa_ContractAdviser != null
-                    }).ToList();
+                                   join ft in xrmContext.sfa_fundingtypeSet on c.sfa_FundingType.Id equals ft.Id
+                                   where c.sfa_UKPRN == ukprn
+                                         && (sfa_contracthierarchytype)c.sfa_HierarchyType.Value == sfa_contracthierarchytype.Contract
+                                         && ft.sfa_fundingtypecode == "LEVY"
+                                         && (c.sfa_ContractStatus.Value == (int)enumStatus)
+                                   select new
+                                   {
+                                       c.Id,
+                                       c.sfa_number,
+                                       c.sfa_Version,
+                                       c.CreatedOn,
+                                       c.sfa_ContractStatus,
+                                       HasOwner = c.sfa_ContractAdviser != null
+                                   }).ToList();
 
-                Assert.IsFalse(contractIds.Count > 1, "More than 1 draft or approved LEVY contract found for UKPRN");
+                ClassicAssert.IsFalse(contractIds.Count > 1, "More than 1 draft or approved LEVY contract found for UKPRN");
                 var singleContract = contractIds.SingleOrDefault();
 
                 if (singleContract != null)
@@ -531,7 +532,7 @@
                     .Where(
                         c =>
                             c.sfa_UKPRN == ukPrn &&
-                            c.sfa_HierarchyType.Value == (int) sfa_contracthierarchytype.Contract
+                            c.sfa_HierarchyType.Value == (int)sfa_contracthierarchytype.Contract
                             && c.sfa_LatestVersion.Value)
                     .OrderByDescending(o => o.CreatedOn)
                     .Select(contract => contract.sfa_contractId)
@@ -551,7 +552,7 @@
             {
                 atomFeedItem =
                     context.AtomFeedItems.Single(
-                        a => a.BusinessKey.StartsWith(contractNumber) && (int) a.ItemType == itemType);
+                        a => a.BusinessKey.StartsWith(contractNumber) && (int)a.ItemType == itemType);
             }
 
             return IsContractManagementAtomFeedItemValidXml(atomFeedItem.GetAtomFeedItemXml());
@@ -564,7 +565,7 @@
             {
                 var matchingItems = context.AtomFeedItems
                     .Where(a => a.BusinessKey.StartsWith(contractNumber)
-                                && (int) a.ItemType == itemType).ToList();
+                                && (int)a.ItemType == itemType).ToList();
 
                 atomFeedItem = matchingItems.Single(m => m.GetVersionNumber() == versionNumber);
             }
@@ -614,7 +615,7 @@
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
                     AzureAuthenticator.GetAuthenticationResult());
 
-                string url = ConfigurationManager.AppSettings["ContractManagementServiceUrl"] + endPointUrl;
+            string url = TestConfiguration.Configuration["ContractManagement:ServiceUrl"] + endPointUrl;
 
                 ContractInformation contractInformation = new ContractInformation
                 {
@@ -624,7 +625,7 @@
                 };
 
                 HttpResponseMessage response = client.PostAsJsonAsync(url, contractInformation).Result as HttpResponseMessage;
-                Assert.AreEqual(HttpStatusCode.Accepted, response.StatusCode,
+                ClassicAssert.AreEqual(HttpStatusCode.Accepted, response.StatusCode,
                     $"On successfully initiating {endPointUrl} the response should be 'Accepted'. The status returned is {response.StatusCode}");
             }
         }
@@ -637,10 +638,10 @@
                     xrmContext.sfa_contractSet.Single(
                         c =>
                             c.sfa_UKPRN == ukPrn &&
-                            c.sfa_HierarchyType.Value == (int) sfa_contracthierarchytype.Contract
+                            c.sfa_HierarchyType.Value == (int)sfa_contracthierarchytype.Contract
                             && c.sfa_LatestVersion.Value);
                 return xrmContext.sfa_contractSet.Single(c =>
-                    c.sfa_UKPRN == ukPrn && c.sfa_HierarchyType.Value == (int) sfa_contracthierarchytype.Master
+                    c.sfa_UKPRN == ukPrn && c.sfa_HierarchyType.Value == (int)sfa_contracthierarchytype.Master
                     && c.Id == contract.sfa_ParentContractId.Id).sfa_number;
             }
         }
@@ -653,7 +654,7 @@
                 {
                     return
                         context.AtomFeedItems.Count(
-                            a => a.BusinessKey.StartsWith(contractNumber) && (int) a.ItemType == itemType) == 1;
+                            a => a.BusinessKey.StartsWith(contractNumber) && (int)a.ItemType == itemType) == 1;
                 }
             },
                 maxNumChecks: 10,
@@ -674,7 +675,7 @@
                 {
                     var matchItems = context.AtomFeedItems.Where(
                         a => a.BusinessKey.StartsWith(contractNumber)
-                             && (int) a.ItemType == itemType).ToList();
+                             && (int)a.ItemType == itemType).ToList();
 
                     return matchItems.Count(m => m.GetVersionNumber() == versionNumber) == 1;
                 }
@@ -785,7 +786,7 @@
                     return recordsFound == expectedRecordsCount;
                 }
             },
-                maxNumChecks: (maximumNumberOfMinutesToWait*60) / 30,
+                maxNumChecks: (maximumNumberOfMinutesToWait * 60) / 30,
                 waitIntervalSeconds: 30
                 );
 
@@ -910,7 +911,7 @@
             const string corporateContractSchemaNamespace = "urn:sfa:schemas:contract";
 
             var schema =
-                typeof (CorporateContract.contract).Assembly.GetManifestResourceStream(
+                typeof(CorporateContract.Contract).Assembly.GetManifestResourceStream(
                     corporateContractSchemaResourceName);
             if (schema != null)
             {
@@ -982,7 +983,7 @@
                     xrmContext.sfa_contractSet.Where(
                         c =>
                             c.sfa_UKPRN == ukprn &&
-                            c.sfa_HierarchyType.Value == (int) sfa_contracthierarchytype.Contract)
+                            c.sfa_HierarchyType.Value == (int)sfa_contracthierarchytype.Contract)
                         .ToList();
             }
         }
@@ -1026,7 +1027,7 @@
         {
             using (var context = new OrganisationDomainDbContext())
             {
-                var matchingOrgs =  context.Organisations.Where(o => o.Ukprn == ukprn);
+                var matchingOrgs = context.Organisations.Where(o => o.Ukprn == ukprn);
                 matchingOrgs.ForEach(o => context.Organisations.Remove(o));
 
                 context.SaveChanges();
@@ -1061,7 +1062,7 @@
                 return count == expectedNumOfRecords;
 
             },
-                maxNumChecks: (numMinsToWait*60) / 5,
+                maxNumChecks: (numMinsToWait * 60) / 5,
                 waitIntervalSeconds: 5);
 
             checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();

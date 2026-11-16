@@ -1,12 +1,13 @@
-﻿using ADMonitoringDomain.DataStore.Model;
+﻿extern alias Entities;
+using ADMonitoringDomain.DataStore.Model;
 using SFA.FCT.AllocationDelivery.DataStore.Model;
-using SFA.FCT.CrossDomain.Integration.Entities;
+using Entities::SFA.FCT.CrossDomain.Integration.Entities;
 using SFA.FCT.PaymentManagementDomain.PolicyCache.DataStore.Model;
 
 namespace ADMonitoringDomain.Endpoint.BusinessLogic
 {
     using System;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public interface IAllocationDeliveryMonitoringRepository
     {

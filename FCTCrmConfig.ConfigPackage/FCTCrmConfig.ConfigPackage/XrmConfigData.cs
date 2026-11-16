@@ -17,7 +17,8 @@ namespace Ciber.Xrm.Packages
 
     // Dynamics CRM Packaging Namespaces
     using Microsoft.Xrm.Tooling.Connector;
-    using System.Web.Services.Protocols;
+    using System.ServiceModel;
+
 
     /// <summary>
     /// XrmImportSystemData Class - used to import System Data (Users, Teams, Business Units, User Roles, Team Roles, Queues
@@ -1001,7 +1002,8 @@ namespace Ciber.Xrm.Packages
             AuditPartitionDetailCollection partitions = partitionRequest.AuditPartitionDetailCollection;
 
             //increase timeout value as this is a time consuming operation
-            _crmServiceClient.OrganizationWebProxyClient.InnerChannel.OperationTimeout = new TimeSpan(0, 15, 0);
+            //_crmServiceClient.OrganizationWebProxyClient.InnerChannel.OperationTimeout = new TimeSpan(0, 15, 0);
+            CrmServiceClient.MaxConnectionTimeout = TimeSpan.FromMinutes(15);
 
             for (int n = 0; n < partitions.Count - 1; n++)
             {
@@ -1975,7 +1977,7 @@ namespace Ciber.Xrm.Packages
 
 
                 }
-                catch (SoapException ex)
+                catch (Exception ex)
                 {
                     _eventStream.OnNext(new DeploymentEvent()
                     {

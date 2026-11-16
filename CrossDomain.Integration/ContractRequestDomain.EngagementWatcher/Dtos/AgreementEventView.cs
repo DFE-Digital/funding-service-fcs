@@ -1,4 +1,4 @@
-﻿namespace ContractRequestDomain.EngagementWatcher.Dtos
+﻿namespace SFA.FCT.ContractRequestDomain.EngagementWatcher.Dtos
 {
     public class AgreementEventView
     {

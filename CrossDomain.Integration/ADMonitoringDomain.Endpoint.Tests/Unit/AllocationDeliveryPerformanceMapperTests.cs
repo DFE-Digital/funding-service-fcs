@@ -1,5 +1,6 @@
 ﻿namespace ADMonitoringDomain.Endpoint.Tests.Unit
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,9 +15,9 @@
     using Moq;
     using SFA.FCT.CrossDomain.Integration.Common.SchemaValidator;
     using SFA.FCT.CrossDomain.Integration.Common.Serializers;
-    using SFA.FCT.CrossDomain.Integration.Entities;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
-    using SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.DeliveryAllocation;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.Framework.Logging;
     using SFA.FCT.Framework.Logging.Interfaces;

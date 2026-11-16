@@ -2,7 +2,8 @@
 {
     using System.Linq;
     using Infrastructure;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
+    // using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using TechTalk.SpecFlow;
 

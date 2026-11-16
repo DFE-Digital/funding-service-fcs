@@ -1,5 +1,6 @@
 using ADMonitoringDomain.DataStore;
 using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
@@ -13,7 +14,7 @@ namespace SFA.FCT.Contracts.AcceptanceTests.Infrastructure.Repositories.CrmRepli
     {
         public static string KeyVaultValue { get; set; } = string.Empty;
 
-        public static string _crmReplicaConnectionString = ConfigurationManager.ConnectionStrings["CrmReplicaDbContext"].ConnectionString;
+        public static string _crmReplicaConnectionString =TestConfiguration.Configuration.GetConnectionString("CrmReplicaDbContext");
         public CrmReplicaDbContext() : base(GetConnectionString())
         {            
         }

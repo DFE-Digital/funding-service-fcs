@@ -50,7 +50,7 @@
 
         private static void SendMessageToProcessProviderNotFoundDasEvents()
         {
-            IEndpointInstance endpoint =
+            var endpoint =
                 EndpointBuilder.CreateSendOnlyEndpoint<RetryNotFoundProviderEngagementsCommand>();
 
             endpoint.Send("ContractRequestDomain.EngagementWatcher", new RetryNotFoundProviderEngagementsCommand())

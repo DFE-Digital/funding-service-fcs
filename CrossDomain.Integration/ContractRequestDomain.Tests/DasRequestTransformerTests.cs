@@ -1,10 +1,11 @@
-﻿namespace ContractRequestDomain.Tests
+﻿
+namespace ContractRequestDomain.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Microsoft.Test.ObjectComparison;
+    using FluentAssertions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Newtonsoft.Json;
     using SFA.FCT.ContractRequestDomain.Integration.BulkUpload.Das.Services;
@@ -19,7 +20,7 @@
         public void DasRequestTransformer_ShouldTransformValidContractRequest()
         {
             // Arrange
-            DasRequest incomingRequest = new DasRequest
+            var incomingRequest = new DasRequest
             {
                 FundingType = "LEVY",
                 StartDate = new DateTime(2017, 1, 1),
@@ -27,40 +28,43 @@
             };
 
             // Act
-            contractRequestType actualRequest = DasRequestTransformer.Transform(incomingRequest);
+            var actualRequest = DasRequestTransformer.Transform(incomingRequest);
 
-            // Remove correlation detail
+            // Remove correlation detail (not deterministic in tests)
             actualRequest.correlationInfo = null;
             actualRequest.contract.correlationId = null;
             actualRequest.contract.contracts[0].correlationId = null;
             actualRequest.contract.contracts[0].contractAllocations[0].correlationId = null;
 
             // Assert
-            using (TestResource resource = new TestResource("ContractRequestDomain.Tests", @"Resources.contract_request_das.json"))
+            using (var resource = new TestResource("ContractRequestDomain.Tests", @"Resources.contract_request_das.json"))
+            using (var sr = new StreamReader(resource.Stream))
             {
-                using (StreamReader sr = new StreamReader(resource.Stream))
-                {
-                    contractRequestType expected = JsonConvert.DeserializeObject<contractRequestType>(sr.ReadToEnd());
+                var expected = JsonConvert.DeserializeObject<contractRequestType>(sr.ReadToEnd());
 
-                    // hand crafting some props that don't seem to be read properly from JSON
-                    expected.contract.hierarchyType = hierarchyType.MASTERCONTRACT;
-                    expected.contract.contracts[0].hierarchyType = hierarchyType.CONTRACT;
-                    expected.correlationInfo = null;
-                    expected.contract.correlationId = null;
-                    expected.contract.contracts[0].correlationId = null;
-                    expected.contract.contracts[0].contractAllocations[0].correlationId = null;
+                // Some properties apparently not hydrated from JSON in your test data
+                expected.contract.hierarchyType = hierarchyType.MASTERCONTRACT;
+                expected.contract.contracts[0].hierarchyType = hierarchyType.CONTRACT;
 
-                    // get errors
-                    IReadOnlyCollection<ObjectComparisonMismatch> errors = ObjectComparison.CompareObjects(expected, actualRequest);
+                expected.correlationInfo = null;
+                expected.contract.correlationId = null;
+                expected.contract.contracts[0].correlationId = null;
+                expected.contract.contracts[0].contractAllocations[0].correlationId = null;
 
-                    var mismatches = errors.WriteMismatches().Split('\n').Where(m => !m.Contains("RootObject.FundingConfiguration.Capacity") && !m.Contains("hierarchyType value: MASTERCONTRACT") && !m.Contains("startDate.Kind value: Utc")).ToList();
-
-                    // ignoring erroneous mismatches
-                    if (mismatches.Any(m => !string.IsNullOrEmpty(m)))
-                    {
-                        Assert.Fail(string.Concat(mismatches.Select(m => $"{m}\r\n")));
-                    }
-                }
+                // Deep compare with FluentAssertions, ignoring known noise
+                actualRequest.Should().BeEquivalentTo(
+                    expected,
+                    opts => opts
+                        // ignore fields you scrubbed to null
+                        .Excluding(x => x.correlationInfo)
+                        .Excluding(x => x.contract.correlationId)
+                        .Excluding(x => x.contract.contracts[0].correlationId)
+                        .Excluding(x => x.contract.contracts[0].contractAllocations[0].correlationId)
+                        // optional: if the JSON vs runtime kind differs
+                        .Using<DateTime>(ctx => ctx.Subject.ToUniversalTime()
+                            .Should().Be(ctx.Expectation.ToUniversalTime()))
+                            .WhenTypeIs<DateTime>()
+                );
             }
         }
     }

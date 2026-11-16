@@ -1,11 +1,12 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.PaymentAggregated.Repositories
 {
+    extern alias Entity;
     using System.Configuration;
     using System.Data.SqlClient;
     using Dapper;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using PaymentSchedule.PaymentAggregated.Repositories;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     [TestClass]
     public class AllocationLockRepositoryTests

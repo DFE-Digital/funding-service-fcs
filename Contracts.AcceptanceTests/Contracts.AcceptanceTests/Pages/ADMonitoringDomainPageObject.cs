@@ -169,7 +169,7 @@
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AzureAuthenticator.GetAuthenticationResult());
 
-            var urlHost = ConfigurationManager.AppSettings["ContractManagementServiceUrl"];
+            var urlHost =TestConfiguration.Configuration["ContractManagementServiceUrl"];
             urlHost = StripOffUrlSuffix(urlHost);
             var responseMessage = client
                        .GetAsync(urlHost + url)

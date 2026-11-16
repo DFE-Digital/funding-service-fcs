@@ -8,6 +8,7 @@
     using Pages;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding, Scope(Feature = "PlannedValueCalcForESF 18206")]
     public class PlannedValueCalcForEsfSteps
@@ -28,7 +29,7 @@
                 waitIntervalSeconds: 2);
             bool hasContractBeenCreated = checkResultPoller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(hasContractBeenCreated, "The contract has not been created in CRM.");
+            ClassicAssert.IsTrue(hasContractBeenCreated, "The contract has not been created in CRM.");
         }
 
         [Then(@"the planned volume data recorded in CRM against the latest version of the contract is as follows")]
@@ -40,17 +41,17 @@
                 {
                     PlannedValueCalcForEsfStepsPageObject.AllocationInfo matchingAllocation =
                         _pageObject.RetrievedContractForValidation.Allocations.SingleOrDefault(a => a.AllocationNumber == dpToValidate.AllocationNumber);
-                    Assert.NotNull(matchingAllocation, $"Allocation: {dpToValidate.AllocationNumber} not returned from CRM.");
+                    ClassicAssert.NotNull(matchingAllocation, $"Allocation: {dpToValidate.AllocationNumber} not returned from CRM.");
 
                     PlannedValueCalcForEsfStepsPageObject.DeliverableInfo matchingDeliverable =
                         matchingAllocation.Deliverables.SingleOrDefault(d => d.DeliverableCode == dpToValidate.DeliverableCode);
-                    Assert.NotNull(matchingDeliverable, $"Deliverable: {dpToValidate.DeliverableCode} not returned from CRM.");
-                    Assert.AreEqual(dpToValidate.TotalPlannedVolume, matchingDeliverable.TotalPlannedVolume, $"Total planned volume incorrect for Deliverable: {dpToValidate.DeliverableCode}.");
+                    ClassicAssert.NotNull(matchingDeliverable, $"Deliverable: {dpToValidate.DeliverableCode} not returned from CRM.");
+                    ClassicAssert.AreEqual(dpToValidate.TotalPlannedVolume, matchingDeliverable.TotalPlannedVolume, $"Total planned volume incorrect for Deliverable: {dpToValidate.DeliverableCode}.");
 
                     PlannedValueCalcForEsfStepsPageObject.DeliverablePeriodInfo matchingDeliverablePeriod =
                         matchingDeliverable.DeliverablePeriods.SingleOrDefault(dp => dp.Month == dpToValidate.Month && dp.Year == dpToValidate.Year);
-                    Assert.NotNull(matchingDeliverablePeriod, $"Deliverable Period: {dpToValidate} not returned from CRM.");
-                    Assert.AreEqual(dpToValidate.PlannedVolume, matchingDeliverablePeriod.PlannedVolume, $"Planned volume incorrect for Deliverable Period: {dpToValidate}.");
+                    ClassicAssert.NotNull(matchingDeliverablePeriod, $"Deliverable Period: {dpToValidate} not returned from CRM.");
+                    ClassicAssert.AreEqual(dpToValidate.PlannedVolume, matchingDeliverablePeriod.PlannedVolume, $"Planned volume incorrect for Deliverable Period: {dpToValidate}.");
                 });
         }
 

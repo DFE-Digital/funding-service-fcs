@@ -1,22 +1,23 @@
 ﻿namespace ADMonitoringDomain.Endpoint.BusinessLogic
 {
+    extern alias Entities;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
     using System.Linq;
     using System.Collections.Generic;
     using DataStore;
     using PaymentGenerationDomain.BusinessLogic;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore;
-    using SFA.FCT.CrossDomain.Integration.Entities;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation;
     using SFA.FCT.PaymentManagementDomain.PaymentSchedule.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.PaymentsAggregation;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.PaymentsAggregation;
     using SFA.FCT.CrossDomain.Integration.Events;
-    using Allocation = SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation;
+    using Allocation = Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentAggregation.Allocation;
     using ContractManagement.DataStore.Repositories;
     using ContractManagement.DataStore.Model;
     using Repositories;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
 
     public class AtomItemCreator : IAtomItemCreator
     {

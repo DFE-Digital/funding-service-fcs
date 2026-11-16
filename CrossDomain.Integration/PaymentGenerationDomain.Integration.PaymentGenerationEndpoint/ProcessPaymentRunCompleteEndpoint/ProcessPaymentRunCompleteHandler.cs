@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.ProcessPaymentRunCompleteEndpoint
 {
+    extern alias Entities;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
@@ -7,7 +8,7 @@
     using Common;
     using Infrastructure;
     using NServiceBus;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Events;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;

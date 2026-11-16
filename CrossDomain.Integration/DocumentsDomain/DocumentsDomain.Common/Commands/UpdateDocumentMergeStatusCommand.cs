@@ -5,7 +5,7 @@
 
     public class UpdateDocumentMergeStatusCommand
     {
-        public contract CorporateContract;
+        public Contract CorporateContract;
         public MergeStatus MergeStatus { get; set; }
     }
 }

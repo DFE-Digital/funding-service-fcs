@@ -1,86 +1,42 @@
 ﻿namespace SFA.FCT.ContractManagementService.Common
 {
+
     using System;
     using System.Linq;
     using AutoMapper;
-    using CorporateContract = CrossDomain.Integration.Entities.CorporateContract;
-    using CorporateSchema = CrossDomain.Integration.Entities.CorporateSchema.Contract;
-
+    using CorporateContractContract = CrossDomain.Integration.Entities.CorporateContract;
+    using CorporateSchemaContract = CrossDomain.Integration.Entities.CorporateSchema.Contract;
     public class ContractTransformer : IContractTransformer
     {
         private const string SBDFundingType = "SBD";
 
-        [Obsolete]
-        static ContractTransformer()
+        private readonly IMapper _mapper;
+        public ContractTransformer() : this(MapperProvider.Instance) { }
+        public ContractTransformer(IMapper mapper)
         {
-            Mapper.CreateMap<CorporateContract.contract, CorporateSchema.contract>()
-                .ForMember(dest => dest.schemaVersion, opt => opt.Ignore())
-                .ForMember(dest => dest.TerminationContractAttrs, opt => opt.Ignore());
-
-            Mapper.CreateMap<CorporateContract.contractType, CorporateSchema.contractType>()
-                .ForMember(dest => dest.TerminationContractAttrs, opt => opt.Ignore());
-
-            Mapper.CreateMap<CorporateContract.contractAllocationsContractAllocation, CorporateSchema.ProcurementAttrsCT>()
-                .ForMember(dest => dest.TenderSpecReference, opt => opt.MapFrom(src => src.tenderSpecificationReference))
-                .ForMember(dest => dest.LotReference, opt => opt.MapFrom(src => src.lotReference))
-                .ForMember(dest => dest.AwardReference, opt => opt.MapFrom(src => src.tenderAwardReference))
-                .ForMember(dest => dest.TenderSpecTitle, opt => opt.MapFrom(src => src.SpecificationTitle))
-                .ForMember(dest => dest.LearningRatePremium, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.LearningRatePremium) ? 1m : decimal.Parse(src.LearningRatePremium)))
-                .ForMember(dest => dest.LotSpecificationTitle, opt => opt.UseValue(string.Empty));
-
-            Mapper.CreateMap<CorporateContract.contractAllocationsContractAllocation, CorporateSchema.allocationOrganisationRelationships>()
-                .ConvertUsing(MapDeliveryOrgIfPresent);
-                //.ForMember(dest => dest.Organisation, opt => opt.MapFrom(src => src.DeliveryOrganisationDetail))
-                //.ForMember(dest => dest.contractAllocationNumber, opt => opt.MapFrom(src => src.contractAllocationNumber))
-                //.ForMember(dest => dest.RelationshipType, opt => opt.UseValue(CorporateSchema.allocationOrganisationRelationshipType.DELIVERYORGANISATION));
-
-            Mapper.CreateMap<CorporateContract.contractAllocationsContractAllocation, CorporateSchema.contractAllocationsContractAllocation>()
-                .ForMember(dest => dest.ProcurementAttrs, opt => opt.MapFrom(src => Mapper.Map<CorporateContract.contractAllocationsContractAllocation, CorporateSchema.ProcurementAttrsCT>(src)))
-                .ForMember(dest => dest.allocationOrganisationRelationships, opt => opt.MapFrom(src => Mapper.Map<CorporateContract.contractAllocationsContractAllocation, CorporateSchema.allocationOrganisationRelationships>(src)));
-                // AllocationDescription from the story will get mapped automatically, equivalent to..
-                //.ForMember(dest => dest.description, opt => opt.MapFrom(src => src.description));
-
-            Mapper.CreateMap<CorporateContract.contractDeliverablePeriodsTypeContractDeliverablePeriod, CorporateSchema.contractDeliverablePeriodsTypeContractDeliverablePeriod>();
-
-            Mapper.CreateMap<CorporateContract.contractDeliverablesTypeContractDeliverable, CorporateSchema.contractDeliverablesTypeContractDeliverable>();
-
-            // before AssertConfigurationIsValid (as currently in live), if deliverableOrganisationRelationships were supplied, the mapping would have blown up!
-            // it looks like it's never supplied, but we need to add a mapping for the automapper validation to pass
-            Mapper.CreateMap<CorporateContract.organisationRelationship, CorporateSchema.organisationRelationship>();
-
-            Mapper.CreateMap<CorporateContract.contractStatusType, CorporateSchema.contractStatusType>()
-                .ForMember(dest => dest.status, opt => opt.ResolveUsing(o => MapStatus(o.status)));
-
-            Mapper.CreateMap<CorporateContract.contractor, CorporateSchema.contractor>();
-
-            Mapper.CreateMap<CorporateContract.deliverableType, CorporateSchema.deliverableType>();
-            
-            Mapper.CreateMap<CorporateContract.fundingType, CorporateSchema.fundingType>();
-            Mapper.CreateMap<CorporateContract.fundingStream, CorporateSchema.fundingStream>();
-
-            // Mapper.CreateMap<CorporateContract.fundingStreamPeriods, CorporateSchema.fundingStreamPeriods>();
-            Mapper.CreateMap<CorporateContract.fundingStreamPeriodsFundingStreamPeriod, CorporateSchema.fundingStreamPeriodsFundingStreamPeriod>();
-
-            Mapper.CreateMap<CorporateContract.period, CorporateSchema.period>();
-            Mapper.CreateMap<CorporateContract.periodTypeType, CorporateSchema.periodTypeType>();
-
-            // we now need to create corp contract derived class
-            Mapper.Configuration.AllowNullCollections = true;
-
-            //Mapper.AssertConfigurationIsValid();
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public CorporateSchema.contract TransformToCorporateSchemaContract(CorporateContract.contract contract)
+        public CorporateSchemaContract.Contract TransformToCorporateSchemaContract(
+            CorporateContractContract.Contract contract)
         {
-            var corporateSchemaContract = Mapper.Map<CorporateContract.contract, CorporateSchema.contract>(contract);
+            if (contract == null)
+                return null;
+            var corporateSchemaContract = _mapper.Map<
+                CorporateContractContract.Contract,
+                CorporateSchemaContract.Contract>(contract);
+
             corporateSchemaContract.contracts.ForEach(c =>
             {
-                var matchingCorpChildContract = contract.contracts.Single(corpChildContract => corpChildContract.contractNumber == c.contractNumber);
+                var matchingChild =
+                    contract.contracts.Single(child =>
+                        child.contractNumber == c.contractNumber);
 
                 c.contractAllocations.ForEach(a =>
                 {
-                    var matchingCorpAllocation = matchingCorpChildContract.contractAllocations.Single(corpAllocation =>
-                        corpAllocation.contractAllocationNumber == a.contractAllocationNumber);
+                    var matchingAllocation =
+                        matchingChild.contractAllocations.Single(alloc =>
+                            alloc.contractAllocationNumber == a.contractAllocationNumber);
 
                     if (c.fundingType.fundingTypeCode == SBDFundingType)
                     {
@@ -95,90 +51,77 @@
                         a.ProcurementAttrs.TenderSpecTitle = GetNullableString(a.ProcurementAttrs.TenderSpecTitle);
                     }
 
-                    a.contractDeliverables = matchingCorpAllocation.contractDeliverables.Select(ToCorporateSchemaDeliverable).ToList();
+                   
+                    a.contractDeliverables =
+                        matchingAllocation.contractDeliverables
+                            .Select(ToCorporateSchemaDeliverable)
+                            .ToList();
                 });
             });
 
+         
             PopulateTerminationAttrsIfPresent(corporateSchemaContract, contract);
 
             return corporateSchemaContract;
         }
 
-        private static string GetNullableString(string s)
+        public CorporateSchemaContract.contractDeliverablesTypeContractDeliverable
+            ToCorporateSchemaDeliverable(
+                CorporateContractContract.contractDeliverablesTypeContractDeliverable deliverable)
         {
-            if (string.IsNullOrWhiteSpace(s))
-            {
-                return "XX";
-            }
+            if (deliverable == null)
+                return null;
 
-            return s;
+            return _mapper.Map<
+                CorporateContractContract.contractDeliverablesTypeContractDeliverable,
+                CorporateSchemaContract.contractDeliverablesTypeContractDeliverable>(deliverable);
         }
-
-        private static string Get11DigitString(string s)
+        private static void PopulateTerminationAttrsIfPresent(
+            CorporateSchemaContract.Contract corporateSchemaContract,
+            CorporateContractContract.Contract contract)
         {
-            if (string.IsNullOrWhiteSpace(s))
+            var schemaChildren = corporateSchemaContract.contracts;
+
+            contract.contracts.ForEach(dtoChild =>
             {
-                return "xxxxxxxxxxx";
-            }
+                var schemaChild =
+                    schemaChildren.Single(sc =>
+                        sc.contractNumber == dtoChild.contractNumber);
 
-            return s;
-        }
-        public CorporateSchema.contractDeliverablesTypeContractDeliverable ToCorporateSchemaDeliverable(
-            CorporateContract.contractDeliverablesTypeContractDeliverable deliverable)
-        {
-            return Mapper
-                .Map<CorporateContract.contractDeliverablesTypeContractDeliverable,
-                    CorporateSchema.contractDeliverablesTypeContractDeliverable>(deliverable);
-        }
+                schemaChild.TerminationContractAttrs.terminationDate =
+                    dtoChild.TerminationDate;
 
-        private static void PopulateTerminationAttrsIfPresent(CorporateSchema.contract corporateSchemaContract, CorporateContract.contract contract)
-        {
-            var childCorporateSchemaContracts = corporateSchemaContract.contracts;
-            contract.contracts.ForEach(dtoContractType =>
-            {
-                var childCorporateSchemaContract = childCorporateSchemaContracts.Single(schemaContract =>
-                    schemaContract.contractNumber == dtoContractType.contractNumber);
-
-                childCorporateSchemaContract.TerminationContractAttrs.terminationDate = dtoContractType.TerminationDate;
-                if (!string.IsNullOrEmpty(dtoContractType.TerminationReason))
+                if (!string.IsNullOrWhiteSpace(dtoChild.TerminationReason))
                 {
-                    childCorporateSchemaContract.TerminationContractAttrs.ReasonForTermination =
-                        (CorporateSchema.ReasonForTerminationType)Enum.Parse(
-                            typeof(CorporateSchema.ReasonForTerminationType), dtoContractType.TerminationReason);
+                    schemaChild.TerminationContractAttrs.ReasonForTermination =
+                        (CorporateSchemaContract.ReasonForTerminationType)
+                            Enum.Parse(
+                                typeof(CorporateSchemaContract.ReasonForTerminationType),
+                                dtoChild.TerminationReason);
                 }
 
-                dtoContractType.contractAllocations.ForEach(dtoAllocation =>
-                    {
-                        var corpSchemaAllocation = childCorporateSchemaContract.contractAllocations.Single(a =>
-                            a.contractAllocationNumber == dtoAllocation.contractAllocationNumber);
+                dtoChild.contractAllocations.ForEach(dtoAlloc =>
+                {
+                    var schemaAlloc =
+                        schemaChild.contractAllocations.Single(a =>
+                            a.contractAllocationNumber == dtoAlloc.contractAllocationNumber);
 
-                        corpSchemaAllocation.allocationTerminationAttrs.stopNewStartsFromDate = dtoAllocation.StopNewStartsDate;
-                        corpSchemaAllocation.allocationTerminationAttrs.newStartsSuspendedReason = dtoAllocation.NewStartsSuspendedReason;
-                        corpSchemaAllocation.allocationTerminationAttrs.fundingCessationDate = dtoAllocation.FundingCessationDate;
-                    });
+                    schemaAlloc.allocationTerminationAttrs.stopNewStartsFromDate =
+                        dtoAlloc.StopNewStartsDate;
+
+                    schemaAlloc.allocationTerminationAttrs.newStartsSuspendedReason =
+                        dtoAlloc.NewStartsSuspendedReason;
+
+                    schemaAlloc.allocationTerminationAttrs.fundingCessationDate =
+                        dtoAlloc.FundingCessationDate;
+                });
             });
         }
 
-        private static CorporateSchema.contractStatusTypeStatus MapStatus(string status)
-        {
-            return (CorporateSchema.contractStatusTypeStatus)Enum.Parse(typeof(CorporateSchema.contractStatusTypeStatus), status.Replace(" ", "").Replace("-", ""));
-        }
+        private static string GetNullableString(string s)
+            => string.IsNullOrWhiteSpace(s) ? "XX" : s;
 
-        private static CorporateSchema.allocationOrganisationRelationships MapDeliveryOrgIfPresent(CorporateContract.contractAllocationsContractAllocation allocation)
-        {
-            CorporateSchema.allocationOrganisationRelationships allocationOrganisationRelationships = null;
-
-            if (allocation.HasDeliveryOrganisation())
-            {
-                allocationOrganisationRelationships = new CorporateSchema.allocationOrganisationRelationships
-                {
-                    contractAllocationNumber = allocation.contractAllocationNumber,
-                    RelationshipType = CorporateSchema.allocationOrganisationRelationshipType.DELIVERYORGANISATION,
-                    Organisation = Mapper.Map<CorporateContract.contractor, CorporateSchema.contractor>(allocation.DeliveryOrganisationDetail)
-                };
-            }
-
-            return allocationOrganisationRelationships;
-        }
+        private static string Get11DigitString(string s)
+            => string.IsNullOrWhiteSpace(s) ? "xxxxxxxxxxx" : s;
     }
 }

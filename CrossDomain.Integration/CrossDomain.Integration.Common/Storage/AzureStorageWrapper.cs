@@ -16,7 +16,9 @@
         public static IList<string> GetBlobsInContainer(string containerName)
         {
             return GetContainer(containerName)
-                .ListBlobs()
+                .ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, null, null, null)
+                .GetAwaiter().GetResult()
+                .Results
                 .OfType<CloudBlockBlob>()
                 .Select(b => b.Name)
                 .ToList();
@@ -25,7 +27,9 @@
         public static IReadOnlyCollection<BlobInfo> GetBlobInfosInContainerAfterDate(string containerName, DateTime startDateTime)
         {
             return GetContainer(containerName)
-                .ListBlobs()
+                .ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, null, null, null)
+                .GetAwaiter().GetResult()
+                .Results
                 .OfType<CloudBlockBlob>()
                 .Where(cbb => startDateTime < cbb.Properties?.LastModified)
                 .Select(b => new BlobInfo(b.Name, b.Properties.LastModified?.DateTime))
@@ -36,7 +40,9 @@
         public static IReadOnlyCollection<BlobInfo> GetBlobInfosInContainerOnDate(string containerName, DateTime dateTime)
         {
             return GetContainer(containerName)
-                .ListBlobs()
+                .ListBlobsSegmentedAsync(null, true, BlobListingDetails.None, null, null, null, null)
+                .GetAwaiter().GetResult()
+                .Results
                 .OfType<CloudBlockBlob>()
                 .Where(cbb => cbb.Properties?.LastModified != null && dateTime.Date == cbb.Properties.LastModified.Value.Date)
                 .Select(b => new BlobInfo(b.Name, b.Properties.LastModified?.DateTime))
@@ -59,7 +65,7 @@
             Contract.Requires(file != null);
 
             var blockBlob = GetBlockBlob(file);
-            blockBlob.FetchAttributes();
+                blockBlob.FetchAttributesAsync().GetAwaiter().GetResult();
             return blockBlob.Properties.LastModified.HasValue ? blockBlob.Properties.LastModified.Value.UtcDateTime : DateTime.MinValue;
         }
 
@@ -72,7 +78,7 @@
 
             using (MemoryStream blobStream = new MemoryStream())
             {
-                blockBlob.DownloadToStream(blobStream);
+                blockBlob.DownloadToStreamAsync(blobStream).GetAwaiter().GetResult();
                 blobContents = blobStream.ToArray();
             }
 
@@ -88,7 +94,7 @@
 
             using (MemoryStream blobStream = new MemoryStream())
             {
-                blockBlob.DownloadToStream(blobStream);
+                blockBlob.DownloadToStreamAsync(blobStream).GetAwaiter().GetResult();
                 blobContents = blobStream.ToArray();
             }
 
@@ -101,7 +107,8 @@
             Contract.Requires(file != null);
 
             CloudBlockBlob blockBlob = GetBlockBlob(file);
-            return blockBlob.DownloadText(Encoding.UTF8);
+            // Fix: Use DownloadTextAsync instead of non-existent DownloadText
+            return blockBlob.DownloadTextAsync(Encoding.UTF8, null, null, null).GetAwaiter().GetResult();
         }
 
         public static byte[][] GetBlockBlobContents(List<FctSourceFile> files)
@@ -117,7 +124,7 @@
 
                 using (MemoryStream blobStream = new MemoryStream())
                 {
-                    blockBlob.DownloadToStream(blobStream);
+                    blockBlob.DownloadToStreamAsync(blobStream).GetAwaiter().GetResult();
                     blobContents = blobStream.ToArray();
                 }
 
@@ -133,7 +140,8 @@
 
             CloudBlockBlob blockBlob = GetBlockBlob(file);
 
-            blockBlob.UploadFromByteArray(contents, 0, contents.Length);
+            // Fix: Use UploadFromByteArrayAsync instead of non-existent UploadFromByteArray
+            blockBlob.UploadFromByteArrayAsync(contents, 0, contents.Length).GetAwaiter().GetResult();
         }
 
         public static void PutBlockBlob(FctFile file, byte[] contents, string etag)
@@ -142,7 +150,15 @@
 
             CloudBlockBlob blockBlob = GetBlockBlob(file);
 
-            blockBlob.UploadFromByteArray(contents, 0, contents.Length, accessCondition: AccessCondition.GenerateIfMatchCondition(etag));
+            // Fix: Use UploadFromByteArrayAsync with AccessCondition
+            blockBlob.UploadFromByteArrayAsync(
+                contents,
+                0,
+                contents.Length,
+                accessCondition: AccessCondition.GenerateIfMatchCondition(etag),
+                options: null,
+                operationContext: null
+            ).GetAwaiter().GetResult();
         }
 
         public static void DeleteBlockBlob(FctFile file)
@@ -150,14 +166,15 @@
             Contract.Requires(file != null);
 
             CloudBlockBlob fileBlob = GetBlockBlob(file);
-            fileBlob.DeleteIfExists();
+            fileBlob.DeleteIfExistsAsync().GetAwaiter().GetResult();
         }
 
         public static bool DoesBlockBlobExist(FctFile file)
         {
             Contract.Requires(file != null);
 
-            return GetBlockBlob(file).Exists();
+            // Fix: Use ExistsAsync().GetAwaiter().GetResult() instead of Exists()
+            return GetBlockBlob(file).ExistsAsync().GetAwaiter().GetResult();
         }
 
         public static void CopyBlockBlob(FctFile sourcefile, FctFile targetFile)
@@ -168,24 +185,30 @@
             CloudBlockBlob sourceBlockBlob = GetBlockBlob(sourcefile);
             CloudBlockBlob targetBlockBlob = GetBlockBlob(targetFile);
 
-            // Start the copy process
-            targetBlockBlob.StartCopyFromBlob(sourceBlockBlob);
+            // Start the copy process using StartCopyAsync
+            targetBlockBlob.StartCopyAsync(sourceBlockBlob).GetAwaiter().GetResult();
+
+            // Refresh attributes to get the latest copy state
+            targetBlockBlob.FetchAttributesAsync().GetAwaiter().GetResult();
 
             // Check progress to see if it is done
-            while (targetBlockBlob.CopyState.Status == CopyStatus.Pending)
+            while (targetBlockBlob.CopyState != null && targetBlockBlob.CopyState.Status == CopyStatus.Pending)
             {
                 Task.Delay(TimeSpan.FromSeconds(5d)).Wait();
+                targetBlockBlob.FetchAttributesAsync().GetAwaiter().GetResult();
             }
         }
 
         public static void CreateIfNotExists(string containerName)
         {
-            GetContainer(containerName).CreateIfNotExists();
+            // Fix: Use CreateIfNotExistsAsync().GetAwaiter().GetResult() instead of CreateIfNotExists
+            GetContainer(containerName).CreateIfNotExistsAsync().GetAwaiter().GetResult();
         }
 
         public static void CreateIfNotExists(string containerName, string storageConnectionString)
         {
-            GetContainer(containerName, storageConnectionString).CreateIfNotExists();
+            // Fix: Use CreateIfNotExistsAsync().GetAwaiter().GetResult() instead of CreateIfNotExists
+            GetContainer(containerName, storageConnectionString).CreateIfNotExistsAsync().GetAwaiter().GetResult();
         }
 
         private static CloudBlobContainer GetContainer(string containerName)

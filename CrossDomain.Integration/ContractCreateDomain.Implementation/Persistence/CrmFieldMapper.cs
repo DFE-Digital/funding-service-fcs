@@ -4,11 +4,11 @@
     using CrossDomain.Integration.Entities.Xrm;
     using Implementation.Entities;
     using contractAllocationsContractAllocation = CrossDomain.Integration.Entities.CorporateContract.contractAllocationsContractAllocation;
-    using contractor = CrossDomain.Integration.Entities.CorporateContract.contractor;
+    using Contractor = CrossDomain.Integration.Entities.CorporateContract.Contractor;
     using contractStatusType = CrossDomain.Integration.Entities.CorporateContract.contractStatusType;
     using fundingStream = CrossDomain.Integration.Entities.CorporateContract.fundingStream;
     using fundingType = CrossDomain.Integration.Entities.CorporateContract.fundingType;
-    using period = CrossDomain.Integration.Entities.CorporateContract.period;
+    using Period = CrossDomain.Integration.Entities.CorporateContract.Period;
     using periodTypeType = CrossDomain.Integration.Entities.CorporateContract.periodTypeType;
 
     /// <summary>
@@ -210,14 +210,14 @@
         {
             string primaryKeyStr = null;
             
-            if (obj is period)
+            if (obj is Period)
             {
-                period period = (period)obj;
+                Period period = (Period)obj;
                 primaryKeyStr = period.periodType.periodTypeCode + period.period1;
             }
-            else if (obj is contractor)
+            else if (obj is Contractor)
             {
-                contractor contractor = (contractor)obj;
+                Contractor contractor = (Contractor)obj;
                 primaryKeyStr = contractor.ukprn.ToString();
             }
             else if (obj is fundingType)
@@ -248,7 +248,7 @@
             return primaryKeyStr;
         }
 
-        public static CrmCompositeKey GetPeriodPk(period period)
+        public static CrmCompositeKey GetPeriodPk(Period period)
         {
             // this is a special case where the pk comes from the period and the funding stream
             var compositeKey = new CrmCompositeKey();

@@ -75,7 +75,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Appendix_1
                 _contractReferenceConfigRepositoryMock.Object);
         }
 
-        private static contract CreateContract(string fundingTypeCode, string periodCode, string fspCode)
+        private static Contract CreateContract(string fundingTypeCode, string periodCode, string fspCode)
         {
             var deliverable = new contractDeliverablesTypeContractDeliverable
             {
@@ -98,16 +98,16 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Appendix_1
             {
                 contractAllocationNumber = "ALLOC-1",
                 fundingStreamPeriodCode = fspCode,
-                DeliveryOrganisationDetail = new contractor { ukprn = 1, legalName = "CONTRACTING ORG" }
+                DeliveryOrganisationDetail = new Contractor { ukprn = 1, legalName = "CONTRACTING ORG" }
             };
             allocation.contractDeliverables.Add(deliverable);
 
-            return new contract
+            return new Contract
             {
                 startDate = new DateTime(2021, 8, 1),
-                period = new period { period1 = periodCode },
+                period = new Period { period1 = periodCode },
                 fundingType = new fundingType { fundingTypeCode = fundingTypeCode },
-                contractor = new contractor { ukprn = 1, legalName = "CONTRACTING ORG" },
+                contractor = new Contractor { ukprn = 1, legalName = "CONTRACTING ORG" },
                 SharedMasterApprovedContracts = new List<ApprovedContractInfo>(),
                 contractAllocations = new List<contractAllocationsContractAllocation> { allocation }
             };

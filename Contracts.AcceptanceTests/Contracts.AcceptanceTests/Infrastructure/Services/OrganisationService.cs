@@ -16,7 +16,7 @@
 
         private static void SetupOrganisationService()
         {
-            var orgServiceUri = ConfigurationManager.AppSettings["OrganisationServiceUri"];
+            var orgServiceUri = TestConfiguration.Configuration["OrganisationService:Uri"];
 
             var client = new HttpClient
             {

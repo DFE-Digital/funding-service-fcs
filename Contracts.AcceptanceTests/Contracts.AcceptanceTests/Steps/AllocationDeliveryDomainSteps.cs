@@ -9,6 +9,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using TechTalk.SpecFlow;
     using Utilities;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class AllocationDeliveryDomainSteps
@@ -64,7 +65,7 @@
 
             bool foundAllAudits = poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(foundAllAudits, $"Not all audits were found. Could not find: {unMatchedRows.ToHeaderAndValueString()}");
+            ClassicAssert.IsTrue(foundAllAudits, $"Not all audits were found. Could not find: {unMatchedRows.ToHeaderAndValueString()}");
         }
     }
 }

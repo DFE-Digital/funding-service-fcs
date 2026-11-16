@@ -10,6 +10,7 @@
     using TechTalk.SpecFlow;
     using Utilities;
     using System.Linq;
+    using NUnit.Framework.Legacy;
 
     [Binding]
     public class DuplicateContractSteps
@@ -34,7 +35,7 @@
 
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.True(thereAreNoDuplicates, "Duplicate contract(s) found in CRM");
+            ClassicAssert.True(thereAreNoDuplicates, "Duplicate contract(s) found in CRM");
         }
 
         [Then(@"there are '(.*)' duplicate contracts in CRM as follows")]
@@ -57,7 +58,7 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(duplicateContractExists,
+                ClassicAssert.IsTrue(duplicateContractExists,
                     $"Duplicate contract not found for ContractNumber {contractNumber}, ContractVersionNumber {versionNumber},  ContractSubVersion {subVersionNumber}");
             });
         }
@@ -82,7 +83,7 @@
 
                 poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-                Assert.IsTrue(duplicateContractExists,
+                ClassicAssert.IsTrue(duplicateContractExists,
                     $"Duplicate CRM Contract does not exist in the CRM replicated database. ContractNumber {contractNumber}, ContractVersionNumber {versionNumber},  ContractSubVersion {subVersionNumber}");
             });
         }
@@ -101,7 +102,7 @@
 
             poller.CheckResultAndWaitTillCompleteOrOutOfTime();
 
-            Assert.IsTrue(noDuplicateContractExists, $"Duplicate CRM Contracts found in the CRM replicated database");
+            ClassicAssert.IsTrue(noDuplicateContractExists, $"Duplicate CRM Contracts found in the CRM replicated database");
         }
 
         [When(@"Clear down Deletion Synchronization Failure for contract")]

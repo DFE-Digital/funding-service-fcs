@@ -1,14 +1,22 @@
+﻿// Target: NServiceBus v8+ (DI via Microsoft.Extensions.DependencyInjection)
+
 namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.AggregatePaymentEndpoint
 {
+    using Microsoft.Extensions.DependencyInjection; // <-- new
+    using Microsoft.Extensions.Logging;
+    using NServiceBus;
+    using PaymentGenerationDomain.BusinessLogic;
+    using PaymentGenerationDomain.Integration.DataStore;
+    using SFA.FCS.Worker.Common;
+    using SFA.FCT.CrossDomain.Integration.Common;
+    using SFA.FCT.CrossDomain.Integration.Events;
+    using SFA.FCT.CrossDomain.Integration.OverrideDate;
+    using SFA.FCT.CrossDomain.Integration.OverrideDate.DataStore;
+    using DataStore.Repositories;
+    using Infrastructure;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Windsor;
-    using Ioc;
-    using NServiceBus;
-    using SFA.FCS.Worker.Common;
-    using SFA.FCT.CrossDomain.Integration.Events;
-    using SFA.FCT.Framework.Logging.Interfaces;
 
     public class EndpointConfig : IEndpointConfig
     {
@@ -18,9 +26,9 @@ namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.Aggregat
 
         public IReadOnlyCollection<CommandRoute> Routes => Enumerable.Empty<CommandRoute>().ToArray();
 
-        public IReadOnlyCollection<Subscription> Subscriptions => new []
+        public IReadOnlyCollection<Subscription> Subscriptions => new[]
         {
-            new Subscription("PaymentManagementDomain.PaymentAggregation", typeof(PaymentAggregatedEvent)), 
+            new Subscription("PaymentManagementDomain.PaymentAggregation", typeof(PaymentAggregatedEvent)),
         };
 
         private static readonly IReadOnlyCollection<Type> PublishedTypes = new List<Type>
@@ -28,25 +36,64 @@ namespace PaymentGenerationDomain.Integration.PaymentGenerationEndpoint.Aggregat
             typeof(AllocationPaymentsChangedOnAggregationEvent)
         };
 
+
         public EndpointConfiguration GetEndpointConfiguration(ILoggerFactory loggerFactory)
         {
-            EndpointConfiguration configuration = new EndpointConfiguration(EndpointName);
+            if (loggerFactory is null) throw new ArgumentNullException(nameof(loggerFactory));
 
-            ILogger logger = loggerFactory.CreateDefaultLogger();
+            var configuration = new EndpointConfiguration(EndpointName);
 
-            logger.LogInformation(1, $"Started Endpoint {EndpointName} on CrossDomain.Integration");
+            var logger = loggerFactory.CreateLogger<EndpointConfig>();
+            logger.LogInformation("Started Endpoint {EndpointName}", EndpointName);
 
-            configuration.Conventions()
-                .DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith("Commands"))
-                .DefiningEventsAs(t => Subscriptions.Select(s => s.EventType.Name).Any(e => t.Name.EndsWith(e)) || PublishedTypes.Contains(t))
-                .DefiningMessagesAs(t => null != t.Namespace && t.Namespace.EndsWith("Messages"));
+            var connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnection");
 
-            configuration.UseContainer<WindsorBuilder>(customizations: customizations =>
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                customizations.ExistingContainer(new WindsorContainer().Install(new AggregatePaymentWindsorInstaller(loggerFactory)));
+                throw new InvalidOperationException(
+                    "AzureServiceBusConnection environment variable is not set.");
+            }
+
+            // ✅ Conventions
+            configuration.Conventions()
+                .DefiningCommandsAs(t =>
+                    (t?.Namespace != null && t.Namespace.EndsWith("Commands")) ||
+                    typeof(ICommand).IsAssignableFrom(t))
+                .DefiningEventsAs(t =>
+                    Subscriptions.Any(s => s.EventType.IsAssignableFrom(t)) ||
+                    PublishedTypes.Contains(t));
+
+            configuration.UseSerialization<SystemJsonSerializer>();
+
+            // ✅ ✅ Converted WindsorInstaller → MS DI
+            configuration.RegisterComponents(services =>
+            {
+                // -----------------------------
+                // Logging
+                // -----------------------------
+                services.AddSingleton(loggerFactory);
+
+                services.AddSingleton<ILogger>(
+                    _ => loggerFactory.CreateLogger<EndpointConfig>());
+
+                // -----------------------------
+                // Scoped services
+                // -----------------------------
+                services.AddScoped<IDataAccessManager, DataAccessManager>();
+                services.AddScoped<PaymentGenerationDbContext>();
+                services.AddScoped<IDate, StaticDate>();
+                services.AddScoped<IOverrideDateDBContext, OverrideDateDBContext>();
+                services.AddScoped<ISubnominalAggregationRepository, SubnominalAggregationRepository>();
+
+                // -----------------------------
+                // Singleton services
+                // -----------------------------
+                services.AddSingleton<ISessionConnectionFactory, SessionConnectionFactory>();
             });
 
             return configuration;
         }
+
+
     }
 }

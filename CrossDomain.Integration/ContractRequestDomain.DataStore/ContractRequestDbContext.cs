@@ -25,7 +25,6 @@
             }
             return "name=ContractRequestDbContext";
         }
-
         public ContractRequestDbContext(IDbConnection connection, DbTransaction transaction)
             : base((DbConnection)connection, false)
         {

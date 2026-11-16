@@ -1,4 +1,4 @@
-﻿namespace SFA.FCT.ContractRequestDomain.BusinessLogic.Services
+namespace SFA.FCT.ContractRequestDomain.BusinessLogic.Services
 {
     using System;
     using System.Collections.Generic;
@@ -116,6 +116,11 @@
                     client.Headers[HttpRequestHeader.Authorization] =
                         $"Bearer {AzureAuthenticator.GetAuthenticationResult("FundingStreamConfig")}";
                     var url = ConfigurationManager.AppSettings["FscEnrichmentUrl"];
+                    if (string.IsNullOrWhiteSpace(url))
+                    {
+                        _logger.LogError(ContractRequestDomainEventLoggingId.ErrorFetchingFscData, "FscEnrichmentUrl configuration is missing or empty for batch {0}", batchId);
+                        throw new InvalidOperationException("FscEnrichmentUrl configuration setting is not configured");
+                    }
                     var webResponse = client.DownloadString(url + requestArguments);
 
                     var serialiser = new XmlSerializer(typeof(FundingConfigurationType));
@@ -134,3 +139,4 @@
         }
     }
 }
+

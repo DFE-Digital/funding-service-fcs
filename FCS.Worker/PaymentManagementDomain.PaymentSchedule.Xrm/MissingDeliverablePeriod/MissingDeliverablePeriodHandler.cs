@@ -1,9 +1,10 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.MissingDeliverablePeriod
 {
+    extern alias IntegrationEntities;
     using System.Threading.Tasks;
     using NServiceBus;
     using PaymentManagementDomain.PaymentSchedule.Xrm.Infrastructure;
-    using SFA.FCT.CrossDomain.Integration.Entities.Data;
+    using IntegrationEntities::SFA.FCT.CrossDomain.Integration.Entities.Data;
     using SFA.FCT.CrossDomain.Integration.Messages.Commands;
     using SFA.FCT.Framework.Logging.Interfaces;
     using SFA.FCT.PaymentManagementDomain.Common;

@@ -18,7 +18,7 @@
                 docLocResolver.GetLocationOfAppendices(
                     new contractType()
                     {
-                        period = new period() {period1 = "1516"},
+                        period = new Period() {period1 = "1516"},
                         fundingType = new fundingType() { fundingTypeCode = "24+LOANS" }
                     });
         
@@ -34,7 +34,7 @@
             string o365DocListOfTsAndCs = docLocResolver.GetLocationOfTermsAndConditions(
                     new contractType()
                     {
-                        period = new period()
+                        period = new Period()
                         {
                             period1 = "1516" 
                         },
@@ -53,7 +53,7 @@
             string o365DocListOfMergedDoc = docLocResolver.GetLocationOfMergedDocument(
                     new contractType()
                     {
-                        period = new period() { period1 = "1516" },
+                        period = new Period() { period1 = "1516" },
                         fundingType = new fundingType() { fundingTypeCode = "24+LOANS" }
                     });
 
@@ -69,7 +69,7 @@
             string o365DocListOfMergedDoc = docLocResolver.GetLocationOfPublishedDocument(
                     new contractType()
                     {
-                        period = new period{ period1 = "1516" },
+                        period = new Period{ period1 = "1516" },
                         fundingType = new fundingType{ fundingTypeCode = "24+LOANS" }
                     });
 

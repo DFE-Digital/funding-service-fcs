@@ -15,7 +15,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithEmptyFundingType()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.fundingType = null;
 
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
@@ -24,7 +24,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithFundingTypeCodeNull()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.fundingType.fundingTypeCode = null;
 
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
@@ -33,7 +33,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithNoContractsList()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts = null;
 
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
@@ -42,7 +42,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithEmptyContractsList()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts = new List<contractType>();
 
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
@@ -51,7 +51,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithMoreThanOneContract()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts.Add(new contractType());
 
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
@@ -60,7 +60,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithNullAllocationsList()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts.First().contractAllocations = null;
 
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
@@ -69,7 +69,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithEmptyAllocationsList()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations = null;
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -77,7 +77,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithMissingAllocationNumberInOneAllocation()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations[0].contractAllocationNumber = null;
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -85,7 +85,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithEmptyAllocationNumberInOneAllocation()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations[0].contractAllocationNumber = string.Empty;
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -93,7 +93,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithMissingStartDateInOneAllocation()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations[0].startDate = DateTime.MinValue;
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -101,7 +101,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithWithNullAllocationFundingStream()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations[0].fundingStream = null;
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -109,7 +109,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithWithNullAllocationFundingStreamCode()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations[0].fundingStream.fundingStreamCode = null;
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -117,7 +117,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithWithEmptyAllocationFundingStreamCode()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations[0].fundingStream.fundingStreamCode = string.Empty;
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -125,7 +125,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithWithNullDeliverablesList()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations[0].contractDeliverables = null;
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -133,7 +133,7 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void TestContractValidatorValidateWithWithEmptyDeliverablesList()
         {
-            contract masterContract = GetMasterContract();
+            Contract masterContract = GetMasterContract();
             masterContract.contracts[0].contractAllocations[0].contractDeliverables = new List<contractDeliverablesTypeContractDeliverable>();
             Assert.AreNotEqual("", new CorporateContractValidator().Validate(masterContract));
         }
@@ -141,21 +141,21 @@ namespace SFA.FCT.DocumentsDomain.DocumentGeneration.Tests
         [TestMethod, TestCategory("UnitTest")]
         public void CorporateContractValidator_ShouldValidateLevyAmendmentCorpContract()
         {
-            contract levyAmendmentCorpContract = GetLevyAmendmentCorpContract();
+            Contract levyAmendmentCorpContract = GetLevyAmendmentCorpContract();
 
             Assert.AreEqual(string.Empty, new CorporateContractValidator().Validate(levyAmendmentCorpContract));
         }
 
-        private contract GetLevyAmendmentCorpContract()
+        private Contract GetLevyAmendmentCorpContract()
         {
-            return TestResource.FromJson<contract>(
+            return TestResource.FromJson<Contract>(
                 "SFA.FCT.DocumentsDomain.DocumentGeneration.Tests.Resources", "LevyAmendmentCorpContract.json");
         }
 
 
-        private contract GetMasterContract()
+        private Contract GetMasterContract()
         {
-            contract masterContract = new contract()
+            Contract masterContract = new Contract()
             {
                 fundingType = new fundingType
                 {

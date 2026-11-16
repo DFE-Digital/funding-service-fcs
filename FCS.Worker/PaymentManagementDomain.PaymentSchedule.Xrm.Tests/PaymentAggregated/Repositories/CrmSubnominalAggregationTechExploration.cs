@@ -1,5 +1,6 @@
 ﻿namespace PaymentManagementDomain.PaymentSchedule.Xrm.Tests.PaymentAggregated.Repositories
 {
+    extern alias Entity;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -9,7 +10,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using PaymentSchedule.PaymentAggregated.Repositories;
     using SFA.FCS.Worker.Common.Crm;
-    using SFA.FCT.CrossDomain.Integration.Entities.Xrm;
+    using Entity::SFA.FCT.CrossDomain.Integration.Entities.Xrm;
 
     [TestClass]
     public class CrmSubnominalAggregationTechExploration

@@ -1,5 +1,6 @@
 ﻿namespace PaymentGenerationDomain.BusinessLogic.Tests.Mappers
 {
+    extern alias Entities;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -11,7 +12,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using SFA.FCT.AllocationDeliveryDomain.Common.DataStore.Model;
-    using SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
+    using Entities::SFA.FCT.CrossDomain.Integration.Entities.CorporatePaymentGeneration;
 
     [TestClass]
     public class PaymentCorpSchemaMapperTests

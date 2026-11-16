@@ -1,1087 +1,123 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D90F3048-BDDA-4DBD-A845-72065011E559}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContractCreateDomain.Tests</RootNamespace>
-    <AssemblyName>ContractCreateDomain.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCI|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AT|AnyCPU'">
-    <OutputPath>bin\AT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CI|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\CI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DEV\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MO|AnyCPU'">
-    <OutputPath>bin\MO\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OAT|AnyCPU'">
-    <OutputPath>bin\OAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Label="SlowCheetah">
-    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
-    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
-    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
-    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PS|AnyCPU'">
-    <OutputPath>bin\PS\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DAT|AnyCPU'">
-    <OutputPath>bin\DAT\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <Optimize>false</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DCI|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DCI\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DMO|AnyCPU'">
-    <OutputPath>bin\DMO\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DOAT|AnyCPU'">
-    <OutputPath>bin\DOAT\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="AntiXSSLibrary, Version=4.2.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\AntiXSSLibrary.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentAssertions, Version=5.10.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentAssertions.5.10.3\lib\net47\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.12\lib\net462\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Data.Edm, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Edm.5.6.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.OData.5.6.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.6.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus, Version=2.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\WindowsAzure.ServiceBus.2.6.7\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration">
-      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.1.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Client.CodeGeneration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Client.CodeGeneration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Portal.Files, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\Microsoft.Xrm.Portal.Files.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.12\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CrmSdk.Deployment.9.0.2.12\lib\net462\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MoreLinq, Version=1.1.18418.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\morelinq.1.1.1\lib\net35\MoreLinq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Azure.Transports.WindowsAzureServiceBus">
-      <HintPath>..\..\packages\NServiceBus.Azure.Transports.WindowsAzureServiceBus.6.3.2\lib\net45\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NServiceBus.Core">
-      <HintPath>..\..\packages\NServiceBus.5.2.8\lib\net45\NServiceBus.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NServiceBus.Testing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NServiceBus.Testing.5.0.5\lib\net45\NServiceBus.Testing.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Optional, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Optional.4.0.0\lib\net45\Optional.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.Services" />
-    <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Spatial, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Spatial.5.6.2\lib\net40\System.Spatial.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml.Serialization" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <Choose>
-    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-          <Private>False</Private>
-        </Reference>
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
-  <ItemGroup>
-    <Compile Include="CollectionTransformerTests.cs" />
-    <Compile Include="CorpContractValueTypeFieldSetterTests.cs" />
-    <Compile Include="ContractRequestHandlerTest.cs" />
-    <Compile Include="ContractRequestTransformerTest.cs" />
-    <Compile Include="Integration Tests\OrganisationServiceApiHttpClientTests.cs" />
-    <Compile Include="OrganisationServiceCacheTests.cs" />
-    <Compile Include="Repositories\LargeMessageRepositoryTests.cs" />
-    <Compile Include="Unit Tests\FundingTypePeriodServiceTests.cs" />
-    <Compile Include="Unit Tests\OrganisationServiceTests.cs" />
-    <Compile Include="ValidationTests\AllocationFundingStreamPeriodMandatoryRuleTests.cs" />
-    <Compile Include="Unit Tests\PreviousContractMergerTests.cs" />
-    <Compile Include="ValidationTests\AllowNewAmendmentRuleTests.cs" />
-    <Compile Include="ValidationTests\ContractStartAndEndDateRuleMandatoryTests.cs" />
-    <Compile Include="ValidationTests\ContractTypeForFundingTypeFundingPeriodRuleTests.cs" />
-    <Compile Include="ValidationTests\ContractTypeMandatoryRuleTests.cs" />
-    <Compile Include="ValidationTests\InvalidDeliveryOrganisationUkprnRuleTests.cs" />
-    <Compile Include="ExtendedContractTypeTests.cs" />
-    <Compile Include="Integration Tests\DasTests.cs" />
-    <Compile Include="ValidationTests\AllocationDeliveryOrganisationCannotBeChangedOnApprovedVersionRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableValueOnlyNoUnitCostRuleTests.cs" />
-    <Compile Include="OrganisationMessageEnricherTests.cs" />
-    <Compile Include="Integration Tests\OrganisationServiceTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MasherMissingCrmRecordTests.cs" />
-    <Compile Include="ContractOperationRulesAllMethodsTests.cs" />
-    <Compile Include="ContractOperationRulesTests.cs" />
-    <Compile Include="contractRequestTypeTests.cs" />
-    <Compile Include="ValidationTests\AllocationEndDateAfterContractEndDateRuleTest.cs" />
-    <Compile Include="ValidationTests\AllocationTenderAwardReferenceMustBeUniqueAndValidForFundingStreamRuleTests.cs" />
-    <Compile Include="ValidationTests\AllocationValidInvestmentPriorityRuleTest.cs" />
-    <Compile Include="ValidationTests\AllocationTenderAwardReferenceMustBeUniqueOrUnchangedTests.cs" />
-    <Compile Include="ValidationTests\AllocationValidRegionTypeRuleTest.cs" />
-    <Compile Include="ValidationTests\AllocationValidSpecificationTitleRuleTest.cs" />
-    <Compile Include="ValidationTests\ConditionalMandatoryItemsValidationTests.cs" />
-    <Compile Include="ValidationTests\AllocationOnlyOnePerFundingStreamRuleTest.cs" />
-    <Compile Include="ValidationTests\AllocationValidUopCodeRuleTest.cs" />
-    <Compile Include="ValidationTests\AllocationValidLepCodeRuleTest.cs" />
-    <Compile Include="ValidationTests\AllocationPeriodValidForFundingStreamCodeRuleTest.cs" />
-    <Compile Include="ValidationTests\AllocationStartDateAfterContractEndDateRuleTests.cs" />
-    <Compile Include="ValidationTests\AllocationStartDateBeforeContractStartDateRuleTests.cs" />
-    <Compile Include="ValidationTests\ContractRequestValidationBase.cs" />
-    <Compile Include="TestBase.cs" />
-    <Compile Include="ContractValueAggregatorTest.cs" />
-    <Compile Include="ContractDeliverableEnricherTests.cs" />
-    <Compile Include="MasherTests.cs" />
-    <Compile Include="ValidationTests\AllocationPeriodTypeValidForFundingStreamCodeRuleTest.cs" />
-    <Compile Include="ValidationTests\ContractTypeValidationRuleTest.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableMultipleRecordsPerPeriodRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableNotValidForFundingTypeRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverablePeriodsForEachMonthRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverablePeriodUnitCostMustMatchDeliverableUnitCostRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverablesCannotBeDuplicatedWithinAnAllocationRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableTypeValueAndVolumeNoValueRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableTypeValueAndVolumeVolumeRequiredRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableTypeValueNoVolumesRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableTypeValueAndVolumeUnitCostRequiredRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableAllowProfileRuleTests.cs" />
-    <Compile Include="ValidationTests\Deliverable\DeliverableYearAndPeriodCombinationRuleTests.cs" />
-    <Compile Include="ValidationTests\DuplicateAllocationFieldsTest.cs" />
-    <Compile Include="ValidationTests\ExistingDraftOrApprovedContractRuleTests.cs" />
-    <Compile Include="ValidationTests\InvalidFSCRuleTests.cs" />
-    <Compile Include="ValidationTests\AllocationMandatoryESFDataPopulatedRuleTest.cs" />
-    <Compile Include="ValidationTests\NewContractsMustNotHaveContractNumbersRuleTests.cs" />
-    <Compile Include="ValidationTests\NoExistingContractRuleTest.cs" />
-    <Compile Include="ValidationTests\RevisedNewIntentNoNonWithdrawnContractsAllowedRuleTest.cs" />
-    <Compile Include="ValidationTests\RevisedNewIntentContractNumberExistsRuleTest.cs" />
-    <Compile Include="ValidationTests\RevisedNewIntentMandatoryContractNumberRuleTest.cs" />
-    <Compile Include="ValidationTests\MandatoryStartAndEndDate.cs" />
-    <Compile Include="ValidationTests\MasterContractCrmIntentRuleTest.cs" />
-    <Compile Include="ValidationTests\MandatoryEntitiesRuleTest.cs" />
-    <Compile Include="ValidationTests\ExistingContractRuleTest.cs" />
-    <Compile Include="ValidationTests\DescriptionLengthsRuleTest.cs" />
-    <Compile Include="ValidationTests\InvalidUkprnRuleTest.cs" />
-    <Compile Include="ValidationTests\AmendmentIntentMustHasNonNullAmendmentTypeRuleTest.cs" />
-    <Compile Include="ValidationTests\NewIntentConsistentRuleTest.cs" />
-    <Compile Include="ValidationTests\NewIntententAmendmentTypeNullRuleTest.cs" />
-    <Compile Include="ValidationTests\NewIntentWithInactiveOrganisationRuleTest.cs" />
-    <Compile Include="ValidationTests\AllocationStartAndEndDatesMustNotBeTheSameRuleTest.cs" />
-    <Compile Include="ValidationTests\StartAndEndDatesMustNotBeTheSameRuleTest.cs" />
-    <Compile Include="ValidationTests\RevisedNewContractsAmendmentTypeMustBeNullRuleTest.cs" />
-    <Compile Include="ValidationTests\ExistingMasterContractRuleTests.cs" />
-    <Compile Include="ValidationTests\AllocationDeliveryOrganisationPresentThenAllMustBeSpecifiedRuleTests.cs" />
-    <Compile Include="ValidationTests\UpdateDraftAmendmentMustHaveAnAmendmentTypeRuleTest.cs" />
-    <Compile Include="ValidationTests\UpdateDraftContractMustNotHaveAnAmendmentTypeRuleTest.cs" />
-    <Compile Include="ValidatorTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.DAT.config">
-      <DependentUpon>App.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="App.DCI.config">
-      <DependentUpon>App.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="App.DMO.config">
-      <DependentUpon>App.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="app.AT.config">
-      <DependentUpon>app.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="app.CI.config">
-      <DependentUpon>app.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-      <TransformOnBuild>true</TransformOnBuild>
-    </None>
-    <None Include="app.MO.config">
-      <DependentUpon>app.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="bin\DAT\ContractCreateDomain.BusinessLogic.dll.config" />
-    <None Include="bin\DAT\ContractCreateDomain.Common.Messages.dll.config" />
-    <None Include="bin\DAT\ContractCreateDomain.Implementation.dll.config" />
-    <None Include="bin\DAT\ContractCreateDomain.Integration.ContractRequest.dll.config" />
-    <None Include="bin\DAT\ContractCreateDomain.Tests.dll.config" />
-    <None Include="bin\DAT\ContractManagement.DataStore.dll.config" />
-    <None Include="bin\DAT\ContractManagementService.Common.dll.config" />
-    <None Include="bin\DAT\CorporateSchema\contract_corporate_schema_v11.00.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="bin\DAT\CrossDomain.Integration.Common.dll.config" />
-    <None Include="bin\DAT\CrossDomain.Integration.Messages.dll.config" />
-    <None Include="bin\DAT\Framework.Logging.dll.config" />
-    <None Include="bin\DAT\Resources\contract_request_das.json" />
-    <None Include="bin\DAT\Resources\FSCDeliverableData.bin" />
-    <None Include="bin\DAT\UnitTests.Common.dll.config" />
-    <None Include="bin\DCI\ContractCreateDomain.BusinessLogic.dll.config" />
-    <None Include="bin\DCI\ContractCreateDomain.Common.Messages.dll.config" />
-    <None Include="bin\DCI\ContractCreateDomain.Implementation.dll.config" />
-    <None Include="bin\DCI\ContractCreateDomain.Integration.ContractRequest.dll.config" />
-    <None Include="bin\DCI\ContractCreateDomain.Tests.dll.config" />
-    <None Include="bin\DCI\ContractManagement.DataStore.dll.config" />
-    <None Include="bin\DCI\ContractManagementService.Common.dll.config" />
-    <None Include="bin\DCI\CorporateSchema\contract_corporate_schema_v11.00.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="bin\DCI\CrossDomain.Integration.Common.dll.config" />
-    <None Include="bin\DCI\CrossDomain.Integration.Messages.dll.config" />
-    <None Include="bin\DCI\FCS.Worker.Common.dll.config" />
-    <None Include="bin\DCI\Framework.Logging.dll.config" />
-    <None Include="bin\DCI\Resources\contract_request_das.json" />
-    <None Include="bin\DCI\Resources\FSCDeliverableData.bin" />
-    <None Include="bin\DCI\UnitTests.Common.dll.config" />
-    <None Include="bin\Debug\ContractCreateDomain.BusinessLogic.dll.config" />
-    <None Include="bin\Debug\ContractCreateDomain.Common.Messages.dll.config" />
-    <None Include="bin\Debug\ContractCreateDomain.Implementation.dll.config" />
-    <None Include="bin\Debug\ContractCreateDomain.Integration.ContractRequest.dll.config" />
-    <None Include="bin\Debug\ContractCreateDomain.Tests.dll.config" />
-    <None Include="bin\Debug\ContractManagement.DataStore.dll.config" />
-    <None Include="bin\Debug\ContractManagementService.Common.dll.config" />
-    <None Include="bin\Debug\CorporateSchema\contract_corporate_schema_v11.00.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="bin\Debug\CrossDomain.Integration.Common.dll.config" />
-    <None Include="bin\Debug\CrossDomain.Integration.Messages.dll.config" />
-    <None Include="bin\Debug\FCS.Worker.Common.dll.config" />
-    <None Include="bin\Debug\Framework.Logging.dll.config" />
-    <None Include="bin\Debug\Resources\contract_request_das.json" />
-    <None Include="bin\Debug\Resources\FSCDeliverableData.bin" />
-    <None Include="bin\Debug\UnitTests.Common.dll.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <EmbeddedResource Include="Resources\FSCDeliverableData.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
-    <EmbeddedResource Include="Resources\contract_request_das.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\contractRequestType_EFA_UpdateDraft.json" />
-    <EmbeddedResource Include="Resources\APPLEVY-35652_Amendment_ContractRequestType.json" />
-    <EmbeddedResource Include="Resources\CorpContract.json" />
-    <EmbeddedResource Include="Resources\contractRequestTypeContractTypeRule.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ContractRequest.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\FSCDeliverableData16-18APPS1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableData24+ALLB1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableData24+ALLBC1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableData24+ALLF1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataAGE1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataASC1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataASTO1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataCL1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataDLS1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataEOF1417.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataEOP1516.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataEOP21317.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataEOP2P2-1317.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataESF1420.xml" />
-    <EmbeddedResource Include="Resources\FSCDeliverableDataOLASS1516.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\Tests\Tests.Common\UnitTests.Common.csproj">
-      <Project>{6edbfbfc-a0a0-4650-a92e-b9a686c967fe}</Project>
-      <Name>UnitTests.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ContractManagementDomain\ContractManagementService.Common\ContractManagementService.Common.csproj">
-      <Project>{CD312A9F-BB0D-4F77-8FE0-49175B964CFE}</Project>
-      <Name>ContractManagementService.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FCS.Worker\ContractCreateDomain.Endpoint\ContractCreateDomain.Endpoint.csproj">
-      <Project>{c3762a14-12f8-43fb-8329-53b457c3f8b1}</Project>
-      <Name>ContractCreateDomain.Endpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FCS.Worker\FCS.Worker.Entities\FCS.Worker.Common.csproj">
-      <Project>{5a495916-854c-4b20-b7fc-b696ea94ff61}</Project>
-      <Name>FCS.Worker.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj">
-      <Project>{67193B3F-0405-4DBF-A77C-C1D9C9FA11BA}</Project>
-      <Name>ContractManagement.DataStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj">
-      <Project>{b93f0ed2-8af4-46c4-ae47-daa3483fd8f3}</Project>
-      <Name>Framework.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractCreateDomain.BusinessLogic\ContractCreateDomain.BusinessLogic.csproj">
-      <Project>{4c731a15-f601-41b6-bb95-a6af566f8d6b}</Project>
-      <Name>ContractCreateDomain.BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractCreateDomain.Common.Messages\ContractCreateDomain.Common.Messages.csproj">
-      <Project>{11368137-d1ea-4664-8333-294d03ef5437}</Project>
-      <Name>ContractCreateDomain.Common.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ContractCreateDomain.Implementation\ContractCreateDomain.Implementation.csproj">
-      <Project>{791022eb-4bf9-41f8-adeb-791d0765f5c7}</Project>
-      <Name>ContractCreateDomain.Implementation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj">
-      <Project>{e766a4b6-88b4-4e18-a68b-761b65c7e015}</Project>
-      <Name>CrossDomain.Integration.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj">
-      <Project>{6e27f9ef-1391-41e7-8b8d-7c1b82665578}</Project>
-      <Name>CrossDomain.Integration.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj">
-      <Project>{d68560c9-7fcc-41e6-b48d-3cd237d97926}</Project>
-      <Name>CrossDomain.Integration.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj">
-      <Project>{9d36a2be-95d8-49b7-be54-9f063738cb5b}</Project>
-      <Name>CrossDomain.Integration.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OrganisationDomain.Integration.DataStore\OrganisationDomain.Integration.DataStore.csproj">
-      <Project>{728bd427-6f01-4661-9210-44b7f584f63d}</Project>
-      <Name>OrganisationDomain.Integration.DataStore</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ContractRequest_ESF.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\organisation_corporate_schema.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\DAT\AntiXSSLibrary.dll" />
-    <Content Include="bin\DAT\Aspose.Pdf.dll" />
-    <Content Include="bin\DAT\AutoMapper.dll" />
-    <Content Include="bin\DAT\AutoMapper.Net4.dll" />
-    <Content Include="bin\DAT\AutoMapper.Net4.pdb" />
-    <Content Include="bin\DAT\AutoMapper.pdb" />
-    <Content Include="bin\DAT\AutoMapper.xml" />
-    <Content Include="bin\DAT\Castle.Core.dll" />
-    <Content Include="bin\DAT\Castle.Core.xml" />
-    <Content Include="bin\DAT\Castle.Windsor.dll" />
-    <Content Include="bin\DAT\Castle.Windsor.xml" />
-    <Content Include="bin\DAT\ContractCreateDomain.BusinessLogic.dll" />
-    <Content Include="bin\DAT\ContractCreateDomain.BusinessLogic.pdb" />
-    <Content Include="bin\DAT\ContractCreateDomain.Common.Messages.dll" />
-    <Content Include="bin\DAT\ContractCreateDomain.Common.Messages.pdb" />
-    <Content Include="bin\DAT\ContractCreateDomain.Implementation.dll" />
-    <Content Include="bin\DAT\ContractCreateDomain.Implementation.pdb" />
-    <Content Include="bin\DAT\ContractCreateDomain.Integration.ContractRequest.dll" />
-    <Content Include="bin\DAT\ContractCreateDomain.Integration.ContractRequest.pdb" />
-    <Content Include="bin\DAT\ContractCreateDomain.Tests.dll" />
-    <Content Include="bin\DAT\ContractCreateDomain.Tests.pdb" />
-    <Content Include="bin\DAT\ContractManagement.DataStore.dll" />
-    <Content Include="bin\DAT\ContractManagement.DataStore.pdb" />
-    <Content Include="bin\DAT\ContractManagementService.Common.dll" />
-    <Content Include="bin\DAT\ContractManagementService.Common.pdb" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Common.dll" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Common.pdb" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Common.XmlSerializers.dll" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Entities.dll" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Entities.pdb" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Events.dll" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Events.pdb" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Messages.dll" />
-    <Content Include="bin\DAT\CrossDomain.Integration.Messages.pdb" />
-    <Content Include="bin\DAT\CrossDomain.Integration.OverrideDate.DataStore.dll" />
-    <Content Include="bin\DAT\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
-    <Content Include="bin\DAT\Dapper.dll" />
-    <Content Include="bin\DAT\Dapper.xml" />
-    <Content Include="bin\DAT\de\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\de\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\de\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\de\System.Spatial.resources.dll" />
-    <Content Include="bin\DAT\EntityFramework.dll" />
-    <Content Include="bin\DAT\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\DAT\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\DAT\EntityFramework.xml" />
-    <Content Include="bin\DAT\es\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\es\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\es\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\es\System.Spatial.resources.dll" />
-    <Content Include="bin\DAT\Framework.Logging.dll" />
-    <Content Include="bin\DAT\Framework.Logging.pdb" />
-    <Content Include="bin\DAT\fr\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\fr\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\fr\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\fr\System.Spatial.resources.dll" />
-    <Content Include="bin\DAT\Iesi.Collections.dll" />
-    <Content Include="bin\DAT\Iesi.Collections.xml" />
-    <Content Include="bin\DAT\it\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\it\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\it\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\it\System.Spatial.resources.dll" />
-    <Content Include="bin\DAT\ja\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\ja\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\ja\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\ja\System.Spatial.resources.dll" />
-    <Content Include="bin\DAT\ko\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\ko\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\ko\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\ko\System.Spatial.resources.dll" />
-    <Content Include="bin\DAT\Microsoft.Crm.Sdk.Proxy.dll" />
-    <Content Include="bin\DAT\Microsoft.Crm.Sdk.Proxy.xml" />
-    <Content Include="bin\DAT\Microsoft.Data.Edm.dll" />
-    <Content Include="bin\DAT\Microsoft.Data.Edm.xml" />
-    <Content Include="bin\DAT\Microsoft.Data.OData.dll" />
-    <Content Include="bin\DAT\Microsoft.Data.OData.xml" />
-    <Content Include="bin\DAT\Microsoft.Data.Services.Client.dll" />
-    <Content Include="bin\DAT\Microsoft.Data.Services.Client.xml" />
-    <Content Include="bin\DAT\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
-    <Content Include="bin\DAT\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
-    <Content Include="bin\DAT\Microsoft.IdentityModel.dll" />
-    <Content Include="bin\DAT\Microsoft.ServiceBus.dll" />
-    <Content Include="bin\DAT\Microsoft.ServiceBus.xml" />
-    <Content Include="bin\DAT\Microsoft.SharePoint.Client.dll" />
-    <Content Include="bin\DAT\Microsoft.SharePoint.Client.Runtime.dll" />
-    <Content Include="bin\DAT\Microsoft.WindowsAzure.Configuration.dll" />
-    <Content Include="bin\DAT\Microsoft.WindowsAzure.ServiceRuntime.dll" />
-    <Content Include="bin\DAT\Microsoft.WindowsAzure.Storage.dll" />
-    <Content Include="bin\DAT\Microsoft.WindowsAzure.Storage.xml" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Client.CodeGeneration.dll" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Client.dll" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Client.xml" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Portal.dll" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Portal.Files.dll" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Portal.xml" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Sdk.Deployment.dll" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Sdk.Deployment.xml" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Sdk.dll" />
-    <Content Include="bin\DAT\Microsoft.Xrm.Sdk.xml" />
-    <Content Include="bin\DAT\Moq.dll" />
-    <Content Include="bin\DAT\Moq.xml" />
-    <Content Include="bin\DAT\MoreLinq.dll" />
-    <Content Include="bin\DAT\MoreLinq.xml" />
-    <Content Include="bin\DAT\Newtonsoft.Json.dll" />
-    <Content Include="bin\DAT\Newtonsoft.Json.xml" />
-    <Content Include="bin\DAT\NHibernate.dll" />
-    <Content Include="bin\DAT\NHibernate.xml" />
-    <Content Include="bin\DAT\nsb_log_2019-09-30_0.txt" />
-    <Content Include="bin\DAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
-    <Content Include="bin\DAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
-    <Content Include="bin\DAT\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
-    <Content Include="bin\DAT\NServiceBus.Core.dll" />
-    <Content Include="bin\DAT\NServiceBus.Core.pdb" />
-    <Content Include="bin\DAT\NServiceBus.Core.xml" />
-    <Content Include="bin\DAT\NServiceBus.NHibernate.dll" />
-    <Content Include="bin\DAT\NServiceBus.NHibernate.pdb" />
-    <Content Include="bin\DAT\NServiceBus.NHibernate.xml" />
-    <Content Include="bin\DAT\NServiceBus.Testing.dll" />
-    <Content Include="bin\DAT\NServiceBus.Testing.pdb" />
-    <Content Include="bin\DAT\NServiceBus.Testing.xml" />
-    <Content Include="bin\DAT\Optional.dll" />
-    <Content Include="bin\DAT\Optional.xml" />
-    <Content Include="bin\DAT\OrganisationDomain.Integration.DataStore.dll" />
-    <Content Include="bin\DAT\OrganisationDomain.Integration.DataStore.pdb" />
-    <Content Include="bin\DAT\Polly.dll" />
-    <Content Include="bin\DAT\Polly.pdb" />
-    <Content Include="bin\DAT\Polly.xml" />
-    <Content Include="bin\DAT\Resources\ContractRequest.xml" />
-    <Content Include="bin\DAT\Resources\ContractRequest_ESF.xml" />
-    <Content Include="bin\DAT\ru\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\ru\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\ru\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\ru\System.Spatial.resources.dll" />
-    <Content Include="bin\DAT\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\DAT\System.Net.Http.Formatting.xml" />
-    <Content Include="bin\DAT\System.Reactive.Core.dll" />
-    <Content Include="bin\DAT\System.Reactive.Core.xml" />
-    <Content Include="bin\DAT\System.Reactive.Interfaces.dll" />
-    <Content Include="bin\DAT\System.Reactive.Interfaces.xml" />
-    <Content Include="bin\DAT\System.Spatial.dll" />
-    <Content Include="bin\DAT\System.Spatial.xml" />
-    <Content Include="bin\DAT\System.ValueTuple.dll" />
-    <Content Include="bin\DAT\System.ValueTuple.xml" />
-    <Content Include="bin\DAT\System.Web.Http.dll" />
-    <Content Include="bin\DAT\System.Web.Http.xml" />
-    <Content Include="bin\DAT\TestApiCore.dll" />
-    <Content Include="bin\DAT\TestApiCore.pdb" />
-    <Content Include="bin\DAT\TestApiCore.xml" />
-    <Content Include="bin\DAT\UnitTests.Common.dll" />
-    <Content Include="bin\DAT\UnitTests.Common.pdb" />
-    <Content Include="bin\DAT\WindowsAzureEventSource.dll" />
-    <Content Include="bin\DAT\WindowsAzureTelemetryEvents.dll" />
-    <Content Include="bin\DAT\zh-Hans\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\zh-Hans\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\zh-Hans\System.Spatial.resources.dll" />
-    <Content Include="bin\DAT\zh-Hant\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DAT\zh-Hant\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DAT\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DAT\zh-Hant\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\AntiXSSLibrary.dll" />
-    <Content Include="bin\DCI\Aspose.Pdf.dll" />
-    <Content Include="bin\DCI\AutoMapper.dll" />
-    <Content Include="bin\DCI\AutoMapper.Net4.dll" />
-    <Content Include="bin\DCI\AutoMapper.Net4.pdb" />
-    <Content Include="bin\DCI\AutoMapper.pdb" />
-    <Content Include="bin\DCI\AutoMapper.xml" />
-    <Content Include="bin\DCI\Castle.Core.dll" />
-    <Content Include="bin\DCI\Castle.Core.xml" />
-    <Content Include="bin\DCI\Castle.Windsor.dll" />
-    <Content Include="bin\DCI\Castle.Windsor.xml" />
-    <Content Include="bin\DCI\ContractCreateDomain.BusinessLogic.dll" />
-    <Content Include="bin\DCI\ContractCreateDomain.BusinessLogic.pdb" />
-    <Content Include="bin\DCI\ContractCreateDomain.Common.Messages.dll" />
-    <Content Include="bin\DCI\ContractCreateDomain.Common.Messages.pdb" />
-    <Content Include="bin\DCI\ContractCreateDomain.Implementation.dll" />
-    <Content Include="bin\DCI\ContractCreateDomain.Implementation.pdb" />
-    <Content Include="bin\DCI\ContractCreateDomain.Integration.ContractRequest.dll" />
-    <Content Include="bin\DCI\ContractCreateDomain.Integration.ContractRequest.pdb" />
-    <Content Include="bin\DCI\ContractCreateDomain.Tests.dll" />
-    <Content Include="bin\DCI\ContractCreateDomain.Tests.pdb" />
-    <Content Include="bin\DCI\ContractManagement.DataStore.dll" />
-    <Content Include="bin\DCI\ContractManagement.DataStore.pdb" />
-    <Content Include="bin\DCI\ContractManagementService.Common.dll" />
-    <Content Include="bin\DCI\ContractManagementService.Common.pdb" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Common.dll" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Common.pdb" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Common.XmlSerializers.dll" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Entities.dll" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Entities.pdb" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Events.dll" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Events.pdb" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Messages.dll" />
-    <Content Include="bin\DCI\CrossDomain.Integration.Messages.pdb" />
-    <Content Include="bin\DCI\CrossDomain.Integration.OverrideDate.DataStore.dll" />
-    <Content Include="bin\DCI\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
-    <Content Include="bin\DCI\Dapper.dll" />
-    <Content Include="bin\DCI\Dapper.xml" />
-    <Content Include="bin\DCI\de\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\de\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\de\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\de\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\EntityFramework.dll" />
-    <Content Include="bin\DCI\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\DCI\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\DCI\EntityFramework.xml" />
-    <Content Include="bin\DCI\es\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\es\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\es\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\es\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\FCS.Worker.Common.dll" />
-    <Content Include="bin\DCI\Framework.Logging.dll" />
-    <Content Include="bin\DCI\Framework.Logging.pdb" />
-    <Content Include="bin\DCI\fr\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\fr\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\fr\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\fr\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\Iesi.Collections.dll" />
-    <Content Include="bin\DCI\Iesi.Collections.xml" />
-    <Content Include="bin\DCI\it\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\it\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\it\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\it\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\ja\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\ja\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\ja\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\ja\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\ko\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\ko\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\ko\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\ko\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\Microsoft.Crm.Sdk.Proxy.dll" />
-    <Content Include="bin\DCI\Microsoft.Crm.Sdk.Proxy.xml" />
-    <Content Include="bin\DCI\Microsoft.Data.Edm.dll" />
-    <Content Include="bin\DCI\Microsoft.Data.Edm.xml" />
-    <Content Include="bin\DCI\Microsoft.Data.OData.dll" />
-    <Content Include="bin\DCI\Microsoft.Data.OData.xml" />
-    <Content Include="bin\DCI\Microsoft.Data.Services.Client.dll" />
-    <Content Include="bin\DCI\Microsoft.Data.Services.Client.xml" />
-    <Content Include="bin\DCI\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
-    <Content Include="bin\DCI\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
-    <Content Include="bin\DCI\Microsoft.IdentityModel.dll" />
-    <Content Include="bin\DCI\Microsoft.ServiceBus.dll" />
-    <Content Include="bin\DCI\Microsoft.ServiceBus.xml" />
-    <Content Include="bin\DCI\Microsoft.SharePoint.Client.dll" />
-    <Content Include="bin\DCI\Microsoft.SharePoint.Client.Runtime.dll" />
-    <Content Include="bin\DCI\Microsoft.WindowsAzure.Configuration.dll" />
-    <Content Include="bin\DCI\Microsoft.WindowsAzure.ServiceRuntime.dll" />
-    <Content Include="bin\DCI\Microsoft.WindowsAzure.Storage.dll" />
-    <Content Include="bin\DCI\Microsoft.WindowsAzure.Storage.xml" />
-    <Content Include="bin\DCI\Microsoft.Xrm.Client.CodeGeneration.dll" />
-    <Content Include="bin\DCI\Microsoft.Xrm.Client.dll" />
-    <Content Include="bin\DCI\Microsoft.Xrm.Portal.dll" />
-    <Content Include="bin\DCI\Microsoft.Xrm.Portal.Files.dll" />
-    <Content Include="bin\DCI\Microsoft.Xrm.Sdk.Deployment.dll" />
-    <Content Include="bin\DCI\Microsoft.Xrm.Sdk.Deployment.xml" />
-    <Content Include="bin\DCI\Microsoft.Xrm.Sdk.dll" />
-    <Content Include="bin\DCI\Microsoft.Xrm.Sdk.xml" />
-    <Content Include="bin\DCI\Moq.dll" />
-    <Content Include="bin\DCI\Moq.xml" />
-    <Content Include="bin\DCI\MoreLinq.dll" />
-    <Content Include="bin\DCI\MoreLinq.xml" />
-    <Content Include="bin\DCI\Newtonsoft.Json.dll" />
-    <Content Include="bin\DCI\Newtonsoft.Json.xml" />
-    <Content Include="bin\DCI\NHibernate.dll" />
-    <Content Include="bin\DCI\NHibernate.xml" />
-    <Content Include="bin\DCI\nsb_log_2019-09-30_0.txt" />
-    <Content Include="bin\DCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
-    <Content Include="bin\DCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
-    <Content Include="bin\DCI\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
-    <Content Include="bin\DCI\NServiceBus.Core.dll" />
-    <Content Include="bin\DCI\NServiceBus.Core.pdb" />
-    <Content Include="bin\DCI\NServiceBus.Core.xml" />
-    <Content Include="bin\DCI\NServiceBus.NHibernate.dll" />
-    <Content Include="bin\DCI\NServiceBus.NHibernate.pdb" />
-    <Content Include="bin\DCI\NServiceBus.NHibernate.xml" />
-    <Content Include="bin\DCI\NServiceBus.Testing.dll" />
-    <Content Include="bin\DCI\NServiceBus.Testing.pdb" />
-    <Content Include="bin\DCI\NServiceBus.Testing.xml" />
-    <Content Include="bin\DCI\Optional.dll" />
-    <Content Include="bin\DCI\Optional.xml" />
-    <Content Include="bin\DCI\OrganisationDomain.Integration.DataStore.dll" />
-    <Content Include="bin\DCI\OrganisationDomain.Integration.DataStore.pdb" />
-    <Content Include="bin\DCI\Polly.dll" />
-    <Content Include="bin\DCI\Polly.pdb" />
-    <Content Include="bin\DCI\Polly.xml" />
-    <Content Include="bin\DCI\Resources\ContractRequest.xml" />
-    <Content Include="bin\DCI\Resources\ContractRequest_ESF.xml" />
-    <Content Include="bin\DCI\ru\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\ru\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\ru\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\ru\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\DCI\System.Net.Http.Formatting.xml" />
-    <Content Include="bin\DCI\System.Reactive.Core.dll" />
-    <Content Include="bin\DCI\System.Reactive.Core.xml" />
-    <Content Include="bin\DCI\System.Reactive.Interfaces.dll" />
-    <Content Include="bin\DCI\System.Reactive.Interfaces.xml" />
-    <Content Include="bin\DCI\System.Spatial.dll" />
-    <Content Include="bin\DCI\System.Spatial.xml" />
-    <Content Include="bin\DCI\System.Web.Http.dll" />
-    <Content Include="bin\DCI\System.Web.Http.xml" />
-    <Content Include="bin\DCI\TestApiCore.dll" />
-    <Content Include="bin\DCI\TestApiCore.pdb" />
-    <Content Include="bin\DCI\TestApiCore.xml" />
-    <Content Include="bin\DCI\UnitTests.Common.dll" />
-    <Content Include="bin\DCI\UnitTests.Common.pdb" />
-    <Content Include="bin\DCI\WindowsAzureEventSource.dll" />
-    <Content Include="bin\DCI\WindowsAzureTelemetryEvents.dll" />
-    <Content Include="bin\DCI\zh-Hans\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\zh-Hans\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\zh-Hans\System.Spatial.resources.dll" />
-    <Content Include="bin\DCI\zh-Hant\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\DCI\zh-Hant\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\DCI\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\DCI\zh-Hant\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\AntiXSSLibrary.dll" />
-    <Content Include="bin\Debug\Aspose.Pdf.dll" />
-    <Content Include="bin\Debug\AutoMapper.dll" />
-    <Content Include="bin\Debug\AutoMapper.Net4.dll" />
-    <Content Include="bin\Debug\AutoMapper.Net4.pdb" />
-    <Content Include="bin\Debug\AutoMapper.pdb" />
-    <Content Include="bin\Debug\AutoMapper.xml" />
-    <Content Include="bin\Debug\Castle.Core.dll" />
-    <Content Include="bin\Debug\Castle.Core.xml" />
-    <Content Include="bin\Debug\Castle.Windsor.dll" />
-    <Content Include="bin\Debug\Castle.Windsor.xml" />
-    <Content Include="bin\Debug\ContractCreateDomain.BusinessLogic.dll" />
-    <Content Include="bin\Debug\ContractCreateDomain.BusinessLogic.pdb" />
-    <Content Include="bin\Debug\ContractCreateDomain.Common.Messages.dll" />
-    <Content Include="bin\Debug\ContractCreateDomain.Common.Messages.pdb" />
-    <Content Include="bin\Debug\ContractCreateDomain.Implementation.dll" />
-    <Content Include="bin\Debug\ContractCreateDomain.Implementation.pdb" />
-    <Content Include="bin\Debug\ContractCreateDomain.Integration.ContractRequest.dll" />
-    <Content Include="bin\Debug\ContractCreateDomain.Integration.ContractRequest.pdb" />
-    <Content Include="bin\Debug\ContractCreateDomain.Tests.dll" />
-    <Content Include="bin\Debug\ContractCreateDomain.Tests.pdb" />
-    <Content Include="bin\Debug\ContractManagement.DataStore.dll" />
-    <Content Include="bin\Debug\ContractManagement.DataStore.pdb" />
-    <Content Include="bin\Debug\ContractManagementService.Common.dll" />
-    <Content Include="bin\Debug\ContractManagementService.Common.pdb" />
-    <Content Include="bin\Debug\CrossDomain.Integration.Common.dll" />
-    <Content Include="bin\Debug\CrossDomain.Integration.Common.pdb" />
-    <Content Include="bin\Debug\CrossDomain.Integration.Entities.dll" />
-    <Content Include="bin\Debug\CrossDomain.Integration.Entities.pdb" />
-    <Content Include="bin\Debug\CrossDomain.Integration.Events.dll" />
-    <Content Include="bin\Debug\CrossDomain.Integration.Events.pdb" />
-    <Content Include="bin\Debug\CrossDomain.Integration.Messages.dll" />
-    <Content Include="bin\Debug\CrossDomain.Integration.Messages.pdb" />
-    <Content Include="bin\Debug\CrossDomain.Integration.OverrideDate.DataStore.dll" />
-    <Content Include="bin\Debug\CrossDomain.Integration.OverrideDate.DataStore.pdb" />
-    <Content Include="bin\Debug\Dapper.dll" />
-    <Content Include="bin\Debug\Dapper.xml" />
-    <Content Include="bin\Debug\de\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\de\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\de\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\de\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\EntityFramework.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\Debug\EntityFramework.xml" />
-    <Content Include="bin\Debug\es\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\es\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\es\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\es\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\FCS.Worker.Common.dll" />
-    <Content Include="bin\Debug\FCS.Worker.Common.pdb" />
-    <Content Include="bin\Debug\Framework.Logging.dll" />
-    <Content Include="bin\Debug\Framework.Logging.pdb" />
-    <Content Include="bin\Debug\fr\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\fr\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\fr\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\fr\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\Iesi.Collections.dll" />
-    <Content Include="bin\Debug\Iesi.Collections.xml" />
-    <Content Include="bin\Debug\it\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\it\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\it\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\it\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\ja\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\ja\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\ja\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\ja\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\ko\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\ko\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\ko\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\ko\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\Microsoft.Crm.Sdk.Proxy.dll" />
-    <Content Include="bin\Debug\Microsoft.Crm.Sdk.Proxy.xml" />
-    <Content Include="bin\Debug\Microsoft.Data.Edm.dll" />
-    <Content Include="bin\Debug\Microsoft.Data.Edm.xml" />
-    <Content Include="bin\Debug\Microsoft.Data.OData.dll" />
-    <Content Include="bin\Debug\Microsoft.Data.OData.xml" />
-    <Content Include="bin\Debug\Microsoft.Data.Services.Client.dll" />
-    <Content Include="bin\Debug\Microsoft.Data.Services.Client.xml" />
-    <Content Include="bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
-    <Content Include="bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
-    <Content Include="bin\Debug\Microsoft.IdentityModel.dll" />
-    <Content Include="bin\Debug\Microsoft.ServiceBus.dll" />
-    <Content Include="bin\Debug\Microsoft.ServiceBus.xml" />
-    <Content Include="bin\Debug\Microsoft.SharePoint.Client.dll" />
-    <Content Include="bin\Debug\Microsoft.SharePoint.Client.Runtime.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Configuration.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.ServiceRuntime.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Storage.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Storage.xml" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Client.CodeGeneration.dll" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Client.dll" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Portal.dll" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Portal.Files.dll" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.Deployment.dll" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.Deployment.xml" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.dll" />
-    <Content Include="bin\Debug\Microsoft.Xrm.Sdk.xml" />
-    <Content Include="bin\Debug\Moq.dll" />
-    <Content Include="bin\Debug\Moq.xml" />
-    <Content Include="bin\Debug\MoreLinq.dll" />
-    <Content Include="bin\Debug\MoreLinq.xml" />
-    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
-    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
-    <Content Include="bin\Debug\NHibernate.dll" />
-    <Content Include="bin\Debug\NHibernate.xml" />
-    <Content Include="bin\Debug\NServiceBus.Azure.Transports.WindowsAzureServiceBus.dll" />
-    <Content Include="bin\Debug\NServiceBus.Azure.Transports.WindowsAzureServiceBus.pdb" />
-    <Content Include="bin\Debug\NServiceBus.Azure.Transports.WindowsAzureServiceBus.xml" />
-    <Content Include="bin\Debug\NServiceBus.Core.dll" />
-    <Content Include="bin\Debug\NServiceBus.Core.pdb" />
-    <Content Include="bin\Debug\NServiceBus.Core.xml" />
-    <Content Include="bin\Debug\NServiceBus.NHibernate.dll" />
-    <Content Include="bin\Debug\NServiceBus.NHibernate.pdb" />
-    <Content Include="bin\Debug\NServiceBus.NHibernate.xml" />
-    <Content Include="bin\Debug\NServiceBus.Testing.dll" />
-    <Content Include="bin\Debug\NServiceBus.Testing.pdb" />
-    <Content Include="bin\Debug\NServiceBus.Testing.xml" />
-    <Content Include="bin\Debug\Optional.dll" />
-    <Content Include="bin\Debug\Optional.xml" />
-    <Content Include="bin\Debug\OrganisationDomain.Integration.DataStore.dll" />
-    <Content Include="bin\Debug\OrganisationDomain.Integration.DataStore.pdb" />
-    <Content Include="bin\Debug\Polly.dll" />
-    <Content Include="bin\Debug\Polly.pdb" />
-    <Content Include="bin\Debug\Polly.xml" />
-    <Content Include="bin\Debug\Resources\ContractRequest.xml" />
-    <Content Include="bin\Debug\Resources\ContractRequest_ESF.xml" />
-    <Content Include="bin\Debug\ru\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\ru\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\ru\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\ru\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\Debug\System.Net.Http.Formatting.xml" />
-    <Content Include="bin\Debug\System.Reactive.Core.dll" />
-    <Content Include="bin\Debug\System.Reactive.Core.xml" />
-    <Content Include="bin\Debug\System.Reactive.Interfaces.dll" />
-    <Content Include="bin\Debug\System.Reactive.Interfaces.xml" />
-    <Content Include="bin\Debug\System.Spatial.dll" />
-    <Content Include="bin\Debug\System.Spatial.xml" />
-    <Content Include="bin\Debug\System.Web.Http.dll" />
-    <Content Include="bin\Debug\System.Web.Http.xml" />
-    <Content Include="bin\Debug\TestApiCore.dll" />
-    <Content Include="bin\Debug\TestApiCore.pdb" />
-    <Content Include="bin\Debug\TestApiCore.xml" />
-    <Content Include="bin\Debug\UnitTests.Common.dll" />
-    <Content Include="bin\Debug\UnitTests.Common.pdb" />
-    <Content Include="bin\Debug\WindowsAzureEventSource.dll" />
-    <Content Include="bin\Debug\WindowsAzureTelemetryEvents.dll" />
-    <Content Include="bin\Debug\zh-Hans\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\zh-Hans\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\zh-Hans\System.Spatial.resources.dll" />
-    <Content Include="bin\Debug\zh-Hant\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\Debug\zh-Hant\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\Debug\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
-    <Content Include="bin\Debug\zh-Hant\System.Spatial.resources.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\coretools\" />
-    <Folder Include="bin\tools\" />
-  </ItemGroup>
-  <Choose>
-    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+
+		<IsTestProject>true</IsTestProject>
+
+		<RootNamespace>ContractCreateDomain.Tests</RootNamespace>
+		<AssemblyName>ContractCreateDomain.Tests</AssemblyName>
+
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<Configurations>
+			AT;CI;DAT;DCI;Debug;DebugCI;DEV;DMO;DOAT;MO;OAT;PS;Release
+		</Configurations>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DAT|AnyCPU'">
+		<OutputPath>bin\DAT\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DCI|AnyCPU'">
+		<OutputPath>bin\DCI\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AT|AnyCPU'">
+		<OutputPath>bin\AT\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='CI|AnyCPU'">
+		<OutputPath>bin\CI\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DEV|AnyCPU'">
+		<OutputPath>bin\DEV\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MO|AnyCPU'">
+		<OutputPath>bin\MO\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='OAT|AnyCPU'">
+		<OutputPath>bin\OAT\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PS|AnyCPU'">
+		<OutputPath>bin\PS\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DMO|AnyCPU'">
+		<OutputPath>bin\DMO\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DOAT|AnyCPU'">
+		<OutputPath>bin\DOAT\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="CorpContractValueTypeFieldSetterTest.cs" />
+	  <Compile Remove="ValidationTests\ContractAllocationEndDateBeforeContractStartDateRuleTests.cs" />
+	  <Compile Remove="ValidationTests\ExistingMasterContractRuleTest.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+		<PackageReference Include="MSTest.TestAdapter" Version="4.2.1" />
+		<PackageReference Include="MSTest.TestFramework" Version="4.2.1" />
+
+		<PackageReference Include="AutoMapper" Version="16.1.1" />
+		<PackageReference Include="Castle.Core" Version="5.2.1" />
+		<PackageReference Include="Castle.Windsor" Version="6.0.0" />
+		<PackageReference Include="EntityFramework" Version="6.5.2" />
+		<PackageReference Include="FluentAssertions" Version="8.10.0" />
+		<PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.42" />
+		<PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
+		<PackageReference Include="Microsoft.WindowsAzure.ConfigurationManager" Version="3.2.3" />
+		<PackageReference Include="Moq" Version="4.20.72" />
+		<PackageReference Include="MoreLinq" Version="4.4.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="NServiceBus" Version="9.2.12" />
+		<PackageReference Include="NServiceBus.Testing" Version="9.0.1" />
+		<PackageReference Include="System.DirectoryServices" Version="10.0.9" />
+		<PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.9" />
+		<PackageReference Include="System.Runtime.Caching" Version="10.0.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Tests\Tests.Common\UnitTests.Common.csproj" />
+		<ProjectReference Include="..\..\ContractManagementDomain\ContractManagementService.Common\ContractManagementService.Common.csproj" />
+		<ProjectReference Include="..\..\FCS.Worker\ContractCreateDomain.Endpoint\ContractCreateDomain.Endpoint.csproj" />
+		<ProjectReference Include="..\..\FCS.Worker\FCS.Worker.Entities\FCS.Worker.Common.csproj" />
+		<ProjectReference Include="..\..\FCTServices\ContractManagement.DataStore\ContractManagement.DataStore.csproj" />
+		<ProjectReference Include="..\..\Framework\Framework.Logging\Framework.Logging.csproj" />
+		<ProjectReference Include="..\ContractCreateDomain.BusinessLogic\ContractCreateDomain.BusinessLogic.csproj" />
+		<ProjectReference Include="..\ContractCreateDomain.Common.Messages\ContractCreateDomain.Common.Messages.csproj" />
+		<ProjectReference Include="..\ContractCreateDomain.Implementation\ContractCreateDomain.Implementation.csproj" />
+		<ProjectReference Include="..\CrossDomain.Integration.Common\CrossDomain.Integration.Common.csproj" />
+		<ProjectReference Include="..\CrossDomain.Integration.Entities\CrossDomain.Integration.Entities.csproj" />
+		<ProjectReference Include="..\CrossDomain.Integration.Events\CrossDomain.Integration.Events.csproj" />
+		<ProjectReference Include="..\CrossDomain.Integration.Messages\CrossDomain.Integration.Messages.csproj" />
+		<ProjectReference Include="..\OrganisationDomain.Integration.DataStore\OrganisationDomain.Integration.DataStore.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\FSCDeliverableData.bin">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+
+		<EmbeddedResource Include="Resources\contract_request_das.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+
+		<EmbeddedResource Include="Resources\ContractRequest.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+
+		<EmbeddedResource Include="Resources\ContractRequest_ESF.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
+
 </Project>

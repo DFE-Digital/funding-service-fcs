@@ -46,7 +46,6 @@ namespace OrganisationDomain.Implementation.Tests.BusinessLogic
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(CommunicationException))]
         public void RetrieveSummary_ShouldAbortTheServiceClient_WhenAnExceptionIsThrown()
         {
             var serviceClientMock = new Mock<GatewayServiceContract>();
@@ -60,7 +59,15 @@ namespace OrganisationDomain.Implementation.Tests.BusinessLogic
 
             var retriever = new CpdsSummaryRetriever(serviceClientMock.Object, converterMock.Object, Mock.Of<ILogger>());
 
-            retriever.RetrieveSummary();
+            try
+            {
+                retriever.RetrieveSummary();
+                Assert.Fail("Expected CommunicationException was not thrown.");
+            }
+            catch (CommunicationException)
+            {
+                // Expected
+            }
 
             serviceClientMock.As<ICommunicationObject>().Verify(
                 x => x.Abort(),
@@ -69,7 +76,6 @@ namespace OrganisationDomain.Implementation.Tests.BusinessLogic
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(CommunicationException))]
         public void RetrieveSummary_WhenAnExceptionIsThrown_ShouldRethrowException()
         {
             var serviceClientMock = new Mock<GatewayServiceContract>();
@@ -89,7 +95,15 @@ namespace OrganisationDomain.Implementation.Tests.BusinessLogic
 
             var message = string.Empty;
 
-            retriever.RetrieveSummary();
+            try
+            {
+                retriever.RetrieveSummary();
+                Assert.Fail("Expected CommunicationException was not thrown.");
+            }
+            catch (CommunicationException ex)
+            {
+                message = ex.Message;
+            }
 
             Assert.AreEqual("Test Exception", message, "The exception wasn't rethrown.");
         }
@@ -151,7 +165,6 @@ namespace OrganisationDomain.Implementation.Tests.BusinessLogic
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(CommunicationException))]
         public void RetrieveSummary_WhenCallToCpdsFails_ShouldLogError()
         {
             // Arrange
@@ -172,14 +185,21 @@ namespace OrganisationDomain.Implementation.Tests.BusinessLogic
             var retriever = new CpdsSummaryRetriever(serviceClientMock.Object, converterMock.Object, Mock.Of<ILogger>());
 
             // Act
-            retriever.RetrieveSummary();
+            try
+            {
+                retriever.RetrieveSummary();
+                Assert.Fail("Expected CommunicationException was not thrown.");
+            }
+            catch (CommunicationException)
+            {
+                // Expected
+            }
 
             // Assert
             loggerMock.Verify(x => x.Error(It.Is<String>(y => y.Contains("CPDS has failed")), e));
         }
 
         [TestMethod, TestCategory("UnitTest")]
-        [ExpectedException(typeof(Exception))]
         public void RetrieveSummary_WhenProcessResponseFails_ShouldLogError()
         {
             // Arrange
@@ -204,7 +224,15 @@ namespace OrganisationDomain.Implementation.Tests.BusinessLogic
             var retriever = new CpdsSummaryRetriever(serviceClientMock.Object, converterMock.Object, Mock.Of<ILogger>());
 
             // Act
-            retriever.RetrieveSummary();
+            try
+            {
+                retriever.RetrieveSummary();
+                Assert.Fail("Expected Exception was not thrown.");
+            }
+            catch (Exception)
+            {
+                // Expected
+            }
 
             // Assert
             loggerMock.Verify(x => x.Error(It.Is<String>(y => y.Contains("Error trying to process")), e));
