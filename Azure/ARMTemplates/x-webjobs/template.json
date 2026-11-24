@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "environmentTag": {
+    "environmentTag": {                                     
       "type": "string"
     },
     "parentBusinessTag": {
@@ -217,7 +217,28 @@
                 "name": "WEBSITE_NODE_DEFAULT_VERSION",
                 "value": "0.10.32",
                 "slotSetting": false
+              },
+              {
+                "name": "DIAGNOSTICS_AZUREBLOBCONTAINERSASURL",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=DIAGNOSTICSAZUREBLOBCONTAINERSASURL)')]",
+                "slotSetting": false
+              },
+              {
+                "name": "WEBSITE_HTTPLOGGING_CONTAINER_URL",
+                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=WEBSITEHTTPLOGGINGCONTAINERURL)')]",
+                "slotSetting": false
+              },
+              {
+                "name": "WEBSITE_HTTPLOGGING_RETENTION_DAYS",
+                "value": "30",
+                "slotSetting": false
+              },
+              {
+                "name": "DIAGNOSTICS_AZUREBLOBRETENTIONINDAYS",
+                "value": "30",
+               "slotSetting": false
               }
+ 
             ]
           },
           "workspaceId": {
