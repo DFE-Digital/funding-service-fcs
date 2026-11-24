@@ -14,7 +14,7 @@ namespace ContractManagementService.Tests.Integration.Controllers
     [TestClass]
     public class MapFspCodesControllerTests : IntegrationTestBase
     {
-        private const string EndpointPath = "api/configuration/fspcodes";
+        private const string EndpointPath = "/api/configuration/fspcodes";
         private static string GetBaseUrl() => new AppConfiguration()["ContractManagementServiceUrl"];
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -31,25 +31,34 @@ namespace ContractManagementService.Tests.Integration.Controllers
         [TestMethod, TestCategory("IntegrationTest")]
         public async Task MapFspCodes_WhenProvidedWithValidRequest_ReturnsExpectedCodes()
         {
+            FundingAllocationConfigSeeder.EnsureAsfAllocationPeriod2526Exists();
+
             var url = $"{GetBaseUrl()}{EndpointPath}?allocationFundingStreamCode=ASF&allocationPeriodCode=AY-2526";
 
             using var client = GetAuthorizedHttpClient();
             using var response = await client.GetAsync(url);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
             var responseContent = await response.Content.ReadAsStringAsync();
+            Assert.AreEqual(
+                HttpStatusCode.OK,
+                response.StatusCode,
+                $"GET {url} returned {(int)response.StatusCode}. Body: {(responseContent.Length > 500 ? responseContent.Substring(0, 500) : responseContent)}");
+
             var result = JsonConvert.DeserializeObject<FundingStreamPeriodCodesResponse>(responseContent);
 
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result, $"Could not deserialize response: {responseContent}");
+            var expected = new[]
+            {
+                "ASF2023-AS2526",
+                "ASF2023-FCFJ2526",
+                "ASFC-ASCL2526",
+                "ASFC-FCFJ2526"
+            };
+            var actual = result.FundingStreamPeriodCodes.ToArray();
+
             CollectionAssert.IsSubsetOf(
-                new[]
-                {
-                    "ASF2023-AS2526",
-                    "ASF2023-FCFJ2526",
-                    "ASFC-ASCL2526",
-                    "ASFC-FCFJ2526"
-                },
-                result.FundingStreamPeriodCodes.ToArray());
+                expected,
+                actual,
+                $"Missing: [{string.Join(", ", expected.Except(actual))}]. Actual ({actual.Length}): [{string.Join(", ", actual)}]. Body: {responseContent}");
         }
 
         private static HttpClient GetAuthorizedHttpClient()

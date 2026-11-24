@@ -265,22 +265,19 @@
 
         private static void ClearAtomItemFeedTable()
         {
+            PaymentGenerationDbContext.KeyVaultValue = new AppConfiguration()["ConnectionStrings:ContractManagementDbContext"];
             using (var context = new PaymentGenerationDbContext())
             {
-                context.Database.Connection.ConnectionString =
-                    new AppConfiguration()["ConnectionStrings:ContractManagementDbContext"];
                 context.PaymentBatchFeedItems.ToList().ForEach(fi => context.PaymentBatchFeedItems.Remove(fi));
-
                 context.SaveChanges();
             }
         }
 
         private static void AddItemsToFeedTable(int numberOfItems)
         {
+            PaymentGenerationDbContext.KeyVaultValue = new AppConfiguration()["ConnectionStrings:ContractManagementDbContext"];
             using (var context = new PaymentGenerationDbContext())
             {
-                context.Database.Connection.ConnectionString =
-                    new AppConfiguration()["ConnectionStrings:ContractManagementDbContext"];
                 Enumerable.Range(0, numberOfItems).ToList().ForEach(i =>
                     {
                         context.PaymentBatchFeedItems.Add(CreatePaymentBatchFeedItem(i));

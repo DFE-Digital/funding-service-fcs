@@ -21,7 +21,10 @@
             var response = CallEndpointAndReturnHttpResponseMessageAsync(MediaType, RoutePrefix).Result;
 
             // assert
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            var body = response.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(
+                response.IsSuccessStatusCode,
+                $"GET {BaseAddress}{RoutePrefix} returned {(int)response.StatusCode} {response.StatusCode}. Body: {(body.Length > 500 ? body.Substring(0, 500) : body)}");
         }
 
         private async Task<HttpResponseMessage> CallEndpointAndReturnHttpResponseMessageAsync(string mediaType, string url)

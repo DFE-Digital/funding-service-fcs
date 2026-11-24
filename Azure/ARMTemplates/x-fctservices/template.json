@@ -24,11 +24,10 @@
         "description": "the custom hostname or blank if one is not used"
       }
     },
-    "appServicecertificateName": {
+    "certificateThumbprint": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
-        "description": "the certificate Name"
+        "description": "The SSL certificate thumbprint"
       }
     },
     "allowedAudiences": {
@@ -237,7 +236,7 @@
             "value": "[parameters('appServicecustomHostName')]"
           },
           "certificateThumbprint": {
-            "value": "[if(greater(length(parameters('appServicecertificateName')),0), reference(resourceId(variables('sharedRG'), 'Microsoft.Web/certificates', parameters('appServicecertificateName')), '2016-03-01').Thumbprint, 'placeholder')]"
+            "value": "[parameters('certificateThumbprint')]"
           },
           "appServicePlanName": {
             "value": "[parameters('appServicePlanName')]"
@@ -409,7 +408,9 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "name": "Deploy_APP_fctservices_auth_settings",
-      "dependsOn": [ "Deploy_fctservices_appservice" ],
+      "dependsOn": [
+        "Deploy_fctservices_appservice"
+      ],
       "condition": "[parameters('authEnabled')]",
       "properties": {
         "mode": "Incremental",
@@ -439,7 +440,9 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "name": "Deploy_fctservices_appservice_Identity_To_EnvKeyVault",
-      "dependsOn": [ "Deploy_fctservices_appservice" ],
+      "dependsOn": [
+        "Deploy_fctservices_appservice"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -456,7 +459,9 @@
                 "tenantId": "[reference(concat('Deploy_fctservices_appservice')).outputs.managedServiceIdentity.value.tenantId]",
                 "objectId": "[reference(concat('Deploy_fctservices_appservice')).outputs.managedServiceIdentity.value.principalId]",
                 "permissions": {
-                  "secrets": [ "get" ]
+                  "secrets": [
+                    "get"
+                  ]
                 }
               }
             ]
@@ -485,7 +490,9 @@
         "description": "[variables('alertRules')[copyIndex()].Description]",
         "severity": 2,
         "enabled": true,
-        "scopes": [ "[variables('alertRules')[copyIndex()].Scopes]" ],
+        "scopes": [
+          "[variables('alertRules')[copyIndex()].Scopes]"
+        ],
         "evaluationFrequency": "PT5M",
         "windowSize": "PT5M",
         "criteria": {

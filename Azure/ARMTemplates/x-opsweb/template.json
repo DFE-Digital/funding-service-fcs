@@ -17,20 +17,6 @@
     "serviceLineTag": {
       "type": "string"
     },
-    "certificateName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "the certificate Name"
-      }
-    },
-    "certificatesToLoad": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "the list of certificates to load"
-      }
-    },
     "customHostName": {
       "type": "string",
       "defaultValue": "",
@@ -141,6 +127,9 @@
       "metadata": {
         "description": "App Service http logs diagnostic setting"
       }
+    },
+    "certificateThumbprint": {
+      "type": "string"
     }
   },
   "variables": {
@@ -247,7 +236,7 @@
             "value": "[parameters('customHostName')]"
           },
           "certificateThumbprint": {
-            "value": "[if(greater(length(parameters('certificateName')),0), reference(resourceId(variables('sharedRG'), 'Microsoft.Web/certificates', parameters('certificateName')), '2016-03-01').Thumbprint, 'placeholder')]"
+            "value": "[parameters('certificateThumbprint')]"
           },
           "appServiceAppSettings": {
             "value": [
@@ -283,6 +272,11 @@
               },
               {
                 "name": "OperationsDbContext",
+                "connectionString": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcsPaaSDBConnectionstring)')]",
+                "type": "Custom"
+              },
+              {
+                "name": "PaymentGenDBContext",
                 "connectionString": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcsPaaSDBConnectionstring)')]",
                 "type": "Custom"
               },
@@ -332,14 +326,12 @@
       }
     },
     {
-      /*
-        web applications within FCS are all secured using AAD authentication, there are multiple app registrations used 
-        and so these are identified within the parameter that is iterated through
-      */
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "name": "Deploy_APP_opsweb_auth_settings",
-      "dependsOn": [ "Deploy_opsweb_appservice" ],
+      "dependsOn": [
+        "Deploy_opsweb_appservice"
+      ],
       "condition": "[parameters('authEnabled')]",
       "properties": {
         "mode": "Incremental",
@@ -369,7 +361,9 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "name": "Deploy_opsweb_appservice_Identity_To_EnvKeyVault",
-      "dependsOn": [ "Deploy_opsweb_appservice" ],
+      "dependsOn": [
+        "Deploy_opsweb_appservice"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -386,7 +380,9 @@
                 "tenantId": "[reference(concat('Deploy_opsweb_appservice')).outputs.managedServiceIdentity.value.tenantId]",
                 "objectId": "[reference(concat('Deploy_opsweb_appservice')).outputs.managedServiceIdentity.value.principalId]",
                 "permissions": {
-                  "secrets": [ "get" ]
+                  "secrets": [
+                    "get"
+                  ]
                 }
               }
             ]
@@ -398,7 +394,9 @@
       "type": "microsoft.insights/metricAlerts",
       "apiVersion": "2018-03-01",
       "name": "[variables('alertRules')[copyIndex()].AlertName]",
-      "dependsOn": [ "Deploy_opsweb_appservice" ],
+      "dependsOn": [
+        "Deploy_opsweb_appservice"
+      ],
       "location": "global",
       "tags": {
         "Environment": "[parameters('environmentTag')]",

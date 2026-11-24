@@ -13,6 +13,58 @@
     [TestClass]
     public class ParkedFundingAllocationRepositoryTests
     {
+        private static readonly string[] SharedConfigTables =
+        {
+            "[FundingAllocation].[AllocationFundingStreamConfig]",
+            "[FundingAllocation].[ProviderTypeConfig]"
+        };
+
+        private readonly System.Collections.Generic.Dictionary<string, System.Data.DataTable> _configSnapshots =
+            new System.Collections.Generic.Dictionary<string, System.Data.DataTable>();
+
+        // These tests empty shared reference-data tables, so keep the original rows and put them back afterwards.
+        [TestInitialize]
+        public void SnapshotSharedConfigTables()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["ContractManagementDbContext"].ConnectionString;
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                foreach (var table in SharedConfigTables)
+                {
+                    var snapshot = new System.Data.DataTable();
+                    new SqlDataAdapter($"SELECT * FROM {table}", connection).Fill(snapshot);
+                    _configSnapshots[table] = snapshot;
+                }
+            }
+        }
+
+        [TestCleanup]
+        public void RestoreSharedConfigTables()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["ContractManagementDbContext"].ConnectionString;
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    foreach (var snapshot in _configSnapshots)
+                    {
+                        connection.Execute($"DELETE FROM {snapshot.Key}", transaction: transaction);
+
+                        using (var bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.KeepIdentity, transaction))
+                        {
+                            bulkCopy.DestinationTableName = snapshot.Key;
+                            bulkCopy.WriteToServer(snapshot.Value);
+                        }
+                    }
+
+                    transaction.Commit();
+                }
+            }
+        }
+
         [TestMethod, TestCategory("IntegrationTest")]
         public void ParkedFundingAllocationRepository_GetSubStatusCounts_ShouldReturnCorrectSubStatusCount()
         {

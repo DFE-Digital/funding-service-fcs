@@ -8,7 +8,9 @@
     <Configurations>Debug;Release;DCI;CI</Configurations>
   </PropertyGroup>
 <PropertyGroup>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DCI|AnyCPU'">
