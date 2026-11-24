@@ -2,6 +2,21 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "environmentTag": {
+            "type": "string"
+        },
+        "parentBusinessTag": {
+            "type": "string"
+        },
+        "portfolioTag": {
+            "type": "string"
+        },
+        "productTag": {
+            "type": "string"
+        },
+        "serviceLineTag": {
+            "type": "string"
+        },
         "applicationInsightsName": {
             "type": "string",
             "metadata": {
@@ -60,7 +75,7 @@
         },
         "appServiceRetentionPolicyDays": {
             "type": "string",
-            "defaultValue": "30"
+            "defaultValue": "0"
         },
         "appServicePlanName": {
             "type": "string",
@@ -73,7 +88,10 @@
             "defaultValue": true
         },
         "deploymentUrlBase": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "The root URL which holds all linked templates used by this template, a parameter to ease testing."
+            }
         },
         "http20Enabled": {
             "type": "bool",
@@ -103,14 +121,20 @@
             "metadata": {
                 "description": "Log HTTP logs to Blob, default is off"
             }
+        },
+        "appServiceHTTPLogsSetting": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "App Service http logs diagnostic setting"
+            }
         }
     },
     "variables": {
         "actionGroupName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-ag')]",
-        "applogcontainerName": "[concat(variables('fundingAllocationAppServiceName'),'-application-logs')]",
         "appServicesVNetIntegrationSubnetId": "[resourceId(variables('sharedRG'), 'Microsoft.Network/virtualNetworks/subnets', variables('sharedVNetName'), 'appServiceVNetIntegration' )]",
         "environmentShortCode": "[split(resourceGroup().name, '-')[2]]",
-        "fundingAllocationAppServiceName": "[concat('fcs-', variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-x-webjobs')]",
+        "WebjobsAppServiceName": "[concat('fcs-', variables('subscriptionShortCode'), '-', variables('environmentShortCode'), '-app-x-webjobs')]",
         "ipSecurityRestrictions": {
             "denyAllInbound": [
                 {
@@ -136,27 +160,26 @@
         "sharedVNetName": "[concat('fcs-', variables('subscriptionShortCode'), '-shared-vnet-01')]",
         "sharedWorkspaceID": "[resourceId(variables('sharedRG'),'Microsoft.OperationalInsights/workspaces', variables('logAnalyticsWorkspaceName'))]",
         "subscriptionShortCode": "[split(resourceGroup().name, '-')[1]]",
-        "weblogcontainerName": "[concat(variables('fundingAllocationAppServiceName'),'-webserver-logs')]",
         "alertRules": [
             {
                 "AlertName": "Average_Response_Time_x_webjobs",
                 "MetricName": "HttpResponseTime",
                 "Operator": "GreaterThan",
-                "Description": "[concat('Average Response Time gt dynamic threshold on ', variables('fundingAllocationAppServiceName'))]",
+                "Description": "[concat('Average Response Time gt dynamic threshold on ', variables('WebjobsAppServiceName'))]",
                 "Aggregation": "Average",
                 "ResourceType": "Microsoft.Web/sites",
-                "ResourceName": "[variables('fundingAllocationAppServiceName')]",
+                "ResourceName": "[variables('WebjobsAppServiceName')]",
                 "WindowSize": "PT5M"
             },
             {
                 "AlertName": "Alerts_http_server_errors_x_webjobs",
                 "MetricName": "Http5xx",
                 "Operator": "GreaterThan",
-                "Description": "[concat('Average https server errors gt dynamic threshold on ', variables('fundingAllocationAppServiceName'))]",
+                "Description": "[concat('Average https server errors gt dynamic threshold on ', variables('WebjobsAppServiceName'))]",
                 "Threshold": "0",
                 "Aggregation": "Average",
                 "ResourceType": "Microsoft.Web/sites",
-                "ResourceName": "[variables('fundingAllocationAppServiceName')]",
+                "ResourceName": "[variables('WebjobsAppServiceName')]",
                 "WindowSize": "PT5M"
             }
         ]
@@ -170,12 +193,27 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentUrlBase'),'app-service.json')]",
+                    "uri": "[concat(parameters('deploymentUrlBase'),'app-service-premium.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "environmentTag": {
+                        "value": "[parameters('environmentTag')]"
+                    },
+                    "parentBusinessTag": {
+                        "value": "[parameters('parentBusinessTag')]"
+                    },
+                    "portfolioTag": {
+                        "value": "[parameters('portfolioTag')]"
+                    },
+                    "productTag": {
+                        "value": "[parameters('productTag')]"
+                    },
+                    "serviceLineTag": {
+                        "value": "[parameters('serviceLineTag')]"
+                    },
                     "appServiceName": {
-                        "value": "[variables('fundingAllocationAppServiceName')]"
+                        "value": "[variables('WebjobsAppServiceName')]"
                     },
                     "appServicePlanName": {
                         "value": "[parameters('appServicePlanName')]"
@@ -194,47 +232,42 @@
                     },
                     "appServiceAppSettings": {
                         "value": [
-                            {
-                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                "value": "[reference(resourceId('Microsoft.Insights/components', parameters('applicationInsightsName')), '2015-05-01').InstrumentationKey]"
-                            },
-                            {
-                                "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
-                                "value": "[concat('InstrumentationKey=', reference(resourceId('Microsoft.Insights/components', parameters('applicationInsightsName')), '2015-05-01').InstrumentationKey)]"
-                            },
-                            {
-                                "name": "WEBSITE_LOAD_CERTIFICATES",
-                                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcscpdscertthumbprint)')]"
-                            },
-                            {
-                                "name": "Graph:Scope",
-                                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=GraphScope)')]"
-                            },
-                            {
-                                "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                                "value": "0.10.32",
-                                "slotSetting": false
-                            },
-                            {
-                                "name": "DIAGNOSTICS_AZUREBLOBCONTAINERSASURL",
-                                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=DIAGNOSTICSAZUREBLOBCONTAINERSASURL)')]",
-                                "slotSetting": false
-                            },
-                            {
-                                "name": "DIAGNOSTICS_AZUREBLOBRETENTIONINDAYS",
-                                "value": "30",
-                                "slotSetting": false
-                            },
-                            {
-                                "name": "WEBSITE_HTTPLOGGING_CONTAINER_URL",
-                                "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=WEBSITEHTTPLOGGINGCONTAINERURL)')]",
-                                "slotSetting": false
-                            },
-                            {
-                                "name": "WEBSITE_HTTPLOGGING_RETENTION_DAYS",
-                                "value": "30",
-                                "slotSetting": false
-                            }
+                            [
+                                {
+                                    "name": "DIAGNOSTICS_AZUREBLOBCONTAINERSASURL",
+                                    "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=DIAGNOSTICSAZUREBLOBCONTAINERSASURL)')]",
+                                    "slotSetting": false
+                                },
+                                {
+                                    "name": "DIAGNOSTICS_AZUREBLOBRETENTIONINDAYS",
+                                    "value": "30",
+                                    "slotSetting": false
+                                },
+                                {
+                                    "name": "WEBJOBS_STOPPED",
+                                    "value": "0",
+                                    "slotSetting": false
+                                },
+                                {
+                                    "name": "WEBSITE_HTTPLOGGING_CONTAINER_URL",
+                                    "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=WEBSITEHTTPLOGGINGCONTAINERURL)')]",
+                                    "slotSetting": false
+                                },
+                                {
+                                    "name": "WEBSITE_HTTPLOGGING_RETENTION_DAYS",
+                                    "value": "30",
+                                    "slotSetting": false
+                                },
+                                {
+                                    "name": "WEBSITE_LOAD_CERTIFICATES",
+                                    "value": "[concat('@Microsoft.KeyVault(VaultName=', variables('keyVaultName'), ';SecretName=fcscpdscertthumbprint)')]"
+                                },
+                                {
+                                    "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                                    "value": "0.10.32",
+                                    "slotSetting": false
+                                }
+                            ]
                         ]
                     },
                     "workspaceId": {
@@ -263,6 +296,9 @@
                     },
                     "http20Enabled": {
                         "value": "[parameters('http20Enabled')]"
+                    },
+                    "appServiceHTTPLogsSetting": {
+                        "value": "[parameters('appServiceHTTPLogsSetting')]"
                     }
                 }
             }
@@ -303,48 +339,6 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
-            "name": "Deploy_applicationlog_blob_container",
-            "dependsOn": [],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('deploymentUrlBase'),'storage-container.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountName": {
-                        "value": "[parameters('logstorageAccountName')]"
-                    },
-                    "containerName": {
-                        "value": "[variables('applogcontainerName')]"
-                    }
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2017-05-10",
-            "name": "Deploy_weblog_blob_container",
-            "dependsOn": [],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('deploymentUrlBase'),'storage-container.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "storageAccountName": {
-                        "value": "[parameters('logstorageAccountName')]"
-                    },
-                    "containerName": {
-                        "value": "[variables('weblogcontainerName')]"
-                    }
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2017-05-10",
             "name": "Deploy_App_Service_classic_logging",
             "dependsOn": [
                 "Deploy_webjobs_appservice"
@@ -357,7 +351,7 @@
                 },
                 "parameters": {
                     "appServiceResourceName": {
-                        "value": "[variables('fundingAllocationAppServiceName')]"
+                        "value": "[variables('WebjobsAppServiceName')]"
                     },
                     "appServiceLogRetentionDays": {
                         "value": "[parameters('appServiceLogRetentionDays')]"
@@ -390,7 +384,7 @@
                 "severity": 2,
                 "enabled": true,
                 "scopes": [
-                    "[resourceId(resourceGroup().name, 'Microsoft.Web/sites', variables('fundingAllocationAppServiceName'))]"
+                    "[resourceId(resourceGroup().name, 'Microsoft.Web/sites', variables('WebjobsAppServiceName'))]"
                 ],
                 "evaluationFrequency": "PT5M",
                 "windowSize": "PT5M",
@@ -426,6 +420,15 @@
             "copy": {
                 "name": "AlertRulesCopy",
                 "count": "[length(variables('alertRules'))]"
+            },
+            "tags": {
+                "Environment": "[parameters('environmentTag')]",
+                "Parent Business": "[parameters('parentBusinessTag')]",
+                "Portfolio": "[parameters('portfolioTag')]",
+                "Product": "[parameters('productTag')]",
+                "Service": "[parameters('productTag')]",
+                "Service Line": "[parameters('serviceLineTag')]",
+                "Service Offering": "[parameters('productTag')]"
             }
         }
     ]
