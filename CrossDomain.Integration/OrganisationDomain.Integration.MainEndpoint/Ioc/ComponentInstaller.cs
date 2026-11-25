@@ -46,6 +46,8 @@
                 Component.For<IProviderComparer>().ImplementedBy<ProviderComparer>().LifestyleScoped(),
                 GetCpdsSummaryRetriever(),
                 Component.For<ICpdsProviderConverter>().ImplementedBy<CpdsProviderConverter>().LifestyleSingleton());
+                Component.For<IPimsApiClient>().ImplementedBy<PimsApiClient>();
+                Component.For<IPimsJsonToProviderXmlConverter>().ImplementedBy<PimsJsonToProviderXmlConverter>();
         }
 
         private static IRegistration GetCpdsSummaryRetriever()

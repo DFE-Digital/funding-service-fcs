@@ -31,6 +31,8 @@
                 Component.For<GatewayServiceContract>().ImplementedBy<GatewayServiceContractClient>().LifestyleTransient(),
                 Component.For<ICpdsMapper>().ImplementedBy<CpdsMapper>().LifestyleSingleton(),
                 Component.For<ICpdsXmlValidator>().ImplementedBy<CpdsXmlValidator>().LifestyleSingleton());
+                Component.For<IPimsApiClient>().ImplementedBy<PimsApiClient>();
+                Component.For<IPimsJsonToProviderXmlConverter>().ImplementedBy<PimsJsonToProviderXmlConverter>();
         }
 
         private static IRegistration GetCpdsSummaryRetriever()
