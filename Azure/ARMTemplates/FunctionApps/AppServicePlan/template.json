@@ -29,13 +29,13 @@
       "type": "object",
       "metadata": {
         "description": "An object representing the SKU of the App Service plan."
-      },
-      "deploymentUrlBase": {
+      }
+    },
+    "deploymentUrlBase": {
       "type": "string",
       "metadata": {
         "description": "The root url which holds all of the linked templates used by this template, a parameter to ease testing."
       }
-    }
     }
   },
   "variables": {
