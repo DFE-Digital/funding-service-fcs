@@ -257,6 +257,7 @@
   <ItemGroup>
     <Compile Include="BusinessLogic\CpdsOrganisationRetrieverTests.cs" />
     <Compile Include="BusinessLogic\CpdsStubTests.cs" />
+    <Compile Include="Converters\PimsJsonToProviderXmlConverterTests.cs" />
     <Compile Include="Services\UkrlpApiResponseExtensionsTests.cs" />
     <Compile Include="BusinessLogic\CpdsSummaryRetrieverTests.cs" />
     <Compile Include="BusinessLogic\ProviderResolverIntegrationTests.cs" />
@@ -346,6 +347,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
+    <None Include="TestData\ProviderByUkprn.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BusinessLogic\Resources\GetProvidersByUKPRN - 99990002.xml" />

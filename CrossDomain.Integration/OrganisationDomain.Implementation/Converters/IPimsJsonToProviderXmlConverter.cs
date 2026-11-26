@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,9 @@ using System.Xml.Linq;
 
 namespace OrganisationDomain.Implementation.Converters
 {
-    public class PimsJsonToProviderXmlConverter: IPimsJsonToProviderXmlConverter
+    public interface IPimsJsonToProviderXmlConverter
     {
-        public XDocument Convert(string json)
-        {
-            throw new NotImplementedException();
-        }
+        XDocument Convert(string json);
+
     }
 }
