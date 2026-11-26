@@ -33,7 +33,7 @@
             IReadOnlyCollection<ClaimReconciliationBehaviourSheetType> claimReconciliationBehaviourCollectionItems = claimReconciliationBehaviourReader.ReadConfig(worksheetReader);
 
             // assert
-            Assert.AreEqual(82, claimReconciliationBehaviourCollectionItems.Count);
+            Assert.AreEqual(85, claimReconciliationBehaviourCollectionItems.Count);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -127,7 +127,7 @@
             IReadOnlyCollection<ClaimReconciliationBehaviourSheetType> claimReconciliationBehaviourCollectionItems = claimReconciliationBehaviourReader.ReadConfig(worksheetReader);
 
             // assert
-            Assert.AreEqual(82, claimReconciliationBehaviourCollectionItems.Count);
+            Assert.AreEqual(85, claimReconciliationBehaviourCollectionItems.Count);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]

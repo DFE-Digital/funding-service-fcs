@@ -31,7 +31,7 @@
             IReadOnlyCollection<ClaimCollectionsSheetType> claimCollectionsItems = claimCollectionsReader.ReadConfig(worksheetReader);
 
             // assert
-            Assert.AreEqual(20, claimCollectionsItems.Count);
+            Assert.AreEqual(21, claimCollectionsItems.Count);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
@@ -66,7 +66,7 @@
             IReadOnlyCollection<ClaimCollectionsSheetType> claimCollectionsItems = claimCollectionsReader.ReadConfig(worksheetReader);
 
             // assert
-            Assert.AreEqual(20, claimCollectionsItems.Count);
+            Assert.AreEqual(21, claimCollectionsItems.Count);
         }
 
         [TestMethod, TestCategory("IntegrationTest")]
